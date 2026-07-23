@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موسوعة الكتاب المقدس الذكية</title>
+    <title id="pageTitle">موسوعة الكتاب المقدس الذكية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -32,25 +32,48 @@
         header {
             background-color: var(--primary-blue);
             color: #ffffff;
-            padding: 25px 20px;
-            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
+        .header-content {
+            text-align: center;
+            flex: 1;
+        }
+
         header h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #FFD700;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         header p {
-            font-size: 1rem;
+            font-size: 0.95rem;
             opacity: 0.9;
+        }
+
+        .lang-btn {
+            background: #FFD700;
+            color: var(--primary-blue);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .lang-btn:hover {
+            opacity: 0.85;
         }
 
         .container {
             max-width: 1000px;
-            margin: 30px auto;
+            margin: 25px auto;
             padding: 0 20px;
             width: 100%;
             flex: 1;
@@ -59,13 +82,13 @@
         .search-box {
             display: flex;
             gap: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .search-box input {
             flex: 1;
-            padding: 14px 20px;
-            font-size: 1.05rem;
+            padding: 12px 18px;
+            font-size: 1rem;
             border: 2px solid var(--primary-blue);
             border-radius: 10px;
             outline: none;
@@ -75,33 +98,55 @@
             background-color: var(--primary-blue);
             color: #FFD700;
             border: none;
-            padding: 14px 30px;
-            font-size: 1.05rem;
+            padding: 12px 25px;
+            font-size: 1rem;
             font-weight: bold;
             border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* نافذة أو أزرار أسفار الكتاب المقدس */
+        .bible-books-bar {
+            background: var(--primary-blue);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .book-chip {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: 0.2s;
         }
 
-        .search-box button:hover {
-            opacity: 0.9;
+        .book-chip:hover {
+            background: #FFD700;
+            color: var(--primary-blue);
         }
 
         .sections-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
         .section-btn {
             background: var(--card-bg);
             border: 2px solid #E0E0E0;
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
             text-align: center;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--primary-blue);
             transition: 0.2s;
@@ -116,34 +161,30 @@
         .content-card {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border-right: 6px solid var(--primary-blue);
-            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-right: 5px solid var(--primary-blue);
+            margin-bottom: 15px;
         }
 
         .content-card h2 {
             color: var(--primary-blue);
-            margin-bottom: 12px;
-            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
         }
 
         .content-card p {
-            line-height: 1.8;
+            line-height: 1.7;
             color: #444;
-            font-size: 1.05rem;
-        }
-
-        #results-area {
-            margin-top: 20px;
+            font-size: 1rem;
         }
 
         footer {
             background-color: var(--primary-blue);
             color: #ffffff;
             text-align: center;
-            padding: 18px;
-            font-size: 0.9rem;
+            padding: 15px;
+            font-size: 0.85rem;
             margin-top: auto;
         }
     </style>
@@ -151,71 +192,108 @@
 <body>
 
     <header>
-        <h1>موسوعة الكتاب المقدس الذكية</h1>
-        <p>كنيسة رجاء الأمم - سيدني</p>
+        <div style="width: 80px;"></div> <!-- توازن للعرض -->
+        <div class="header-content">
+            <h1 id="mainTitle">موسوعة الكتاب المقدس الذكية</h1>
+            <p id="subTitle">كنيسة رجاء الأمم - سيدني</p>
+        </div>
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">English</button>
     </header>
 
     <div class="container">
+        <!-- شريط أسفار الكتاب المقدس -->
+        <div class="bible-books-bar">
+            <span style="color: #FFD700; font-weight: bold; line-height: 30px;" id="booksLabel">أسفار الكتاب:</span>
+            <div class="book-chip" onclick="searchBook('التكوين')">التكوين</div>
+            <div class="book-chip" onclick="searchBook('الخروج')">الخروج</div>
+            <div class="book-chip" onclick="searchBook('المزامير')">المزامير</div>
+            <div class="book-chip" onclick="searchBook('إنجيل متى')">متى</div>
+            <div class="book-chip" onclick="searchBook('إنجيل يوحنا')">يوحنا</div>
+            <div class="book-chip" onclick="searchBook('أعمال الرسل')">أعمال الرسل</div>
+            <div class="book-chip" onclick="searchBook('رؤيا يوحنا')">رؤيا يوحنا</div>
+        </div>
+
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="ابحث في الآيات، التفاسير، مقدمات الأسفار والمخطوطات..." oninput="handleSearch()">
-            <button onclick="handleSearch()">بحث</button>
+            <button onclick="handleSearch()" id="searchBtn">بحث</button>
         </div>
 
         <div class="sections-grid">
-            <div class="section-btn active" onclick="filterCategory('all')">الكل</div>
-            <div class="section-btn" onclick="filterCategory('commentary')">التفاسير</div>
-            <div class="section-btn" onclick="filterCategory('manuscripts')">المخطوطات</div>
-            <div class="section-btn" onclick="filterCategory('introductions')">مقدمات الأسفار</div>
-            <div class="section-btn" onclick="filterCategory('maps')">الخرائط والأسئلة</div>
+            <div class="section-btn active" onclick="filterCategory('all')" id="catAll">الكل</div>
+            <div class="section-btn" onclick="filterCategory('commentary')" id="catComm">التفاسير</div>
+            <div class="section-btn" onclick="filterCategory('manuscripts')" id="catManu">المخطوطات</div>
+            <div class="section-btn" onclick="filterCategory('introductions')" id="catIntro">مقدمات الأسفار</div>
+            <div class="section-btn" onclick="filterCategory('maps')" id="catMaps">الخرائط والأسئلة</div>
         </div>
 
-        <div id="results-area">
-            <!-- المحتوى الافتراضي أو نتائج البحث تظهر هنا -->
-        </div>
+        <div id="results-area"></div>
     </div>
 
-    <footer>
+    <footer id="footerText">
         جميع الحقوق محفوظة © كنيسة رجاء الأمم - سيدني
     </footer>
 
     <script>
+        let currentLang = 'ar';
+
+        const translations = {
+            ar: {
+                title: "موسوعة الكتاب المقدس الذكية",
+                subtitle: "كنيسة رجاء الأمم - سيدني",
+                searchPh: "ابحث في الآيات، التفاسير، مقدمات الأسفار والمخطوطات...",
+                searchBtn: "بحث",
+                booksLabel: "أسفار الكتاب:",
+                all: "الكل",
+                comm: "التفاسير",
+                manu: "المخطوطات",
+                intro: "مقدمات الأسفار",
+                maps: "الخرائط والأسئلة",
+                footer: "جميع الحقوق محفوظة © كنيسة رجاء الأمم - سيدني",
+                langButton: "English"
+            },
+            en: {
+                title: "Smart Bible Encyclopedia",
+                subtitle: "Hope Church Nations - Sydney",
+                searchPh: "Search verses, commentaries, book introductions...",
+                searchBtn: "Search",
+                booksLabel: "Bible Books:",
+                all: "All",
+                comm: "Commentaries",
+                manu: "Manuscripts",
+                intro: "Introductions",
+                maps: "Maps & Q&A",
+                footer: "All Rights Reserved © Hope Church Nations - Sydney",
+                langButton: "العربية"
+            }
+        };
+
         const database = [
             {
                 category: 'introductions',
-                title: 'مقدمة إنجيل متى',
-                text: 'كتبه متى العشار (لاوي) أحد التلامذة الاثني عشر. كُتب خصيصاً لليهود ليثبت أن يسوع هو الماشيا المنتظر وابن داود وابن إبراهيم.'
+                title: 'مقدمة إنجيل متى (Matthew Introduction)',
+                text: 'كتبه متى العشار (لاوي) أحد التلامذة الاثني عشر. كُتب خصيصاً لليهود ليثبت أن يسوع هو الماشيا المنتظر وابن داود.'
             },
             {
                 category: 'commentary',
-                title: 'تفسير إنجيل يوحنا الإصحاح الأول',
+                title: 'تفسير إنجيل يوحنا الإصحاح الأول (John 1 Commentary)',
                 text: '"في البدء كان الكلمة..." إعلان لاهوتي عميق عن أزلية المسيح وكونه الله الظاهر في الجسد، الخالق الذي به كان كل شيء.'
             },
             {
                 category: 'manuscripts',
-                title: 'مخطوطات البحر الميت (قمران)',
-                text: 'اكتُشفت في خربة قمران بين عامي 1947 و1956، وتضم أجزاء قديمة جداً من أسفار العهد القديم وتؤكد دقة النص الكتابي عبر القرون.'
+                title: 'مخطوطات البحر الميت (Dead Sea Scrolls)',
+                text: 'اكتُشفت في خربة قمران بين عامي 1947 و1956، وتضم أجزاء قديمة جداً من أسفار العهد القديم وتؤكد دقة النص الكتابي.'
             },
             {
                 category: 'maps',
-                title: 'خريطة رحلات بولس الرسول التبشيرية',
-                text: 'توضح الرحلات التبشيرية الأولى والثانية والثالثة ورحلته الأخيرة إلى روما عبر البحر الأبيض المتوسط وكيف انتشرت الكسيسة.'
-            },
-            {
-                category: 'commentary',
-                title: 'تفسير رسالة بولس الرسول إلى أهل أفسس',
-                text: 'سفر الغنى في المسيح والكنيسة جسده، تتناول الهوية المسيحية، السلوك بالتدقيق، ولبس سلاح الله الكامل.'
-            },
-            {
-                category: 'manuscripts',
-                title: 'المخطوطة الفاتيكانية والسينائية',
-                text: 'من أهم المخطوطات اليونانية للقرن الرابع الميلادي، وتُعتبر مرجعاً أساسياً في دراسة النص اليوناني الأصلي للكتاب المقدس.'
+                title: 'خريطة رحلات بولس الرسول (Paul’s Journeys)',
+                text: 'توضح الرحلات التبشيرية الأولى والثانية والثالثة ورحلته الأخيرة إلى روما عبر البحر الأبيض المتوسط وانتشار الكنيسة الأولى.'
             }
         ];
 
         function displayItems(items) {
             const area = document.getElementById('results-area');
             if (items.length === 0) {
-                area.innerHTML = '<div class="content-card"><h2>عذراً</h2><p>لم يتم العثور على نتائج تطابق بحثك. جرب كلمة أخرى.</p></div>';
+                area.innerHTML = '<div class="content-card"><h2>نتيجة</h2><p>لم يتم العثور على نتائج مطابقة.</p></div>';
                 return;
             }
             
@@ -247,7 +325,34 @@
             displayItems(filtered);
         }
 
-        // عرض كافة العناصر عند فتح الصفحة لأول مرة
+        function searchBook(bookName) {
+            document.getElementById('searchInput').value = bookName;
+            handleSearch();
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const t = translations[currentLang];
+            
+            document.getElementById('htmlRoot').setAttribute('lang', currentLang);
+            document.getElementById('htmlRoot').setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            
+            document.getElementById('pageTitle').innerText = t.title;
+            document.getElementById('mainTitle').innerText = t.title;
+            document.getElementById('subTitle').innerText = t.subtitle;
+            document.getElementById('searchInput').placeholder = t.searchPh;
+            document.getElementById('searchBtn').innerText = t.searchBtn;
+            document.getElementById('booksLabel').innerText = t.booksLabel;
+            document.getElementById('catAll').innerText = t.all;
+            document.getElementById('catComm').innerText = t.comm;
+            document.getElementById('catManu').innerText = t.manu;
+            document.getElementById('catIntro').innerText = t.intro;
+            document.getElementById('catMaps').innerText = t.maps;
+            document.getElementById('footerText').innerText = t.footer;
+            document.getElementById('langBtn').innerText = t.langButton;
+        }
+
+        // عرض البيانات أول مرة
         displayItems(database);
     </script>
 </body>
