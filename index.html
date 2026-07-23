@@ -1,26 +1,411 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موسوعة الكتاب المقدس</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #133B78;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
-</head>
-<body>
-    <iframe src="YOUR_REAL_ENCYCLOPEDIA_LINK"></iframe>
-</body>
-</html>
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+void main() {
+  runApp(const HopeChurchEncyclopediaApp());
+}
+
+/// 🎨 الهوية البصرية والثيم الرئيسي للموسوعة والتطبيق
+class AppTheme {
+  static const Color primaryBlue = Color(0xFF133B78); // الأزرق الملكي
+  static const Color accentGold = Color(0xFFD4AF37);  // الذهبي الفاخر
+  static const Color secondaryRed = Color(0xFF8B0000); // النبيذي
+  static const Color backgroundLight = Color(0xFFF9F9F9);
+
+  static ThemeData lightTheme = ThemeData(
+    primaryColor: primaryBlue,
+    scaffoldBackgroundColor: backgroundLight,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: primaryBlue,
+      foregroundColor: accentGold,
+      elevation: 2,
+      centerTitle: true,
+    ),
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      primary: primaryBlue,
+      secondary: accentGold,
+    ),
+  );
+}
+
+class HopeChurchEncyclopediaApp extends StatefulWidget {
+  const HopeChurchEncyclopediaApp({Key? key}) : super(key: key);
+
+  @override
+  State<HopeChurchEncyclopediaApp> createState() => _HopeChurchEncyclopediaAppState();
+}
+
+class _HopeChurchEncyclopediaAppState extends State<HopeChurchEncyclopediaApp> {
+  Locale _currentLocale = const Locale('ar');
+
+  void _toggleLanguage() {
+    setState(() {
+      _currentLocale = _currentLocale.languageCode == 'ar' 
+          ? const Locale('en') 
+          : const Locale('ar');
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Hope Church Sydney & Bible Encyclopedia',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
+      locale: _currentLocale,
+      supportedLocales: const [
+        Locale('ar', ''),
+        Locale('en', ''),
+      ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      home: HomeDashboard(
+        onLanguageToggle: _toggleLanguage,
+        currentLanguage: _currentLocale.languageCode,
+      ),
+    );
+  }
+}
+
+/// 📱 الشاشة الرئيسية للتطبيق (Home Dashboard)
+class HomeDashboard extends StatelessWidget {
+  final VoidCallback onLanguageToggle;
+  final String currentLanguage;
+
+  const HomeDashboard({
+    Key? key,
+    required this.onLanguageToggle,
+    required this.currentLanguage,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    bool isAr = currentLanguage == 'ar';
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(isAr ? "موسوعة الكتاب المقدس" : "Bible Encyclopedia"),
+        actions: [
+          TextButton.icon(
+            onPressed: onLanguageToggle,
+            icon: const Icon(Icons.language, color: AppTheme.accentGold),
+            label: Text(
+              isAr ? "EN" : "عربي",
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // ترويسة الكنيسة واللوجو
+            Card(
+              color: AppTheme.primaryBlue,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    const Icon(Icons.church, size: 50, color: AppTheme.accentGold),
+                    const SizedBox(height: 8),
+                    Text(
+                      isAr ? "كنيسة رجاء الأمم - سيدني" : "Hope Church Sydney",
+                      style: const TextStyle(
+                        fontSize: 20, 
+                        fontWeight: FontWeight.bold, 
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      "704 The Horsley Dr, Smithfield NSW",
+                      style: TextStyle(color: AppTheme.accentGold, fontSize: 13),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // كارت آية اليوم
+            Card(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: const BorderSide(color: AppTheme.accentGold, width: 1),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          isAr ? "📜 آية اليوم" : "📜 Verse of the Day",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold, 
+                            color: AppTheme.primaryBlue,
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.share, color: AppTheme.primaryBlue),
+                          onPressed: () {},
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      isAr 
+                        ? "«سِراجٌ لِرِجْلِي كَلاَمُكَ وَنُورٌ لِسَبِيلِي.»"
+                        : "“Your word is a lamp to my feet and a light to my path.”",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      isAr ? "- مزمور 119 : 105" : "- Psalm 119:105",
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // شبكة الوصول السريع للميزات الرئيسية
+            GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 1.2,
+              children: [
+                _buildMenuCard(
+                  context,
+                  title: isAr ? "الكتاب المقدس" : "Holy Bible",
+                  icon: Icons.menu_book,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BibleReaderScreen(currentLanguage: currentLanguage),
+                      ),
+                    );
+                  },
+                ),
+                _buildMenuCard(
+                  context,
+                  title: isAr ? "موسوعة الدراسات" : "Thematic Studies",
+                  icon: Icons.account_tree,
+                  onTap: () {},
+                ),
+                _buildMenuCard(
+                  context,
+                  title: isAr ? "تاريخ الكنيسة" : "Church History",
+                  icon: Icons.history_edu,
+                  onTap: () {},
+                ),
+                _buildMenuCard(
+                  context,
+                  title: isAr ? "أسأل AI" : "Ask AI",
+                  icon: Icons.psychology,
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMenuCard(BuildContext context, {required String title, required IconData icon, required VoidCallback onTap}) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(15),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: AppTheme.primaryBlue.withOpacity(0.2)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 5,
+              offset: const Offset(0, 2),
+            )
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 40, color: AppTheme.primaryBlue),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 15, 
+                fontWeight: FontWeight.bold, 
+                color: AppTheme.primaryBlue,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// 📖 شاشة قارئ الكتاب المقدس ومصممة بمشغيل الصوت العلوي والأصحاح التفاعلي
+class BibleReaderScreen extends StatelessWidget {
+  final String currentLanguage;
+
+  const BibleReaderScreen({Key? key, required this.currentLanguage}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    bool isAr = currentLanguage == 'ar';
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(isAr ? "إنجيل يوحنا : 1" : "John : 1"),
+      ),
+      body: Column(
+        children: [
+          // 🎧 مشغل الصوت العلوي المعتمد للأصحاح بالكامل
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            color: AppTheme.primaryBlue.withOpacity(0.08),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.volume_up_rounded, color: AppTheme.primaryBlue, size: 28),
+                    const SizedBox(width: 8),
+                    Text(
+                      isAr ? "الاستماع للأصحاح" : "Listen to Chapter",
+                      style: const TextStyle(fontWeight: FontWeight.bold, color: AppTheme.primaryBlue),
+                    ),
+                  ],
+                ),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.accentGold,
+                    foregroundColor: AppTheme.primaryBlue,
+                  ),
+                  icon: const Icon(Icons.play_arrow),
+                  label: Text(isAr ? "تشغيل" : "Play"),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(isAr ? "جاري تشغيل الصوت..." : "Playing audio...")),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+
+          // قائمة الآيات الشاملة
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                _buildVerseTile(
+                  context,
+                  verseNumber: 1,
+                  textAr: "فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.",
+                  textEn: "In the beginning was the Word, and the Word was with God, and the Word was God.",
+                  isAr: isAr,
+                ),
+                _buildVerseTile(
+                  context,
+                  verseNumber: 2,
+                  textAr: "هذَا كَانَ فِي الْبَدْءِ عِنْدَ اللهِ.",
+                  textEn: "He was in the beginning with God.",
+                  isAr: isAr,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVerseTile(BuildContext context, {required int verseNumber, required String textAr, required String textEn, required bool isAr}) {
+    return InkWell(
+      onTap: () => _showVerseDetailsBottomSheet(context, verseNumber, isAr),
+      child: Padding(
+        padding: const EdgeInsets.vertical: 8.0),
+        child: Row(
+          crossAxisAlignment: CrossAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 14,
+              backgroundColor: AppTheme.primaryBlue,
+              child: Text(
+                "$verseNumber",
+                style: const TextStyle(color: AppTheme.accentGold, fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                isAr ? textAr : textEn,
+                style: const TextStyle(fontSize: 17, height: 1.6),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// 💥 الشباك التفاعلي عند الضغط على الآية للوصول للتفاسير والأصل اللغوي
+  void _showVerseDetailsBottomSheet(BuildContext context, int verseNumber, bool isAr) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                isAr ? "خيارات الآية $verseNumber" : "Options for Verse $verseNumber",
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppTheme.primaryBlue),
+              ),
+              const Divider(color: AppTheme.accentGold),
+              ListTile(
+                leading: const Icon(Icons.collections_bookmark, color: AppTheme.primaryBlue),
+                title: Text(isAr ? "التفاسير المعتمدة (ماكدونالد، إدي، متى المسكين...)" : "Approved Commentaries"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.translate, color: AppTheme.primaryBlue),
+                title: Text(isAr ? "الأصل اللغوي والقاموس (Strong's)" : "Original Language & Lexicon"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.edit_note, color: AppTheme.primaryBlue),
+                title: Text(isAr ? "إضافة ملاحظة وتظليل" : "Add Note & Highlight"),
+                onTap: () {},
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
