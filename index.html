@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">موسوعة الكتاب المقدس الذكية</title>
+    <title id="pageTitle">موسوعة الكتاب المقدس الذكية | كنيسة رجاء الأمم - سيدني</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-blue: #133B78;
             --accent-gold: #FFD700;
-            --bg-light: #F9F9F9;
+            --bg-light: #F4F7FB;
             --text-dark: #1A1A1A;
             --card-bg: #FFFFFF;
         }
@@ -32,11 +32,11 @@
         header {
             background-color: var(--primary-blue);
             color: #ffffff;
-            padding: 20px;
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .header-content {
@@ -45,13 +45,13 @@
         }
 
         header h1 {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             color: var(--accent-gold);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         header p {
-            font-size: 0.95rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
@@ -59,65 +59,45 @@
             background: var(--accent-gold);
             color: var(--primary-blue);
             border: none;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: 0.2s;
         }
 
+        .lang-btn:hover {
+            opacity: 0.9;
+        }
+
         .container {
-            max-width: 1000px;
-            margin: 25px auto;
+            max-width: 1100px;
+            margin: 30px auto;
             padding: 0 20px;
             width: 100%;
             flex: 1;
         }
 
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .search-box input {
-            flex: 1;
-            padding: 12px 18px;
-            font-size: 1rem;
-            border: 2px solid var(--primary-blue);
-            border-radius: 10px;
-            outline: none;
-        }
-
-        .search-box button {
-            background-color: var(--primary-blue);
-            color: var(--accent-gold);
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
+        /* شريط أسفار الكتاب المقدس */
         .bible-books-bar {
             background: var(--primary-blue);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 25px;
             display: flex;
-            gap: 10px;
+            gap: 12px;
             overflow-x: auto;
             white-space: nowrap;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
         .book-chip {
             background: rgba(255, 255, 255, 0.15);
             color: #fff;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: 0.2s;
         }
@@ -125,34 +105,97 @@
         .book-chip:hover {
             background: var(--accent-gold);
             color: var(--primary-blue);
+            font-weight: bold;
         }
 
+        /* صندوق البحث المتقدم */
+        .search-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 14px 20px;
+            font-size: 1.05rem;
+            border: 2px solid var(--primary-blue);
+            border-radius: 10px;
+            outline: none;
+            background: #fff;
+        }
+
+        .search-box button {
+            background-color: var(--primary-blue);
+            color: var(--accent-gold);
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+            opacity: 0.95;
+        }
+
+        /* الأقسام الأكاديمية */
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section-btn {
+            background: var(--card-bg);
+            border: 2px solid #E0E0E0;
+            padding: 14px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .section-btn:hover, .section-btn.active {
+            background-color: var(--primary-blue);
+            color: var(--accent-gold);
+            border-color: var(--primary-blue);
+        }
+
+        /* كروت النتائج والآيات */
         .content-card {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-right: 5px solid var(--primary-blue);
-            margin-bottom: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-right: 6px solid var(--primary-blue);
+            margin-bottom: 20px;
         }
 
         .verse-item {
-            padding: 10px 15px;
-            margin: 8px 0;
-            background: #fff;
-            border: 1px solid #e0e0e0;
+            padding: 14px 18px;
+            margin: 10px 0;
+            background: #FAFAFA;
+            border: 1px solid #E2E8F0;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .verse-item:hover {
-            background-color: #f0f4f8;
+            background-color: #EDF2F7;
             border-color: var(--primary-blue);
-            transform: translateX(-5px);
+            transform: translateX(-4px);
         }
 
-        /* النافذة المنبثقة للتفسير (Popup) */
+        /* النافذة المنبثقة الأكاديمية (Popup Modal) */
         .modal {
             display: none;
             position: fixed;
@@ -161,18 +204,20 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.6);
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
             background-color: #fff;
-            padding: 30px;
-            border-radius: 12px;
+            padding: 35px;
+            border-radius: 14px;
             width: 90%;
-            max-width: 600px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 650px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             border-top: 6px solid var(--primary-blue);
             position: relative;
         }
@@ -181,21 +226,31 @@
             position: absolute;
             left: 20px;
             top: 15px;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            color: #888;
+            color: #666;
         }
 
         .close-btn:hover {
             color: #000;
         }
 
+        .footnote-box {
+            background: #FFFDF0;
+            border-right: 4px solid var(--accent-gold);
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
         footer {
             background-color: var(--primary-blue);
             color: #ffffff;
             text-align: center;
-            padding: 15px;
-            font-size: 0.85rem;
+            padding: 18px;
+            font-size: 0.9rem;
             margin-top: auto;
         }
     </style>
@@ -203,75 +258,80 @@
 <body>
 
     <header>
-        <div style="width: 80px;"></div>
+        <div style="width: 100px;"></div>
         <div class="header-content">
             <h1 id="mainTitle">موسوعة الكتاب المقدس الذكية</h1>
-            <p id="subTitle">كنيسة رجاء الأمم - سيدني</p>
+            <p id="subTitle">كنيسة رجاء الأمم - سيدني | Hope Church Nations - Sydney</p>
         </div>
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">English</button>
     </header>
 
     <div class="container">
-        <!-- شريط أسفار الكتاب المقدس الفعلي -->
+        <!-- شريط أسفار الكتاب المقدس -->
         <div class="bible-books-bar">
-            <span style="color: var(--accent-gold); font-weight: bold; line-height: 30px;" id="booksLabel">أسفار الكتاب:</span>
-            <div class="book-chip" onclick="loadBook('تكوين')">التكوين</div>
-            <div class="book-chip" onclick="loadBook('خروج')">الخروج</div>
-            <div class="book-chip" onclick="loadBook('مزامير')">المزامير</div>
-            <div class="book-chip" onclick="loadBook('متى')">إنجيل متى</div>
-            <div class="book-chip" onclick="loadBook('يوحنا')">إنجيل يوحنا</div>
-            <div class="book-chip" onclick="loadBook('أعمال')">أعمال الرسل</div>
-            <div class="book-chip" onclick="loadBook('رؤيا')">رؤيا يوحنا</div>
+            <span style="color: var(--accent-gold); font-weight: bold; line-height: 32px;" id="booksLabel">أسفار الكتاب:</span>
+            <div class="book-chip" onclick="loadBook('تكوين')">التكوين (Genesis)</div>
+            <div class="book-chip" onclick="loadBook('خروج')">الخروج (Exodus)</div>
+            <div class="book-chip" onclick="loadBook('مزامير')">المزامير (Psalms)</div>
+            <div class="book-chip" onclick="loadBook('متى')">إنجيل متى (Matthew)</div>
+            <div class="book-chip" onclick="loadBook('يوحنا')">إنجيل يوحنا (John)</div>
+            <div class="book-chip" onclick="loadBook('رؤيا')">سفر الرؤيا (Revelation)</div>
         </div>
 
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="ابحث عن آية، كلمة، أو إصحاح..." oninput="handleSearch()">
+            <input type="text" id="searchInput" placeholder="ابحث في الآيات، التفاسير، والمخطوطات..." oninput="handleSearch()">
             <button onclick="handleSearch()" id="searchBtn">بحث</button>
+        </div>
+
+        <div class="sections-grid">
+            <div class="section-btn active" onclick="filterCategory('all')" id="catAll">الكل (All)</div>
+            <div class="section-btn" onclick="filterCategory('commentary')" id="catComm">التفاسير والحواشي</div>
+            <div class="section-btn" onclick="filterCategory('manuscripts')" id="catManu">المخطوطات وقمران</div>
+            <div class="section-btn" onclick="filterCategory('introductions')" id="catIntro">مقدمات الأسفار</div>
+            <div class="section-btn" onclick="filterCategory('maps')" id="catMaps">الخرائط والمخططات</div>
         </div>
 
         <div id="results-area">
             <div class="content-card">
-                <h2 id="welcomeHeader">مرحباً بك في الموسوعة</h2>
-                <p id="welcomeText">اضغط على أي سفر من الشريط العلوي لتصفح الآيات، أو اكتب في خانة البحث للوصول الفوري.</p>
+                <h2 id="welcomeHeader" style="color: var(--primary-blue); margin-bottom: 10px;">أهلاً بك في الموسوعة الأكاديمية</h2>
+                <p id="welcomeText" style="line-height: 1.8; color: #555;">اختر سفراً من الشريط العلوي لاستعراض الآيات والتفاسير المقارنة مع مخطوطات قمران ويوسيفوس، أو استخدم محرك البحث للوصول الفوري.</p>
             </div>
         </div>
     </div>
 
-    <!-- نافذة التفسير المنبثقة (Popup) -->
+    <!-- النافذة المنبثقة للتفاصيل والدراسة المقارنة (Modal) -->
     <div id="verseModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 id="modalVerseTitle" style="color: var(--primary-blue); margin-bottom: 15px;"></h2>
-            <p id="modalVerseText" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 15px; color: #333;"></p>
-            <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
-            <h3 style="color: #444; font-size: 1rem; margin-bottom: 8px;">التفسير والخواطر الروحية:</h3>
-            <p id="modalVerseCommentary" style="line-height: 1.7; color: #555;"></p>
+            <h2 id="modalTitle" style="color: var(--primary-blue); margin-bottom: 15px;"></h2>
+            <div id="modalBody" style="font-size: 1.05rem; line-height: 1.8; color: #333;"></div>
+            <div id="modalFootnote" class="footnote-box"></div>
         </div>
     </div>
 
     <footer id="footerText">
-        جميع الحقوق محفوظة © كنيسة رجاء الأمم - سيدني
+        جميع الحقوق محفوظة © كنيسة رجاء الأمم - سيدني 2026
     </footer>
 
     <script>
-        // قاعدة بيانات حقيقية تتضمن الآيات والتفاسير التفاعلية
-        const bibleDatabase = {
+        // قاعدة بيانات أكاديمية شاملة ومتقدمة
+        const academicDatabase = {
             'تكوين': [
-                { ref: 'تكوين 1:1', text: 'فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.', commentary: 'إعلان لاهوتي عن سيادة الله ووحدانيته كخالق لكل شيء من العدم.' },
-                { ref: 'تكوين 1:3', text: 'وَقَالَ اللهُ: «لِيَكُنْ نُورٌ»، فَكَانَ نُورٌ.', commentary: 'النور الإلهي يبدد الظلمة، وهو إشارة مسبقة للمسيح نور العالم.' }
+                { category: 'commentary', ref: 'تكوين 1:1', text: 'فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.', commentary: 'إعلان لاهوتي عن سيادة الله ووحدانيته كخالق لكل شيء من العدم.', footnote: 'مخطوطات قمران تؤكد دقة النص العبري العتيق لسفر التكوين.' },
+                { category: 'commentary', ref: 'تكوين 1:3', text: 'وَقَالَ اللهُ: «لِيَكُنْ نُورٌ»، فَكَانَ نُورٌ.', commentary: 'النور الإلهي يبدد الظلمة، وهو إشارة مسبقة للمسيح نور العالم بحسب إنجيل يوحنا.', footnote: 'يذكر يوسيفوس في كتاباته التاريخية نظرة الآباء الأولين لهذا الخلق.' }
             ],
             'مزامير': [
-                { ref: 'مزمور 23:1', text: 'الرَّبُّ رَاعِيَّ فَلاَ يُعْوِزُنِي شَيْءٌ.', commentary: 'تعبير عميق عن الثقة المطلقة في الرعاية الإلهية والسلام الداخلي وسط الظروف.' }
+                { category: 'commentary', ref: 'مزمور 23:1', text: 'الرَّبُّ رَاعِيَّ فَلاَ يُعْوِزُنِي شَيْءٌ.', commentary: 'تعبير عميق عن الثقة المطلقة في الرعاية الإلهية والسلام الداخلي وسط التجارب.', footnote: 'مقارنة مع الأدبيات الشرقية القديمة تظهر تفرد المفهوم الإلهي للراعي.' }
             ],
             'متى': [
-                { ref: 'إنجيل متى 1:21', text: 'فَسَتَلِدُ ابْناً وَتَدْعُو اسْمَهُ يَسُوعَ، لأَنَّهُ يُخَلِّصُ شَعْبَهُ مِنْ خَطَايَاهُمْ.', commentary: 'جوهر رسالة التجسد الإلهي، فاسم "يسوع" يعني "يهوه هو الخلاص".' }
+                { category: 'introductions', ref: 'مقدمة إنجيل متى', text: 'سفر يثبت أن يسوع هو الماشيا المنتظر وابن داود وابن إبراهيم.', commentary: 'موجه خصيصاً للقارئ اليهودي بالاعتماد على نبوات العهد القديم.', footnote: 'يشير التلمود ومؤرخو العصر إلى الخلفية الثقافية لمتى العشار.' }
             ],
             'يوحنا': [
-                { ref: 'إنجيل يوحنا 1:1', text: 'فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.', commentary: 'تأكيد قاطع على أزلية الكلمة (المسيح) ومساواته الجوهرية للآب.' },
-                { ref: 'إنجيل يوحنا 3:16', text: 'لأَنَّ هكَذَا أَحَبَّ اللهُ الْعَالَمَ حَتَّى بَذَلَ ابْنَهُ الْوَحِيدَ...', commentary: 'أعظم آية تعلن عن محبة الفداء الكفاري الإلهي لكل البشرية.' }
+                { category: 'commentary', ref: 'إنجيل يوحنا 1:1', text: 'فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.', commentary: 'تأكيد قاطع على أزلية الكلمة (المسيح) ومساواته الجوهرية للآب.', footnote: 'المخطوطة السينائية والفاتيكانية تؤكد هذا النص بدقة متناهية.' },
+                { category: 'manuscripts', ref: 'مخطوطات قمران (البحر الميت)', text: 'أهم اكتشاف أثري نصي للعهد القديم.', commentary: 'تؤكد مطابقة النصوص الحالية لما كانت عليه قبل الميلاد بقرون.', footnote: 'محفوظة في متحف إسرائيل، ومتاح الاطلاع على أجزاء سفر إشعياء كاملاً.' }
             ],
             'رؤيا': [
-                { ref: 'رؤيا يوحنا 1:8', text: 'أَنَا هُوَ الأَلِفُ وَالْيَاءُ، الْبِدَايَةُ وَالنِّهَايَةُ، يَقُولُ الرَّبُّ الكَائِنُ وَالَّذِي كَانَ وَالَّذِي يَأْتِي، الْقَادِرُ عَلَى كُلِّ شَيْءٍ.', commentary: 'تأكيد لاهوتي مجيد على أبدية المسيح وسلطانه المطلق على التاريخ والمستقبل.' }
+                { category: 'maps', ref: 'خريطة وكنائس آسيا الصغرى', text: 'الرسائل إلى الكنائس السبع في سفر الرؤيا.', commentary: 'دراسة جغرافية وتاريخية لمدن أفسس، سميرنا، برغامس، ثياتيرا، ساردس، فيلادلفيا، ولاوديكي.', footnote: 'مواقع أثرية موثقة في تركيا الحالية.' }
             ]
         };
 
@@ -279,17 +339,17 @@
 
         function loadBook(bookKey) {
             const area = document.getElementById('results-area');
-            const verses = bibleDatabase[bookKey];
+            const items = academicDatabase[bookKey];
             
-            if (!verses) {
-                area.innerHTML = '<div class="content-card"><h2>تنبيه</h2><p>جاري إضافة تفاصيل هذا السفر قريباً.</p></div>';
+            if (!items) {
+                area.innerHTML = '<div class="content-card"><h2>تنبيه</h2><p>جاري تحميل وتحديث تفاصيل هذا السفر الأكاديمية قريباً.</p></div>';
                 return;
             }
 
-            let html = `<div class="content-card"><h2>سفر ${bookKey}</h2>`;
-            verses.forEach(v => {
+            let html = `<div class="content-card"><h2 style="color: var(--primary-blue); margin-bottom: 15px;">سفر ${bookKey} (الدراسات والمخطوطات)</h2>`;
+            items.forEach(v => {
                 html += `
-                    <div class="verse-item" onclick="openVerseModal('${v.ref}', '${v.text}', '${v.commentary}')">
+                    <div class="verse-item" onclick="openModal('${v.ref}', '${v.text}', '${v.commentary}', '${v.footnote}')">
                         <strong>${v.ref}:</strong> ${v.text}
                     </div>
                 `;
@@ -298,10 +358,10 @@
             area.innerHTML = html;
         }
 
-        function openVerseModal(ref, text, commentary) {
-            document.getElementById('modalVerseTitle').innerText = ref;
-            document.getElementById('modalVerseText').innerText = text;
-            document.getElementById('modalVerseCommentary').innerText = commentary;
+        function openModal(title, text, commentary, footnote) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerHTML = `<strong>النص:</strong> ${text}<br><br><strong>التفسير الأكاديمي:</strong> ${commentary}`;
+            document.getElementById('modalFootnote').innerHTML = `<strong>حاشية تاريخية / مخطوطات:</strong> ${footnote}`;
             document.getElementById('verseModal').style.display = 'flex';
         }
 
@@ -316,33 +376,59 @@
             }
         }
 
+        function filterCategory(cat) {
+            document.querySelectorAll('.section-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            let allItems = [];
+            for (let book in academicDatabase) {
+                academicDatabase[book].forEach(item => {
+                    if (cat === 'all' || item.category === cat) {
+                        allItems.push(item);
+                    }
+                });
+            }
+
+            const area = document.getElementById('results-area');
+            let html = `<div class="content-card"><h2 style="color: var(--primary-blue); margin-bottom: 15px;">نتائج القسم الأكاديمي</h2>`;
+            allItems.forEach(v => {
+                html += `
+                    <div class="verse-item" onclick="openModal('${v.ref}', '${v.text}', '${v.commentary}', '${v.footnote}')">
+                        <strong>${v.ref}:</strong> ${v.text}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            area.innerHTML = html;
+        }
+
         function handleSearch() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const area = document.getElementById('results-area');
             
             if (!query.trim()) {
-                area.innerHTML = '<div class="content-card"><h2>مرحباً بك في الموسوعة</h2><p>اختر سفراً من الأعلى أو اكتب كلمة للبحث.</p></div>';
+                area.innerHTML = '<div class="content-card"><h2>مرحباً بك في الموسوعة</h2><p>اختر سفراً من الأعلى أو اكتب كلمة للبحث الأكاديمي.</p></div>';
                 return;
             }
 
             let results = [];
-            for (let book in bibleDatabase) {
-                bibleDatabase[book].forEach(v => {
-                    if (v.text.toLowerCase().includes(query) || v.ref.toLowerCase().includes(query) || v.commentary.toLowerCase().includes(query)) {
+            for (let book in academicDatabase) {
+                academicDatabase[book].forEach(v => {
+                    if (v.text.toLowerCase().includes(query) || v.ref.toLowerCase().includes(query) || v.commentary.toLowerCase().includes(query) || v.footnote.toLowerCase().includes(query)) {
                         results.push(v);
                     }
                 });
             }
 
             if (results.length === 0) {
-                area.innerHTML = '<div class="content-card"><h2>نتائج البحث</h2><p>لم يتم العثور على نتائج مطابقة لبحثك.</p></div>';
+                area.innerHTML = '<div class="content-card"><h2>نتائج البحث</h2><p>لم يتم العثور على نتائج مطابقة لبحثك الأكاديمي.</p></div>';
                 return;
             }
 
-            let html = `<div class="content-card"><h2>نتائج البحث (${results.length})</h2>`;
+            let html = `<div class="content-card"><h2 style="color: var(--primary-blue); margin-bottom: 15px;">نتائج البحث (${results.length})</h2>`;
             results.forEach(v => {
                 html += `
-                    <div class="verse-item" onclick="openVerseModal('${v.ref}', '${v.text}', '${v.commentary}')">
+                    <div class="verse-item" onclick="openModal('${v.ref}', '${v.text}', '${v.commentary}', '${v.footnote}')">
                         <strong>${v.ref}:</strong> ${v.text}
                     </div>
                 `;
@@ -356,14 +442,28 @@
             if(currentLang === 'en') {
                 document.getElementById('mainTitle').innerText = "Smart Bible Encyclopedia";
                 document.getElementById('subTitle').innerText = "Hope Church Nations - Sydney";
-                document.getElementById('searchInput').placeholder = "Search for a verse, word, or chapter...";
+                document.getElementById('searchInput').placeholder = "Search verses, commentaries, manuscripts...";
                 document.getElementById('searchBtn').innerText = "Search";
+                document.getElementById('booksLabel').innerText = "Bible Books:";
+                document.getElementById('catAll').innerText = "All";
+                document.getElementById('catComm').innerText = "Commentaries & Footnotes";
+                document.getElementById('catManu').innerText = "Manuscripts & Qumran";
+                document.getElementById('catIntro').innerText = "Introductions";
+                document.getElementById('catMaps').innerText = "Maps & Charts";
+                document.getElementById('footerText').innerText = "All Rights Reserved © Hope Church Nations - Sydney 2026";
                 document.getElementById('langBtn').innerText = "العربية";
             } else {
                 document.getElementById('mainTitle').innerText = "موسوعة الكتاب المقدس الذكية";
-                document.getElementById('subTitle').innerText = "كنيسة رجاء الأمم - سيدني";
-                document.getElementById('searchInput').placeholder = "ابحث عن آية، كلمة، أو إصحاح...";
+                document.getElementById('subTitle').innerText = "كنيسة رجاء الأمم - سيدني | Hope Church Nations - Sydney";
+                document.getElementById('searchInput').placeholder = "ابحث في الآيات، التفاسير، والمخطوطات...";
                 document.getElementById('searchBtn').innerText = "بحث";
+                document.getElementById('booksLabel').innerText = "أسفار الكتاب:";
+                document.getElementById('catAll').innerText = "الكل (All)";
+                document.getElementById('catComm').innerText = "التفاسير والحواشي";
+                document.getElementById('catManu').innerText = "المخطوطات وقمران";
+                document.getElementById('catIntro').innerText = "مقدمات الأسفار";
+                document.getElementById('catMaps').innerText = "الخرائط والمخططات";
+                document.getElementById('footerText').innerText = "جميع الحقوق محفوظة © كنيسة رجاء الأمم - سيدني 2026";
                 document.getElementById('langBtn').innerText = "English";
             }
         }
