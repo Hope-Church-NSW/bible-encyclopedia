@@ -42,12 +42,19 @@
             position: relative;
         }
 
+        /* تأثير حركة الحمامة (الروح القدس) عند التنقل وتغيير اللغات */
         .church-logo {
             width: 85px;
             height: 85px;
             object-fit: contain;
             margin-bottom: 10px;
             filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+        }
+
+        .church-logo.fly-animation {
+            transform: scale(0.2) translateY(-100px) rotate(-30deg);
+            opacity: 0;
         }
 
         .header-title h1 {
@@ -317,8 +324,8 @@
 
     <header>
         <button class="lang-switcher" onclick="toggleLanguage()" id="langBtn">English (NKJV)</button>
-        <!-- اللوجو في المنتصف تماماً مع ترويسة الكنيسة -->
-        <img src="765c3c45-1af6-4438-a62b-316f2826d0b6.jfif" alt="Hope Of Nation's Church Logo" class="church-logo">
+        <!-- اللوجو في المنتصف مع تفعيل حركة الروح القدس -->
+        <img src="765c3c45-1af6-4438-a62b-316f2826d0b6.jfif" alt="Hope Of Nation's Church Logo" class="church-logo" id="churchLogo">
         <div class="header-title">
             <h1 id="mainTitle">موسوعة الكتاب المقدس الأكاديمية</h1>
             <p>Hope Of Nation's Church NSW | كنيسة رجاء الأمم - سيدني</p>
@@ -472,22 +479,33 @@
         let currentActiveBookNameEN = '';
         let currentChapterNum = 1;
 
+        function triggerDoveFlight() {
+            const logo = document.getElementById('churchLogo');
+            logo.classList.add('fly-animation');
+            setTimeout(() => {
+                logo.classList.remove('fly-animation');
+            }, 800);
+        }
+
         function toggleLanguage() {
-            if (currentLang === 'ar') {
-                currentLang = 'en';
-                document.getElementById('htmlRoot').setAttribute('dir', 'ltr');
-                document.getElementById('htmlRoot').setAttribute('lang', 'en');
-            } else {
-                currentLang = 'ar';
-                document.getElementById('htmlRoot').setAttribute('dir', 'rtl');
-                document.getElementById('htmlRoot').setAttribute('lang', 'ar');
-            }
-            updateTexts();
-            renderBooks();
-            if (selectedBookIndex !== null) {
-                selectBook(selectedBookIndex, selectedTestamentType, currentActiveBookNameAR, currentActiveBookNameEN);
-                loadChapterVerses(currentActiveBookNameAR, currentActiveBookNameEN, currentChapterNum);
-            }
+            triggerDoveFlight();
+            setTimeout(() => {
+                if (currentLang === 'ar') {
+                    currentLang = 'en';
+                    document.getElementById('htmlRoot').setAttribute('dir', 'ltr');
+                    document.getElementById('htmlRoot').setAttribute('lang', 'en');
+                } else {
+                    currentLang = 'ar';
+                    document.getElementById('htmlRoot').setAttribute('dir', 'rtl');
+                    document.getElementById('htmlRoot').setAttribute('lang', 'ar');
+                }
+                updateTexts();
+                renderBooks();
+                if (selectedBookIndex !== null) {
+                    selectBook(selectedBookIndex, selectedTestamentType, currentActiveBookNameAR, currentActiveBookNameEN);
+                    loadChapterVerses(currentActiveBookNameAR, currentActiveBookNameEN, currentChapterNum);
+                }
+            }, 350);
         }
 
         function updateTexts() {
@@ -514,10 +532,13 @@
         }
 
         function switchSection(sectionId, element) {
-            document.querySelectorAll('.section-view').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(sectionId + '-section').classList.add('active');
-            element.classList.add('active');
+            triggerDoveFlight();
+            setTimeout(() => {
+                document.querySelectorAll('.section-view').forEach(sec => sec.classList.remove('active'));
+                document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+                document.getElementById(sectionId + '-section').classList.add('active');
+                element.classList.add('active');
+            }, 300);
         }
 
         function selectTestament(testament) {
