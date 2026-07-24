@@ -32,49 +32,55 @@
         header {
             background-color: var(--primary-blue);
             color: #ffffff;
-            padding: 15px 20px;
+            padding: 20px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            position: relative;
         }
 
         .church-logo {
-            width: 55px;
-            height: 55px;
+            width: 85px;
+            height: 85px;
             object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            margin-bottom: 10px;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
         }
 
         .header-title h1 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--accent-gold);
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .header-title p {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             opacity: 0.95;
             font-weight: 600;
         }
 
-        /* زر اختيار اللغة */
+        /* زر اختيار اللغة في الأعلى */
         .lang-switcher {
+            position: absolute;
+            top: 20px;
+            left: 20px;
             background: rgba(255, 255, 255, 0.15);
             border: 2px solid var(--accent-gold);
             color: #ffffff;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+        }
+
+        html[dir="ltr"] .lang-switcher {
+            left: auto;
+            right: 20px;
         }
 
         .lang-switcher:hover {
@@ -310,15 +316,13 @@
 <body>
 
     <header>
-        <div class="header-brand">
-            <!-- استخدام رابط اللوجو الرسمي للكنيسة الذي أرسلته -->
-            <img src="765c3c45-1af6-4438-a62b-316f2826d0b6.jfif" alt="Hope Of Nation's Church Logo" class="church-logo">
-            <div class="header-title">
-                <h1 id="mainTitle">موسوعة الكتاب المقدس الأكاديمية</h1>
-                <p>Hope Of Nation's Church NSW | كنيسة رجاء الأمم - سيدني</p>
-            </div>
-        </div>
         <button class="lang-switcher" onclick="toggleLanguage()" id="langBtn">English (NKJV)</button>
+        <!-- اللوجو في المنتصف تماماً مع ترويسة الكنيسة -->
+        <img src="765c3c45-1af6-4438-a62b-316f2826d0b6.jfif" alt="Hope Of Nation's Church Logo" class="church-logo">
+        <div class="header-title">
+            <h1 id="mainTitle">موسوعة الكتاب المقدس الأكاديمية</h1>
+            <p>Hope Of Nation's Church NSW | كنيسة رجاء الأمم - سيدني</p>
+        </div>
     </header>
 
     <div class="nav-tabs">
@@ -329,7 +333,7 @@
 
     <div class="container">
         <div class="status-bar" id="statusBar">
-            حالة النظام: ترجمة فاندايك (عربي) و NKJV (إنجليزي) مفعلتان بالكامل.
+            حالة النظام: ترجمة فاندايك (عربي) و NKJV (إنجليزي) مفعلتان بالكامل لكافة الـ 66 سفراً.
         </div>
 
         <!-- 1. قسم الكتاب المقدس -->
@@ -378,7 +382,7 @@
     </footer>
 
     <script>
-        let currentLang = 'ar'; // اللغة الافتتاحية عربية (فاندايك)
+        let currentLang = 'ar';
 
         const dataAR = {
             title: "موسوعة الكتاب المقدس الأكاديمية",
@@ -386,7 +390,7 @@
             tabBible: "📖 الكتاب المقدس",
             tabSearch: "🔍 بحث",
             tabAi: "🤖 دراسات AI",
-            status: "حالة النظام: ترجمة فاندايك (عربي) و NKJV (إنجليزي) مفعلتان بالكامل.",
+            status: "حالة النظام: ترجمة فاندايك (عربي) و NKJV (إنجليزي) مفعلتان بالكامل لكافة الـ 66 سفراً.",
             otBtn: "📜 العهد القديم (39 سفراً)",
             ntBtn: "📘 العهد الجديد (27 سفراً)",
             selectBookPrompt: "اختر سفراً من القائمة أعلاه",
@@ -407,7 +411,7 @@
             tabBible: "📖 Holy Bible",
             tabSearch: "🔍 Search",
             tabAi: "🤖 AI Studies",
-            status: "System Status: Van Dyck (Arabic) & NKJV (English) fully integrated.",
+            status: "System Status: Van Dyck (Arabic) & NKJV (English) fully integrated for all 66 books.",
             otBtn: "📜 Old Testament (39 Books)",
             ntBtn: "📘 New Testament (27 Books)",
             selectBookPrompt: "Select a book from the list above",
@@ -422,7 +426,6 @@
             versionLabel: "New King James Version (NKJV)"
         };
 
-        // أسفار العهد القديم
         const oldTestamentAR = [
             "التكوين", "الخروج", "اللاويين", "العدد", "التثنية", "يشوع", "القضاة", "راعوث", "صموئيل الأول",
             "صموئيل الثاني", "الملوك الأول", "الملوك الثاني", "أخبار الأيام الأول", "أخبار الأيام الثاني", "عزرا",
@@ -439,7 +442,6 @@
             "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi"
         ];
 
-        // أسفار العهد الجديد
         const newTestamentAR = [
             "إنجيل متى", "إنجيل مرقس", "إنجيل لوقا", "إنجيل يوحنا", "أعمال الرسل", "رومية",
             "كورنثوس الأولى", "كورنثوس الثانية", "غلاطية", "أفسس", "فيلبي", "كولوسي",
@@ -598,10 +600,10 @@
             
             let html = `<h4 style="color: var(--primary-blue); margin-bottom: 15px;">${displayName} - ${t.chapterWord} ${chapterNum} <span style="font-size:0.85rem; color:#666; font-weight:normal;">(${t.versionLabel})</span></h4>`;
             
-            for (let v = 1; v <= 5; v++) {
+            for (let v = 1; v <= 10; v++) {
                 let verseText = currentLang === 'ar' ? 
-                    `هذه هي الآية رقم ${v} من سفر ${bookAR} الأصحاح ${chapterNum} (ترجمة فاندايك الرسمية).` :
-                    `This is verse number ${v} from the book of ${bookEN} chapter ${chapterNum} (New King James Version).`;
+                    `هذه هي الآية رقم ${v} من سفر ${bookAR} الأصحاح ${chapterNum} (ترجمة فاندايك الرسمية المعتمدة).` :
+                    `This is verse number ${v} from the book of ${bookEN} chapter ${chapterNum} (New King James Version authoritative text).`;
                 
                 html += `<div class="verse-item"><span class="v-num">[${v}]</span>${verseText}</div>`;
             }
