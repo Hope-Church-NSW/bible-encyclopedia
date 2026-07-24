@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موسوعة الكتاب المقدس الأكاديمية | كنيسة رجاء الأمم - سيدني</title>
-    <!-- ربط خط كايرو الأكاديمي -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -49,6 +48,36 @@
             opacity: 0.9;
         }
 
+        /* شريط التنقل الرئيسي (الأقسام الثلاثة) */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-bottom: 2px solid #E2E8F0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-tab {
+            padding: 15px 30px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            cursor: pointer;
+            border-bottom: 4px solid transparent;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            border-bottom-color: var(--accent-gold);
+            background-color: #F8FAFC;
+        }
+
         .container {
             max-width: 1000px;
             margin: 20px auto;
@@ -57,7 +86,15 @@
             flex: 1;
         }
 
-        /* شريط حالة النظام المحلي */
+        /* أقسام العرض */
+        .section-view {
+            display: none;
+        }
+
+        .section-view.active {
+            display: block;
+        }
+
         .status-bar {
             background: #E2E8F0;
             color: #2D3748;
@@ -69,18 +106,17 @@
             border-right: 4px solid var(--primary-blue);
         }
 
-        /* شريط الأسفار */
         .books-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 10px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .book-card {
             background: var(--card-bg);
             border: 2px solid #E2E8F0;
-            padding: 12px;
+            padding: 14px;
             text-align: center;
             border-radius: 8px;
             cursor: pointer;
@@ -95,7 +131,6 @@
             border-color: var(--primary-blue);
         }
 
-        /* منطقة العرض الرئيسية */
         .display-area {
             background: var(--card-bg);
             border-radius: 12px;
@@ -103,6 +138,33 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             border-right: 6px solid var(--primary-blue);
             min-height: 250px;
+            margin-top: 15px;
+        }
+
+        /* تنسيق قسم البحث */
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid var(--primary-blue);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .search-box button {
+            background: var(--primary-blue);
+            color: var(--accent-gold);
+            border: none;
+            padding: 0 25px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
         }
 
         footer {
@@ -122,21 +184,51 @@
         <p>كنيسة رجاء الأمم - سيدني | Hope Church Nations - Sydney</p>
     </header>
 
+    <!-- شريط الأيقونات والأقسام الثلاثة -->
+    <div class="nav-tabs">
+        <div class="nav-tab active" onclick="switchSection('bible', this)">📖 الكتاب المقدس</div>
+        <div class="nav-tab" onclick="switchSection('search', this)">🔍 بحث</div>
+        <div class="nav-tab" onclick="switchSection('ai-studies', this)">🤖 دراسات AI</div>
+    </div>
+
     <div class="container">
-        <!-- مؤشر جاهزية النظام المحلي -->
         <div class="status-bar" id="statusBar">
-            حالة النظام: جاهز للعمل المحلي (Offline Ready) - اختر سفراً لعرض بياناته.
+            حالة النظام: متصل بالذاكرة المحلية (Offline Ready).
         </div>
 
-        <!-- قائمة الأسفار -->
-        <div class="books-grid" id="booksGrid">
-            <!-- سيتم تحميل الأسفار برمجياً هنا -->
+        <!-- 1. قسم الكتاب المقدس -->
+        <div id="bible-section" class="section-view active">
+            <h3 style="color: var(--primary-blue); margin-bottom: 15px;">اختر السفر للاطلاع على النصوص:</h3>
+            <div class="books-grid" id="booksGrid"></div>
+            <div class="display-area" id="bibleDisplayArea">
+                <h4 style="color: var(--primary-blue); margin-bottom: 8px;">دليل الاستخدام</h4>
+                <p style="color: #555; line-height: 1.8;">قم باختيار أحد الأسفار بالأعلى لاستعراض تفاصيله ومحتواه المخزن محلياً.</p>
+            </div>
         </div>
 
-        <!-- منطقة المحتوى -->
-        <div class="display-area" id="displayArea">
-            <h2 style="color: var(--primary-blue); margin-bottom: 10px;">أهلاً بك في الموسوعة الهندسية المتكاملة</h2>
-            <p style="color: #666; line-height: 1.8;">هذا الهيكل مصمم ليعمل بكفاءة عالية على الهواتف والمتصفحات وبدون انترنت. يرجى اختيار أحد الأسفار بالأعلى لبدء استدعاء البيانات الأكاديمية.</p>
+        <!-- 2. قسم البحث -->
+        <div id="search-section" class="section-view">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ابحث عن آية، كلمة، أو موضوع داخل الموسوعة..." oninput="performSearch()">
+                <button onclick="performSearch()">بحث</button>
+            </div>
+            <div class="display-area" id="searchDisplayArea">
+                <h4 style="color: var(--primary-blue); margin-bottom: 8px;">نتائج البحث</h4>
+                <p style="color: #555;">اكتب أي كلمة في الحقل بالأعلى للبحث الفوري.</p>
+            </div>
+        </div>
+
+        <!-- 3. قسم دراسات AI -->
+        <div id="ai-studies-section" class="section-view">
+            <div class="display-area">
+                <h3 style="color: var(--primary-blue); margin-bottom: 15px;">🤖 التحليلات اللاهوتية والدراسات المقارنة (AI)</h3>
+                <p style="line-height: 1.8; color: #444; margin-bottom: 15px;">
+                    هذا القسم مخصص لاستعراض المقارنات العميقة بين النصوص (العبرية واليونانية)، حواشي مخطوطات قمران، وتحليلات المؤرخ يوسيفوس.
+                </p>
+                <div style="background: #F8FAFC; padding: 15px; border-radius: 8px; border-right: 4px solid var(--accent-gold);">
+                    <strong>ملاحظة هندسية:</strong> يتم تحديث هذه الدراسات تدريجياً لتغطية كافة الأسفار بشكل أكاديمي موثق.
+                </div>
+            </div>
         </div>
     </div>
 
@@ -145,29 +237,37 @@
     </footer>
 
     <script>
-        // قاعدة بيانات الأسفار الأولية (سيتم توسيعها تدريجياً وبشكل منظم)
+        // قاعدة البيانات المحلية المحدثة
         const localDatabase = {
             "تكوين": {
                 title: "سفر التكوين (Genesis)",
                 intro: "سفر البدايات: الخليقة، السقوط، الطوفان، وآباء البطاركة.",
-                chapters: "يحتوي على 50 أصحاحاً تؤسس لفهم التاريخ الإلهي."
+                text: "فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ. وَكَانَتِ الأَرْضُ خَرِبَةً وَخَالِيَةً..."
             },
             "خروج": {
                 title: "سفر الخروج (Exodus)",
-                intro: "خروج الشعب من أرض العبودية وتأسيس العهد في سيناء وخيمة الاجتماع.",
-                chapters: "يحتوي على 40 أصحاحاً تصف الفداء والناموس."
+                intro: "خروج الشعب من أرض العبودية وتأسيس العهد في سيناء.",
+                text: "وَحَدَثَ بَعْدَ أَيَّامٍ كَثِيرَةٍ تِلْكَ أَنَّ مَلِكَ مِصْرَ مَاتَ، وَتَنَهَّدَ بَنُو إِسْرَائِيلَ مِنَ الْعُبُودِيَّةِ..."
             },
             "مزامير": {
                 title: "سفر المزامير (Psalms)",
-                intro: "ديوان تسابيح وصلاة وتسبيح الشعب القديم وكنيسة العهد الجديد.",
-                chapters: "يحتوي على 150 مزبوراً تغطي كل مشاعر النفس البشرية."
+                intro: "ديوان تسابيح وصلاة وتسبيح الشعب القديم.",
+                text: "طُوبَى لِلرَّجُلِ الَّذِي لَمْ يَسْلُكْ فِي مَشُورَةِ الأَشْرَارِ..."
             },
             "إشعياء": {
                 title: "سفر إشعياء النبِيّ (Isaiah)",
                 intro: "إنجيل العهد القديم والنبوة الكبرى عن التجسد والفداء.",
-                chapters: "يحتوي على 66 اصحاحاً تعكس مجد الخلاص الإلهي."
+                text: "رُؤْيَا إِشَعْيَاءَ بْنِ آمُوصَ الَّتِي رَآهَا عَلَى يَهُوذَا وَأُورُشَلِيمَ..."
             }
         };
+
+        function switchSection(sectionId, element) {
+            document.querySelectorAll('.section-view').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(sectionId + '-section').classList.add('active');
+            element.classList.add('active');
+        }
 
         function renderBooks() {
             const grid = document.getElementById('booksGrid');
@@ -183,20 +283,45 @@
 
         function loadBookData(bookName) {
             const data = localDatabase[bookName];
-            const area = document.getElementById('displayArea');
-            const status = document.getElementById('statusBar');
-
+            const area = document.getElementById('bibleDisplayArea');
             if (data) {
-                status.innerText = `تم استدعاء بيانات "${bookName}" من الذاكرة المحلية بنجاح (بدون انترنت).`;
                 area.innerHTML = `
-                    <h2 style="color: var(--primary-blue); margin-bottom: 15px;">${data.title}</h2>
-                    <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 15px;"><strong>المقدمة الأكاديمية:</strong> ${data.intro}</p>
-                    <p style="font-size: 1.05rem; line-height: 1.8; color: #444;"><strong>التفصيل الهيكلي:</strong> ${data.chapters}</p>
+                    <h3 style="color: var(--primary-blue); margin-bottom: 10px;">${data.title}</h3>
+                    <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 10px;"><strong>المقدمة:</strong> ${data.intro}</p>
+                    <p style="font-size: 1rem; line-height: 1.8; color: #444; background: #F8FAFC; padding: 12px; border-radius: 6px;"><strong>عينة نصية:</strong> ${data.text}</p>
                 `;
             }
         }
 
-        // تشغيل نظام عرض الأسفار عند فتح الصفحة
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const area = document.getElementById('searchDisplayArea');
+            
+            if (!query.trim()) {
+                area.innerHTML = `<h4 style="color: var(--primary-blue); margin-bottom: 8px;">نتائج البحث</h4><p style="color: #555;">اكتب أي كلمة في الحقل بالأعلى للبحث الفوري.</p>`;
+                return;
+            }
+
+            let results = [];
+            for (let book in localDatabase) {
+                const item = localDatabase[book];
+                if (item.title.toLowerCase().includes(query) || item.intro.toLowerCase().includes(query) || item.text.toLowerCase().includes(query)) {
+                    results.push(item);
+                }
+            }
+
+            if (results.length === 0) {
+                area.innerHTML = `<h4 style="color: var(--primary-blue); margin-bottom: 8px;">نتائج البحث</h4><p>لم يتم العثور على مطابقات.</p>`;
+                return;
+            }
+
+            let html = `<h4 style="color: var(--primary-blue); margin-bottom: 10px;">نتائج البحث (${results.length})</h4>`;
+            results.forEach(res => {
+                html += `<div style="padding: 10px; margin-bottom: 8px; background: #F8FAFC; border-radius: 6px;"><strong>${res.title}</strong>: ${res.intro}</div>`;
+            });
+            area.innerHTML = html;
+        }
+
         renderBooks();
     </script>
 </body>
