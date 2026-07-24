@@ -42,7 +42,7 @@
             position: relative;
         }
 
-        /* تأثير حركة الحمامة (الروح القدس) عند التنقل وتغيير اللغات */
+        /* حركة اللوجو عند كل تنقل في التطبيق */
         .church-logo {
             width: 90px;
             height: 90px;
@@ -72,7 +72,7 @@
             font-weight: 600;
         }
 
-        /* زر اختيار اللغة في الأعلى */
+        /* زر تغيير اللغة */
         .lang-switcher {
             position: absolute;
             top: 20px;
@@ -160,7 +160,7 @@
             border-left: 4px solid var(--primary-blue);
         }
 
-        /* أزرار اختيار العهدين */
+        /* أزرار العهدين */
         .testaments-selector {
             display: flex;
             gap: 15px;
@@ -287,7 +287,6 @@
             margin-right: 8px;
         }
 
-        /* تنسيق البحث */
         .search-box {
             display: flex;
             gap: 10px;
@@ -327,7 +326,7 @@
 
     <header>
         <button class="lang-switcher" onclick="toggleLanguage()" id="langBtn">English (NKJV)</button>
-        <!-- تم ربط الصورة بالاسم السهل logo.jpg -->
+        <!-- تأكد أن اسم ملف الصورة المطابق في المستودع هو logo.jpg -->
         <img src="logo.jpg" alt="Hope Of Nation's Church Logo" class="church-logo" id="churchLogo">
         <div class="header-title">
             <h1 id="mainTitle">موسوعة الكتاب المقدس الأكاديمية</h1>
@@ -482,6 +481,7 @@
         let currentActiveBookNameEN = '';
         let currentChapterNum = 1;
 
+        // دالة حركة اللوجو العامة التي يتم استدعاؤها مع أي تفاعل
         function triggerDoveFlight() {
             const logo = document.getElementById('churchLogo');
             logo.classList.add('fly-animation');
@@ -545,6 +545,7 @@
         }
 
         function selectTestament(testament) {
+            triggerDoveFlight();
             selectedTestamentType = testament;
             const otGrid = document.getElementById('otBooksGrid');
             const ntGrid = document.getElementById('ntBooksGrid');
@@ -589,6 +590,7 @@
         }
 
         function selectBook(index, testament, bookAR, bookEN) {
+            triggerDoveFlight();
             selectedBookIndex = index;
             selectedTestamentType = testament;
             currentActiveBookNameAR = bookAR;
@@ -617,6 +619,7 @@
         }
 
         function loadChapterVerses(bookAR, bookEN, chapterNum) {
+            triggerDoveFlight();
             currentChapterNum = chapterNum;
             const versesContainer = document.getElementById('versesContainer');
             const displayName = currentLang === 'ar' ? bookAR : bookEN;
