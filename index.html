@@ -118,6 +118,7 @@
             border: 1px solid #E2E8F0;
             border-radius: 8px;
             background: #fff;
+            direction: rtl;
         }
 
         .book-card {
@@ -139,27 +140,29 @@
             border-color: var(--primary-blue);
         }
 
-        /* شبكة الأصحاحات */
+        /* شبكة الأصحاحات مرتبة من اليمين لليسار */
         .chapters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 8px;
             margin: 15px 0;
             max-height: 250px;
             overflow-y: auto;
             padding: 5px;
+            direction: rtl;
         }
 
         .chapter-card {
             background: #E2E8F0;
             color: var(--primary-blue);
-            padding: 8px;
+            padding: 8px 14px;
             text-align: center;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             font-size: 0.9rem;
             transition: 0.2s;
+            min-width: 70px;
         }
 
         .chapter-card:hover, .chapter-card.active {
@@ -282,7 +285,6 @@
     </footer>
 
     <script>
-        // قائمة أسفار الكتاب المقدس الـ 66 مع عدد الأصحاحات لكل سفر
         const bibleBooks = [
             { name: "التكوين", chapters: 50 }, { name: "الخروج", chapters: 40 }, { name: "اللاويين", chapters: 27 },
             { name: "العدد", chapters: 36 }, { name: "التثنية", chapters: 34 }, { name: "يشوع", chapters: 24 },
@@ -348,7 +350,6 @@
         function loadChapterVerses(bookName, chapterNum) {
             const versesContainer = document.getElementById('versesContainer');
             
-            // عينة توضيحية للأعداد (قابلة للتوسع برمجياً لكافة النصوص)
             let html = `<h4 style="color: var(--primary-blue); margin-bottom: 10px;">${bookName} - أصحاح ${chapterNum}</h4>`;
             
             for (let v = 1; v <= 5; v++) {
