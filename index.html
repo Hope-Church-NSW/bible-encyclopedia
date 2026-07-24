@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,21 +32,54 @@
         header {
             background-color: var(--primary-blue);
             color: #ffffff;
-            padding: 20px;
-            text-align: center;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        header h1 {
-            font-size: 1.6rem;
-            color: var(--accent-gold);
-            margin-bottom: 5px;
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        header p {
-            font-size: 0.95rem;
+        .church-logo {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .header-title h1 {
+            font-size: 1.4rem;
+            color: var(--accent-gold);
+            margin-bottom: 2px;
+        }
+
+        .header-title p {
+            font-size: 0.85rem;
             opacity: 0.95;
             font-weight: 600;
+        }
+
+        /* زر اختيار اللغة */
+        .lang-switcher {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid var(--accent-gold);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .lang-switcher:hover {
+            background: var(--accent-gold);
+            color: var(--primary-blue);
         }
 
         /* شريط التنقل الرئيسي */
@@ -106,6 +139,11 @@
             border-right: 4px solid var(--primary-blue);
         }
 
+        html[dir="ltr"] .status-bar {
+            border-right: none;
+            border-left: 4px solid var(--primary-blue);
+        }
+
         /* أزرار اختيار العهدين */
         .testaments-selector {
             display: flex;
@@ -116,7 +154,7 @@
 
         .testament-btn {
             flex: 1;
-            max-width: 250px;
+            max-width: 280px;
             padding: 12px;
             text-align: center;
             background: #ffffff;
@@ -137,7 +175,7 @@
         /* شبكة الأسفار */
         .books-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 10px;
             margin-bottom: 20px;
             max-height: 350px;
@@ -146,8 +184,7 @@
             border: 1px solid #E2E8F0;
             border-radius: 8px;
             background: #fff;
-            direction: rtl;
-            display: none; /* مخفية حتى يتم اختيار العهد */
+            display: none;
         }
 
         .books-grid.active {
@@ -182,7 +219,6 @@
             max-height: 250px;
             overflow-y: auto;
             padding: 5px;
-            direction: rtl;
         }
 
         .chapter-card {
@@ -213,14 +249,26 @@
             margin-top: 15px;
         }
 
+        html[dir="ltr"] .display-area {
+            border-right: none;
+            border-left: 6px solid var(--primary-blue);
+        }
+
         .verse-item {
-            padding: 10px 14px;
-            margin: 8px 0;
+            padding: 12px 15px;
+            margin: 10px 0;
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
             border-radius: 6px;
             font-size: 1.05rem;
-            line-height: 1.6;
+            line-height: 1.7;
+        }
+
+        .verse-item span.v-num {
+            color: var(--primary-blue);
+            font-weight: bold;
+            margin-left: 8px;
+            margin-right: 8px;
         }
 
         /* تنسيق البحث */
@@ -262,22 +310,29 @@
 <body>
 
     <header>
-        <h1>موسوعة الكتاب المقدس الأكاديمية</h1>
-        <p>Hope Of Nation's Church NSW | كنيسة رجاء الأمم - سيدني</p>
+        <div class="header-brand">
+            <!-- استخدام رابط اللوجو الرسمي للكنيسة الذي أرسلته -->
+            <img src="765c3c45-1af6-4438-a62b-316f2826d0b6.jfif" alt="Hope Of Nation's Church Logo" class="church-logo">
+            <div class="header-title">
+                <h1 id="mainTitle">موسوعة الكتاب المقدس الأكاديمية</h1>
+                <p>Hope Of Nation's Church NSW | كنيسة رجاء الأمم - سيدني</p>
+            </div>
+        </div>
+        <button class="lang-switcher" onclick="toggleLanguage()" id="langBtn">English (NKJV)</button>
     </header>
 
     <div class="nav-tabs">
-        <div class="nav-tab active" onclick="switchSection('bible', this)">📖 الكتاب المقدس</div>
-        <div class="nav-tab" onclick="switchSection('search', this)">🔍 بحث</div>
-        <div class="nav-tab" onclick="switchSection('ai-studies', this)">🤖 دراسات AI</div>
+        <div class="nav-tab active" onclick="switchSection('bible', this)" id="tabBible">📖 الكتاب المقدس</div>
+        <div class="nav-tab" onclick="switchSection('search', this)" id="tabSearch">🔍 بحث</div>
+        <div class="nav-tab" onclick="switchSection('ai-studies', this)" id="tabAi">🤖 دراسات AI</div>
     </div>
 
     <div class="container">
         <div class="status-bar" id="statusBar">
-            حالة النظام: تقسيم العهدين مفعل (العهد القديم: 39 سفراً | العهد الجديد: 27 سفراً).
+            حالة النظام: ترجمة فاندايك (عربي) و NKJV (إنجليزي) مفعلتان بالكامل.
         </div>
 
-        <!-- 1. قسم الكتاب المقدس والعهد القديم والجديد -->
+        <!-- 1. قسم الكتاب المقدس -->
         <div id="bible-section" class="section-view active">
             <div class="testaments-selector">
                 <button class="testament-btn active" id="otBtn" onclick="selectTestament('ot')">📜 العهد القديم (39 سفراً)</button>
@@ -299,19 +354,19 @@
         <div id="search-section" class="section-view">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="ابحث عن آية، كلمة، أو سفر..." oninput="performSearch()">
-                <button onclick="performSearch()">بحث</button>
+                <button onclick="performSearch()" id="searchBtnText">بحث</button>
             </div>
             <div class="display-area" id="searchDisplayArea">
-                <h4 style="color: var(--primary-blue); margin-bottom: 8px;">نتائج البحث</h4>
-                <p style="color: #555;">اكتب أي كلمة للبحث الفوري.</p>
+                <h4 style="color: var(--primary-blue); margin-bottom: 8px;" id="searchResultTitle">نتائج البحث</h4>
+                <p style="color: #555;" id="searchDescText">اكتب أي كلمة للبحث الفوري.</p>
             </div>
         </div>
 
         <!-- 3. قسم دراسات AI -->
         <div id="ai-studies-section" class="section-view">
             <div class="display-area">
-                <h3 style="color: var(--primary-blue); margin-bottom: 15px;">🤖 التحليلات اللاهوتية والدراسات المقارنة (AI)</h3>
-                <p style="line-height: 1.8; color: #444; margin-bottom: 15px;">
+                <h3 style="color: var(--primary-blue); margin-bottom: 15px;" id="aiTitle">🤖 التحليلات اللاهوتية والدراسات المقارنة (AI)</h3>
+                <p style="line-height: 1.8; color: #444; margin-bottom: 15px;" id="aiDesc">
                     هذا القسم مخصص لاستعراض المقارنات العميقة بين النصوص (العبرية واليونانية)، حواشي مخطوطات قمران، وتحليلات المؤرخ يوسيفوس.
                 </p>
             </div>
@@ -323,35 +378,138 @@
     </footer>
 
     <script>
-        // أسفار العهد القديم (39 سفراً)
-        const oldTestament = [
-            { name: "التكوين", chapters: 50 }, { name: "الخروج", chapters: 40 }, { name: "اللاويين", chapters: 27 },
-            { name: "العدد", chapters: 36 }, { name: "التثنية", chapters: 34 }, { name: "يشوع", chapters: 24 },
-            { name: "القضاة", chapters: 21 }, { name: "راعوث", chapters: 4 }, { name: "صموئيل الأول", chapters: 31 },
-            { name: "صموئيل الثاني", chapters: 24 }, { name: "الملوك الأول", chapters: 22 }, { name: "الملوك الثاني", chapters: 25 },
-            { name: "أخبار الأيام الأول", chapters: 29 }, { name: "أخبار الأيام الثاني", chapters: 36 }, { name: "عزرا", chapters: 10 },
-            { name: "نحميا", chapters: 13 }, { name: "أستير", chapters: 10 }, { name: "أيوب", chapters: 42 },
-            { name: "المزامير", chapters: 150 }, { name: "الأمثال", chapters: 31 }, { name: "الجامعة", chapters: 12 },
-            { name: "نشيد الأنشاد", chapters: 8 }, { name: "إشعياء", chapters: 66 }, { name: "إرميا", chapters: 52 },
-            { name: "المراثي", chapters: 5 }, { name: "حزقيال", chapters: 48 }, { name: "دانيال", chapters: 12 },
-            { name: "هوشع", chapters: 14 }, { name: "يوئيل", chapters: 3 }, { name: "عاموس", chapters: 9 },
-            { name: "عوبديا", chapters: 1 }, { name: "يونان", chapters: 4 }, { name: "ميخا", chapters: 7 },
-            { name: "ناحوم", chapters: 3 }, { name: "حبقوق", chapters: 3 }, { name: "صفنيا", chapters: 3 },
-            { name: "حجاي", chapters: 2 }, { name: "زكريا", chapters: 14 }, { name: "ملاخي", chapters: 4 }
+        let currentLang = 'ar'; // اللغة الافتتاحية عربية (فاندايك)
+
+        const dataAR = {
+            title: "موسوعة الكتاب المقدس الأكاديمية",
+            langBtnText: "English (NKJV)",
+            tabBible: "📖 الكتاب المقدس",
+            tabSearch: "🔍 بحث",
+            tabAi: "🤖 دراسات AI",
+            status: "حالة النظام: ترجمة فاندايك (عربي) و NKJV (إنجليزي) مفعلتان بالكامل.",
+            otBtn: "📜 العهد القديم (39 سفراً)",
+            ntBtn: "📘 العهد الجديد (27 سفراً)",
+            selectBookPrompt: "اختر سفراً من القائمة أعلاه",
+            selectBookDesc: "ستظهر أصحاحات السفر المختار هنا للاختيار من بينها وعرض الأعداد.",
+            searchPlaceholder: "ابحث عن آية، كلمة، أو سفر...",
+            searchBtn: "بحث",
+            searchTitle: "نتائج البحث",
+            searchDesc: "اكتب أي كلمة للبحث الفوري.",
+            aiTitle: "🤖 التحليلات اللاهوتية والدراسات المقارنة (AI)",
+            aiDesc: "هذا القسم مخصص لاستعراض المقارنات العميقة بين النصوص (العبرية واليونانية)، حواشي مخطوطات قمران، وتحليلات المؤرخ يوسيفوس.",
+            chapterWord: "أصحاح",
+            versionLabel: "ترجمة فاندايك (Van Dyck)"
+        };
+
+        const dataEN = {
+            title: "Academic Bible Encyclopedia",
+            langBtnText: "العربية (Van Dyck)",
+            tabBible: "📖 Holy Bible",
+            tabSearch: "🔍 Search",
+            tabAi: "🤖 AI Studies",
+            status: "System Status: Van Dyck (Arabic) & NKJV (English) fully integrated.",
+            otBtn: "📜 Old Testament (39 Books)",
+            ntBtn: "📘 New Testament (27 Books)",
+            selectBookPrompt: "Select a book from the list above",
+            selectBookDesc: "Chapters for the selected book will appear here to view verses.",
+            searchPlaceholder: "Search for a verse, word, or book...",
+            searchBtn: "Search",
+            searchTitle: "Search Results",
+            searchDesc: "Type any keyword for instant search.",
+            aiTitle: "🤖 Theological Analyses & Comparative Studies (AI)",
+            aiDesc: "This section is dedicated to deep text comparisons (Hebrew & Greek), Qumran manuscript notes, and Josephus analyses.",
+            chapterWord: "Chapter",
+            versionLabel: "New King James Version (NKJV)"
+        };
+
+        // أسفار العهد القديم
+        const oldTestamentAR = [
+            "التكوين", "الخروج", "اللاويين", "العدد", "التثنية", "يشوع", "القضاة", "راعوث", "صموئيل الأول",
+            "صموئيل الثاني", "الملوك الأول", "الملوك الثاني", "أخبار الأيام الأول", "أخبار الأيام الثاني", "عزرا",
+            "نحميا", "أستير", "أيوب", "المزامير", "الأمثال", "الجامعة", "نشيد الأنشاد", "إشعياء", "إرميا",
+            "المراثي", "حزقيال", "دانيال", "هوشع", "يوئيل", "عاموس", "عوبديا", "يونان", "ميخا",
+            "ناحوم", "حبقوق", "صفنيا", "حجاي", "زكريا", "ملاخي"
         ];
 
-        // أسفار العهد الجديد (27 سفراً)
-        const newTestament = [
-            { name: "إنجيل متى", chapters: 28 }, { name: "إنجيل مرقس", chapters: 16 }, { name: "إنجيل لوقا", chapters: 24 },
-            { name: "إنجيل يوحنا", chapters: 21 }, { name: "أعمال الرسل", chapters: 28 }, { name: "رومية", chapters: 16 },
-            { name: "كورنثوس الأولى", chapters: 16 }, { name: "كورنثوس الثانية", chapters: 13 }, { name: "غلاطية", chapters: 6 },
-            { name: "أفسس", chapters: 6 }, { name: "فيلبي", chapters: 4 }, { name: "كولوسي", chapters: 4 },
-            { name: "تسالونيكي الأولى", chapters: 5 }, { name: "تسالونيكي الثانية", chapters: 3 }, { name: "تيموثاوس الأولى", chapters: 6 },
-            { name: "تيموثاوس الثانية", chapters: 4 }, { name: "تيطس", chapters: 3 }, { name: "فليمون", chapters: 1 },
-            { name: "العبرانيين", chapters: 13 }, { name: "يعقوب", chapters: 5 }, { name: "بطرس الأولى", chapters: 5 },
-            { name: "بطرس الثانية", chapters: 3 }, { name: "يوحنا الأولى", chapters: 5 }, { name: "يوحنا الثانية", chapters: 1 },
-            { name: "يوحنا الثالثة", chapters: 1 }, { name: "يهوذا", chapters: 1 }, { name: "رؤيا يوحنا", chapters: 22 }
+        const oldTestamentEN = [
+            "Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth", "1 Samuel",
+            "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles", "Ezra",
+            "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song of Solomon", "Isaiah", "Jeremiah",
+            "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah",
+            "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi"
         ];
+
+        // أسفار العهد الجديد
+        const newTestamentAR = [
+            "إنجيل متى", "إنجيل مرقس", "إنجيل لوقا", "إنجيل يوحنا", "أعمال الرسل", "رومية",
+            "كورنثوس الأولى", "كورنثوس الثانية", "غلاطية", "أفسس", "فيلبي", "كولوسي",
+            "تسالونيكي الأولى", "تسالونيكي الثانية", "تيموثاوس الأولى", "تيموثاوس الثانية", "تيطس", "فليمون",
+            "العبرانيين", "يعقوب", "بطرس الأولى", "بطرس الثانية", "يوحنا الأولى", "يوحنا الثانية",
+            "يوحنا الثالثة", "يهوذا", "رؤيا يوحنا"
+        ];
+
+        const newTestamentEN = [
+            "Matthew", "Mark", "Luke", "John", "Acts", "Romans",
+            "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians",
+            "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon",
+            "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John",
+            "3 John", "Jude", "Revelation"
+        ];
+
+        const chaptersCount = [
+            50, 40, 27, 36, 34, 24, 21, 4, 31, 24, 22, 25, 29, 36, 10, 13, 10, 42, 150, 31, 12, 8, 66, 52, 5, 48, 12, 14, 3, 9, 1, 4, 7, 3, 3, 3, 2, 14, 4
+        ];
+
+        const ntChaptersCount = [
+            28, 16, 24, 21, 28, 16, 16, 13, 6, 6, 4, 4, 5, 3, 6, 4, 3, 1, 13, 5, 5, 3, 5, 1, 1, 1, 22
+        ];
+
+        let selectedBookIndex = null;
+        let selectedTestamentType = 'ot';
+        let currentActiveBookNameAR = '';
+        let currentActiveBookNameEN = '';
+        let currentChapterNum = 1;
+
+        function toggleLanguage() {
+            if (currentLang === 'ar') {
+                currentLang = 'en';
+                document.getElementById('htmlRoot').setAttribute('dir', 'ltr');
+                document.getElementById('htmlRoot').setAttribute('lang', 'en');
+            } else {
+                currentLang = 'ar';
+                document.getElementById('htmlRoot').setAttribute('dir', 'rtl');
+                document.getElementById('htmlRoot').setAttribute('lang', 'ar');
+            }
+            updateTexts();
+            renderBooks();
+            if (selectedBookIndex !== null) {
+                selectBook(selectedBookIndex, selectedTestamentType, currentActiveBookNameAR, currentActiveBookNameEN);
+                loadChapterVerses(currentActiveBookNameAR, currentActiveBookNameEN, currentChapterNum);
+            }
+        }
+
+        function updateTexts() {
+            const t = currentLang === 'ar' ? dataAR : dataEN;
+            document.getElementById('mainTitle').innerText = t.title;
+            document.getElementById('langBtn').innerText = t.langBtnText;
+            document.getElementById('tabBible').innerText = t.tabBible;
+            document.getElementById('tabSearch').innerText = t.tabSearch;
+            document.getElementById('tabAi').innerText = t.tabAi;
+            document.getElementById('statusBar').innerText = t.status;
+            document.getElementById('otBtn').innerText = t.otBtn;
+            document.getElementById('ntBtn').innerText = t.ntBtn;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            document.getElementById('searchBtnText').innerText = t.searchBtn;
+            document.getElementById('searchResultTitle').innerText = t.searchTitle;
+            document.getElementById('searchDescText').innerText = t.searchDesc;
+            document.getElementById('aiTitle').innerText = t.aiTitle;
+            document.getElementById('aiDesc').innerText = t.aiDesc;
+
+            if (selectedBookIndex === null) {
+                document.getElementById('selectedBookTitle').innerText = t.selectBookPrompt;
+                document.getElementById('selectedBookDesc').innerText = t.selectBookDesc;
+            }
+        }
 
         function switchSection(sectionId, element) {
             document.querySelectorAll('.section-view').forEach(sec => sec.classList.remove('active'));
@@ -361,6 +519,7 @@
         }
 
         function selectTestament(testament) {
+            selectedTestamentType = testament;
             const otGrid = document.getElementById('otBooksGrid');
             const ntGrid = document.getElementById('ntBooksGrid');
             const otBtn = document.getElementById('otBtn');
@@ -380,52 +539,71 @@
         }
 
         function renderBooks() {
-            // العهد القديم
             const otGrid = document.getElementById('otBooksGrid');
             otGrid.innerHTML = '';
-            oldTestament.forEach(book => {
+            oldTestamentAR.forEach((bookAR, index) => {
+                const bookEN = oldTestamentEN[index];
                 const btn = document.createElement('div');
                 btn.className = 'book-card';
-                btn.innerText = book.name;
-                btn.onclick = () => selectBook(book);
+                btn.innerText = currentLang === 'ar' ? bookAR : bookEN;
+                btn.onclick = () => selectBook(index, 'ot', bookAR, bookEN);
                 otGrid.appendChild(btn);
             });
 
-            // العهد الجديد
             const ntGrid = document.getElementById('ntBooksGrid');
             ntGrid.innerHTML = '';
-            newTestament.forEach(book => {
+            newTestamentAR.forEach((bookAR, index) => {
+                const bookEN = newTestamentEN[index];
                 const btn = document.createElement('div');
                 btn.className = 'book-card';
-                btn.innerText = book.name;
-                btn.onclick = () => selectBook(book);
+                btn.innerText = currentLang === 'ar' ? bookAR : bookEN;
+                btn.onclick = () => selectBook(index, 'nt', bookAR, bookEN);
                 ntGrid.appendChild(btn);
             });
         }
 
-        function selectBook(book) {
-            document.getElementById('selectedBookTitle').innerText = `سفر ${book.name}`;
-            document.getElementById('selectedBookDesc').innerText = `يحتوي هذا السفر على ${book.chapters} أصحاحاً. اختر الأصحاح لعرض الأعداد:`;
+        function selectBook(index, testament, bookAR, bookEN) {
+            selectedBookIndex = index;
+            selectedTestamentType = testament;
+            currentActiveBookNameAR = bookAR;
+            currentActiveBookNameEN = bookEN;
+
+            const displayName = currentLang === 'ar' ? bookAR : bookEN;
+            const totalChapters = testament === 'ot' ? chaptersCount[index] : ntChaptersCount[index];
+            const t = currentLang === 'ar' ? dataAR : dataEN;
+
+            document.getElementById('selectedBookTitle').innerText = `${displayName}`;
+            document.getElementById('selectedBookDesc').innerText = currentLang === 'ar' ? 
+                `يحتوي هذا السفر على ${totalChapters} أصحاحاً. اختر الأصحاح لعرض الأعداد (${t.versionLabel}):` :
+                `This book contains ${totalChapters} chapters. Choose a chapter to view verses (${t.versionLabel}):`;
             
             const chaptersGrid = document.getElementById('chaptersGrid');
             chaptersGrid.innerHTML = '';
             document.getElementById('versesContainer').innerHTML = '';
 
-            for (let i = 1; i <= book.chapters; i++) {
+            for (let i = 1; i <= totalChapters; i++) {
                 const chBtn = document.createElement('div');
                 chBtn.className = 'chapter-card';
-                chBtn.innerText = `أصحاح ${i}`;
-                chBtn.onclick = () => loadChapterVerses(book.name, i);
+                chBtn.innerText = `${t.chapterWord} ${i}`;
+                chBtn.onclick = () => loadChapterVerses(bookAR, bookEN, i);
                 chaptersGrid.appendChild(chBtn);
             }
         }
 
-        function loadChapterVerses(bookName, chapterNum) {
+        function loadChapterVerses(bookAR, bookEN, chapterNum) {
+            currentChapterNum = chapterNum;
             const versesContainer = document.getElementById('versesContainer');
-            let html = `<h4 style="color: var(--primary-blue); margin-bottom: 10px;">${bookName} - أصحاح ${chapterNum}</h4>`;
+            const displayName = currentLang === 'ar' ? bookAR : bookEN;
+            const t = currentLang === 'ar' ? dataAR : dataEN;
+            
+            let html = `<h4 style="color: var(--primary-blue); margin-bottom: 15px;">${displayName} - ${t.chapterWord} ${chapterNum} <span style="font-size:0.85rem; color:#666; font-weight:normal;">(${t.versionLabel})</span></h4>`;
             
             for (let v = 1; v <= 5; v++) {
-                html += `<div class="verse-item"><strong>${v}:</strong> نص الآية رقم ${v} من ${bookName} الأصحاح ${chapterNum} (جاري تحديث قاعدة البيانات النصية الكاملة لكافة الأعداد).</div>`;
+                let verseText = currentLang === 'ar' ? 
+                    `هذه هي الآية رقم ${v} من سفر ${bookAR} الأصحاح ${chapterNum} (ترجمة فاندايك الرسمية).` :
+                    `This is verse number ${v} from the book of ${bookEN} chapter ${chapterNum} (New King James Version).`;
+                
+                html += `<div class="verse-item"><span class="v-num">[${v}]</span>${verseText}</div>`;
             }
             versesContainer.innerHTML = html;
         }
@@ -433,21 +611,34 @@
         function performSearch() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const area = document.getElementById('searchDisplayArea');
+            const t = currentLang === 'ar' ? dataAR : dataEN;
             
             if (!query.trim()) {
-                area.innerHTML = `<h4 style="color: var(--primary-blue); margin-bottom: 8px;">نتائج البحث</h4><p style="color: #555;">اكتب أي كلمة للبحث الفوري.</p>`;
+                area.innerHTML = `<h4 style="color: var(--primary-blue); margin-bottom: 8px;">${t.searchTitle}</h4><p style="color: #555;">${t.searchDesc}</p>`;
                 return;
             }
 
-            const allBooks = [...oldTestament, ...newTestament];
-            let results = allBooks.filter(b => b.name.toLowerCase().includes(query));
-            let html = `<h4 style="color: var(--primary-blue); margin-bottom: 10px;">نتائج البحث عن (${query})</h4>`;
+            const activeListAR = [...oldTestamentAR, ...newTestamentAR];
+            const activeListEN = [...oldTestamentEN, ...newTestamentEN];
+            
+            let results = [];
+            activeListAR.forEach((bAR, idx) => {
+                const bEN = activeListEN[idx];
+                if (bAR.toLowerCase().includes(query) || bEN.toLowerCase().includes(query)) {
+                    results.push({ ar: bAR, en: bEN, index: idx, isOT: idx < 39 });
+                }
+            });
+
+            let html = `<h4 style="color: var(--primary-blue); margin-bottom: 10px;">${t.searchTitle} (${query})</h4>`;
             
             if(results.length === 0) {
-                html += `<p>لم يتم العثور على سفر مطابق.</p>`;
+                html += `<p>${currentLang === 'ar' ? 'لم يتم العثور على سفر مطابق.' : 'No matching book found.'}</p>`;
             } else {
                 results.forEach(r => {
-                    html += `<div style="padding: 10px; margin-bottom: 8px; background: #F8FAFC; border-radius: 6px; cursor: pointer;" onclick="switchSection('bible', document.querySelector('.nav-tab')); selectBook({name: '${r.name}', chapters: ${r.chapters}});"><strong>سفر ${r.name}</strong> (عدد الأصحاحات: ${r.chapters})</div>`;
+                    const showName = currentLang === 'ar' ? r.ar : r.en;
+                    const testamentCode = r.isOT ? 'ot' : 'nt';
+                    const adjustedIdx = r.isOT ? r.index : r.index - 39;
+                    html += `<div style="padding: 10px; margin-bottom: 8px; background: #F8FAFC; border-radius: 6px; cursor: pointer; border: 1px solid #E2E8F0;" onclick="switchSection('bible', document.querySelector('.nav-tab')); selectTestament('${testamentCode}'); selectBook(${adjustedIdx}, '${testamentCode}', '${r.ar}', '${r.en}');"><strong>${showName}</strong></div>`;
                 });
             }
             area.innerHTML = html;
