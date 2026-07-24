@@ -106,19 +106,52 @@
             border-right: 4px solid var(--primary-blue);
         }
 
-        /* شبكة الأسفار الـ 66 */
+        /* أزرار اختيار العهدين */
+        .testaments-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .testament-btn {
+            flex: 1;
+            max-width: 250px;
+            padding: 12px;
+            text-align: center;
+            background: #ffffff;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            font-weight: bold;
+            font-size: 1.05rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .testament-btn:hover, .testament-btn.active {
+            background: var(--primary-blue);
+            color: var(--accent-gold);
+        }
+
+        /* شبكة الأسفار */
         .books-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
             gap: 10px;
             margin-bottom: 20px;
-            max-height: 400px;
+            max-height: 350px;
             overflow-y: auto;
-            padding: 5px;
+            padding: 8px;
             border: 1px solid #E2E8F0;
             border-radius: 8px;
             background: #fff;
             direction: rtl;
+            display: none; /* مخفية حتى يتم اختيار العهد */
+        }
+
+        .books-grid.active {
+            display: grid;
         }
 
         .book-card {
@@ -140,7 +173,7 @@
             border-color: var(--primary-blue);
         }
 
-        /* شبكة الأصحاحات مرتبة من اليمين لليسار */
+        /* شبكة الأصحاحات */
         .chapters-grid {
             display: flex;
             flex-wrap: wrap;
@@ -241,16 +274,21 @@
 
     <div class="container">
         <div class="status-bar" id="statusBar">
-            حالة النظام: الـ 66 سفراً متاحة في الذاكرة المحلية (Offline Ready).
+            حالة النظام: تقسيم العهدين مفعل (العهد القديم: 39 سفراً | العهد الجديد: 27 سفراً).
         </div>
 
-        <!-- 1. قسم الكتاب المقدس والـ 66 سفراً -->
+        <!-- 1. قسم الكتاب المقدس والعهد القديم والجديد -->
         <div id="bible-section" class="section-view active">
-            <h3 style="color: var(--primary-blue); margin-bottom: 10px;">أسفار الكتاب المقدس (66 سفراً):</h3>
-            <div class="books-grid" id="booksGrid"></div>
+            <div class="testaments-selector">
+                <button class="testament-btn active" id="otBtn" onclick="selectTestament('ot')">📜 العهد القديم (39 سفراً)</button>
+                <button class="testament-btn" id="ntBtn" onclick="selectTestament('nt')">📘 العهد الجديد (27 سفراً)</button>
+            </div>
+
+            <div class="books-grid active" id="otBooksGrid"></div>
+            <div class="books-grid" id="ntBooksGrid"></div>
 
             <div class="display-area" id="bibleDisplayArea">
-                <h3 style="color: var(--primary-blue); margin-bottom: 10px;" id="selectedBookTitle">اختر سفراً من الأعلى</h3>
+                <h3 style="color: var(--primary-blue); margin-bottom: 10px;" id="selectedBookTitle">اختر سفراً من القائمة أعلاه</h3>
                 <p style="color: #555; line-height: 1.8;" id="selectedBookDesc">ستظهر أصحاحات السفر المختار هنا للاختيار من بينها وعرض الأعداد.</p>
                 <div id="chaptersGrid" class="chapters-grid"></div>
                 <div id="versesContainer" style="margin-top: 15px;"></div>
@@ -285,7 +323,8 @@
     </footer>
 
     <script>
-        const bibleBooks = [
+        // أسفار العهد القديم (39 سفراً)
+        const oldTestament = [
             { name: "التكوين", chapters: 50 }, { name: "الخروج", chapters: 40 }, { name: "اللاويين", chapters: 27 },
             { name: "العدد", chapters: 36 }, { name: "التثنية", chapters: 34 }, { name: "يشوع", chapters: 24 },
             { name: "القضاة", chapters: 21 }, { name: "راعوث", chapters: 4 }, { name: "صموئيل الأول", chapters: 31 },
@@ -298,8 +337,11 @@
             { name: "هوشع", chapters: 14 }, { name: "يوئيل", chapters: 3 }, { name: "عاموس", chapters: 9 },
             { name: "عوبديا", chapters: 1 }, { name: "يونان", chapters: 4 }, { name: "ميخا", chapters: 7 },
             { name: "ناحوم", chapters: 3 }, { name: "حبقوق", chapters: 3 }, { name: "صفنيا", chapters: 3 },
-            { name: "حجاي", chapters: 2 }, { name: "زكريا", chapters: 14 }, { name: "ملاخي", chapters: 4 },
-            // العهد الجديد
+            { name: "حجاي", chapters: 2 }, { name: "زكريا", chapters: 14 }, { name: "ملاخي", chapters: 4 }
+        ];
+
+        // أسفار العهد الجديد (27 سفراً)
+        const newTestament = [
             { name: "إنجيل متى", chapters: 28 }, { name: "إنجيل مرقس", chapters: 16 }, { name: "إنجيل لوقا", chapters: 24 },
             { name: "إنجيل يوحنا", chapters: 21 }, { name: "أعمال الرسل", chapters: 28 }, { name: "رومية", chapters: 16 },
             { name: "كورنثوس الأولى", chapters: 16 }, { name: "كورنثوس الثانية", chapters: 13 }, { name: "غلاطية", chapters: 6 },
@@ -318,15 +360,46 @@
             element.classList.add('active');
         }
 
+        function selectTestament(testament) {
+            const otGrid = document.getElementById('otBooksGrid');
+            const ntGrid = document.getElementById('ntBooksGrid');
+            const otBtn = document.getElementById('otBtn');
+            const ntBtn = document.getElementById('ntBtn');
+
+            if (testament === 'ot') {
+                otGrid.classList.add('active');
+                ntGrid.classList.remove('active');
+                otBtn.classList.add('active');
+                ntBtn.classList.remove('active');
+            } else {
+                ntGrid.classList.add('active');
+                otGrid.classList.remove('active');
+                ntBtn.classList.add('active');
+                otBtn.classList.remove('active');
+            }
+        }
+
         function renderBooks() {
-            const grid = document.getElementById('booksGrid');
-            grid.innerHTML = '';
-            bibleBooks.forEach(book => {
+            // العهد القديم
+            const otGrid = document.getElementById('otBooksGrid');
+            otGrid.innerHTML = '';
+            oldTestament.forEach(book => {
                 const btn = document.createElement('div');
                 btn.className = 'book-card';
                 btn.innerText = book.name;
                 btn.onclick = () => selectBook(book);
-                grid.appendChild(btn);
+                otGrid.appendChild(btn);
+            });
+
+            // العهد الجديد
+            const ntGrid = document.getElementById('ntBooksGrid');
+            ntGrid.innerHTML = '';
+            newTestament.forEach(book => {
+                const btn = document.createElement('div');
+                btn.className = 'book-card';
+                btn.innerText = book.name;
+                btn.onclick = () => selectBook(book);
+                ntGrid.appendChild(btn);
             });
         }
 
@@ -349,7 +422,6 @@
 
         function loadChapterVerses(bookName, chapterNum) {
             const versesContainer = document.getElementById('versesContainer');
-            
             let html = `<h4 style="color: var(--primary-blue); margin-bottom: 10px;">${bookName} - أصحاح ${chapterNum}</h4>`;
             
             for (let v = 1; v <= 5; v++) {
@@ -367,7 +439,8 @@
                 return;
             }
 
-            let results = bibleBooks.filter(b => b.name.toLowerCase().includes(query));
+            const allBooks = [...oldTestament, ...newTestament];
+            let results = allBooks.filter(b => b.name.toLowerCase().includes(query));
             let html = `<h4 style="color: var(--primary-blue); margin-bottom: 10px;">نتائج البحث عن (${query})</h4>`;
             
             if(results.length === 0) {
