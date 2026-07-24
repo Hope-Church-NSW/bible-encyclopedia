@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="htmlRoot">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">موسوعة الكتاب المقدس الأكاديمية | كنيسة رجاء الأمم - سيدني</title>
+    <title>موسوعة الكتاب المقدس الأكاديمية | كنيسة رجاء الأمم - سيدني</title>
+    <!-- ربط خط كايرو الأكاديمي -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -32,225 +33,84 @@
         header {
             background-color: var(--primary-blue);
             color: #ffffff;
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 20px;
+            text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        .header-content {
-            text-align: center;
-            flex: 1;
-        }
-
         header h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--accent-gold);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
         header p {
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        .lang-btn {
-            background: var(--accent-gold);
-            color: var(--primary-blue);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: 0.2s;
-        }
-
-        .lang-btn:hover {
+            font-size: 0.9rem;
             opacity: 0.9;
         }
 
         .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
             width: 100%;
             flex: 1;
         }
 
-        /* شريط أسفار الكتاب المقدس */
-        .bible-books-bar {
-            background: var(--primary-blue);
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            white-space: nowrap;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-
-        .book-chip {
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .book-chip:hover {
-            background: var(--accent-gold);
-            color: var(--primary-blue);
-            font-weight: bold;
-        }
-
-        /* صندوق البحث المتقدم */
-        .search-box {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-
-        .search-box input {
-            flex: 1;
-            padding: 14px 20px;
-            font-size: 1.05rem;
-            border: 2px solid var(--primary-blue);
-            border-radius: 10px;
-            outline: none;
-            background: #fff;
-        }
-
-        .search-box button {
-            background-color: var(--primary-blue);
-            color: var(--accent-gold);
-            border: none;
-            padding: 14px 30px;
-            font-size: 1.05rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .search-box button:hover {
-            opacity: 0.95;
-        }
-
-        /* الأقسام الأكاديمية */
-        .sections-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .section-btn {
-            background: var(--card-bg);
-            border: 2px solid #E0E0E0;
-            padding: 14px;
-            border-radius: 10px;
+        /* شريط حالة النظام المحلي */
+        .status-bar {
+            background: #E2E8F0;
+            color: #2D3748;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
             text-align: center;
+            border-right: 4px solid var(--primary-blue);
+        }
+
+        /* شريط الأسفار */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .book-card {
+            background: var(--card-bg);
+            border: 2px solid #E2E8F0;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1.05rem;
             font-weight: 600;
             color: var(--primary-blue);
             transition: 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
-        .section-btn:hover, .section-btn.active {
-            background-color: var(--primary-blue);
+        .book-card:hover {
+            background: var(--primary-blue);
             color: var(--accent-gold);
             border-color: var(--primary-blue);
         }
 
-        /* كروت النتائج والآيات */
-        .content-card {
+        /* منطقة العرض الرئيسية */
+        .display-area {
             background: var(--card-bg);
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             border-right: 6px solid var(--primary-blue);
-            margin-bottom: 20px;
-        }
-
-        .verse-item {
-            padding: 14px 18px;
-            margin: 10px 0;
-            background: #FAFAFA;
-            border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .verse-item:hover {
-            background-color: #EDF2F7;
-            border-color: var(--primary-blue);
-            transform: translateX(-4px);
-        }
-
-        /* النافذة المنبثقة الأكاديمية (Popup Modal) */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 35px;
-            border-radius: 14px;
-            width: 90%;
-            max-width: 650px;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            border-top: 6px solid var(--primary-blue);
-            position: relative;
-        }
-
-        .close-btn {
-            position: absolute;
-            left: 20px;
-            top: 15px;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: #666;
-        }
-
-        .close-btn:hover {
-            color: #000;
-        }
-
-        .footnote-box {
-            background: #FFFDF0;
-            border-right: 4px solid var(--accent-gold);
-            padding: 12px;
-            margin-top: 15px;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            color: #444;
+            min-height: 250px;
         }
 
         footer {
             background-color: var(--primary-blue);
             color: #ffffff;
             text-align: center;
-            padding: 18px;
-            font-size: 0.9rem;
+            padding: 15px;
+            font-size: 0.85rem;
             margin-top: auto;
         }
     </style>
@@ -258,248 +118,86 @@
 <body>
 
     <header>
-        <div style="width: 100px;"></div>
-        <div class="header-content">
-            <h1 id="mainTitle">موسوعة الكتاب المقدس الأكاديمية</h1>
-            <p id="subTitle">كنيسة رجاء الأمم - سيدني | Hope Church Nations - Sydney</p>
-        </div>
-        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">English</button>
+        <h1>موسوعة الكتاب المقدس الأكاديمية</h1>
+        <p>كنيسة رجاء الأمم - سيدني | Hope Church Nations - Sydney</p>
     </header>
 
     <div class="container">
-        <!-- شريط أسفار الكتاب المقدس الموسع -->
-        <div class="bible-books-bar">
-            <span style="color: var(--accent-gold); font-weight: bold; line-height: 32px;" id="booksLabel">أسفار الكتاب:</span>
-            <div class="book-chip" onclick="loadBook('تكوين')">التكوين (Genesis)</div>
-            <div class="book-chip" onclick="loadBook('خروج')">الخروج (Exodus)</div>
-            <div class="book-chip" onclick="loadBook('لاويين')">اللاويين (Leviticus)</div>
-            <div class="book-chip" onclick="loadBook('عدد')">العدد (Numbers)</div>
-            <div class="book-chip" onclick="loadBook('تثنية')">التثنية (Deuteronomy)</div>
-            <div class="book-chip" onclick="loadBook('مزامير')">المزامير (Psalms)</div>
-            <div class="book-chip" onclick="loadBook('إشعياء')">إشعياء (Isaiah)</div>
-            <div class="book-chip" onclick="loadBook('متى')">إنجيل متى (Matthew)</div>
-            <div class="book-chip" onclick="loadBook('يوحنا')">إنجيل يوحنا (John)</div>
-            <div class="book-chip" onclick="loadBook('رؤيا')">سفر الرؤيا (Revelation)</div>
+        <!-- مؤشر جاهزية النظام المحلي -->
+        <div class="status-bar" id="statusBar">
+            حالة النظام: جاهز للعمل المحلي (Offline Ready) - اختر سفراً لعرض بياناته.
         </div>
 
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="ابحث في الآيات، التفاسير، والمخطوطات والأقسام..." oninput="handleSearch()">
-            <button onclick="handleSearch()" id="searchBtn">بحث</button>
+        <!-- قائمة الأسفار -->
+        <div class="books-grid" id="booksGrid">
+            <!-- سيتم تحميل الأسفار برمجياً هنا -->
         </div>
 
-        <div class="sections-grid">
-            <div class="section-btn active" onclick="filterCategory('all')" id="catAll">الكل (All)</div>
-            <div class="section-btn" onclick="filterCategory('commentary')" id="catComm">التفاسير والحواشي</div>
-            <div class="section-btn" onclick="filterCategory('manuscripts')" id="catManu">المخطوطات وقمران</div>
-            <div class="section-btn" onclick="filterCategory('introductions')" id="catIntro">مقدمات الأسفار</div>
-            <div class="section-btn" onclick="filterCategory('maps')" id="catMaps">الخرائط والمخططات</div>
-        </div>
-
-        <div id="results-area">
-            <div class="content-card">
-                <h2 id="welcomeHeader" style="color: var(--primary-blue); margin-bottom: 10px;">أهلاً بك في الموسوعة الأكاديمية الشاملة</h2>
-                <p id="welcomeText" style="line-height: 1.8; color: #555;">تم تصميم هذه المنظومة خصيصاً لتجمع بين النصوص المقارنة، التفاسير اللاهوتية، والحواشي التاريخية لمخطوطات قمران ويوسيفوس. اختر سفراً من الأعلى أو ابحث في أي كلمة لتفتح لك الدراسات التفاعلية.</p>
-            </div>
+        <!-- منطقة المحتوى -->
+        <div class="display-area" id="displayArea">
+            <h2 style="color: var(--primary-blue); margin-bottom: 10px;">أهلاً بك في الموسوعة الهندسية المتكاملة</h2>
+            <p style="color: #666; line-height: 1.8;">هذا الهيكل مصمم ليعمل بكفاءة عالية على الهواتف والمتصفحات وبدون انترنت. يرجى اختيار أحد الأسفار بالأعلى لبدء استدعاء البيانات الأكاديمية.</p>
         </div>
     </div>
 
-    <!-- النافذة المنبثقة الأكاديمية (Modal) -->
-    <div id="verseModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle" style="color: var(--primary-blue); margin-bottom: 15px;"></h2>
-            <div id="modalBody" style="font-size: 1.05rem; line-height: 1.8; color: #333;"></div>
-            <div id="modalFootnote" class="footnote-box"></div>
-        </div>
-    </div>
-
-    <footer id="footerText">
+    <footer>
         جميع الحقوق محفوظة © كنيسة رجاء الأمم - سيدني 2026
     </footer>
 
     <script>
-        // قاعدة البيانات الأكاديمية الشاملة والموسعة للأسفار والتفاسير
-        const academicDatabase = {
-            'تكوين': [
-                { category: 'commentary', ref: 'تكوين 1:1', text: 'فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.', commentary: 'إعلان لاهوتي عن سيادة الله ووحدانيته كخالق لكل شيء من العدم. الكلمة العبرية "بارا" تعني الخلق من العدم حصرياً.', footnote: 'مخطوطات قمران (مخطوطة سفر التكوين القديمة) تؤكد دقة النص العبري العتيق.' },
-                { category: 'commentary', ref: 'تكوين 1:3', text: 'وَقَالَ اللهُ: «لِيَكُنْ نُورٌ»، فَكَانَ نُورٌ.', commentary: 'النور الإلهي يبدد الظلمة، وهو إشارة مسبقة للمسيح نور العالم بحسب إنجيل يوحنا.', footnote: 'يذكر المؤرخ يوسيفوس في كتاباته العصور الأولى وخلقة الكون.' },
-                { category: 'introductions', ref: 'مقدمة سفر التكوين', text: 'سفر البدايات: الخليقة، السقوط، الطوفان، وآباء البطاركة (إبراهيم، إسحاق، يعقوب).', commentary: 'يضع الأساس اللاهوتي والتاريخي لفهم خطة الفداء الإلهية عبر التاريخ البشري.', footnote: 'مقارنة مع شرائع بلاد ما بين النهرين تظهر سمو التشريع الإلهي.' }
-            ],
-            'خروج': [
-                { category: 'commentary', ref: 'خروج 3:14', text: 'فَقَالَ اللهُ لِمُوسَى: «أَهْيَهْ الَّذِي أَهْيَهْ»...', commentary: 'إعلان الاسم الإلهي الأزلي (يهوه)، الكينونة المطلقة غير المعتمدة على كائن آخر.', footnote: 'دراسة مقارنة للغة العبرية القديمة والنصوص الهيروغليفية في عصر الخروج.' },
-                { category: 'maps', ref: 'خريطة طريق الخروج وخيمة الاجتماع', text: 'مسار بني إسرائيل من رعميس عبر البحر الأحمر إلى سيناء.', commentary: 'تفاصيل معمارية وهندسية عن خيمة الاجتماع وأقسامها (قدس الأقداس، القدس، الدار الخارجية).', footnote: 'مخططات هيكلية مستوحاة من دراسات الآثار الشرقية.' }
-            ],
-            'لاويين': [
-                { category: 'introductions', ref: 'مقدمة سفر اللاويين', text: 'سفر القداسة والذبائح والطقوس الكهنوتية في خيمة الاجتماع.', commentary: 'يوضح كيف يقترب الإنسان الخاطئ من الله القدوس عبر طريق الكفارة والدم.', footnote: 'دراسة مقارنة لشرائع الطهارة والذبائح في الشرق الأدنى القديم.' }
-            ],
-            'عدد': [
-                { category: 'introductions', ref: 'مقدمة سفر العدد', text: 'إحصاء الشعب ورحلة البرية وسنوات التذمر والتأديب حتى دخول تخوم الأرض.', commentary: 'يعكس أمانة الله وسط تمرد الإنسان وعنايته المستمرة بشعبه في البرية.', footnote: 'نتائج التنقيبات الأثرية في مواقع تجوال بني إسرائيل في شبه جزيرة سيناء.' }
-            ],
-            'تثنية': [
-                { category: 'introductions', ref: 'مقدمة سفر التثنية', text: 'تكرار الناموس ووصايا العهد الأخيرة لموسى النبي قبل دخول أرض الموعد.', commentary: 'دستور الحياة الروحية والوطنية لشعب الله القائم على مخافة الرب ومححبته.', footnote: 'هيكل السفر يطابق معاهدات المعاهدات السياسية القديمة في القرن الثاني عشر ق.م.' }
-            ],
-            'مزامير': [
-                { category: 'commentary', ref: 'مزمور 23:1', text: 'الرَّبُّ رَاعِيَّ فَلاَ يُعْوِزُنِي شَيْءٌ.', commentary: 'تعبير عميق عن الثقة المطلقة في الرعاية الإلهية والسلام الداخلي وسط التجارب.', footnote: 'مقارنة مع ترانيم الملوك في الشرق الأدنى القديم.' }
-            ],
-            'إشعياء': [
-                { category: 'commentary', ref: 'إشعياء 7:14', text: 'وَلَكِنْ يُعْطِيكُمُ السَّيِّدُ نَفْسُهُ آيَةً: هَا الْعَذْرَاءُ تَحْبَلُ وَتَلِدُ ابْناً وَتَدْعُو اسْمَهُ «عَمَانُوئِيلَ».', commentary: 'النبوة الكبرى عن التجسد الإلهي وولادة المسيح العذراوية.', footnote: 'مخطوطة إشعياء الكاملة المكتشفة في قمران (1QIsa a) تؤكد مطابقة النص تماماً.' }
-            ],
-            'متى': [
-                { category: 'introductions', ref: 'مقدمة إنجيل متى', text: 'سفر يثبت أن يسوع هو الماشيا المنتظر وابن داود وابن إبراهيم.', commentary: 'موجه خصيصاً للقارئ اليهودي بالاعتماد على نبوات العهد القديم (تتميم النبوات).', footnote: 'يشير التلمود ومؤرخو العصر إلى الخلفية الثقافية لمتى العشار.' },
-                { category: 'commentary', ref: 'إنجيل متى 1:21', text: 'فَسَتَلِدُ ابْناً وَتَدْعُو اسْمَهُ يَسُوعَ، لأَنَّهُ يُخَلِّصُ شَعْبَهُ مِنْ خَطَايَاهُمْ.', commentary: 'اسم "يسوع" (يهشوع) يعني يهوه خلاص. جوهر التجسد الإلهي والفداء.', footnote: 'مخطوطات العهد الجديد اليونانية المبكرة.' }
-            ],
-            'يوحنا': [
-                { category: 'commentary', ref: 'إنجيل يوحنا 1:1', text: 'فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.', commentary: 'تأكيد قاطع على أزلية الكلمة (المسيح) ومساواته الجوهرية للآب.', footnote: 'برديات جون ريلياند (P52) تؤكد قدم وتاريخية إنجيل يوحنا.' },
-                { category: 'manuscripts', ref: 'مخطوطات قمران (البحر الميت)', text: 'أهم اكتشاف أثري نصي للعهد القديم.', commentary: 'تؤكد مطابقة النصوص الحالية لما كانت عليه قبل الميلاد بقرون.', footnote: 'محفوظة في متحف إسرائيل، ومتاح الاطلاع على أجزاء سفر إشعياء كاملاً.' }
-            ],
-            'رؤيا': [
-                { category: 'maps', ref: 'خريطة وكنائس آسيا الصغرى', text: 'الرسائل إلى الكنائس السبع في سفر الرؤيا.', commentary: 'دراسة جغرافية وتاريخية لمدن أفسس، سميرنا، برغامس، ثياتيرا، ساردس، فيلادلفيا، ولاوديكي.', footnote: 'مواقع أثرية موثقة في تركيا الحالية ودلالاتها الرمزية والتاريخية.' }
-            ]
+        // قاعدة بيانات الأسفار الأولية (سيتم توسيعها تدريجياً وبشكل منظم)
+        const localDatabase = {
+            "تكوين": {
+                title: "سفر التكوين (Genesis)",
+                intro: "سفر البدايات: الخليقة، السقوط، الطوفان، وآباء البطاركة.",
+                chapters: "يحتوي على 50 أصحاحاً تؤسس لفهم التاريخ الإلهي."
+            },
+            "خروج": {
+                title: "سفر الخروج (Exodus)",
+                intro: "خروج الشعب من أرض العبودية وتأسيس العهد في سيناء وخيمة الاجتماع.",
+                chapters: "يحتوي على 40 أصحاحاً تصف الفداء والناموس."
+            },
+            "مزامير": {
+                title: "سفر المزامير (Psalms)",
+                intro: "ديوان تسابيح وصلاة وتسبيح الشعب القديم وكنيسة العهد الجديد.",
+                chapters: "يحتوي على 150 مزبوراً تغطي كل مشاعر النفس البشرية."
+            },
+            "إشعياء": {
+                title: "سفر إشعياء النبِيّ (Isaiah)",
+                intro: "إنجيل العهد القديم والنبوة الكبرى عن التجسد والفداء.",
+                chapters: "يحتوي على 66 اصحاحاً تعكس مجد الخلاص الإلهي."
+            }
         };
 
-        let currentLang = 'ar';
+        function renderBooks() {
+            const grid = document.getElementById('booksGrid');
+            grid.innerHTML = '';
+            for (let book in localDatabase) {
+                const btn = document.createElement('div');
+                btn.className = 'book-card';
+                btn.innerText = book;
+                btn.onclick = () => loadBookData(book);
+                grid.appendChild(btn);
+            }
+        }
 
-        function loadBook(bookKey) {
-            const area = document.getElementById('results-area');
-            const items = academicDatabase[bookKey];
-            
-            if (!items) {
+        function loadBookData(bookName) {
+            const data = localDatabase[bookName];
+            const area = document.getElementById('displayArea');
+            const status = document.getElementById('statusBar');
+
+            if (data) {
+                status.innerText = `تم استدعاء بيانات "${bookName}" من الذاكرة المحلية بنجاح (بدون انترنت).`;
                 area.innerHTML = `
-                    <div class="content-card">
-                        <h2 style="color:var(--primary-blue)">سفر ${bookKey} (الموسوعة الأكاديمية)</h2>
-                        <p style="margin-top: 10px; line-height: 1.8;">جاري تحميل تفاسير ومخطوطات سفر ${bookKey} من المكتبة الرقمية الموحدة...</p>
-                        <div class="verse-item" style="margin-top: 15px;" onclick="openModal('سفر ${bookKey}', 'نصوص وأصحاحات سفر ${bookKey}', 'يحتوي هذا السفر على دراسات لاهوتية ومقارنات نصية شاملة جارٍ جدولتها في قاعدة البيانات الكبرى.', 'مرجع أكاديمي موثق من دراسات العهدين القديم والجديد.')">
-                            <strong>عرض الدراسات التحليلية لسفر ${bookKey}</strong>
-                        </div>
-                    </div>`;
-                return;
-            }
-
-            let html = `<div class="content-card"><h2 style="color: var(--primary-blue); margin-bottom: 15px;">سفر ${bookKey} (الدراسات والمخطوطات)</h2>`;
-            items.forEach(v => {
-                html += `
-                    <div class="verse-item" onclick="openModal('${v.ref}', '${v.text}', '${v.commentary}', '${v.footnote}')">
-                        <strong>${v.ref}:</strong> ${v.text}
-                    </div>
+                    <h2 style="color: var(--primary-blue); margin-bottom: 15px;">${data.title}</h2>
+                    <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 15px;"><strong>المقدمة الأكاديمية:</strong> ${data.intro}</p>
+                    <p style="font-size: 1.05rem; line-height: 1.8; color: #444;"><strong>التفصيل الهيكلي:</strong> ${data.chapters}</p>
                 `;
-            });
-            html += `</div>`;
-            area.innerHTML = html;
-        }
-
-        function openModal(title, text, commentary, footnote) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalBody').innerHTML = `<strong>النص / الموضوع:</strong> ${text}<br><br><strong>التفسير اللاهوتي والأكاديمي:</strong> ${commentary}`;
-            document.getElementById('modalFootnote').innerHTML = `<strong>حاشية تاريخية / مخطوطات (يوسيفوس وقمران):</strong> ${footnote}`;
-            document.getElementById('verseModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('verseModal').style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('verseModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
             }
         }
 
-        function filterCategory(cat) {
-            document.querySelectorAll('.section-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            let allItems = [];
-            for (let book in academicDatabase) {
-                academicDatabase[book].forEach(item => {
-                    if (cat === 'all' || item.category === cat) {
-                        allItems.push(item);
-                    }
-                });
-            }
-
-            const area = document.getElementById('results-area');
-            let html = `<div class="content-card"><h2 style="color: var(--primary-blue); margin-bottom: 15px;">نتائج القسم الأكاديمي</h2>`;
-            if(allItems.length === 0) {
-                html += `<p>لا توجد عناصر مطابقة لهذا القسم حالياً.</p>`;
-            } else {
-                allItems.forEach(v => {
-                    html += `
-                        <div class="verse-item" onclick="openModal('${v.ref}', '${v.text}', '${v.commentary}', '${v.footnote}')">
-                            <strong>${v.ref}:</strong> ${v.text}
-                        </div>
-                    `;
-                });
-            }
-            html += `</div>`;
-            area.innerHTML = html;
-        }
-
-        function handleSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const area = document.getElementById('results-area');
-            
-            if (!query.trim()) {
-                area.innerHTML = '<div class="content-card"><h2>مرحباً بك في الموسوعة</h2><p>اختر سفراً من الأعلى أو اكتب كلمة للبحث الأكاديمي الشامل.</p></div>';
-                return;
-            }
-
-            let results = [];
-            for (let book in academicDatabase) {
-                academicDatabase[book].forEach(v => {
-                    if (v.text.toLowerCase().includes(query) || v.ref.toLowerCase().includes(query) || v.commentary.toLowerCase().includes(query) || v.footnote.toLowerCase().includes(query)) {
-                        results.push(v);
-                    }
-                });
-            }
-
-            if (results.length === 0) {
-                area.innerHTML = '<div class="content-card"><h2>نتائج البحث</h2><p>لم يتم العثور على نتائج مطابقة لبحثك في الموسوعة الأكاديمية.</p></div>';
-                return;
-            }
-
-            let html = `<div class="content-card"><h2 style="color: var(--primary-blue); margin-bottom: 15px;">نتائج البحث (${results.length})</h2>`;
-            results.forEach(v => {
-                html += `
-                    <div class="verse-item" onclick="openModal('${v.ref}', '${v.text}', '${v.commentary}', '${v.footnote}')">
-                        <strong>${v.ref}:</strong> ${v.text}
-                    </div>
-                `;
-            });
-            html += `</div>`;
-            area.innerHTML = html;
-        }
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            if(currentLang === 'en') {
-                document.getElementById('mainTitle').innerText = "Smart Academic Bible Encyclopedia";
-                document.getElementById('subTitle').innerText = "Hope Church Nations - Sydney";
-                document.getElementById('searchInput').placeholder = "Search verses, commentaries, manuscripts...";
-                document.getElementById('searchBtn').innerText = "Search";
-                document.getElementById('booksLabel').innerText = "Bible Books:";
-                document.getElementById('catAll').innerText = "All";
-                document.getElementById('catComm').innerText = "Commentaries & Footnotes";
-                document.getElementById('catManu').innerText = "Manuscripts & Qumran";
-                document.getElementById('catIntro').innerText = "Introductions";
-                document.getElementById('catMaps').innerText = "Maps & Charts";
-                document.getElementById('footerText').innerText = "All Rights Reserved © Hope Church Nations - Sydney 2026";
-                document.getElementById('langBtn').innerText = "العربية";
-            } else {
-                document.getElementById('mainTitle').innerText = "موسوعة الكتاب المقدس الأكاديمية";
-                document.getElementById('subTitle').innerText = "كنيسة رجاء الأمم - سيدني | Hope Church Nations - Sydney";
-                document.getElementById('searchInput').placeholder = "ابحث في الآيات، التفاسير، والمخطوطات والأقسام...";
-                document.getElementById('searchBtn').innerText = "بحث";
-                document.getElementById('booksLabel').innerText = "أسفار الكتاب:";
-                document.getElementById('catAll').innerText = "الكل (All)";
-                document.getElementById('catComm').innerText = "التفاسير والحواشي";
-                document.getElementById('catManu').innerText = "المخطوطات وقمران";
-                document.getElementById('catIntro').innerText = "مقدمات الأسفار";
-                document.getElementById('catMaps').innerText = "الخرائط والمخططات";
-                document.getElementById('footerText').innerText = "جميع الحقوق محفوظة © كنيسة رجاء الأمم - سيدني 2026";
-                document.getElementById('langBtn').innerText = "English";
-            }
-        }
+        // تشغيل نظام عرض الأسفار عند فتح الصفحة
+        renderBooks();
     </script>
 </body>
 </html>
