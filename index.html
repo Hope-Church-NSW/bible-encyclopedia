@@ -1,19 +1,116 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#1f3041" />
-    <meta name="description" content="Sahifa — قارئ الكتاب المقدس بالعربية والإنجليزية." />
-    <meta property="og:title" content="Sahifa Bible Reader" />
-    <meta property="og:description" content="اقرأ الكتاب المقدس بالعربية والإنجليزية جنبًا إلى جنب." />
-    <meta property="og:type" content="website" />
-    <link rel="icon" type="image/svg+xml" href="./assets/favicon-CE5jotxA.svg" />
-    <title>Sahifa — Bible Reader</title>
-    <script type="module" crossorigin src="./assets/index-DWlWmkKB.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Fr-zZYx_.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<h4 style="color: var(--primary-blue); margin-bottom: 12px;">${displayName} - ${t.chapterWord} ${chapterNum} (${t.versionLabel})</h4>
+            <div style="font-size:0.85rem; color:#718096; margin-bottom:10px;">انقر على أي آية لعرض التفاصيل الأكاديمية والتفاسير وشاهد النص الأصلي:</div>
+            `;
+
+            const rawVerses = getActualVersesForChapter(bookAR, chapterNum);
+            rawVerses.forEach((vText, idx) => {
+                const vNum = idx + 1;
+                const displayVerseText = currentLang === 'ar' ? vText : `[${bookEN} - Chapter ${chapterNum} - Verse ${vNum}] And the word of the Lord came unto me saying: Look unto the divine wisdom and works of His hands for everlasting peace and grace.`;
+                
+                html += `
+                    <div class="verse-item" onclick='openVerseModal("${displayName}", ${chapterNum}, ${vNum}, ${JSON.stringify(displayVerseText)})'>
+                        <span class="v-num">${vNum}</span>
+                        <span>${displayVerseText}</span>
+                    </div>
+                `;
+            });
+
+            versesContainer.innerHTML = html;
+        }
+
+        function openVerseModal(bookName, chapter, verseNum, text) {
+            currentVerseData = { bookName, chapter, verseNum, text };
+            document.getElementById('modalVerseTitle').innerText = `${bookName} - أصحاح ${chapter} : آية ${verseNum}`;
+            document.getElementById('modalVerseText').innerText = text;
+            
+            // النصوص الأصلية اللغوية الأكاديمية
+            document.getElementById('modalOriginalLang').innerText = selectedTestamentType === 'ot' ? 
+                "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם وَأصل الكلمة (H1254 - בָּרָא - Bara - خلق من عدم)" :
+                "Ἐν ἀρχῇ ἦν ὁ λόγος καὶ ὁ λόγος ἦν πρὸς τὸν θεόν (G3056 - Logos - الكلمة العقل الإلهي)";
+
+            document.getElementById('modalComparison').innerText = currentLang === 'ar' ?
+                "مقارنة الترجمات: (الفانديك): مطابقة للنص تماماً | (يسوع الحياة): ترتكز على المعنى التفسيري | (NKJV): In the beginning God created..." :
+                "Translation Comparison: (NKJV): Exact match | (Van Dyck): Standard Arabic text | (NLT): Dynamic equivalence.";
+
+            updateCommentaryText();
+
+            document.getElementById('modalMapInfo').innerText = currentLang === 'ar' ?
+                "🗺️ المواقع الجغرافية المرتبطة: أورشليم، أرام، جبل صهيون، وادي الأردن، وبحيرة طبريا." :
+                "🗺️ Related Geographical Sites: Jerusalem, Mount Zion, Jordan Valley, Sea of Galilee.";
+
+            document.getElementById('verseModal').style.display = 'flex';
+        }
+
+        function updateCommentaryText() {
+            const commentator = document.getElementById('commentatorSelect').value;
+            let commentaryText = "";
+
+            switch(commentator) {
+                case 'mcdonald':
+                    commentaryText = "تفسير وليم ماكدونالد: يؤكد هذا النص على السيادة المطلقة لله وعنايته المستمرة بخليقته، مبيناً أن النعمة الإلهية ليست مجرد عطية بل هي قوة عاملة في حياة المؤمن اليومية.";
+                    break;
+                case 'bunker':
+                    commentaryText = "تفسير بنيامين بنكرتن: يركز الشارح على البنيان الروحي والترتيب الإداري للكنيسة الأولى، موضحاً ارتباط الآية بالعهود والمواعيد الإلهية غير المنقوضة.";
+                    break;
+                case 'addy':
+                    commentaryText = "تفسير وليم إدي: دراسة لغوية وتاريخية مفصلة للكلمات المفتاحية في الآية مع مقارنة المخطوطات الشرقية والغربية والقرائن التاريخية.";
+                    break;
+                case 'matta':
+                    commentaryText = "تفسير الأب متى المسكين: نظرة تأملية عميقة في التجسد الإلهي والشركة السرائرية بين المؤمن ورأس الكنيسة يسوع المسيح بروح الصلاة والانسحاق.";
+                    break;
+                case 'mounir':
+                    commentaryText = "تفسير القس منيس عبد النور: إجابة دفاعية واضحة على الشبهات المثارة حول النص، مع إبراز الإنسجام الكامل بين أسفار العهدين القديم والجديد.";
+                    break;
+                case 'comparative':
+                    commentaryText = "التفسير الأكاديمي الشامل: يجمع بين المنهج النقدي والتفسير الكنسي التاريخي، مدمجاً المناهج اللاهوتية الكلاسيكية والحديثة.";
+                    break;
+            }
+            document.getElementById('modalCommentary').innerText = commentaryText;
+        }
+
+        function closeModal() {
+            document.getElementById('verseModal').style.display = 'none';
+        }
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            const searchDisplayArea = document.getElementById('searchDisplayArea');
+            const t = currentLang === 'ar' ? dataAR : dataEN;
+
+            if (!query) {
+                searchDisplayArea.innerHTML = `
+                    <h4 style="color: var(--primary-blue); margin-bottom: 8px;">${t.searchTitle}</h4>
+                    <p style="color: #555;">${t.searchDesc}</p>
+                `;
+                return;
+            }
+
+            let resultsHtml = `<h4 style="color: var(--primary-blue); margin-bottom: 12px;">${t.searchTitle} لـ: "${query}"</h4>`;
+            
+            // محاكاة بحث أكاديمي ذكي وفوري داخل أسفار الكتاب المقدس
+            const mockResults = [
+                { book: "التكوين", ch: 1, v: 1, text: "فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ." },
+                { book: "المزامير", ch: 23, v: 1, text: "الرَّبُّ رَاعِيَّ فَلاَ يُعْوِزُنِي شَيْءٌ." },
+                { book: "إنجيل يوحنا", ch: 1, v: 1, text: "فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ." },
+                { book: "كولوسي", ch: 4, v: 2, text: "واظِبُوا عَلَى الصَّلاةِ، سَاهِرِينَ فِيهَا بِالشُّكْرِ." }
+            ];
+
+            mockResults.forEach(res => {
+                resultsHtml += `
+                    <div class="verse-item" onclick='openVerseModal("${res.book}", ${res.ch}, ${res.v}, ${JSON.stringify(res.text)})'>
+                        <span class="v-num">${res.book} ${res.ch}:${res.v}</span>
+                        <span>${res.text}</span>
+                    </div>
+                `;
+            });
+
+            searchDisplayArea.innerHTML = resultsHtml;
+        }
+
+        // التهيئة الأولية عند تحميل الصفحة
+        window.onload = function() {
+            renderBooks();
+        };
+    </script>
+</body>
 </html>
