@@ -1,912 +1,116 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl" id="htmlRoot">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موسوعة الكتاب المقدس الأكاديمية | Hope Of Nation's Church NSW</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #133B78;
-            --accent-gold: #FFD700;
-            --bg-light: #F4F7FB;
-            --text-dark: #1A1A1A;
-            --card-bg: #FFFFFF;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            background-color: var(--primary-blue);
-            color: #ffffff;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            position: relative;
-        }
-
-        .church-logo-wrapper {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            background: #ffffff;
-            padding: 3px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
-        }
-
-        .church-logo-wrapper.fly-animation {
-            transform: scale(0.2) translateY(-100px) rotate(-30deg);
-            opacity: 0;
-        }
-
-        .church-logo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .header-title h1 {
-            font-size: 1.5rem;
-            color: var(--accent-gold);
-            margin-bottom: 4px;
-        }
-
-        .header-title p {
-            font-size: 0.9rem;
-            opacity: 0.95;
-            font-weight: 600;
-        }
-
-        .lang-switcher {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid var(--accent-gold);
-            color: #ffffff;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.9rem;
-        }
-
-        html[dir="ltr"] .lang-switcher {
-            left: auto;
-            right: 20px;
-        }
-
-        .lang-switcher:hover {
-            background: var(--accent-gold);
-            color: var(--primary-blue);
-        }
-
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            background: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-bottom: 2px solid #E2E8F0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-tab {
-            padding: 15px 30px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            cursor: pointer;
-            border-bottom: 4px solid transparent;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-tab:hover, .nav-tab.active {
-            border-bottom-color: var(--accent-gold);
-            background-color: #F8FAFC;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 20px auto;
-            padding: 0 15px;
-            width: 100%;
-            flex: 1;
-        }
-
-        .section-view {
-            display: none;
-        }
-
-        .section-view.active {
-            display: block;
-        }
-
-        .status-bar {
-            background: #E2E8F0;
-            color: #2D3748;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            text-align: center;
-            border-right: 4px solid var(--primary-blue);
-        }
-
-        html[dir="ltr"] .status-bar {
-            border-right: none;
-            border-left: 4px solid var(--primary-blue);
-        }
-
-        .testaments-selector {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-
-        .testament-btn {
-            flex: 1;
-            max-width: 280px;
-            padding: 12px;
-            text-align: center;
-            background: #ffffff;
-            border: 2px solid var(--primary-blue);
-            color: var(--primary-blue);
-            font-weight: bold;
-            font-size: 1.05rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .testament-btn:hover, .testament-btn.active {
-            background: var(--primary-blue);
-            color: var(--accent-gold);
-        }
-
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 8px;
-            margin-bottom: 20px;
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 10px;
-            border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            background: #fff;
-            display: none;
-        }
-
-        .books-grid.active {
-            display: grid;
-        }
-
-        .book-card {
-            background: var(--card-bg);
-            border: 1.5px solid #E2E8F0;
-            padding: 10px 5px;
-            text-align: center;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.88rem;
-            color: var(--primary-blue);
-            transition: 0.2s;
-        }
-
-        .book-card:hover, .book-card.active {
-            background: var(--primary-blue);
-            color: var(--accent-gold);
-            border-color: var(--primary-blue);
-        }
-
-        .chapters-container {
-            margin: 15px 0;
-            padding: 10px;
-            background: #F1F5F9;
-            border-radius: 8px;
-        }
-
-        .chapters-title {
-            font-size: 0.95rem;
-            font-weight: bold;
-            color: var(--primary-blue);
-            margin-bottom: 8px;
-        }
-
-        .chapters-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            max-height: 180px;
-            overflow-y: auto;
-        }
-
-        .chapter-card {
-            background: #ffffff;
-            color: var(--primary-blue);
-            border: 1px solid #CBD5E1;
-            padding: 6px 12px;
-            text-align: center;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-
-        .chapter-card:hover, .chapter-card.active {
-            background: var(--accent-gold);
-            color: var(--primary-blue);
-            border-color: var(--accent-gold);
-        }
-
-        .display-area {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border-right: 6px solid var(--primary-blue);
-            min-height: 250px;
-            margin-top: 15px;
-        }
-
-        html[dir="ltr"] .display-area {
-            border-right: none;
-            border-left: 6px solid var(--primary-blue);
-        }
-
-        .verse-item {
-            padding: 12px 15px;
-            margin: 10px 0;
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: 6px;
-            font-size: 1.05rem;
-            line-height: 1.7;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .verse-item:hover {
-            background: #EDF2F7;
-            border-color: var(--primary-blue);
-        }
-
-        .verse-item span.v-num {
-            color: var(--primary-blue);
-            font-weight: bold;
-            margin-left: 8px;
-            margin-right: 8px;
-        }
-
-        /* نافذة تفاصيل الآية المنبثقة */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-card {
-            background: #fff;
-            width: 90%;
-            max-width: 780px;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: fadeIn 0.3s ease;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #E2E8F0;
-            padding-bottom: 12px;
-            margin-bottom: 15px;
-        }
-
-        .modal-header h3 {
-            color: var(--primary-blue);
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #718096;
-        }
-
-        .modal-section {
-            margin-bottom: 15px;
-            padding: 12px;
-            background: #F8FAFC;
-            border-radius: 8px;
-            border: 1px solid #E2E8F0;
-        }
-
-        .modal-section h4 {
-            color: var(--primary-blue);
-            font-size: 0.95rem;
-            margin-bottom: 6px;
-        }
-
-        .commentator-select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 2px solid var(--primary-blue);
-            border-radius: 6px;
-            font-size: 0.95rem;
-            font-family: 'Cairo', sans-serif;
-            background: #fff;
-            color: var(--primary-blue);
-            font-weight: bold;
-            margin-bottom: 8px;
-            outline: none;
-        }
-
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .search-box input {
-            flex: 1;
-            padding: 12px 15px;
-            font-size: 1rem;
-            border: 2px solid var(--primary-blue);
-            border-radius: 8px;
-            outline: none;
-        }
-
-        .search-box button {
-            background: var(--primary-blue);
-            color: var(--accent-gold);
-            border: none;
-            padding: 0 25px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        footer {
-            background-color: var(--primary-blue);
-            color: #ffffff;
-            text-align: center;
-            padding: 15px;
-            font-size: 0.85rem;
-            margin-top: auto;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <button class="lang-switcher" onclick="toggleLanguage()" id="langBtn">English (NKJV)</button>
-        <div class="church-logo-wrapper" id="logoWrapper">
-            <img src="logo.jpg" alt="Hope Of Nation's Church" class="church-logo" id="churchLogo" onerror="this.onerror=null; this.src='https://via.placeholder.com/90/133B78/FFD700?text=HOPE';">
-        </div>
-        <div class="header-title">
-            <h1 id="mainTitle">موسوعة الكتاب المقدس الأكاديمية</h1>
-            <p>Hope Of Nation's Church NSW | كنيسة رجاء الأمم - سيدني</p>
-        </div>
-    </header>
-
-    <div class="nav-tabs">
-        <div class="nav-tab active" onclick="switchSection('bible', this)" id="tabBible">📖 الكتاب المقدس</div>
-        <div class="nav-tab" onclick="switchSection('search', this)" id="tabSearch">🔍 بحث</div>
-        <div class="nav-tab" onclick="switchSection('ai-studies', this)" id="tabAi">🤖 دراسات AI</div>
-    </div>
-
-    <div class="container">
-        <div class="status-bar" id="statusBar">
-            حالة النظام: تم تحديث المكتبة وعرض النصوص الفعلية الكاملة للكتاب المقدس.
-        </div>
-
-        <div id="bible-section" class="section-view active">
-            <div class="testaments-selector">
-                <button class="testament-btn active" id="otBtn" onclick="selectTestament('ot')">📜 العهد القديم (39 سفراً)</button>
-                <button class="testament-btn" id="ntBtn" onclick="selectTestament('nt')">📘 العهد الجديد (27 سفراً)</button>
-            </div>
-
-            <div class="books-grid active" id="otBooksGrid"></div>
-            <div class="books-grid" id="ntBooksGrid"></div>
-
-            <div class="display-area" id="bibleDisplayArea">
-                <h3 style="color: var(--primary-blue); margin-bottom: 5px;" id="selectedBookTitle">اختر سفراً من القائمة أعلاه</h3>
-                <p style="color: #555; line-height: 1.6; font-size:0.9rem;" id="selectedBookDesc">اختر أي سفر لعرض الأصحاحات والآيات الفعلية المعتمدة.</p>
-                
-                <div id="chaptersWrapper" class="chapters-container" style="display:none;">
-                    <div class="chapters-title" id="chaptersTitleLabel">اختر الأصحاح:</div>
-                    <div id="chaptersGrid" class="chapters-grid"></div>
-                </div>
-
-                <div id="versesContainer" style="margin-top: 15px;"></div>
-            </div>
-        </div>
-
-        <div id="search-section" class="section-view">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="ابحث عن آية، كلمة، أو سفر..." oninput="performSearch()">
-                <button onclick="performSearch()" id="searchBtnText">بحث</button>
-            </div>
-            <div class="display-area" id="searchDisplayArea">
-                <h4 style="color: var(--primary-blue); margin-bottom: 8px;" id="searchResultTitle">نتائج البحث</h4>
-                <p style="color: #555;" id="searchDescText">اكتب أي كلمة للبحث الفوري.</p>
-            </div>
-        </div>
-
-        <div id="ai-studies-section" class="section-view">
-            <div class="display-area">
-                <h3 style="color: var(--primary-blue); margin-bottom: 15px;" id="aiTitle">🤖 التحليلات اللاهوتية والدراسات المقارنة (AI)</h3>
-                <p style="line-height: 1.8; color: #444; margin-bottom: 15px;" id="aiDesc">
-                    هذا القسم مخصص لاستعراض المقارنات العميقة بين النصوص وتفاسير الآباء والشراح المعتمدين.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة تفاصيل الآية المنبثقة -->
-    <div class="modal-overlay" id="verseModal">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3 id="modalVerseTitle">تفاصيل الآية الأكاديمية</h3>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-section">
-                <h4>📖 النص الأساسي:</h4>
-                <p id="modalVerseText" style="font-size: 1.05rem; line-height: 1.6; font-weight: bold;"></p>
-            </div>
-            <div class="modal-section">
-                <h4>📜 أصل اللغة (النص الأصلي العبري / اليوناني):</h4>
-                <p id="modalOriginalLang" style="font-family: serif; font-size: 1.1rem; color: #2B6CB0; direction: ltr; text-align: right;"></p>
-            </div>
-            <div class="modal-section">
-                <h4>⚖️ آيات المقارنة:</h4>
-                <p id="modalComparison" style="color: #4A5568;"></p>
-            </div>
-            <div class="modal-section">
-                <h4>📚 مكتبة التفاسير وشراح الكتاب المقدس:</h4>
-                <select id="commentatorSelect" class="commentator-select" onchange="updateCommentaryText()">
-                    <option value="mcdonald">تفسير وليم ماكدونالد (التفسير الحديث للكتاب المقدس)</option>
-                    <option value="bunker">تفسير بنيامين بنكرتن (تفسير العهدين)</option>
-                    <option value="addy">تفسير وليم إدي (التفسير التفصيلي والموسوعي)</option>
-                    <option value="matta">تفسير الأب متى المسكين (التفسير الروحي والآبائي المعاصر)</option>
-                    <option value="mounir">تفسير القس منيس عبد النور (شبهات وفتوات كتابية)</option>
-                    <option value="comparative">التفسير الأكاديمي الشامل (مقارن)</option>
-                </select>
-                <p id="modalCommentary" style="color: #2D3748; line-height: 1.6; margin-top: 8px;"></p>
-            </div>
-            <div class="modal-section">
-                <h4>🗺️ خرائط ومعالم جغرافية وتاريخية مرتبطة:</h4>
-                <p id="modalMapInfo" style="color: #2B6CB0; font-weight: 600;"></p>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        جميع الحقوق محفوظة © Hope Of Nation's Church NSW 2026
-    </footer>
-
-    <script>
-        let currentLang = 'ar';
-        let currentVerseData = {};
-
-        const dataAR = {
-            title: "موسوعة الكتاب المقدس الأكاديمية",
-            langBtnText: "English (NKJV)",
-            tabBible: "📖 الكتاب المقدس",
-            tabSearch: "🔍 بحث",
-            tabAi: "🤖 دراسات AI",
-            status: "حالة النظام: تم تحديث المكتبة وعرض النصوص الفعلية الكاملة للكتاب المقدس.",
-            otBtn: "📜 العهد القديم (39 سفراً)",
-            ntBtn: "📘 العهد الجديد (27 سفراً)",
-            selectBookPrompt: "اختر سفراً من القائمة أعلاه",
-            selectBookDesc: "اختر أي سفر لعرض الأصحاحات والآيات الفعلية المعتمدة.",
-            searchPlaceholder: "ابحث عن آية، كلمة، أو سفر...",
-            searchBtn: "بحث",
-            searchTitle: "نتائج البحث",
-            searchDesc: "اكتب أي كلمة للبحث الفوري.",
-            aiTitle: "🤖 التحليلات اللاهوتية والدراسات المقارنة (AI)",
-            aiDesc: "هذا القسم مخصص لاستعراض المقارنات العميقة بين النصوص وتفاسير الآباء والشراح المعتمدين.",
-            chapterWord: "أصحاح",
-            versionLabel: "ترجمة فاندايك (Van Dyck)"
-        };
-
-        const dataEN = {
-            title: "Academic Bible Encyclopedia",
-            langBtnText: "العربية (Van Dyck)",
-            tabBible: "📖 Holy Bible",
-            tabSearch: "🔍 Search",
-            tabAi: "🤖 AI Studies",
-            status: "System Status: Library updated with actual full Bible verses.",
-            otBtn: "📜 Old Testament (39 Books)",
-            ntBtn: "📘 New Testament (27 Books)",
-            selectBookPrompt: "Select a book from the list above",
-            selectBookDesc: "Select any book to view chapters and actual verified verses.",
-            searchPlaceholder: "Search for a verse, word, or book...",
-            searchBtn: "Search",
-            searchTitle: "Search Results",
-            searchDesc: "Type any keyword for instant search.",
-            aiTitle: "🤖 Theological Analyses & Comparative Studies (AI)",
-            aiDesc: "This section is dedicated to deep text comparisons and approved commentators.",
-            chapterWord: "Chapter",
-            versionLabel: "New King James Version (NKJV)"
-        };
-
-        const oldTestamentAR = [
-            "التكوين", "الخروج", "اللاويين", "العدد", "التثنية", "يشوع", "القضاة", "راعوث", "صموئيل الأول",
-            "صموئيل الثاني", "الملوك الأول", "الملوك الثاني", "أخبار الأيام الأول", "أخبار الأيام الثاني", "عزرا",
-            "نحميا", "أستير", "أيوب", "المزامير", "الأمثال", "الجامعة", "نشيد الأنشاد", "إشعياء", "إرميا",
-            "المراثي", "حزقيال", "دانيال", "هوشع", "يوئيل", "عاموس", "عوبديا", "يونان", "ميخا",
-            "ناحوم", "حبقوق", "صفنيا", "حجاي", "زكريا", "ملاخي"
-        ];
-
-        const oldTestamentEN = [
-            "Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth", "1 Samuel",
-            "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles", "Ezra",
-            "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song of Solomon", "Isaiah", "Jeremiah",
-            "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah",
-            "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi"
-        ];
-
-        const newTestamentAR = [
-            "إنجيل متى", "إنجيل مرقس", "إنجيل لوقا", "إنجيل يوحنا", "أعمال الرسل", "رومية",
-            "كورنثوس الأولى", "كورنثوس الثانية", "غلاطية", "أفسس", "فيلبي", "كولوسي",
-            "تسالونيكي الأولى", "تسالونيكي الثانية", "تيموثاوس الأولى", "تيموثاوس الثانية", "تيطس", "فليمون",
-            "العبرانيين", "يعقوب", "بطرس الأولى", "بطرس الثانية", "يوحنا الأولى", "يوحنا الثانية",
-            "يوحنا الثالثة", "يهوذا", "رؤيا يوحنا"
-        ];
-
-        const newTestamentEN = [
-            "Matthew", "Mark", "Luke", "John", "Acts", "Romans",
-            "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians",
-            "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon",
-            "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John",
-            "3 John", "Jude", "Revelation"
-        ];
-
-        const chaptersCountOT = [
-            50, 40, 27, 36, 34, 24, 21, 4, 31, 24, 22, 25, 29, 36, 10, 13, 10, 42, 150, 31, 12, 8, 66, 52, 5, 48, 12, 14, 3, 9, 1, 4, 7, 3, 3, 3, 2, 14, 4
-        ];
-
-        const chaptersCountNT = [
-            28, 16, 24, 21, 28, 16, 16, 13, 6, 6, 4, 4, 5, 3, 6, 4, 3, 1, 13, 5, 5, 3, 5, 1, 1, 1, 22
-        ];
-
-        // مهارة التوليد الديناميكي الحقيقي الدقيق لجميع أسفار وأصحاحات الكتاب المقدس بناءً على الأسماء والأرقام
-        function getActualVersesForChapter(bookAR, chapterNum) {
-            let verses = [];
-            let count = 12; // عدد افتراضي غني للآيات لكل أصحاح لتغطية كامل النص
-            
-            // تخصيص بعض الأسفار الشهيرة بنصوصها الحقيقية المباشرة
-            if (bookAR === "التكوين" && chapterNum === 1) {
-                return [
-                    "فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.",
-                    "وَكَانَتِ الأَرْضُ خَرِبَةً وَخَالِيَةً، وَعَلَى وَجْهِ الْغَمْرِ ظُلْمَةٌ، وَرُوحُ اللهِ يَرِفُّ عَلَى وَجْهِ الْمِيَاهِ.",
-                    "وَقَالَ اللهُ: «لِيَكُنْ نُورٌ»، فَكَانَ نُورٌ.",
-                    "وَرَأَى اللهُ النُّورَ أَنَّهُ حَسَنٌ. وَفَصَلَ اللهُ بَيْنَ النُّورِ وَالظُّلْمَةِ.",
-                    "وَدَعَا اللهُ النُّورَ نَهَاراً، وَالظُّلْمَةُ دَعَاهَا لَيْلاً. وَكَانَ مَسَاءٌ وَكَانَ صَبَاحٌ يَوْماً وَاحِداً."
-                ];
-            } else if (bookAR === "المزامير" && chapterNum === 23) {
-                return [
-                    "الرَّبُّ رَاعِيَّ فَلاَ يُعْوِزُنِي شَيْءٌ.",
-                    "فِي مَراخِضُ خُضْرٍ يُرْبِضُنِي. إِلَى مِيَاهِ الرَّاحَةِ يُورِدُنِي.",
-                    "يَرُدُّ نَفْسِي. يَهْدِينِي إِلَى سُبُلِ الْبِرِّ مِنْ أَجْلِ اسْمِهِ.",
-                    "أَيْضاً إِذَا سِرْتُ فِي وَادِي ظِلِّ الْمَوْتِ لاَ أَخَافُ شَرّاً، لأَنَّكَ أَنْتَ مَعِي. عَصَاكَ وَعُكَّازُهُمَا هُمَا يُعَزِّيَانِنِي.",
-                    "تُرَتِّبُ أَمَامِي مَائِدَةً تُجَاهَ مُضَايِقِيَّ. مَسَحْتَ بِالدُّهْنِ رَأْسِي. كَأْسي رَيَّا."
-                ];
-            } else if (bookAR === "كولوسي" && chapterNum === 4) {
-                return [
-                    "أَيُّهَا السَّادَةُ، قَدِّمُوا لِلْعبِيدِ الْعَدْلَ وَالْمُسَاوَاةَ، عَالِمِينَ أَنَّ لَكُمْ أَنْتُمْ أَيْضاً رَبّاً فِي السَّمَاوَاتِ.",
-                    "واظِبُوا عَلَى الصَّلاةِ، سَاهِرِينَ فِيهَا بِالشُّكْرِ،",
-                    "مُصَلِّينَ فِي ذَلِكَ لأَجْلِنَا نَحْنُ أَيْضاً، أَيْ يَفْتَحَ اللهُ لَنَا بَاباً لِلْكَلامِ، لِنُتَكَلَّمَ بِسِرِّ الْمَسِيحِ، الَّذِي لأَجْلِهِ قُيِّدْتُ أَيْضاً،",
-                    "كَيْ أُظْهِرَهُ كَمَا يَجِبُ أَنْ أَتَكَلَّمَ.",
-                    "اسْلُكُوا بِحِكْمَةٍ مِنْ جِهَةِ الَّذِينَ هُمْ في الْخَارِجِ، مُفْتَدِينَ الْوَقْتَ."
-                ];
-            }
-
-            // توليد نصوص حقيقية دقيقة ومنطقية لكل سفر وأصحاح لتجنب أي فراغ
-            for (let v = 1; v <= count; v++) {
-                verses.push(`[${bookAR} - أصحاح ${chapterNum} - آية ${v}] وَكَانَ كَلاَمُ الرَّبِّ إِلَيَّ قَائِلاً: انْظُرْ إِلَى حَكَامَةِ اللهِ وَعَمَلِ يَدَيْهِ لِيَكُونَ لَكَ سَلاَمٌ وَفَيْضُ نِعْمَةٍ دَائِمَةٍ.`);
-            }
-            return verses;
-        }
-
-        let selectedBookIndex = null;
-        let selectedTestamentType = 'ot';
-        let currentActiveBookAR = '';
-        let currentActiveBookEN = '';
-        let currentChapterNum = 1;
-
-        function triggerDoveFlight() {
-            const logoWrapper = document.getElementById('logoWrapper');
-            logoWrapper.classList.add('fly-animation');
-            setTimeout(() => {
-                logoWrapper.classList.remove('fly-animation');
-            }, 800);
-        }
-
-        function toggleLanguage() {
-            triggerDoveFlight();
-            setTimeout(() => {
-                if (currentLang === 'ar') {
-                    currentLang = 'en';
-                    document.getElementById('htmlRoot').setAttribute('dir', 'ltr');
-                    document.getElementById('htmlRoot').setAttribute('lang', 'en');
-                } else {
-                    currentLang = 'ar';
-                    document.getElementById('htmlRoot').setAttribute('dir', 'rtl');
-                    document.getElementById('htmlRoot').setAttribute('lang', 'ar');
-                }
-                updateTexts();
-                renderBooks();
-                if (selectedBookIndex !== null) {
-                    selectBook(selectedBookIndex, selectedTestamentType, currentActiveBookAR, currentActiveBookEN);
-                }
-            }, 300);
-        }
-
-        function updateTexts() {
-            const t = currentLang === 'ar' ? dataAR : dataEN;
-            document.getElementById('mainTitle').innerText = t.title;
-            document.getElementById('langBtn').innerText = t.langBtnText;
-            document.getElementById('tabBible').innerText = t.tabBible;
-            document.getElementById('tabSearch').innerText = t.tabSearch;
-            document.getElementById('tabAi').innerText = t.tabAi;
-            document.getElementById('statusBar').innerText = t.status;
-            document.getElementById('otBtn').innerText = t.otBtn;
-            document.getElementById('ntBtn').innerText = t.ntBtn;
-            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-            document.getElementById('searchBtnText').innerText = t.searchBtn;
-            document.getElementById('searchResultTitle').innerText = t.searchTitle;
-            document.getElementById('searchDescText').innerText = t.searchDesc;
-            document.getElementById('aiTitle').innerText = t.aiTitle;
-            document.getElementById('aiDesc').innerText = t.aiDesc;
-
-            if (selectedBookIndex === null) {
-                document.getElementById('selectedBookTitle').innerText = t.selectBookPrompt;
-                document.getElementById('selectedBookDesc').innerText = t.selectBookDesc;
-            }
-        }
-
-        function switchSection(sectionId, element) {
-            triggerDoveFlight();
-            setTimeout(() => {
-                document.querySelectorAll('.section-view').forEach(sec => sec.classList.remove('active'));
-                document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-                document.getElementById(sectionId + '-section').classList.add('active');
-                element.classList.add('active');
-            }, 250);
-        }
-
-        function selectTestament(testament) {
-            triggerDoveFlight();
-            selectedTestamentType = testament;
-            const otGrid = document.getElementById('otBooksGrid');
-            const ntGrid = document.getElementById('ntBooksGrid');
-            const otBtn = document.getElementById('otBtn');
-            const ntBtn = document.getElementById('ntBtn');
-
-            if (testament === 'ot') {
-                otGrid.classList.add('active');
-                ntGrid.classList.remove('active');
-                otBtn.classList.add('active');
-                ntBtn.classList.remove('active');
-            } else {
-                ntGrid.classList.add('active');
-                otGrid.classList.remove('active');
-                ntBtn.classList.add('active');
-                otBtn.classList.remove('active');
-            }
-        }
-
-        function renderBooks() {
-            const otGrid = document.getElementById('otBooksGrid');
-            otGrid.innerHTML = '';
-            oldTestamentAR.forEach((bookAR, index) => {
-                const bookEN = oldTestamentEN[index];
-                const btn = document.createElement('div');
-                btn.className = `book-card ${selectedTestamentType === 'ot' && selectedBookIndex === index ? 'active' : ''}`;
-                btn.innerText = currentLang === 'ar' ? bookAR : bookEN;
-                btn.onclick = () => selectBook(index, 'ot', bookAR, bookEN);
-                otGrid.appendChild(btn);
-            });
-
-            const ntGrid = document.getElementById('ntBooksGrid');
-            ntGrid.innerHTML = '';
-            newTestamentAR.forEach((bookAR, index) => {
-                const bookEN = newTestamentEN[index];
-                const btn = document.createElement('div');
-                btn.className = `book-card ${selectedTestamentType === 'nt' && selectedBookIndex === index ? 'active' : ''}`;
-                btn.innerText = currentLang === 'ar' ? bookAR : bookEN;
-                btn.onclick = () => selectBook(index, 'nt', bookAR, bookEN);
-                ntGrid.appendChild(btn);
-            });
-        }
-
-        function selectBook(index, testament, bookAR, bookEN) {
-            triggerDoveFlight();
-            selectedBookIndex = index;
-            selectedTestamentType = testament;
-            currentActiveBookAR = bookAR;
-            currentActiveBookEN = bookEN;
-
-            renderBooks();
-
-            const displayName = currentLang === 'ar' ? bookAR : bookEN;
-            const totalChapters = testament === 'ot' ? chaptersCountOT[index] : chaptersCountNT[index];
-            const t = currentLang === 'ar' ? dataAR : dataEN;
-
-            document.getElementById('selectedBookTitle').innerText = displayName;
-            document.getElementById('selectedBookDesc').innerText = currentLang === 'ar' ? 
-                `يحتوي السفر على ${totalChapters} أصحاحاً. اختر أصحاحاً لفتح آياته:` :
-                `This book contains ${totalChapters} chapters. Choose a chapter to view verses:`;
-
-            document.getElementById('chaptersWrapper').style.display = 'block';
-            const chaptersGrid = document.getElementById('chaptersGrid');
-            chaptersGrid.innerHTML = '';
-
-            for (let i = 1; i <= totalChapters; i++) {
-                const chBtn = document.createElement('div');
-                chBtn.className = `chapter-card ${currentChapterNum === i ? 'active' : ''}`;
-                chBtn.innerText = `${t.chapterWord} ${i}`;
-                chBtn.onclick = (e) => {
-                    document.querySelectorAll('.chapter-card').forEach(c => c.classList.remove('active'));
-                    chBtn.classList.add('active');
-                    loadChapterVerses(bookAR, bookEN, i);
-                };
-                chaptersGrid.appendChild(chBtn);
-            }
-
-            loadChapterVerses(bookAR, bookEN, 1);
-        }
-
-        function loadChapterVerses(bookAR, bookEN, chapterNum) {
-            currentChapterNum = chapterNum;
-            const versesContainer = document.getElementById('versesContainer');
-            const displayName = currentLang === 'ar' ? bookAR : bookEN;
-            const t = currentLang === 'ar' ? dataAR : dataEN;
-
-            let html = `<h4 style="color: var(--primary-blue); margin-bottom: 12px; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">
-                ${displayName} - ${t.chapterWord} ${chapterNum} 
-                <span style="font-size:0.8rem; color:#666; font-weight:normal;">(${t.versionLabel})</span>
-            </h4>`;
-
-            let versesList = getActualVersesForChapter(bookAR, chapterNum);
-
-            versesList.forEach((verseText, idx) => {
-                let v = idx + 1;
-                let origLang = selectedTestamentType === 'ot' ? 
-                    `(${bookEN} OT Hebrew Text v${v})` : 
-                    `(${bookEN} NT Greek Text v${v})`;
-
-                let compText = `توافق النص مع ترجمات العهدين لـ ${bookEN} ${chapterNum}:${v}`;
-                let mapInfo = `معالم جغرافية وتاريخية مرتبطة بـ ${displayName} الأصحاح ${chapterNum}.`;
-
-                let commentaries = {
-                    mcdonald: `[وليم ماكدونالد]: إضاءة تفصيلية على الآية ${v} من أصحاح ${chapterNum} توضح خط الفداء الإلهي.`,
-                    bunker: `[بنيامين بنكرتن]: تحليل نبوي دقيق للألفاظ في ${bookAR} ${chapterNum}:${v}.`,
-                    addy: `[وليم إدي]: شرح لغوي وتاريخي شامل يوضح الخلفية الإقليمية والثقافية للنص.`,
-                    matta: `[الأب متى المسكين]: قراءة روحية وآبائية عميقة تركز على الاتحاد بالله والكلمة الإلهية.`,
-                    mounir: `[القس منيس عبد النور]: ردود دفاعية ترفع أي شبهة وتؤكد سلامة وسلطان النص.`,
-                    comparative: `[التفسير الشامل]: دراسة لاهوتية مقارنة لأقوال الشراح حول الأصحاح ${chapterNum}.`
-                };
-
-                html += `<div class="verse-item" onclick='openVerseModal(${JSON.stringify({displayName, chapterNum, v, verseText, origLang, compText, mapInfo, commentaries})})'>
-                    <span class="v-num">[${v}]</span>${verseText}
-                </div>`;
-            });
-
-            versesContainer.innerHTML = html;
-        }
-
-        function openVerseModal(data) {
-            currentVerseData = data;
-            document.getElementById('modalVerseTitle').innerText = `${data.displayName} - ${data.chapterNum} : ${data.v}`;
-            document.getElementById('modalVerseText').innerText = data.verseText;
-            document.getElementById('modalOriginalLang').innerText = data.origLang;
-            document.getElementById('modalComparison').innerText = data.compText;
-            document.getElementById('modalMapInfo').innerText = data.mapInfo;
-            document.getElementById('commentatorSelect').value = 'mcdonald';
-            updateCommentaryText();
-            document.getElementById('verseModal').style.display = 'flex';
-        }
-
-        function updateCommentaryText() {
-            const selectedVal = document.getElementById('commentatorSelect').value;
-            const commText = currentVerseData.commentaries ? currentVerseData.commentaries[selectedVal] : '';
-            document.getElementById('modalCommentary').innerText = commText;
-        }
-
-        function closeModal() {
-            document.getElementById('verseModal').style.display = 'none';
-        }
-
-        function performSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const area = document.getElementById('searchDisplayArea');
-            const t = currentLang === 'ar' ? dataAR : dataEN;
-
-            if (!query.trim()) {
-                area.innerHTML = `<h4 style="color: var(--primary-blue); margin-bottom: 8px;">${t.searchTitle}</h4><p style="color: #555;">${t.searchDesc}</p>`;
-                return;
-            }
-
-            const activeListAR = [...oldTestamentAR, ...newTestamentAR];
-            const activeListEN = [...oldTestamentEN, ...newTestamentEN];
-
-            let results = [];
-            activeListAR.forEach((bAR, idx) => {
-                const bEN = activeListEN[idx];
-                if (bAR.toLowerCase().includes(query) || bEN.toLowerCase().includes(query)) {
-                    results.push({ ar: bAR, en: bEN, index: idx, isOT: idx < 39 });
-                }
-            });
-
-            let html = `<h4 style="color: var(--primary-blue); margin-bottom: 10px;">${t.searchTitle} (${query})</h4>`;
-
-            if(results.length === 0) {
-                html += `<p>${currentLang === 'ar' ? 'لم يتم العثور على نتائج.' : 'No results found.'}</p>`;
-            } else {
-                results.forEach(r => {
-                    const showName = currentLang === 'ar' ? r.ar : r.en;
-                    const testamentCode = r.isOT ? 'ot' : 'nt';
-                    const adjustedIdx = r.isOT ? r.index : r.index - 39;
-                    html += `<div style="padding: 10px; margin-bottom: 8px; background: #F8FAFC; border-radius: 6px; cursor: pointer; border: 1px solid #E2E8F0;" onclick="switchSection('bible', document.querySelector('.nav-tab')); selectTestament('${testamentCode}'); selectBook(${adjustedIdx}, '${testamentCode}', '${r.ar}', '${r.en}');"><strong>${showName}</strong></div>`;
-                });
-            }
-            area.innerHTML = html;
-        }
-
-        renderBooks();
-    </script>
-</body>
-</html>
+// ============================================================
+// lib/features/bible/services/verse_context_service.dart
+// ============================================================
+
+import '../../../core/database/app_database.dart';
+
+
+class VerseContext {
+
+  final int verseId;
+
+  final List<int>
+      crossReferences;
+
+  final List<int>
+      studyIds;
+
+  final List<int>
+      sourceIds;
+
+  final List<int>
+      wordIds;
+
+
+  const VerseContext({
+
+    required this.verseId,
+
+    this.crossReferences =
+        const [],
+
+    this.studyIds =
+        const [],
+
+    this.sourceIds =
+        const [],
+
+    this.wordIds =
+        const [],
+  });
+}
+
+
+class VerseContextService {
+
+  final AppDatabase database;
+
+
+  VerseContextService(
+    this.database,
+  );
+
+
+  Future<VerseContext>
+      getContext(
+    int verseId,
+  ) async {
+
+    final db =
+        await database.database;
+
+
+    final crossReferences =
+        await db.query(
+
+      'cross_references',
+
+      where:
+          'source_verse_id = ?',
+
+      whereArgs: [
+        verseId,
+      ],
+    );
+
+
+    final words =
+        await db.query(
+
+      'words',
+
+      where:
+          'verse_id = ?',
+
+      whereArgs: [
+        verseId,
+      ],
+    );
+
+
+    return VerseContext(
+
+      verseId:
+          verseId,
+
+      crossReferences:
+
+          crossReferences
+              .map(
+                (row) =>
+                    row['target_verse_id']
+                        as int,
+              )
+              .toList(),
+
+      wordIds:
+
+          words
+              .map(
+                (row) =>
+                    row['id'] as int,
+              )
+              .toList(),
+    );
+  }
+}
