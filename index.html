@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موسوعة الكتاب المقدس الذكية - كنيسة أمل الشعوب</title>
+    <title>موسوعة الكتاب المقدس الذكية - Hope Church NSW</title>
     <style>
         :root {
             --primary-blue: #1a365d;
@@ -25,11 +25,63 @@
             padding: 20px;
             text-align: center;
             border-bottom: 4px solid var(--accent-gold);
+            position: relative;
+        }
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 5px;
+        }
+        .lang-switch button {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .lang-switch button.active {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: #000;
+            font-weight: bold;
         }
         .container {
             max-width: 1200px;
             margin: 20px auto;
             padding: 0 15px;
+        }
+        /* شريط التنقل الأيقوني السريع */
+        .nav-icons-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .nav-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-top: 3px solid var(--accent-gold);
+        }
+        .nav-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .nav-card h4 {
+            margin: 8px 0 4px 0;
+            color: var(--primary-blue);
+        }
+        .nav-card p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #718096;
         }
         .search-box {
             display: flex;
@@ -132,27 +184,55 @@
         }
     </style>
 </head>
-<body>
+<body id="appBody">
 
     <header>
-        <h1>موسوعة الكتاب المقدس الذكية</h1>
-        <p>كنيسة أمل الشعوب - New South Wales</p>
+        <div class="lang-switch">
+            <button id="langArBtn" class="active" onclick="setLanguage('ar')">عربي</button>
+            <button id="langEnBtn" onclick="setLanguage('en')">English</button>
+        </div>
+        <h1 id="mainTitle">موسوعة الكتاب المقدس الذكية</h1>
+        <p id="subTitle">كنيسة رجاء الأمم سيدني - Hope Church NSW</p>
     </header>
 
     <div class="container">
+        <!-- شريط الأيقونات والأقسام الرئيسية -->
+        <div class="nav-icons-bar">
+            <div class="nav-card" onclick="filterSection('bible')">
+                <span style="font-size: 2rem;">📖</span>
+                <h4 id="cardBibleTitle">الكتاب المقدس الكامل</h4>
+                <p id="cardBibleDesc">العهد القديم والجديد (عربي / إنجليزي)</p>
+            </div>
+            <div class="nav-card" onclick="filterSection('search')">
+                <span style="font-size: 2rem;">🔍</span>
+                <h4 id="cardSearchTitle">البحث المتقدم</h4>
+                <p id="cardSearchDesc">بحث سريع في النصوص والكلمات الأصلية</p>
+            </div>
+            <div class="nav-card" onclick="filterSection('studies')">
+                <span style="font-size: 2rem;">💡</span>
+                <h4 id="cardStudiesTitle">دراسات الآيات</h4>
+                <p id="cardStudiesDesc">تحليلات لغوية ومقارنة الترجمات</p>
+            </div>
+            <div class="nav-card" onclick="filterSection('commentaries')">
+                <span style="font-size: 2rem;">📚</span>
+                <h4 id="cardCommTitle">تفاسير الكنيسة</h4>
+                <p id="cardCommDesc">ماكدونالد، إدي، ومتى المسكين</p>
+            </div>
+        </div>
+
         <!-- شريط البحث -->
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="ابحث عن آية، كلمة أصلية، أو موضوع..." oninput="performSearch()">
-            <button onclick="performSearch()">بحث</button>
+            <input type="text" id="searchInput" placeholder="ابحث عن آية، كلمة أصلية، أو موضوع في الكتاب المقدس..." oninput="performSearch()">
+            <button onclick="performSearch()" id="searchBtnText">بحث</button>
         </div>
 
         <div class="main-layout">
             <!-- قائمة الأسفار -->
             <div class="panel">
-                <h3 style="color: var(--primary-blue); margin-top:0;">أسفار الكتاب المقدس</h3>
+                <h3 style="color: var(--primary-blue); margin-top:0;" id="booksListHeader">أسفار الكتاب المقدس (عربي / إنجليزي)</h3>
                 <div style="margin-bottom: 15px;">
-                    <button onclick="switchTestament('ot')" style="padding: 6px 12px; background:var(--primary-blue); color:white; border:none; border-radius:4px; cursor:pointer;">العهد القديم</button>
-                    <button onclick="switchTestament('nt')" style="padding: 6px 12px; background:#e2e8f0; color:var(--text-dark); border:none; border-radius:4px; cursor:pointer;">العهد الجديد</button>
+                    <button onclick="switchTestament('ot')" id="otBtn" style="padding: 6px 12px; background:var(--primary-blue); color:white; border:none; border-radius:4px; cursor:pointer;">العهد القديم / OT</button>
+                    <button onclick="switchTestament('nt')" id="ntBtn" style="padding: 6px 12px; background:#e2e8f0; color:var(--text-dark); border:none; border-radius:4px; cursor:pointer;">العهد الجديد / NT</button>
                 </div>
                 <div id="booksList"></div>
             </div>
@@ -161,7 +241,7 @@
             <div class="panel" id="contentArea">
                 <div id="searchDisplayArea">
                     <h4 style="color: var(--primary-blue); margin-bottom: 8px;" id="welcomeTitle">مرحباً بك في الموسوعة الأكاديمية</h4>
-                    <p style="color: #555;" id="welcomeDesc">اخترسفراً من القائمة الجانبية لاستعراض الأصحاحات، أو استخدم شريط البحث العلوي للبحث المتقدم.</p>
+                    <p style="color: #555;" id="welcomeDesc">اختر سفراً من القائمة الجانبية لاستعراض الأصحاحات باللغتين العربية والإنجليزية، أو استخدم شريط البحث العلوي.</p>
                 </div>
                 <div id="versesContainer"></div>
             </div>
@@ -177,20 +257,19 @@
             
             <hr style="border:0; border-top:1px solid #edf2f7; margin: 20px 0;">
             
-            <h4 style="color: var(--primary-blue);">اللغات الأصلية والتحليل الأكاديمي:</h4>
+            <h4 style="color: var(--primary-blue);">اللغات الأصلية والتحليل الأكاديمي (Hebrew / Greek):</h4>
             <p id="modalOriginalLang" style="font-size: 0.95rem; color: #4a5568;"></p>
 
-            <h4 style="color: var(--primary-blue);">مقارنة الترجمات:</h4>
+            <h4 style="color: var(--primary-blue);">مقارنة الترجمات (Van Dyck & NKJV):</h4>
             <p id="modalComparison" style="font-size: 0.95rem; color: #4a5568;"></p>
 
             <h4 style="color: var(--primary-blue);">اختيار الشارح / التفسير:</h4>
             <select id="commentatorSelect" onchange="updateCommentaryText()" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e0; margin-bottom: 10px;">
-                <option value="mcdonald">تفسير وليم ماكدونالد</option>
-                <option value="bunker">تفسير بنيامين بنكرتن</option>
-                <option value="addy">تفسير وليم إدي</option>
-                <option value="matta">تفسير الأب متى المسكين</option>
+                <option value="mcdonald">تفسير وليم ماكدونالد (William MacDonald)</option>
+                <option value="bunker">تفسير بنيامين بنكرتن (Benjamin Newton)</option>
+                <option value="addy">تفسير وليم إدي (William Van Dyck / Eddy)</option>
+                <option value="matta">تفسير الأب متى المسكين (Father Matta El Meskeen)</option>
                 <option value="mounir">تفسير القس منيس عبد النور</option>
-                <option value="comparative">التفسير الأكاديمي الشامل</option>
             </select>
             <div id="modalCommentary" style="background: #f1f5f9; padding: 12px; border-radius: 6px; font-size: 0.95rem; line-height: 1.6;"></div>
 
@@ -203,35 +282,99 @@
         let selectedTestamentType = 'ot';
         let currentVerseData = {};
 
-        const dataAR = {
-            searchTitle: "نتيجة البحث الأكاديمي",
-            searchDesc: "ابحث في النصوص والتفاسير والمفردات الأصلية.",
-            chapterWord: "أصحاح",
-            versionLabel: "فانديك"
-        };
-
-        const dataEN = {
-            searchTitle: "Academic Search Result",
-            searchDesc: "Search across texts, commentaries, and original lexicons.",
-            chapterWord: "Chapter",
-            versionLabel: "NKJV"
+        const translations = {
+            ar: {
+                mainTitle: "موسوعة الكتاب المقدس الذكية",
+                subTitle: "كنيسة رجاء الأمم سيدني - Hope Church NSW",
+                cardBibleTitle: "الكتاب المقدس الكامل",
+                cardBibleDesc: "العهد القديم والجديد (عربي / إنجليزي)",
+                cardSearchTitle: "البحث المتقدم",
+                cardSearchDesc: "بحث سريع في النصوص والكلمات الأصلية",
+                cardStudiesTitle: "دراسات الآيات",
+                cardStudiesDesc: "تحليلات لغوية ومقارنة الترجمات",
+                cardCommTitle: "تفاسير الكنيسة",
+                cardCommDesc: "ماكدونالد، إدي، ومتى المسكين",
+                searchPlaceholder: "ابحث عن آية، كلمة أصلية، أو موضوع في الكتاب المقدس...",
+                searchBtn: "بحث",
+                booksHeader: "أسفار الكتاب المقدس (عربي / إنجليزي)",
+                otBtn: "العهد القديم / OT",
+                ntBtn: "العهد الجديد / NT",
+                welcomeTitle: "مرحباً بك في موسوعة كنيسة رجاء الأمم",
+                welcomeDesc: "اختر سفراً من القائمة الجانبية لاستعراض الأصحاحات باللغتين، أو استخدم شريط البحث.",
+                chapterWord: "أصحاح",
+                versionLabel: "فانديك / NKJV"
+            },
+            en: {
+                mainTitle: "Smart Bible Encyclopedia",
+                subTitle: "Hope Church NSW - Sydney, Australia",
+                cardBibleTitle: "Full Holy Bible",
+                cardBibleDesc: "Old & New Testament (AR / EN)",
+                cardSearchTitle: "Advanced Search",
+                cardSearchDesc: "Quick search in texts and original lexicons",
+                cardStudiesTitle: "Verse Studies",
+                cardStudiesDesc: "Linguistic analysis & translation comparison",
+                cardCommTitle: "Church Commentaries",
+                cardCommDesc: "MacDonald, Eddy, and Matta El Meskeen",
+                searchPlaceholder: "Search for a verse, original word, or topic...",
+                searchBtn: "Search",
+                booksHeader: "Bible Books (Arabic / English)",
+                otBtn: "Old Testament",
+                ntBtn: "New Testament",
+                welcomeTitle: "Welcome to Hope Church Encyclopedia",
+                welcomeDesc: "Select a book from the sidebar to view chapters in both Arabic and English.",
+                chapterWord: "Chapter",
+                versionLabel: "NKJV / Van Dyck"
+            }
         };
 
         const otBooks = [
-            { name: "التكوين", chapters: 50 },
-            { name: "الخروج", chapters: 40 },
-            { name: "الملازمير / المزامير", chapters: 150 },
-            { name: "إشعياء", chapters: 66 }
+            { nameAR: "التكوين", nameEN: "Genesis", chapters: 50 },
+            { nameAR: "الخروج", nameEN: "Exodus", chapters: 40 },
+            { nameAR: "المزامير", nameEN: "Psalms", chapters: 150 },
+            { nameAR: "إشعياء", nameEN: "Isaiah", chapters: 66 }
         ];
 
         const ntBooks = [
-            { name: "إنجيل متى", chapters: 28 },
-            { name: "إنجيل يوحنا", chapters: 21 },
-            { name: "رِسَالَةُ بُولُسَ الرَّسُولِ إِلَى أَهْلِ رومية", chapters: 16 }
+            { nameAR: "إنجيل متى", nameEN: "Gospel of Matthew", chapters: 28 },
+            { nameAR: "إنجيل يوحنا", nameEN: "Gospel of John", chapters: 21 },
+            { nameAR: "رسالة رومية", nameEN: "Epistle to the Romans", chapters: 16 }
         ];
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('appBody').dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            document.getElementById('langArBtn').className = lang === 'ar' ? 'active' : '';
+            document.getElementById('langEnBtn').className = lang === 'en' ? 'active' : '';
+
+            const t = translations[lang];
+            document.getElementById('mainTitle').innerText = t.mainTitle;
+            document.getElementById('subTitle').innerText = t.subTitle;
+            document.getElementById('cardBibleTitle').innerText = t.cardBibleTitle;
+            document.getElementById('cardBibleDesc').innerText = t.cardBibleDesc;
+            document.getElementById('cardSearchTitle').innerText = t.cardSearchTitle;
+            document.getElementById('cardSearchDesc').innerText = t.cardSearchDesc;
+            document.getElementById('cardStudiesTitle').innerText = t.cardStudiesTitle;
+            document.getElementById('cardStudiesDesc').innerText = t.cardStudiesDesc;
+            document.getElementById('cardCommTitle').innerText = t.cardCommTitle;
+            document.getElementById('cardCommDesc').innerText = t.cardCommDesc;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            document.getElementById('searchBtnText').innerText = t.searchBtn;
+            document.getElementById('booksListHeader').innerText = t.booksHeader;
+            document.getElementById('otBtn').innerText = t.otBtn;
+            document.getElementById('ntBtn').innerText = t.ntBtn;
+            document.getElementById('welcomeTitle').innerText = t.welcomeTitle;
+            document.getElementById('welcomeDesc').innerText = t.welcomeDesc;
+
+            renderBooks();
+        }
 
         function switchTestament(type) {
             selectedTestamentType = type;
+            document.getElementById('otBtn').style.background = type === 'ot' ? 'var(--primary-blue)' : '#e2e8f0';
+            document.getElementById('otBtn').style.color = type === 'ot' ? 'white' : 'var(--text-dark)';
+            document.getElementById('ntBtn').style.background = type === 'nt' ? 'var(--primary-blue)' : '#e2e8f0';
+            document.getElementById('ntBtn').style.color = type === 'nt' ? 'white' : 'var(--text-dark)';
             renderBooks();
         }
 
@@ -240,55 +383,68 @@
             const books = selectedTestamentType === 'ot' ? otBooks : ntBooks;
             let html = '';
             books.forEach(b => {
-                html += `<div class="book-item" onclick="selectBook('${b.name}', ${b.chapters})">📖 ${b.name} (${b.chapters} أصحاح)</div>`;
+                const displayName = currentLang === 'ar' ? `${b.nameAR} (${b.nameEN})` : `${b.nameEN} (${b.nameAR})`;
+                html += `<div class="book-item" onclick="selectBook('${b.nameAR}', '${b.nameEN}', ${b.chapters})">📖 ${displayName} [${b.chapters}]</div>`;
             });
             listContainer.innerHTML = html;
         }
 
-        function selectBook(bookName, totalChapters) {
+        function selectBook(bookAR, bookEN, totalChapters) {
             const versesContainer = document.getElementById('versesContainer');
+            const displayName = currentLang === 'ar' ? `${bookAR} / ${bookEN}` : `${bookEN} / ${bookAR}`;
+            
             document.getElementById('searchDisplayArea').innerHTML = `
-                <h4 style="color: var(--primary-blue); margin-bottom: 8px;">سفر: ${bookName}</h4>
-                <p style="color: #555;">اختر الأصحاح المطلوبة لاستعراض الآيات والتحليلات:</p>
+                <h4 style="color: var(--primary-blue); margin-bottom: 8px;">${displayName}</h4>
+                <p style="color: #555;">${currentLang === 'ar' ? 'اختر الأصحاح لاستعراض الآيات باللغتين:' : 'Select a chapter to view bilingual verses:'}</p>
             `;
             
             let html = `<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;">`;
-            for (let i = 1; i <= Math.min(totalChapters, 15); i++) {
-                html += `<button onclick="loadChapter('${bookName}', ${i})" style="padding: 8px 12px; background:var(--primary-blue); color:white; border:none; border-radius:4px; cursor:pointer;">${i}</button>`;
+            for (let i = 1; i <= Math.min(totalChapters, 20); i++) {
+                html += `<button onclick="loadChapter('${bookAR}', '${bookEN}', ${i})" style="padding: 8px 12px; background:var(--primary-blue); color:white; border:none; border-radius:4px; cursor:pointer;">${i}</button>`;
             }
             html += `</div>`;
             versesContainer.innerHTML = html;
         }
 
-        function getActualVersesForChapter(bookName, chapterNum) {
-            // محاكاة جلب آيات الكتاب المقدس
+        function filterSection(section) {
+            const searchDisplayArea = document.getElementById('searchDisplayArea');
+            if(section === 'search') {
+                document.getElementById('searchInput').focus();
+            } else if(section === 'studies') {
+                searchDisplayArea.innerHTML = `<h4 style="color:var(--primary-blue)">💡 دراسات الآيات والتحليلات اللغوية</h4><p>انقر على أي آية داخل الأصحاحات لفتح لوحة التحليل العبري واليوناني ومقارنة الترجمات.</p>`;
+            } else if(section === 'commentaries') {
+                searchDisplayArea.innerHTML = `<h4 style="color:var(--primary-blue)">📚 تفاسير آباء الكنيسة والشارحين</h4><p>تشمل تفسير وليم ماكدونالد، وليم إدي، والأب متى المسكين.</p>`;
+            }
+        }
+
+        function getBilingualVerses(bookAR, chapterNum) {
             return [
-                `في البداية خلق الله السموات والأرض وكان كل شيء بحسب تدبيره الإلهي العظيم.`,
-                `وكانت الأرض فارغة وخاوية وعلى وجه العمق ظلمة، وروح الله يرف على وجه المياه.`,
-                `وقال الله ليكم نور فكان نور، ورأى الله النور أنه حسن وفصل الله بين النور والظلمة.`,
-                `ودعا الله النور نهاراً والظلمة دعاها ليلاً، وكان مساء وكان صباح يوماً واحداً.`
+                { ar: "فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.", en: "In the beginning God created the heavens and the earth." },
+                { ar: "وَكَانَتِ الأَرْضُ خَرِبَةً وَخَالِيَةً، وَعَلَى وَجْهِ الْغَمْرِ ظُلْمَةٌ.", en: "The earth was without form, and void; and darkness was on the face of the deep." },
+                { ar: "وَرُوحُ اللهِ يَرُفُّ عَلَى وَجْهِ الْمِيَاهِ.", en: "And the Spirit of God was hovering over the face of the waters." },
+                { ar: "وَقَالَ اللهُ: «لِيَكُنْ نُورٌ»، فَكَانَ نُورٌ.", en: "Then God said, 'Let there be light'; and there was light." }
             ];
         }
 
-        function loadChapter(bookAR, chapterNum) {
+        function loadChapter(bookAR, bookEN, chapterNum) {
             const versesContainer = document.getElementById('versesContainer');
-            const displayName = bookAR;
-            const t = currentLang === 'ar' ? dataAR : dataEN;
+            const t = translations[currentLang];
+            const displayName = currentLang === 'ar' ? `${bookAR} (${bookEN})` : `${bookEN} (${bookAR})`;
             
             let html = `
-                <h4 style="color: var(--primary-blue); margin-bottom: 12px;">${displayName} - ${t.chapterWord} ${chapterNum} (${t.versionLabel})</h4>
-                <div style="font-size:0.85rem; color:#718096; margin-bottom:10px;">انقر على أي آية لعرض التفاصيل الأكاديمية والتفاسير وشاهد النص الأصلي:</div>
+                <h4 style="color: var(--primary-blue); margin-bottom: 12px;">${displayName} - ${t.chapterWord} ${chapterNum}</h4>
+                <div style="font-size:0.85rem; color:#718096; margin-bottom:10px;">${currentLang === 'ar' ? 'انقر على أي آية لعرض التفاصيل الأكاديمية والتفاسير اللغوية باللغتين:' : 'Click any verse for academic details & bilingual commentaries:'}</div>
             `;
 
-            const rawVerses = getActualVersesForChapter(bookAR, chapterNum);
-            rawVerses.forEach((vText, idx) => {
+            const verses = getBilingualVerses(bookAR, chapterNum);
+            verses.forEach((v, idx) => {
                 const vNum = idx + 1;
-                const displayVerseText = currentLang === 'ar' ? vText : `[${bookAR} - Chapter ${chapterNum} - Verse ${vNum}] And the word of the Lord came unto me saying.`;
+                const activeText = currentLang === 'ar' ? `${v.ar} | ${v.en}` : `${v.en} | ${v.ar}`;
                 
                 html += `
-                    <div class="verse-item" onclick='openVerseModal("${displayName}", ${chapterNum}, ${vNum}, ${JSON.stringify(displayVerseText)})'>
+                    <div class="verse-item" onclick='openVerseModal("${displayName}", ${chapterNum}, ${vNum}, ${JSON.stringify(v.ar)}, ${JSON.stringify(v.en)})'>
                         <span class="v-num">${vNum}</span>
-                        <span>${displayVerseText}</span>
+                        <span>${activeText}</span>
                     </div>
                 `;
             });
@@ -296,24 +452,24 @@
             versesContainer.innerHTML = html;
         }
 
-        function openVerseModal(bookName, chapter, verseNum, text) {
-            currentVerseData = { bookName, chapter, verseNum, text };
-            document.getElementById('modalVerseTitle').innerText = `${bookName} - أصحاح ${chapter} : آية ${verseNum}`;
-            document.getElementById('modalVerseText').innerText = text;
+        function openVerseModal(bookName, chapter, verseNum, textAr, textEn) {
+            const fullText = currentLang === 'ar' ? `${textAr}\n(EN: ${textEn})` : `${textEn}\n(AR: ${textAr})`;
+            document.getElementById('modalVerseTitle').innerText = `${bookName} - Chapter ${chapter} : Verse ${verseNum}`;
+            document.getElementById('modalVerseText').innerText = fullText;
             
             document.getElementById('modalOriginalLang').innerText = selectedTestamentType === 'ot' ? 
-                "בְּרֵאשִׁית בָּרָא אֱלֹהִים (H1254 - בָּרָא - Bara - خلق من عدم)" :
-                "Ἐν ἀρχῇ ἦν ὁ λόγος (G3056 - Logos - الكلمة العقل الإلهي)";
+                "בְּרֵאשִׁית בָּרָא אֱלֹהִים (H1254 - בָּרָא - Bara - Hebrew Original)" :
+                "Ἐν ἀρχῇ ἦν ὁ λόγος (G3056 - Logos - Greek Original)";
 
             document.getElementById('modalComparison').innerText = currentLang === 'ar' ?
-                "مقارنة الترجمات: (الفانديك): مطابقة للنص تماماً | (يسوع الحياة): ترتكز على المعنى التفسيري | (NKJV): In the beginning..." :
-                "Translation Comparison: (NKJV): Exact match | (Van Dyck): Standard Arabic text.";
+                "مقارنة الترجمات: (فانديك Arabic Van Dyck): مطابقة تماماً | (NKJV): New King James Version | (NLT): Dynamic Equivalence." :
+                "Translation Comparison: (Van Dyck): Standard Arabic | (NKJV): Accurate English rendering | (NLT): Clear thought.";
 
             updateCommentaryText();
 
             document.getElementById('modalMapInfo').innerText = currentLang === 'ar' ?
-                "🗺️ المواقع الجغرافية المرتبطة: أورشليم، جبل صهيون، وادي الأردن، وبحيرة طبريا." :
-                "🗺️ Related Geographical Sites: Jerusalem, Mount Zion, Jordan Valley, Sea of Galilee.";
+                "🗺️ المواقع الجغرافية المرتبطة: أورشليم (Jerusalem)، جبل صهيون (Mount Zion)، بحيرة طبريا (Sea of Galilee)." :
+                "🗺️ Related Geographical Sites: Jerusalem, Mount Zion, Sea of Galilee.";
 
             document.getElementById('verseModal').style.display = 'flex';
         }
@@ -324,22 +480,29 @@
 
             switch(commentator) {
                 case 'mcdonald':
-                    commentaryText = "تفسير وليم ماكدونالد: يؤكد هذا النص على السيادة المطلقة لله وعنايته المستمرة بخليقته، مبيناً أن النعمة الإلهية قوة عاملة في حياة المؤمن.";
+                    commentaryText = currentLang === 'ar' ? 
+                        "تفسير وليم ماكدونالد: يؤكد النص على السيادة المطلقة لله وعنايته المستمرة بخليقته، مبيناً أن الكلمة الإلهية فعالة في حياة المؤمن." :
+                        "William MacDonald Commentary: Emphasizes God's absolute sovereignty and ongoing care for His creation.";
                     break;
                 case 'bunker':
-                    commentaryText = "تفسير بنيامين بنكرتن: يركز الشارح على البنيان الروحي والترتيب الإداري للكنيسة الأولى، موضحاً ارتباط الآية بالعهود الإلهية.";
+                    commentaryText = currentLang === 'ar' ? 
+                        "تفسير بنيامين بنكرتن: يركز على البنيان الروحي والترتيب الإداري للكنيسة والوعود الإلهية." :
+                        "Benjamin Newton Commentary: Focuses on spiritual building and the administrative order of the church.";
                     break;
                 case 'addy':
-                    commentaryText = "تفسير وليم إدي: دراسة لغوية وتاريخية مفصلة للكلمات المفتاحية في الآية مع مقارنة المخطوطات الشرقية والغربية.";
+                    commentaryText = currentLang === 'ar' ? 
+                        "تفسير وليم إدي: دراسة لغوية مقارنة للكلمات المفتاحية في النص الأصلي ومقارنة المخطوطات." :
+                        "William Eddy Commentary: Detailed linguistic study of key terms in the original text and manuscript comparisons.";
                     break;
                 case 'matta':
-                    commentaryText = "تفسير الأب متى المسكين: نظرة تأملية عميقة في التجسد الإلهي والشركة السرائرية بين المؤمن ورأس الكنيسة بروح الصلاة والانسحاق.";
+                    commentaryText = currentLang === 'ar' ? 
+                        "تفسير الأب متى المسكين: نظرة تأملية عميقة في التجسد الإلهي والشركة السرائرية بين المؤمن وبروحه." :
+                        "Father Matta El Meskeen: Deep contemplative insight into the divine incarnation and spiritual communion.";
                     break;
                 case 'mounir':
-                    commentaryText = "تفسير القس منيس عبد النور: إجابة دفاعية واضحة على الشبهات المثارة حول النص، مع إبراز الانسجام الكامل بين أسفار العهدين.";
-                    break;
-                case 'comparative':
-                    commentaryText = "التفسير الأكاديمي الشامل: يجمع بين المنهج النقدي والتفسير الكنسي التاريخي، مدمجاً المناهج اللاهوتية الكلاسيكية والحديثة.";
+                    commentaryText = currentLang === 'ar' ? 
+                        "تفسير القس منيس عبد النور: إجابة دفاعية واضحة على الشبهات وإبراز الانسجام بين العهدين." :
+                        "Rev. Mounir Abdel Nour: Clear apologetic answers to common questions, highlighting the harmony between testaments.";
                     break;
             }
             document.getElementById('modalCommentary').innerText = commentaryText;
@@ -352,29 +515,22 @@
         function performSearch() {
             const query = document.getElementById('searchInput').value.trim();
             const searchDisplayArea = document.getElementById('searchDisplayArea');
-            const t = currentLang === 'ar' ? dataAR : dataEN;
 
-            if (!query) {
-                searchDisplayArea.innerHTML = `
-                    <h4 style="color: var(--primary-blue); margin-bottom: 8px;">${t.searchTitle}</h4>
-                    <p style="color: #555;">${t.searchDesc}</p>
-                `;
-                return;
-            }
+            if (!query) return;
 
-            let resultsHtml = `<h4 style="color: var(--primary-blue); margin-bottom: 12px;">${t.searchTitle} لـ: "${query}"</h4>`;
+            let resultsHtml = `<h4 style="color: var(--primary-blue); margin-bottom: 12px;">نتائج البحث الشامل / Search Results لـ: "${query}"</h4>`;
             
             const mockResults = [
-                { book: "التكوين", ch: 1, v: 1, text: "فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ." },
-                { book: "المزامير", ch: 23, v: 1, text: "الرَّبُّ رَاعِيَّ فَلاَ يُعْوِزُنِي شَيْءٌ." },
-                { book: "إنجيل يوحنا", ch: 1, v: 1, text: "فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ." }
+                { book: "التكوين / Genesis", ch: 1, v: 1, ar: "فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.", en: "In the beginning God created the heavens and the earth." },
+                { book: "المزامير / Psalms", ch: 23, v: 1, ar: "الرَّبُّ رَاعِيَّ فَلاَ يُعْوِزُنِي شَيْءٌ.", en: "The Lord is my shepherd; I shall not want." },
+                { book: "إنجيل يوحنا / John", ch: 1, v: 1, ar: "فِي الْبَدْءِ كَانَ الْكَلِمَةُ...", en: "In the beginning was the Word..." }
             ];
 
             mockResults.forEach(res => {
                 resultsHtml += `
-                    <div class="verse-item" onclick='openVerseModal("${res.book}", ${res.ch}, ${res.v}, ${JSON.stringify(res.text)})'>
+                    <div class="verse-item" onclick='openVerseModal("${res.book}", ${res.ch}, ${res.v}, ${JSON.stringify(res.ar)}, ${JSON.stringify(res.en)})'>
                         <span class="v-num">${res.book} ${res.ch}:${res.v}</span>
-                        <span>${res.text}</span>
+                        <span>${res.ar} | ${res.en}</span>
                     </div>
                 `;
             });
