@@ -1,113 +1,347 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>كنيسة رجاء الأمم سيدني | Hope Church NSW</title>
-  
-  <!-- React & ReactDOM -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  
-  <!-- Babel Compiler -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كنيسة رجاء الأمم سيدني | Hope Church NSW</title>
+
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel Compiler -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              navy: {
+                800: '#1e293b',
+                900: '#0f172a',
+                950: '#0a0f1d'
+              },
+              gold: {
+                400: '#fbbf24',
+                500: '#f59e0b',
+                600: '#d97706'
+              }
+            }
+          }
+        }
+      }
+    </script>
 </head>
 
-<body class="bg-slate-50 dark:bg-slate-900 min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-200">
-  <div id="root"></div>
+<body class="bg-slate-100 dark:bg-slate-900 min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-300">
+    <div id="root"></div>
 
-  <script type="text/babel">
-    const { useState } = React;
+    <script type="text/babel">
+        const { useState } = React;
 
-    function App() {
-      const [isArabic, setIsArabic] = useState(true);
-      const [isDark, setIsDark] = useState(false);
-      const [currentView, setCurrentView] = useState('home');
+        function App() {
+          const [isArabic, setIsArabic] = useState(true);
+          const [isDark, setIsDark] = useState(false);
+          const [currentView, setCurrentView] = useState('home');
+          const [selectedVerse, setSelectedVerse] = useState(null);
+          const [highlights, setHighlights] = useState({});
+          const [selectedStudy, setSelectedStudy] = useState(null);
 
-      const churchLogoUrl = "https://z-cdn-media.chatglm.cn/files/4db28f75-70f7-4885-8556-16efe0859236.png?auth_key=1885580462-f4f57363df7e4e70ac6a8c1b11073a67-0-694a16048f511a71541e00b0b65ff427";
+          const churchLogoUrl = "https://z-cdn-media.chatglm.cn/files/4db28f75-70f7-4885-8556-16efe0859236.png?auth_key=1885580462-f4f57363df7e4e70ac6a8c1b11073a67-0-694a16048f511a71541e00b0b65ff427";
+          const qrCodeUrl = "https://z-cdn-media.chatglm.cn/files/eba569c9-f552-4f3d-ac22-375fd18c9d34.jpg?auth_key=1885580462-61bc0525943847ae9ce58b78d23a2a4f-0-00a8081fb59e2207db4ba54e39dc95fd";
 
-      const content = {
-        ar: {
-          dir: 'rtl',
-          churchName: 'كنيسة رجاء الأمم سيدني',
-          churchSubName: 'Hope Church NSW',
-          welcomeTitle: 'مرحباً بكم في كنيستنا',
-          welcomeText: 'كنيسة رجاء الأمم سيدني هي كنيسة مسيحية عربية إنجيلية مؤسسة على كلمة الله والكتاب المقدس، وتهدف إلى ربح النفوس وبنيان جسد المسيح.',
-          cards: [
-            { id: 'bible', icon: '📖', title: 'الكتاب المقدس', desc: 'عربي فان دايك وإنجليزي KJV' },
-            { id: 'search', icon: '🔍', title: 'بحث في الكتاب المقدس', desc: 'ابحث في النصوص بسهولة' },
-            { id: 'studies', icon: '💡', title: 'دراسات وموسوعة الكتاب', desc: 'دراسات وموسوعة الكتاب المقدس' },
-            { id: 'church', icon: '⛪', title: 'الكنيسة', desc: 'العنوان، المواعيد، والروابط' },
-          ]
-        },
-        en: {
-          dir: 'ltr',
-          churchName: 'Hope Church NSW',
-          churchSubName: 'كنيسة رجاء الأمم سيدني',
-          welcomeTitle: 'Welcome to Our Church',
-          welcomeText: 'Hope Church NSW is an Arabic Evangelical Christian church founded on the Word of God and the Bible.',
-          cards: [
-            { id: 'bible', icon: '📖', title: 'The Bible', desc: 'Arabic Van Dyck & English KJV' },
-            { id: 'search', icon: '🔍', title: 'Bible Search', desc: 'Search the texts easily' },
-            { id: 'studies', icon: '💡', title: 'Bible Studies', desc: 'Bible Studies & Encyclopedia' },
-            { id: 'church', icon: '⛪', title: 'Our Church', desc: 'Address, times, and links' },
-          ]
+          const content = {
+            ar: {
+              dir: 'rtl',
+              churchName: 'كنيسة رجاء الأمم سيدني',
+              churchSubName: 'Hope Church NSW',
+              welcomeTitle: 'مرحباً بكم في كنيستنا',
+              welcomeText: 'كنيسة رجاء الأمم سيدني هي كنيسة انجيلية عربية مؤسسة على كلمة الله والكتاب المقدس، وتهدف إلى ربح النفوس وبنيان جسد المسيح...',
+              cards: [
+                { id: 'bible', icon: '📖', title: 'الكتاب المقدس', desc: 'عربي فان دايك وإنجليزي KJV' },
+                { id: 'search', icon: '🔍', title: 'بحث في الكتاب المقدس', desc: 'ابحث في النصوص بسهولة' },
+                { id: 'studies', icon: '💡', title: 'دراسات', desc: 'دراسات وموسوعة الكتاب المقدس' },
+                { id: 'church', icon: '⛪', title: 'الكنيسة', desc: 'العنوان، المواعيد، والروابط' },
+              ],
+              toggleLang: 'EN',
+              meetingTimes: [
+                { day: 'الأحد', time: '10:00 صباحاً', event: 'اجتماع العبادة العام (عربي وإنجليزي)' },
+                { day: 'الأربعاء', time: '7:00 مساءً', event: 'برنامج عمق جديد' },
+                { day: 'الخميس', time: '11:00 صباحاً', event: 'اجتماع السيدات' },
+                { day: 'الجمعة', time: '7:00 مساءً', event: 'اجتماع الصلاة ودراسة الكتاب المقدس' }
+              ],
+              address: '704 The Horsley Dr, Smithfield',
+              linksTitle: 'روابط الكنيسة',
+              backHome: '← العودة للرئيسية',
+              backToStudies: '← العودة لقسم الدراسات'
+            },
+            en: {
+              dir: 'ltr',
+              churchName: 'Hope Church NSW',
+              churchSubName: 'كنيسة رجاء الأمم سيدني',
+              welcomeTitle: 'Welcome to Our Church',
+              welcomeText: 'Hope Church NSW is an Arabic Evangelical church founded on the Word of God and the Bible, aiming to win souls and edify the body of Christ...',
+              cards: [
+                { id: 'bible', icon: '📖', title: 'The Bible', desc: 'Arabic Van Dyck & English KJV' },
+                { id: 'search', icon: '🔍', title: 'Bible Search', desc: 'Search the texts easily' },
+                { id: 'studies', icon: '💡', title: 'Studies', desc: 'Bible Studies & Encyclopedia' },
+                { id: 'church', icon: '⛪', title: 'Our Church', desc: 'Address, times, and links' },
+              ],
+              toggleLang: 'ع',
+              meetingTimes: [
+                { day: 'Sunday', time: '10:00 AM', event: 'General Worship (Arabic & English)' },
+                { day: 'Wednesday', time: '7:00 PM', event: 'New Depth Program' },
+                { day: 'Thursday', time: '11:00 AM', event: 'Ladies Meeting' },
+                { day: 'Friday', time: '7:00 PM', event: 'Prayer & Bible Study' }
+              ],
+              address: '704 The Horsley Dr, Smithfield',
+              linksTitle: 'Church Links',
+              backHome: '← Back to Home',
+              backToStudies: '← Back to Studies'
+            }
+          };
+
+          const c = isArabic ? content.ar : content.en;
+
+          const bibleData = [
+            { id: 1, verse: 1, text_ar: "فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.", text_en: "In the beginning God created the heaven and the earth." },
+            { id: 2, verse: 2, text_ar: "وَكَانَتِ الأَرْضُ خَرِبَةً وَخَالِيَةً، وَعَلَى وَجْهِ الْغَمْرِ ظُلْمَةٌ، وَرُوحُ اللهِ يَرِفُّ عَلَى وَجْهِ الْمِيَاهِ.", text_en: "And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters." },
+            { id: 3, verse: 3, text_ar: "وَقَالَ اللهُ: «لِيَكُنْ نُورٌ»، فَكَانَ نُورٌ.", text_en: "And God said, Let there be light: and there was light." },
+            { id: 4, verse: 4, text_ar: "وَرَأَى اللهُ النُّورَ أَنَّهُ حَسَنٌ، وَفَصَلَ اللهُ بَيْنَ النُّورِ وَالظُّلْمَةِ.", text_en: "And God saw the light, that it was good: and God divided the light from the darkness." },
+            { id: 5, verse: 5, text_ar: "وَدَعَا اللهُ النُّورَ نَهَارًا، وَالظُّلْمَةُ دَعَاهَا لَيْلاً. وَكَانَ مَسَاءٌ وَكَانَ صَبَاحٌ يَوْمًا وَاحِدًا.", text_en: "And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day." },
+            { id: 6, verse: 6, text_ar: "وَقَالَ اللهُ: «لِيَكُنْ جَلَدٌ فِي وَسَطِ الْمِيَاهِ، وَلْيَكُنْ فَاصِلاً بَيْنَ مِيَاهٍ وَمِيَاهٍ».", text_en: "And God said, Let there be a firmament in the midst of the waters, and let it divide the waters from the waters." },
+            { id: 7, verse: 7, text_ar: "فَصَنَعَ اللهُ الْجَلَدَ، وَفَصَلَ بَيْنَ الْمِيَاهِ الَّتِي تَحْتَ الْجَلَدِ وَالْمِيَاهِ الَّتِي فَوْقَ الْجَلَدِ. وَكَانَ كَذَلِكَ.", text_en: "And God made the firmament, and divided the waters which were under the firmament from the waters which were above the firmament: and it was so." },
+            { id: 8, verse: 8, text_ar: "وَدَعَا اللهُ الْجَلَدَ سَمَاءً. وَكَانَ مَسَاءٌ وَكَانَ صَبَاحٌ يَوْمًا ثَانِيًا.", text_en: "And God called the firmament Heaven. And the evening and the morning were the second day." },
+            { id: 9, verse: 9, text_ar: "وَقَالَ اللهُ: «لِتَجْتَمِعِ الْمِيَاهُ تَحْتَ السَّمَاءِ إِلَى مَكَانٍ وَاحِدٍ، وَلْتَظْهَرِ الْيَابِسَةُ». وَكَانَ كَذَلِكَ.", text_en: "And God said, Let the waters under the heaven be gathered together unto one place, and let the dry land appear: and it was so." },
+            { id: 10, verse: 10, text_ar: "وَدَعَا اللهُ الْيَابِسَةَ أَرْضًا، وَمُجْتَمَعَ الْمِيَاهِ دَعَاهُ بِحَارًا. وَرَأَى اللهُ ذَلِكَ أَنَّهُ حَسَنٌ.", text_en: "And God called the dry land Earth; and the gathering together of the waters called he Seas: and God saw that it was good." },
+            { id: 31, verse: 31, text_ar: "وَرَأَى اللهُ كُلَّ مَا عَمِلَهُ فَإِذَا هُوَ حَسَنٌ جِدًّا. وَكَانَ مَسَاءٌ وَكَانَ صَبَاحٌ يَوْمًا سَادِسًا.", text_en: "And God saw every thing that he had made, and, behold, it was very good. And the evening and the morning were the sixth day." }
+          ];
+
+          const commentariesData = {
+            1: [
+              { author: "وليم ماكدونالد", text: "الله خلق كل شيء من العدم. هذه الآية تؤسس لحقيقة أن الله هو المصدر الوحيد لكل الوجود، تنفي نظرية التطور وتثبت الخلق المباشر." },
+              { author: "الأب متى المسكين", text: "البداية هنا تشير إلى الأزلية، حيث أن الله موجود قبل الزمان والمكان، وهو المبدئ و الخالق. كلمة 'خلق' تشير لخلق من عدم." }
+            ],
+            3: [
+              { author: "جون ماك آرثر", text: "الله تكلم بكلمته ليوجد النور. هذا يوضح قوة الكلمة الإلهية، وهو رمز للنور الروحي الذي يشرق في الظلمة." }
+            ]
+          };
+
+          const studiesData = [
+            { id: 'encyclopedia', icon: '📚', title_ar: 'الموسوعة الكتابية', title_en: 'Bible Encyclopedia', content_ar: 'مرجع شامل يشرح الأماكن، العادات، والمصطلحات الكتابية بمعلومات موثقة من علماء اللاهوت.', content_en: 'Comprehensive reference explaining biblical places, customs, and terms with documented info.' },
+            { id: 'characters', icon: '👥', title_ar: 'شخصيات كتابية', title_en: 'Biblical Characters', content_ar: 'دراسة حياة الشخصيات الكتابية: ميلادهم، معاصروهم، نقاط القوة والضعف، وكيف تعامل الله معهم.', content_en: 'Study of biblical figures: birth, contemporaries, strengths, weaknesses, and God\'s dealing with them.' },
+            { id: 'parables', icon: '🌱', title_ar: 'أمثال المسيح', title_en: 'Parables of Christ', content_ar: 'شرح أمثال السيد المسيح مع إبراز الخلفية اليهودية، الشرح اللاهوتي، والتطبيق العملي للحياة المعاصرة.', content_en: 'Explanation of Christ\'s parables with Jewish background, theological meaning, and practical application.' },
+            { id: 'miracles', icon: '✨', title_ar: 'معجزات المسيح', title_en: 'Miracles of Christ', content_ar: 'دراسة معجزات المسيح كدليل على لاهوته، مع تحليل السياق التاريخي والمعاني الروحية العميقة.', content_en: 'Study of Christ\'s miracles as proof of deity, analyzing historical context and deep spiritual meanings.' },
+            { id: 'tabernacle', icon: '⛺', title_ar: 'خيمة الاجتماع', title_en: 'Tabernacle', content_ar: 'دراسة معمارية ولاهوتية لخيمة الاجتماع: الأدوات (التابوت، المنارة، المذبح)، المواد، والرمزية المسيانية لكل تفصيل.', content_en: 'Architectural and theological study of the Tabernacle: furniture, materials, and Messianic symbolism.' },
+            { id: 'solomon_temple', icon: '🏛️', title_ar: 'هيكل سليمان', title_en: 'Solomon\'s Temple', content_ar: 'دراسة تصميم هيكل سليمان، مواد البناء الفاخرة، تاريخ تدشينه، ومكانته في العهد القديم.', content_en: 'Study of Solomon\'s Temple design, luxurious materials, dedication history, and OT significance.' },
+            { id: 'herod_temple', icon: '🧱', title_ar: 'هيكل هيرودس', title_en: 'Herod\'s Temple', content_ar: 'دراسة توسعات هيرودس للهيكل، دار الأمم، والدور النبوي لهذا الهيكل في زمن السيد المسيح.', content_en: 'Study of Herod\'s temple expansions, Court of Gentiles, and its prophetic role in Christ\'s time.' },
+            { id: 'bible_intro', icon: '📜', title_ar: 'مقدمة موثقة لكل سفر (66)', title_en: 'Intro to 66 Books', content_ar: 'مقدمة شاملة لكل سفر في الكتاب المقدس: الكاتب، تاريخ الكتابة، الغرض، السمات المميزة، والموضوع الرئيسي.', content_en: 'Comprehensive intro to each Bible book: Author, date, purpose, characteristics, and main theme.' },
+          ];
+
+          const highlightVerse = (verseId, color) => setHighlights(prev => ({ ...prev, [verseId]: color }));
+          const highlightColors = { yellow: '#FFF176', neon: '#B2FF59', blue: '#90CAF9' };
+
+          const churchLinks = [
+            { name: 'YouTube', url: 'https://www.youtube.com/@HCNSW', icon: '▶️', color: 'bg-red-600 hover:bg-red-700' },
+            { name: 'Facebook', url: 'https://www.facebook.com/hopechurchNSW', icon: '📘', color: 'bg-blue-600 hover:bg-blue-700' },
+            { name: 'TikTok', url: 'https://www.tiktok.com/@hopechurch.nsw', icon: '🎵', color: 'bg-slate-800 hover:bg-black' },
+            { name: 'Al Keraza TV', url: 'https://www.alkerazatv.com/', icon: '📺', color: 'bg-purple-600 hover:bg-purple-700' }
+          ];
+
+          return (
+            <div dir={c.dir} className={isDark ? 'dark' : ''}>
+              <div className="min-h-screen bg-slate-100 dark:bg-slate-900 transition-colors duration-500 font-sans text-slate-800 dark:text-slate-200">
+                
+                {/* ===== الهيدر ===== */}
+                <header className="sticky top-0 z-40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm shadow-sm border-b border-slate-200 dark:border-slate-700">
+                  <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+                    <div className="flex items-center gap-3 cursor-pointer" onClick={() => { setCurrentView('home'); setSelectedStudy(null); }}>
+                      <img src={churchLogoUrl} alt="Church Logo" className="w-14 h-14 rounded-full shadow-md object-cover border-2 border-amber-500" />
+                      <div>
+                        <h1 className="text-lg font-extrabold text-blue-900 dark:text-white leading-tight">{c.churchName}</h1>
+                        <p className="text-xs text-amber-600 dark:text-amber-400 font-semibold">{c.churchSubName}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button onClick={() => setIsArabic(!isArabic)} className="px-4 py-2 rounded-lg bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-bold text-sm hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">
+                        {c.toggleLang}
+                      </button>
+                      <button onClick={() => setIsDark(!isDark)} className="p-2 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
+                        {isDark ? '☀️' : '🌙'}
+                      </button>
+                    </div>
+                  </div>
+                </header>
+
+                {/* ===== المحتوى المتغير ===== */}
+                <main className="container mx-auto px-4 py-8">
+                  {currentView === 'home' && (
+                    <>
+                      <section className="text-center py-10">
+                        <div className="max-w-3xl mx-auto">
+                          <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 dark:text-blue-400 mb-6">{c.welcomeTitle}</h2>
+                          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed">{c.welcomeText}</p>
+                        </div>
+                      </section>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto pb-20">
+                        {c.cards.map((card) => (
+                          <div key={card.id} onClick={() => { setCurrentView(card.id); setSelectedStudy(null); }} className="group relative bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-slate-100 dark:border-slate-700 overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-slate-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+                            <div className="relative z-10 flex flex-col items-center text-center">
+                              <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-slate-700 group-hover:bg-white/20 flex items-center justify-center text-3xl mb-5 transition-colors duration-300">{card.icon}</div>
+                              <h3 className="text-xl font-bold text-blue-900 dark:text-white group-hover:text-amber-400 mb-2 transition-colors duration-300">{card.title}</h3>
+                              <p className="text-slate-500 dark:text-slate-400 group-hover:text-blue-100 transition-colors duration-300">{card.desc}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {/* ===== واجهة الكتاب المقدس ===== */}
+                  {currentView === 'bible' && (
+                    <div className="max-w-4xl mx-auto bg-white dark:bg-slate-800 p-6 md:p-10 rounded-xl shadow-lg">
+                      <button onClick={() => setCurrentView('home')} className="mb-6 text-blue-600 hover:underline">{c.backHome}</button>
+                      <h2 className="text-2xl font-bold mb-6 text-blue-900 dark:text-white border-b pb-4">{isArabic ? 'سفر التكوين - الأصحاح الأول' : 'Genesis - Chapter 1'}</h2>
+                      <div className="space-y-4">
+                        {bibleData.map((v) => (
+                          <div key={v.id} className="flex items-start gap-4 p-4 rounded-lg cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" style={{ backgroundColor: highlights[v.id] ? highlights[v.id] : 'transparent' }} onClick={() => setSelectedVerse(v)}>
+                            <span className="font-bold text-amber-600 dark:text-amber-400 min-w-[30px]">{v.verse}</span>
+                            <p className="text-lg leading-relaxed">{isArabic ? v.text_ar : v.text_en}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ===== واجهة الدراسات ===== */}
+                  {currentView === 'studies' && (
+                    <div className="max-w-5xl mx-auto">
+                      <button onClick={() => setCurrentView('home')} className="mb-6 text-blue-600 hover:underline">{c.backHome}</button>
+                      
+                      {!selectedStudy ? (
+                        <>
+                          <h2 className="text-3xl font-bold mb-8 text-center text-blue-900 dark:text-white">{isArabic ? 'دراسات وموسوعة الكتاب المقدس' : 'Bible Studies & Encyclopedia'}</h2>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {studiesData.map((study) => (
+                              <div key={study.id} onClick={() => setSelectedStudy(study)} className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer border-t-4 border-amber-500 flex items-center gap-4">
+                                <span className="text-4xl">{study.icon}</span>
+                                <h3 className="text-lg font-bold text-slate-800 dark:text-white">{isArabic ? study.title_ar : study.title_en}</h3>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      ) : (
+                        <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg">
+                          <button onClick={() => setSelectedStudy(null)} className="mb-6 text-blue-600 hover:underline">{c.backToStudies}</button>
+                          <div className="flex items-center gap-4 mb-6 border-b pb-4">
+                            <span className="text-5xl">{selectedStudy.icon}</span>
+                            <h2 className="text-2xl font-bold text-blue-900 dark:text-white">{isArabic ? selectedStudy.title_ar : selectedStudy.title_en}</h2>
+                          </div>
+                          <p className="text-lg text-slate-700 dark:text-slate-300 leading-loose">{isArabic ? selectedStudy.content_ar : selectedStudy.content_en}</p>
+                          <div className="mt-8 p-4 bg-blue-50 dark:bg-slate-700 rounded-lg text-blue-800 dark:text-blue-200 text-sm">
+                            {isArabic ? 'سيتم إضافة المحتوى التفصيلي والخرائط الخاصة بهذا القسم قريباً.' : 'Detailed content and maps for this section will be added soon.'}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* ===== واجهة الكنيسة ===== */}
+                  {currentView === 'church' && (
+                    <div className="max-w-4xl mx-auto space-y-8">
+                      <button onClick={() => setCurrentView('home')} className="mb-6 text-blue-600 hover:underline">{c.backHome}</button>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="space-y-6">
+                          <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
+                            <h2 className="text-xl font-bold mb-4 text-blue-900 dark:text-white flex items-center gap-2"><span>📍</span> {isArabic ? 'العنوان' : 'Address'}</h2>
+                            <p className="text-slate-600 dark:text-slate-300">{c.address}</p>
+                          </div>
+                          <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
+                            <h2 className="text-xl font-bold mb-4 text-blue-900 dark:text-white flex items-center gap-2"><span>⏰</span> {isArabic ? 'مواعيد الاجتماعات' : 'Meeting Times'}</h2>
+                            <div className="space-y-3">
+                              {c.meetingTimes.map((mt, index) => (
+                                <div key={index} className="text-sm border-r-4 border-amber-500 bg-slate-50 dark:bg-slate-700 p-3 rounded-l-md">
+                                  <span className="font-bold text-blue-900 dark:text-blue-300 block">{mt.day} - {mt.time}</span>
+                                  <span className="text-slate-600 dark:text-slate-300">{mt.event}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="space-y-6">
+                          <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                            <h2 className="text-xl font-bold mb-4 text-blue-900 dark:text-white">{isArabic ? 'امسح الباركود لزيارتنا' : 'Scan QR Code'}</h2>
+                            <img src={qrCodeUrl} alt="QR Code" className="w-40 h-40 object-contain rounded-lg shadow-md" />
+                          </div>
+                          <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
+                            <h2 className="text-xl font-bold mb-4 text-blue-900 dark:text-white text-center">{c.linksTitle}</h2>
+                            <div className="grid grid-cols-2 gap-4">
+                              {churchLinks.map((link) => (
+                                <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className={`${link.color} text-white p-4 rounded-xl flex flex-col items-center justify-center gap-2 transition-transform hover:scale-105 shadow-md`}>
+                                  <span className="text-3xl">{link.icon}</span>
+                                  <span className="text-sm font-bold">{link.name}</span>
+                                </a>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {['search'].includes(currentView) && (
+                     <div className="max-w-4xl mx-auto bg-white dark:bg-slate-800 p-10 rounded-xl shadow-lg text-center">
+                        <button onClick={() => setCurrentView('home')} className="mb-6 text-blue-600 hover:underline block mx-auto">{c.backHome}</button>
+                        <h2 className="text-2xl font-bold text-blue-900 dark:text-white">🚧 {isArabic ? 'قسم قيد التطوير' : 'Section Under Development'}</h2>
+                     </div>
+                  )}
+                </main>
+
+                {/* ===== النافذة المنبثقة للآية ===== */}
+                {selectedVerse && (
+                  <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setSelectedVerse(null)}>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl max-w-lg w-full p-6 relative" onClick={(e) => e.stopPropagation()}>
+                      <button className="absolute top-4 left-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" onClick={() => setSelectedVerse(null)}>✖</button>
+                      <p className="text-xl font-bold mb-6 text-blue-900 dark:text-amber-400 border-b pb-4">{isArabic ? selectedVerse.text_ar : selectedVerse.text_en}</p>
+                      <div className="mb-6">
+                        <p className="text-sm font-semibold mb-2 text-slate-500">{isArabic ? 'تظليل الآية:' : 'Highlight Verse:'}</p>
+                        <div className="flex gap-2">
+                          <button onClick={() => highlightVerse(selectedVerse.id, highlightColors.yellow)} className="w-8 h-8 rounded-full border-2 border-white shadow" style={{ backgroundColor: highlightColors.yellow }}></button>
+                          <button onClick={() => highlightVerse(selectedVerse.id, highlightColors.neon)} className="w-8 h-8 rounded-full border-2 border-white shadow" style={{ backgroundColor: highlightColors.neon }}></button>
+                          <button onClick={() => highlightVerse(selectedVerse.id, highlightColors.blue)} className="w-8 h-8 rounded-full border-2 border-white shadow" style={{ backgroundColor: highlightColors.blue }}></button>
+                          <button onClick={() => highlightVerse(selectedVerse.id, null)} className="text-xs px-2 h-8 rounded-lg bg-slate-200 dark:bg-slate-600">{isArabic ? 'إزالة' : 'Clear'}</button>
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-blue-700 dark:text-blue-300 mb-2">{isArabic ? 'التفاسير:' : 'Commentaries:'}</h3>
+                        {commentariesData[selectedVerse.id] ? (
+                          <div className="space-y-3 max-h-40 overflow-y-auto">
+                            {commentariesData[selectedVerse.id].map((com, idx) => (
+                              <div key={idx} className="p-3 bg-slate-100 dark:bg-slate-700 rounded-lg">
+                                <p className="font-bold text-sm text-blue-900 dark:text-amber-400">{com.author}</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">{com.text}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-sm text-slate-400">{isArabic ? 'لا يوجد تفاسير لهذه الآية حالياً.' : 'No commentaries for this verse currently.'}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
         }
-      };
 
-      const c = isArabic ? content.ar : content.en;
-
-      return (
-        <div class={isDark ? "dark" : ""}>
-          <div class="min-h-screen bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-100 p-4 md:p-8" dir={c.dir}>
-            
-            {/* Header */}
-            <header class="flex justify-between items-center bg-white dark:bg-slate-800 p-4 rounded-xl shadow-md mb-6">
-              <div class="flex items-center gap-3">
-                <img src={churchLogoUrl} alt="Logo" class="w-12 h-12 object-contain" />
-                <div>
-                  <h1 class="font-bold text-lg md:text-xl text-blue-900 dark:text-blue-300">{c.churchName}</h1>
-                  <p class="text-xs text-slate-500 dark:text-slate-400">{c.churchSubName}</p>
-                </div>
-              </div>
-
-              <div class="flex gap-2">
-                <button onClick={() => setIsArabic(!isArabic)} class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-lg text-sm font-bold">
-                  {isArabic ? 'EN' : 'عربي'}
-                </button>
-                <button onClick={() => setIsDark(!isDark)} class="px-3 py-1 bg-slate-200 dark:bg-slate-700 rounded-lg text-sm">
-                  {isDark ? '☀️' : '🌙'}
-                </button>
-              </div>
-            </header>
-
-            {/* Welcome Section */}
-            <div class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white p-6 rounded-xl shadow-lg mb-8">
-              <h2 class="text-2xl font-bold mb-2">{c.welcomeTitle}</h2>
-              <p class="text-slate-200 leading-relaxed max-w-4xl">{c.welcomeText}</p>
-            </div>
-
-            {/* Main Cards Grid */}
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {c.cards.map((card) => (
-                <div key={card.id} class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all cursor-pointer">
-                  <div class="text-4xl mb-3">{card.icon}</div>
-                  <h3 class="font-bold text-lg mb-1 text-slate-900 dark:text-white">{card.title}</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-400">{card.desc}</p>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </div>
-      );
-    }
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
-  </script>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
