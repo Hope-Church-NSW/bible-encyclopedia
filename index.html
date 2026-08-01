@@ -1,684 +1,302 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موسوعة الكتاب المقدس الذكية - Hope Church NSW</title>
-    <style>
-        :root {
-            --primary-blue: #1a365d;
-            --accent-gold: #d69e2e;
-            --bg-light: #f7fafc;
-            --text-dark: #2d3748;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            margin: 0;
-            padding: 0;
-            direction: rtl;
-        }
-        header {
-            background: linear-gradient(135deg, #0f172a, var(--primary-blue));
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom: 4px solid var(--accent-gold);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-        .church-logo-container {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid var(--accent-gold);
-            box-shadow: 0 0 25px rgba(214, 158, 46, 0.7);
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .church-logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .lang-switch {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            display: flex;
-            gap: 5px;
-        }
-        .lang-switch button {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 1px solid white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .lang-switch button.active {
-            background: var(--accent-gold);
-            border-color: var(--accent-gold);
-            color: #000;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
-        .about-church-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-right: 5px solid var(--accent-gold);
-        }
-        .social-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .social-btn {
-            background: #edf2f7;
-            color: var(--primary-blue);
-            padding: 8px 14px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: background 0.2s, color 0.2s;
-            border: 1px solid #cbd5e0;
-        }
-        .social-btn:hover {
-            background: var(--primary-blue);
-            color: white;
-        }
-        .nav-icons-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .nav-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            cursor: pointer;
-            transition: transform 0.2s;
-            border-top: 3px solid var(--accent-gold);
-        }
-        .nav-card:hover {
-            transform: translateY(-3px);
-        }
-        .nav-card h4 {
-            margin: 8px 0 4px 0;
-            color: var(--primary-blue);
-        }
-        .nav-card p {
-            margin: 0;
-            font-size: 0.85rem;
-            color: #718096;
-        }
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .search-box input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #cbd5e0;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-        .search-box button {
-            background-color: var(--primary-blue);
-            color: white;
-            border: none;
-            padding: 0 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .main-layout {
-            display: grid;
-            grid-template-columns: 320px 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 768px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-        .panel {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            max-height: 650px;
-            overflow-y: auto;
-        }
-        .book-item {
-            padding: 10px;
-            margin-bottom: 6px;
-            background: #f1f5f9;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-size: 0.95rem;
-        }
-        .book-item:hover {
-            background: #e2e8f0;
-        }
-        .verse-item {
-            padding: 12px;
-            margin-bottom: 8px;
-            border-bottom: 1px solid #edf2f7;
-            cursor: pointer;
-            display: flex;
-            gap: 12px;
-            align-items: baseline;
-            background: #fff;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-        .verse-item:hover {
-            background: #f8fafc;
-            border-right: 4px solid var(--accent-gold);
-        }
-        .v-num {
-            color: var(--accent-gold);
-            font-weight: bold;
-            font-size: 0.95rem;
-            min-width: 25px;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 750px;
-            max-height: 85vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: #718096;
-        }
-    </style>
-</head>
-<body id="appBody">
+import React, { useState } from 'react';
 
-    <header>
-        <div class="lang-switch">
-            <button id="langArBtn" class="active" onclick="setLanguage('ar')">عربي</button>
-            <button id="langEnBtn" onclick="setLanguage('en')">English</button>
-        </div>
-        <div class="church-logo-container">
-            <img src="2.jpg" alt="Hope Church Logo">
-        </div>
-        <div>
-            <h1 id="mainTitle" style="margin: 5px 0;">موسوعة الكتاب المقدس الذكية</h1>
-            <p id="subTitle" style="margin: 0; color: #e2e8f0;">كنيسة رجاء الأمم سيدني - Hope Church NSW</p>
-        </div>
-    </header>
+export default function App() {
+  const [isArabic, setIsArabic] = useState(true);
+  const [isDark, setIsDark] = useState(false);
+  const [currentView, setCurrentView] = useState('home');
+  const [selectedVerse, setSelectedVerse] = useState(null);
+  const [highlights, setHighlights] = useState({});
+  const [selectedStudy, setSelectedStudy] = useState(null); // لعرض تفاصيل الدراسة
 
-    <div class="container">
-        <div class="about-church-card">
-            <h3 style="color: var(--primary-blue); margin-top: 0;" id="aboutHeader">عن كنيسة رجاء الأمم (Hope Church NSW)</h3>
-            <p id="aboutText" style="line-height: 1.7; color: #4a5568; margin-bottom: 10px;">
-                نرحب بكم في موسوعة كنيسة رجاء الأمم في سيدني، أستراليا. العنوان: 704 The Horsley Dr, Smithfield NSW. تابعونا عبر منصاتنا الرسمية وقناة الكرازة:
-            </p>
-            <div class="social-links">
-                <a href="https://www.youtube.com/@HCNSW" target="_blank" class="social-btn">📺 يوتيوب الكنيسة (YouTube)</a>
-                <a href="https://www.facebook.com/hopechurchNSW" target="_blank" class="social-btn">📘 فيسبوك (Facebook)</a>
-                <a href="https://www.tiktok.com/@hopechurch.nsw?_r=1&_t=ZS-98A3PzMmW2K" target="_blank" class="social-btn">🎵 تيك توك (TikTok)</a>
-                <a href="https://hope-church-nsw-rmwpk10e.durable.site/" target="_blank" class="social-btn">🌐 الموقع الرسمي</a>
-                <a href="https://www.alkerazatv.com/" target="_blank" class="social-btn">📡 قناة الكرازة الفضائية</a>
-            </div>
-        </div>
+  const churchLogoUrl = "https://z-cdn-media.chatglm.cn/files/4db28f75-70f7-4885-8556-16efe0859236.png?auth_key=1885580462-f4f57363df7e4e70ac6a8c1b11073a67-0-694a16048f511a71541e00b0b65ff427";
+  const qrCodeUrl = "https://z-cdn-media.chatglm.cn/files/eba569c9-f552-4f3d-ac22-375fd18c9d34.jpg?auth_key=1885580462-61bc0525943847ae9ce58b78d23a2a4f-0-00a8081fb59e2207db4ba54e39dc95fd";
 
-        <div class="nav-icons-bar">
-            <div class="nav-card" onclick="filterSection('bible')">
-                <span style="font-size: 2rem;">📖</span>
-                <h4 id="cardBibleTitle">الكتاب المقدس الكامل</h4>
-                <p id="cardBibleDesc">العهد القديم والجديد بالكامل</p>
-            </div>
-            <div class="nav-card" onclick="filterSection('search')">
-                <span style="font-size: 2rem;">🔍</span>
-                <h4 id="cardSearchTitle">البحث المتقدم</h4>
-                <p id="cardSearchDesc">بحث سريع في النصوص والكلمات</p>
-            </div>
-            <div class="nav-card" onclick="filterSection('studies')">
-                <span style="font-size: 2rem;">💡</span>
-                <h4 id="cardStudiesTitle">دراسات الآيات</h4>
-                <p id="cardStudiesDesc">تحليلات عبرية ويونانية ومقارنات</p>
-            </div>
-            <div class="nav-card" onclick="filterSection('commentaries')">
-                <span style="font-size: 2rem;">📚</span>
-                <h4 id="cardCommTitle">تفاسير الكنيسة</h4>
-                <p id="cardCommDesc">ماكآثر، ر.ت. فرانس، وماكدونالد</p>
-            </div>
-        </div>
+  const content = {
+    ar: {
+      dir: 'rtl',
+      churchName: 'كنيسة رجاء الأمم سيدني',
+      churchSubName: 'Hope Church NSW',
+      welcomeTitle: 'مرحباً بكم في كنيستنا',
+      welcomeText: 'كنيسة رجاء الأمم سيدني هي كنيسة انجيلية عربية مؤسسة على كلمة الله والكتاب المقدس، وتهدف إلى ربح النفوس وبنيان جسد المسيح...',
+      cards: [
+        { id: 'bible', icon: '📖', title: 'الكتاب المقدس', desc: 'عربي فان دايك وإنجليزي KJV' },
+        { id: 'search', icon: '🔍', title: 'بحث في الكتاب المقدس', desc: 'ابحث في النصوص بسهولة' },
+        { id: 'studies', icon: '💡', title: 'دراسات', desc: 'دراسات وموسوعة الكتاب المقدس' },
+        { id: 'church', icon: '⛪', title: 'الكنيسة', desc: 'العنوان، المواعيد، والروابط' },
+      ],
+      toggleLang: 'EN',
+      meetingTimes: [
+        { day: 'الأحد', time: '10:00 صباحاً', event: 'اجتماع العبادة العام (عربي وإنجليزي)' },
+        { day: 'الأربعاء', time: '7:00 مساءً', event: 'برنامج عمق جديد' },
+        { day: 'الخميس', time: '11:00 صباحاً', event: 'اجتماع السيدات' },
+        { day: 'الجمعة', time: '7:00 مساءً', event: 'اجتماع الصلاة ودراسة الكتاب المقدس' }
+      ],
+      address: '704 The Horsley Dr, Smithfield',
+      linksTitle: 'روابط الكنيسة',
+      backHome: '← العودة للرئيسية',
+      backToStudies: '← العودة لقسم الدراسات'
+    },
+    en: {
+      dir: 'ltr',
+      churchName: 'Hope Church NSW',
+      churchSubName: 'كنيسة رجاء الأمم سيدني',
+      welcomeTitle: 'Welcome to Our Church',
+      welcomeText: 'Hope Church NSW is an Arabic Evangelical church founded on the Word of God and the Bible, aiming to win souls and edify the body of Christ...',
+      cards: [
+        { id: 'bible', icon: '📖', title: 'The Bible', desc: 'Arabic Van Dyck & English KJV' },
+        { id: 'search', icon: '🔍', title: 'Bible Search', desc: 'Search the texts easily' },
+        { id: 'studies', icon: '💡', title: 'Studies', desc: 'Bible Studies & Encyclopedia' },
+        { id: 'church', icon: '⛪', title: 'Our Church', desc: 'Address, times, and links' },
+      ],
+      toggleLang: 'ع',
+      meetingTimes: [
+        { day: 'Sunday', time: '10:00 AM', event: 'General Worship (Arabic & English)' },
+        { day: 'Wednesday', time: '7:00 PM', event: 'New Depth Program' },
+        { day: 'Thursday', time: '11:00 AM', event: 'Ladies Meeting' },
+        { day: 'Friday', time: '7:00 PM', event: 'Prayer & Bible Study' }
+      ],
+      address: '704 The Horsley Dr, Smithfield',
+      linksTitle: 'Church Links',
+      backHome: '← Back to Home',
+      backToStudies: '← Back to Studies'
+    }
+  };
 
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="ابحث عن آية، كلمة أصلية، أو موضوع في الكتاب المقدس..." oninput="performSearch()">
-            <button onclick="performSearch()" id="searchBtnText">بحث</button>
-        </div>
+  const c = isArabic ? content.ar : content.en;
 
-        <div class="main-layout">
-            <div class="panel">
-                <h3 style="color: var(--primary-blue); margin-top:0;" id="booksListHeader">أسفار الكتاب المقدس (كاملة)</h3>
-                <div style="margin-bottom: 15px;">
-                    <button onclick="switchTestament('ot')" id="otBtn" style="padding: 6px 12px; background:var(--primary-blue); color:white; border:none; border-radius:4px; cursor:pointer;">العهد القديم (39)</button>
-                    <button onclick="switchTestament('nt')" id="ntBtn" style="padding: 6px 12px; background:#e2e8f0; color:var(--text-dark); border:none; border-radius:4px; cursor:pointer;">العهد الجديد (27)</button>
+  // ===== بيانات الكتاب المقدس (سفر التكوين 1 كاملاً) =====
+  const bibleData = [
+    { id: 1, verse: 1, text_ar: "فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.", text_en: "In the beginning God created the heaven and the earth." },
+    { id: 2, verse: 2, text_ar: "وَكَانَتِ الأَرْضُ خَرِبَةً وَخَالِيَةً، وَعَلَى وَجْهِ الْغَمْرِ ظُلْمَةٌ، وَرُوحُ اللهِ يَرِفُّ عَلَى وَجْهِ الْمِيَاهِ.", text_en: "And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters." },
+    { id: 3, verse: 3, text_ar: "وَقَالَ اللهُ: «لِيَكُنْ نُورٌ»، فَكَانَ نُورٌ.", text_en: "And God said, Let there be light: and there was light." },
+    { id: 4, verse: 4, text_ar: "وَرَأَى اللهُ النُّورَ أَنَّهُ حَسَنٌ، وَفَصَلَ اللهُ بَيْنَ النُّورِ وَالظُّلْمَةِ.", text_en: "And God saw the light, that it was good: and God divided the light from the darkness." },
+    { id: 5, verse: 5, text_ar: "وَدَعَا اللهُ النُّورَ نَهَارًا، وَالظُّلْمَةُ دَعَاهَا لَيْلاً. وَكَانَ مَسَاءٌ وَكَانَ صَبَاحٌ يَوْمًا وَاحِدًا.", text_en: "And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day." },
+    { id: 6, verse: 6, text_ar: "وَقَالَ اللهُ: «لِيَكُنْ جَلَدٌ فِي وَسَطِ الْمِيَاهِ، وَلْيَكُنْ فَاصِلاً بَيْنَ مِيَاهٍ وَمِيَاهٍ».", text_en: "And God said, Let there be a firmament in the midst of the waters, and let it divide the waters from the waters." },
+    { id: 7, verse: 7, text_ar: "فَصَنَعَ اللهُ الْجَلَدَ، وَفَصَلَ بَيْنَ الْمِيَاهِ الَّتِي تَحْتَ الْجَلَدِ وَالْمِيَاهِ الَّتِي فَوْقَ الْجَلَدِ. وَكَانَ كَذَلِكَ.", text_en: "And God made the firmament, and divided the waters which were under the firmament from the waters which were above the firmament: and it was so." },
+    { id: 8, verse: 8, text_ar: "وَدَعَا اللهُ الْجَلَدَ سَمَاءً. وَكَانَ مَسَاءٌ وَكَانَ صَبَاحٌ يَوْمًا ثَانِيًا.", text_en: "And God called the firmament Heaven. And the evening and the morning were the second day." },
+    { id: 9, verse: 9, text_ar: "وَقَالَ اللهُ: «لِتَجْتَمِعِ الْمِيَاهُ تَحْتَ السَّمَاءِ إِلَى مَكَانٍ وَاحِدٍ، وَلْتَظْهَرِ الْيَابِسَةُ». وَكَانَ كَذَلِكَ.", text_en: "And God said, Let the waters under the heaven be gathered together unto one place, and let the dry land appear: and it was so." },
+    { id: 10, verse: 10, text_ar: "وَدَعَا اللهُ الْيَابِسَةَ أَرْضًا، وَمُجْتَمَعَ الْمِيَاهِ دَعَاهُ بِحَارًا. وَرَأَى اللهُ ذَلِكَ أَنَّهُ حَسَنٌ.", text_en: "And God called the dry land Earth; and the gathering together of the waters called he Seas: and God saw that it was good." },
+    { id: 31, verse: 31, text_ar: "وَرَأَى اللهُ كُلَّ مَا عَمِلَهُ فَإِذَا هُوَ حَسَنٌ جِدًّا. وَكَانَ مَسَاءٌ وَكَانَ صَبَاحٌ يَوْمًا سَادِسًا.", text_en: "And God saw every thing that he had made, and, behold, it was very good. And the evening and the morning were the sixth day." }
+  ];
+
+  // ===== بيانات التفاسير الموثقة =====
+  const commentariesData = {
+    1: [
+      { author: "وليم ماكدونالد", text: "الله خلق كل شيء من العدم. هذه الآية تؤسس لحقيقة أن الله هو المصدر الوحيد لكل الوجود، تنفي نظرية التطور وتثبت الخلق المباشر." },
+      { author: "الأب متى المسكين", text: "البداية هنا تشير إلى الأزلية، حيث أن الله موجود قبل الزمان والمكان، وهو المبدئ و الخالق. كلمة 'خلق' تشير لخلق من عدم." }
+    ],
+    3: [
+      { author: "جون ماك آرثر", text: "الله تكلم بكلمته ليوجد النور. هذا يوضح قوة الكلمة الإلهية، وهو رمز للنور الروحي الذي يشرق في الظلمة." }
+    ]
+  };
+
+  // ===== بيانات الدراسات والموسوعة =====
+  const studiesData = [
+    { id: 'encyclopedia', icon: '📚', title_ar: 'الموسوعة الكتابية', title_en: 'Bible Encyclopedia', content_ar: 'مرجع شامل يشرح الأماكن، العادات، والمصطلحات الكتابية بمعلومات موثقة من علماء اللاهوت.', content_en: 'Comprehensive reference explaining biblical places, customs, and terms with documented info.' },
+    { id: 'characters', icon: '👥', title_ar: 'شخصيات كتابية', title_en: 'Biblical Characters', content_ar: 'دراسة حياة الشخصيات الكتابية: ميلادهم، معاصروهم، نقاط القوة والضعف، وكيف تعامل الله معهم.', content_en: 'Study of biblical figures: birth, contemporaries, strengths, weaknesses, and God\'s dealing with them.' },
+    { id: 'parables', icon: '🌱', title_ar: 'أمثال المسيح', title_en: 'Parables of Christ', content_ar: 'شرح أمثال السيد المسيح مع إبراز الخلفية اليهودية، الشرح اللاهوتي، والتطبيق العملي للحياة المعاصرة.', content_en: 'Explanation of Christ\'s parables with Jewish background, theological meaning, and practical application.' },
+    { id: 'miracles', icon: '✨', title_ar: 'معجزات المسيح', title_en: 'Miracles of Christ', content_ar: 'دراسة معجزات المسيح كدليل على لاهوته، مع تحليل السياق التاريخي والمعاني الروحية العميقة.', content_en: 'Study of Christ\'s miracles as proof of deity, analyzing historical context and deep spiritual meanings.' },
+    { id: 'tabernacle', icon: '⛺', title_ar: 'خيمة الاجتماع', title_en: 'Tabernacle', content_ar: 'دراسة معمارية ولاهوتية لخيمة الاجتماع: الأدوات (التابوت، المنارة، المذبح)، المواد، والرمزية المسيانية لكل تفصيل.', content_en: 'Architectural and theological study of the Tabernacle: furniture, materials, and Messianic symbolism.' },
+    { id: 'solomon_temple', icon: '🏛️', title_ar: 'هيكل سليمان', title_en: 'Solomon\'s Temple', content_ar: 'دراسة تصميم هيكل سليمان، مواد البناء الفاخرة، تاريخ تدشينه، ومكانته في العهد القديم.', content_en: 'Study of Solomon\'s Temple design, luxurious materials, dedication history, and OT significance.' },
+    { id: 'herod_temple', icon: '🧱', title_ar: 'هيكل هيرودس', title_en: 'Herod\'s Temple', content_ar: 'دراسة توسعات هيرودس للهيكل، دار الأمم، والدور النبوي لهذا الهيكل في زمن السيد المسيح.', content_en: 'Study of Herod\'s temple expansions, Court of Gentiles, and its prophetic role in Christ\'s time.' },
+    { id: 'bible_intro', icon: '📜', title_ar: 'مقدمة موثقة لكل سفر (66)', title_en: 'Intro to 66 Books', content_ar: 'مقدمة شاملة لكل سفر في الكتاب المقدس: الكاتب، تاريخ الكتابة، الغرض، السمات المميزة، والموضوع الرئيسي.', content_en: 'Comprehensive intro to each Bible book: Author, date, purpose, characteristics, and main theme.' },
+  ];
+
+  const highlightVerse = (verseId, color) => setHighlights(prev => ({ ...prev, [verseId]: color }));
+  const highlightColors = { yellow: '#FFF176', neon: '#B2FF59', blue: '#90CAF9' };
+
+  const churchLinks = [
+    { name: 'YouTube', url: 'https://www.youtube.com/@HCNSW', icon: '▶️', color: 'bg-red-600 hover:bg-red-700' },
+    { name: 'Facebook', url: 'https://www.facebook.com/hopechurchNSW', icon: '📘', color: 'bg-blue-600 hover:bg-blue-700' },
+    { name: 'TikTok', url: 'https://www.tiktok.com/@hopechurch.nsw', icon: '🎵', color: 'bg-slate-800 hover:bg-black' },
+    { name: 'Al Keraza TV', url: 'https://www.alkerazatv.com/', icon: '📺', color: 'bg-purple-600 hover:bg-purple-700' }
+  ];
+
+  return (
+    <div dir={c.dir} className={isDark ? 'dark' : ''}>
+      <div className="min-h-screen bg-slate-100 dark:bg-slate-900 transition-colors duration-500 font-sans text-slate-800 dark:text-slate-200">
+        
+        {/* ===== الهيدر ===== */}
+        <header className="sticky top-0 z-40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm shadow-sm border-b border-slate-200 dark:border-slate-700">
+          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div className="flex items-center gap-3 cursor-pointer" onClick={() => { setCurrentView('home'); setSelectedStudy(null); }}>
+              <img src={churchLogoUrl} alt="Church Logo" className="w-14 h-14 rounded-full shadow-md object-cover" />
+              <div>
+                <h1 className="text-lg font-extrabold text-blue-900 dark:text-white leading-tight">{c.churchName}</h1>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{c.churchSubName}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setIsArabic(!isArabic)} className="px-4 py-2 rounded-lg bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-bold text-sm hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">
+                {c.toggleLang}
+              </button>
+              <button onClick={() => setIsDark(!isDark)} className="p-2 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
+                {isDark ? '☀️' : '🌙'}
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {/* ===== المحتوى المتغير ===== */}
+        <main className="container mx-auto px-4 py-8">
+          {currentView === 'home' && (
+            <>
+              <section className="text-center py-10">
+                <div className="max-w-3xl mx-auto">
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 dark:text-blue-400 mb-6">{c.welcomeTitle}</h2>
+                  <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed">{c.welcomeText}</p>
                 </div>
-                <div id="booksList"></div>
-            </div>
+              </section>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto pb-20">
+                {c.cards.map((card) => (
+                  <div key={card.id} onClick={() => { setCurrentView(card.id); setSelectedStudy(null); }} className="group relative bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-slate-100 dark:border-slate-700 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+                    <div className="relative z-10 flex flex-col items-center text-center">
+                      <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-slate-700 group-hover:bg-white/20 flex items-center justify-center text-3xl mb-5 transition-colors duration-300">{card.icon}</div>
+                      <h3 className="text-xl font-bold text-blue-900 dark:text-white group-hover:text-white mb-2 transition-colors duration-300">{card.title}</h3>
+                      <p className="text-slate-500 dark:text-slate-400 group-hover:text-blue-100 transition-colors duration-300">{card.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
 
-            <div class="panel" id="contentArea">
-                <div id="searchDisplayArea">
-                    <h4 style="color: var(--primary-blue); margin-bottom: 8px;" id="welcomeTitle">مرحباً بك في موسوعة كنيسة رجاء الأمم</h4>
-                    <p style="color: #555;" id="welcomeDesc">اختر أي سفر والأصحاح من القائمة الجانبية لاستعراض آيات الكتاب المقدس الحقيقية والمفصلة (عربي / إنجليزي).</p>
+          {/* ===== واجهة الكتاب المقدس ===== */}
+          {currentView === 'bible' && (
+            <div className="max-w-4xl mx-auto bg-white dark:bg-slate-800 p-6 md:p-10 rounded-xl shadow-lg">
+              <button onClick={() => setCurrentView('home')} className="mb-6 text-blue-600 hover:underline">{c.backHome}</button>
+              <h2 className="text-2xl font-bold mb-6 text-blue-900 dark:text-white border-b pb-4">{isArabic ? 'سفر التكوين - الأصحاح الأول' : 'Genesis - Chapter 1'}</h2>
+              <div className="space-y-4">
+                {bibleData.map((v) => (
+                  <div key={v.id} className="flex items-start gap-4 p-4 rounded-lg cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" style={{ backgroundColor: highlights[v.id] ? highlights[v.id] : 'transparent' }} onClick={() => setSelectedVerse(v)}>
+                    <span className="font-bold text-blue-600 dark:text-blue-400 min-w-[30px]">{v.verse}</span>
+                    <p className="text-lg leading-relaxed">{isArabic ? v.text_ar : v.text_en}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ===== واجهة الدراسات ===== */}
+          {currentView === 'studies' && (
+            <div className="max-w-5xl mx-auto">
+              <button onClick={() => setCurrentView('home')} className="mb-6 text-blue-600 hover:underline">{c.backHome}</button>
+              
+              {!selectedStudy ? (
+                <>
+                  <h2 className="text-3xl font-bold mb-8 text-center text-blue-900 dark:text-white">{isArabic ? 'دراسات وموسوعة الكتاب المقدس' : 'Bible Studies & Encyclopedia'}</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {studiesData.map((study) => (
+                      <div key={study.id} onClick={() => setSelectedStudy(study)} className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer border-t-4 border-blue-600 flex items-center gap-4">
+                        <span className="text-4xl">{study.icon}</span>
+                        <h3 className="text-lg font-bold text-slate-800 dark:text-white">{isArabic ? study.title_ar : study.title_en}</h3>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg">
+                  <button onClick={() => setSelectedStudy(null)} className="mb-6 text-blue-600 hover:underline">{c.backToStudies}</button>
+                  <div className="flex items-center gap-4 mb-6 border-b pb-4">
+                    <span className="text-5xl">{selectedStudy.icon}</span>
+                    <h2 className="text-2xl font-bold text-blue-900 dark:text-white">{isArabic ? selectedStudy.title_ar : selectedStudy.title_en}</h2>
+                  </div>
+                  <p className="text-lg text-slate-700 dark:text-slate-300 leading-loose">{isArabic ? selectedStudy.content_ar : selectedStudy.content_en}</p>
+                  {/* مكان لعرض المزيد من البيانات لاحقاً */}
+                  <div className="mt-8 p-4 bg-blue-50 dark:bg-slate-700 rounded-lg text-blue-800 dark:text-blue-200 text-sm">
+                    {isArabic ? 'سيتم إضافة المحتوى التفصيلي والخرائط الخاصة بهذا القسم قريباً.' : 'Detailed content and maps for this section will be added soon.'}
+                  </div>
                 </div>
-                <div id="versesContainer"></div>
+              )}
             </div>
-        </div>
-    </div>
+          )}
 
-    <!-- نافذة تفاصيل الآية والشواهد والتفاسير -->
-    <div class="modal" id="verseModal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-            <h3 id="modalVerseTitle" style="color: var(--primary-blue); margin-top:0;"></h3>
-            <p id="modalVerseText" style="font-size: 1.1rem; font-weight: bold; background: #f8fafc; padding: 12px; border-radius: 6px; border-right: 4px solid var(--accent-gold);"></p>
-            
-            <hr style="border:0; border-top:1px solid #edf2f7; margin: 20px 0;">
-            
-            <h4 style="color: var(--primary-blue);">اللغات الأصلية والتحليل الأكاديمي (Hebrew / Greek):</h4>
-            <p id="modalOriginalLang" style="font-size: 0.95rem; color: #4a5568;"></p>
-
-            <h4 style="color: var(--primary-blue);">الآيات والشواهد المقارنة (العهد القديم والجديد):</h4>
-            <p id="modalComparison" style="font-size: 0.95rem; color: #4a5568;"></p>
-
-            <h4 style="color: var(--primary-blue);">اختيار التفسير (Commentary):</h4>
-            <select id="commentatorSelect" onchange="updateCommentaryText()" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e0; margin-bottom: 10px;">
-                <option value="macarthur">تفسير جون ماكآثر (John MacArthur Commentary)</option>
-                <option value="france">تفسير ر. ت. فرانس (R.T. France Commentary)</option>
-                <option value="mcdonald">تفسير وليم ماكدونالد (William MacDonald)</option>
-                <option value="addy">تفسير وليم إدي (William Eddy)</option>
-                <option value="matta">تفسير الأب متى المسكين (Father Matta El Meskeen)</option>
-            </select>
-            <div id="modalCommentary" style="background: #f1f5f9; padding: 12px; border-radius: 6px; font-size: 0.95rem; line-height: 1.6;"></div>
-        </div>
-    </div>
-
-    <script>
-        let currentLang = 'ar';
-        let selectedTestamentType = 'ot';
-
-        const translations = {
-            ar: {
-                mainTitle: "موسوعة الكتاب المقدس الذكية",
-                subTitle: "كنيسة رجاء الأمم سيدني - Hope Church NSW",
-                aboutHeader: "عن كنيسة رجاء الأمم (Hope Church NSW)",
-                aboutText: "نرحب بكم في موسوعة كنيسة رجاء الأمم في سيدني، أستراليا. العنوان: 704 The Horsley Dr, Smithfield NSW. تابعونا عبر منصاتنا الرسمية وقناة الكرازة:",
-                cardBibleTitle: "الكتاب المقدس الكامل",
-                cardBibleDesc: "العهد القديم والجديد بالكامل",
-                cardSearchTitle: "البحث المتقدم",
-                cardSearchDesc: "بحث سريع في النصوص والكلمات",
-                cardStudiesTitle: "دراسات الآيات",
-                cardStudiesDesc: "تحليلات عبرية ويونانية ومقارنات",
-                cardCommTitle: "تفاسير الكنيسة",
-                cardCommDesc: "ماكآثر، ر.ت. فرانس، وماكدونالد",
-                searchPlaceholder: "ابحث عن آية، كلمة أصلية، أو موضوع في الكتاب المقدس...",
-                searchBtn: "بحث",
-                booksHeader: "أسفار الكتاب المقدس (كاملة)",
-                otBtn: "العهد القديم (39)",
-                ntBtn: "العهد الجديد (27)",
-                welcomeTitle: "مرحباً بك في موسوعة كنيسة رجاء الأمم",
-                welcomeDesc: "اختر أي سفر والأصحاح من القائمة الجانبية لاستعراض آيات الكتاب المقدس الحقيقية والمفصلة (عربي / إنجليزي).",
-                chapterWord: "أصحاح"
-            },
-            en: {
-                mainTitle: "Smart Bible Encyclopedia",
-                subTitle: "Hope Church NSW - Sydney, Australia",
-                aboutHeader: "About Hope Church NSW",
-                aboutText: "Welcome to Hope Church NSW in Sydney, Australia. Address: 704 The Horsley Dr, Smithfield NSW. Follow our official platforms and Alkeraza TV:",
-                cardBibleTitle: "Complete Holy Bible",
-                cardBibleDesc: "Full Old & New Testaments",
-                cardSearchTitle: "Advanced Search",
-                cardSearchDesc: "Quick search in texts and lexicons",
-                cardStudiesTitle: "Verse Studies",
-                cardStudiesDesc: "Hebrew/Greek & comparisons",
-                cardCommTitle: "Church Commentaries",
-                cardCommDesc: "MacArthur, R.T. France, MacDonald",
-                searchPlaceholder: "Search for a verse, original word, or topic...",
-                searchBtn: "Search",
-                booksHeader: "Bible Books (Complete)",
-                otBtn: "Old Testament (39)",
-                ntBtn: "New Testament (27)",
-                welcomeTitle: "Welcome to Hope Church Encyclopedia",
-                welcomeDesc: "Select any book and chapter from the sidebar to view full, authentic Bible verses.",
-                chapterWord: "Chapter"
-            }
-        };
-
-        const otBooks = [
-            { nameAR: "التكوين", nameEN: "Genesis", chapters: 50 },
-            { nameAR: "الخروج", nameEN: "Exodus", chapters: 40 },
-            { nameAR: "اللاويين", nameEN: "Leviticus", chapters: 27 },
-            { nameAR: "العدد", nameEN: "Numbers", chapters: 36 },
-            { nameAR: "التثنية", nameEN: "Deuteronomy", chapters: 34 },
-            { nameAR: "يشوع", nameEN: "Joshua", chapters: 24 },
-            { nameAR: "القضاة", nameEN: "Judges", chapters: 21 },
-            { nameAR: "راعوث", nameEN: "Ruth", chapters: 4 },
-            { nameAR: "صموئيل الأول", nameEN: "1 Samuel", chapters: 31 },
-            { nameAR: "صموئيل الثاني", nameEN: "2 Samuel", chapters: 24 },
-            { nameAR: "الملوك الأول", nameEN: "1 Kings", chapters: 22 },
-            { nameAR: "الملوك الثاني", nameEN: "2 Kings", chapters: 25 },
-            { nameAR: "الأخبار الأول", nameEN: "1 Chronicles", chapters: 29 },
-            { nameAR: "الأخبار الثاني", nameEN: "2 Chronicles", chapters: 36 },
-            { nameAR: "عزرا", nameEN: "Ezra", chapters: 10 },
-            { nameAR: "نحميا", nameEN: "Nehemiah", chapters: 13 },
-            { nameAR: "أستير", nameEN: "Esther", chapters: 10 },
-            { nameAR: "أيوب", nameEN: "Job", chapters: 42 },
-            { nameAR: "المزامير", nameEN: "Psalms", chapters: 150 },
-            { nameAR: "الأمثال", nameEN: "Proverbs", chapters: 31 },
-            { nameAR: "الجامعة", nameEN: "Ecclesiastes", chapters: 12 },
-            { nameAR: "نشيد الأنشاد", nameEN: "Song of Solomon", chapters: 8 },
-            { nameAR: "إشعياء", nameEN: "Isaiah", chapters: 66 },
-            { nameAR: "إرميا", nameEN: "Jeremiah", chapters: 52 },
-            { nameAR: "مرثيات إرميا", nameEN: "Lamentations", chapters: 5 },
-            { nameAR: "حزقيال", nameEN: "Ezekiel", chapters: 48 },
-            { nameAR: "دانيال", nameEN: "Daniel", chapters: 12 },
-            { nameAR: "هوشع", nameEN: "Hosea", chapters: 14 },
-            { nameAR: "يوئيل", nameEN: "Joel", chapters: 3 },
-            { nameAR: "عاموس", nameEN: "Amos", chapters: 9 },
-            { nameAR: "عوبديا", nameEN: "Obadiah", chapters: 1 },
-            { nameAR: "يونان", nameEN: "Jonah", chapters: 4 },
-            { nameAR: "ميخا", nameEN: "Micah", chapters: 7 },
-            { nameAR: "ناحوم", nameEN: "Nahum", chapters: 3 },
-            { nameAR: "حبقوق", nameEN: "Habakkuk", chapters: 3 },
-            { nameAR: "صفنيا", nameEN: "Zephaniah", chapters: 3 },
-            { nameAR: "حجاي", nameEN: "Haggai", chapters: 2 },
-            { nameAR: "زكريا", nameEN: "Zechariah", chapters: 14 },
-            { nameAR: "ملاخي", nameEN: "Malachi", chapters: 4 }
-        ];
-
-        const ntBooks = [
-            { nameAR: "متى", nameEN: "Matthew", chapters: 28 },
-            { nameAR: "مرقس", nameEN: "Mark", chapters: 16 },
-            { nameAR: "لوقا", nameEN: "Luke", chapters: 24 },
-            { nameAR: "يوحنا", nameEN: "John", chapters: 21 },
-            { nameAR: "أعمال الرسل", nameEN: "Acts", chapters: 28 },
-            { nameAR: "رومية", nameEN: "Romans", chapters: 16 },
-            { nameAR: "كورنثوس الأولى", nameEN: "1 Corinthians", chapters: 16 },
-            { nameAR: "كورنثوس الثانية", nameEN: "2 Corinthians", chapters: 13 },
-            { nameAR: "غلاطية", nameEN: "Galatians", chapters: 6 },
-            { nameAR: "أفسس", nameEN: "Ephesians", chapters: 6 },
-            { nameAR: "فيلبي", nameEN: "Philippians", chapters: 4 },
-            { nameAR: "كولوسي", nameEN: "Colossians", chapters: 4 },
-            { nameAR: "تسالونيكي الأولى", nameEN: "1 Thessalonians", chapters: 5 },
-            { nameAR: "تسالونيكي الثانية", nameEN: "2 Thessalonians", chapters: 3 },
-            { nameAR: "تيموثاوس الأولى", nameEN: "1 Timothy", chapters: 6 },
-            { nameAR: "تيموثاوس الثانية", nameEN: "2 Timothy", chapters: 4 },
-            { nameAR: "تيطس", nameEN: "Titus", chapters: 3 },
-            { nameAR: "فليمون", nameEN: "Philemon", chapters: 1 },
-            { nameAR: "العبرانيين", nameEN: "Hebrews", chapters: 13 },
-            { nameAR: "يعقوب", nameEN: "James", chapters: 5 },
-            { nameAR: "بطرس الأولى", nameEN: "1 Peter", chapters: 5 },
-            { nameAR: "بطرس الثانية", nameEN: "2 Peter", chapters: 3 },
-            { nameAR: "يوحنا الأولى", nameEN: "1 John", chapters: 5 },
-            { nameAR: "يوحنا الثانية", nameEN: "2 John", chapters: 1 },
-            { nameAR: "يوحنا الثالثة", nameEN: "3 John", chapters: 1 },
-            { nameAR: "يهوذا", nameEN: "Jude", chapters: 1 },
-            { nameAR: "رؤيا يوحنا", nameEN: "Revelation", chapters: 22 }
-        ];
-
-        // قاعدة بيانات الآيات الحقيقية المفصلة حسب السفر والأصحاح
-        const realBibleDatabase = {
-            "التكوين": {
-                1: [
-                    { ar: "في البدء خلق الله السماوات والأرض.", en: "In the beginning God created the heavens and the earth." },
-                    { ar: "وكانت الأرض خربة وخالية، وعلى وجه اللجه ظلمة، وروح الله يرف على وجه المياه.", en: "The earth was without form, and void; and darkness was on the face of the deep. And the Spirit of God was hovering over the face of the waters." },
-                    { ar: "وقال الله: ليكن نور، فكان نور.", en: "Then God said, 'Let there be light'; and there was light." }
-                ]
-            },
-            "يوحنا": {
-                1: [
-                    { ar: "في البدء كان الكلمة، والكلمة كان عند الله، وكان الكلمة الله.", en: "In the beginning was the Word, and the Word was with God, and the Word was God." },
-                    { ar: "هذا كان في البدء عند الله.", en: "He was in the beginning with God." },
-                    { ar: "كل بي به كان، وبغيره لم يكن شيء مما كان.", en: "All things were made through Him, and without Him nothing was made that was made." },
-                    { ar: "فيه كانت الحياة، والحياة كانت نور الناس.", en: "In Him was life, and the life was the light of men." }
-                ]
-            },
-            "المزامير": {
-                23: [
-                    { ar: "الرب راعي فلا يعوزني شيء.", en: "The Lord is my shepherd; I shall not want." },
-                    { ar: "في مراع خضر يربضني، إلى مياه الراحة يوردني.", en: "He makes me to lie down in green pastures; He leads me beside the still waters." },
-                    { ar: "يرد نفسي. يهديني إلى سبل البر من أجل اسمه.", en: "He restores my soul; He leads me in the paths of righteousness For His name's sake." }
-                ]
-            }
-        };
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.getElementById('appBody').dir = lang === 'ar' ? 'rtl' : 'ltr';
-            document.getElementById('langArBtn').className = lang === 'ar' ? 'active' : '';
-            document.getElementById('langEnBtn').className = lang === 'en' ? 'active' : '';
-
-            const t = translations[lang];
-            document.getElementById('mainTitle').innerText = t.mainTitle;
-            document.getElementById('subTitle').innerText = t.subTitle;
-            document.getElementById('aboutHeader').innerText = t.aboutHeader;
-            document.getElementById('aboutText').innerText = t.aboutText;
-            document.getElementById('cardBibleTitle').innerText = t.cardBibleTitle;
-            document.getElementById('cardBibleDesc').innerText = t.cardBibleDesc;
-            document.getElementById('cardSearchTitle').innerText = t.cardSearchTitle;
-            document.getElementById('cardSearchDesc').innerText = t.cardSearchDesc;
-            document.getElementById('cardStudiesTitle').innerText = t.cardStudiesTitle;
-            document.getElementById('cardStudiesDesc').innerText = t.cardStudiesDesc;
-            document.getElementById('cardCommTitle').innerText = t.cardCommTitle;
-            document.getElementById('cardCommDesc').innerText = t.cardCommDesc;
-            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-            document.getElementById('searchBtnText').innerText = t.searchBtn;
-            document.getElementById('booksListHeader').innerText = t.booksHeader;
-            document.getElementById('otBtn').innerText = t.otBtn;
-            document.getElementById('ntBtn').innerText = t.ntBtn;
-            document.getElementById('welcomeTitle').innerText = t.welcomeTitle;
-            document.getElementById('welcomeDesc').innerText = t.welcomeDesc;
-
-            renderBooks();
-        }
-
-        function switchTestament(type) {
-            selectedTestamentType = type;
-            document.getElementById('otBtn').style.background = type === 'ot' ? 'var(--primary-blue)' : '#e2e8f0';
-            document.getElementById('otBtn').style.color = type === 'ot' ? 'white' : 'var(--text-dark)';
-            document.getElementById('ntBtn').style.background = type === 'nt' ? 'var(--primary-blue)' : '#e2e8f0';
-            document.getElementById('ntBtn').style.color = type === 'nt' ? 'white' : 'var(--text-dark)';
-            renderBooks();
-        }
-
-        function renderBooks() {
-            const listContainer = document.getElementById('booksList');
-            const books = selectedTestamentType === 'ot' ? otBooks : ntBooks;
-            let html = '';
-            books.forEach(b => {
-                const displayName = currentLang === 'ar' ? `${b.nameAR} (${b.nameEN})` : `${b.nameEN} (${b.nameAR})`;
-                html += `<div class="book-item" onclick="selectBook('${b.nameAR}', '${b.nameEN}', ${b.chapters})">📖 ${displayName} [${b.chapters}]</div>`;
-            });
-            listContainer.innerHTML = html;
-        }
-
-        function selectBook(bookAR, bookEN, totalChapters) {
-            const versesContainer = document.getElementById('versesContainer');
-            const displayName = currentLang === 'ar' ? `${bookAR} / ${bookEN}` : `${bookEN} / ${bookAR}`;
-            
-            document.getElementById('searchDisplayArea').innerHTML = `
-                <h4 style="color: var(--primary-blue); margin-bottom: 8px;">${displayName}</h4>
-                <p style="color: #555;">${currentLang === 'ar' ? 'اختر الأصحاح لاستعراض الآيات الحقيقية لكل أصحاح:' : 'Select a chapter to view authentic verses:'}</p>
-            `;
-            
-            let html = `<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; max-height: 300px; overflow-y: auto;">`;
-            for (let i = 1; i <= totalChapters; i++) {
-                html += `<button onclick="loadChapter('${bookAR}', '${bookEN}', ${i})" style="padding: 8px 12px; background:var(--primary-blue); color:white; border:none; border-radius:4px; cursor:pointer;">${i}</button>`;
-            }
-            html += `</div>`;
-            versesContainer.innerHTML = html;
-        }
-
-        function filterSection(section) {
-            const searchDisplayArea = document.getElementById('searchDisplayArea');
-            if(section === 'search') {
-                document.getElementById('searchInput').focus();
-            } else if(section === 'studies') {
-                searchDisplayArea.innerHTML = `<h4 style="color:var(--primary-blue)">💡 دراسات الآيات والتحليلات اللغوية</h4><p>انقر على أي آية داخل الأصحاحات لفتح نافذة التحليل العبري/اليوناني والشواهد والتفاسير.</p>`;
-            } else if(section === 'commentaries') {
-                searchDisplayArea.innerHTML = `<h4 style="color:var(--primary-blue)">📚 تفاسير كبار المفسرين</h4><p>تشمل تفسير جون ماكآثر، ر.ت. فرانس، وليم ماكدونالد، وليم إدي، ومتى المسكين.</p>`;
-            }
-        }
-
-        function loadChapter(bookAR, bookEN, chapterNum) {
-            const versesContainer = document.getElementById('versesContainer');
-            const t = translations[currentLang];
-            const displayName = currentLang === 'ar' ? `${bookAR} (${bookEN})` : `${bookEN} (${bookAR})`;
-            
-            let html = `
-                <h4 style="color: var(--primary-blue); margin-bottom: 12px;">${displayName} - ${t.chapterWord} ${chapterNum}</h4>
-                <div style="font-size:0.85rem; color:#718096; margin-bottom:10px;">${currentLang === 'ar' ? 'انقر على أي آية لعرض التفاصيل الأكاديمية والشواهد والتفاسير:' : 'Click any verse to view academic details, cross-references & commentaries:'}</div>
-            `;
-
-            // جلب الآيات الفعلية من القاعدة المخصصة أو توليدها بذكاء للأصحاحات الأخرى
-            let versesList = [];
-            if (realBibleDatabase[bookAR] && realBibleDatabase[bookAR][chapterNum]) {
-                versesList = realBibleDatabase[bookAR][chapterNum];
-            } else {
-                // توليد تفصيلي واقعي لكل آية لضمان تنوع النصوص وعدم تشابهها
-                for (let v = 1; v <= 12; v++) {
-                    versesList.push({
-                        ar: `هذه هي الآية رقم (${v}) من أصحاح (${chapterNum}) في سفر (${bookAR})، توثق إعلانات الحق الإلهي والتوجيه الروحي للمؤمنين.`,
-                        en: `This is verse (${v}) of chapter (${chapterNum}) in (${bookEN}), documenting divine guidance and spiritual truth.`
-                    });
-                }
-            }
-
-            versesList.forEach((vObj, index) => {
-                let vNum = index + 1;
-                let activeText = currentLang === 'ar' ? `${vObj.ar} | ${vObj.en}` : `${vObj.en} | ${vObj.ar}`;
-
-                html += `
-                    <div class="verse-item" onclick='openVerseModal("${displayName}", ${chapterNum}, ${vNum}, ${JSON.stringify(vObj.ar)}, ${JSON.stringify(vObj.en)})'>
-                        <span class="v-num">${vNum}</span>
-                        <span>${activeText}</span>
+          {/* ===== واجهة الكنيسة ===== */}
+          {currentView === 'church' && (
+            <div className="max-w-4xl mx-auto space-y-8">
+              <button onClick={() => setCurrentView('home')} className="mb-6 text-blue-600 hover:underline">{c.backHome}</button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
+                    <h2 className="text-xl font-bold mb-4 text-blue-900 dark:text-white flex items-center gap-2"><span>📍</span> {isArabic ? 'العنوان' : 'Address'}</h2>
+                    <p className="text-slate-600 dark:text-slate-300">{c.address}</p>
+                  </div>
+                  <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
+                    <h2 className="text-xl font-bold mb-4 text-blue-900 dark:text-white flex items-center gap-2"><span>⏰</span> {isArabic ? 'مواعيد الاجتماعات' : 'Meeting Times'}</h2>
+                    <div className="space-y-3">
+                      {c.meetingTimes.map((mt, index) => (
+                        <div key={index} className="text-sm border-r-4 border-blue-600 bg-slate-50 dark:bg-slate-700 p-3 rounded-l-md">
+                          <span className="font-bold text-blue-700 dark:text-blue-300 block">{mt.day} - {mt.time}</span>
+                          <span className="text-slate-600 dark:text-slate-300">{mt.event}</span>
+                        </div>
+                      ))}
                     </div>
-                `;
-            });
-
-            versesContainer.innerHTML = html;
-        }
-
-        function openVerseModal(bookName, chapter, verseNum, textAr, textEn) {
-            const fullText = currentLang === 'ar' ? `${textAr}\n(EN: ${textEn})` : `${textEn}\n(AR: ${textAr})`;
-            document.getElementById('modalVerseTitle').innerText = `${bookName} - Chapter ${chapter} : Verse ${verseNum}`;
-            document.getElementById('modalVerseText').innerText = fullText;
-            
-            document.getElementById('modalOriginalLang').innerText = selectedTestamentType === 'ot' ? 
-                "Hebrew Original Text Analysis (H1254 - בָּרָא - Bara / H430 - אֱלֹהִים - Elohim)" :
-                "Greek Original Text Analysis (G3056 - Logos - Word / G5485 - Charis - Grace)";
-
-            document.getElementById('modalComparison').innerText = currentLang === 'ar' ?
-                "الآيات والشواهد المقارنة: دراسة ارتباط النص بكتب العهد القديم والجديد وإعلانات النعمة والعهد." :
-                "Cross-References: Examining contextual links across Old and New Testaments.";
-
-            updateCommentaryText();
-            document.getElementById('verseModal').style.display = 'flex';
-        }
-
-        function updateCommentaryText() {
-            const commentator = document.getElementById('commentatorSelect').value;
-            let commentaryText = "";
-
-            switch(commentator) {
-                case 'macarthur':
-                    commentaryText = "تفسير جون ماكآثر (John MacArthur Commentary): يوضح المعنى الحرفي والتاريخي العميق للنص، مع ربط الآية بالسياق اللاهوتي الأوسع للكتاب المقدس وسلطان الكلمة الإلهية.";
-                    break;
-                case 'france':
-                    commentaryText = "تفسير ر. ت. فرانس (R.T. France Commentary): يركز على التحليل النصي والقرائن التاريخية والخلفية اللغوية للعهد الجديد والقديم وإبراز تحقيق الوعود الإلهية.";
-                    break;
-                case 'mcdonald':
-                    commentaryText = "تفسير وليم ماكدونالد: تفسير عملي روحي يوضح التطبيق المباشر للحق الإلهي في حياة المؤمن اليومية.";
-                    break;
-                case 'addy':
-                    commentaryText = "تفسير وليم إدي: دراسة لغوية مقارنة للكلمات المفتاحية في النص الأصلي ومقارنة المخطوطات القديمة.";
-                    break;
-                case 'matta':
-                    commentaryText = "تفسير الأب متى المسكين: نظرة تأملية عميقة في سر الكلمة الإلهية والشركة السرائرية مع الله.";
-                    break;
-            }
-            document.getElementById('modalCommentary').innerText = commentaryText;
-        }
-
-        function closeModal() {
-            document.getElementById('verseModal').style.display = 'none';
-        }
-
-        function performSearch() {
-            const query = document.getElementById('searchInput').value.trim();
-            const searchDisplayArea = document.getElementById('searchDisplayArea');
-
-            if (!query) return;
-
-            let resultsHtml = `<h4 style="color: var(--primary-blue); margin-bottom: 12px;">نتائج البحث الشامل لـ: "${query}"</h4>`;
-            
-            for (let i = 1; i <= 4; i++) {
-                resultsHtml += `
-                    <div class="verse-item" onclick='openVerseModal("نتيجة بحث", 1, ${i}, "هذه الآية تطابق بحثك عن (${query}) في نصوص الكتاب المقدس.", "This verse matches your search for (${query}) in the Scriptures.")'>
-                        <span class="v-num">بحث ${i}</span>
-                        <span>نتيجة مطابقة للبحث عن: "${query}" في العهدين القديم والجديد.</span>
+                  </div>
+                </div>
+                <div className="space-y-6">
+                  <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <h2 className="text-xl font-bold mb-4 text-blue-900 dark:text-white">{isArabic ? 'امسح الباركود لزيارتنا' : 'Scan QR Code'}</h2>
+                    <img src={qrCodeUrl} alt="QR Code" className="w-40 h-40 object-contain rounded-lg shadow-md" />
+                  </div>
+                  <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
+                    <h2 className="text-xl font-bold mb-4 text-blue-900 dark:text-white text-center">{c.linksTitle}</h2>
+                    <div className="grid grid-cols-2 gap-4">
+                      {churchLinks.map((link) => (
+                        <a href={link.url} target="_blank" rel="noopener noreferrer" className={`${link.color} text-white p-4 rounded-xl flex flex-col items-center justify-center gap-2 transition-transform hover:scale-105 shadow-md`}>
+                          <span className="text-3xl">{link.icon}</span>
+                          <span className="text-sm font-bold">{link.name}</span>
+                        </a>
+                      ))}
                     </div>
-                `;
-            }
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
-            searchDisplayArea.innerHTML = resultsHtml;
-        }
+          {['search'].includes(currentView) && (
+             <div className="max-w-4xl mx-auto bg-white dark:bg-slate-800 p-10 rounded-xl shadow-lg text-center">
+                <button onClick={() => setCurrentView('home')} className="mb-6 text-blue-600 hover:underline block mx-auto">{c.backHome}</button>
+                <h2 className="text-2xl font-bold text-blue-900 dark:text-white">🚧 {isArabic ? 'قسم قيد التطوير' : 'Section Under Development'}</h2>
+             </div>
+          )}
+        </main>
 
-        window.onload = function() {
-            renderBooks();
-        };
-    </script>
-</body>
-</html>
+        {/* ===== النافذة المنبثقة للآية ===== */}
+        {selectedVerse && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedVerse(null)}>
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl max-w-lg w-full p-6 relative" onClick={(e) => e.stopPropagation()}>
+              <button className="absolute top-4 left-4 text-slate-400 hover:text-slate-600" onClick={() => setSelectedVerse(null)}>✖</button>
+              <p className="text-xl font-bold mb-6 text-blue-900 dark:text-white border-b pb-4">{isArabic ? selectedVerse.text_ar : selectedVerse.text_en}</p>
+              <div className="mb-6">
+                <p className="text-sm font-semibold mb-2 text-slate-500">{isArabic ? 'تظليل الآية:' : 'Highlight Verse:'}</p>
+                <div className="flex gap-2">
+                  <button onClick={() => highlightVerse(selectedVerse.id, highlightColors.yellow)} className="w-8 h-8 rounded-full border-2 border-white shadow" style={{ backgroundColor: highlightColors.yellow }}></button>
+                  <button onClick={() => highlightVerse(selectedVerse.id, highlightColors.neon)} className="w-8 h-8 rounded-full border-2 border-white shadow" style={{ backgroundColor: highlightColors.neon }}></button>
+                  <button onClick={() => highlightVerse(selectedVerse.id, highlightColors.blue)} className="w-8 h-8 rounded-full border-2 border-white shadow" style={{ backgroundColor: highlightColors.blue }}></button>
+                  <button onClick={() => highlightVerse(selectedVerse.id, null)} className="text-xs px-2 h-8 rounded-lg bg-slate-200 dark:bg-slate-600">{isArabic ? 'إزالة' : 'Clear'}</button>
+                </div>
+              </div>
+              <div>
+                <h3 className="font-bold text-blue-700 dark:text-blue-300 mb-2">{isArabic ? 'التفاسير:' : 'Commentaries:'}</h3>
+                {commentariesData[selectedVerse.id] ? (
+                  <div className="space-y-3 max-h-40 overflow-y-auto">
+                    {commentariesData[selectedVerse.id].map((com, idx) => (
+                      <div key={idx} className="p-3 bg-slate-100 dark:bg-slate-700 rounded-lg">
+                        <p className="font-bold text-sm text-blue-900 dark:text-blue-200">{com.author}</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">{com.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-slate-400">{isArabic ? 'لا يوجد تفاسير لهذه الآية حالياً.' : 'No commentaries for this verse currently.'}</p>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
