@@ -13,10 +13,6 @@
             --gold-light: #FFDF00;
             --text-main: #FFFFFF;
             --text-sub: #94A3B8;
-            --hl-gold: rgba(212, 175, 55, 0.35);
-            --hl-blue: rgba(59, 130, 246, 0.35);
-            --hl-green: rgba(34, 197, 94, 0.35);
-            --hl-purple: rgba(168, 85, 247, 0.35);
         }
 
         body {
@@ -81,7 +77,7 @@
 
         .verse-text { font-size: 1.2rem; color: var(--gold-light); margin-top: 5px; }
 
-        /* الأقسام الأربعة بجوار بعضها البعض */
+        /* الأقسام الأربعة أفقياً بجوار بعضها */
         .grid-4-sections {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -116,7 +112,7 @@
         .card-title { font-size: 1.15rem; font-weight: bold; margin-bottom: 8px; color: #FFF; }
         .card-desc { font-size: 0.82rem; color: var(--text-sub); line-height: 1.4; }
 
-        /* مستعرض الكتاب المقدس بالأسفار والأصحاحات */
+        /* قارئ الكتاب المقدس */
         .bible-reader-box {
             background: rgba(19, 34, 56, 0.8);
             border: 1px solid rgba(212, 175, 55, 0.3);
@@ -175,7 +171,7 @@
 
         .verse-num { color: var(--gold-primary); font-weight: bold; margin-left: 8px; }
 
-        /* Modal Overlay */
+        /* Popups / Modals */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -214,6 +210,7 @@
             gap: 10px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             margin-bottom: 15px;
+            overflow-x: auto;
         }
 
         .tab-btn {
@@ -223,6 +220,7 @@
             padding: 8px 12px;
             cursor: pointer;
             font-weight: bold;
+            white-space: nowrap;
             border-bottom: 2px solid transparent;
         }
 
@@ -288,7 +286,7 @@
             </div>
         </div>
 
-        <!-- مستعرض الكتاب المقدس الفعلي بالأصحاحات والأسفار -->
+        <!-- مستعرض الكتاب المقدس بالأسفار والأصحاحات -->
         <div class="bible-reader-box" id="bibleReader">
             <h3 style="color: var(--gold-primary); margin-top: 0; margin-bottom: 15px;"><i class="fa-solid fa-book-open"></i> مستعرض الكتاب المقدس</h3>
             
@@ -299,7 +297,7 @@
                 </select>
 
                 <select id="bookSelect" onchange="updateChapters()">
-                    <!-- يتم التحميل بالسوفتوير -->
+                    <!-- تحميل التراجم والأسفار -->
                 </select>
 
                 <select id="chapterSelect" onchange="loadVerses()">
@@ -308,13 +306,13 @@
             </div>
 
             <div class="verses-list" id="versesContainer">
-                <!-- الآيات تظهر هنا -->
+                <!-- قائمة الآيات -->
             </div>
         </div>
 
     </div>
 
-    <!-- نافذة تفاصيل الآية والتفاسير والخرائط -->
+    <!-- نافذة تفاصيل الآية وقائمة المفسرين الثمانية المختارة -->
     <div class="modal-overlay" id="verseModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -325,38 +323,43 @@
             <p id="modalVerseText" style="font-size: 1.15rem; font-weight: bold; color: #FFF; background: rgba(255,255,255,0.04); padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold-primary);"></p>
 
             <div class="modal-tabs">
-                <button class="tab-btn active" onclick="switchTab('tab-commentary', this)"><i class="fa-solid fa-user-tie"></i> التفاسير المعتمدة</button>
+                <button class="tab-btn active" onclick="switchTab('tab-commentary', this)"><i class="fa-solid fa-user-tie"></i> قائمة المفسرين</button>
                 <button class="tab-btn" onclick="switchTab('tab-compare', this)"><i class="fa-solid fa-code-compare"></i> مقارنة العهدين</button>
                 <button class="tab-btn" onclick="switchTab('tab-map', this)"><i class="fa-solid fa-map-location-dot"></i> الخريطة الجغرافية</button>
             </div>
 
             <div id="tab-commentary" class="tab-content active">
-                <select id="commentatorSelect" style="width: 100%; padding: 10px; background: #152338; border: 1px solid var(--gold-primary); color: #FFF; border-radius: 8px; margin-bottom: 12px;" onchange="renderCommentary()">
-                    <option value="tadros">القمص تادرس يعقوب ملطي</option>
-                    <option value="fekry">القمص أنطونيوس فكري</option>
-                    <option value="chrysostom">القديس يوحنا فم الذهب</option>
-                    <option value="augustine">القديس أوجسطينوس</option>
+                <label style="color: var(--gold-light); display: block; margin-bottom: 6px; font-size: 0.9rem;">اختر المفسر / مرجع التفسير:</label>
+                <select id="commentatorSelect" style="width: 100%; padding: 11px; background: #152338; border: 1px solid var(--gold-primary); color: #FFF; border-radius: 8px; margin-bottom: 15px;" onchange="renderCommentary()">
+                    <option value="macdonald">تفسير وليم ماكدونالد (William MacDonald)</option>
+                    <option value="tyndale">التفسير الحديث (The New Bible Commentary / Tyndale)</option>
+                    <option value="pinkerton">تفسير بنيامين بنكرتن (J.B. Pinkerton)</option>
+                    <option value="guzik">تفسير ديفيد كوزيك (Enduring Word - David Guzik)</option>
+                    <option value="macarthur">تفسير ماك آرثر للكتاب المقدس (MacArthur Bible Commentary)</option>
+                    <option value="eddy">تفسير وليم إدي (William Eddy)</option>
+                    <option value="matta">تفسير الأب متى المسكين</option>
+                    <option value="menees">تفسير القس منيس عبد النور (شبهات وهمية)</option>
                 </select>
-                <div class="info-box" id="commentaryText">جاري التفسير...</div>
+                <div class="info-box" id="commentaryText">جاري تحميل التفسير...</div>
             </div>
 
             <div id="tab-compare" class="tab-content">
                 <div class="info-box" id="compareText">
                     <strong style="color: var(--gold-light);">• الشواهد المقابلة والنبوات:</strong><br>
-                    يرتبط هذا النص بشواهد العهد القديم والجديد للربط بين النبوة والتحقيق.
+                    ارتباطات نصية وشواهد العهدين المباشرة لتحقيق النبوات واستكشاف العهد القديم والجديد.
                 </div>
             </div>
 
             <div id="tab-map" class="tab-content">
                 <div class="info-box">
-                    <p id="mapLocationName"><strong>📍 الموقع الجغرافي:</strong> خريطة تفاعلية أورشليم والجليل</p>
+                    <p id="mapLocationName"><strong>📍 الموقع الجغرافي:</strong> خريطة تفاعلية أورشليم والجليل والمواقع المذكورة</p>
                     <iframe id="mapIframe" src="https://maps.google.com/maps?q=Jerusalem&t=&z=9&ie=UTF8&iwloc=&output=embed" width="100%" height="220" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- نافذة قسم الدراسات الكتابية التفاعلية -->
+    <!-- نافذة الدراسات الكتابية -->
     <div class="modal-overlay" id="studiesModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -368,10 +371,10 @@
                 <p>دراسة مفصلة من العصر الرسولي، عصر الاضطهاد، العصر الذهبي، العصور الوسطى، وإلى العصر الحديث.</p>
                 <hr style="border-color: rgba(255,255,255,0.1);">
                 <h4 style="color: var(--gold-light);">2. الخرائط الجغرافية المزدوجة</h4>
-                <p>مقارنة خرائط أراضي الكتاب المقدس قديماً بالتقسيمات الحديثة اليوم.</p>
+                <p>مقارنة خرائط أراضي الكتاب المقدس قديماً بالتقسيمات والخرائط الحديثة اليوم.</p>
                 <hr style="border-color: rgba(255,255,255,0.1);">
                 <h4 style="color: var(--gold-light);">3. دراسات الهياكل والمقدسات ومعجزات العهدين</h4>
-                <p>شرح خيمة الاجتماع، هيكل سليمان، ومعجزات ونبوات العهد القديم والجديد.</p>
+                <p>شرح خيمة الاجتماع، هيكل سليمان، ومعجزات ونبوات العهدين القديم والجديد.</p>
             </div>
         </div>
     </div>
@@ -399,7 +402,7 @@
             }
         };
 
-        let currentSelectedVerseText = "";
+        let currentVerseNum = 1;
 
         function updateBooks() {
             const testament = document.getElementById('testamentSelect').value;
@@ -439,7 +442,7 @@
             container.innerHTML = "";
 
             const list = (bibleData[testament][book] && bibleData[testament][book].verses[chapter]) || [
-                { num: 1, text: "الآيات مسجلة وجاري مزامنة باقي النص الكامل...", loc: "Jerusalem" }
+                { num: 1, text: "الآيات مسجلة وجاري تحميل كامل أسفار الكتاب المقدس...", loc: "Jerusalem" }
             ];
 
             list.forEach(v => {
@@ -452,7 +455,7 @@
         }
 
         function openVerseModal(num, text, location) {
-            currentSelectedVerseText = text;
+            currentVerseNum = num;
             document.getElementById('modalTitle').innerText = 'دراسة الآية ' + num;
             document.getElementById('modalVerseText').innerText = text;
             document.getElementById('mapIframe').src = `https://maps.google.com/maps?q=${encodeURIComponent(location || 'Jerusalem')}&t=&z=9&ie=UTF8&iwloc=&output=embed`;
@@ -464,14 +467,18 @@
             const comm = document.getElementById('commentatorSelect').value;
             const box = document.getElementById('commentaryText');
             
-            const commTexts = {
-                tadros: "القمص تادرس يعقوب ملطي: يوضح عمق المعنى اللاهوتي والأزلي للكلمة ورعاية الله الفائقة للإنشان.",
-                fekry: "القمص أنطونيوس فكري: يقدم تفسيراً بسيطاً وعميقاً للآية وتطبيقها المباشر في الحياة الروحية اليومية.",
-                chrysostom: "القديس يوحنا فم الذهب: يسلط الضوء على البلاغة واللاهوت المستقيم الموجه للكنيسة.",
-                augustine: "القديس أوجسطينوس: يتناول البُعد الفلسفي والروحي والـتأمل في محبة الله."
+            const commentaries = {
+                macdonald: "📘 **تفسير وليم ماكدونالد (William MacDonald):**\nيقدم شرحاً عملياً وتطبيعياً يركز على كمال شخص المسيح والتطبيق الروحي المباشر لحياة المؤمن.",
+                tyndale: "📚 **التفسير الحديث (The New Bible Commentary / Tyndale):**\nتحليل أكاديمي ونقدي للنص من الناحية التاريخية واللغوية والسياق اللاهوتي الشامل.",
+                pinkerton: "📖 **تفسير بنيامين بنكرتن (J.B. Pinkerton):**\nشرح تدبيري وعميق يستكشف المبادئ الروحية الأساسية وغنى النعمة في كلمة الله.",
+                guzik: "✨ **تفسير ديفيد كوزيك (Enduring Word - David Guzik):**\nشرح آية بآية موضح بأسلوب معاصر مع التركيز على الخلفيات التاريخية والتطبيقات العملية.",
+                macarthur: "📜 **تفسير ماك آرثر (MacArthur Bible Commentary):**\nتفسير تفصيلي يدقق في المفردات اللغوية في الأصل اليوناني/العبري والأبعاد اللاهوتية.",
+                eddy: "🖋️ **تفسير وليم إدي (William Eddy):**\nالتفسير الكلاسيكي الشهير المستفيض الذي يقدم تحليلاً دقيقاً للآيات والكلمات والعبارات.",
+                matta: "🕊️ **تفسير الأب متى المسكين:**\nتفسير روحي آبائي وعميق يربط بين اللاهوت والخبرة العميقة بالحياة في المسيح.",
+                menees: "🛡️ **تفسير القس منيس عبد النور:**\nيتناول الشواهد والردود على الاستفسارات والتأويلات مع إيضاح خلفيات النصوص."
             };
             
-            box.innerText = commTexts[comm] || "التفسير المعتمد متوفر.";
+            box.innerText = commentaries[comm] || "التفسير المعتمد متوفر.";
         }
 
         function closeModal() { document.getElementById('verseModal').style.display = 'none'; }
@@ -489,7 +496,6 @@
             document.getElementById('bibleReader').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Initialize on Load
         window.onload = function() {
             updateBooks();
         };
