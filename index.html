@@ -428,4 +428,33 @@
         } catch (err) {
             container.innerHTML = '<div style="text-align: center; color: #FF6B6B; padding: 20px;">تعذر تحميل ملف البيانات، يرجى التأكد من وجود bible-nt.json</div>';
         }
+}async function loadTestamentData() {
+    const testament = document.getElementById('testamentSelect').value;
+    const container = document.getElementById('versesContainer');
+    container.innerHTML = '<div style="text-align: center; color: var(--gold-primary); padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الأسفار...</div>';
+
+    // كسر الكاش لضمان جلب أحدث نسخة فوراً
+    const cacheBuster = '?v=' + new Date().getTime();
+    const file = ((testament === 'NT') ? 'bible-nt.json' : 'bible.json') + cacheBuster;
+
+    try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error("File not found");
+        currentBibleData = await res.json();
+        
+        // جلب التفاسير إن وجدت مع كسر الكاش أيضاً
+        try {
+            const commRes = await fetch('commentaries.json' + cacheBuster);
+            if (commRes.ok) {
+                currentCommentaries = await commRes.json();
+            }
+        } catch(e) { 
+            console.log('التفاسير قيد التحديث'); 
+        }
+
+        populateBooks();
+    } catch (err) {
+        console.error(err);
+        container.innerHTML = '<div style="text-align: center; color: #FF6B6B; padding: 20px;">تعذر تحميل الملف. يرجى التأكد من رفع bible-nt.json في المجلد الرئيسي.</div>';
+    }
 }
