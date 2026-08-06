@@ -406,9 +406,18 @@
             document.getElementById('bibleReader').scrollIntoView({ behavior: 'smooth' });
         }
 
-        window.onload = function() {
-            loadTestamentData();
-        };
-    </script>
-</body>
-</html>
+      // تعديل المسار ليقرأ من الجذر المباشر للمشروع
+const file = (testament === 'NT') ? 'bible-nt.json' : 'bible.json';
+
+try {
+    const res = await fetch(file);
+    currentBibleData = await res.json();
+    
+    // جلب التفاسير
+    const commRes = await fetch('commentaries.json');
+    currentCommentaries = await commRes.json();
+
+    populateBooks();
+} catch (err) {
+    container.innerHTML = '<div style="text-align: center; color: #FF6B6B; padding: 20px;">جاري تحميل البيانات...</div>';
+}
