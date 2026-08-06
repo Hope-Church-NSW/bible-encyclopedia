@@ -13,7 +13,6 @@
             --gold-light: #FFDF00;
             --text-main: #FFFFFF;
             --text-sub: #94A3B8;
-            /* ألوان تظليل الآيات */
             --hl-gold: rgba(212, 175, 55, 0.35);
             --hl-blue: rgba(59, 130, 246, 0.35);
             --hl-green: rgba(34, 197, 94, 0.35);
@@ -29,12 +28,10 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
         }
 
-        /* Top Navigation Bar */
         header {
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(12px);
             padding: 12px 25px;
             display: flex;
@@ -46,184 +43,142 @@
             z-index: 1000;
         }
 
-        .logo-box {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-img {
-            height: 48px;
-            width: auto;
-            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
-        }
-
-        .logo-title {
-            font-weight: bold;
-            font-size: 1.25rem;
-            background: linear-gradient(90deg, #FFFFFF, var(--gold-primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .logo-box { display: flex; align-items: center; gap: 15px; }
+        .logo-img { height: 45px; width: auto; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5)); }
+        .logo-title { font-weight: bold; font-size: 1.2rem; color: var(--gold-primary); }
 
         .lang-btn {
             background: transparent;
             border: 2px solid var(--gold-primary);
             color: var(--gold-primary);
-            padding: 8px 22px;
+            padding: 6px 18px;
             border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        .lang-btn:hover {
-            background: var(--gold-primary);
-            color: var(--bg-dark);
-        }
-
-        /* Main Container */
         .main-container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 30px 20px;
-            flex: 1;
+            padding: 25px 15px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .hero-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        .hero-section { text-align: center; margin-bottom: 25px; }
+        .welcome-title { font-size: 2.2rem; margin: 10px 0 5px; color: var(--gold-primary); }
+        .church-subtitle { color: var(--text-sub); font-size: 1rem; margin-bottom: 20px; }
 
-        .dove-3d-logo {
-            width: 110px;
-            height: auto;
-            filter: drop-shadow(0 10px 25px rgba(212, 175, 55, 0.5));
-            animation: float3D 3.5s ease-in-out infinite;
-        }
-
-        @keyframes float3D {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-10px) scale(1.03); }
-        }
-
-        .welcome-title {
-            font-size: 2.2rem;
-            margin: 15px 0 5px;
-            color: var(--gold-primary);
-            letter-spacing: 0.5px;
-        }
-
-        .church-subtitle {
-            color: var(--text-sub);
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        /* Daily Verse Card */
         .daily-verse-card {
             background: rgba(19, 34, 56, 0.7);
             border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 15px;
-            padding: 22px 30px;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 15px 20px;
+            max-width: 650px;
+            margin: 0 auto 30px;
             text-align: center;
         }
 
-        .verse-text {
-            font-size: 1.3rem;
-            color: var(--gold-light);
-            line-height: 1.6;
-            margin-top: 8px;
-        }
+        .verse-text { font-size: 1.2rem; color: var(--gold-light); margin-top: 5px; }
 
-        /* Grid Sections */
+        /* الأقسام الأربعة بجوار بعضها البعض */
         .grid-4-sections {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 22px;
-            margin-top: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-4-sections { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 550px) {
+            .grid-4-sections { grid-template-columns: 1fr; }
         }
 
         .card-3d {
             background: var(--card-3d);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 22px 15px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .card-3d:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             border-color: var(--gold-primary);
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.25);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
         }
 
-        .card-icon {
-            font-size: 42px;
-            color: var(--gold-primary);
-            margin-bottom: 15px;
-        }
+        .card-icon { font-size: 36px; color: var(--gold-primary); margin-bottom: 12px; }
+        .card-title { font-size: 1.15rem; font-weight: bold; margin-bottom: 8px; color: #FFF; }
+        .card-desc { font-size: 0.82rem; color: var(--text-sub); line-height: 1.4; }
 
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #FFF;
-        }
-
-        .card-desc {
-            font-size: 0.88rem;
-            color: var(--text-sub);
-            line-height: 1.5;
-        }
-
-        /* Interactive Reader Section */
-        .interactive-demo-container {
-            margin-top: 45px;
-            background: rgba(19, 34, 56, 0.6);
+        /* مستعرض الكتاب المقدس بالأسفار والأصحاحات */
+        .bible-reader-box {
+            background: rgba(19, 34, 56, 0.8);
             border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
         }
 
-        .verse-item {
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            font-size: 1.15rem;
-            line-height: 1.8;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .selector-bar {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid transparent;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 10px;
         }
 
-        .verse-item:hover {
+        .selector-bar select {
+            flex: 1;
+            min-width: 140px;
+            padding: 10px;
+            background: #0D1B2A;
+            border: 1px solid var(--gold-primary);
+            color: #FFF;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .verses-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .verse-row {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            line-height: 1.7;
+        }
+
+        .verse-row:hover {
             border-color: var(--gold-primary);
             background: rgba(212, 175, 55, 0.08);
         }
 
-        .verse-num {
-            font-weight: bold;
-            color: var(--gold-primary);
-            margin-left: 10px;
-        }
+        .verse-num { color: var(--gold-primary); font-weight: bold; margin-left: 8px; }
 
-        /* Modal Overlay & Card */
+        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(3, 7, 18, 0.88);
             backdrop-filter: blur(8px);
             display: none;
@@ -235,19 +190,12 @@
         .modal-content {
             background: #0D1B2A;
             border: 2px solid var(--gold-primary);
-            border-radius: 20px;
-            width: 90%;
+            border-radius: 16px;
+            width: 92%;
             max-width: 750px;
             max-height: 85vh;
             overflow-y: auto;
-            padding: 25px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            animation: modalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes modalIn {
-            from { transform: scale(0.85); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            padding: 22px;
         }
 
         .modal-header {
@@ -255,45 +203,11 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            padding-bottom: 12px;
-            margin-bottom: 20px;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--text-sub);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .close-btn:hover { color: #FF4D4D; }
-
-        .color-picker {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 20px;
-            background: rgba(255,255,255,0.04);
-            padding: 10px 15px;
-            border-radius: 12px;
-        }
-
-        .color-dot {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: transform 0.2s;
-        }
-
-        .color-dot:hover { transform: scale(1.2); }
-        .c-gold { background-color: var(--gold-primary); }
-        .c-blue { background-color: #3B82F6; }
-        .c-green { background-color: #22C55E; }
-        .c-purple { background-color: #A855F7; }
-        .c-reset { background: #334155; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #FFF; }
+        .close-btn { background: none; border: none; color: var(--text-sub); font-size: 1.4rem; cursor: pointer; }
 
         .modal-tabs {
             display: flex;
@@ -306,37 +220,19 @@
             background: none;
             border: none;
             color: var(--text-sub);
-            padding: 10px 15px;
+            padding: 8px 12px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.95rem;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
         }
 
-        .tab-btn.active {
-            color: var(--gold-primary);
-            border-bottom-color: var(--gold-primary);
-        }
-
+        .tab-btn.active { color: var(--gold-primary); border-bottom-color: var(--gold-primary); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        select.commentator-select {
-            width: 100%;
-            padding: 12px;
-            background: #152338;
-            border: 1px solid var(--gold-primary);
-            color: #FFF;
-            border-radius: 10px;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            outline: none;
-        }
-
-        .commentary-box, .cross-ref-box, .map-box {
+        .info-box {
             background: rgba(255,255,255,0.03);
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 15px;
             line-height: 1.7;
             color: #E2E8F0;
@@ -347,83 +243,78 @@
 
     <header>
         <div class="logo-box">
-            <img src="2.png" alt="Hope Church Logo" class="logo-img">
+            <img src="2.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
             <span class="logo-title">كنيسة رجاء الأمم - سيدني</span>
         </div>
-        <button class="lang-btn" onclick="toggleLanguage()">English</button>
+        <button class="lang-btn">English</button>
     </header>
 
     <div class="main-container">
-        <!-- Hero Section بدون أي أزرار استكشاف -->
+
         <div class="hero-section">
-            <img src="2.png" alt="Church 3D Logo" class="dove-3d-logo">
             <h1 class="welcome-title">موسوعة الكتاب المقدس</h1>
-            <div class="church-subtitle">كنيسة رجاء الأمم سيدني تساعدك من خلال البحث العميق والاكتشاف في كلمة الله</div>
+            <div class="church-subtitle">كنيسة رجاء الأمم سيدني - البحث العميق والتفاسير المعتمدة والخرائط التفاعلية</div>
         </div>
 
-        <!-- آية اليوم -->
         <div class="daily-verse-card">
             <span style="color: var(--text-sub); font-size: 0.85rem;">آية اليوم</span>
             <div class="verse-text">«فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ» (تكوين 1: 1)</div>
         </div>
 
-        <!-- أقسام الموسوعة الأربعة -->
+        <!-- الأقسام الأربعة أفقياً بجوار بعضها -->
         <div class="grid-4-sections">
-            
-            <!-- 1. دراسات كتابية (بدل الموسوعة الكتابية) -->
-            <div class="card-3d" onclick="openStudiesSection()">
+            <div class="card-3d" onclick="openStudiesModal()">
                 <div class="card-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
                 <div class="card-title">دراسات كتابية</div>
-                <div class="card-desc">دراسات شاملة عن تاريخ الكنيسة (5 عصور)، الخرائط المزدوجة، دراسات الهياكل، ومعجزات ونبوات الكتاب.</div>
+                <div class="card-desc">عصور الكنيسة الـ5، الخرائط المزدوجة، دراسات الهياكل والمعجزات.</div>
             </div>
 
-            <!-- 2. الكتاب المقدس -->
             <div class="card-3d" onclick="scrollToReader()">
                 <div class="card-icon"><i class="fa-solid fa-book-bible"></i></div>
                 <div class="card-title">الكتاب المقدس</div>
-                <div class="card-desc">تصفح أسفار الكتاب المقدس للعهدين القديم والجديد واستكشاف آياته بالتفصيل مع التفاسير.</div>
+                <div class="card-desc">تصفح العهدين والأسفار والأصحاحات والآيات المفسرة بالتفصيل.</div>
             </div>
 
-            <!-- 3. البحث اللحظي -->
-            <div class="card-3d" onclick="alert('جاري فتح محرك البحث الشامل...')">
+            <div class="card-3d" onclick="alert('محرك البحث اللحظي في النص الشريف')">
                 <div class="card-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
                 <div class="card-title">البحث اللحظي</div>
-                <div class="card-desc">بحث سريع في الكلمات والموضوعات والآيات من خلال أحدث أدوات البحث.</div>
+                <div class="card-desc">بحث سريع ومباشر في الكلمات والموضوعات والآيات الكتابية.</div>
             </div>
 
-            <!-- 4. الكنيسة -->
-            <div class="card-3d" onclick="alert('خدمات ومواعيد اجتماعات كنيسة رجاء الأمم بسيدني')">
+            <div class="card-3d" onclick="alert('خدمات كنيسة رجاء الأمم بسيدني وبرنامج عمق جديد')">
                 <div class="card-icon"><i class="fa-solid fa-church"></i></div>
                 <div class="card-title">الكنيسة</div>
-                <div class="card-desc">كنيسة رجاء الأمم سيدني — مواعيد الاجتماعات والخدمات وبرنامج عمق جديد وبث الصلوات.</div>
-            </div>
-
-        </div>
-
-        <!-- Interactive Reader Demo Section -->
-        <div class="interactive-demo-container" id="readerSection">
-            <div style="border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 15px; margin-bottom: 20px;">
-                <h3 style="color: var(--gold-primary); margin: 0;"><i class="fa-solid fa-book-open"></i> إنجيل يوحنا - الأصحاح الأول (اضغط على أي آية لفتح الخيارات)</h3>
-            </div>
-
-            <div class="verse-item" id="v1" onclick="openVerseModal(1, 'فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.', 'أورشليم')">
-                <span><span class="verse-num">1</span> فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.</span>
-                <i class="fa-solid fa-ellipsis-vertical" style="color: var(--text-sub);"></i>
-            </div>
-
-            <div class="verse-item" id="v2" onclick="openVerseModal(2, 'هذَا كَانَ فِي الْبَدْءِ عِنْدَ اللهِ.', '')">
-                <span><span class="verse-num">2</span> هذَا كَانَ فِي الْبَدْءِ عِنْدَ اللهِ.</span>
-                <i class="fa-solid fa-ellipsis-vertical" style="color: var(--text-sub);"></i>
-            </div>
-
-            <div class="verse-item" id="v28" onclick="openVerseModal(28, 'هذَا كَانَ فِي بَيْتِ عَبْرَةَ فِي عَبْرِ الأُرْدُنِّ حَيْثُ كَانَ يُوحَنَّا يُعَمِّدُ.', 'بيت عبرة - نهر الأردن')">
-                <span><span class="verse-num">28</span> هذَا كَانَ فِي بَيْتِ عَبْرَةَ فِي عَبْرِ الأُرْدُنِّ حَيْثُ كَانَ يُوحَنَّا يُعَمِّدُ.</span>
-                <i class="fa-solid fa-location-dot" style="color: var(--gold-primary);"></i>
+                <div class="card-desc">مواعيد الاجتماعات والخدمات وبرنامج التلفزيون المباشر.</div>
             </div>
         </div>
+
+        <!-- مستعرض الكتاب المقدس الفعلي بالأصحاحات والأسفار -->
+        <div class="bible-reader-box" id="bibleReader">
+            <h3 style="color: var(--gold-primary); margin-top: 0; margin-bottom: 15px;"><i class="fa-solid fa-book-open"></i> مستعرض الكتاب المقدس</h3>
+            
+            <div class="selector-bar">
+                <select id="testamentSelect" onchange="updateBooks()">
+                    <option value="OT">العهد القديم</option>
+                    <option value="NT" selected>العهد الجديد</option>
+                </select>
+
+                <select id="bookSelect" onchange="updateChapters()">
+                    <!-- يتم التحميل بالسوفتوير -->
+                </select>
+
+                <select id="chapterSelect" onchange="loadVerses()">
+                    <!-- الأصحاحات -->
+                </select>
+            </div>
+
+            <div class="verses-list" id="versesContainer">
+                <!-- الآيات تظهر هنا -->
+            </div>
+        </div>
+
     </div>
 
-    <!-- Modal Popup Box -->
+    <!-- نافذة تفاصيل الآية والتفاسير والخرائط -->
     <div class="modal-overlay" id="verseModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -431,131 +322,177 @@
                 <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <p id="modalVerseText" style="font-size: 1.2rem; font-weight: bold; color: #FFF; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold-primary);"></p>
+            <p id="modalVerseText" style="font-size: 1.15rem; font-weight: bold; color: #FFF; background: rgba(255,255,255,0.04); padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold-primary);"></p>
 
-            <!-- Color Highlight Section -->
-            <div class="color-picker">
-                <span style="font-size: 0.9rem; color: var(--text-sub);">تظليل الآية:</span>
-                <div class="color-dot c-gold" title="ذهبي" onclick="highlightCurrentVerse('var(--hl-gold)')"></div>
-                <div class="color-dot c-blue" title="أزرق" onclick="highlightCurrentVerse('var(--hl-blue)')"></div>
-                <div class="color-dot c-green" title="أخضر" onclick="highlightCurrentVerse('var(--hl-green)')"></div>
-                <div class="color-dot c-purple" title="بنفسجي" onclick="highlightCurrentVerse('var(--hl-purple)')"></div>
-                <div class="color-dot c-reset" title="إزالة" onclick="highlightCurrentVerse('transparent')"><i class="fa-solid fa-ban"></i></div>
-            </div>
-
-            <!-- Modal Navigation Tabs -->
             <div class="modal-tabs">
-                <button class="tab-btn active" onclick="switchTab('tab-commentary', this)"><i class="fa-solid fa-user-tie"></i> قائمة المفسرين</button>
+                <button class="tab-btn active" onclick="switchTab('tab-commentary', this)"><i class="fa-solid fa-user-tie"></i> التفاسير المعتمدة</button>
                 <button class="tab-btn" onclick="switchTab('tab-compare', this)"><i class="fa-solid fa-code-compare"></i> مقارنة العهدين</button>
                 <button class="tab-btn" onclick="switchTab('tab-map', this)"><i class="fa-solid fa-map-location-dot"></i> الخريطة الجغرافية</button>
             </div>
 
-            <!-- Tab 1: Commentators -->
             <div id="tab-commentary" class="tab-content active">
-                <select class="commentator-select" id="commentatorSelect" onchange="loadCommentary()">
+                <select id="commentatorSelect" style="width: 100%; padding: 10px; background: #152338; border: 1px solid var(--gold-primary); color: #FFF; border-radius: 8px; margin-bottom: 12px;" onchange="renderCommentary()">
                     <option value="tadros">القمص تادرس يعقوب ملطي</option>
                     <option value="fekry">القمص أنطونيوس فكري</option>
-                    <option value="augustine">القديس أوجسطينوس</option>
                     <option value="chrysostom">القديس يوحنا فم الذهب</option>
+                    <option value="augustine">القديس أوجسطينوس</option>
                 </select>
-                <div class="commentary-box" id="commentaryText">
-                    جاري تحميل التفسير المعتمد...
-                </div>
+                <div class="info-box" id="commentaryText">جاري التفسير...</div>
             </div>
 
-            <!-- Tab 2: Compare Testaments -->
             <div id="tab-compare" class="tab-content">
-                <div class="cross-ref-box">
-                    <p><strong>📖 الشواهد والمقارنات المقابلة بين العهدين القديم والجديد:</strong></p>
-                    <div style="margin-bottom: 10px; padding: 10px; background: rgba(212,175,55,0.1); border-radius: 6px;">
-                        <strong style="color: var(--gold-light);">• العهد القديم (تكوين 1: 1):</strong><br>
-                        «فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.»
-                    </div>
-                    <div style="padding: 10px; background: rgba(59,130,246,0.1); border-radius: 6px;">
-                        <strong style="color: #60A5FA;">• العهد الجديد (1 يوحنا 1: 1):</strong><br>
-                        «الَّذِي كَانَ مِنَ الْبَدْءِ، الَّذِي سَمِعْنَاهُ، الَّذِي رَأَيْنَاهُ بِعُيُونِنَا...»
-                    </div>
+                <div class="info-box" id="compareText">
+                    <strong style="color: var(--gold-light);">• الشواهد المقابلة والنبوات:</strong><br>
+                    يرتبط هذا النص بشواهد العهد القديم والجديد للربط بين النبوة والتحقيق.
                 </div>
             </div>
 
-            <!-- Tab 3: Interactive Maps -->
             <div id="tab-map" class="tab-content">
-                <div class="map-box">
-                    <p id="mapLocationName"><strong>📍 الموقع الجغرافي:</strong> أورشليم</p>
-                    <div style="width: 100%; height: 180px; border-radius: 10px; background: #1E293B; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px dashed var(--gold-primary);">
-                        <i class="fa-solid fa-earth-americas" style="font-size: 40px; color: var(--gold-primary); margin-bottom: 8px;"></i>
-                        <span style="color: var(--text-sub);" id="mapStatusText">خريطة تفاعلية للموقع المذكور في الآية.</span>
-                    </div>
+                <div class="info-box">
+                    <p id="mapLocationName"><strong>📍 الموقع الجغرافي:</strong> خريطة تفاعلية أورشليم والجليل</p>
+                    <iframe id="mapIframe" src="https://maps.google.com/maps?q=Jerusalem&t=&z=9&ie=UTF8&iwloc=&output=embed" width="100%" height="220" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
+        </div>
+    </div>
 
+    <!-- نافذة قسم الدراسات الكتابية التفاعلية -->
+    <div class="modal-overlay" id="studiesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: var(--gold-primary); margin: 0;"><i class="fa-solid fa-book-journal-whills"></i> قسم الدراسات الكتابية الشاملة</h3>
+                <button class="close-btn" onclick="closeStudiesModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="info-box">
+                <h4 style="color: var(--gold-light); margin-top: 0;">1. عصور تاريخ الكنيسة الخمسة</h4>
+                <p>دراسة مفصلة من العصر الرسولي، عصر الاضطهاد، العصر الذهبي، العصور الوسطى، وإلى العصر الحديث.</p>
+                <hr style="border-color: rgba(255,255,255,0.1);">
+                <h4 style="color: var(--gold-light);">2. الخرائط الجغرافية المزدوجة</h4>
+                <p>مقارنة خرائط أراضي الكتاب المقدس قديماً بالتقسيمات الحديثة اليوم.</p>
+                <hr style="border-color: rgba(255,255,255,0.1);">
+                <h4 style="color: var(--gold-light);">3. دراسات الهياكل والمقدسات ومعجزات العهدين</h4>
+                <p>شرح خيمة الاجتماع، هيكل سليمان، ومعجزات ونبوات العهد القديم والجديد.</p>
+            </div>
         </div>
     </div>
 
     <script>
-        let selectedVerseId = null;
-
-        const commentaries = {
-            tadros: "يوضح القمص تادرس يعقوب ملطي أن 'الكلمة' تشير إلى الأزلية والوجود الإلهي للابن، والربط المباشر بين الخلق والخلاص.",
-            fekry: "يشرح القمص أنطونيوس فكري التمايز الأقنومي في الآية مع تأكيد الوحدة في الجوهر الإلهي ('وكان الكلمة الله').",
-            augustine: "يركز القديس أوجسطينوس على أن الكلمة هو العقل الإلهي الخالق الأزلي.",
-            chrysostom: "يبين القديس يوحنا فم الذهب رد القديس يوحنا الحبيب لتأكيد لاهوت السيد المسيح."
+        const bibleData = {
+            NT: {
+                "إنجيل يوحنا": {
+                    chapters: 21,
+                    verses: {
+                        1: [
+                            { num: 1, text: "فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.", loc: "Jerusalem" },
+                            { num: 2, text: "هذَا كَانَ فِي الْبَدْءِ عِنْدَ اللهِ.", loc: "Jerusalem" },
+                            { num: 3, text: "كُلُّ شَيْءٍ بِهِ كَانَ، وَبِغَيْرِهِ لَمْ يَكُنْ شَيْءٌ مِمَّا كَانَ.", loc: "Jerusalem" },
+                            { num: 28, text: "هذَا كَانَ فِي بَيْتِ عَبْرَةَ فِي عَبْرِ الأُرْدُنِّ حَيْثُ كَانَ يُوحَنَّا يُعَمِّدُ.", loc: "Al-Maghtas, Jordan" }
+                        ]
+                    }
+                },
+                "إنجيل متى": { chapters: 28, verses: { 1: [{ num: 1, text: "كِتَابُ مِيلادِ يَسُوعَ الْمَسِيحِ ابْنِ دَاوُدَ ابْنِ إِبْرَاهِيمَ.", loc: "Bethlehem" }] } },
+                "رسالة رومية": { chapters: 16, verses: { 1: [{ num: 1, text: "بُولُسُ، عَبْدٌ لِيَسُوعَ الْمَسِيحِ، الْمَدْعُوُّ رَسُولاً...", loc: "Rome" }] } }
+            },
+            OT: {
+                "سفر التكوين": { chapters: 50, verses: { 1: [{ num: 1, text: "فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.", loc: "Jerusalem" }] } },
+                "سفر المزامير": { chapters: 150, verses: { 1: [{ num: 1, text: "طُوبَى لِلرَّجُلِ الَّذِي لَمْ يَسْلُكْ فِي مَشُورَةِ الأَشْرَارِ...", loc: "Jerusalem" }] } }
+            }
         };
 
-        function openVerseModal(verseNum, text, location) {
-            selectedVerseId = 'v' + verseNum;
-            document.getElementById('modalTitle').innerText = 'دراسة الآية ' + verseNum;
-            document.getElementById('modalVerseText').innerText = text;
+        let currentSelectedVerseText = "";
 
-            if(location) {
-                document.getElementById('mapLocationName').innerHTML = '<strong>📍 الموقع الجغرافي:</strong> ' + location;
-                document.getElementById('mapStatusText').innerText = 'تم تحديد موقع (' + location + ') على الخريطة التاريخية.';
-            } else {
-                document.getElementById('mapLocationName').innerHTML = '<strong>📍 الموقع الجغرافي:</strong> لا يوجد موقع جغرافي مباشر بداخل هذه الآية.';
-                document.getElementById('mapStatusText').innerText = 'هذه الآية تحتوي على تعليم أو نص لا يرتبط بمدينة محددة.';
+        function updateBooks() {
+            const testament = document.getElementById('testamentSelect').value;
+            const bookSelect = document.getElementById('bookSelect');
+            bookSelect.innerHTML = "";
+            
+            Object.keys(bibleData[testament]).forEach(book => {
+                const opt = document.createElement('option');
+                opt.value = book;
+                opt.innerText = book;
+                bookSelect.appendChild(opt);
+            });
+            updateChapters();
+        }
+
+        function updateChapters() {
+            const testament = document.getElementById('testamentSelect').value;
+            const book = document.getElementById('bookSelect').value;
+            const chapterSelect = document.getElementById('chapterSelect');
+            chapterSelect.innerHTML = "";
+
+            const total = bibleData[testament][book] ? bibleData[testament][book].chapters : 1;
+            for(let i=1; i<=total; i++) {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.innerText = "الأصحاح " + i;
+                chapterSelect.appendChild(opt);
             }
+            loadVerses();
+        }
 
-            loadCommentary();
+        function loadVerses() {
+            const testament = document.getElementById('testamentSelect').value;
+            const book = document.getElementById('bookSelect').value;
+            const chapter = document.getElementById('chapterSelect').value;
+            const container = document.getElementById('versesContainer');
+            container.innerHTML = "";
+
+            const list = (bibleData[testament][book] && bibleData[testament][book].verses[chapter]) || [
+                { num: 1, text: "الآيات مسجلة وجاري مزامنة باقي النص الكامل...", loc: "Jerusalem" }
+            ];
+
+            list.forEach(v => {
+                const div = document.createElement('div');
+                div.className = 'verse-row';
+                div.onclick = () => openVerseModal(v.num, v.text, v.loc);
+                div.innerHTML = `<span><span class="verse-num">${v.num}.</span> ${v.text}</span> <i class="fa-solid fa-angle-left" style="color:var(--gold-primary)"></i>`;
+                container.appendChild(div);
+            });
+        }
+
+        function openVerseModal(num, text, location) {
+            currentSelectedVerseText = text;
+            document.getElementById('modalTitle').innerText = 'دراسة الآية ' + num;
+            document.getElementById('modalVerseText').innerText = text;
+            document.getElementById('mapIframe').src = `https://maps.google.com/maps?q=${encodeURIComponent(location || 'Jerusalem')}&t=&z=9&ie=UTF8&iwloc=&output=embed`;
+            renderCommentary();
             document.getElementById('verseModal').style.display = 'flex';
         }
 
-        function closeModal() {
-            document.getElementById('verseModal').style.display = 'none';
-        }
-
-        function highlightCurrentVerse(color) {
-            if(selectedVerseId) {
-                document.getElementById(selectedVerseId).style.backgroundColor = color;
-            }
-        }
-
-        function loadCommentary() {
-            const selected = document.getElementById('commentatorSelect').value;
-            document.getElementById('commentaryText').innerText = commentaries[selected] || "التفسير غير متوفر حالياً.";
-        }
-
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        function renderCommentary() {
+            const comm = document.getElementById('commentatorSelect').value;
+            const box = document.getElementById('commentaryText');
             
+            const commTexts = {
+                tadros: "القمص تادرس يعقوب ملطي: يوضح عمق المعنى اللاهوتي والأزلي للكلمة ورعاية الله الفائقة للإنشان.",
+                fekry: "القمص أنطونيوس فكري: يقدم تفسيراً بسيطاً وعميقاً للآية وتطبيقها المباشر في الحياة الروحية اليومية.",
+                chrysostom: "القديس يوحنا فم الذهب: يسلط الضوء على البلاغة واللاهوت المستقيم الموجه للكنيسة.",
+                augustine: "القديس أوجسطينوس: يتناول البُعد الفلسفي والروحي والـتأمل في محبة الله."
+            };
+            
+            box.innerText = commTexts[comm] || "التفسير المعتمد متوفر.";
+        }
+
+        function closeModal() { document.getElementById('verseModal').style.display = 'none'; }
+        function openStudiesModal() { document.getElementById('studiesModal').style.display = 'flex'; }
+        function closeStudiesModal() { document.getElementById('studiesModal').style.display = 'none'; }
+        
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             btn.classList.add('active');
         }
 
         function scrollToReader() {
-            document.getElementById('readerSection').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('bibleReader').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function openStudiesSection() {
-            alert("قسم دراسات كتابية:\n1. تاريخ الكنيسة (5 عصور)\n2. الخرائط الجغرافية المزدوجة\n3. دراسات الهياكل والمقدسات\n4. معجزات ونبوات العهدين");
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('verseModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
+        // Initialize on Load
+        window.onload = function() {
+            updateBooks();
+        };
     </script>
 </body>
 </html>
