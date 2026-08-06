@@ -406,18 +406,22 @@
             document.getElementById('bibleReader').scrollIntoView({ behavior: 'smooth' });
         }
 
-      // تعديل المسار ليقرأ من الجذر المباشر للمشروع
-const file = (testament === 'NT') ? 'bible-nt.json' : 'bible.json';
+     const file = (testament === 'NT') ? 'bible-nt.json' : 'bible.json';
 
-try {
-    const res = await fetch(file);
-    currentBibleData = await res.json();
-    
-    // جلب التفاسير
-    const commRes = await fetch('commentaries.json');
-    currentCommentaries = await commRes.json();
+        try {
+            const res = await fetch(file);
+            currentBibleData = await res.json();
+            
+            // جلب التفاسير بحماية بدون إيقاف تحميل الأسفار
+            try {
+                const commRes = await fetch('commentaries.json');
+                if (commRes.ok) {
+                    currentCommentaries = await commRes.json();
+                }
+            } catch(e) { console.log('التفاسير قيد التحديث'); }
 
-    populateBooks();
-} catch (err) {
-    container.innerHTML = '<div style="text-align: center; color: #FF6B6B; padding: 20px;">جاري تحميل البيانات...</div>';
+            populateBooks();
+        } catch (err) {
+            container.innerHTML = '<div style="text-align: center; color: #FF6B6B; padding: 20px;">تعذر تحميل ملف البيانات، يرجى التأكد من وجود bible-nt.json</div>';
+        }
 }
