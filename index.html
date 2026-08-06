@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كنيسة رجاء الأمم - الموسوعة الكتابية الشاملة</title>
+    <title>كنيسة رجاء الأمم - دراسات كتابية شاملة</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -13,11 +13,11 @@
             --gold-light: #FFDF00;
             --text-main: #FFFFFF;
             --text-sub: #94A3B8;
-            /* ألوان التظليل */
-            --hl-gold: rgba(212, 175, 55, 0.3);
-            --hl-blue: rgba(59, 130, 246, 0.3);
-            --hl-green: rgba(34, 197, 94, 0.3);
-            --hl-purple: rgba(168, 85, 247, 0.3);
+            /* ألوان تظليل الآيات */
+            --hl-gold: rgba(212, 175, 55, 0.35);
+            --hl-blue: rgba(59, 130, 246, 0.35);
+            --hl-green: rgba(34, 197, 94, 0.35);
+            --hl-purple: rgba(168, 85, 247, 0.35);
         }
 
         body {
@@ -56,7 +56,6 @@
             height: 48px;
             width: auto;
             filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
-            transition: transform 0.3s ease;
         }
 
         .logo-title {
@@ -93,7 +92,7 @@
 
         .hero-section {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .dove-3d-logo {
@@ -104,28 +103,48 @@
         }
 
         @keyframes float3D {
-            0%, 100% { transform: translateY(0) rotateY(0deg) scale(1); }
-            50% { transform: translateY(-12px) rotateY(10deg) scale(1.05); }
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.03); }
         }
 
         .welcome-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin: 15px 0 5px;
-            color: #FFFFFF;
+            color: var(--gold-primary);
+            letter-spacing: 0.5px;
         }
 
         .church-subtitle {
-            color: var(--gold-primary);
+            color: var(--text-sub);
             font-size: 1.1rem;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        /* 4 Main Cards */
+        /* Daily Verse Card */
+        .daily-verse-card {
+            background: rgba(19, 34, 56, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 15px;
+            padding: 22px 30px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .verse-text {
+            font-size: 1.3rem;
+            color: var(--gold-light);
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+
+        /* Grid Sections */
         .grid-4-sections {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            gap: 22px;
+            margin-top: 20px;
         }
 
         .card-3d {
@@ -142,11 +161,11 @@
         .card-3d:hover {
             transform: translateY(-8px);
             border-color: var(--gold-primary);
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.25);
         }
 
         .card-icon {
-            font-size: 40px;
+            font-size: 42px;
             color: var(--gold-primary);
             margin-bottom: 15px;
         }
@@ -161,12 +180,12 @@
         .card-desc {
             font-size: 0.88rem;
             color: var(--text-sub);
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        /* Demo Reader & Interactive Verses Section */
+        /* Interactive Reader Section */
         .interactive-demo-container {
-            margin-top: 40px;
+            margin-top: 45px;
             background: rgba(19, 34, 56, 0.6);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 20px;
@@ -174,18 +193,9 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
-        .demo-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
         .verse-item {
-            padding: 12px 18px;
-            border-radius: 10px;
+            padding: 14px 18px;
+            border-radius: 12px;
             margin-bottom: 12px;
             font-size: 1.15rem;
             line-height: 1.8;
@@ -207,17 +217,14 @@
             font-weight: bold;
             color: var(--gold-primary);
             margin-left: 10px;
-            font-size: 0.95rem;
         }
 
-        /* Modal / Pop-up Dialog for Verse Tools */
+        /* Modal Overlay & Card */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(3, 7, 18, 0.85);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.88);
             backdrop-filter: blur(8px);
             display: none;
             justify-content: center;
@@ -239,7 +246,7 @@
         }
 
         @keyframes modalIn {
-            from { transform: scale(0.8); opacity: 0; }
+            from { transform: scale(0.85); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
@@ -258,12 +265,10 @@
             color: var(--text-sub);
             font-size: 1.5rem;
             cursor: pointer;
-            transition: color 0.2s;
         }
 
         .close-btn:hover { color: #FF4D4D; }
 
-        /* Verse Highlighter Tools */
         .color-picker {
             display: flex;
             gap: 10px;
@@ -290,7 +295,6 @@
         .c-purple { background-color: #A855F7; }
         .c-reset { background: #334155; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #FFF; }
 
-        /* Modal Tabs */
         .modal-tabs {
             display: flex;
             gap: 10px;
@@ -337,18 +341,6 @@
             line-height: 1.7;
             color: #E2E8F0;
         }
-
-        .map-container {
-            width: 100%;
-            height: 220px;
-            border-radius: 10px;
-            background: #1E293B;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed var(--gold-primary);
-        }
     </style>
 </head>
 <body>
@@ -362,55 +354,65 @@
     </header>
 
     <div class="main-container">
+        <!-- Hero Section بدون أي أزرار استكشاف -->
         <div class="hero-section">
             <img src="2.png" alt="Church 3D Logo" class="dove-3d-logo">
-            <h1 class="welcome-title">الموسوعة الكتابية التفاعلية</h1>
-            <div class="church-subtitle">Hope Church NSW - Sydney</div>
+            <h1 class="welcome-title">موسوعة الكتاب المقدس</h1>
+            <div class="church-subtitle">كنيسة رجاء الأمم سيدني تساعدك من خلال البحث العميق والاكتشاف في كلمة الله</div>
         </div>
 
-        <!-- 4 Main Core Cards -->
+        <!-- آية اليوم -->
+        <div class="daily-verse-card">
+            <span style="color: var(--text-sub); font-size: 0.85rem;">آية اليوم</span>
+            <div class="verse-text">«فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ» (تكوين 1: 1)</div>
+        </div>
+
+        <!-- أقسام الموسوعة الأربعة -->
         <div class="grid-4-sections">
-            <div class="card-3d" onclick="alert('قسم الكتاب المقدس')">
+            
+            <!-- 1. دراسات كتابية (بدل الموسوعة الكتابية) -->
+            <div class="card-3d" onclick="openStudiesSection()">
+                <div class="card-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
+                <div class="card-title">دراسات كتابية</div>
+                <div class="card-desc">دراسات شاملة عن تاريخ الكنيسة (5 عصور)، الخرائط المزدوجة، دراسات الهياكل، ومعجزات ونبوات الكتاب.</div>
+            </div>
+
+            <!-- 2. الكتاب المقدس -->
+            <div class="card-3d" onclick="scrollToReader()">
                 <div class="card-icon"><i class="fa-solid fa-book-bible"></i></div>
                 <div class="card-title">الكتاب المقدس</div>
-                <div class="card-desc">النصوص الكاملة والتفاسير المعتمدة.</div>
+                <div class="card-desc">تصفح أسفار الكتاب المقدس للعهدين القديم والجديد واستكشاف آياته بالتفصيل مع التفاسير.</div>
             </div>
-            <div class="card-3d" onclick="alert('قسم البحث')">
+
+            <!-- 3. البحث اللحظي -->
+            <div class="card-3d" onclick="alert('جاري فتح محرك البحث الشامل...')">
                 <div class="card-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
                 <div class="card-title">البحث اللحظي</div>
-                <div class="card-desc">بحث سريعة بالكلمات والشواهد.</div>
+                <div class="card-desc">بحث سريع في الكلمات والموضوعات والآيات من خلال أحدث أدوات البحث.</div>
             </div>
-            <div class="card-3d" onclick="alert('قسم الدراسات')">
-                <div class="card-icon"><i class="fa-solid fa-landmark"></i></div>
-                <div class="card-title">الدراسات والتاريخ</div>
-                <div class="card-desc">الخرائط، الهياكل، وحقائق التاريخ.</div>
+
+            <!-- 4. الكنيسة -->
+            <div class="card-3d" onclick="alert('خدمات ومواعيد اجتماعات كنيسة رجاء الأمم بسيدني')">
+                <div class="card-icon"><i class="fa-solid fa-church"></i></div>
+                <div class="card-title">الكنيسة</div>
+                <div class="card-desc">كنيسة رجاء الأمم سيدني — مواعيد الاجتماعات والخدمات وبرنامج عمق جديد وبث الصلوات.</div>
             </div>
-            <div class="card-3d" onclick="alert('قسم الكنيسة')">
-                <div class="card-icon"><i class="fa-solid fa-cross"></i></div>
-                <div class="card-title">الكنيسة والخدمات</div>
-                <div class="card-desc">مواعيد الاجتماعات وبرنامج عمق جديد.</div>
-            </div>
+
         </div>
 
-        <!-- Interactive Bible Reader Demo Section -->
-        <div class="interactive-demo-container">
-            <div class="demo-header">
-                <h3><i class="fa-solid fa-book-open" style="color: var(--gold-primary);"></i> إنجيل يوحنا - الأصحاح الأول (اضغط على أي آية لتجربة النافذة)</h3>
+        <!-- Interactive Reader Demo Section -->
+        <div class="interactive-demo-container" id="readerSection">
+            <div style="border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 15px; margin-bottom: 20px;">
+                <h3 style="color: var(--gold-primary); margin: 0;"><i class="fa-solid fa-book-open"></i> إنجيل يوحنا - الأصحاح الأول (اضغط على أي آية لفتح الخيارات)</h3>
             </div>
 
-            <!-- Sample Verses -->
-            <div class="verse-item" id="v1" onclick="openVerseModal(1, 'فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.', 'أورشليم / الناصرة')">
+            <div class="verse-item" id="v1" onclick="openVerseModal(1, 'فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.', 'أورشليم')">
                 <span><span class="verse-num">1</span> فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.</span>
                 <i class="fa-solid fa-ellipsis-vertical" style="color: var(--text-sub);"></i>
             </div>
 
             <div class="verse-item" id="v2" onclick="openVerseModal(2, 'هذَا كَانَ فِي الْبَدْءِ عِنْدَ اللهِ.', '')">
                 <span><span class="verse-num">2</span> هذَا كَانَ فِي الْبَدْءِ عِنْدَ اللهِ.</span>
-                <i class="fa-solid fa-ellipsis-vertical" style="color: var(--text-sub);"></i>
-            </div>
-
-            <div class="verse-item" id="v3" onclick="openVerseModal(3, 'كُلُّ شَيْءٍ بِهِ كَانَ، وَبِغَيْرِهِ لَمْ يَكُنْ شَيْءٌ مِمَّا كَانَ.', '')">
-                <span><span class="verse-num">3</span> كُلُّ شَيْءٍ بِهِ كَانَ، وَبِغَيْرِهِ لَمْ يَكُنْ شَيْءٌ مِمَّا كَانَ.</span>
                 <i class="fa-solid fa-ellipsis-vertical" style="color: var(--text-sub);"></i>
             </div>
 
@@ -441,7 +443,7 @@
                 <div class="color-dot c-reset" title="إزالة" onclick="highlightCurrentVerse('transparent')"><i class="fa-solid fa-ban"></i></div>
             </div>
 
-            <!-- Navigation Tabs inside Modal -->
+            <!-- Modal Navigation Tabs -->
             <div class="modal-tabs">
                 <button class="tab-btn active" onclick="switchTab('tab-commentary', this)"><i class="fa-solid fa-user-tie"></i> قائمة المفسرين</button>
                 <button class="tab-btn" onclick="switchTab('tab-compare', this)"><i class="fa-solid fa-code-compare"></i> مقارنة العهدين</button>
@@ -457,33 +459,32 @@
                     <option value="chrysostom">القديس يوحنا فم الذهب</option>
                 </select>
                 <div class="commentary-box" id="commentaryText">
-                    جاري تحميل التفسير المعتمد للمفسر المختص...
+                    جاري تحميل التفسير المعتمد...
                 </div>
             </div>
 
-            <!-- Tab 2: Cross References / Testaments Compare -->
+            <!-- Tab 2: Compare Testaments -->
             <div id="tab-compare" class="tab-content">
                 <div class="cross-ref-box">
-                    <p><strong>📖 الشواهد والمقارنات المقابلة في العهدين:</strong></p>
-
-                    <div style="margin-bottom: 10px; padding: 8px; background: rgba(212,175,55,0.1); border-radius: 6px;">
+                    <p><strong>📖 الشواهد والمقارنات المقابلة بين العهدين القديم والجديد:</strong></p>
+                    <div style="margin-bottom: 10px; padding: 10px; background: rgba(212,175,55,0.1); border-radius: 6px;">
                         <strong style="color: var(--gold-light);">• العهد القديم (تكوين 1: 1):</strong><br>
                         «فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ.»
                     </div>
-                    <div style="padding: 8px; background: rgba(59,130,246,0.1); border-radius: 6px;">
+                    <div style="padding: 10px; background: rgba(59,130,246,0.1); border-radius: 6px;">
                         <strong style="color: #60A5FA;">• العهد الجديد (1 يوحنا 1: 1):</strong><br>
                         «الَّذِي كَانَ مِنَ الْبَدْءِ، الَّذِي سَمِعْنَاهُ، الَّذِي رَأَيْنَاهُ بِعُيُونِنَا...»
                     </div>
                 </div>
             </div>
 
-            <!-- Tab 3: Interactive Map -->
+            <!-- Tab 3: Interactive Maps -->
             <div id="tab-map" class="tab-content">
                 <div class="map-box">
                     <p id="mapLocationName"><strong>📍 الموقع الجغرافي:</strong> أورشليم</p>
-                    <div class="map-container">
-                        <i class="fa-solid fa-earth-americas" style="font-size: 40px; color: var(--gold-primary); margin-bottom: 10px;"></i>
-                        <span style="color: var(--text-sub);" id="mapStatusText">خريطة تفاعلية للموقع الجغرافي المذكور في الآية.</span>
+                    <div style="width: 100%; height: 180px; border-radius: 10px; background: #1E293B; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px dashed var(--gold-primary);">
+                        <i class="fa-solid fa-earth-americas" style="font-size: 40px; color: var(--gold-primary); margin-bottom: 8px;"></i>
+                        <span style="color: var(--text-sub);" id="mapStatusText">خريطة تفاعلية للموقع المذكور في الآية.</span>
                     </div>
                 </div>
             </div>
@@ -495,18 +496,17 @@
         let selectedVerseId = null;
 
         const commentaries = {
-            tadros: "يوضح القمص تادرس يعقوب ملطي أن 'الكلمة' (اللوغوس) تشير إلى الأزلية والوجود الإلهي للابن، والربط المباشر بين الخلق والخلاص.",
+            tadros: "يوضح القمص تادرس يعقوب ملطي أن 'الكلمة' تشير إلى الأزلية والوجود الإلهي للابن، والربط المباشر بين الخلق والخلاص.",
             fekry: "يشرح القمص أنطونيوس فكري التمايز الأقنومي في الآية مع تأكيد الوحدة في الجوهر الإلهي ('وكان الكلمة الله').",
-            augustine: "يركز القديس أوجسطينوس على أن الكلمة ليس مجرد صوت عابر بل هو العقل الإلهي الخالق الأزلي.",
-            chrysostom: "يبين القديس يوحنا فم الذهب رد القديس يوحنا الحبيب على البدع في عصره لتأكيد لاهوت السيد المسيح."
+            augustine: "يركز القديس أوجسطينوس على أن الكلمة هو العقل الإلهي الخالق الأزلي.",
+            chrysostom: "يبين القديس يوحنا فم الذهب رد القديس يوحنا الحبيب لتأكيد لاهوت السيد المسيح."
         };
 
         function openVerseModal(verseNum, text, location) {
             selectedVerseId = 'v' + verseNum;
             document.getElementById('modalTitle').innerText = 'دراسة الآية ' + verseNum;
             document.getElementById('modalVerseText').innerText = text;
-            
-            // Set Location Info
+
             if(location) {
                 document.getElementById('mapLocationName').innerHTML = '<strong>📍 الموقع الجغرافي:</strong> ' + location;
                 document.getElementById('mapStatusText').innerText = 'تم تحديد موقع (' + location + ') على الخريطة التاريخية.';
@@ -542,7 +542,14 @@
             btn.classList.add('active');
         }
 
-        // Close Modal when clicking outside
+        function scrollToReader() {
+            document.getElementById('readerSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openStudiesSection() {
+            alert("قسم دراسات كتابية:\n1. تاريخ الكنيسة (5 عصور)\n2. الخرائط الجغرافية المزدوجة\n3. دراسات الهياكل والمقدسات\n4. معجزات ونبوات العهدين");
+        }
+
         window.onclick = function(event) {
             const modal = document.getElementById('verseModal');
             if (event.target === modal) {
