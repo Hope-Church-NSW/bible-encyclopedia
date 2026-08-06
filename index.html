@@ -1,36 +1,620 @@
-async function loadTestamentData() {
-    const testament = document.getElementById('testamentSelect').value;
-    const container = document.getElementById('versesContainer');
-    container.innerHTML = '<div style="text-align: center; color: var(--gold-primary); padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الأسفار...</div>';
-
-    // استخدام كاسر الكاش لتجاوز كاش GitHub Pages
-    const cacheBuster = '?v=' + new Date().getTime();
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موسوعة الكتاب المقدس | كنيسة رجاء الأمم - سيدني</title>
     
-    // إذا كان العهد الجديد نطلب bible-nt.json، وإذا كان القديم نطلب bible.json
-    const file = (testament === 'NT' ? 'bible-nt.json' : 'bible.json') + cacheBuster;
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    try {
-        const res = await fetch(file);
-        if (!res.ok) throw new Error("File not found");
-        currentBibleData = await res.json();
-        
-        // جلب التفاسير
-        try {
-            const commRes = await fetch('commentaries.json' + cacheBuster);
-            if (commRes.ok) {
-                currentCommentaries = await commRes.json();
-            }
-        } catch(e) { console.log('التفاسير قيد التحديث'); }
-
-        populateBooks();
-    } catch (err) {
-        console.error(err);
-        // إذا لم يجد العهد القديم، نحاول تحميل العهد الجديد كخيار إضافي
-        if (testament !== 'NT') {
-            document.getElementById('testamentSelect').value = 'NT';
-            loadTestamentData();
-            return;
+    <style>
+        :root {
+            --bg-dark: #0a0f1d;
+            --bg-card: #12192c;
+            --bg-card-hover: #1a243f;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-light: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --accent-blue: #38bdf8;
+            --shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
-        container.innerHTML = '<div style="text-align: center; color: #FF6B6B; padding: 20px;">تعذر تحميل الأسفار، يرجى تحديث الصفحة.</div>';
-    }
-}
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Navigation */
+        header {
+            background: rgba(18, 25, 44, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0.8rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .brand-logo img {
+            height: 42px;
+            width: auto;
+            border-radius: 50%;
+        }
+
+        .brand-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 4px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+        }
+
+        /* Hero & Banner Section */
+        .hero-section {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            background: radial-gradient(circle at top, #1a2540 0%, var(--bg-dark) 70%);
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gold-primary);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Daily Verse Card */
+        .daily-verse-card {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 1.2rem 1.8rem;
+            box-shadow: var(--shadow);
+        }
+
+        .daily-verse-title {
+            font-size: 0.85rem;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .daily-verse-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.35rem;
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+
+        /* Navigation Cards Grid */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 1rem;
+        }
+
+        .nav-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.8rem 1.2rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+            border-color: var(--gold-primary);
+            box-shadow: var(--shadow);
+        }
+
+        .nav-card i {
+            font-size: 2.2rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
+
+        .nav-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Main Reader Container */
+        .reader-section {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 1rem;
+            width: 100%;
+        }
+
+        .reader-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .reader-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .reader-header h2 {
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .controls-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        select {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+            width: 100%;
+        }
+
+        select:focus {
+            border-color: var(--gold-primary);
+        }
+
+        /* Verses Container */
+        .verses-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: 200px;
+        }
+
+        .verse-row {
+            background: rgba(10, 15, 29, 0.5);
+            border-right: 3px solid var(--gold-primary);
+            padding: 1rem 1.2rem;
+            border-radius: 4px 8px 8px 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: background 0.2s ease;
+        }
+
+        .verse-row:hover {
+            background: rgba(26, 36, 63, 0.7);
+        }
+
+        .verse-content {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            line-height: 1.9;
+        }
+
+        .verse-number {
+            color: var(--gold-primary);
+            font-weight: bold;
+            font-family: 'Cairo', sans-serif;
+            margin-left: 8px;
+        }
+
+        .verse-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+        }
+
+        /* Modal Popup for Commentary */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--gold-primary);
+            border-radius: 16px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .modal-header {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: var(--gold-primary);
+            font-size: 1.2rem;
+        }
+
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            white-space: pre-line;
+            font-size: 1.05rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .controls-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .main-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="brand-logo">
+                <img src="2.png" alt="كنيسة رجاء الأمم" onerror="this.style.display='none'">
+                <span class="brand-title">كنيسة رجاء الأمم - سيدني</span>
+            </a>
+            <button class="lang-btn">English</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="main-title">موسوعة الكتاب المقدس</h1>
+        <p class="subtitle">كنيسة رجاء الأمم سيدني - البحث العميق والتفاسير المعتمدة والخرائط التفاعلية</p>
+        
+        <div class="daily-verse-card">
+            <div class="daily-verse-title">آية اليوم</div>
+            <div class="daily-verse-text">«فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ» (تكوين 1: 1)</div>
+        </div>
+    </section>
+
+    <!-- Navigation Grid -->
+    <section class="nav-grid">
+        <div class="nav-card">
+            <i class="fa-solid fa-book-open"></i>
+            <h3>دراسات كتابية</h3>
+            <p>عصور الكنيسة الـ7، الخرائط المزدوجة، دراسات الهياكل والمعجزات.</p>
+        </div>
+
+        <div class="nav-card" onclick="scrollToReader()">
+            <i class="fa-solid fa-bible"></i>
+            <h3>الكتاب المقدس</h3>
+            <p>تصفح العهدين والأسفار والأصحاحات والآيات المفسرة بالتفصيل.</p>
+        </div>
+
+        <div class="nav-card">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <h3>البحث اللحظي</h3>
+            <p>بحث سريع ومباشر في الكلمات والموضوعات والآيات الكتابية.</p>
+        </div>
+
+        <div class="nav-card">
+            <i class="fa-solid fa-church"></i>
+            <h3>الكنيسة</h3>
+            <p>مواعيد الاجتماعات والخدمات وبرنامج التلفزيون المباشر.</p>
+        </div>
+    </section>
+
+    <!-- Main Bible Reader -->
+    <section class="reader-section" id="bibleReader">
+        <div class="reader-card">
+            <div class="reader-header">
+                <h2><i class="fa-solid fa-book-bookmark"></i> مستعرض الكتاب المقدس الكامل</h2>
+            </div>
+
+            <div class="controls-wrapper">
+                <select id="testamentSelect" onchange="loadTestamentData()">
+                    <option value="NT" selected>العهد الجديد</option>
+                    <option value="OT">العهد القديم</option>
+                </select>
+
+                <select id="bookSelect" onchange="populateChapters()">
+                    <option value="">اختر السفر...</option>
+                </select>
+
+                <select id="chapterSelect" onchange="displayVerses()">
+                    <option value="">اختر الأصحاح...</option>
+                </select>
+            </div>
+
+            <div class="verses-list" id="versesContainer">
+                <div style="text-align: center; color: var(--gold-primary); padding: 20px;">
+                    <i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الأسفار...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commentary Modal -->
+    <div class="modal-overlay" id="verseModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalVerseTitle">تفسير الآية</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="commentaryText">
+                جاري تحميل التفسير...
+            </div>
+        </div>
+    </div>
+
+    <!-- Application JavaScript Logic -->
+    <script>
+        let currentBibleData = {};
+        let currentCommentaries = {};
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadTestamentData();
+        });
+
+        async function loadTestamentData() {
+            const testament = document.getElementById('testamentSelect').value;
+            const container = document.getElementById('versesContainer');
+            container.innerHTML = '<div style="text-align: center; color: var(--gold-primary); padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الأسفار...</div>';
+
+            const cacheBuster = '?v=' + new Date().getTime();
+            const file = (testament === 'NT' ? 'bible-nt.json' : 'bible.json') + cacheBuster;
+
+            try {
+                const res = await fetch(file);
+                if (!res.ok) throw new Error("File not found");
+                currentBibleData = await res.json();
+                
+                try {
+                    const commRes = await fetch('commentaries.json' + cacheBuster);
+                    if (commRes.ok) {
+                        currentCommentaries = await commRes.json();
+                    }
+                } catch(e) { 
+                    console.log('التفاسير قيد التحديث'); 
+                }
+
+                populateBooks();
+            } catch (err) {
+                console.error(err);
+                if (testament !== 'NT') {
+                    document.getElementById('testamentSelect').value = 'NT';
+                    loadTestamentData();
+                    return;
+                }
+                container.innerHTML = '<div style="text-align: center; color: #FF6B6B; padding: 20px;">تعذر تحميل الأسفار، يرجى التأكد من توفر الملفات وتحديث الصفحة.</div>';
+            }
+        }
+
+        function populateBooks() {
+            const bookSelect = document.getElementById('bookSelect');
+            bookSelect.innerHTML = '<option value="">اختر السفر...</option>';
+
+            const books = Object.keys(currentBibleData);
+            if (books.length === 0) {
+                document.getElementById('versesContainer').innerHTML = '<div style="text-align: center; padding: 20px;">لا توجد أسفار متاحة حالياً.</div>';
+                return;
+            }
+
+            books.forEach(book => {
+                const opt = document.createElement('option');
+                opt.value = book;
+                opt.textContent = book;
+                bookSelect.appendChild(opt);
+            });
+
+            bookSelect.selectedIndex = 1;
+            populateChapters();
+        }
+
+        function populateChapters() {
+            const bookName = document.getElementById('bookSelect').value;
+            const chapterSelect = document.getElementById('chapterSelect');
+            chapterSelect.innerHTML = '<option value="">اختر الأصحاح...</option>';
+
+            if (!bookName || !currentBibleData[bookName]) return;
+
+            const chapters = Object.keys(currentBibleData[bookName]);
+            chapters.forEach(chap => {
+                const opt = document.createElement('option');
+                opt.value = chap;
+                opt.textContent = `الأصحاح ${chap}`;
+                chapterSelect.appendChild(opt);
+            });
+
+            chapterSelect.selectedIndex = 1;
+            displayVerses();
+        }
+
+        function displayVerses() {
+            const bookName = document.getElementById('bookSelect').value;
+            const chapterNum = document.getElementById('chapterSelect').value;
+            const container = document.getElementById('versesContainer');
+
+            if (!bookName || !chapterNum || !currentBibleData[bookName] || !currentBibleData[bookName][chapterNum]) {
+                container.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 20px;">يرجى تحديد السفر والأصحاح للعرض.</div>';
+                return;
+            }
+
+            const verses = currentBibleData[bookName][chapterNum];
+            container.innerHTML = '';
+
+            verses.forEach(v => {
+                const row = document.createElement('div');
+                row.className = 'verse-row';
+
+                row.innerHTML = `
+                    <div class="verse-content">
+                        <span class="verse-number">(${v.num})</span>
+                        ${v.text}
+                    </div>
+                    <div class="verse-actions">
+                        <button class="action-btn" onclick="openCommentary('${bookName}', '${chapterNum}', ${v.num})">
+                            <i class="fa-solid fa-book"></i> التفسير
+                        </button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function openCommentary(book, chapter, verseNum) {
+            const modal = document.getElementById('verseModal');
+            const title = document.getElementById('modalVerseTitle');
+            const text = document.getElementById('commentaryText');
+
+            const key = `${book}_${chapter}_${verseNum}`;
+            title.textContent = `تفسير ${book} ${chapter}: ${verseNum}`;
+
+            if (currentCommentaries[key]) {
+                const comm = currentCommentaries[key];
+                let content = '';
+                for (let source in comm) {
+                    content += `${comm[source]}\n\n-------------------\n\n`;
+                }
+                text.innerText = content;
+            } else {
+                text.innerText = "جاري ربط التفسير المباشر لهذه الآية من المرجع المعتمد...";
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('verseModal').style.display = 'none';
+        }
+
+        function scrollToReader() {
+            document.getElementById('bibleReader').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
