@@ -3,139 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كنيسة رجاء الأمم - الموسوعة الكتابية</title>
+    <title>كنيسة رجاء الأمم - الموسوعة الكتابية الشاملة</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0A192F;
-            --bg-card: #1E293B;
-            --accent-gold: #FFC107;
-            --text-light: #F8FAFC;
+            --bg-dark: #070F1E;
+            --card-3d: linear-gradient(145deg, #132238, #0A1424);
+            --gold-primary: #D4AF37;
+            --gold-light: #FFDF00;
+            --text-main: #FFFFFF;
+            --text-sub: #94A3B8;
         }
+
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-light);
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            overflow-x: hidden;
         }
+
+        /* Top Navigation Bar */
         header {
-            background-color: #0F172A;
-            padding: 1rem 2rem;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 12px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #1E293B;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .logo-area {
+
+        .logo-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.08) rotate(2deg);
+        }
+
+        .logo-title {
             font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--accent-gold);
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #FFFFFF, var(--gold-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .welcome-card {
-            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
-            border: 1px solid var(--accent-gold);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .dove-icon {
-            font-size: 2.5rem;
-            animation: hover 2s infinite ease-in-out;
-            display: inline-block;
-        }
-        @keyframes hover {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        .card {
-            background-color: var(--bg-card);
-            border-radius: 8px;
-            padding: 1.5rem;
+
+        .lang-btn {
+            background: transparent;
+            border: 2px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 8px 22px;
+            border-radius: 20px;
+            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
-            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
-        .card:hover {
-            transform: translateY(-4px);
-            background-color: #334155;
+
+        .lang-btn:hover {
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
         }
-        .card h3 {
-            color: var(--accent-gold);
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            flex: 1;
+        }
+
+        /* 3D Dove & Hero Welcome Section */
+        .hero-section {
+            text-align: center;
+            position: relative;
+            margin-bottom: 40px;
+            perspective: 1000px;
+        }
+
+        .dove-3d-logo {
+            width: 110px;
+            height: auto;
+            filter: drop-shadow(0 10px 25px rgba(212, 175, 55, 0.5));
+            animation: float3D 3.5s ease-in-out infinite;
+        }
+
+        @keyframes float3D {
+            0%, 100% { transform: translateY(0) rotateY(0deg) scale(1); }
+            50% { transform: translateY(-12px) rotateY(10deg) scale(1.05); }
+        }
+
+        .welcome-title {
+            font-size: 2.2rem;
+            margin: 15px 0 5px;
+            color: #FFFFFF;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .church-subtitle {
+            color: var(--gold-primary);
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .daily-verse-card {
+            background: rgba(19, 34, 56, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 15px;
+            padding: 20px 30px;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        .verse-text {
+            font-size: 1.25rem;
+            color: var(--gold-light);
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        /* 4 Main 3D Interactive Cards */
+        .grid-4-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 35px;
+            perspective: 1000px;
+        }
+
+        .card-3d {
+            background: var(--card-3d);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .card-3d:hover {
+            transform: translateY(-12px) rotateX(8deg);
+            border-color: var(--gold-primary);
+            box-shadow: 0 25px 45px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .card-icon {
+            font-size: 45px;
+            color: var(--gold-primary);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .card-3d:hover .card-icon {
+            transform: scale(1.15) translateZ(20px);
+            color: var(--gold-light);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #FFFFFF;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            line-height: 1.4;
+        }
+
+        /* Church Details & QR Code Section */
+        .church-info-container {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 30px;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .church-info-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .church-details h3 {
+            color: var(--gold-primary);
+            font-size: 1.5rem;
             margin-top: 0;
+            margin-bottom: 15px;
         }
-        .church-info {
-            background-color: #0F172A;
+
+        .church-details p {
+            color: var(--text-sub);
+            margin: 8px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--gold-primary);
+            color: #FFF;
+            padding: 8px 15px;
             border-radius: 8px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            border-right: 4px solid var(--accent-gold);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+            font-weight: bold;
+        }
+
+        .qr-box {
+            background: #FFF;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .qr-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .qr-label {
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 8px;
         }
     </style>
 </head>
 <body>
 
+    <!-- Header & Language Switcher -->
     <header>
-        <div class="logo-area">
-            <span>⛪</span>
-            <span>كنيسة رجاء الأمم - سيدني</span>
+        <div class="logo-box">
+            <!-- الشعار الرسمي للكنيسة -->
+            <img src="assets/images/church_logo.png" alt="Hope Church Logo" class="logo-img" onerror="this.src='2.jpg'">
+            <span class="logo-title" id="appLogo">كنيسة رجاء الأمم - سيدني</span>
         </div>
-        <button onclick="toggleLanguage()" style="background:none; border:1px solid var(--accent-gold); color:var(--accent-gold); padding:5px 15px; border-radius:4px; cursor:pointer;">EN / عربي</button>
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">English</button>
     </header>
 
-    <div class="container">
-        <div class="welcome-card">
-            <div class="dove-icon">🕊️</div>
-            <h2>أهلاً بكم في تطبيق وموسوعة كنيسة رجاء الأمم</h2>
-            <p style="color: var(--accent-gold); font-weight: bold;">«تَكْفِيكَ نِعْمَتِي، لأَنَّ قُوَّتِي فِي الضَّعْفِ تُكْتَمَلُ» (٢ كورنثوس ١٢: ٩)</p>
-        </div>
+    <div class="main-container">
+        <!-- Hero Section with 3D Dove Logo -->
+        <div class="hero-section">
+            <img src="2.jpg" alt="Church 3D Logo" class="dove-3d-logo">
+            <h1 class="welcome-title" id="welcomeTitle">مرحباً بكم في الموسوعة الكتابية</h1>
+            <div class="church-subtitle" id="churchSubtitle">كنيسة رجاء الأمم - Hope Church NSW (Sydney)</div>
 
-        <div class="grid">
-            <div class="card">
-                <h3>📖 الكتاب المقدس والتفاسير</h3>
-                <p>قراءة النصوص مع التفاسير المعتمدة (الأب متى المسكين، وليم ماكدونالد، كوزيك...).</p>
-            </div>
-            <div class="card">
-                <h3>📜 تاريخ الكنيسة (5 عصور)</h3>
-                <p>عرض توثيقي ومحايد لتاريخ الكنيسة وازدهارها عبر العصور.</p>
-            </div>
-            <div class="card">
-                <h3>🗺️ الأبحاث والخرائط المزدوجة</h3>
-                <p>دراسة الهياكل، المعجزات، والأمثال مع مقارنة الخرائط التاريخية بالحديثة.</p>
-            </div>
-            <div class="card">
-                <h3>🤖 أسأل AI (المساعد الذكي)</h3>
-                <p>إجابات موثقة بأدلة ومراجع كتابية وآبائية دون هلوسة.</p>
+            <div class="daily-verse-card">
+                <span style="color: var(--text-sub); font-size: 0.85rem;" id="verseHeader">آية اليوم</span>
+                <div class="verse-text" id="verseText">«تَكْفِيكَ نِعْمَتِي، لأَنَّ قُوَّتِي فِي الضَّعْفِ تُكْتَمَلُ» (٢ كورنثوس ١٢: ٩)</div>
             </div>
         </div>
 
-        <div class="church-info">
-            <h3 style="margin-top:0; color:var(--accent-gold);">📍 كنيسة رجاء الأمم - Hope Church NSW</h3>
-            <p><strong>العنوان:</strong> 704 The Horsley Dr Smithfield NSW</p>
-            <p><strong>المواعيد:</strong> الأحد 10 صباحاً (عبادة عامة) | الأربعاء 7 مساءً (برنامج عمق جديد) | الخميس 11 صباحاً (السيدات)</p>
+        <!-- 4 Main Core Sections -->
+        <div class="grid-4-sections">
+            <!-- 1. Holy Bible -->
+            <div class="card-3d" onclick="navigateTo('bible')">
+                <div class="card-icon"><i class="fa-solid fa-book-bible"></i></div>
+                <div class="card-title" id="titleBible">الكتاب المقدس</div>
+                <div class="card-desc" id="descBible">النصوص الكاملة (فانديك / KJV) مع التفاسير، الأصول اليونانية/العبرية، والتسجيل الصوتي.</div>
+            </div>
+
+            <!-- 2. Search -->
+            <div class="card-3d" onclick="navigateTo('search')">
+                <div class="card-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div class="card-title" id="titleSearch">البحث</div>
+                <div class="card-desc" id="descSearch">بحث لحظي ودقيق في الآيات، الموضوعات، وقواعد البيانات المعرفية والتفاسير.</div>
+            </div>
+
+            <!-- 3. Studies -->
+            <div class="card-3d" onclick="navigateTo('studies')">
+                <div class="card-icon"><i class="fa-solid fa-landmark"></i></div>
+                <div class="card-title" id="titleStudies">الدراسات</div>
+                <div class="card-desc" id="descStudies">تاريخ الكنيسة (5 عصور)، الخرائط المزدوجة، دراسات الهياكل، المعجزات، ومساعد AI.</div>
+            </div>
+
+            <!-- 4. Church -->
+            <div class="card-3d" onclick="navigateTo('church')">
+                <div class="card-icon"><i class="fa-solid fa-cross"></i></div>
+                <div class="card-title" id="titleChurch">الكنيسة</div>
+                <div class="card-desc" id="descChurch">خدمات ومواعيد كنيسة رجاء الأمم بسيدني، برنامج "عمق جديد"، والاتصال المباشر.</div>
+            </div>
+        </div>
+
+        <!-- Church Info & Barcode Section -->
+        <div class="church-info-container">
+            <div class="church-details">
+                <h3>📍 كنيسة رجاء الأمم - Hope Church NSW</h3>
+                <p><strong>العنوان:</strong> 704 The Horsley Dr Smithfield NSW</p>
+                <p><strong>مواعيد الاجتماعات:</strong></p>
+                <p>• الأحد 10 صباحاً: اجتماع عبادة عام (عربي وإنجليزي)</p>
+                <p>• الأربعاء 7 مساءً: برنامج عمق جديد (New Depth)</p>
+                <p>• الخميس 11 صباحاً: اجتماع السيدات | الجمعة: اجتماع الصلاة ودراسة الكتاب</p>
+
+                <div class="social-links">
+                    <a href="https://www.youtube.com/@HCNSW" target="_blank" class="social-btn"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                    <a href="https://www.facebook.com/hopechurchNSW" target="_blank" class="social-btn"><i class="fa-brands fa-facebook"></i> Facebook</a>
+                    <a href="https://www.tiktok.com/@hopechurch.nsw?_r=1&_t=ZS-98A3PzMmW2K" target="_blank" class="social-btn"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+                    <a href="https://www.alkerazatv.com/" target="_blank" class="social-btn"><i class="fa-solid fa-tv"></i> قناة الكرازة</a>
+                    <a href="https://hope-church-nsw-rmwpk10e.durable.site" target="_blank" class="social-btn"><i class="fa-solid fa-globe"></i> الموقع الرسمي</a>
+                </div>
+            </div>
+
+            <!-- الباركود / QR Code -->
+            <div class="qr-box">
+                <img src="barcod.jpg" alt="Church QR Code">
+                <div class="qr-label">امسح الكود للوصول السريع</div>
+            </div>
         </div>
     </div>
 
+    <!-- Bilingual Engine Script -->
     <script>
+        let currentLang = 'ar';
+
+        const content = {
+            ar: {
+                logo: "كنيسة رجاء الأمم - سيدني",
+                btn: "English",
+                welcome: "مرحباً بكم في الموسوعة الكتابية",
+                churchSub: "كنيسة رجاء الأمم - Hope Church NSW (Sydney)",
+                vHeader: "آية اليوم",
+                vText: "«تَكْفِيكَ نِعْمَتِي، لأَنَّ قُوَّتِي فِي الضَّعْفِ تُكْتَمَلُ» (٢ كورنثوس ١٢: ٩)",
+                tBible: "الكتاب المقدس",
+                dBible: "النصوص الكاملة (فانديك / KJV) مع التفاسير، الأصول اليونانية/العبرية، والتسجيل الصوتي.",
+                tSearch: "البحث",
+                dSearch: "بحث لحظي ودقيق في الآيات، الموضوعات، وقواعد البيانات المعرفية والتفاسير.",
+                tStudies: "الدراسات",
+                dStudies: "تاريخ الكنيسة (5 عصور)، الخرائط المزدوجة، دراسات الهياكل، المعجزات، ومساعد AI.",
+                tChurch: "الكنيسة",
+                dChurch: "خدمات ومواعيد كنيسة رجاء الأمم بسيدني، برنامج \"عمق جديد\"، والاتصال المباشر."
+            },
+            en: {
+                logo: "Hope Church NSW - Sydney",
+                btn: "عربي",
+                welcome: "Welcome to Bible Encyclopedia",
+                churchSub: "Hope Church NSW (Sydney)",
+                vHeader: "Daily Verse",
+                vText: "“My grace is sufficient for you, for my power is made perfect in weakness.” (2 Cor 12:9)",
+                tBible: "Holy Bible",
+                dBible: "Full texts (Van Dyck / KJV) with commentaries, Greek/Hebrew lexicons & audio.",
+                tSearch: "Search",
+                dSearch: "Instant & accurate search across verses, topics, commentaries, and databases.",
+                tStudies: "Studies",
+                dStudies: "Church History (5 Eras), Dual-Era Maps, Temple studies, Miracles & AI Assistant.",
+                tChurch: "The Church",
+                dChurch: "Hope Church Sydney services, schedules, 'New Depth' program, & contact."
+            }
+        };
+
         function toggleLanguage() {
-            alert("سيتم التبديل بين اللغة العربية والإنجليزية بالكامل.");
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = currentLang;
+
+            const data = content[currentLang];
+            document.getElementById('appLogo').innerText = data.logo;
+            document.getElementById('langBtn').innerText = data.btn;
+            document.getElementById('welcomeTitle').innerText = data.welcome;
+            document.getElementById('churchSubtitle').innerText = data.churchSub;
+            document.getElementById('verseHeader').innerText = data.vHeader;
+            document.getElementById('verseText').innerText = data.vText;
+
+            document.getElementById('titleBible').innerText = data.tBible;
+            document.getElementById('descBible').innerText = data.dBible;
+            document.getElementById('titleSearch').innerText = data.tSearch;
+            document.getElementById('descSearch').innerText = data.dSearch;
+            document.getElementById('titleStudies').innerText = data.tStudies;
+            document.getElementById('descStudies').innerText = data.dStudies;
+            document.getElementById('titleChurch').innerText = data.tChurch;
+            document.getElementById('descChurch').innerText = data.dChurch;
+        }
+
+        function navigateTo(section) {
+            console.log("Navigating to: " + section);
         }
     </script>
 </body>
