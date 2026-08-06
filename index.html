@@ -1,33 +1,142 @@
-[PROMPT SPECIFICATION FOR FULL APP DEVELOPMENT]
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كنيسة رجاء الأمم - الموسوعة الكتابية</title>
+    <style>
+        :root {
+            --bg-primary: #0A192F;
+            --bg-card: #1E293B;
+            --accent-gold: #FFC107;
+            --text-light: #F8FAFC;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #0F172A;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1E293B;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+        }
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .welcome-card {
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            border: 1px solid var(--accent-gold);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .dove-icon {
+            font-size: 2.5rem;
+            animation: hover 2s infinite ease-in-out;
+            display: inline-block;
+        }
+        @keyframes hover {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            background-color: #334155;
+        }
+        .card h3 {
+            color: var(--accent-gold);
+            margin-top: 0;
+        }
+        .church-info {
+            background-color: #0F172A;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-right: 4px solid var(--accent-gold);
+        }
+    </style>
+</head>
+<body>
 
-APP TITLE: Hope Church NSW & Comparative Bible Encyclopedia
-PLATFORMS: Android, iOS, Web (Cross-Platform via Flutter)
-MODE: Offline-First Engine with RAG AI Grounding
+    <header>
+        <div class="logo-area">
+            <span>⛪</span>
+            <span>كنيسة رجاء الأمم - سيدني</span>
+        </div>
+        <button onclick="toggleLanguage()" style="background:none; border:1px solid var(--accent-gold); color:var(--accent-gold); padding:5px 15px; border-radius:4px; cursor:pointer;">EN / عربي</button>
+    </header>
 
-CORE REQUIREMENTS & ARCHITECTURE:
-1. Church Branding & Sydney Identity:
-   - Splash Screen: Floating/Hovering Animated White Dove over Welcome Message.
-   - Logo Requirement: Hope Church NSW logo embedded in AppBars across all screens.
-   - Location & Schedule:
-     * Address: 704 The Horsley Dr Smithfield NSW.
-     * Service Times: Sunday 10 AM (Bilingual Worship), Wednesday 7 PM (New Depth), Thursday 11 AM (Ladies), Friday (Prayer & Bible Study).
-     * Links: YouTube (@HCNSW), Facebook (hopechurchNSW), TikTok (@hopechurch.nsw), Alkeraza TV, Durable Website.
-   - Admin Panel: Capability to update events and announcements remotely.
+    <div class="container">
+        <div class="welcome-card">
+            <div class="dove-icon">🕊️</div>
+            <h2>أهلاً بكم في تطبيق وموسوعة كنيسة رجاء الأمم</h2>
+            <p style="color: var(--accent-gold); font-weight: bold;">«تَكْفِيكَ نِعْمَتِي، لأَنَّ قُوَّتِي فِي الضَّعْفِ تُكْتَمَلُ» (٢ كورنثوس ١٢: ٩)</p>
+        </div>
 
-2. Full Bilingual Engine (100% Switching):
-   - Real-time language toggle between Arabic and English for all UI, Menus, Commentary text, and Strong's lexicons.
-   - Translations: Van Dyck & KJV, alongside Masoretic Hebrew & Textus Receptus/Critical Greek.
+        <div class="grid">
+            <div class="card">
+                <h3>📖 الكتاب المقدس والتفاسير</h3>
+                <p>قراءة النصوص مع التفاسير المعتمدة (الأب متى المسكين، وليم ماكدونالد، كوزيك...).</p>
+            </div>
+            <div class="card">
+                <h3>📜 تاريخ الكنيسة (5 عصور)</h3>
+                <p>عرض توثيقي ومحايد لتاريخ الكنيسة وازدهارها عبر العصور.</p>
+            </div>
+            <div class="card">
+                <h3>🗺️ الأبحاث والخرائط المزدوجة</h3>
+                <p>دراسة الهياكل، المعجزات، والأمثال مع مقارنة الخرائط التاريخية بالحديثة.</p>
+            </div>
+            <div class="card">
+                <h3>🤖 أسأل AI (المساعد الذكي)</h3>
+                <p>إجابات موثقة بأدلة ومراجع كتابية وآبائية دون هلوسة.</p>
+            </div>
+        </div>
 
-3. Church History Hub (5 Eras):
-   - Neutral, non-denominational documentary approach.
-   - Eras: 1. Apostolic Age, 2. Persecutions & Early Fathers, 3. Expansion & Councils, 4. Renaissance & Translations, 5. Modern Missions & Globalization.
+        <div class="church-info">
+            <h3 style="margin-top:0; color:var(--accent-gold);">📍 كنيسة رجاء الأمم - Hope Church NSW</h3>
+            <p><strong>العنوان:</strong> 704 The Horsley Dr Smithfield NSW</p>
+            <p><strong>المواعيد:</strong> الأحد 10 صباحاً (عبادة عامة) | الأربعاء 7 مساءً (برنامج عمق جديد) | الخميس 11 صباحاً (السيدات)</p>
+        </div>
+    </div>
 
-4. Interactive Verse Popup & Study Tools:
-   - Audio: Integrated Dr. Adel Noshy audio Bible player at top of each chapter.
-   - Commentaries: Fr. Matta El Meskeen (from database.db), William MacDonald, Pinkerton, David Guzik, MacArthur, William Eddy, Menis Abd El-Noor.
-   - Strong's Lexicons: Hebrew (BDB) & Greek (BDAG) morphological breakdown on verse click.
-   - Highlighting: 4 Colors (Blue, Red, Neon Green, Yellow) + Personal Notes synced to user login profile.
-
-5. AI Assistant & RAG Engine:
-   - Strict Grounded Citations (Josephus, Talmud, Midrash, Targum, Rashi, Patristics).
-   - Zero hallucination policy: Require direct book/chapter/verse citations for all generated answers.
+    <script>
+        function toggleLanguage() {
+            alert("سيتم التبديل بين اللغة العربية والإنجليزية بالكامل.");
+        }
+    </script>
+</body>
+</html>
