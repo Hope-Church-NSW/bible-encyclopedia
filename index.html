@@ -1,4 +1,4 @@
-<!DOCTYPE html>   
+<!DOCTYPE html>  
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -397,7 +397,7 @@
         
         <div class="daily-verse-card">
             <div class="daily-verse-title">آية اليوم</div>
-            <div class="daily-verse-text">«فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ» (تكوين 1: 1)</div>
+            <div class="daily-verse-text">«فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ» (تكوين 1: 1)</div>
         </div>
     </section>
 
@@ -473,6 +473,7 @@
 
     <!-- Application JavaScript Logic -->
     <script>
+        const API_URL = "https://bible-encyclopedia-production.up.railway.app";
         let currentBibleData = {};
         let currentCommentaries = {};
 
@@ -499,7 +500,7 @@
                         currentCommentaries = await commRes.json();
                     }
                 } catch(e) { 
-                    console.log('التفاسير قيد التحديث'); 
+                    console.log('التفاسير قيد التحديث من الملف المحلي'); 
                 }
 
                 populateBooks();
@@ -586,14 +587,32 @@
             });
         }
 
-        function openCommentary(book, chapter, verseNum) {
+        async function openCommentary(book, chapter, verseNum) {
             const modal = document.getElementById('verseModal');
             const title = document.getElementById('modalVerseTitle');
             const text = document.getElementById('commentaryText');
 
-            const key = `${book}_${chapter}_${verseNum}`;
             title.textContent = `تفسير ${book} ${chapter}: ${verseNum}`;
+            text.innerHTML = '<div style="text-align: center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري استدعاء التفسير من السيرفر...</div>';
+            modal.style.display = 'flex';
 
+            const key = `${book}_${chapter}_${verseNum}`;
+
+            // Check API first
+            try {
+                const res = await fetch(`${API_URL}/api/commentary?book=${encodeURIComponent(book)}&chapter=${chapter}&verse=${verseNum}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.text) {
+                        text.innerText = data.text;
+                        return;
+                    }
+                }
+            } catch (err) {
+                console.warn('تعذر الاتصال بالـ API، جاري البحث في الملف المحلي...', err);
+            }
+
+            // Fallback to local commentaries.json
             if (currentCommentaries[key]) {
                 const comm = currentCommentaries[key];
                 let content = '';
@@ -602,10 +621,8 @@
                 }
                 text.innerText = content;
             } else {
-                text.innerText = "جاري ربط التفسير المباشر لهذه الآية من المرجع المعتمد...";
+                text.innerText = "لا يوجد تفسير متاح حالياً لهذه الآية.";
             }
-
-            modal.style.display = 'flex';
         }
 
         function closeModal() {
@@ -618,4 +635,3 @@
     </script>
 </body>
 </html>
-
