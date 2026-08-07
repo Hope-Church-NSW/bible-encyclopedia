@@ -1,637 +1,163 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موسوعة الكتاب المقدس | كنيسة رجاء الأمم - سيدني</title>
-    
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        :root {
-            --bg-dark: #0a0f1d;
-            --bg-card: #12192c;
-            --bg-card-hover: #1a243f;
-            --gold-primary: #d4af37;
-            --gold-light: #f3e5ab;
-            --text-light: #e2e8f0;
-            --text-muted: #94a3b8;
-            --border-color: #1e293b;
-            --accent-blue: #38bdf8;
-            --shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header Navigation */
-        header {
-            background: rgba(18, 25, 44, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 0.8rem 2rem;
-        }
-
-        .nav-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: var(--text-light);
-        }
-
-        .brand-logo img {
-            height: 42px;
-            width: auto;
-            border-radius: 50%;
-        }
-
-        .brand-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--gold-light);
-        }
-
-        .lang-btn {
-            background: transparent;
-            border: 1px solid var(--gold-primary);
-            color: var(--gold-primary);
-            padding: 4px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .lang-btn:hover {
-            background: var(--gold-primary);
-            color: var(--bg-dark);
-        }
-
-        /* Hero & Banner Section */
-        .hero-section {
-            text-align: center;
-            padding: 3rem 1rem 2rem;
-            background: radial-gradient(circle at top, #1a2540 0%, var(--bg-dark) 70%);
-        }
-
-        .main-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--gold-primary);
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
-        }
-
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Daily Verse Card */
-        .daily-verse-card {
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 12px;
-            padding: 1.2rem 1.8rem;
-            box-shadow: var(--shadow);
-        }
-
-        .daily-verse-title {
-            font-size: 0.85rem;
-            color: var(--gold-primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .daily-verse-text {
-            font-family: 'Amiri', serif;
-            font-size: 1.35rem;
-            color: var(--gold-light);
-            font-weight: 700;
-        }
-
-        /* Navigation Cards Grid */
-        .nav-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto 3rem;
-            padding: 0 1rem;
-        }
-
-        .nav-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.8rem 1.2rem;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text-light);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-
-        .nav-card:hover {
-            transform: translateY(-5px);
-            background: var(--bg-card-hover);
-            border-color: var(--gold-primary);
-            box-shadow: var(--shadow);
-        }
-
-        .nav-card i {
-            font-size: 2.2rem;
-            color: var(--gold-primary);
-            margin-bottom: 1rem;
-        }
-
-        .nav-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .nav-card p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        /* Main Reader Container */
-        .reader-section {
-            max-width: 1200px;
-            margin: 0 auto 4rem;
-            padding: 0 1rem;
-            width: 100%;
-        }
-
-        .reader-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-        }
-
-        .reader-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .reader-header h2 {
-            font-size: 1.4rem;
-            color: var(--gold-light);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .controls-wrapper {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            width: 100%;
-            margin-bottom: 2rem;
-        }
-
-        select {
-            background: var(--bg-dark);
-            color: var(--text-light);
-            border: 1px solid var(--border-color);
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            outline: none;
-            cursor: pointer;
-            transition: border-color 0.3s ease;
-            width: 100%;
-        }
-
-        select:focus {
-            border-color: var(--gold-primary);
-        }
-
-        /* Verses Container */
-        .verses-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            min-height: 200px;
-        }
-
-        .verse-row {
-            background: rgba(10, 15, 29, 0.5);
-            border-right: 3px solid var(--gold-primary);
-            padding: 1rem 1.2rem;
-            border-radius: 4px 8px 8px 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 1rem;
-            transition: background 0.2s ease;
-        }
-
-        .verse-row:hover {
-            background: rgba(26, 36, 63, 0.7);
-        }
-
-        .verse-content {
-            font-family: 'Amiri', serif;
-            font-size: 1.3rem;
-            line-height: 1.9;
-        }
-
-        .verse-number {
-            color: var(--gold-primary);
-            font-weight: bold;
-            font-family: 'Cairo', sans-serif;
-            margin-left: 8px;
-        }
-
-        .verse-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .action-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .action-btn:hover {
-            border-color: var(--gold-primary);
-            color: var(--gold-primary);
-        }
-
-        /* Modal Popup for Commentary */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 1rem;
-        }
-
-        .modal-card {
-            background: var(--bg-card);
-            border: 1px solid var(--gold-primary);
-            border-radius: 16px;
-            max-width: 700px;
-            width: 100%;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-        }
-
-        .modal-header {
-            padding: 1.2rem 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h3 {
-            color: var(--gold-primary);
-            font-size: 1.2rem;
-        }
-
-        .close-modal {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .modal-body {
-            padding: 1.5rem;
-            overflow-y: auto;
-            white-space: pre-line;
-            font-size: 1.05rem;
-            color: var(--text-light);
-            line-height: 1.8;
-        }
-
-        @media (max-width: 768px) {
-            .controls-wrapper {
-                grid-template-columns: 1fr;
-            }
-            .main-title {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تطبيق الكتاب المقدس | Hope Church Bible Study</title>
+<style>
+:root{--bg:#071526;--card:#0d2138;--card2:#102a46;--gold:#d4af37;--gold2:#f2d675;--text:#f4f7fb;--muted:#9fb0c3;--line:#1d3b59;--blue:#2d7ff9}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(145deg,#061321,#0b1d31);color:var(--text);font-family:Arial,"Tahoma",sans-serif}
+header{padding:22px 5%;border-bottom:1px solid var(--line);background:#081727;position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:14px}
+.brand h1{margin:0;font-size:22px;color:var(--gold2)}
+.brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
+main{max-width:1200px;margin:auto;padding:24px 5%}
+.toolbar{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px;margin-bottom:18px}
+input,select,button{border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);padding:12px;font-size:15px}
+button{cursor:pointer;background:#153657}
+button:hover{border-color:var(--gold)}
+.panel{background:rgba(13,33,56,.94);border:1px solid var(--line);border-radius:16px;padding:18px}
+.status{color:var(--muted);margin-bottom:14px;font-size:14px}
+.verse{border-bottom:1px solid #17344f;padding:15px 4px;line-height:2;font-size:18px}
+.verse:last-child{border-bottom:0}
+.vnum{color:var(--gold2);font-weight:bold;margin-left:8px}
+.search-result{padding:12px;border:1px solid var(--line);border-radius:10px;margin:8px 0;background:#0b1c30}
+.search-result b{color:var(--gold2)}
+.tabs{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#123354;color:var(--muted);font-size:12px}
+footer{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:760px){.toolbar{grid-template-columns:1fr}.verse{font-size:17px}}
+</style>
 </head>
 <body>
-
-    <!-- Header Navigation -->
-    <header>
-        <div class="nav-container">
-            <a href="#" class="brand-logo">
-                <img src="2.png" alt="كنيسة رجاء الأمم" onerror="this.style.display='none'">
-                <span class="brand-title">كنيسة رجاء الأمم - سيدني</span>
-            </a>
-            <button class="lang-btn">English</button>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <h1 class="main-title">موسوعة الكتاب المقدس</h1>
-        <p class="subtitle">كنيسة رجاء الأمم سيدني - البحث العميق والتفاسير المعتمدة والخرائط التفاعلية</p>
-        
-        <div class="daily-verse-card">
-            <div class="daily-verse-title">آية اليوم</div>
-            <div class="daily-verse-text">«فِي الْبَدْءِ خَلَقَ اللهُ السَّمَاوَاتِ وَالأَرْضَ» (تكوين 1: 1)</div>
-        </div>
-    </section>
-
-    <!-- Navigation Grid -->
-    <section class="nav-grid">
-        <div class="nav-card">
-            <i class="fa-solid fa-book-open"></i>
-            <h3>دراسات كتابية</h3>
-            <p>عصور الكنيسة الـ7، الخرائط المزدوجة، دراسات الهياكل والمعجزات.</p>
-        </div>
-
-        <div class="nav-card" onclick="scrollToReader()">
-            <i class="fa-solid fa-bible"></i>
-            <h3>الكتاب المقدس</h3>
-            <p>تصفح العهدين والأسفار والأصحاحات والآيات المفسرة بالتفصيل.</p>
-        </div>
-
-        <div class="nav-card">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <h3>البحث اللحظي</h3>
-            <p>بحث سريع ومباشر في الكلمات والموضوعات والآيات الكتابية.</p>
-        </div>
-
-        <div class="nav-card">
-            <i class="fa-solid fa-church"></i>
-            <h3>الكنيسة</h3>
-            <p>مواعيد الاجتماعات والخدمات وبرنامج التلفزيون المباشر.</p>
-        </div>
-    </section>
-
-    <!-- Main Bible Reader -->
-    <section class="reader-section" id="bibleReader">
-        <div class="reader-card">
-            <div class="reader-header">
-                <h2><i class="fa-solid fa-book-bookmark"></i> مستعرض الكتاب المقدس الكامل</h2>
-            </div>
-
-            <div class="controls-wrapper">
-                <select id="testamentSelect" onchange="loadTestamentData()">
-                    <option value="NT" selected>العهد الجديد</option>
-                    <option value="OT">العهد القديم</option>
-                </select>
-
-                <select id="bookSelect" onchange="populateChapters()">
-                    <option value="">اختر السفر...</option>
-                </select>
-
-                <select id="chapterSelect" onchange="displayVerses()">
-                    <option value="">اختر الأصحاح...</option>
-                </select>
-            </div>
-
-            <div class="verses-list" id="versesContainer">
-                <div style="text-align: center; color: var(--gold-primary); padding: 20px;">
-                    <i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الأسفار...
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Commentary Modal -->
-    <div class="modal-overlay" id="verseModal">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3 id="modalVerseTitle">تفسير الآية</h3>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body" id="commentaryText">
-                جاري تحميل التفسير...
-            </div>
-        </div>
+<header>
+  <div class="brand">
+    <div>
+      <h1>كنيسة رجاء الأمم سيدني</h1>
+      <p>HOPE CHURCH BIBLE STUDY — الكتاب المقدس والدراسة الكتابية</p>
     </div>
+  </div>
+</header>
 
-    <!-- Application JavaScript Logic -->
-    <script>
-        const API_URL = "https://bible-encyclopedia-production.up.railway.app";
-        let currentBibleData = {};
-        let currentCommentaries = {};
+<main>
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="ابحث في الكتاب المقدس...">
+    <select id="book"></select>
+    <select id="chapter"></select>
+  </div>
 
-        document.addEventListener("DOMContentLoaded", () => {
-            loadTestamentData();
-        });
+  <div class="tabs">
+    <button id="readBtn">الكتاب المقدس</button>
+    <button id="searchBtn">نتائج البحث</button>
+    <span class="badge" id="count">جاري تحميل البيانات...</span>
+  </div>
 
-        async function loadTestamentData() {
-            const testament = document.getElementById('testamentSelect').value;
-            const container = document.getElementById('versesContainer');
-            container.innerHTML = '<div style="text-align: center; color: var(--gold-primary); padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الأسفار...</div>';
+  <section class="panel">
+    <div id="status" class="status">جاري تحميل قاعدة البيانات...</div>
+    <div id="content"></div>
+  </section>
+</main>
 
-            const cacheBuster = '?v=' + new Date().getTime();
-            const file = (testament === 'NT' ? 'bible-nt.json' : 'bible.json') + cacheBuster;
+<footer>Hope Church Sydney — Bible Study</footer>
 
-            try {
-                const res = await fetch(file);
-                if (!res.ok) throw new Error("File not found");
-                currentBibleData = await res.json();
-                
-                try {
-                    const commRes = await fetch('commentaries.json' + cacheBuster);
-                    if (commRes.ok) {
-                        currentCommentaries = await commRes.json();
-                    }
-                } catch(e) { 
-                    console.log('التفاسير قيد التحديث من الملف المحلي'); 
-                }
+<script>
+const DATA_URL="bible_database.json";
+let verses=[];
+let books=[];
+let currentMode="read";
 
-                populateBooks();
-            } catch (err) {
-                console.error(err);
-                if (testament !== 'NT') {
-                    document.getElementById('testamentSelect').value = 'NT';
-                    loadTestamentData();
-                    return;
-                }
-                container.innerHTML = '<div style="text-align: center; color: #FF6B6B; padding: 20px;">تعذر تحميل الأسفار، يرجى التأكد من توفر الملفات وتحديث الصفحة.</div>';
-            }
-        }
+const $=id=>document.getElementById(id);
+const normalize=s=>(s||"").toString().trim().toLowerCase();
 
-        function populateBooks() {
-            const bookSelect = document.getElementById('bookSelect');
-            bookSelect.innerHTML = '<option value="">اختر السفر...</option>';
+function setStatus(t){$("status").textContent=t}
 
-            const books = Object.keys(currentBibleData);
-            if (books.length === 0) {
-                document.getElementById('versesContainer').innerHTML = '<div style="text-align: center; padding: 20px;">لا توجد أسفار متاحة حالياً.</div>';
-                return;
-            }
+function uniqueBooks(data){
+  const seen=new Set();
+  return data.map(v=>v.book).filter(b=>b && !seen.has(b) && seen.add(b));
+}
 
-            books.forEach(book => {
-                const opt = document.createElement('option');
-                opt.value = book;
-                opt.textContent = book;
-                bookSelect.appendChild(opt);
-            });
+function fillBooks(){
+  $("book").innerHTML='<option value="">اختر السفر</option>'+
+    books.map(b=>`<option value="${escapeHtml(b)}">${escapeHtml(bookName(b))}</option>`).join("");
+}
 
-            bookSelect.selectedIndex = 1;
-            populateChapters();
-        }
+function bookName(id){
+  const names={
+    "01-gen":"التكوين","01-Genesis":"التكوين","02-Exodus":"الخروج","03-Leviticus":"اللاويين",
+    "04-Numbers":"العدد","05-Deut":"التثنية","19-Psalms":"المزامير","20-Proverbs":"الأمثال",
+    "23-Isiah":"إشعياء","24-Jeremiah":"إرميا","26-Ezekiel":"حزقيال","41-Mark":"مرقس"
+  };
+  return names[id]||id;
+}
 
-        function populateChapters() {
-            const bookName = document.getElementById('bookSelect').value;
-            const chapterSelect = document.getElementById('chapterSelect');
-            chapterSelect.innerHTML = '<option value="">اختر الأصحاح...</option>';
+function fillChapters(){
+  const b=$("book").value;
+  const nums=[...new Set(verses.filter(v=>v.book===b).map(v=>Number(v.chapter)))].sort((a,b)=>a-b);
+  $("chapter").innerHTML='<option value="">اختر الإصحاح</option>'+
+    nums.map(n=>`<option value="${n}">${n}</option>`).join("");
+}
 
-            if (!bookName || !currentBibleData[bookName]) return;
+function renderChapter(){
+  const b=$("book").value, c=Number($("chapter").value);
+  if(!b||!c){$("content").innerHTML="";return}
+  const rows=verses.filter(v=>v.book===b && Number(v.chapter)===c);
+  $("status").textContent=`${bookName(b)} — الإصحاح ${c} — ${rows.length} سجل`;
+  $("content").innerHTML=rows.map(v=>`
+    <div class="verse"><span class="vnum">${escapeHtml(v.verse)}</span>${escapeHtml(v.text)}</div>
+  `).join("");
+  currentMode="read";
+}
 
-            const chapters = Object.keys(currentBibleData[bookName]);
-            chapters.forEach(chap => {
-                const opt = document.createElement('option');
-                opt.value = chap;
-                opt.textContent = `الأصحاح ${chap}`;
-                chapterSelect.appendChild(opt);
-            });
+function searchBible(q){
+  q=normalize(q);
+  if(!q){renderChapter();return}
+  const hits=verses.filter(v=>normalize(v.text).includes(q)).slice(0,200);
+  $("status").textContent=`نتائج البحث عن: ${q} — ${hits.length} نتيجة معروضة`;
+  $("content").innerHTML=hits.map(v=>`
+    <div class="search-result">
+      <b>${escapeHtml(bookName(v.book))} ${escapeHtml(v.chapter)}:${escapeHtml(v.verse)}</b>
+      <div style="line-height:1.9;margin-top:6px">${escapeHtml(v.text)}</div>
+    </div>
+  `).join("") || "<p>لا توجد نتائج.</p>";
+  currentMode="search";
+}
 
-            chapterSelect.selectedIndex = 1;
-            displayVerses();
-        }
+function escapeHtml(s){
+  return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
 
-        function displayVerses() {
-            const bookName = document.getElementById('bookSelect').value;
-            const chapterNum = document.getElementById('chapterSelect').value;
-            const container = document.getElementById('versesContainer');
+async function boot(){
+  try{
+    const r=await fetch(DATA_URL,{cache:"no-store"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    const data=await r.json();
+    if(!Array.isArray(data)) throw new Error("قاعدة البيانات ليست مصفوفة JSON");
+    verses=data.filter(v=>v && v.book && v.chapter && v.verse && v.text);
+    books=uniqueBooks(verses);
+    fillBooks();
+    $("count").textContent=`${verses.length.toLocaleString("ar-EG")} سجل`;
+    setStatus("تم تحميل قاعدة الكتاب المقدس بنجاح.");
+    if(books.length){
+      $("book").value=books[0];
+      fillChapters();
+      $("chapter").value="1";
+      renderChapter();
+    }
+  }catch(e){
+    setStatus("تعذر تحميل bible_database.json. تأكد أن الملف موجود في نفس مجلد index.html وأن GitHub Pages نشر النسخة الجديدة.");
+    $("count").textContent="خطأ في التحميل";
+    console.error(e);
+  }
+}
 
-            if (!bookName || !chapterNum || !currentBibleData[bookName] || !currentBibleData[bookName][chapterNum]) {
-                container.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 20px;">يرجى تحديد السفر والأصحاح للعرض.</div>';
-                return;
-            }
+$("book").addEventListener("change",()=>{fillChapters();renderChapter()});
+$("chapter").addEventListener("change",renderChapter);
+$("search").addEventListener("input",e=>searchBible(e.target.value));
+$("readBtn").addEventListener("click",()=>renderChapter());
+$("searchBtn").addEventListener("click",()=>searchBible($("search").value));
 
-            const verses = currentBibleData[bookName][chapterNum];
-            container.innerHTML = '';
-
-            verses.forEach(v => {
-                const row = document.createElement('div');
-                row.className = 'verse-row';
-
-                row.innerHTML = `
-                    <div class="verse-content">
-                        <span class="verse-number">(${v.num})</span>
-                        ${v.text}
-                    </div>
-                    <div class="verse-actions">
-                        <button class="action-btn" onclick="openCommentary('${bookName}', '${chapterNum}', ${v.num})">
-                            <i class="fa-solid fa-book"></i> التفسير
-                        </button>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
-        }
-
-        async function openCommentary(book, chapter, verseNum) {
-            const modal = document.getElementById('verseModal');
-            const title = document.getElementById('modalVerseTitle');
-            const text = document.getElementById('commentaryText');
-
-            title.textContent = `تفسير ${book} ${chapter}: ${verseNum}`;
-            text.innerHTML = '<div style="text-align: center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري استدعاء التفسير من السيرفر...</div>';
-            modal.style.display = 'flex';
-
-            const key = `${book}_${chapter}_${verseNum}`;
-
-            // Check API first
-            try {
-                const res = await fetch(`${API_URL}/api/commentary?book=${encodeURIComponent(book)}&chapter=${chapter}&verse=${verseNum}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data && data.text) {
-                        text.innerText = data.text;
-                        return;
-                    }
-                }
-            } catch (err) {
-                console.warn('تعذر الاتصال بالـ API، جاري البحث في الملف المحلي...', err);
-            }
-
-            // Fallback to local commentaries.json
-            if (currentCommentaries[key]) {
-                const comm = currentCommentaries[key];
-                let content = '';
-                for (let source in comm) {
-                    content += `${comm[source]}\n\n-------------------\n\n`;
-                }
-                text.innerText = content;
-            } else {
-                text.innerText = "لا يوجد تفسير متاح حالياً لهذه الآية.";
-            }
-        }
-
-        function closeModal() {
-            document.getElementById('verseModal').style.display = 'none';
-        }
-
-        function scrollToReader() {
-            document.getElementById('bibleReader').scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+boot();
+</script>
 </body>
 </html>
