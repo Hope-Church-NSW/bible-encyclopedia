@@ -23,16 +23,8 @@
             padding: 20px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            text-align: center;
-            color: var(--gold-light);
-            margin-bottom: 30px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { text-align: center; color: var(--gold-light); margin-bottom: 30px; }
 
         .testaments-wrapper {
             display: grid;
@@ -41,9 +33,7 @@
         }
 
         @media (max-width: 900px) {
-            .testaments-wrapper {
-                grid-template-columns: 1fr;
-            }
+            .testaments-wrapper { grid-template-columns: 1fr; }
         }
 
         .testament-box {
@@ -89,35 +79,12 @@
             background-color: #1e293b;
         }
 
-        .book-info {
-            display: flex;
-            flex-direction: column;
-        }
+        .book-info { display: flex; flex-direction: column; }
+        .book-name { font-weight: bold; color: var(--text-main); font-size: 0.95rem; }
+        .book-chapters { font-size: 0.8rem; color: var(--text-sub); margin-top: 2px; }
+        .book-icon { color: var(--gold-color); font-size: 1.2rem; margin-left: 8px; }
+        .flex-right { display: flex; align-items: center; }
 
-        .book-name {
-            font-weight: bold;
-            color: var(--text-main);
-            font-size: 0.95rem;
-        }
-
-        .book-chapters {
-            font-size: 0.8rem;
-            color: var(--text-sub);
-            margin-top: 2px;
-        }
-
-        .book-icon {
-            color: var(--gold-color);
-            font-size: 1.2rem;
-            margin-left: 8px;
-        }
-
-        .flex-right {
-            display: flex;
-            align-items: center;
-        }
-
-        /* Views */
         .view-panel {
             display: none;
             background-color: var(--card-bg);
@@ -145,11 +112,10 @@
             margin-top: 0;
         }
 
-        /* Chapters Grid */
         .chapters-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 10px;
             margin-top: 20px;
         }
 
@@ -157,19 +123,16 @@
             background-color: #1e293b;
             border: 1px solid var(--card-border);
             color: var(--gold-light);
-            padding: 14px 0;
+            padding: 12px 0;
             border-radius: 8px;
             text-align: center;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .chapter-btn:hover {
-            background-color: var(--gold-color);
-            color: #000;
-        }
+        .chapter-btn:hover { background-color: var(--gold-color); color: #000; }
 
         .reader-content {
             line-height: 2.2;
@@ -193,10 +156,7 @@
 
     <div id="loading" class="loading">جاري تحميل الأسفار...</div>
 
-    <!-- Main View: Books -->
     <div id="mainView" class="testaments-wrapper" style="display: none;">
-        
-        <!-- Old Testament -->
         <div class="testament-box">
             <div class="testament-header">
                 <span>العهد القديم</span>
@@ -205,7 +165,6 @@
             <div id="oldTestamentGrid" class="books-grid"></div>
         </div>
 
-        <!-- New Testament -->
         <div class="testament-box">
             <div class="testament-header">
                 <span>العهد الجديد</span>
@@ -213,17 +172,14 @@
             </div>
             <div id="newTestamentGrid" class="books-grid"></div>
         </div>
-
     </div>
 
-    <!-- Chapters Selector View -->
     <div id="chaptersView" class="view-panel">
         <button class="back-btn" onclick="showMainView()">← العودة للأسفار</button>
         <h2 id="chaptersTitle" class="section-title"></h2>
         <div id="chaptersGrid" class="chapters-grid"></div>
     </div>
 
-    <!-- Reader View -->
     <div id="readerView" class="view-panel">
         <button class="back-btn" onclick="showChaptersView()">← اختيار إصحاح آخر</button>
         <h2 id="readerTitle" class="section-title"></h2>
@@ -256,7 +212,6 @@
     };
 
     let allBooks = [];
-    let currentBook = null;
     let currentBookTitle = "";
     let parsedChapters = [];
 
@@ -297,44 +252,46 @@
                     <span class="book-icon">📖</span>
                     <div class="book-info">
                         <span class="book-name">${arabicTitle}</span>
-                        <span class="book-chapters">انقر لاختيار الإصحاح</span>
+                        <span class="book-chapters">اختيار الإصحاح</span>
                     </div>
                 </div>
                 <span style="color: var(--card-border);">‹</span>
             `;
 
-            if (isOldTestament) {
-                oldGrid.appendChild(card);
-            } else {
-                newGrid.appendChild(card);
-            }
+            if (isOldTestament) oldGrid.appendChild(card);
+            else newGrid.appendChild(card);
         });
     }
 
-    // إزالة التشكيل العربي لمطابقة الكلمات بدقة
-    function stripTashkeel(text) {
-        return text.replace(/[\u064B-\u0652]/g, "");
-    }
-
     function openBook(index, arabicTitle) {
-        currentBook = allBooks[index];
+        const bookData = allBooks[index];
         currentBookTitle = arabicTitle;
         
-        let rawText = Array.isArray(currentBook.content) ? currentBook.content.join('\n') : currentBook.content;
+        let lines = [];
+        if (Array.isArray(bookData.content)) {
+            lines = bookData.content;
+        } else {
+            lines = bookData.content.split(/\r?\n/);
+        }
 
-        // تقسيم النص بمرونة عالية بصرف النظر عن التشكيل والأهمية
-        // التقسيم يعتمد على الكلمات المفتاحية مثل "االأصحاح" / "الاصحاح" / "اصحاح"
-        const cleanText = rawText;
-        const chapterRegex = /(?=(?:ا|إ|أ)?ل?اصحاح|(?:ا|إ|أ)?ل?أصْحَاحُ)/gi;
-        
-        let parts = cleanText.split(chapterRegex);
+        // تقسيم الأصحاحات بناءً على أسطر العناوين أو الأنماط المبتدئة
+        parsedChapters = [];
+        let currentChapterContent = [];
 
-        // تجميع وتنظيف النواتج
-        parsedChapters = parts.map(p => p.trim()).filter(p => p.length > 0);
+        lines.forEach(line => {
+            const trimmed = line.trim();
+            // التعرف على بداية أي إصحاح جديد مهما كان التشكيل
+            if (trimmed.match(/^(الأصْحَاحُ|الإصحاح|الأصحاح|اصحاح|الأصْحَاح|الاصحاح)/i) && currentChapterContent.length > 0) {
+                parsedChapters.push(currentChapterContent.join('\n'));
+                currentChapterContent = [];
+            }
+            if (trimmed.length > 0) {
+                currentChapterContent.push(trimmed);
+            }
+        });
 
-        // في حال كان السفر يتكون من نص واحد لا يحتوي الكلمة المفتاحية
-        if (parsedChapters.length === 0) {
-            parsedChapters = [rawText];
+        if (currentChapterContent.length > 0) {
+            parsedChapters.push(currentChapterContent.join('\n'));
         }
 
         const chaptersGrid = document.getElementById('chaptersGrid');
@@ -350,7 +307,7 @@
 
         document.getElementById('mainView').style.display = 'none';
         document.getElementById('readerView').style.display = 'none';
-        document.getElementById('chaptersTitle').innerText = `${arabicTitle} — (إجمالي الإصحاحات: ${parsedChapters.length})`;
+        document.getElementById('chaptersTitle').innerText = `${arabicTitle} — اختر الإصحاح (إجمالي ${parsedChapters.length})`;
         document.getElementById('chaptersView').style.display = 'block';
     }
 
