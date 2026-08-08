@@ -112,7 +112,7 @@ function uniqueBooks(data){
   return data.map(v=>v.book).filter(b=>b && !seen.has(b) && seen.add(b));
 }
 
-// القاموس العربي الأساسي للأستعانة به
+// القاموس الأساسي للأسماء المباشرة
 const baseBookNames = {
   "gen": "التكوين", "genesis": "التكوين",
   "exodus": "الخروج", "ex": "الخروج",
@@ -122,9 +122,6 @@ const baseBookNames = {
   "joshua": "يشوع",
   "judges": "القضاة",
   "ruth": "راعوث",
-  "samuel": "صموئيل",
-  "kings": "الملوك",
-  "chronicles": "أخبار الأيام",
   "ezra": "عزرا",
   "nehemiah": "نحميا", "nehmiah": "نحميا",
   "esther": "أستير",
@@ -156,53 +153,52 @@ const baseBookNames = {
   "john": "يوحنا",
   "acts": "أعمال الرسل",
   "romans": "رومية",
-  "corinthians": "كورنثوس",
   "galatians": "غلاطية",
   "ephesians": "أفسس",
   "philippians": "فيليبي", "philipians": "فيليبي",
   "colossians": "كولوسي",
-  "thessalonians": "تسالونيكي",
-  "timothy": "تيموثاوس",
   "titus": "طيطس",
   "philemon": "فليمون", "phillemon": "فليمون",
   "hebrews": "العبرانيين",
   "james": "يعقوب",
-  "peter": "بطرس",
   "jude": "يهوذا",
   "revelation": "رؤيا يوحنا"
 };
 
-// دالة التعريب الأذكياء للتعامل مع أي صيغة مثل "corinthians-46-1" أو "john-62-1"
+// دالة المطابقة الدقيقة للأسفار المرقّمة بالكامل
 function bookName(id){
   if (!id) return "";
   let raw = String(id).trim().toLowerCase();
   
-  // شروط خاصة للأسفار المكونة من جزء أول وثانٍ
-  if (raw.includes("samuel") && (raw.includes("-1") || raw.includes("09"))) return "صموئيل الأول";
-  if (raw.includes("samuel") && (raw.includes("-2") || raw.includes("10"))) return "صموئيل الثاني";
-  if (raw.includes("kings") && (raw.includes("-1") || raw.includes("11"))) return "الملوك الأول";
-  if (raw.includes("kings") && (raw.includes("-2") || raw.includes("12"))) return "الملوك الثاني";
-  if (raw.includes("chronicles") && (raw.includes("-1") || raw.includes("13"))) return "أخبار الأيام الأول";
-  if (raw.includes("chronicles") && (raw.includes("-2") || raw.includes("14"))) return "أخبار الأيام الثاني";
-  if (raw.includes("corinthians") && (raw.includes("-1") || raw.includes("46"))) return "كورنثوس الأولى";
-  if (raw.includes("corinthians") && (raw.includes("-2") || raw.includes("47"))) return "كورنثوس الثانية";
-  if (raw.includes("thessalonians") && (raw.includes("-1") || raw.includes("52"))) return "تسالونيكي الأولى";
-  if (raw.includes("thessalonians") && (raw.includes("-2") || raw.includes("53"))) return "تسالونيكي الثانية";
-  if (raw.includes("timothy") && (raw.includes("-1") || raw.includes("54"))) return "تيموثاوس الأولى";
-  if (raw.includes("timothy") && (raw.includes("-2") || raw.includes("55"))) return "تيموثاوس الثانية";
-  if (raw.includes("peter") && (raw.includes("-1") || raw.includes("60"))) return "بطرس الأولى";
-  if (raw.includes("peter") && (raw.includes("-2") || raw.includes("61"))) return "بطرس الثانية";
-  if (raw.includes("john") && (raw.includes("-1") || raw.includes("62"))) return "يوحنا الأولى";
-  if (raw.includes("john") && (raw.includes("-2") || raw.includes("63"))) return "يوحنا الثانية";
-  if (raw.includes("john") && (raw.includes("-3") || raw.includes("64"))) return "يوحنا الثالثة";
+  // العهد القديم
+  if (raw.includes("samuel-09") || raw.endsWith("-1") && raw.includes("samuel")) return "صموئيل الأول";
+  if (raw.includes("samuel-10") || raw.endsWith("-2") && raw.includes("samuel")) return "صموئيل الثاني";
+  if (raw.includes("kings-11") || raw.endsWith("-1") && raw.includes("kings")) return "الملوك الأول";
+  if (raw.includes("kings-12") || raw.endsWith("-2") && raw.includes("kings")) return "الملوك الثاني";
+  if (raw.includes("chronicles-13") || raw.endsWith("-1") && raw.includes("chronicles")) return "أخبار الأيام الأول";
+  if (raw.includes("chronicles-14") || raw.endsWith("-2") && raw.includes("chronicles")) return "أخبار الأيام الثاني";
 
-  // استخراج اسم الكلمة بدون الأرقام
+  // العهد الجديد
+  if (raw.includes("corinthians-46") || raw.endsWith("-1") && raw.includes("corinthians")) return "كورنثوس الأولى";
+  if (raw.includes("corinthians-47") || raw.endsWith("-2") && raw.includes("corinthians")) return "كورنثوس الثانية";
+  if (raw.includes("thessalonians-52") || raw.endsWith("-1") && raw.includes("thessalonians")) return "تسالونيكي الأولى";
+  if (raw.includes("thessalonians-53") || raw.endsWith("-2") && raw.includes("thessalonians")) return "تسالونيكي الثانية";
+  if (raw.includes("timothy-54") || raw.endsWith("-1") && raw.includes("timothy")) return "تيموثاوس الأولى";
+  if (raw.includes("timothy-55") || raw.endsWith("-2") && raw.includes("timothy")) return "تيموثاوس الثانية";
+  
+  // رسائل بطرس
+  if (raw.includes("peter-60") || raw.endsWith("-1") && raw.includes("peter")) return "بطرس الأولى";
+  if (raw.includes("peter-61") || raw.endsWith("-2") && raw.includes("peter")) return "بطرس الثانية";
+
+  // رسائل يوحنا
+  if (raw.includes("john-62") || raw.endsWith("-1") && raw.includes("john")) return "يوحنا الأولى";
+  if (raw.includes("john-63") || raw.endsWith("-2") && raw.includes("john")) return "يوحنا الثانية";
+  if (raw.includes("john-64") || raw.endsWith("-3") && raw.includes("john")) return "يوحنا الثالثة";
+
+  // البحث عن الأسماء المفردة بدون أرقام
   let cleanName = raw.replace(/[-_0-9]/g, '');
-  if (baseBookNames[cleanName]) {
-    return baseBookNames[cleanName];
-  }
+  if (baseBookNames[cleanName]) return baseBookNames[cleanName];
 
-  // تجربة البحث الجزئي
   for (let key in baseBookNames) {
     if (raw.includes(key)) return baseBookNames[key];
   }
