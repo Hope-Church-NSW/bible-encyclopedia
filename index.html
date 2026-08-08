@@ -65,7 +65,6 @@ footer{text-align:center;color:var(--muted);padding:30px}
 const DATA_URL="bible_database.json";
 let verses=[];
 let books=[];
-let currentMode="read";
 
 const $=id=>document.getElementById(id);
 const normalize=s=>(s||"").toString().trim().toLowerCase();
@@ -86,79 +85,82 @@ function bookName(id){
   if (!id) return "";
   let raw = String(id).trim().toLowerCase();
 
-  const names = {
-    // العهد القديم
-    "gen":"التكوين","genesis":"التكوين","01-gen":"التكوين","01-genesis":"التكوين",
-    "exodus":"الخروج","ex":"الخروج","02-exodus":"الخروج",
-    "leviticus":"اللاويين","lev":"اللاويين","03-leviticus":"اللاويين",
-    "numbers":"العدد","num":"العدد","04-numbers":"العدد",
-    "deut":"التثنية","deuteronomy":"التثنية","05-deut":"التثنية","05-deuteronomy":"التثنية",
-    "joshua":"يشوع","joshua-06":"يشوع",
-    "judges":"القضاة","judges-07":"القضاة",
-    "ruth":"راعوث","ruth-08":"راعوث",
-    "samuel-09-1":"صموئيل الأول","1samuel":"صموئيل الأول",
-    "samuel-10-2":"صموئيل الثاني","2samuel":"صموئيل الثاني",
-    "kings-11-1":"الملوك الأول","1kings":"الملوك الأول",
-    "kings-12-2":"الملوك الثاني","2kings":"الملوك الثاني",
-    "chronicles-13-1":"أخبار الأيام الأول","1chronicles":"أخبار الأيام الأول",
-    "chronicles-14-2":"أخبار الأيام الثاني","2chronicles":"أخبار الأيام الثاني",
-    "ezra":"عزرا","ezra-15":"عزرا",
-    "nehemiah":"نحميا","nehmiah":"نحميا","neh miah":"نحميا","nehmiah-16":"نحميا","nehemiah-16":"نحميا",
-    "esther":"أستير","esther-17":"أستير",
-    "job":"أيوب","job-18":"أيوب",
-    "psalms":"المزامير","psalm":"المزامير","19-psalms":"المزامير",
-    "proverbs":"الأمثال","prov":"الأمثال","20-proverbs":"الأمثال",
-    "ecclesiastes":"الجامعة","ecclesiastes-21":"الجامعة",
-    "sos":"نشيد الأنشاد","sos-22":"نشيد الأنشاد","song-of-solomon":"نشيد الأنشاد",
-    "isiah":"إشعياء","isaiah":"إشعياء","23-isiah":"إشعياء",
-    "jeremiah":"إرميا","24-jeremiah":"إرميا",
-    "lamentations":"مراثي إرميا","lamentations-25":"مراثي إرميا",
-    "ezekiel":"حزقيال","26-ezekiel":"حزقيال",
-    "daniel":"دانيال","daniel-27":"دانيال",
-    "hosea":"هويدع","hosea-28":"هويدع",
-    "joel":"يوئيل","joel-29":"يوئيل",
-    "amos":"عاموس","amos-30":"عاموس",
-    "obadiah":"عوبديا","obadiah-31":"عوبديا",
-    "jonah":"يونان","jonah-32":"يونان",
-    "micah":"ميخا","micah-33":"ميخا",
-    "nahum":"ناحوم","nahum-34":"ناحوم",
-    "habakkuk":"حبقوق","habakkuk-35":"حبقوق","habakuk-35":"حبقوق",
-    "zephaniah":"صفنيا","zephaniah-36":"صفنيا",
-    "haggai":"حجي","haggai-37":"حجي",
-    "zechariah":"زكريا","zechariah-38":"زكريا",
-    "malachi":"ملاخي","malachi-39":"ملاخي",
-
-    // العهد الجديد
-    "matthew":"متى","matt":"متى","40-matthew":"متى",
-    "mark":"مرقس","41-mark":"مرقس",
-    "luke":"لوقا","42-luke":"لوقا",
-    "john":"يوحنا","43-john":"يوحنا",
-    "acts":"أعمال الرسل","44-acts":"أعمال الرسل",
-    "romans":"رومية","45-romans":"رومية",
-    "corinthians-46-1":"كورنثوس الأولى","1corinthians":"كورنثوس الأولى",
-    "corinthians-47-2":"كورنثوس الثانية","2corinthians":"كورنثوس الثانية",
-    "galatians":"غلاطية","48-galatians":"غلاطية",
-    "ephesians":"أفسس","49-ephesians":"أفسس",
-    "philipians-50":"فيليبي","philippians-50":"فيليبي","philippians":"فيليبي","philipians":"فيليبي",
-    "colossians":"كولوسي","51-colossians":"كولوسي",
-    "thessalonians-52-1":"تسالونيكي الأولى",
-    "thessalonians-53-2":"تسالونيكي الثانية",
-    "timothy-54-1":"تيموثاوس الأولى",
-    "timothy-55-2":"تيموثاوس الثانية",
-    "titus":"طيطس","titus-56":"طيطس",
-    "phillemon-57":"فليمون","philemon-57":"فليمون","philemon":"فليمون","phillemon":"فليمون",
-    "hebrews":"العبرانيين","hebrews-58":"العبرانيين",
-    "james":"يعقوب","james-59":"يعقوب",
-    "peter-60-1":"بطرس الأولى","1peter":"بطرس الأولى",
-    "peter-61-2":"بطرس الثانية","2peter":"بطرس الثانية",
-    "john-62-1":"يوحنا الأولى",
-    "john-63-2":"يوحنا الثانية",
-    "john-64-3":"يوحنا الثالثة",
-    "jude":"يهوذا","jude-65":"يهوذا",
-    "revelation":"رؤيا يوحنا","revelation-66":"رؤيا يوحنا"
+  // قاموس القواعد والأسماء
+  const dict = {
+    "gen":"التكوين", "genesis":"التكوين",
+    "exodus":"الخروج", "ex":"الخروج",
+    "leviticus":"اللاويين", "lev":"اللاويين",
+    "numbers":"العدد", "num":"العدد",
+    "deut":"التثنية", "deuteronomy":"التثنية",
+    "joshua":"يشوع",
+    "judges":"القضاة",
+    "ruth":"راعوث",
+    "samuel-1":"صموئيل الأول", "samuel-09-1":"صموئيل الأول",
+    "samuel-2":"صموئيل الثاني", "samuel-10-2":"صموئيل الثاني",
+    "kings-1":"الملوك الأول", "kings-11-1":"الملوك الأول",
+    "kings-2":"الملوك الثاني", "kings-12-2":"الملوك الثاني",
+    "chronicles-1":"أخبار الأيام الأول", "chronicles-13-1":"أخبار الأيام الأول",
+    "chronicles-2":"أخبار الأيام الثاني", "chronicles-14-2":"أخبار الأيام الثاني",
+    "ezra":"عزرا",
+    "nehemiah":"نحميا", "nehmiah":"نحميا",
+    "esther":"أستير",
+    "job":"أيوب",
+    "psalms":"المزامير", "psalm":"المزامير",
+    "proverbs":"الأمثال", "prov":"الأمثال",
+    "ecclesiastes":"الجامعة",
+    "sos":"نشيد الأنشاد", "song":"نشيد الأنشاد",
+    "isiah":"إشعياء", "isaiah":"إشعياء",
+    "jeremiah":"إرميا",
+    "lamentations":"مراثي إرميا",
+    "ezekiel":"حزقيال",
+    "daniel":"دانيال",
+    "hosea":"هويدع",
+    "joel":"يوئيل",
+    "amos":"عاموس",
+    "obadiah":"عوبديا",
+    "jonah":"يونان",
+    "micah":"ميخا",
+    "nahum":"ناحوم",
+    "habakkuk":"حبقوق", "habakuk":"حبقوق",
+    "zephaniah":"صفنيا",
+    "haggai":"حجي",
+    "zechariah":"زكريا",
+    "malachi":"ملاخي",
+    "matthew":"متى", "matt":"متى",
+    "mark":"مرقس",
+    "luke":"لوقا",
+    "john":"يوحنا",
+    "acts":"أعمال الرسل",
+    "romans":"رومية",
+    "corinthians-1":"كورنثوس الأولى", "corinthians-46-1":"كورنثوس الأولى",
+    "corinthians-2":"كورنثوس الثانية", "corinthians-47-2":"كورنثوس الثانية",
+    "galatians":"غلاطية",
+    "ephesians":"أفسس",
+    "philipians":"فيليبي", "philippians":"فيليبي",
+    "colossians":"كولوسي",
+    "thessalonians-1":"تسالونيكي الأولى", "thessalonians-52-1":"تسالونيكي الأولى",
+    "thessalonians-2":"تسالونيكي الثانية", "thessalonians-53-2":"تسالونيكي الثانية",
+    "timothy-1":"تيموثاوس الأولى", "timothy-54-1":"تيموثاوس الأولى",
+    "timothy-2":"تيموثاوس الثانية", "timothy-55-2":"تيموثاوس الثانية",
+    "titus":"طيطس",
+    "philemon":"فليمون", "phillemon":"فليمون",
+    "hebrews":"العبرانيين",
+    "james":"يعقوب",
+    "peter-1":"بطرس الأولى", "peter-60-1":"بطرس الأولى",
+    "peter-2":"بطرس الثانية", "peter-61-2":"بطرس الثانية",
+    "john-1":"يوحنا الأولى", "john-62-1":"يوحنا الأولى",
+    "john-2":"يوحنا الثانية", "john-63-2":"يوحنا الثانية",
+    "john-3":"يوحنا الثالثة", "john-64-3":"يوحنا الثالثة",
+    "jude":"يهوذا",
+    "revelation":"رؤيا يوحنا"
   };
 
-  if (names[raw]) return names[raw];
+  if (dict[raw]) return dict[raw];
+
+  // تنظيف اسم السفر من الأرقام والبادئات الزائدة مثل "joshua-06" لتصبح "joshua"
+  let cleaned = raw.replace(/^[\d]+-/, '').replace(/-[\d]+$/, '').replace(/-[\d]+-[\d]+$/, '');
+  if (dict[cleaned]) return dict[cleaned];
+
   return String(id).trim();
 }
 
@@ -177,7 +179,6 @@ function renderChapter(){
   $("content").innerHTML=rows.map(v=>`
     <div class="verse"><span class="vnum">${escapeHtml(v.verse)}</span>${escapeHtml(v.text)}</div>
   `).join("");
-  currentMode="read";
 }
 
 function searchBible(q){
@@ -191,7 +192,6 @@ function searchBible(q){
       <div style="line-height:1.9;margin-top:6px">${escapeHtml(v.text)}</div>
     </div>
   `).join("") || "<p>لا توجد نتائج.</p>";
-  currentMode="search";
 }
 
 function escapeHtml(s){
