@@ -86,20 +86,6 @@ function bookName(id){
   if (!id) return "";
   let raw = String(id).trim().toLowerCase();
 
-  // معالجة ذكية للأسفار التي لها جزء أول/ثاني ومرفق بها أرقام مثل Samuel-09-1 أو Corinthians-46-1
-  if (raw.includes("samuel")) return raw.endsWith("-2") || raw.startsWith("2") ? "صموئيل الثاني" : "صموئيل الأول";
-  if (raw.includes("kings")) return raw.endsWith("-2") || raw.startsWith("2") ? "الملوك الثاني" : "الملوك الأول";
-  if (raw.includes("chronicles")) return raw.endsWith("-2") || raw.startsWith("2") ? "أخبار الأيام الثاني" : "أخبار الأيام الأول";
-  if (raw.includes("corinthians")) return raw.endsWith("-2") || raw.startsWith("2") ? "كورنثوس الثانية" : "كورنثوس الأولى";
-  if (raw.includes("thessalonians")) return raw.endsWith("-2") || raw.startsWith("2") ? "تسالونيكي الثانية" : "تسالونيكي الأولى";
-  if (raw.includes("timothy")) return raw.endsWith("-2") || raw.startsWith("2") ? "تيموثاوس الثانية" : "تيموثاوس الأولى";
-  if (raw.includes("peter")) return raw.endsWith("-2") || raw.startsWith("2") ? "بطرس الثانية" : "بطرس الأولى";
-  if (raw.includes("john-")) {
-    if (raw.endsWith("-2")) return "يوحنا الثانية";
-    if (raw.endsWith("-3")) return "يوحنا الثالثة";
-    if (raw.endsWith("-1") || raw.includes("john-62-1")) return "يوحنا الأولى";
-  }
-
   const names = {
     // العهد القديم
     "gen":"التكوين","genesis":"التكوين","01-gen":"التكوين","01-genesis":"التكوين",
@@ -110,6 +96,12 @@ function bookName(id){
     "joshua":"يشوع","joshua-06":"يشوع",
     "judges":"القضاة","judges-07":"القضاة",
     "ruth":"راعوث","ruth-08":"راعوث",
+    "samuel-09-1":"صموئيل الأول","1samuel":"صموئيل الأول",
+    "samuel-10-2":"صموئيل الثاني","2samuel":"صموئيل الثاني",
+    "kings-11-1":"الملوك الأول","1kings":"الملوك الأول",
+    "kings-12-2":"الملوك الثاني","2kings":"الملوك الثاني",
+    "chronicles-13-1":"أخبار الأيام الأول","1chronicles":"أخبار الأيام الأول",
+    "chronicles-14-2":"أخبار الأيام الثاني","2chronicles":"أخبار الأيام الثاني",
     "ezra":"عزرا","ezra-15":"عزرا",
     "nehemiah":"نحميا","nehmiah":"نحميا","neh miah":"نحميا","nehmiah-16":"نحميا","nehemiah-16":"نحميا",
     "esther":"أستير","esther-17":"أستير",
@@ -130,7 +122,7 @@ function bookName(id){
     "jonah":"يونان","jonah-32":"يونان",
     "micah":"ميخا","micah-33":"ميخا",
     "nahum":"ناحوم","nahum-34":"ناحوم",
-    "habakkuk":"حبقوق","habakkuk-35":"حبقوق",
+    "habakkuk":"حبقوق","habakkuk-35":"حبقوق","habakuk-35":"حبقوق",
     "zephaniah":"صفنيا","zephaniah-36":"صفنيا",
     "haggai":"حجي","haggai-37":"حجي",
     "zechariah":"زكريا","zechariah-38":"زكريا",
@@ -143,24 +135,30 @@ function bookName(id){
     "john":"يوحنا","43-john":"يوحنا",
     "acts":"أعمال الرسل","44-acts":"أعمال الرسل",
     "romans":"رومية","45-romans":"رومية",
+    "corinthians-46-1":"كورنثوس الأولى","1corinthians":"كورنثوس الأولى",
+    "corinthians-47-2":"كورنثوس الثانية","2corinthians":"كورنثوس الثانية",
     "galatians":"غلاطية","48-galatians":"غلاطية",
     "ephesians":"أفسس","49-ephesians":"أفسس",
     "philipians-50":"فيليبي","philippians-50":"فيليبي","philippians":"فيليبي","philipians":"فيليبي",
     "colossians":"كولوسي","51-colossians":"كولوسي",
+    "thessalonians-52-1":"تسالونيكي الأولى",
+    "thessalonians-53-2":"تسالونيكي الثانية",
+    "timothy-54-1":"تيموثاوس الأولى",
+    "timothy-55-2":"تيموثاوس الثانية",
     "titus":"طيطس","titus-56":"طيطس",
     "phillemon-57":"فليمون","philemon-57":"فليمون","philemon":"فليمون","phillemon":"فليمون",
     "hebrews":"العبرانيين","hebrews-58":"العبرانيين",
     "james":"يعقوب","james-59":"يعقوب",
+    "peter-60-1":"بطرس الأولى","1peter":"بطرس الأولى",
+    "peter-61-2":"بطرس الثانية","2peter":"بطرس الثانية",
+    "john-62-1":"يوحنا الأولى",
+    "john-63-2":"يوحنا الثانية",
+    "john-64-3":"يوحنا الثالثة",
     "jude":"يهوذا","jude-65":"يهوذا",
     "revelation":"رؤيا يوحنا","revelation-66":"رؤيا يوحنا"
   };
 
   if (names[raw]) return names[raw];
-
-  // تنظيف إضافي احتياطي
-  let cleanKey = raw.replace(/^[\d]+-/, '').replace(/-[\d]+$/, '').replace(/-[\d]+-[\d]+$/, '');
-  if (names[cleanKey]) return names[cleanKey];
-
   return String(id).trim();
 }
 
