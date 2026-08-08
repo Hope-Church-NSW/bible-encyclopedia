@@ -15,6 +15,8 @@ header{padding:22px 5%;border-bottom:1px solid var(--line);background:#081727;po
 main{max-width:1200px;margin:auto;padding:24px 5%}
 .toolbar{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px;margin-bottom:18px}
 input,select,button{border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);padding:12px;font-size:15px}
+optgroup{background:var(--card2);color:var(--gold2);font-weight:bold}
+option{background:var(--card);color:var(--text);font-weight:normal}
 button{cursor:pointer;background:#153657}
 button:hover{border-color:var(--gold)}
 .panel{background:rgba(13,33,56,.94);border:1px solid var(--line);border-radius:16px;padding:18px}
@@ -76,82 +78,113 @@ function uniqueBooks(data){
   return data.map(v=>v.book).filter(b=>b && !seen.has(b) && seen.add(b));
 }
 
+// قائمة تحديد هل السفر عهد قديم أم جديد لتصنيفه في القائمة
+function isNewTestament(id){
+  let raw = String(id).trim().toLowerCase();
+  const ntKeys = ["matthew","mark","luke","john","acts","romans","corinthians","galatians","ephesians","philippians","philipians","colossians","thessalonians","timothy","titus","philemon","phillemon","hebrews","james","peter","jude","revelation"];
+  return ntKeys.some(k => raw.includes(k));
+}
+
 function fillBooks(){
-  $("book").innerHTML='<option value="">اختر السفر</option>'+
-    books.map(b=>`<option value="${escapeHtml(b)}">${escapeHtml(bookName(b))}</option>`).join("");
+  const oldTestament = books.filter(b => !isNewTestament(b));
+  const newTestament = books.filter(b => isNewTestament(b));
+
+  let html = '<option value="">اختر السفر</option>';
+
+  if(oldTestament.length){
+    html += '<optgroup label="─── العهد القديم ───">';
+    html += oldTestament.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(bookName(b))}</option>`).join("");
+    html += '</optgroup>';
+  }
+
+  if(newTestament.length){
+    html += '<optgroup label="─── العهد الجديد ───">';
+    html += newTestament.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(bookName(b))}</option>`).join("");
+    html += '</optgroup>';
+  }
+
+  $("book").innerHTML = html;
 }
 
 function bookName(id){
   if (!id) return "";
   let raw = String(id).trim().toLowerCase();
 
-  let cleanKey = raw.replace(/[-\d]/g, ''); 
-
-  let num = "";
-  if (raw.endsWith("-1") || raw.includes("-1-") || raw.includes("1")) num = "1";
-  if (raw.endsWith("-2") || raw.includes("-2-") || raw.includes("2")) num = "2";
-  if (raw.endsWith("-3") || raw.includes("-3-") || raw.includes("3")) num = "3";
-
+  // تعيين الأسماء الصريحة والمباشرة بمفاتيح قواعد البيانات
   const dict = {
-    "gen": "التكوين", "genesis": "التكوين",
-    "exodus": "الخروج", "ex": "الخروج",
-    "leviticus": "اللاويين", "lev": "اللاويين",
-    "numbers": "العدد", "num": "العدد",
-    "deut": "التثنية", "deuteronomy": "التثنية",
-    "joshua": "يشوع",
-    "judges": "القضاة",
-    "ruth": "راعوث",
-    "samuel": num === "2" ? "صموئيل الثاني" : "صموئيل الأول",
-    "kings": num === "2" ? "الملوك الثاني" : "الملوك الأول",
-    "chronicles": num === "2" ? "أخبار الأيام الثاني" : "أخبار الأيام الأول",
-    "ezra": "عزرا",
-    "nehemiah": "نحميا", "nehmiah": "نحميا",
-    "esther": "أستير",
-    "job": "أيوب",
-    "psalms": "المزامير", "psalm": "المزامير",
-    "proverbs": "الأمثال", "prov": "الأمثال",
-    "ecclesiastes": "الجامعة",
-    "sos": "نشيد الأنشاد", "song": "نشيد الأنشاد",
-    "isiah": "إشعياء", "isaiah": "إشعياء",
-    "jeremiah": "إرميا",
-    "lamentations": "مراثي إرميا",
-    "ezekiel": "حزقيال",
-    "daniel": "دانيال",
-    "hosea": "هوشع",
-    "joel": "يوئيل",
-    "amos": "عاموس",
-    "obadiah": "عوبديا",
-    "jonah": "يونان",
-    "micah": "ميخا",
-    "nahum": "ناحوم",
-    "habakkuk": "حبقوق", "habakuk": "حبقوق",
-    "zephaniah": "صفنيا",
-    "haggai": "حجي",
-    "zechariah": "زكريا",
-    "malachi": "ملاخي",
-    "matthew": "متى", "matt": "متى",
-    "mark": "مرقس",
-    "luke": "لوقا",
-    "john": num === "1" ? "يوحنا الأولى" : num === "2" ? "يوحنا الثانية" : num === "3" ? "يوحنا الثالثة" : "يوحنا",
-    "acts": "أعمال الرسل",
-    "romans": "رومية",
-    "corinthians": num === "2" ? "كورنثوس الثانية" : "كورنثوس الأولى",
-    "galatians": "غلاطية",
-    "ephesians": "أفسس",
-    "philippians": "فيليبي", "philipians": "فيليبي",
-    "colossians": "كولوسي",
-    "thessalonians": num === "2" ? "تسالونيكي الثانية" : "تسالونيكي الأولى",
-    "timothy": num === "2" ? "تيموثاوس الثانية" : "تيموثاوس الأولى",
-    "titus": "طيطس",
-    "philemon": "فليمون", "phillemon": "فليمون",
-    "hebrews": "العبرانيين",
-    "james": "يعقوب",
-    "peter": num === "2" ? "بطرس الثانية" : "بطرس الأولى",
-    "jude": "يهوذا",
-    "revelation": "رؤيا يوحنا"
+    // العهد القديم
+    "gen":"التكوين","genesis":"التكوين","01-gen":"التكوين","01-genesis":"التكوين",
+    "exodus":"الخروج","ex":"الخروج","02-exodus":"الخروج",
+    "leviticus":"اللاويين","lev":"اللاويين","03-leviticus":"اللاويين",
+    "numbers":"العدد","num":"العدد","04-numbers":"العدد",
+    "deut":"التثنية","deuteronomy":"التثنية","05-deut":"التثنية","05-deuteronomy":"التثنية",
+    "joshua-06":"يشوع","joshua":"يشوع",
+    "judges-07":"القضاة","judges":"القضاة",
+    "ruth-08":"راعوث","ruth":"راعوث",
+    "samuel-09-1":"صموئيل الأول",
+    "samuel-10-2":"صموئيل الثاني",
+    "kings-11-1":"الملوك الأول",
+    "kings-12-2":"الملوك الثاني",
+    "chronicles-13-1":"أخبار الأيام الأول",
+    "chronicles-14-2":"أخبار الأيام الثاني",
+    "ezra-15":"عزرا","ezra":"عزرا",
+    "nehemiah-16":"نحميا","nehmiah-16":"نحميا","nehemiah":"نحميا",
+    "esther-17":"أستير","esther":"أستير",
+    "job-18":"أيوب","job":"أيوب",
+    "psalms":"المزامير","psalm":"المزامير","19-psalms":"المزامير",
+    "proverbs":"الأمثال","prov":"الأمثال","20-proverbs":"الأمثال",
+    "ecclesiastes-21":"الجامعة","ecclesiastes":"الجامعة",
+    "sos-22":"نشيد الأنشاد","song-of-solomon":"نشيد الأنشاد",
+    "isiah-23":"إشعياء","isaiah":"إشعياء","23-isiah":"إشعياء",
+    "jeremiah":"إرميا","24-jeremiah":"إرميا",
+    "lamentations-25":"مراثي إرميا","lamentations":"مراثي إرميا",
+    "ezekiel":"حزقيال","26-ezekiel":"حزقيال",
+    "daniel-27":"دانيال","daniel":"دانيال",
+    "hosea-28":"هوشع","hosea":"هوشع",
+    "joel-29":"يوئيل","joel":"يوئيل",
+    "amos-30":"عاموس","amos":"عاموس",
+    "obadiah-31":"عوبديا","obadiah":"عوبديا",
+    "jonah-32":"يونان","jonah":"يونان",
+    "micah-33":"ميخا","micah":"ميخا",
+    "nahum-34":"ناحوم","nahum":"ناحوم",
+    "habakkuk-35":"حبقوق","habakuk-35":"حبقوق","habakkuk":"حبقوق",
+    "zephaniah-36":"صفنيا","zephaniah":"صفنيا",
+    "haggai-37":"حجي","haggai":"حجي",
+    "zechariah-38":"زكريا","zechariah":"زكريا",
+    "malachi-39":"ملاخي","malachi":"ملاخي",
+
+    // العهد الجديد
+    "matthew":"متى","matt":"متى","40-matthew":"متى",
+    "mark":"مرقس","41-mark":"مرقس",
+    "luke":"لوقا","42-luke":"لوقا",
+    "john":"يوحنا","43-john":"يوحنا",
+    "acts":"أعمال الرسل","44-acts":"أعمال الرسل",
+    "romans":"رومية","45-romans":"رومية",
+    "corinthians-46-1":"كورنثوس الأولى",
+    "corinthians-47-2":"كورنثوس الثانية",
+    "galatians":"غلاطية","48-galatians":"غلاطية",
+    "ephesians":"أفسس","49-ephesians":"أفسس",
+    "philipians-50":"فيليبي","philippians-50":"فيليبي","philippians":"فيليبي",
+    "colossians":"كولوسي","51-colossians":"كولوسي",
+    "thessalonians-52-1":"تسالونيكي الأولى",
+    "thessalonians-53-2":"تسالونيكي الثانية",
+    "timothy-54-1":"تيموثاوس الأولى",
+    "timothy-55-2":"تيموثاوس الثانية",
+    "titus-56":"طيطس","titus":"طيطس",
+    "phillemon-57":"فليمون","philemon-57":"فليمون","philemon":"فليمون",
+    "hebrews-58":"العبرانيين","hebrews":"العبرانيين",
+    "james-59":"يعقوب","james":"يعقوب",
+    "peter-60-1":"بطرس الأولى",
+    "peter-61-2":"بطرس الثانية",
+    "john-62-1":"يوحنا الأولى",
+    "john-63-2":"يوحنا الثانية",
+    "john-64-3":"يوحنا الثالثة",
+    "jude-65":"يهوذا","jude":"يهوذا",
+    "revelation-66":"رؤيا يوحنا","revelation":"رؤيا يوحنا"
   };
 
-  return dict[cleanKey] || dict[raw] || String(id).trim();
+  if (dict[raw]) return dict[raw];
+  return String(id).trim();
 }
 
 function fillChapters(){
