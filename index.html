@@ -267,31 +267,29 @@
         const bookData = allBooks[index];
         currentBookTitle = arabicTitle;
         
-        let lines = [];
+        let fullText = "";
         if (Array.isArray(bookData.content)) {
-            lines = bookData.content;
+            fullText = bookData.content.join("\n");
         } else {
-            lines = bookData.content.split(/\r?\n/);
+            fullText = bookData.content || "";
         }
 
-        // تقسيم الأصحاحات بناءً على أسطر العناوين أو الأنماط المبتدئة
-        parsedChapters = [];
-        let currentChapterContent = [];
+        // تقسيم ذكي باستخدام التعبيرات المنتظمة بناءً على أنماط بدايه الإصحاحات المختلفة
+        // يغطي: "الأصحاح 1" / "الاصحاح الأول" / "الأصْحَاحُ الأَوَّلُ" / "الإصحاح الأول"
+        const chapterSplitter = /(?=(?:الأصْحَاحُ|الإصحاح|الأصحاح|الاصحاح)\s+(?:الأول|الثاني|الثالث|الرابع|الخامس|السادس|السابع|الثامن|التاسع|العاشر|الحادي|الثاني|الثالث|الرابع|الخامس|السادس|السابع|الثامن|التاسع|العشرون|الثلاثون|الأربعون|الخمسون|[0-9]+))/gi;
 
-        lines.forEach(line => {
-            const trimmed = line.trim();
-            // التعرف على بداية أي إصحاح جديد مهما كان التشكيل
-            if (trimmed.match(/^(الأصْحَاحُ|الإصحاح|الأصحاح|اصحاح|الأصْحَاح|الاصحاح)/i) && currentChapterContent.length > 0) {
-                parsedChapters.push(currentChapterContent.join('\n'));
-                currentChapterContent = [];
-            }
-            if (trimmed.length > 0) {
-                currentChapterContent.push(trimmed);
-            }
-        });
+        let chunks = fullText.split(chapterSplitter);
 
-        if (currentChapterContent.length > 0) {
-            parsedChapters.push(currentChapterContent.join('\n'));
+        // إذا لم تنجح الأنماط اللغوية، يتم التقسيم على كلمة "الأصحاح" أو "الاصحاح" أينما وجدت
+        if (chunks.length <= 1) {
+            chunks = fullText.split(/(?=(?:الأصْحَاحُ|الإصحاح|الأصحاح|الاصحاح))/gi);
+        }
+
+        parsedChapters = chunks.map(c => c.trim()).filter(c => c.length > 20);
+
+        // احتياطي: إن لم يجد الكود أي علامات تقسيم، يعرض النص كاملاً
+        if (parsedChapters.length === 0) {
+            parsedChapters = [fullText];
         }
 
         const chaptersGrid = document.getElementById('chaptersGrid');
