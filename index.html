@@ -148,8 +148,8 @@
         /* Chapters Grid */
         .chapters-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+            gap: 12px;
             margin-top: 20px;
         }
 
@@ -157,22 +157,23 @@
             background-color: #1e293b;
             border: 1px solid var(--card-border);
             color: var(--gold-light);
-            padding: 12px;
+            padding: 14px 0;
             border-radius: 8px;
             text-align: center;
             font-weight: bold;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .chapter-btn:hover, .chapter-btn.active {
+        .chapter-btn:hover {
             background-color: var(--gold-color);
             color: #000;
         }
 
         .reader-content {
-            line-height: 2;
-            font-size: 1.15rem;
+            line-height: 2.2;
+            font-size: 1.2rem;
             white-space: pre-line;
             margin-top: 20px;
         }
@@ -310,17 +311,31 @@
         });
     }
 
-    // فتح قائمة الإصحاحات
+    // إزالة التشكيل العربي لمطابقة الكلمات بدقة
+    function stripTashkeel(text) {
+        return text.replace(/[\u064B-\u0652]/g, "");
+    }
+
     function openBook(index, arabicTitle) {
         currentBook = allBooks[index];
         currentBookTitle = arabicTitle;
         
         let rawText = Array.isArray(currentBook.content) ? currentBook.content.join('\n') : currentBook.content;
 
-        // تقسيم النص حسب كلمة الإصحاح
-        const parts = rawText.split(/(?=الأصْحَاحُ|الإصحاح|الأصحاح)/gi);
+        // تقسيم النص بمرونة عالية بصرف النظر عن التشكيل والأهمية
+        // التقسيم يعتمد على الكلمات المفتاحية مثل "االأصحاح" / "الاصحاح" / "اصحاح"
+        const cleanText = rawText;
+        const chapterRegex = /(?=(?:ا|إ|أ)?ل?اصحاح|(?:ا|إ|أ)?ل?أصْحَاحُ)/gi;
         
-        parsedChapters = parts.filter(p => p.trim().length > 0);
+        let parts = cleanText.split(chapterRegex);
+
+        // تجميع وتنظيف النواتج
+        parsedChapters = parts.map(p => p.trim()).filter(p => p.length > 0);
+
+        // في حال كان السفر يتكون من نص واحد لا يحتوي الكلمة المفتاحية
+        if (parsedChapters.length === 0) {
+            parsedChapters = [rawText];
+        }
 
         const chaptersGrid = document.getElementById('chaptersGrid');
         chaptersGrid.innerHTML = '';
@@ -335,15 +350,14 @@
 
         document.getElementById('mainView').style.display = 'none';
         document.getElementById('readerView').style.display = 'none';
-        document.getElementById('chaptersTitle').innerText = `${arabicTitle} — اختر الإصحاح`;
+        document.getElementById('chaptersTitle').innerText = `${arabicTitle} — (إجمالي الإصحاحات: ${parsedChapters.length})`;
         document.getElementById('chaptersView').style.display = 'block';
     }
 
-    // عرض الإصحاح المختار
     function openChapter(chIndex) {
         document.getElementById('chaptersView').style.display = 'none';
         document.getElementById('readerTitle').innerText = `${currentBookTitle} — الإصحاح ${chIndex + 1}`;
-        document.getElementById('readerContent').innerText = parsedChapters[chIndex].trim();
+        document.getElementById('readerContent').innerText = parsedChapters[chIndex];
         document.getElementById('readerView').style.display = 'block';
     }
 
