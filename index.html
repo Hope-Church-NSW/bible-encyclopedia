@@ -117,8 +117,8 @@
             align-items: center;
         }
 
-        /* Reader Area */
-        .reader-container {
+        /* Views */
+        .view-panel {
             display: none;
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -138,17 +138,43 @@
             margin-bottom: 20px;
         }
 
-        .reader-title {
+        .section-title {
             color: var(--gold-light);
             border-bottom: 1px solid var(--card-border);
             padding-bottom: 10px;
             margin-top: 0;
         }
 
+        /* Chapters Grid */
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            background-color: #1e293b;
+            border: 1px solid var(--card-border);
+            color: var(--gold-light);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chapter-btn:hover, .chapter-btn.active {
+            background-color: var(--gold-color);
+            color: #000;
+        }
+
         .reader-content {
             line-height: 2;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             white-space: pre-line;
+            margin-top: 20px;
         }
 
         .loading {
@@ -166,7 +192,7 @@
 
     <div id="loading" class="loading">جاري تحميل الأسفار...</div>
 
-    <!-- Main View -->
+    <!-- Main View: Books -->
     <div id="mainView" class="testaments-wrapper" style="display: none;">
         
         <!-- Old Testament -->
@@ -189,22 +215,28 @@
 
     </div>
 
-    <!-- Reader View -->
-    <div id="readerView" class="reader-container">
+    <!-- Chapters Selector View -->
+    <div id="chaptersView" class="view-panel">
         <button class="back-btn" onclick="showMainView()">← العودة للأسفار</button>
-        <h2 id="readerTitle" class="reader-title"></h2>
+        <h2 id="chaptersTitle" class="section-title"></h2>
+        <div id="chaptersGrid" class="chapters-grid"></div>
+    </div>
+
+    <!-- Reader View -->
+    <div id="readerView" class="view-panel">
+        <button class="back-btn" onclick="showChaptersView()">← اختيار إصحاح آخر</button>
+        <h2 id="readerTitle" class="section-title"></h2>
         <div id="readerContent" class="reader-content"></div>
     </div>
 </div>
 
 <script>
-    // قاموس ترجمة أسماء الأسفار من الإنجليزية إلى العربية
     const arabicNames = {
         "01-gen": "التكوين", "02-exodus": "الخروج", "03-leviticus": "اللاويين", "04-numbers": "العدد",
         "05-deut": "التثنية", "06-joshua": "يشوع", "07-judges": "القضاة", "08-ruth": "راعوث",
         "09-1-samuel": "صموئيل الأول", "10-2-samuel": "صموئيل الثاني", "11-1-kings": "الملوك الأول",
         "12-2-kings": "الملوك الثاني", "13-1-chronicles": "أخبار الأيام الأول", "14-2-chronicles": "أخبار الأيام الثاني",
-        "15-ezra": "عزرا", "16-nehemiah": "نحميا", "17-esther": "استير", "18-job": "أيوب",
+        "15-ezra": "عزرا", "16-nehemiah": "نحميا", "16-nehmiah": "نحميا", "17-esther": "استير", "18-job": "أيوب",
         "19-psalms": "المزامير", "20-proverbs": "الأمثال", "21-ecclesiastes": "الجامعة", "22-sos": "نشيد الأنشاد",
         "23-isiah": "إشعياء", "24-jeremiah": "إرميا", "25-lamentations": "مراثي إرميا", "26-ezekiel": "حزقيال",
         "27-daniel": "دانيال", "28-hosea": "هوشع", "29-joel": "يوئيل", "30-amos": "عاموس",
@@ -223,6 +255,9 @@
     };
 
     let allBooks = [];
+    let currentBook = null;
+    let currentBookTitle = "";
+    let parsedChapters = [];
 
     fetch('./bible.json')
         .then(res => res.json())
@@ -249,20 +284,19 @@
             const rawName = bookData.book;
             const arabicTitle = getArabicName(rawName);
             
-            // تحديد هل هو عهد قديم أم جديد حسب الرقم الإرشادي في اسم الملف
             const fileNum = parseInt(rawName.split('-')[0]) || 0;
             const isOldTestament = fileNum <= 39;
 
             const card = document.createElement('div');
             card.className = 'book-card';
-            card.onclick = () => openReader(index, arabicTitle);
+            card.onclick = () => openBook(index, arabicTitle);
 
             card.innerHTML = `
                 <div class="flex-right">
                     <span class="book-icon">📖</span>
                     <div class="book-info">
                         <span class="book-name">${arabicTitle}</span>
-                        <span class="book-chapters">سفر كامل</span>
+                        <span class="book-chapters">انقر لاختيار الإصحاح</span>
                     </div>
                 </div>
                 <span style="color: var(--card-border);">‹</span>
@@ -276,22 +310,52 @@
         });
     }
 
-    function openReader(index, arabicTitle) {
-        const book = allBooks[index];
-        document.getElementById('mainView').style.display = 'none';
-        document.getElementById('readerView').style.display = 'block';
-        document.getElementById('readerTitle').innerText = arabicTitle;
+    // فتح قائمة الإصحاحات
+    function openBook(index, arabicTitle) {
+        currentBook = allBooks[index];
+        currentBookTitle = arabicTitle;
         
-        if (Array.isArray(book.content)) {
-            document.getElementById('readerContent').innerText = book.content.join('\n');
-        } else {
-            document.getElementById('readerContent').innerText = book.content;
-        }
+        let rawText = Array.isArray(currentBook.content) ? currentBook.content.join('\n') : currentBook.content;
+
+        // تقسيم النص حسب كلمة الإصحاح
+        const parts = rawText.split(/(?=الأصْحَاحُ|الإصحاح|الأصحاح)/gi);
+        
+        parsedChapters = parts.filter(p => p.trim().length > 0);
+
+        const chaptersGrid = document.getElementById('chaptersGrid');
+        chaptersGrid.innerHTML = '';
+
+        parsedChapters.forEach((_, chIdx) => {
+            const btn = document.createElement('button');
+            btn.className = 'chapter-btn';
+            btn.innerText = chIdx + 1;
+            btn.onclick = () => openChapter(chIdx);
+            chaptersGrid.appendChild(btn);
+        });
+
+        document.getElementById('mainView').style.display = 'none';
+        document.getElementById('readerView').style.display = 'none';
+        document.getElementById('chaptersTitle').innerText = `${arabicTitle} — اختر الإصحاح`;
+        document.getElementById('chaptersView').style.display = 'block';
+    }
+
+    // عرض الإصحاح المختار
+    function openChapter(chIndex) {
+        document.getElementById('chaptersView').style.display = 'none';
+        document.getElementById('readerTitle').innerText = `${currentBookTitle} — الإصحاح ${chIndex + 1}`;
+        document.getElementById('readerContent').innerText = parsedChapters[chIndex].trim();
+        document.getElementById('readerView').style.display = 'block';
     }
 
     function showMainView() {
+        document.getElementById('chaptersView').style.display = 'none';
         document.getElementById('readerView').style.display = 'none';
         document.getElementById('mainView').style.display = 'grid';
+    }
+
+    function showChaptersView() {
+        document.getElementById('readerView').style.display = 'none';
+        document.getElementById('chaptersView').style.display = 'block';
     }
 </script>
 
