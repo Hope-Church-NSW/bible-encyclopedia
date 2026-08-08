@@ -24,7 +24,7 @@ input[type="search"]:focus{border-color:var(--gold)}
 /* العرض الشبكي للعهدين */
 .testaments-container{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .testament-section{background:rgba(13,33,56,.7);border:1px solid var(--line);border-radius:16px;padding:20px}
-.section-header{display:flex;justify-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
+.section-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
 .section-header h2{margin:0;font-size:18px;color:var(--gold2)}
 .section-header span{color:var(--muted);font-size:13px}
 
@@ -112,83 +112,102 @@ function uniqueBooks(data){
   return data.map(v=>v.book).filter(b=>b && !seen.has(b) && seen.add(b));
 }
 
-// القاموس المعرب الشامل بالكامل (جميع المفاتيح بحروف صغيرة لتفادي الأخطاء)
-const bookMap = {
-  // العهد القديم
-  "gen-01": "التكوين", "genesis": "التكوين", "gen": "التكوين", "01-genesis": "التكوين",
-  "exodus": "الخروج", "ex": "الخروج", "02-exodus": "الخروج",
-  "leviticus": "اللاويين", "lev": "اللاويين", "03-leviticus": "اللاويين",
-  "numbers": "العدد", "num": "العدد", "04-numbers": "العدد",
-  "deut-05": "التثنية", "deuteronomy": "التثنية", "deut": "التثنية", "05-deuteronomy": "التثنية",
-  "joshua-06": "يشوع", "joshua": "يشوع",
-  "judges-07": "القضاة", "judges": "القضاة",
-  "ruth-08": "راعوث", "ruth": "راعوث",
-  "samuel-09-1": "صموئيل الأول", "samuel-1": "صموئيل الأول",
-  "samuel-10-2": "صموئيل الثاني", "samuel-2": "صموئيل الثاني",
-  "kings-11-1": "الملوك الأول", "kings-1": "الملوك الأول",
-  "kings-12-2": "الملوك الثاني", "kings-2": "الملوك الثاني",
-  "chronicles-13-1": "أخبار الأيام الأول", "chronicles-1": "أخبار الأيام الأول",
-  "chronicles-14-2": "أخبار الأيام الثاني", "chronicles-2": "أخبار الأيام الثاني",
-  "ezra-15": "عزرا", "ezra": "عزرا",
-  "nehmiah-16": "نحميا", "nehemiah-16": "نحميا", "nehemiah": "نحميا",
-  "esther-17": "أستير", "esther": "أستير",
-  "job-18": "أيوب", "job": "أيوب",
-  "psalms": "المزامير", "psalm": "المزامير", "19-psalms": "المزامير",
-  "proverbs": "الأمثال", "prov": "الأمثال", "20-proverbs": "الأمثال",
-  "ecclesiastes-21": "الجامعة", "ecclesiastes": "الجامعة",
-  "sos-22": "نشيد الأنشاد", "song": "نشيد الأنشاد", "song-of-solomon": "نشيد الأنشاد",
-  "isiah-23": "إشعياء", "isaiah-23": "إشعياء", "isaiah": "إشعياء",
-  "jeremiah": "إرميا", "24-jeremiah": "إرميا",
-  "lamentations-25": "مراثي إرميا", "lamentations": "مراثي إرميا",
-  "ezekiel": "حزقيال", "26-ezekiel": "حزقيال",
-  "daniel-27": "دانيال", "daniel": "دانيال",
-  "hosea-28": "هوشع", "hosea": "هوشع",
-  "joel-29": "يوئيل", "joel": "يوئيل",
-  "amos-30": "عاموس", "amos": "عاموس",
-  "obadiah-31": "عوبديا", "obadiah": "عوبديا",
-  "jonah-32": "يونان", "jonah": "يونان",
-  "micah-33": "ميخا", "micah": "ميخا",
-  "nahum-34": "ناحوم", "nahum": "ناحوم",
-  "habakuk-35": "حبقوق", "habakkuk-35": "حبقوق", "habakkuk": "حبقوق",
-  "zephaniah-36": "صفنيا", "zephaniah": "صفنيا",
-  "haggai-37": "حجي", "haggai": "حجي",
-  "zechariah-38": "زكريا", "zechariah": "زكريا",
-  "malachi-39": "ملاخي", "malachi": "ملاخي",
-
-  // العهد الجديد
-  "matthew": "متى", "matt": "متى", "40-matthew": "متى",
-  "mark": "مرقس", "41-mark": "مرقس",
-  "luke": "لوقا", "42-luke": "لوقا",
-  "john": "يوحنا", "43-john": "يوحنا",
-  "acts": "أعمال الرسل", "44-acts": "أعمال الرسل",
-  "romans": "رومية", "45-romans": "رومية",
-  "corinthians-46-1": "كورنثوس الأولى", "corinthians-1": "كورنثوس الأولى",
-  "corinthians-47-2": "كورنثوس الثانية", "corinthians-2": "كورنثوس الثانية",
-  "galatians": "غلاطية", "48-galatians": "غلاطية",
-  "ephesians": "أفسس", "49-ephesians": "أفسس",
-  "philipians-50": "فيليبي", "philippians-50": "فيليبي", "philippians": "فيليبي",
-  "colossians": "كولوسي", "51-colossians": "كولوسي",
-  "thessalonians-52-1": "تسالونيكي الأولى", "thessalonians-1": "تسالونيكي الأولى",
-  "thessalonians-53-2": "تسالونيكي الثانية", "thessalonians-2": "تسالونيكي الثانية",
-  "timothy-54-1": "تيموثاوس الأولى", "timothy-1": "تيموثاوس الأولى",
-  "timothy-55-2": "تيموثاوس الثانية", "timothy-2": "تيموثاوس الثانية",
-  "titus-56": "طيطس", "titus": "طيطس",
-  "phillemon-57": "فليمون", "philemon-57": "فليمون", "philemon": "فليمون",
-  "hebrews-58": "العبرانيين", "hebrews": "العبرانيين",
-  "james-59": "يعقوب", "james": "يعقوب",
-  "peter-60-1": "بطرس الأولى", "peter-1": "بطرس الأولى",
-  "peter-61-2": "بطرس الثانية", "peter-2": "بطرس الثانية",
-  "john-62-1": "يوحنا الأولى", "john-1": "يوحنا الأولى",
-  "john-63-2": "يوحنا الثانية", "john-2": "يوحنا الثانية",
-  "john-64-3": "يوحنا الثالثة", "john-3": "يوحنا الثالثة",
-  "jude-65": "يهوذا", "jude": "يهوذا",
-  "revelation-66": "رؤيا يوحنا", "revelation": "رؤيا يوحنا"
+// القاموس العربي الأساسي للأستعانة به
+const baseBookNames = {
+  "gen": "التكوين", "genesis": "التكوين",
+  "exodus": "الخروج", "ex": "الخروج",
+  "leviticus": "اللاويين", "lev": "اللاويين",
+  "numbers": "العدد", "num": "العدد",
+  "deut": "التثنية", "deuteronomy": "التثنية",
+  "joshua": "يشوع",
+  "judges": "القضاة",
+  "ruth": "راعوث",
+  "samuel": "صموئيل",
+  "kings": "الملوك",
+  "chronicles": "أخبار الأيام",
+  "ezra": "عزرا",
+  "nehemiah": "نحميا", "nehmiah": "نحميا",
+  "esther": "أستير",
+  "job": "أيوب",
+  "psalms": "المزامير", "psalm": "المزامير",
+  "proverbs": "الأمثال", "prov": "الأمثال",
+  "ecclesiastes": "الجامعة",
+  "sos": "نشيد الأنشاد", "song": "نشيد الأنشاد",
+  "isaiah": "إشعياء", "isiah": "إشعياء",
+  "jeremiah": "إرميا",
+  "lamentations": "مراثي إرميا",
+  "ezekiel": "حزقيال",
+  "daniel": "دانيال",
+  "hosea": "هوشع",
+  "joel": "يوئيل",
+  "amos": "عاموس",
+  "obadiah": "عوبديا",
+  "jonah": "يونان",
+  "micah": "ميخا",
+  "nahum": "ناحوم",
+  "habakkuk": "حبقوق", "habakuk": "حبقوق",
+  "zephaniah": "صفنيا",
+  "haggai": "حجي",
+  "zechariah": "زكريا",
+  "malachi": "ملاخي",
+  "matthew": "متى", "matt": "متى",
+  "mark": "مرقس",
+  "luke": "لوقا",
+  "john": "يوحنا",
+  "acts": "أعمال الرسل",
+  "romans": "رومية",
+  "corinthians": "كورنثوس",
+  "galatians": "غلاطية",
+  "ephesians": "أفسس",
+  "philippians": "فيليبي", "philipians": "فيليبي",
+  "colossians": "كولوسي",
+  "thessalonians": "تسالونيكي",
+  "timothy": "تيموثاوس",
+  "titus": "طيطس",
+  "philemon": "فليمون", "phillemon": "فليمون",
+  "hebrews": "العبرانيين",
+  "james": "يعقوب",
+  "peter": "بطرس",
+  "jude": "يهوذا",
+  "revelation": "رؤيا يوحنا"
 };
 
+// دالة التعريب الأذكياء للتعامل مع أي صيغة مثل "corinthians-46-1" أو "john-62-1"
 function bookName(id){
   if (!id) return "";
-  let key = String(id).trim().toLowerCase();
-  return bookMap[key] || String(id).trim();
+  let raw = String(id).trim().toLowerCase();
+  
+  // شروط خاصة للأسفار المكونة من جزء أول وثانٍ
+  if (raw.includes("samuel") && (raw.includes("-1") || raw.includes("09"))) return "صموئيل الأول";
+  if (raw.includes("samuel") && (raw.includes("-2") || raw.includes("10"))) return "صموئيل الثاني";
+  if (raw.includes("kings") && (raw.includes("-1") || raw.includes("11"))) return "الملوك الأول";
+  if (raw.includes("kings") && (raw.includes("-2") || raw.includes("12"))) return "الملوك الثاني";
+  if (raw.includes("chronicles") && (raw.includes("-1") || raw.includes("13"))) return "أخبار الأيام الأول";
+  if (raw.includes("chronicles") && (raw.includes("-2") || raw.includes("14"))) return "أخبار الأيام الثاني";
+  if (raw.includes("corinthians") && (raw.includes("-1") || raw.includes("46"))) return "كورنثوس الأولى";
+  if (raw.includes("corinthians") && (raw.includes("-2") || raw.includes("47"))) return "كورنثوس الثانية";
+  if (raw.includes("thessalonians") && (raw.includes("-1") || raw.includes("52"))) return "تسالونيكي الأولى";
+  if (raw.includes("thessalonians") && (raw.includes("-2") || raw.includes("53"))) return "تسالونيكي الثانية";
+  if (raw.includes("timothy") && (raw.includes("-1") || raw.includes("54"))) return "تيموثاوس الأولى";
+  if (raw.includes("timothy") && (raw.includes("-2") || raw.includes("55"))) return "تيموثاوس الثانية";
+  if (raw.includes("peter") && (raw.includes("-1") || raw.includes("60"))) return "بطرس الأولى";
+  if (raw.includes("peter") && (raw.includes("-2") || raw.includes("61"))) return "بطرس الثانية";
+  if (raw.includes("john") && (raw.includes("-1") || raw.includes("62"))) return "يوحنا الأولى";
+  if (raw.includes("john") && (raw.includes("-2") || raw.includes("63"))) return "يوحنا الثانية";
+  if (raw.includes("john") && (raw.includes("-3") || raw.includes("64"))) return "يوحنا الثالثة";
+
+  // استخراج اسم الكلمة بدون الأرقام
+  let cleanName = raw.replace(/[-_0-9]/g, '');
+  if (baseBookNames[cleanName]) {
+    return baseBookNames[cleanName];
+  }
+
+  // تجربة البحث الجزئي
+  for (let key in baseBookNames) {
+    if (raw.includes(key)) return baseBookNames[key];
+  }
+
+  return id;
 }
 
 function isNewTestament(id){
