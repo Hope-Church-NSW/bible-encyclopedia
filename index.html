@@ -1,235 +1,76 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>تطبيق الكتاب المقدس | Hope Church Bible Study</title>
-<style>
-:root{--bg:#071526;--card:#0d2138;--card2:#102a46;--gold:#d4af37;--gold2:#f2d675;--text:#f4f7fb;--muted:#9fb0c3;--line:#1d3b59;--blue:#2d7ff9}
-*{box-sizing:border-box}
-body{margin:0;background:linear-gradient(145deg,#061321,#0b1d31);color:var(--text);font-family:Arial,"Tahoma",sans-serif}
-header{padding:22px 5%;border-bottom:1px solid var(--line);background:#081727;position:sticky;top:0;z-index:10}
-.brand{display:flex;align-items:center;gap:14px}
-.brand h1{margin:0;font-size:22px;color:var(--gold2)}
-.brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
-main{max-width:1200px;margin:auto;padding:24px 5%}
-.toolbar{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px;margin-bottom:18px}
-input,select,button{border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);padding:12px;font-size:15px}
-button{cursor:pointer;background:#153657}
-button:hover{border-color:var(--gold)}
-.panel{background:rgba(13,33,56,.94);border:1px solid var(--line);border-radius:16px;padding:18px}
-.status{color:var(--muted);margin-bottom:14px;font-size:14px}
-.verse{border-bottom:1px solid #17344f;padding:15px 4px;line-height:2;font-size:18px}
-.verse:last-child{border-bottom:0}
-.vnum{color:var(--gold2);font-weight:bold;margin-left:8px}
-.search-result{padding:12px;border:1px solid var(--line);border-radius:10px;margin:8px 0;background:#0b1c30}
-.search-result b{color:var(--gold2)}
-.tabs{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
-.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#123354;color:var(--muted);font-size:12px}
-footer{text-align:center;color:var(--muted);padding:30px}
-@media(max-width:760px){.toolbar{grid-template-columns:1fr}.verse{font-size:17px}}
-</style>
-</head>
-<body>
-<header>
-  <div class="brand">
-    <div>
-      <h1>كنيسة رجاء الأمم سيدني</h1>
-      <p>HOPE CHURCH BIBLE STUDY — الكتاب المقدس والدراسة الكتابية</p>
-    </div>
-  </div>
-</header>
-
-<main>
-  <div class="toolbar">
-    <input id="search" type="search" placeholder="ابحث في الكتاب المقدس...">
-    <select id="book"></select>
-    <select id="chapter"></select>
-  </div>
-
-  <div class="tabs">
-    <button id="readBtn">الكتاب المقدس</button>
-    <button id="searchBtn">نتائج البحث</button>
-    <span class="badge" id="count">جاري تحميل البيانات...</span>
-  </div>
-
-  <section class="panel">
-    <div id="status" class="status">جاري تحميل قاعدة البيانات...</div>
-    <div id="content"></div>
-  </section>
-</main>
-
-<footer>Hope Church Sydney — Bible Study</footer>
-
-<script>
-const DATA_URL="bible_database.json";
-let verses=[];
-let books=[];
-
-const $=id=>document.getElementById(id);
-const normalize=s=>(s||"").toString().trim().toLowerCase();
-
-function setStatus(t){$("status").textContent=t}
-
-function uniqueBooks(data){
-  const seen=new Set();
-  return data.map(v=>v.book).filter(b=>b && !seen.has(b) && seen.add(b));
-}
-
-function fillBooks(){
-  $("book").innerHTML='<option value="">اختر السفر</option>'+
-    books.map(b=>`<option value="${escapeHtml(b)}">${escapeHtml(bookName(b))}</option>`).join("");
-}
-
 function bookName(id){
   if (!id) return "";
   let raw = String(id).trim().toLowerCase();
 
-  // قاموس القواعد والأسماء
+  // تنظيف اسم السفر من أي أرقام وفواصل مثل "samuel-09-1" لتصبح "samuel"
+  // أو "corinthians-46-1" لتصبح "corinthians"
+  let cleanKey = raw.replace(/[-\d]/g, ''); 
+
+  // معرفة هل يحتوي السفر على رقم (1 أو 2 أو 3) في النص الأصلي
+  let num = "";
+  if (raw.endsWith("-1") || raw.includes("-1-") || raw.includes("1")) num = "1";
+  if (raw.endsWith("-2") || raw.includes("-2-") || raw.includes("2")) num = "2";
+  if (raw.endsWith("-3") || raw.includes("-3-") || raw.includes("3")) num = "3";
+
+  // قاموس الأسماء الموحد
   const dict = {
-    "gen":"التكوين", "genesis":"التكوين",
-    "exodus":"الخروج", "ex":"الخروج",
-    "leviticus":"اللاويين", "lev":"اللاويين",
-    "numbers":"العدد", "num":"العدد",
-    "deut":"التثنية", "deuteronomy":"التثنية",
-    "joshua":"يشوع",
-    "judges":"القضاة",
-    "ruth":"راعوث",
-    "samuel-1":"صموئيل الأول", "samuel-09-1":"صموئيل الأول",
-    "samuel-2":"صموئيل الثاني", "samuel-10-2":"صموئيل الثاني",
-    "kings-1":"الملوك الأول", "kings-11-1":"الملوك الأول",
-    "kings-2":"الملوك الثاني", "kings-12-2":"الملوك الثاني",
-    "chronicles-1":"أخبار الأيام الأول", "chronicles-13-1":"أخبار الأيام الأول",
-    "chronicles-2":"أخبار الأيام الثاني", "chronicles-14-2":"أخبار الأيام الثاني",
-    "ezra":"عزرا",
-    "nehemiah":"نحميا", "nehmiah":"نحميا",
-    "esther":"أستير",
-    "job":"أيوب",
-    "psalms":"المزامير", "psalm":"المزامير",
-    "proverbs":"الأمثال", "prov":"الأمثال",
-    "ecclesiastes":"الجامعة",
-    "sos":"نشيد الأنشاد", "song":"نشيد الأنشاد",
-    "isiah":"إشعياء", "isaiah":"إشعياء",
-    "jeremiah":"إرميا",
-    "lamentations":"مراثي إرميا",
-    "ezekiel":"حزقيال",
-    "daniel":"دانيال",
-    "hosea":"هويدع",
-    "joel":"يوئيل",
-    "amos":"عاموس",
-    "obadiah":"عوبديا",
-    "jonah":"يونان",
-    "micah":"ميخا",
-    "nahum":"ناحوم",
-    "habakkuk":"حبقوق", "habakuk":"حبقوق",
-    "zephaniah":"صفنيا",
-    "haggai":"حجي",
-    "zechariah":"زكريا",
-    "malachi":"ملاخي",
-    "matthew":"متى", "matt":"متى",
-    "mark":"مرقس",
-    "luke":"لوقا",
-    "john":"يوحنا",
-    "acts":"أعمال الرسل",
-    "romans":"رومية",
-    "corinthians-1":"كورنثوس الأولى", "corinthians-46-1":"كورنثوس الأولى",
-    "corinthians-2":"كورنثوس الثانية", "corinthians-47-2":"كورنثوس الثانية",
-    "galatians":"غلاطية",
-    "ephesians":"أفسس",
-    "philipians":"فيليبي", "philippians":"فيليبي",
-    "colossians":"كولوسي",
-    "thessalonians-1":"تسالونيكي الأولى", "thessalonians-52-1":"تسالونيكي الأولى",
-    "thessalonians-2":"تسالونيكي الثانية", "thessalonians-53-2":"تسالونيكي الثانية",
-    "timothy-1":"تيموثاوس الأولى", "timothy-54-1":"تيموثاوس الأولى",
-    "timothy-2":"تيموثاوس الثانية", "timothy-55-2":"تيموثاوس الثانية",
-    "titus":"طيطس",
-    "philemon":"فليمون", "phillemon":"فليمون",
-    "hebrews":"العبرانيين",
-    "james":"يعقوب",
-    "peter-1":"بطرس الأولى", "peter-60-1":"بطرس الأولى",
-    "peter-2":"بطرس الثانية", "peter-61-2":"بطرس الثانية",
-    "john-1":"يوحنا الأولى", "john-62-1":"يوحنا الأولى",
-    "john-2":"يوحنا الثانية", "john-63-2":"يوحنا الثانية",
-    "john-3":"يوحنا الثالثة", "john-64-3":"يوحنا الثالثة",
-    "jude":"يهوذا",
-    "revelation":"رؤيا يوحنا"
+    "gen": "التكوين", "genesis": "التكوين",
+    "exodus": "الخروج", "ex": "الخروج",
+    "leviticus": "اللاويين", "lev": "اللاويين",
+    "numbers": "العدد", "num": "العدد",
+    "deut": "التثنية", "deuteronomy": "التثنية",
+    "joshua": "يشوع",
+    "judges": "القضاة",
+    "ruth": "راعوث",
+    "samuel": num === "2" ? "صموئيل الثاني" : "صموئيل الأول",
+    "kings": num === "2" ? "الملوك الثاني" : "الملوك الأول",
+    "chronicles": num === "2" ? "أخبار الأيام الثاني" : "أخبار الأيام الأول",
+    "ezra": "عزرا",
+    "nehemiah": "نحميا", "nehmiah": "نحميا",
+    "esther": "أستير",
+    "job": "أيوب",
+    "psalms": "المزامير", "psalm": "المزامير",
+    "proverbs": "الأمثال", "prov": "الأمثال",
+    "ecclesiastes": "الجامعة",
+    "sos": "نشيد الأنشاد", "song": "نشيد الأنشاد",
+    "isiah": "إشعياء", "isaiah": "إشعياء",
+    "jeremiah": "إرميا",
+    "lamentations": "مراثي إرميا",
+    "ezekiel": "حزقيال",
+    "daniel": "دانيال",
+    "hosea": "هوشع",
+    "joel": "يوئيل",
+    "amos": "عاموس",
+    "obadiah": "عوبديا",
+    "jonah": "يونان",
+    "micah": "ميخا",
+    "nahum": "ناحوم",
+    "habakkuk": "حبقوق", "habakuk": "حبقوق",
+    "zephaniah": "صفنيا",
+    "haggai": "حجي",
+    "zechariah": "زكريا",
+    "malachi": "ملاخي",
+    "matthew": "متى", "matt": "متى",
+    "mark": "مرقس",
+    "luke": "لوقا",
+    "john": num === "1" ? "يوحنا الأولى" : num === "2" ? "يوحنا الثانية" : num === "3" ? "يوحنا الثالثة" : "يوحنا",
+    "acts": "أعمال الرسل",
+    "romans": "رومية",
+    "corinthians": num === "2" ? "كورنثوس الثانية" : "كورنثوس الأولى",
+    "galatians": "غلاطية",
+    "ephesians": "أفسس",
+    "philippians": "فيليبي", "philipians": "فيليبي",
+    "colossians": "كولوسي",
+    "thessalonians": num === "2" ? "تسالونيكي الثانية" : "تسالونيكي الأولى",
+    "timothy": num === "2" ? "تيموثاوس الثانية" : "تيموثاوس الأولى",
+    "titus": "طيطس",
+    "philemon": "فليمون", "phillemon": "فليمون",
+    "hebrews": "العبرانيين",
+    "james": "يعقوب",
+    "peter": num === "2" ? "بطرس الثانية" : "بطرس الأولى",
+    "jude": "يهوذا",
+    "revelation": "رؤيا يوحنا"
   };
 
-  if (dict[raw]) return dict[raw];
-
-  // تنظيف اسم السفر من الأرقام والبادئات الزائدة مثل "joshua-06" لتصبح "joshua"
-  let cleaned = raw.replace(/^[\d]+-/, '').replace(/-[\d]+$/, '').replace(/-[\d]+-[\d]+$/, '');
-  if (dict[cleaned]) return dict[cleaned];
-
-  return String(id).trim();
+  return dict[cleanKey] || dict[raw] || String(id).trim();
 }
-
-function fillChapters(){
-  const b=$("book").value;
-  const nums=[...new Set(verses.filter(v=>v.book===b).map(v=>Number(v.chapter)))].sort((a,b)=>a-b);
-  $("chapter").innerHTML='<option value="">اختر الإصحاح</option>'+
-    nums.map(n=>`<option value="${n}">${n}</option>`).join("");
-}
-
-function renderChapter(){
-  const b=$("book").value, c=Number($("chapter").value);
-  if(!b||!c){$("content").innerHTML="";return}
-  const rows=verses.filter(v=>v.book===b && Number(v.chapter)===c);
-  $("status").textContent=`${bookName(b)} — الإصحاح ${c} — ${rows.length} آية/سجل`;
-  $("content").innerHTML=rows.map(v=>`
-    <div class="verse"><span class="vnum">${escapeHtml(v.verse)}</span>${escapeHtml(v.text)}</div>
-  `).join("");
-}
-
-function searchBible(q){
-  q=normalize(q);
-  if(!q){renderChapter();return}
-  const hits=verses.filter(v=>normalize(v.text).includes(q)).slice(0,200);
-  $("status").textContent=`نتائج البحث عن: ${q} — ${hits.length} نتيجة معروضة`;
-  $("content").innerHTML=hits.map(v=>`
-    <div class="search-result">
-      <b>${escapeHtml(bookName(v.book))} ${escapeHtml(v.chapter)}:${escapeHtml(v.verse)}</b>
-      <div style="line-height:1.9;margin-top:6px">${escapeHtml(v.text)}</div>
-    </div>
-  `).join("") || "<p>لا توجد نتائج.</p>";
-}
-
-function escapeHtml(s){
-  return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-}
-
-async function boot(){
-  try{
-    setStatus("جاري تحميل قاعدة البيانات...");
-    const r=await fetch(DATA_URL,{cache:"reload"});
-    if(!r.ok) throw new Error("HTTP "+r.status);
-    const data=await r.json();
-    if(!Array.isArray(data)) throw new Error("قاعدة البيانات ليست مصفوفة JSON");
-    verses=data.filter(v=>v && v.book && v.chapter && v.verse && v.text);
-    books=uniqueBooks(verses);
-    fillBooks();
-    $("count").textContent=`${verses.length.toLocaleString("ar-EG")} سجل`;
-    setStatus("تم تحميل قاعدة الكتاب المقدس بنجاح.");
-    if(books.length){
-      $("book").value=books[0];
-      fillChapters();
-      $("chapter").value="1";
-      renderChapter();
-    }
-  }catch(e){
-    setStatus("تعذر تحميل bible_database.json. يرجى إعادة تحديث الصفحة (Ctrl + F5).");
-    $("count").textContent="خطأ في التحميل";
-    console.error(e);
-  }
-}
-
-$("book").addEventListener("change",()=>{fillChapters();renderChapter()});
-$("chapter").addEventListener("change",renderChapter);
-$("search").addEventListener("input",e=>searchBible(e.target.value));
-$("readBtn").addEventListener("click",()=>renderChapter());
-$("searchBtn").addEventListener("click",()=>searchBible($("search").value));
-
-boot();
-</script>
-</body>
-</html>
