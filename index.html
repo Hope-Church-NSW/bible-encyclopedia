@@ -13,43 +13,34 @@ header{padding:22px 5%;border-bottom:1px solid var(--line);background:#081727;po
 .brand h1{margin:0;font-size:22px;color:var(--gold2)}
 .brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
 main{max-width:1250px;margin:auto;padding:24px 4%}
-
 .search-bar-container{display:flex;align-items:center;gap:12px;margin-bottom:24px}
 .main-title-btn{background:var(--card2);border:1px solid var(--gold);color:var(--gold2);padding:12px 20px;border-radius:10px;font-size:16px;font-weight:bold;white-space:nowrap;cursor:pointer}
 .main-title-btn:hover{background:#153a61}
 input[type="search"]{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);padding:12px 16px;font-size:15px;outline:none}
 input[type="search"]:focus{border-color:var(--gold)}
-
 .testaments-container{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .testament-section{background:rgba(13,33,56,.7);border:1px solid var(--line);border-radius:16px;padding:20px}
 .section-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
 .section-header h2{margin:0;font-size:18px;color:var(--gold2)}
 .section-header span{color:var(--muted);font-size:13px}
-
 .books-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .book-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:0.2s}
 .book-card:hover{border-color:var(--gold);background:var(--card2)}
 .book-info h4{margin:0;font-size:15px;color:var(--text)}
 .book-info p{margin:3px 0 0;font-size:12px;color:var(--muted)}
 .book-icon{color:var(--gold);font-size:18px;opacity:0.8}
-
 .panel{background:rgba(13,33,56,.94);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:10px}
 .chapters-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px}
 .ch-btn{background:var(--card);border:1px solid var(--line);color:var(--text);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:14px}
 .ch-btn:hover,.ch-btn.active{border-color:var(--gold);background:var(--gold);color:#071526;font-weight:bold}
-
 .status{color:var(--muted);margin-bottom:14px;font-size:14px}
 .verse{border-bottom:1px solid #17344f;padding:15px 4px;line-height:2;font-size:18px}
 .verse:last-child{border-bottom:0}
 .vnum{color:var(--gold2);font-weight:bold;margin-left:8px}
 .search-result{padding:12px;border:1px solid var(--line);border-radius:10px;margin:8px 0;background:#0b1c30}
 .search-result b{color:var(--gold2)}
-
 footer{text-align:center;color:var(--muted);padding:30px}
-@media(max-width:850px){
-  .testaments-container{grid-template-columns:1fr}
-  .search-bar-container{flex-direction:column;align-items:stretch}
-}
+@media(max-width:850px){.testaments-container{grid-template-columns:1fr}.search-bar-container{flex-direction:column;align-items:stretch}}
 </style>
 </head>
 <body>
@@ -70,18 +61,11 @@ footer{text-align:center;color:var(--muted);padding:30px}
 
   <div id="gridSection" class="testaments-container">
     <div class="testament-section">
-      <div class="section-header">
-        <h2>العهد القديم</h2>
-        <span>39 سفر</span>
-      </div>
+      <div class="section-header"><h2>العهد القديم</h2><span>39 سفر</span></div>
       <div id="otBooks" class="books-grid"></div>
     </div>
-    
     <div class="testament-section">
-      <div class="section-header">
-        <h2>العهد الجديد</h2>
-        <span>27 سفر</span>
-      </div>
+      <div class="section-header"><h2>العهد الجديد</h2><span>27 سفر</span></div>
       <div id="ntBooks" class="books-grid"></div>
     </div>
   </div>
@@ -96,7 +80,7 @@ footer{text-align:center;color:var(--muted);padding:30px}
 <footer>Hope Church Sydney — Bible Study</footer>
 
 <script>
-const DATA_URL = "bible_database.json?v=" + Date.now(); // منع التخزين المؤقت للملف
+const DATA_URL = "bible_database.json?v=" + Date.now();
 let verses = [];
 let books = [];
 let currentBook = "";
@@ -109,61 +93,31 @@ function uniqueBooks(data){
   return data.map(v => v.book).filter(b => b && !seen.has(b) && seen.add(b));
 }
 
-// القاموس الكامل لجميع الحالات الممكنة
-const arNames = {
-  "gen": "التكوين", "genesis": "التكوين",
-  "exodus": "الخروج", "ex": "الخروج",
-  "leviticus": "اللاويين", "lev": "اللاويين",
-  "numbers": "العدد", "num": "العدد",
-  "deut": "التثنية", "deuteronomy": "التثنية",
-  "joshua": "يشوع", "judges": "القضاة", "ruth": "راعوث",
-  "samuel-1": "صموئيل الأول", "samuel-2": "صموئيل الثاني",
-  "kings-1": "الملوك الأول", "kings-2": "الملوك الثاني",
-  "chronicles-1": "أخبار الأيام الأول", "chronicles-2": "أخبار الأيام الثاني",
-  "ezra": "عزرا", "nehemiah": "نحميا", "nehmah": "نحميا", "esther": "أستير",
-  "job": "أيوب", "psalms": "المزامير", "proverbs": "الأمثال", "ecclesiastes": "الجامعة",
-  "sos": "نشيد الأنشاد", "song": "نشيد الأنشاد", "isiah": "إشعياء", "isaiah": "إشعياء",
-  "jeremiah": "إرميا", "lamentations": "مراثي إرميا", "ezekiel": "حزقيال", "daniel": "دانيال",
-  "hosea": "هوشع", "joel": "يوئيل", "amos": "عاموس", "obadiah": "عوبديا", "jonah": "يونان",
-  "micah": "ميخا", "nahum": "ناحوم", "habakuk": "حبقوق", "habakkuk": "حبقوق",
-  "zephaniah": "صفنيا", "haggai": "حجي", "zechariah": "زكريا", "malachi": "ملاخي",
-  "matthew": "متى", "mark": "مرقس", "luke": "لوقا", "john": "يوحنا", "acts": "أعمال الرسل",
-  "romans": "رومية", "corinthians-1": "كورنثوس الأولى", "corinthians-2": "كورنثوس الثانية",
-  "galatians": "غلاطية", "ephesians": "أفسس", "philippians": "فيليبي", "philipians": "فيليبي",
-  "colossians": "كولوسي", "thessalonians-1": "تسالونيكي الأولى", "thessalonians-2": "تسالونيكي الثانية",
-  "timothy-1": "تيموثاوس الأولى", "timothy-2": "تيموثاوس الثانية", "titus": "طيطس",
-  "philemon": "فليمون", "phillemon": "فليمون", "hebrews": "العبرانيين", "james": "يعقوب",
-  "peter-1": "بطرس الأولى", "peter-2": "بطرس الثانية",
-  "john-1": "يوحنا الأولى", "john-2": "يوحنا الثانية", "john-3": "يوحنا الثالثة",
-  "jude": "يهوذا", "revelation": "رؤيا يوحنا"
+// مطابقة مباشرة لكافة النصوص الظاهرة في الصورة بالظبط
+const exactMap = {
+  "gen-01": "التكوين", "Exodus-02": "الخروج", "Numbers-03": "العدد", "Leviticus-03": "اللاويين",
+  "Deut-05": "التثنية", "Joshua-06": "يشوع", "Judges-07": "القضاة", "Ruth-08": "راعوث",
+  "Nehmiah-16": "نحميا", "Ezra-15": "عزرا", "Job-18": "أيوب", "Esther-17": "أستير",
+  "Proverbs-20": "الأمثال", "Psalms-19": "المزامير", "Sos-22": "نشيد الأنشاد", "Ecclesiastes-21": "الجامعة",
+  "Jeremiah-24": "إرميا", "Isiah-23": "إشعياء", "Ezekiel-26": "حزقيال", "Lamentations-25": "مراثي إرميا",
+  "Hosea-28": "هوشع", "Daniel-27": "دانيال", "Amos-30": "عاموس", "Joel-29": "يوئيل",
+  "Jonah-32": "يونان", "Obadiah-31": "عوبديا", "Nahum-34": "ناحوم", "Micah-33": "ميخا",
+  "Zephaniah-36": "صفنيا", "Habakuk-35": "حبقوق", "Zechariah-38": "زكريا", "Haggai-37": "حجي",
+  "Malachi-39": "ملاخي",
+  
+  "Matthew-40": "متى", "Mark-41": "مرقس", "Luke-42": "لوقا", "John-43": "يوحنا",
+  "Acts-44": "أعمال الرسل", "Romans-45": "رومية", "Galatians-48": "غلاطية", "Ephesians-49": "أفسس",
+  "Philipians-50": "فيليبي", "Colossians-51": "كولوسي", "Titus-56": "طيطس", "Phillemon-57": "فليمون",
+  "Hebrews-58": "العبرانيين", "James-59": "يعقوب", "Jude-65": "يهوذا", "Revelation-66": "رؤيا يوحنا"
 };
 
 function bookName(id){
   if (!id) return "";
-  let raw = String(id).trim().toLowerCase();
-
-  // 1. فحص المرقّمات المحددة أولاً
-  if (raw.includes("peter")) {
-    if (raw.includes("61") || raw.endsWith("-2") || raw.endsWith("2")) return "بطرس الثانية";
-    if (raw.includes("60") || raw.endsWith("-1") || raw.endsWith("1")) return "بطرس الأولى";
-  }
-  if (raw.includes("samuel")) return raw.includes("09") || raw.includes("-1") ? "صموئيل الأول" : "صموئيل الثاني";
-  if (raw.includes("kings")) return raw.includes("11") || raw.includes("-1") ? "الملوك الأول" : "الملوك الثاني";
-  if (raw.includes("chronicles")) return raw.includes("13") || raw.includes("-1") ? "أخبار الأيام الأول" : "أخبار الأيام الثاني";
-  if (raw.includes("corinthians")) return raw.includes("46") || raw.includes("-1") ? "كورنثوس الأولى" : "كورنثوس الثانية";
-  if (raw.includes("thessalonians")) return raw.includes("52") || raw.includes("-1") ? "تسالونيكي الأولى" : "تسالونيكي الثانية";
-  if (raw.includes("timothy")) return raw.includes("54") || raw.includes("-1") ? "تيموثاوس الأولى" : "تيموثاوس الثانية";
-  if (raw.includes("john") && raw.includes("-")) {
-    if (raw.includes("62") || raw.endsWith("-1")) return "يوحنا الأولى";
-    if (raw.includes("63") || raw.endsWith("-2")) return "يوحنا الثانية";
-    if (raw.includes("64") || raw.endsWith("-3")) return "يوحنا الثالثة";
-  }
-
-  // 2. تنظيف الرقم الموجود في نهاية المفتاح (مثل Ruth-08 يتحول إلى ruth)
-  let cleanKey = raw.replace(/-\d+.*$/, '').trim();
-  if (arNames[cleanKey]) return arNames[cleanKey];
-  if (arNames[raw]) return arNames[raw];
-
+  if (exactMap[id]) return exactMap[id];
+  
+  let clean = id.replace(/-\d+$/, '').trim();
+  if (exactMap[clean]) return exactMap[clean];
+  
   return id;
 }
 
@@ -194,61 +148,31 @@ function renderGrid(){
   $("ntBooks").innerHTML = nt.map(renderCard).join("");
 }
 
-function selectBook(b){
-  currentBook = b;
-  showPanel();
-  renderChaptersNav();
-  renderChapter(1);
-}
-
+function selectBook(b){ currentBook = b; showPanel(); renderChaptersNav(); renderChapter(1); }
 function renderChaptersNav(){
   const nums=[...new Set(verses.filter(v=>v.book===currentBook).map(v=>Number(v.chapter)))].sort((a,b)=>a-b);
-  $("chaptersNav").innerHTML = '<b>الإصحاحات: </b> ' + nums.map(n => 
-    `<button class="ch-btn" id="chBtn_${n}" onclick="renderChapter(${n})">${n}</button>`
-  ).join("");
+  $("chaptersNav").innerHTML = '<b>الإصحاحات: </b> ' + nums.map(n => `<button class="ch-btn" id="chBtn_${n}" onclick="renderChapter(${n})">${n}</button>`).join("");
 }
-
-function showGrid(){
-  $("gridSection").style.display = "grid";
-  $("panelSection").style.display = "none";
-  $("search").value = "";
-}
-
-function showPanel(){
-  $("gridSection").style.display = "none";
-  $("panelSection").style.display = "block";
-}
+function showGrid(){ $("gridSection").style.display = "grid"; $("panelSection").style.display = "none"; $("search").value = ""; }
+function showPanel(){ $("gridSection").style.display = "none"; $("panelSection").style.display = "block"; }
 
 function renderChapter(c){
   showPanel();
   document.querySelectorAll(".ch-btn").forEach(btn => btn.classList.remove("active"));
   if($(`chBtn_${c}`)) $(`chBtn_${c}`).classList.add("active");
-
   const rows=verses.filter(v=>v.book===currentBook && Number(v.chapter)===c);
   $("status").textContent=`${bookName(currentBook)} — الإصحاح ${c} — ${rows.length} آية`;
-  $("content").innerHTML=rows.map(v=>`
-    <div class="verse"><span class="vnum">${escapeHtml(v.verse)}</span>${escapeHtml(v.text)}</div>
-  `).join("");
+  $("content").innerHTML=rows.map(v=>`<div class="verse"><span class="vnum">${escapeHtml(v.verse)}</span>${escapeHtml(v.text)}</div>`).join("");
 }
 
 function searchBible(q){
-  q=normalize(q);
-  if(!q){showGrid();return}
-  showPanel();
-  $("chaptersNav").innerHTML = "";
+  q=normalize(q); if(!q){showGrid();return} showPanel(); $("chaptersNav").innerHTML = "";
   const hits=verses.filter(v=>normalize(v.text).includes(q)).slice(0,200);
   $("status").textContent=`نتائج البحث عن: "${q}" — ${hits.length} نتيجة معروضة`;
-  $("content").innerHTML=hits.map(v=>`
-    <div class="search-result">
-      <b>${escapeHtml(bookName(v.book))} ${escapeHtml(v.chapter)}:${escapeHtml(v.verse)}</b>
-      <div style="line-height:1.9;margin-top:6px">${escapeHtml(v.text)}</div>
-    </div>
-  `).join("") || "<p>لا توجد نتائج مطابقة للبحث.</p>";
+  $("content").innerHTML=hits.map(v=>`<div class="search-result"><b>${escapeHtml(bookName(v.book))} ${escapeHtml(v.chapter)}:${escapeHtml(v.verse)}</b><div style="line-height:1.9;margin-top:6px">${escapeHtml(v.text)}</div></div>`).join("") || "<p>لا توجد نتائج مطابقة للبحث.</p>";
 }
 
-function escapeHtml(s){
-  return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-}
+function escapeHtml(s){ return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m])); }
 
 async function boot(){
   try{
@@ -258,14 +182,11 @@ async function boot(){
     verses=data.filter(v=>v && v.book && v.chapter && v.verse && v.text);
     books=uniqueBooks(verses);
     renderGrid();
-  }catch(e){
-    console.error(e);
-  }
+  }catch(e){ console.error(e); }
 }
 
 $("search").addEventListener("input",e=>searchBible(e.target.value));
 $("homeBtn").addEventListener("click",showGrid);
-
 boot();
 </script>
 </body>
