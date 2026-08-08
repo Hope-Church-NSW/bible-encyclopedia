@@ -14,14 +14,12 @@ header{padding:22px 5%;border-bottom:1px solid var(--line);background:#081727;po
 .brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
 main{max-width:1250px;margin:auto;padding:24px 4%}
 
-/* شريط البحث وزر الرئيسية */
 .search-bar-container{display:flex;align-items:center;gap:12px;margin-bottom:24px}
 .main-title-btn{background:var(--card2);border:1px solid var(--gold);color:var(--gold2);padding:12px 20px;border-radius:10px;font-size:16px;font-weight:bold;white-space:nowrap;cursor:pointer}
 .main-title-btn:hover{background:#153a61}
 input[type="search"]{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);padding:12px 16px;font-size:15px;outline:none}
 input[type="search"]:focus{border-color:var(--gold)}
 
-/* العرض الشبكي للعهدين */
 .testaments-container{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .testament-section{background:rgba(13,33,56,.7);border:1px solid var(--line);border-radius:16px;padding:20px}
 .section-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
@@ -35,7 +33,6 @@ input[type="search"]:focus{border-color:var(--gold)}
 .book-info p{margin:3px 0 0;font-size:12px;color:var(--muted)}
 .book-icon{color:var(--gold);font-size:18px;opacity:0.8}
 
-/* لوحة العرض والبحث */
 .panel{background:rgba(13,33,56,.94);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:10px}
 .chapters-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px}
 .ch-btn{background:var(--card);border:1px solid var(--line);color:var(--text);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:14px}
@@ -99,111 +96,73 @@ footer{text-align:center;color:var(--muted);padding:30px}
 <footer>Hope Church Sydney — Bible Study</footer>
 
 <script>
-const DATA_URL="bible_database.json";
-let verses=[];
-let books=[];
-let currentBook="";
+const DATA_URL = "bible_database.json?v=" + Date.now(); // منع التخزين المؤقت للملف
+let verses = [];
+let books = [];
+let currentBook = "";
 
-const $=id=>document.getElementById(id);
-const normalize=s=>(s||"").toString().trim().toLowerCase();
+const $ = id => document.getElementById(id);
+const normalize = s => (s || "").toString().trim().toLowerCase();
 
 function uniqueBooks(data){
-  const seen=new Set();
-  return data.map(v=>v.book).filter(b=>b && !seen.has(b) && seen.add(b));
+  const seen = new Set();
+  return data.map(v => v.book).filter(b => b && !seen.has(b) && seen.add(b));
 }
 
-// قاموس الترجمة الشامل لجميع الأسماء بدون أرقام الزوائد
-const baseMap = {
+// القاموس الكامل لجميع الحالات الممكنة
+const arNames = {
   "gen": "التكوين", "genesis": "التكوين",
   "exodus": "الخروج", "ex": "الخروج",
   "leviticus": "اللاويين", "lev": "اللاويين",
   "numbers": "العدد", "num": "العدد",
   "deut": "التثنية", "deuteronomy": "التثنية",
-  "joshua": "يشوع",
-  "judges": "القضاة",
-  "ruth": "راعوث",
-  "samuel-1": "صموئيل الأول", "samuel-09-1": "صموئيل الأول",
-  "samuel-2": "صموئيل الثاني", "samuel-10-2": "صموئيل الثاني",
-  "kings-1": "الملوك الأول", "kings-11-1": "الملوك الأول",
-  "kings-2": "الملوك الثاني", "kings-12-2": "الملوك الثاني",
-  "chronicles-1": "أخبار الأيام الأول", "chronicles-13-1": "أخبار الأيام الأول",
-  "chronicles-2": "أخبار الأيام الثاني", "chronicles-14-2": "أخبار الأيام الثاني",
-  "ezra": "عزرا",
-  "nehemiah": "نحميا", "nehmah": "نحميا", "nehmiah": "نحميا",
-  "esther": "أستير",
-  "job": "أيوب",
-  "psalms": "المزامير", "psalm": "المزامير",
-  "proverbs": "الأمثال", "prov": "الأمثال",
-  "ecclesiastes": "الجامعة",
-  "sos": "نشيد الأنشاد", "song": "نشيد الأنشاد",
-  "isiah": "إشعياء", "isaiah": "إشعياء",
-  "jeremiah": "إرميا",
-  "lamentations": "مراثي إرميا",
-  "ezekiel": "حزقيال",
-  "daniel": "دانيال",
-  "hosea": "هوشع",
-  "joel": "يوئيل",
-  "amos": "عاموس",
-  "obadiah": "عوبديا",
-  "jonah": "يونان",
-  "micah": "ميخا",
-  "nahum": "ناحوم",
-  "habakuk": "حبقوق", "habakkuk": "حبقوق",
-  "zephaniah": "صفنيا",
-  "haggai": "حجي",
-  "zechariah": "زكريا",
-  "malachi": "ملاخي",
-  "matthew": "متى", "matt": "متى",
-  "mark": "مرقس",
-  "luke": "لوقا",
-  "john": "يوحنا",
-  "acts": "أعمال الرسل",
-  "romans": "رومية",
-  "corinthians-1": "كورنثوس الأولى", "corinthians-46-1": "كورنثوس الأولى",
-  "corinthians-2": "كورنثوس الثانية", "corinthians-47-2": "كورنثوس الثانية",
-  "galatians": "غلاطية",
-  "ephesians": "أفسس",
-  "philippians": "فيليبي", "philipians": "فيليبي",
-  "colossians": "كولوسي",
-  "thessalonians-1": "تسالونيكي الأولى", "thessalonians-52-1": "تسالونيكي الأولى",
-  "thessalonians-2": "تسالونيكي الثانية", "thessalonians-53-2": "تسالونيكي الثانية",
-  "timothy-1": "تيموثاوس الأولى", "timothy-54-1": "تيموثاوس الأولى",
-  "timothy-2": "تيموثاوس الثانية", "timothy-55-2": "تيموثاوس الثانية",
-  "titus": "طيطس",
-  "philemon": "فليمون", "phillemon": "فليمون",
-  "hebrews": "العبرانيين",
-  "james": "يعقوب",
-  "peter-1": "بطرس الأولى", "peter-60-1": "بطرس الأولى",
-  "peter-2": "بطرس الثانية", "peter-61-2": "بطرس الثانية",
-  "john-1": "يوحنا الأولى", "john-62-1": "يوحنا الأولى",
-  "john-2": "يوحنا الثانية", "john-63-2": "يوحنا الثانية",
-  "john-3": "يوحنا الثالثة", "john-64-3": "يوحنا الثالثة",
-  "jude": "يهوذا",
-  "revelation": "رؤيا يوحنا"
+  "joshua": "يشوع", "judges": "القضاة", "ruth": "راعوث",
+  "samuel-1": "صموئيل الأول", "samuel-2": "صموئيل الثاني",
+  "kings-1": "الملوك الأول", "kings-2": "الملوك الثاني",
+  "chronicles-1": "أخبار الأيام الأول", "chronicles-2": "أخبار الأيام الثاني",
+  "ezra": "عزرا", "nehemiah": "نحميا", "nehmah": "نحميا", "esther": "أستير",
+  "job": "أيوب", "psalms": "المزامير", "proverbs": "الأمثال", "ecclesiastes": "الجامعة",
+  "sos": "نشيد الأنشاد", "song": "نشيد الأنشاد", "isiah": "إشعياء", "isaiah": "إشعياء",
+  "jeremiah": "إرميا", "lamentations": "مراثي إرميا", "ezekiel": "حزقيال", "daniel": "دانيال",
+  "hosea": "هوشع", "joel": "يوئيل", "amos": "عاموس", "obadiah": "عوبديا", "jonah": "يونان",
+  "micah": "ميخا", "nahum": "ناحوم", "habakuk": "حبقوق", "habakkuk": "حبقوق",
+  "zephaniah": "صفنيا", "haggai": "حجي", "zechariah": "زكريا", "malachi": "ملاخي",
+  "matthew": "متى", "mark": "مرقس", "luke": "لوقا", "john": "يوحنا", "acts": "أعمال الرسل",
+  "romans": "رومية", "corinthians-1": "كورنثوس الأولى", "corinthians-2": "كورنثوس الثانية",
+  "galatians": "غلاطية", "ephesians": "أفسس", "philippians": "فيليبي", "philipians": "فيليبي",
+  "colossians": "كولوسي", "thessalonians-1": "تسالونيكي الأولى", "thessalonians-2": "تسالونيكي الثانية",
+  "timothy-1": "تيموثاوس الأولى", "timothy-2": "تيموثاوس الثانية", "titus": "طيطس",
+  "philemon": "فليمون", "phillemon": "فليمون", "hebrews": "العبرانيين", "james": "يعقوب",
+  "peter-1": "بطرس الأولى", "peter-2": "بطرس الثانية",
+  "john-1": "يوحنا الأولى", "john-2": "يوحنا الثانية", "john-3": "يوحنا الثالثة",
+  "jude": "يهوذا", "revelation": "رؤيا يوحنا"
 };
 
-// دالة تحويل الاسم ديناميكياً
 function bookName(id){
   if (!id) return "";
   let raw = String(id).trim().toLowerCase();
-  
-  // مطابقة مباشرة أولاً
-  if (baseMap[raw]) return baseMap[raw];
 
-  // إزالة الأرقام الترتيبية من نهاية الاسم مثل "-08" أو "-20" أو "-50"
-  let cleanKey = raw.replace(/-\d+$/, '').trim();
-  if (baseMap[cleanKey]) return baseMap[cleanKey];
-
-  // حمايات للأسفار المرقّمة (بطرس 1 و 2، يوحنا 1 و 2 و 3...)
+  // 1. فحص المرقّمات المحددة أولاً
   if (raw.includes("peter")) {
-    if (raw.includes("61") || raw.endsWith("2") || raw.includes("-2")) return "بطرس الثانية";
-    if (raw.includes("60") || raw.endsWith("1") || raw.includes("-1")) return "بطرس الأولى";
+    if (raw.includes("61") || raw.endsWith("-2") || raw.endsWith("2")) return "بطرس الثانية";
+    if (raw.includes("60") || raw.endsWith("-1") || raw.endsWith("1")) return "بطرس الأولى";
   }
-  if (raw.includes("john")) {
-    if (raw.includes("62") || raw.includes("62-1")) return "يوحنا الأولى";
-    if (raw.includes("63") || raw.includes("63-2")) return "يوحنا الثانية";
-    if (raw.includes("64") || raw.includes("64-3")) return "يوحنا الثالثة";
+  if (raw.includes("samuel")) return raw.includes("09") || raw.includes("-1") ? "صموئيل الأول" : "صموئيل الثاني";
+  if (raw.includes("kings")) return raw.includes("11") || raw.includes("-1") ? "الملوك الأول" : "الملوك الثاني";
+  if (raw.includes("chronicles")) return raw.includes("13") || raw.includes("-1") ? "أخبار الأيام الأول" : "أخبار الأيام الثاني";
+  if (raw.includes("corinthians")) return raw.includes("46") || raw.includes("-1") ? "كورنثوس الأولى" : "كورنثوس الثانية";
+  if (raw.includes("thessalonians")) return raw.includes("52") || raw.includes("-1") ? "تسالونيكي الأولى" : "تسالونيكي الثانية";
+  if (raw.includes("timothy")) return raw.includes("54") || raw.includes("-1") ? "تيموثاوس الأولى" : "تيموثاوس الثانية";
+  if (raw.includes("john") && raw.includes("-")) {
+    if (raw.includes("62") || raw.endsWith("-1")) return "يوحنا الأولى";
+    if (raw.includes("63") || raw.endsWith("-2")) return "يوحنا الثانية";
+    if (raw.includes("64") || raw.endsWith("-3")) return "يوحنا الثالثة";
   }
+
+  // 2. تنظيف الرقم الموجود في نهاية المفتاح (مثل Ruth-08 يتحول إلى ruth)
+  let cleanKey = raw.replace(/-\d+.*$/, '').trim();
+  if (arNames[cleanKey]) return arNames[cleanKey];
+  if (arNames[raw]) return arNames[raw];
 
   return id;
 }
@@ -293,7 +252,7 @@ function escapeHtml(s){
 
 async function boot(){
   try{
-    const r=await fetch(DATA_URL,{cache:"reload"});
+    const r=await fetch(DATA_URL,{cache:"no-store"});
     if(!r.ok) throw new Error("HTTP "+r.status);
     const data=await r.json();
     verses=data.filter(v=>v && v.book && v.chapter && v.verse && v.text);
