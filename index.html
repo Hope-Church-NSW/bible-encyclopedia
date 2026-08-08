@@ -14,7 +14,7 @@ header{padding:22px 5%;border-bottom:1px solid var(--line);background:#081727;po
 .brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
 main{max-width:1250px;margin:auto;padding:24px 4%}
 
-/* شريط البحث المطور - يحتوي على عنوان الكتاب المقدس وبجانبه خانة البحث */
+/* شريط البحث وزر الرئيسية */
 .search-bar-container{display:flex;align-items:center;gap:12px;margin-bottom:24px}
 .main-title-btn{background:var(--card2);border:1px solid var(--gold);color:var(--gold2);padding:12px 20px;border-radius:10px;font-size:16px;font-weight:bold;white-space:nowrap;cursor:pointer}
 .main-title-btn:hover{background:#153a61}
@@ -29,13 +29,13 @@ input[type="search"]:focus{border-color:var(--gold)}
 .section-header span{color:var(--muted);font-size:13px}
 
 .books-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.book-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:0.2s}
+.book-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-between;cursor:pointer;transition:0.2s}
 .book-card:hover{border-color:var(--gold);background:var(--card2)}
 .book-info h4{margin:0;font-size:15px;color:var(--text)}
 .book-info p{margin:3px 0 0;font-size:12px;color:var(--muted)}
 .book-icon{color:var(--gold);font-size:18px;opacity:0.8}
 
-/* نافذة عرض الإصحاحات والآيات والبحث */
+/* لوحة العرض والبحث */
 .panel{background:rgba(13,33,56,.94);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:10px}
 .chapters-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px}
 .ch-btn{background:var(--card);border:1px solid var(--line);color:var(--text);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:14px}
@@ -66,13 +66,11 @@ footer{text-align:center;color:var(--muted);padding:30px}
 </header>
 
 <main>
-  <!-- خانة البحث وبجوارها من اليمين زر الكتاب المقدس -->
   <div class="search-bar-container">
     <div class="main-title-btn" id="homeBtn">الكتاب المقدس 📖</div>
     <input id="search" type="search" placeholder="ابحث في الكتاب المقدس بالكلمة أو الآية...">
   </div>
 
-  <!-- شبكة الأسفار والعهدين -->
   <div id="gridSection" class="testaments-container">
     <div class="testament-section">
       <div class="section-header">
@@ -91,7 +89,6 @@ footer{text-align:center;color:var(--muted);padding:30px}
     </div>
   </div>
 
-  <!-- لوحة قراءة السفر أو نتائج البحث -->
   <section id="panelSection" class="panel" style="display:none;">
     <div id="chaptersNav" class="chapters-nav"></div>
     <div id="status" class="status"></div>
@@ -110,99 +107,88 @@ let currentBook="";
 const $=id=>document.getElementById(id);
 const normalize=s=>(s||"").toString().trim().toLowerCase();
 
-function setStatus(t){$("status").textContent=t}
-
 function uniqueBooks(data){
   const seen=new Set();
   return data.map(v=>v.book).filter(b=>b && !seen.has(b) && seen.add(b));
 }
 
-// قاموس الترجمة الشامل لربط القيمة القادمة من قاعدة البيانات باللغة العربية
+// القاموس الشامل والنهائي لمعالجة كافة الأسماء الظاهرة بالصور
+const bookMap = {
+  // العهد القديم
+  "gen-01": "التكوين", "genesis": "التكوين", "gen": "التكوين",
+  "exodus": "الخروج", "ex": "الخروج",
+  "leviticus": "اللاويين", "lev": "اللاويين",
+  "numbers": "العدد", "num": "العدد",
+  "deut-05": "التثنية", "deuteronomy": "التثنية", "deut": "التثنية",
+  "joshua-06": "يشوع", "joshua": "يشوع",
+  "judges-07": "القضاة", "judges": "القضاة",
+  "ruth-08": "راعوث", "ruth": "راعوث",
+  "samuel-09-1": "صموئيل الأول", "samuel-1": "صموئيل الأول",
+  "samuel-10-2": "صموئيل الثاني", "samuel-2": "صموئيل الثاني",
+  "kings-11-1": "الملوك الأول", "kings-1": "الملوك الأول",
+  "kings-12-2": "الملوك الثاني", "kings-2": "الملوك الثاني",
+  "chronicles-13-1": "أخبار الأيام الأول", "chronicles-1": "أخبار الأيام الأول",
+  "chronicles-14-2": "أخبار الأيام الثاني", "chronicles-2": "أخبار الأيام الثاني",
+  "ezra-15": "عزرا", "ezra": "عزرا",
+  "nehmiah-16": "نحميا", "nehemiah-16": "نحميا", "nehemiah": "نحميا",
+  "esther-17": "أستير", "esther": "أستير",
+  "job-18": "أيوب", "job": "أيوب",
+  "psalms": "المزامير", "psalm": "المزامير",
+  "proverbs": "الأمثال", "prov": "الأمثال",
+  "ecclesiastes-21": "الجامعة", "ecclesiastes": "الجامعة",
+  "sos-22": "نشيد الأنشاد", "song": "نشيد الأنشاد",
+  "isiah-23": "إشعياء", "isaiah-23": "إشعياء", "isaiah": "إشعياء",
+  "jeremiah": "إرميا",
+  "lamentations-25": "مراثي إرميا", "lamentations": "مراثي إرميا",
+  "ezekiel": "حزقيال",
+  "daniel-27": "دانيال", "daniel": "دانيال",
+  "hosea-28": "هوشع", "hosea": "هوشع",
+  "joel-29": "يوئيل", "joel": "يوئيل",
+  "amos-30": "عاموس", "amos": "عاموس",
+  "obadiah-31": "عوبديا", "obadiah": "عوبديا",
+  "jonah-32": "يونان", "jonah": "يونان",
+  "micah-33": "ميخا", "micah": "ميخا",
+  "nahum-34": "ناحوم", "nahum": "ناحوم",
+  "habakuk-35": "حبقوق", "habakkuk-35": "حبقوق", "habakkuk": "حبقوق",
+  "zephaniah-36": "صفنيا", "zephaniah": "صفنيا",
+  "haggai-37": "حجي", "haggai": "حجي",
+  "zechariah-38": "زكريا", "zechariah": "زكريا",
+  "malachi-39": "ملاخي", "malachi": "ملاخي",
+
+  // العهد الجديد
+  "matthew": "متى", "matt": "متى",
+  "mark": "مرقس",
+  "luke": "لوقا",
+  "john": "يوحنا",
+  "acts": "أعمال الرسل",
+  "romans": "رومية",
+  "corinthians-46-1": "كورنثوس الأولى", "corinthians-1": "كورنثوس الأولى",
+  "corinthians-47-2": "كورنثوس الثانية", "corinthians-2": "كورنثوس الثانية",
+  "galatians": "غلاطية",
+  "ephesians": "أفسس",
+  "philipians-50": "فيليبي", "philippians-50": "فيليبي", "philippians": "فيليبي",
+  "colossians": "كولوسي",
+  "thessalonians-52-1": "تسالونيكي الأولى", "thessalonians-1": "تسالونيكي الأولى",
+  "thessalonians-53-2": "تسالونيكي الثانية", "thessalonians-2": "تسالونيكي الثانية",
+  "timothy-54-1": "تيموثاوس الأولى", "timothy-1": "تيموثاوس الأولى",
+  "timothy-55-2": "تيموثاوس الثانية", "timothy-2": "تيموثاوس الثانية",
+  "titus-56": "طيطس", "titus": "طيطس",
+  "phillemon-57": "فليمون", "philemon-57": "فليمون", "philemon": "فليمون",
+  "hebrews-58": "العبرانيين", "hebrews": "العبرانيين",
+  "james-59": "يعقوب", "james": "يعقوب",
+  "peter-60-1": "بطرس الأولى", "peter-1": "بطرس الأولى",
+  "peter-61-2": "بطرس الثانية", "peter-2": "بطرس الثانية",
+  "john-62-1": "يوحنا الأولى", "john-1": "يوحنا الأولى",
+  "john-63-2": "يوحنا الثانية", "john-2": "يوحنا الثانية",
+  "john-64-3": "يوحنا الثالثة", "john-3": "يوحنا الثالثة",
+  "jude-65": "يهوذا", "jude": "يهوذا",
+  "revelation-66": "رؤيا يوحنا", "revelation": "رؤيا يوحنا"
+};
+
 function bookName(id){
   if (!id) return "";
-  let raw = String(id).trim();
-
-  const dict = {
-    // العهد القديم
-    "Genesis":"التكوين","01-Genesis":"التكوين","gen":"التكوين",
-    "Exodus":"الخروج","02-Exodus":"الخروج","ex":"الخروج",
-    "Leviticus":"اللاويين","03-Leviticus":"اللاويين",
-    "Numbers":"العدد","04-Numbers":"العدد",
-    "Deuteronomy":"التثنية","05-Deuteronomy":"التثنية","deut":"التثنية",
-    "Joshua-06":"يشوع","Joshua":"يشوع",
-    "Judges-07":"القضاة","Judges":"القضاة",
-    "Ruth-08":"راعوث","Ruth":"راعوث",
-    "Samuel-09-1":"صموئيل الأول","samuel-1":"صموئيل الأول",
-    "Samuel-10-2":"صموئيل الثاني","samuel-2":"صموئيل الثاني",
-    "Kings-11-1":"الملوك الأول","kings-1":"الملوك الأول",
-    "Kings-12-2":"الملوك الثاني","kings-2":"الملوك الثاني",
-    "Chronicles-13-1":"أخبار الأيام الأول","chronicles-1":"أخبار الأيام الأول",
-    "Chronicles-14-2":"أخبار الأيام الثاني","chronicles-2":"أخبار الأيام الثاني",
-    "Ezra-15":"عزرا","Ezra":"عزرا",
-    "Nehmiah-16":"نحميا","Nehemiah-16":"نحميا","Nehemiah":"نحميا",
-    "Esther-17":"أستير","Esther":"أستير",
-    "Job-18":"أيوب","Job":"أيوب",
-    "Psalms":"المزامير","19-Psalms":"المزامير","psalm":"المزامير",
-    "Proverbs":"الأمثال","20-Proverbs":"الأمثال",
-    "Ecclesiastes-21":"الجامعة","Ecclesiastes":"الجامعة",
-    "Sos-22":"نشيد الأنشاد","Song":"نشيد الأنشاد",
-    "Isiah-23":"إشعياء","Isaiah-23":"إشعياء","Isaiah":"إشعياء",
-    "Jeremiah":"إرميا","24-Jeremiah":"إرميا",
-    "Lamentations-25":"مراثي إرميا","Lamentations":"مراثي إرميا",
-    "Ezekiel":"حزقيال","26-Ezekiel":"حزقيال",
-    "Daniel-27":"دانيال","Daniel":"دانيال",
-    "Hosea-28":"هوشع","Hosea":"هوشع",
-    "Joel-29":"يوئيل","Joel":"يوئيل",
-    "Amos-30":"عاموس","Amos":"عاموس",
-    "Obadiah-31":"عوبديا","Obadiah":"عوبديا",
-    "Jonah-32":"يونان","Jonah":"يونان",
-    "Micah-33":"ميخا","Micah":"ميخا",
-    "Nahum-34":"ناحوم","Nahum":"ناحوم",
-    "Habakuk-35":"حبقوق","Habakkuk-35":"حبقوق","Habakkuk":"حبقوق",
-    "Zephaniah-36":"صفنيا","Zephaniah":"صفنيا",
-    "Haggai-37":"حجي","Haggai":"حجي",
-    "Zechariah-38":"زكريا","Zechariah":"زكريا",
-    "Malachi-39":"ملاخي","Malachi":"ملاخي",
-
-    // العهد الجديد
-    "Matthew":"متى","40-Matthew":"متى",
-    "Mark":"مرقس","41-Mark":"مرقس",
-    "Luke":"لوقا","42-Luke":"لوقا",
-    "John":"يوحنا","43-John":"يوحنا",
-    "Acts":"أعمال الرسل","44-Acts":"أعمال الرسل",
-    "Romans":"رومية","45-Romans":"رومية",
-    "Corinthians-46-1":"كورنثوس الأولى",
-    "Corinthians-47-2":"كورنثوس الثانية",
-    "Galatians":"غلاطية","48-Galatians":"غلاطية",
-    "Ephesians":"أفسس","49-Ephesians":"أفسس",
-    "Philippians-50":"فيليبي","Philipians-50":"فيليبي","Philippians":"فيليبي",
-    "Colossians":"كولوسي","51-Colossians":"كولوسي",
-    "Thessalonians-52-1":"تسالونيكي الأولى",
-    "Thessalonians-53-2":"تسالونيكي الثانية",
-    "Timothy-54-1":"تيموثاوس الأولى",
-    "Timothy-55-2":"تيموثاوس الثانية",
-    "Titus-56":"طيطس","Titus":"طيطس",
-    "Philemon-57":"فليمون","Phillemon-57":"فليمون","Philemon":"فليمون",
-    "Hebrews-58":"العبرانيين","Hebrews":"العبرانيين",
-    "James-59":"يعقوب","James":"يعقوب",
-    "peter-60-1":"بطرس الأولى","Peter-60-1":"بطرس الأولى",
-    "peter-61-2":"بطرس الثانية","Peter-61-2":"بطرس الثانية",
-    "John-62-1":"يوحنا الأولى",
-    "John-63-2":"يوحنا الثانية",
-    "John-64-3":"يوحنا الثالثة",
-    "Jude-65":"يهوذا","Jude":"يهوذا",
-    "Revelation-66":"رؤيا يوحنا","Revelation":"رؤيا يوحنا"
-  };
-
-  if (dict[raw]) return dict[raw];
-  
-  // معالجة إضافية في حال وجود حالة أحرف مختلفة
-  let lower = raw.toLowerCase();
-  for (let key in dict) {
-    if (key.toLowerCase() === lower) return dict[key];
-  }
-
-  return raw;
+  let key = String(id).trim().toLowerCase();
+  return bookMap[key] || String(id).trim();
 }
 
 function isNewTestament(id){
