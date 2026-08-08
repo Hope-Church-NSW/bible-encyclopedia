@@ -24,12 +24,12 @@ input[type="search"]:focus{border-color:var(--gold)}
 /* العرض الشبكي للعهدين */
 .testaments-container{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .testament-section{background:rgba(13,33,56,.7);border:1px solid var(--line);border-radius:16px;padding:20px}
-.section-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
+.section-header{display:flex;justify-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
 .section-header h2{margin:0;font-size:18px;color:var(--gold2)}
 .section-header span{color:var(--muted);font-size:13px}
 
 .books-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.book-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-between;cursor:pointer;transition:0.2s}
+.book-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:0.2s}
 .book-card:hover{border-color:var(--gold);background:var(--card2)}
 .book-info h4{margin:0;font-size:15px;color:var(--text)}
 .book-info p{margin:3px 0 0;font-size:12px;color:var(--muted)}
@@ -112,14 +112,14 @@ function uniqueBooks(data){
   return data.map(v=>v.book).filter(b=>b && !seen.has(b) && seen.add(b));
 }
 
-// القاموس الشامل والنهائي لمعالجة كافة الأسماء الظاهرة بالصور
+// القاموس المعرب الشامل بالكامل (جميع المفاتيح بحروف صغيرة لتفادي الأخطاء)
 const bookMap = {
   // العهد القديم
-  "gen-01": "التكوين", "genesis": "التكوين", "gen": "التكوين",
-  "exodus": "الخروج", "ex": "الخروج",
-  "leviticus": "اللاويين", "lev": "اللاويين",
-  "numbers": "العدد", "num": "العدد",
-  "deut-05": "التثنية", "deuteronomy": "التثنية", "deut": "التثنية",
+  "gen-01": "التكوين", "genesis": "التكوين", "gen": "التكوين", "01-genesis": "التكوين",
+  "exodus": "الخروج", "ex": "الخروج", "02-exodus": "الخروج",
+  "leviticus": "اللاويين", "lev": "اللاويين", "03-leviticus": "اللاويين",
+  "numbers": "العدد", "num": "العدد", "04-numbers": "العدد",
+  "deut-05": "التثنية", "deuteronomy": "التثنية", "deut": "التثنية", "05-deuteronomy": "التثنية",
   "joshua-06": "يشوع", "joshua": "يشوع",
   "judges-07": "القضاة", "judges": "القضاة",
   "ruth-08": "راعوث", "ruth": "راعوث",
@@ -133,14 +133,14 @@ const bookMap = {
   "nehmiah-16": "نحميا", "nehemiah-16": "نحميا", "nehemiah": "نحميا",
   "esther-17": "أستير", "esther": "أستير",
   "job-18": "أيوب", "job": "أيوب",
-  "psalms": "المزامير", "psalm": "المزامير",
-  "proverbs": "الأمثال", "prov": "الأمثال",
+  "psalms": "المزامير", "psalm": "المزامير", "19-psalms": "المزامير",
+  "proverbs": "الأمثال", "prov": "الأمثال", "20-proverbs": "الأمثال",
   "ecclesiastes-21": "الجامعة", "ecclesiastes": "الجامعة",
-  "sos-22": "نشيد الأنشاد", "song": "نشيد الأنشاد",
+  "sos-22": "نشيد الأنشاد", "song": "نشيد الأنشاد", "song-of-solomon": "نشيد الأنشاد",
   "isiah-23": "إشعياء", "isaiah-23": "إشعياء", "isaiah": "إشعياء",
-  "jeremiah": "إرميا",
+  "jeremiah": "إرميا", "24-jeremiah": "إرميا",
   "lamentations-25": "مراثي إرميا", "lamentations": "مراثي إرميا",
-  "ezekiel": "حزقيال",
+  "ezekiel": "حزقيال", "26-ezekiel": "حزقيال",
   "daniel-27": "دانيال", "daniel": "دانيال",
   "hosea-28": "هوشع", "hosea": "هوشع",
   "joel-29": "يوئيل", "joel": "يوئيل",
@@ -156,18 +156,18 @@ const bookMap = {
   "malachi-39": "ملاخي", "malachi": "ملاخي",
 
   // العهد الجديد
-  "matthew": "متى", "matt": "متى",
-  "mark": "مرقس",
-  "luke": "لوقا",
-  "john": "يوحنا",
-  "acts": "أعمال الرسل",
-  "romans": "رومية",
+  "matthew": "متى", "matt": "متى", "40-matthew": "متى",
+  "mark": "مرقس", "41-mark": "مرقس",
+  "luke": "لوقا", "42-luke": "لوقا",
+  "john": "يوحنا", "43-john": "يوحنا",
+  "acts": "أعمال الرسل", "44-acts": "أعمال الرسل",
+  "romans": "رومية", "45-romans": "رومية",
   "corinthians-46-1": "كورنثوس الأولى", "corinthians-1": "كورنثوس الأولى",
   "corinthians-47-2": "كورنثوس الثانية", "corinthians-2": "كورنثوس الثانية",
-  "galatians": "غلاطية",
-  "ephesians": "أفسس",
+  "galatians": "غلاطية", "48-galatians": "غلاطية",
+  "ephesians": "أفسس", "49-ephesians": "أفسس",
   "philipians-50": "فيليبي", "philippians-50": "فيليبي", "philippians": "فيليبي",
-  "colossians": "كولوسي",
+  "colossians": "كولوسي", "51-colossians": "كولوسي",
   "thessalonians-52-1": "تسالونيكي الأولى", "thessalonians-1": "تسالونيكي الأولى",
   "thessalonians-53-2": "تسالونيكي الثانية", "thessalonians-2": "تسالونيكي الثانية",
   "timothy-54-1": "تيموثاوس الأولى", "timothy-1": "تيموثاوس الأولى",
