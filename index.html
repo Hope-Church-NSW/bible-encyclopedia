@@ -13,31 +13,34 @@ header{padding:22px 5%;border-bottom:1px solid var(--line);background:#081727;po
 .brand h1{margin:0;font-size:22px;color:var(--gold2)}
 .brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
 main{max-width:1250px;margin:auto;padding:24px 4%}
-.toolbar{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px;margin-bottom:20px}
-input,select,button{border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);padding:12px;font-size:15px}
-optgroup{background:var(--card2);color:var(--gold2);font-weight:bold}
-option{background:var(--card);color:var(--text);font-weight:normal}
-button{cursor:pointer;background:#153657;color:var(--text);border:1px solid var(--line)}
-button:hover{border-color:var(--gold)}
 
-.tabs{display:flex;gap:10px;margin-bottom:20px;align-items:center}
-.badge{padding:6px 12px;border-radius:999px;background:#123354;color:var(--gold2);font-size:13px}
+/* شريط البحث المطور - يحتوي على عنوان الكتاب المقدس وبجانبه خانة البحث */
+.search-bar-container{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.main-title-btn{background:var(--card2);border:1px solid var(--gold);color:var(--gold2);padding:12px 20px;border-radius:10px;font-size:16px;font-weight:bold;white-space:nowrap;cursor:pointer}
+.main-title-btn:hover{background:#153a61}
+input[type="search"]{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);padding:12px 16px;font-size:15px;outline:none}
+input[type="search"]:focus{border-color:var(--gold)}
 
-/* إعدادات التقسيم والبطاقات مثل الصورة */
-.testaments-container{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:10px}
+/* العرض الشبكي للعهدين */
+.testaments-container{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .testament-section{background:rgba(13,33,56,.7);border:1px solid var(--line);border-radius:16px;padding:20px}
-.section-header{display:flex;justify-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
+.section-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
 .section-header h2{margin:0;font-size:18px;color:var(--gold2)}
 .section-header span{color:var(--muted);font-size:13px}
 
 .books-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.book-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-between;cursor:pointer;transition:0.2s}
+.book-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:0.2s}
 .book-card:hover{border-color:var(--gold);background:var(--card2)}
 .book-info h4{margin:0;font-size:15px;color:var(--text)}
 .book-info p{margin:3px 0 0;font-size:12px;color:var(--muted)}
 .book-icon{color:var(--gold);font-size:18px;opacity:0.8}
 
-.panel{background:rgba(13,33,56,.94);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:20px}
+/* نافذة عرض الإصحاحات والآيات والبحث */
+.panel{background:rgba(13,33,56,.94);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:10px}
+.chapters-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.ch-btn{background:var(--card);border:1px solid var(--line);color:var(--text);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:14px}
+.ch-btn:hover,.ch-btn.active{border-color:var(--gold);background:var(--gold);color:#071526;font-weight:bold}
+
 .status{color:var(--muted);margin-bottom:14px;font-size:14px}
 .verse{border-bottom:1px solid #17344f;padding:15px 4px;line-height:2;font-size:18px}
 .verse:last-child{border-bottom:0}
@@ -48,7 +51,7 @@ button:hover{border-color:var(--gold)}
 footer{text-align:center;color:var(--muted);padding:30px}
 @media(max-width:850px){
   .testaments-container{grid-template-columns:1fr}
-  .toolbar{grid-template-columns:1fr}
+  .search-bar-container{flex-direction:column;align-items:stretch}
 }
 </style>
 </head>
@@ -63,20 +66,13 @@ footer{text-align:center;color:var(--muted);padding:30px}
 </header>
 
 <main>
-  <div class="toolbar">
-    <input id="search" type="search" placeholder="ابحث في الكتاب المقدس...">
-    <select id="book"></select>
-    <select id="chapter"></select>
+  <!-- خانة البحث وبجوارها من اليمين زر الكتاب المقدس -->
+  <div class="search-bar-container">
+    <div class="main-title-btn" id="homeBtn">الكتاب المقدس 📖</div>
+    <input id="search" type="search" placeholder="ابحث في الكتاب المقدس بالكلمة أو الآية...">
   </div>
 
-  <div class="tabs">
-    <button id="homeBtn">الأسفار والعهود</button>
-    <button id="readBtn">قراءة السفر</button>
-    <button id="searchBtn">نتائج البحث</button>
-    <span class="badge" id="count">جاري التحميل...</span>
-  </div>
-
-  <!-- عرض الشبكة للعهود والأسفار -->
+  <!-- شبكة الأسفار والعهدين -->
   <div id="gridSection" class="testaments-container">
     <div class="testament-section">
       <div class="section-header">
@@ -95,8 +91,9 @@ footer{text-align:center;color:var(--muted);padding:30px}
     </div>
   </div>
 
-  <!-- عرض القراءة والبحث -->
+  <!-- لوحة قراءة السفر أو نتائج البحث -->
   <section id="panelSection" class="panel" style="display:none;">
+    <div id="chaptersNav" class="chapters-nav"></div>
     <div id="status" class="status"></div>
     <div id="content"></div>
   </section>
@@ -108,6 +105,7 @@ footer{text-align:center;color:var(--muted);padding:30px}
 const DATA_URL="bible_database.json";
 let verses=[];
 let books=[];
+let currentBook="";
 
 const $=id=>document.getElementById(id);
 const normalize=s=>(s||"").toString().trim().toLowerCase();
@@ -119,111 +117,98 @@ function uniqueBooks(data){
   return data.map(v=>v.book).filter(b=>b && !seen.has(b) && seen.add(b));
 }
 
-// قاموس المعالجة الشامل لأسماء الأسفار
+// قاموس الترجمة الشامل لربط القيمة القادمة من قاعدة البيانات باللغة العربية
 function bookName(id){
   if (!id) return "";
-  let raw = String(id).trim().toLowerCase();
-
-  // تنظيف النص من أرقام الترتيب
-  let clean = raw.replace(/^[\d]+-/, '').replace(/-[x\d]+$/g, '').replace(/-\d+-\d+$/g, '');
+  let raw = String(id).trim();
 
   const dict = {
     // العهد القديم
-    "gen":"التكوين","genesis":"التكوين",
-    "exodus":"الخروج","ex":"الخروج",
-    "leviticus":"اللاويين","lev":"اللاويين",
-    "numbers":"العدد","num":"العدد",
-    "deut":"التثنية","deuteronomy":"التثنية",
-    "joshua":"يشوع",
-    "judges":"القضاة",
-    "ruth":"راعوث",
-    "samuel-09-1":"صموئيل الأول","samuel-1":"صموئيل الأول",
-    "samuel-10-2":"صموئيل الثاني","samuel-2":"صموئيل الثاني",
-    "kings-11-1":"الملوك الأول","kings-1":"الملوك الأول",
-    "kings-12-2":"الملوك الثاني","kings-2":"الملوك الثاني",
-    "chronicles-13-1":"أخبار الأيام الأول","chronicles-1":"أخبار الأيام الأول",
-    "chronicles-14-2":"أخبار الأيام الثاني","chronicles-2":"أخبار الأيام الثاني",
-    "ezra":"عزرا",
-    "nehemiah":"نحميا","nehmiah":"نحميا",
-    "esther":"أستير",
-    "job":"أيوب",
-    "psalms":"المزامير","psalm":"المزامير",
-    "proverbs":"الأمثال","prov":"الأمثال",
-    "ecclesiastes":"الجامعة",
-    "sos":"نشيد الأنشاد","song":"نشيد الأنشاد","song-of-solomon":"نشيد الأنشاد",
-    "isiah":"إشعياء","isaiah":"إشعياء",
-    "jeremiah":"إرميا",
-    "lamentations":"مراثي إرميا",
-    "ezekiel":"حزقيال",
-    "daniel":"دانيال",
-    "hosea":"هوشع",
-    "joel":"يوئيل",
-    "amos":"عاموس",
-    "obadiah":"عوبديا",
-    "jonah":"يونان",
-    "micah":"ميخا",
-    "nahum":"ناحوم",
-    "habakkuk":"حبقوق","habakuk":"حبقوق",
-    "zephaniah":"صفنيا",
-    "haggai":"حجي",
-    "zechariah":"زكريا",
-    "malachi":"ملاخي",
+    "Genesis":"التكوين","01-Genesis":"التكوين","gen":"التكوين",
+    "Exodus":"الخروج","02-Exodus":"الخروج","ex":"الخروج",
+    "Leviticus":"اللاويين","03-Leviticus":"اللاويين",
+    "Numbers":"العدد","04-Numbers":"العدد",
+    "Deuteronomy":"التثنية","05-Deuteronomy":"التثنية","deut":"التثنية",
+    "Joshua-06":"يشوع","Joshua":"يشوع",
+    "Judges-07":"القضاة","Judges":"القضاة",
+    "Ruth-08":"راعوث","Ruth":"راعوث",
+    "Samuel-09-1":"صموئيل الأول","samuel-1":"صموئيل الأول",
+    "Samuel-10-2":"صموئيل الثاني","samuel-2":"صموئيل الثاني",
+    "Kings-11-1":"الملوك الأول","kings-1":"الملوك الأول",
+    "Kings-12-2":"الملوك الثاني","kings-2":"الملوك الثاني",
+    "Chronicles-13-1":"أخبار الأيام الأول","chronicles-1":"أخبار الأيام الأول",
+    "Chronicles-14-2":"أخبار الأيام الثاني","chronicles-2":"أخبار الأيام الثاني",
+    "Ezra-15":"عزرا","Ezra":"عزرا",
+    "Nehmiah-16":"نحميا","Nehemiah-16":"نحميا","Nehemiah":"نحميا",
+    "Esther-17":"أستير","Esther":"أستير",
+    "Job-18":"أيوب","Job":"أيوب",
+    "Psalms":"المزامير","19-Psalms":"المزامير","psalm":"المزامير",
+    "Proverbs":"الأمثال","20-Proverbs":"الأمثال",
+    "Ecclesiastes-21":"الجامعة","Ecclesiastes":"الجامعة",
+    "Sos-22":"نشيد الأنشاد","Song":"نشيد الأنشاد",
+    "Isiah-23":"إشعياء","Isaiah-23":"إشعياء","Isaiah":"إشعياء",
+    "Jeremiah":"إرميا","24-Jeremiah":"إرميا",
+    "Lamentations-25":"مراثي إرميا","Lamentations":"مراثي إرميا",
+    "Ezekiel":"حزقيال","26-Ezekiel":"حزقيال",
+    "Daniel-27":"دانيال","Daniel":"دانيال",
+    "Hosea-28":"هوشع","Hosea":"هوشع",
+    "Joel-29":"يوئيل","Joel":"يوئيل",
+    "Amos-30":"عاموس","Amos":"عاموس",
+    "Obadiah-31":"عوبديا","Obadiah":"عوبديا",
+    "Jonah-32":"يونان","Jonah":"يونان",
+    "Micah-33":"ميخا","Micah":"ميخا",
+    "Nahum-34":"ناحوم","Nahum":"ناحوم",
+    "Habakuk-35":"حبقوق","Habakkuk-35":"حبقوق","Habakkuk":"حبقوق",
+    "Zephaniah-36":"صفنيا","Zephaniah":"صفنيا",
+    "Haggai-37":"حجي","Haggai":"حجي",
+    "Zechariah-38":"زكريا","Zechariah":"زكريا",
+    "Malachi-39":"ملاخي","Malachi":"ملاخي",
 
     // العهد الجديد
-    "matthew":"متى","matt":"متى",
-    "mark":"مرقس",
-    "luke":"لوقا",
-    "john":"يوحنا",
-    "acts":"أعمال الرسل",
-    "romans":"رومية",
-    "corinthians-46-1":"كورنثوس الأولى","corinthians-1":"كورنثوس الأولى",
-    "corinthians-47-2":"كورنثوس الثانية","corinthians-2":"كورنثوس الثانية",
-    "galatians":"غلاطية",
-    "ephesians":"أفسس",
-    "philipians":"فيليبي","philippians":"فيليبي",
-    "colossians":"كولوسي",
-    "thessalonians-52-1":"تسالونيكي الأولى","thessalonians-1":"تسالونيكي الأولى",
-    "thessalonians-53-2":"تسالونيكي الثانية","thessalonians-2":"تسالونيكي الثانية",
-    "timothy-54-1":"تيموثاوس الأولى","timothy-1":"تيموثاوس الأولى",
-    "timothy-55-2":"تيموثاوس الثانية","timothy-2":"تيموثاوس الثانية",
-    "titus":"طيطس",
-    "phillemon":"فليمون","philemon":"فليمون",
-    "hebrews":"العبرانيين",
-    "james":"يعقوب",
-    "peter-60-1":"بطرس الأولى","peter-1":"بطرس الأولى",
-    "peter-61-2":"بطرس الثانية","peter-2":"بطرس الثانية",
-    "john-62-1":"يوحنا الأولى","john-1":"يوحنا الأولى",
-    "john-63-2":"يوحنا الثانية","john-2":"يوحنا الثانية",
-    "john-64-3":"يوحنا الثالثة","john-3":"يوحنا الثالثة",
-    "jude":"يهوذا",
-    "revelation":"رؤيا يوحنا"
+    "Matthew":"متى","40-Matthew":"متى",
+    "Mark":"مرقس","41-Mark":"مرقس",
+    "Luke":"لوقا","42-Luke":"لوقا",
+    "John":"يوحنا","43-John":"يوحنا",
+    "Acts":"أعمال الرسل","44-Acts":"أعمال الرسل",
+    "Romans":"رومية","45-Romans":"رومية",
+    "Corinthians-46-1":"كورنثوس الأولى",
+    "Corinthians-47-2":"كورنثوس الثانية",
+    "Galatians":"غلاطية","48-Galatians":"غلاطية",
+    "Ephesians":"أفسس","49-Ephesians":"أفسس",
+    "Philippians-50":"فيليبي","Philipians-50":"فيليبي","Philippians":"فيليبي",
+    "Colossians":"كولوسي","51-Colossians":"كولوسي",
+    "Thessalonians-52-1":"تسالونيكي الأولى",
+    "Thessalonians-53-2":"تسالونيكي الثانية",
+    "Timothy-54-1":"تيموثاوس الأولى",
+    "Timothy-55-2":"تيموثاوس الثانية",
+    "Titus-56":"طيطس","Titus":"طيطس",
+    "Philemon-57":"فليمون","Phillemon-57":"فليمون","Philemon":"فليمون",
+    "Hebrews-58":"العبرانيين","Hebrews":"العبرانيين",
+    "James-59":"يعقوب","James":"يعقوب",
+    "peter-60-1":"بطرس الأولى","Peter-60-1":"بطرس الأولى",
+    "peter-61-2":"بطرس الثانية","Peter-61-2":"بطرس الثانية",
+    "John-62-1":"يوحنا الأولى",
+    "John-63-2":"يوحنا الثانية",
+    "John-64-3":"يوحنا الثالثة",
+    "Jude-65":"يهوذا","Jude":"يهوذا",
+    "Revelation-66":"رؤيا يوحنا","Revelation":"رؤيا يوحنا"
   };
 
-  return dict[raw] || dict[clean] || String(id).trim();
+  if (dict[raw]) return dict[raw];
+  
+  // معالجة إضافية في حال وجود حالة أحرف مختلفة
+  let lower = raw.toLowerCase();
+  for (let key in dict) {
+    if (key.toLowerCase() === lower) return dict[key];
+  }
+
+  return raw;
 }
 
 function isNewTestament(id){
   let raw = String(id).trim().toLowerCase();
   const ntKeys = ["matthew","mark","luke","john","acts","romans","corinthians","galatians","ephesians","philippians","philipians","colossians","thessalonians","timothy","titus","philemon","phillemon","hebrews","james","peter","jude","revelation"];
   return ntKeys.some(k => raw.includes(k));
-}
-
-function fillBooksDropdown(){
-  const ot = books.filter(b => !isNewTestament(b));
-  const nt = books.filter(b => isNewTestament(b));
-
-  let html = '<option value="">اختر السفر</option>';
-  if(ot.length){
-    html += '<optgroup label="─── العهد القديم ───">';
-    html += ot.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(bookName(b))}</option>`).join("");
-    html += '</optgroup>';
-  }
-  if(nt.length){
-    html += '<optgroup label="─── العهد الجديد ───">';
-    html += nt.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(bookName(b))}</option>`).join("");
-    html += '</optgroup>';
-  }
-  $("book").innerHTML = html;
 }
 
 function renderGrid(){
@@ -248,23 +233,23 @@ function renderGrid(){
 }
 
 function selectBook(b){
-  $("book").value = b;
-  fillChapters();
-  $("chapter").value = "1";
+  currentBook = b;
   showPanel();
-  renderChapter();
+  renderChaptersNav();
+  renderChapter(1);
 }
 
-function fillChapters(){
-  const b=$("book").value;
-  const nums=[...new Set(verses.filter(v=>v.book===b).map(v=>Number(v.chapter)))].sort((a,b)=>a-b);
-  $("chapter").innerHTML='<option value="">اختر الإصحاح</option>'+
-    nums.map(n=>`<option value="${n}">${n}</option>`).join("");
+function renderChaptersNav(){
+  const nums=[...new Set(verses.filter(v=>v.book===currentBook).map(v=>Number(v.chapter)))].sort((a,b)=>a-b);
+  $("chaptersNav").innerHTML = '<b>الإصحاحات: </b> ' + nums.map(n => 
+    `<button class="ch-btn" id="chBtn_${n}" onclick="renderChapter(${n})">${n}</button>`
+  ).join("");
 }
 
 function showGrid(){
   $("gridSection").style.display = "grid";
   $("panelSection").style.display = "none";
+  $("search").value = "";
 }
 
 function showPanel(){
@@ -272,12 +257,13 @@ function showPanel(){
   $("panelSection").style.display = "block";
 }
 
-function renderChapter(){
-  const b=$("book").value, c=Number($("chapter").value);
-  if(!b||!c){return}
+function renderChapter(c){
   showPanel();
-  const rows=verses.filter(v=>v.book===b && Number(v.chapter)===c);
-  $("status").textContent=`${bookName(b)} — الإصحاح ${c} — ${rows.length} آية`;
+  document.querySelectorAll(".ch-btn").forEach(btn => btn.classList.remove("active"));
+  if($(`chBtn_${c}`)) $(`chBtn_${c}`).classList.add("active");
+
+  const rows=verses.filter(v=>v.book===currentBook && Number(v.chapter)===c);
+  $("status").textContent=`${bookName(currentBook)} — الإصحاح ${c} — ${rows.length} آية`;
   $("content").innerHTML=rows.map(v=>`
     <div class="verse"><span class="vnum">${escapeHtml(v.verse)}</span>${escapeHtml(v.text)}</div>
   `).join("");
@@ -285,16 +271,17 @@ function renderChapter(){
 
 function searchBible(q){
   q=normalize(q);
-  if(!q){renderChapter();return}
+  if(!q){showGrid();return}
   showPanel();
+  $("chaptersNav").innerHTML = "";
   const hits=verses.filter(v=>normalize(v.text).includes(q)).slice(0,200);
-  $("status").textContent=`نتائج البحث عن: ${q} — ${hits.length} نتيجة معروضة`;
+  $("status").textContent=`نتائج البحث عن: "${q}" — ${hits.length} نتيجة معروضة`;
   $("content").innerHTML=hits.map(v=>`
     <div class="search-result">
       <b>${escapeHtml(bookName(v.book))} ${escapeHtml(v.chapter)}:${escapeHtml(v.verse)}</b>
       <div style="line-height:1.9;margin-top:6px">${escapeHtml(v.text)}</div>
     </div>
-  `).join("") || "<p>لا توجد نتائج.</p>";
+  `).join("") || "<p>لا توجد نتائج مطابقة للبحث.</p>";
 }
 
 function escapeHtml(s){
@@ -308,19 +295,13 @@ async function boot(){
     const data=await r.json();
     verses=data.filter(v=>v && v.book && v.chapter && v.verse && v.text);
     books=uniqueBooks(verses);
-    fillBooksDropdown();
     renderGrid();
-    $("count").textContent=`${verses.length.toLocaleString("ar-EG")} سجل`;
   }catch(e){
     console.error(e);
   }
 }
 
-$("book").addEventListener("change",()=>{fillChapters();renderChapter()});
-$("chapter").addEventListener("change",renderChapter);
 $("search").addEventListener("input",e=>searchBible(e.target.value));
-$("readBtn").addEventListener("click",()=>renderChapter());
-$("searchBtn").addEventListener("click",()=>searchBible($("search").value));
 $("homeBtn").addEventListener("click",showGrid);
 
 boot();
