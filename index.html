@@ -5,326 +5,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موسوعة الكتاب المقدس</title>
     <style>
-        :root {
-            --bg-color: #0b1120;
-            --card-bg: #151d30;
-            --card-border: #26334d;
-            --gold-color: #f59e0b;
-            --gold-light: #fbbf24;
-            --text-main: #e2e8f0;
-            --text-sub: #94a3b8;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: #0f172a;
+            color: #f8fafc;
             margin: 0;
             padding: 20px;
         }
-
-        .container { max-width: 1200px; margin: 0 auto; }
-        h1 { text-align: center; color: var(--gold-light); margin-bottom: 30px; }
-
-        .testaments-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
         }
-
-        @media (max-width: 900px) {
-            .testaments-wrapper { grid-template-columns: 1fr; }
-        }
-
-        .testament-box {
-            background-color: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 15px;
-        }
-
-        .testament-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--gold-color);
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .book-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 10px 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .book-card:hover {
-            border-color: var(--gold-color);
-            transform: translateY(-2px);
-            background-color: #1e293b;
-        }
-
-        .book-info { display: flex; flex-direction: column; }
-        .book-name { font-weight: bold; color: var(--text-main); font-size: 0.95rem; }
-        .book-chapters { font-size: 0.8rem; color: var(--text-sub); margin-top: 2px; }
-        .book-icon { color: var(--gold-color); font-size: 1.2rem; margin-left: 8px; }
-        .flex-right { display: flex; align-items: center; }
-
-        .view-panel {
-            display: none;
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 20px;
-        }
-
-        .back-btn {
-            background-color: var(--gold-color);
-            color: #000;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
+        h1 {
+            text-align: center;
+            color: #fbbf24;
             margin-bottom: 20px;
         }
-
-        .section-title {
-            color: var(--gold-light);
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-
-        .chapters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .chapter-btn {
-            background-color: #1e293b;
-            border: 1px solid var(--card-border);
-            color: var(--gold-light);
-            padding: 12px 0;
-            border-radius: 8px;
+        .selector {
+            margin-bottom: 25px;
             text-align: center;
-            font-weight: bold;
-            font-size: 1rem;
+        }
+        select {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background-color: #1e293b;
+            color: #ffffff;
             cursor: pointer;
-            transition: all 0.2s ease;
+            width: 100%;
+            max-width: 400px;
         }
-
-        .chapter-btn:hover { background-color: var(--gold-color); color: #000; }
-
-        .reader-content {
-            line-height: 2.2;
-            font-size: 1.2rem;
+        .book-title {
+            color: #38bdf8;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        .text-content {
+            background-color: #1e293b;
+            padding: 20px;
+            border-radius: 8px;
+            line-height: 1.8;
+            font-size: 18px;
             white-space: pre-line;
-            margin-top: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
         }
-
         .loading {
             text-align: center;
-            color: var(--gold-color);
-            font-size: 1.2rem;
-            padding: 40px;
+            font-size: 18px;
+            color: #94a3b8;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>كنيسة رجاء الأمم سدني — الكتاب المقدس</h1>
+    <h1>الكتاب المقدس</h1>
 
-    <div id="loading" class="loading">جاري تحميل الأسفار...</div>
-
-    <div id="mainView" class="testaments-wrapper" style="display: none;">
-        <div class="testament-box">
-            <div class="testament-header">
-                <span>العهد القديم</span>
-                <span style="font-size: 0.9rem; color: var(--text-sub);">39 سفر</span>
-            </div>
-            <div id="oldTestamentGrid" class="books-grid"></div>
-        </div>
-
-        <div class="testament-box">
-            <div class="testament-header">
-                <span>العهد الجديد</span>
-                <span style="font-size: 0.9rem; color: var(--text-sub);">27 سفر</span>
-            </div>
-            <div id="newTestamentGrid" class="books-grid"></div>
-        </div>
+    <div class="selector">
+        <select id="bookSelect" onchange="displayBook()">
+            <option value="">-- اختر السفر --</option>
+        </select>
     </div>
 
-    <div id="chaptersView" class="view-panel">
-        <button class="back-btn" onclick="showMainView()">← العودة للأسفار</button>
-        <h2 id="chaptersTitle" class="section-title"></h2>
-        <div id="chaptersGrid" class="chapters-grid"></div>
-    </div>
-
-    <div id="readerView" class="view-panel">
-        <button class="back-btn" onclick="showChaptersView()">← اختيار إصحاح آخر</button>
-        <h2 id="readerTitle" class="section-title"></h2>
-        <div id="readerContent" class="reader-content"></div>
+    <div id="loading" class="loading">جاري تحميل البيانات...</div>
+    
+    <div id="displayArea" style="display: none;">
+        <h2 id="bookTitle" class="book-title"></h2>
+        <div id="bookContent" class="text-content"></div>
     </div>
 </div>
 
 <script>
-    const arabicNames = {
-        "01-gen": "التكوين", "02-exodus": "الخروج", "03-leviticus": "اللاويين", "04-numbers": "العدد",
-        "05-deut": "التثنية", "06-joshua": "يشوع", "07-judges": "القضاة", "08-ruth": "راعوث",
-        "09-1-samuel": "صموئيل الأول", "10-2-samuel": "صموئيل الثاني", "11-1-kings": "الملوك الأول",
-        "12-2-kings": "الملوك الثاني", "13-1-chronicles": "أخبار الأيام الأول", "14-2-chronicles": "أخبار الأيام الثاني",
-        "15-ezra": "عزرا", "16-nehemiah": "نحميا", "16-nehmiah": "نحميا", "17-esther": "استير", "18-job": "أيوب",
-        "19-psalms": "المزامير", "20-proverbs": "الأمثال", "21-ecclesiastes": "الجامعة", "22-sos": "نشيد الأنشاد",
-        "23-isiah": "إشعياء", "24-jeremiah": "إرميا", "25-lamentations": "مراثي إرميا", "26-ezekiel": "حزقيال",
-        "27-daniel": "دانيال", "28-hosea": "هوشع", "29-joel": "يوئيل", "30-amos": "عاموس",
-        "31-obadiah": "عوبديا", "32-jonah": "يونان", "33-micah": "ميخا", "34-nahum": "ناحوم",
-        "35-habakkuk": "حبقوق", "36-zephaniah": "صفنيا", "37-haggai": "حجي", "38-zechariah": "زكريا",
-        "39-malachi": "ملاخي",
-        "40-matthew": "متى", "41-mark": "مرقس", "42-luke": "لوقا", "43-john": "يوحنا",
-        "44-acts": "أعمال الرسل", "45-romans": "رومية", "46-1-corinthians": "كورنثوس الأولى",
-        "47-2-corinthians": "كورنثوس الثانية", "48-galatians": "غلاطية", "49-ephesians": "أفسس",
-        "50-philipians": "فيليبي", "51-colossians": "كولوسي", "52-1-thessalonians": "تسالونيكي الأولى",
-        "53-2-thessalonians": "تسالونيكي الثانية", "54-1-timothy": "تيموثاوس الأولى",
-        "55-2-timothy": "تيموثاوس الثانية", "56-titus": "طيطس", "57-phillemon": "فيليمون",
-        "58-hebrews": "العبرانيين", "59-james": "يعقوب", "60-1-peter": "بطرس الأولى",
-        "61-2-peter": "بطرس الثانية", "62-1-john": "يوحنا الأولى", "63-2-john": "يوحنا الثانية",
-        "64-3-john": "يوحنا الثالثة", "65-jude": "يهوذا", "66-revelation": "رؤيا يوحنا"
-    };
+    let bibleData = [];
 
-    let allBooks = [];
-    let currentBookTitle = "";
-    let parsedChapters = [];
-
+    // جلب ملف bible.json
     fetch('./bible.json')
-        .then(res => res.json())
+        .then(response => {
+            if (!response.ok) throw new Error("تعذر تحميل ملف bible.json");
+            return response.json();
+        })
         .then(data => {
-            allBooks = data;
+            bibleData = data;
             document.getElementById('loading').style.display = 'none';
-            document.getElementById('mainView').style.display = 'grid';
-            renderGrids();
+            populateDropdown();
         })
         .catch(err => {
-            document.getElementById('loading').innerText = "خطأ في تحميل البيانات.";
+            document.getElementById('loading').innerText = "حدث خطأ أثناء تحميل البيانات: " + err.message;
         });
 
-    function getArabicName(rawBookName) {
-        const key = rawBookName.toLowerCase().trim();
-        return arabicNames[key] || rawBookName;
-    }
-
-    function renderGrids() {
-        const oldGrid = document.getElementById('oldTestamentGrid');
-        const newGrid = document.getElementById('newTestamentGrid');
-
-        allBooks.forEach((bookData, index) => {
-            const rawName = bookData.book;
-            const arabicTitle = getArabicName(rawName);
-            
-            const fileNum = parseInt(rawName.split('-')[0]) || 0;
-            const isOldTestament = fileNum <= 39;
-
-            const card = document.createElement('div');
-            card.className = 'book-card';
-            card.onclick = () => openBook(index, arabicTitle);
-
-            card.innerHTML = `
-                <div class="flex-right">
-                    <span class="book-icon">📖</span>
-                    <div class="book-info">
-                        <span class="book-name">${arabicTitle}</span>
-                        <span class="book-chapters">اختيار الإصحاح</span>
-                    </div>
-                </div>
-                <span style="color: var(--card-border);">‹</span>
-            `;
-
-            if (isOldTestament) oldGrid.appendChild(card);
-            else newGrid.appendChild(card);
+    // ملء قائمة الأسفار المنسدلة
+    function populateDropdown() {
+        const select = document.getElementById('bookSelect');
+        bibleData.forEach((book, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = book.book;
+            select.appendChild(option);
         });
-    }
-
-    function openBook(index, arabicTitle) {
-        const bookData = allBooks[index];
-        currentBookTitle = arabicTitle;
         
-        let fullText = "";
-        if (Array.isArray(bookData.content)) {
-            fullText = bookData.content.join("\n");
+        // عرض أول سفر تلقائياً عند الفتح
+        if (bibleData.length > 0) {
+            select.value = 0;
+            displayBook();
+        }
+    }
+
+    // عرض محتوى السفر المحدد
+    function displayBook() {
+        const select = document.getElementById('bookSelect');
+        const selectedIndex = select.value;
+
+        if (selectedIndex === "") return;
+
+        const book = bibleData[selectedIndex];
+        document.getElementById('bookTitle').textContent = book.book;
+        
+        // تجميع محتوى السفر
+        if (Array.isArray(book.content)) {
+            document.getElementById('bookContent').innerText = book.content.join('\n');
         } else {
-            fullText = bookData.content || "";
+            document.getElementById('bookContent').innerText = book.content;
         }
 
-        // تقسيم ذكي باستخدام التعبيرات المنتظمة بناءً على أنماط بدايه الإصحاحات المختلفة
-        // يغطي: "الأصحاح 1" / "الاصحاح الأول" / "الأصْحَاحُ الأَوَّلُ" / "الإصحاح الأول"
-        const chapterSplitter = /(?=(?:الأصْحَاحُ|الإصحاح|الأصحاح|الاصحاح)\s+(?:الأول|الثاني|الثالث|الرابع|الخامس|السادس|السابع|الثامن|التاسع|العاشر|الحادي|الثاني|الثالث|الرابع|الخامس|السادس|السابع|الثامن|التاسع|العشرون|الثلاثون|الأربعون|الخمسون|[0-9]+))/gi;
-
-        let chunks = fullText.split(chapterSplitter);
-
-        // إذا لم تنجح الأنماط اللغوية، يتم التقسيم على كلمة "الأصحاح" أو "الاصحاح" أينما وجدت
-        if (chunks.length <= 1) {
-            chunks = fullText.split(/(?=(?:الأصْحَاحُ|الإصحاح|الأصحاح|الاصحاح))/gi);
-        }
-
-        parsedChapters = chunks.map(c => c.trim()).filter(c => c.length > 20);
-
-        // احتياطي: إن لم يجد الكود أي علامات تقسيم، يعرض النص كاملاً
-        if (parsedChapters.length === 0) {
-            parsedChapters = [fullText];
-        }
-
-        const chaptersGrid = document.getElementById('chaptersGrid');
-        chaptersGrid.innerHTML = '';
-
-        parsedChapters.forEach((_, chIdx) => {
-            const btn = document.createElement('button');
-            btn.className = 'chapter-btn';
-            btn.innerText = chIdx + 1;
-            btn.onclick = () => openChapter(chIdx);
-            chaptersGrid.appendChild(btn);
-        });
-
-        document.getElementById('mainView').style.display = 'none';
-        document.getElementById('readerView').style.display = 'none';
-        document.getElementById('chaptersTitle').innerText = `${arabicTitle} — اختر الإصحاح (إجمالي ${parsedChapters.length})`;
-        document.getElementById('chaptersView').style.display = 'block';
-    }
-
-    function openChapter(chIndex) {
-        document.getElementById('chaptersView').style.display = 'none';
-        document.getElementById('readerTitle').innerText = `${currentBookTitle} — الإصحاح ${chIndex + 1}`;
-        document.getElementById('readerContent').innerText = parsedChapters[chIndex];
-        document.getElementById('readerView').style.display = 'block';
-    }
-
-    function showMainView() {
-        document.getElementById('chaptersView').style.display = 'none';
-        document.getElementById('readerView').style.display = 'none';
-        document.getElementById('mainView').style.display = 'grid';
-    }
-
-    function showChaptersView() {
-        document.getElementById('readerView').style.display = 'none';
-        document.getElementById('chaptersView').style.display = 'block';
+        document.getElementById('displayArea').style.display = 'block';
     }
 </script>
 
