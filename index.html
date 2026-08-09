@@ -15,8 +15,6 @@
     --card-hover:#143554;
     --gold:#d4af37;
     --gold-light:#f4d76b;
-    --gold-glow: rgba(212, 175, 55, 0.4);
-    --blue:#35a7ff;
     --text:#f5f7fa;
     --muted:#9eafc1;
     --border:#1d3d5c;
@@ -265,7 +263,7 @@ main{
 <header>
     <div class="header-inner">
         <div class="brand" onclick="window.location.href='index.html'">
-            <img src="assets/logo.png" class="logo" alt="Logo">
+            <img src="assets/logo.png" class="logo" alt="Logo" onerror="this.style.display='none'">
             <h1>كنيسة رجاء الأمم سيدني</h1>
         </div>
         <a href="index.html" class="nav-back"><i class="fa-solid fa-house"></i> الرئيسية</a>
@@ -285,15 +283,15 @@ main{
 </main>
 
 <script>
-// أسماء الأسفار باللغة العربية النظيفة تماماً وبدون أي أرقام أو كلمات إنجليزية
+// أسماء الأسفار الـ 66 باللغة العربية
 const arabicBookNames = [
-    // العهد القديم (39 سفر)
+    // العهد القديم (39)
     "التكوين", "الخروج", "اللاويين", "العدد", "التثنية", "يشوع", "القضاة", "راعوث", 
     "صموئيل الأول", "صموئيل الثاني", "الملوك الأول", "الملوك الثاني", "أخبار الأيام الأول", "أخبار الأيام الثاني", 
     "عزرا", "نحميا", "أستير", "أيوب", "المزامير", "الأمثال", "الجامعة", "نشيد الأنشاد", 
     "إشعياء", "إرميا", "مراثي إرميا", "حزقيال", "دانيال", "هوشع", "يوئيل", "عاموس", 
     "عوبديا", "يونان", "ميخا", "ناحوم", "حبقوق", "صفنيا", "حجي", "زكريا", "ملاخي",
-    // العهد الجديد (27 سفر)
+    // العهد الجديد (27)
     "متى", "مرقس", "لوقا", "يوحنا", "أعمال الرسل", "رومية", "كورنثوس الأولى", "كورنثوس الثانية", 
     "غلاطية", "أفسس", "فيلبي", "كولوسي", "تسالونيكي الأولى", "تسالونيكي الثانية", "تيموثاوس الأولى", 
     "تيموثاوس الثانية", "تيطس", "فليمون", "العبرانيين", "يعقوب", "بطرس الأولى", "بطرس الثانية", 
@@ -304,56 +302,84 @@ let parsedBooks = [];
 let currentBookIndex = null;
 let currentChapterIndex = null;
 
-// استخراج قائمة الأصحاحات من أي هيكل بيانات
-function extractChapters(bookObj) {
-    if (!bookObj) return [];
-    if (Array.isArray(bookObj)) return bookObj;
-    if (Array.isArray(bookObj.chapters)) return bookObj.chapters;
-    if (Array.isArray(bookObj.Chapters)) return bookObj.Chapters;
-    if (typeof bookObj === 'object') {
-        const keys = Object.keys(bookObj).filter(k => k !== 'name' && k !== 'title' && k !== 'book');
-        if (keys.length > 0) {
-            // إذا كانت الأصحاحات مقسمة كمفاتيح أرقام
-            return keys.map(k => bookObj[k]);
+// دالة شاملة لاستخراج الأصحاحات مهما كان نوع التركيب في JSON
+function extractChaptersList(bookData) {
+    if (!bookData) return [];
+    
+    // إذا كان السفر عبارة عن مصفوفة أصحاحات مباشرة
+    if (Array.isArray(bookData)) return bookData;
+    
+    // إذا كانت الأصحاحات داخل حقل خاص
+    if (Array.isArray(bookData.chapters)) return bookData.chapters;
+    if (Array.isArray(bookData.Chapters)) return bookData.Chapters;
+    
+    // إذا كانت الأصحاحات مقسمة كمُقترنات كائن { "1": [...], "2": [...] }
+    if (typeof bookData === 'object') {
+        let chs = [];
+        let keys = Object.keys(bookData).filter(k => k !== 'name' && k !== 'title' && k !== 'book' && k !== 'id');
+        
+        // فرز المفاتيح عددياً
+        keys.sort((a, b) => parseInt(a.replace(/\D/g, '')) - parseInt(b.replace(/\D/g, '')));
+        
+        for (let key of keys) {
+            chs.push(bookData[key]);
         }
+        if (chs.length > 0) return chs;
     }
+    
     return [];
 }
 
-// استخراج الآيات من الأصحاح
-function extractVerses(chapterObj) {
-    if (!chapterObj) return [];
-    if (Array.isArray(chapterObj)) return chapterObj;
-    if (Array.isArray(chapterObj.verses)) return chapterObj.verses;
-    if (Array.isArray(chapterObj.Verses)) return chapterObj.Verses;
-    if (typeof chapterObj === 'object') {
-        return Object.values(chapterObj);
+// دالة شاملة لاستخراج الآيات
+function extractVersesList(chapterData) {
+    if (!chapterData) return [];
+    
+    // إذا كان الأصحاح مصفوفة آيات مباشرة
+    if (Array.isArray(chapterData)) return chapterData;
+    
+    // إذا كانت الآيات داخل حقل
+    if (Array.isArray(chapterData.verses)) return chapterData.verses;
+    if (Array.isArray(chapterData.Verses)) return chapterData.Verses;
+    
+    // إذا كان الأصحاح كائن يحتوي آيات
+    if (typeof chapterData === 'object') {
+        let verses = [];
+        let keys = Object.keys(chapterData).filter(k => k !== 'chapter' && k !== 'number');
+        keys.sort((a, b) => parseInt(a.replace(/\D/g, '')) - parseInt(b.replace(/\D/g, '')));
+        for (let key of keys) {
+            verses.push(chapterData[key]);
+        }
+        if (verses.length > 0) return verses;
     }
+    
     return [];
 }
 
-// تحميل بيانات الملف bible.json
+// تحميل قراءة الملف
 async function loadBible() {
     try {
         const response = await fetch('bible.json');
-        if (!response.ok) throw new Error("تعذر تحميل ملف البيانات");
-        const rawBibleData = await response.json();
-
+        if (!response.ok) throw new Error("فشل فتح ملف البيانات");
+        
+        const rawData = await response.json();
+        
         let rawList = [];
-        if (Array.isArray(rawBibleData)) {
-            rawList = rawBibleData;
-        } else if (rawBibleData && Array.isArray(rawBibleData.books)) {
-            rawList = rawBibleData.books;
-        } else if (rawBibleData && typeof rawBibleData === 'object') {
-            rawList = Object.values(rawBibleData);
+        if (Array.isArray(rawData)) {
+            rawList = rawData;
+        } else if (rawData && Array.isArray(rawData.books)) {
+            rawList = rawData.books;
+        } else if (rawData && typeof rawData === 'object') {
+            let keys = Object.keys(rawData);
+            // ترتيب المفاتيح ضماناً للترتيب من 1 إلى 66
+            keys.sort((a, b) => parseInt(a.replace(/\D/g, '')) - parseInt(b.replace(/\D/g, '')));
+            rawList = keys.map(k => rawData[k]);
         }
 
-        // إجبار الأسماء على العربية الصحيحة والنظيفة بفرض الترتيب القياسي
-        parsedBooks = arabicBookNames.map((arabicName, idx) => {
-            const rawItem = rawList[idx] || {};
+        parsedBooks = arabicBookNames.map((name, idx) => {
+            const rawBook = rawList[idx] || {};
             return {
-                name: arabicName,
-                chapters: extractChapters(rawItem)
+                name: name,
+                chapters: extractChaptersList(rawBook)
             };
         });
 
@@ -362,12 +388,12 @@ async function loadBible() {
         document.getElementById('mainView').innerHTML = `
             <div style="text-align:center; color:#ff6b6b; padding:40px; font-size:20px;">
                 <i class="fa-solid fa-triangle-exclamation fa-2x"></i><br><br>
-                حدث خطأ أثناء تحميل ملف البيانات (bible.json). يرجى التأكد من أن الملف موجود في المجلد الرئيسي.
+                حدث خطأ في تحميل ملف الكتاب المقدس (bible.json).
             </div>`;
     }
 }
 
-// 1. عرض قائمة الأسفار (العهد القديم والعهد الجديد)
+// 1. عرض قائمة الأسفار (العهدين)
 function showBooks() {
     currentBookIndex = null;
     currentChapterIndex = null;
@@ -400,7 +426,7 @@ function showBooks() {
     document.getElementById('mainView').innerHTML = html;
 }
 
-// 2. اختيار السفر وعرض أصحاحاته فقط
+// 2. اختيار السفر واستعراض كافة أصحاحاته
 function selectBook(bookIndex) {
     currentBookIndex = bookIndex;
     currentChapterIndex = null;
@@ -415,21 +441,21 @@ function selectBook(bookIndex) {
         <div class="chapters-grid">
             ${chapters.length > 0 ? chapters.map((_, cIdx) => `
                 <button class="chapter-btn" onclick="selectChapter(${cIdx})">${cIdx + 1}</button>
-            `).join('') : '<p style="text-align:center; width:100%; color:var(--muted)">لا توجد أصحاحات متاحة لهذا السفر.</p>'}
+            `).join('') : '<p style="text-align:center; width:100%; color:var(--muted)">لا توجد أصحاحات لهذا السفر.</p>'}
         </div>
     </div>`;
 
     document.getElementById('mainView').innerHTML = html;
 }
 
-// 3. اختيار الأصحاح وعرض الآيات بالعربية
+// 3. اختيار الأصحاح واستعراض آياته كاملة
 function selectChapter(chapterIndex) {
     currentChapterIndex = chapterIndex;
     updateBreadcrumb();
 
     const book = parsedBooks[currentBookIndex];
     const rawChapter = book.chapters[chapterIndex];
-    const verses = extractVerses(rawChapter);
+    const verses = extractVersesList(rawChapter);
 
     let html = `
     <div class="verses-container">
@@ -437,44 +463,26 @@ function selectChapter(chapterIndex) {
             ${book.name} — الأصحاح ${chapterIndex + 1}
         </h2>
         <div>
-            ${verses.map((verse, vIdx) => {
+            ${verses.length > 0 ? verses.map((verse, vIdx) => {
                 let verseText = "";
                 if (typeof verse === 'string') {
                     verseText = verse;
                 } else if (typeof verse === 'object' && verse !== null) {
-                    verseText = verse.text || verse.Verse || verse.content || Object.values(verse)[0] || "";
+                    verseText = verse.text || verse.Verse || verse.content || verse.verse || Object.values(verse)[0] || "";
                 }
                 return `
                 <div class="verse-item">
                     <span class="verse-num">${vIdx + 1}</span>
                     <span>${verseText}</span>
                 </div>`;
-            }).join('')}
+            }).join('') : '<p style="text-align:center; color:var(--muted)">لا توجد آيات في هذا الأصحاح.</p>'}
         </div>
     </div>`;
 
     document.getElementById('mainView').innerHTML = html;
 }
 
-// تحديث شريط التنقل العلوي (Breadcrumb)
+// تحديث شريط المسار العلوي
 function updateBreadcrumb() {
     const bc = document.getElementById('breadcrumb');
-    let html = `<span onclick="showBooks()"><i class="fa-solid fa-book-bible"></i> الكتاب المقدس</span>`;
-    
-    if (currentBookIndex !== null) {
-        const bookName = parsedBooks[currentBookIndex].name;
-        html += ` <i class="fa-solid fa-chevron-left"></i> <span onclick="selectBook(${currentBookIndex})">${bookName}</span>`;
-    }
-    if (currentChapterIndex !== null) {
-        html += ` <i class="fa-solid fa-chevron-left"></i> <span>الأصحاح ${currentChapterIndex + 1}</span>`;
-    }
-    
-    bc.innerHTML = html;
-}
-
-// بدء التشغيل
-loadBible();
-</script>
- 
-</body>
-</html>
+    let html = `<span onclick="showBooks()"><i class="fa
