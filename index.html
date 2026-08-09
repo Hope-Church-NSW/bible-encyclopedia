@@ -5,15 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>كنيسة رجاء الأمم سيدني | الرئيسية</title>
 
-<!-- خط عربي فاخر -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg-gradient: radial-gradient(circle at top, #123457 0%, transparent 45%), linear-gradient(145deg, #040c17, #091d32 60%, #051220);
-  --gold-glow: rgba(212, 175, 55, 0.4);
+  --bg-gradient: linear-gradient(145deg, #040c17, #091d32 60%, #051220);
   --card-bg: linear-gradient(135deg, rgba(20, 53, 84, 0.7), rgba(9, 29, 50, 0.85));
   --card-hover: linear-gradient(135deg, rgba(28, 71, 112, 0.85), rgba(13, 40, 68, 0.95));
   --border-color: #1d3d5c;
@@ -29,28 +27,26 @@ body {
   min-height: 100vh;
   background: var(--bg-gradient);
   color: var(--text-color);
-  font-family: 'Cairo', Arial, Tahoma, sans-serif;
-  overflow-x: hidden;
+  font-family: 'Cairo', Arial, sans-serif;
 }
 
-/* HEADER */
+/* HEADER الثابت أثناء التصفح */
 header {
-  padding: 16px 6%;
+  padding: 15px 5%;
+  background: rgba(8, 23, 39, 0.95);
   border-bottom: 1px solid var(--border-color);
-  background: rgba(5, 16, 29, 0.92);
-  backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(10px);
 }
 
 .header-inner {
-  max-width: 1200px;
+  max-width: 1250px;
   margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
 }
 
 .brand {
@@ -60,144 +56,161 @@ header {
   perspective: 1000px;
 }
 
+/* اللوجو الجديد: أكبر + حركة 3D دورتين بطيئتين كل 3 ثوان بدون أشكال صفراء خلفه */
 .logo {
-  width: 70px;
-  height: 70px;
+  width: 85px;
+  height: 85px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
-  animation: rotateLogo 1.2s ease-in-out infinite alternate;
-  animation-delay: 3s;
-  animation-iteration-count: infinite;
-  animation-duration: 4.2s;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  animation: spin3D 3s ease-in-out infinite;
   transform-style: preserve-3d;
 }
 
-@keyframes rotateLogo {
-  0%, 71.4% { transform: rotateY(0deg); }
-  100% { transform: rotateY(-360deg); }
+@keyframes spin3D {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-720deg); /* دورتين كاملتين من اليمين لليسار */
+  }
 }
 
-.brand h1 {
+.church-name {
   margin: 0;
   font-size: 26px;
   font-weight: 900;
-  background: linear-gradient(180deg, #ffe893 0%, #f4d76b 35%, #ca9e2e 70%, #8a640f 100%);
+  background: linear-gradient(180deg, #ffe893 0%, #f4d76b 40%, #ca9e2e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0px 2px 0px #5c4308) drop-shadow(0px 4px 6px rgba(0,0,0,0.8));
 }
 
-.brand-sub {
-  margin: 2px 0 0;
+.church-sub {
+  margin: 4px 0 0;
+  font-size: 13px;
   color: var(--muted-color);
-  font-size: 12px;
 }
 
-.language button {
-  border: 1px solid var(--border-color);
+.language-btn {
   background: #102943;
-  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  color: var(--gold-light);
   padding: 8px 16px;
   border-radius: 8px;
-  cursor: pointer;
   font-weight: bold;
-  font-family: 'Cairo', sans-serif;
-  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.language button.active {
-  background: #d4af37;
-  color: #09121d;
-  box-shadow: 0 0 12px var(--gold-glow);
-}
-
-/* MAIN CONTENT */
+/* HERO SECTION */
 main {
-  max-width: 1200px;
+  max-width: 1250px;
   margin: auto;
-  padding: 50px 6%;
+  padding: 40px 5% 60px;
 }
 
 .hero-title {
   text-align: center;
-  margin-bottom: 45px;
+  margin-bottom: 35px;
 }
 
 .hero-title h2 {
-  margin: 0;
+  font-size: 32px;
   color: var(--gold-light);
-  font-size: 34px;
-  font-weight: 900;
+  margin: 0;
 }
 
 .hero-title p {
   color: var(--muted-color);
   margin-top: 10px;
-  font-size: 16px;
+  font-size: 15px;
 }
 
-/* MAIN CARDS GRID */
+.verse-banner {
+  background: rgba(13, 33, 56, 0.7);
+  border: 1px solid #d4af37;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 45px;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.verse-banner h3 {
+  margin: 0;
+  color: var(--gold-light);
+  font-size: 20px;
+}
+
+.verse-banner p {
+  margin: 8px 0 0;
+  color: var(--muted-color);
+  font-size: 14px;
+}
+
+/* CARDS GRID */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
-.main-card {
+.card {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 35px 25px;
+  border-radius: 16px;
+  padding: 30px 20px;
+  text-align: center;
   text-decoration: none;
   color: inherit;
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  backdrop-filter: blur(8px);
 }
 
-.main-card:hover {
-  transform: translateY(-8px);
+.card:hover {
+  transform: translateY(-6px);
   border-color: #d4af37;
   background: var(--card-hover);
-  box-shadow: 0 18px 45px rgba(0,0,0,.5), 0 0 20px rgba(212,175,55,0.25);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
 }
 
 .card-icon {
-  font-size: 55px;
-  margin-bottom: 15px;
+  font-size: 42px;
+  margin-bottom: 12px;
 }
 
-.main-card h3 {
-  margin: 5px 0 10px;
+.card h4 {
+  margin: 5px 0;
+  font-size: 20px;
   color: var(--gold-light);
-  font-size: 24px;
-  font-weight: 700;
 }
 
-.main-card p {
-  margin: 0;
+.card p {
+  margin: 5px 0 0;
+  font-size: 13px;
   color: var(--muted-color);
-  font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 footer {
   text-align: center;
+  padding: 25px;
   color: var(--muted-color);
-  padding: 40px 6%;
-  border-top: 1px solid var(--border-color);
   font-size: 13px;
-  margin-top: 40px;
+  border-top: 1px solid var(--border-color);
 }
 
-@media(max-width: 768px) {
+@media(max-width: 900px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width: 550px) {
   .cards-grid { grid-template-columns: 1fr; }
-  .brand h1 { font-size: 20px; }
-  .logo { width: 55px; height: 55px; }
+  .logo { width: 65px; height: 65px; }
+  .church-name { font-size: 20px; }
 }
 </style>
 </head>
@@ -207,72 +220,60 @@ footer {
 <header>
   <div class="header-inner">
     <div class="brand">
-      <img class="logo" src="assets/logo.png" alt="Logo">
+      <img class="logo" src="assets/logo.png.png" alt="Hope Church NSW" onerror="this.style.display='none'">
       <div>
-        <h1>كنيسة رجاء الأمم سيدني</h1>
-        <p class="brand-sub">Hope Church NSW — Bible Encyclopedia</p>
+        <h1 class="church-name">كنيسة رجاء الأمم سيدني</h1>
+        <p class="church-sub">Hope Church NSW — Bible Encyclopedia</p>
       </div>
     </div>
-    <div class="language">
-      <button id="arBtn" class="active" onclick="setLanguage('ar')">العربية</button>
-      <button id="enBtn" onclick="setLanguage('en')">English</button>
-    </div>
+    <button class="language-btn">العربية</button>
   </div>
 </header>
 
 <main>
 
   <div class="hero-title">
-    <h2>موسوعة الكتاب المقدس والخدمة الكنسية</h2>
-    <p>اختر من الأقسام التالية للبدء في القراءة والبحث والدراسة</p>
+    <h2>أهلاً بكم في موسوعة الكتاب المقدس</h2>
+    <p>موسوعة كتابية متكاملة للدارسين والباحثين وكل من يشتاق إلى دراسة كلمة الله بعمق ودقة</p>
+  </div>
+
+  <div class="verse-banner">
+    <h3>«سِرَاجٌ لِرِجْلِي كَلاَمُكَ وَنُورٌ لِسَبِيلِي»</h3>
+    <p>مزمور 119: 105</p>
   </div>
 
   <div class="cards-grid">
-
-    <!-- 1️⃣ كارت الكتاب المقدس -->
-    <a href="bible.html" class="main-card">
+    <a href="studies.html" class="card">
       <div class="card-icon">📖</div>
-      <h3>الكتاب المقدس</h3>
-      <p>قراءة وتصفح أسفار العهدين القديم والجديد بشكـل مبسط وسريع.</p>
+      <h4>الكتاب المقدس</h4>
+      <p>قراءة الأسفار والإصحاحات والآيات</p>
     </a>
 
-    <!-- 2️⃣ كارت الدراسات الكتابية (يفتح الصفحة التي أنشأناها) -->
-    <a href="studies.html" class="main-card">
+    <a href="studies.html" class="card">
+      <div class="card-icon">🔍</div>
+      <h4>البحث</h4>
+      <p>البحث في نص الكتاب المقدس</p>
+    </a>
+
+    <!-- كارت دراسات كتابية يفتح صفحة الدراسات -->
+    <a href="studies.html" class="card">
       <div class="card-icon">📚</div>
-      <h3>الدراسات الكتابية</h3>
-      <p>موسوعة الهياكل، الخيمة، معجزات وأمثال المسيح، وتاريخ الكنيسة.</p>
+      <h4>دراسات كتابية</h4>
+      <p>موسوعات ودراسات وموسوعة كتابية</p>
     </a>
 
-    <!-- 3️⃣ كارت الكنيسة -->
-    <a href="church.html" class="main-card">
+    <a href="studies.html" class="card">
       <div class="card-icon">⛪</div>
-      <h3>الكنيسة</h3>
-      <p>معلومات عن الكنيسة، المواعيد، الخدمات، والأنشطة المختلفة.</p>
+      <h4>الكنيسة</h4>
+      <p>معلومات الكنيسة ومواعيد الاجتماعات</p>
     </a>
-
-    <!-- 4️⃣ كارت الشخصيات والقديسون -->
-    <a href="studies.html" class="main-card">
-      <div class="card-icon">👤</div>
-      <h3>الشخصيات والقديسون</h3>
-      <p>دراسات للشخصيات الكتابية وتاريخ القديسين عبر العصور.</p>
-    </a>
-
   </div>
 
 </main>
 
 <footer>
-  Hope Church NSW — Bible Encyclopedia
+  Hope Church NSW — Bible Study
 </footer>
-
-<script>
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  document.getElementById("arBtn").classList.toggle("active", lang === "ar");
-  document.getElementById("enBtn").classList.toggle("active", lang === "en");
-}
-</script>
 
 </body>
 </html>
