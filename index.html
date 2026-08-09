@@ -68,6 +68,7 @@ header{
     border:2px solid var(--gold);
     object-fit:cover;
     background:#0b2036;
+    display:block;
 }
 
 .brand h1{
@@ -96,11 +97,13 @@ header{
     padding:8px 13px;
     border-radius:8px;
     cursor:pointer;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .language button.active{
     background:var(--gold);
     color:#101820;
+    font-weight:bold;
 }
 
 /* MAIN */
@@ -237,15 +240,12 @@ footer{
 /* MOBILE */
 
 @media(max-width:900px){
-
     .menu{
         grid-template-columns:repeat(2,1fr);
     }
-
 }
 
 @media(max-width:600px){
-
     header{
         padding:14px 5%;
     }
@@ -294,26 +294,22 @@ footer{
 <body>
 
 <header>
-
     <div class="header-inner">
-
         <div class="brand">
-
-            <!-- إذا كان اسم اللوجو مختلفاً غيّر فقط اسم الملف هنا -->
+            <!-- مسار الشعار الصحيح في مجلد assets -->
             <img
                 src="assets/logo.png"
                 class="logo"
-                alt="Hope Of Nation Church NSW">
+                alt="Hope Of Nation Church NSW Logo"
+                onerror="this.style.display='none'">
 
             <div>
                 <h1>Hope Of Nation Church NSW</h1>
-                <p>موسوعة الكتاب المقدس والدراسة الكتابية</p>
+                <p id="brandSub">موسوعة الكتاب المقدس والدراسة الكتابية</p>
             </div>
-
         </div>
 
         <div class="language">
-
             <button
                 id="arBtn"
                 class="active"
@@ -326,29 +322,21 @@ footer{
                 onclick="setLanguage('en')">
                 English
             </button>
-
         </div>
-
     </div>
-
 </header>
 
-
 <main>
-
     <section class="welcome">
-
         <h2 id="welcomeTitle">
             أهلاً بكم في تطبيق الكتاب المقدس
         </h2>
 
         <p id="welcomeText">
-            موسوعة كتابية متكاملة للدارسين والباحثين وكل من
-            يشتاق إلى دراسة كلمة الله بعمق ودقة.
+            موسوعة كتابية متكاملة للدارسين والباحثين وكل من يشتاق إلى دراسة كلمة الله بعمق ودقة.
         </p>
 
         <div class="verse">
-
             <span id="verseText">
                 «سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»
             </span>
@@ -358,298 +346,146 @@ footer{
                 id="verseReference">
                 مزمور 119:105
             </span>
-
         </div>
-
     </section>
-
 
     <div class="menu-title" id="menuTitle">
         اختر القسم الذي تريد الدخول إليه
     </div>
 
-
     <section class="menu">
-
         <!-- الكتاب المقدس -->
-
         <button
             class="menu-card"
             onclick="openBible()">
-
             <div class="icon">📖</div>
-
-            <h3 id="bibleTitle">
-                الكتاب المقدس
-            </h3>
-
-            <p id="bibleText">
-                قراءة الأسفار والأصحاحات والآيات
-            </p>
-
+            <h3 id="bibleTitle">الكتاب المقدس</h3>
+            <p id="bibleText">قراءة الأسفار والأصحاحات والآيات</p>
         </button>
 
-
         <!-- البحث -->
-
         <button
             class="menu-card"
             onclick="openSearch()">
-
             <div class="icon">🔎</div>
-
-            <h3 id="searchTitle">
-                البحث
-            </h3>
-
-            <p id="searchText">
-                البحث في نص الكتاب المقدس
-            </p>
-
+            <h3 id="searchTitle">البحث</h3>
+            <p id="searchText">البحث في نص الكتاب المقدس</p>
         </button>
 
-
         <!-- الدراسات -->
-
         <button
             class="menu-card"
             onclick="openStudies()">
-
             <div class="icon">📚</div>
-
-            <h3 id="studiesTitle">
-                دراسات كتابية
-            </h3>
-
-            <p id="studiesText">
-                موضوعات ودراسات وموسوعة كتابية
-            </p>
-
+            <h3 id="studiesTitle">دراسات كتابية</h3>
+            <p id="studiesText">موضوعات ودراسات وموسوعة كتابية</p>
         </button>
 
-
         <!-- الكنيسة -->
-
         <button
             class="menu-card"
             onclick="openChurch()">
-
             <div class="icon">⛪</div>
-
-            <h3 id="churchTitle">
-                الكنيسة
-            </h3>
-
-            <p id="churchText">
-                معلومات الكنيسة ومواعيد الاجتماعات
-            </p>
-
+            <h3 id="churchTitle">الكنيسة</h3>
+            <p id="churchText">معلومات الكنيسة ومواعيد الاجتماعات</p>
         </button>
-
     </section>
-
 </main>
-
 
 <footer id="footerText">
     Hope Of Nation Church NSW — Bible Study
 </footer>
 
-
 <script>
+let language = "ar";
 
-let language="ar";
-
-
-const translations={
-
-    ar:{
-
-        direction:"rtl",
-
-        welcomeTitle:
-            "أهلاً بكم في تطبيق الكتاب المقدس",
-
-        welcomeText:
-            "موسوعة كتابية متكاملة للدارسين والباحثين وكل من يشتاق إلى دراسة كلمة الله بعمق ودقة.",
-
-        verse:
-            "«سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»",
-
-        reference:
-            "مزمور 119:105",
-
-        menuTitle:
-            "اختر القسم الذي تريد الدخول إليه",
-
-        bibleTitle:
-            "الكتاب المقدس",
-
-        bibleText:
-            "قراءة الأسفار والأصحاحات والآيات",
-
-        searchTitle:
-            "البحث",
-
-        searchText:
-            "البحث في نص الكتاب المقدس",
-
-        studiesTitle:
-            "دراسات كتابية",
-
-        studiesText:
-            "موضوعات ودراسات وموسوعة كتابية",
-
-        churchTitle:
-            "الكنيسة",
-
-        churchText:
-            "معلومات الكنيسة ومواعيد الاجتماعات",
-
-        footer:
-            "Hope Of Nation Church NSW — Bible Study"
+const translations = {
+    ar: {
+        direction: "rtl",
+        brandSub: "موسوعة الكتاب المقدس والدراسة الكتابية",
+        welcomeTitle: "أهلاً بكم في تطبيق الكتاب المقدس",
+        welcomeText: "موسوعة كتابية متكاملة للدارسين والباحثين وكل من يشتاق إلى دراسة كلمة الله بعمق ودقة.",
+        verse: "«سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»",
+        reference: "مزمور 119:105",
+        menuTitle: "اختر القسم الذي تريد الدخول إليه",
+        bibleTitle: "الكتاب المقدس",
+        bibleText: "قراءة الأسفار والأصحاحات والآيات",
+        searchTitle: "البحث",
+        searchText: "البحث في نص الكتاب المقدس",
+        studiesTitle: "دراسات كتابية",
+        studiesText: "موضوعات ودراسات وموسوعة كتابية",
+        churchTitle: "الكنيسة",
+        churchText: "معلومات الكنيسة ومواعيد الاجتماعات",
+        footer: "Hope Of Nation Church NSW — Bible Study"
     },
-
-
-    en:{
-
-        direction:"ltr",
-
-        welcomeTitle:
-            "Welcome to the Bible App",
-
-        welcomeText:
-            "A comprehensive Bible study encyclopedia for students, researchers, pastors, and everyone passionate about God's Word.",
-
-        verse:
-            "\"Your word is a lamp to my feet and a light to my path.\"",
-
-        reference:
-            "Psalm 119:105",
-
-        menuTitle:
-            "Choose a section",
-
-        bibleTitle:
-            "Holy Bible",
-
-        bibleText:
-            "Read books, chapters, and verses",
-
-        searchTitle:
-            "Search",
-
-        searchText:
-            "Search the Bible text",
-
-        studiesTitle:
-            "Bible Studies",
-
-        studiesText:
-            "Studies, topics, and Bible encyclopedia",
-
-        churchTitle:
-            "Church",
-
-        churchText:
-            "Church information and meeting times",
-
-        footer:
-            "Hope Of Nation Church NSW — Bible Study"
+    en: {
+        direction: "ltr",
+        brandSub: "Bible Encyclopedia & Biblical Studies",
+        welcomeTitle: "Welcome to the Bible App",
+        welcomeText: "A comprehensive Bible study encyclopedia for students, researchers, pastors, and everyone passionate about God's Word.",
+        verse: "\"Your word is a lamp to my feet and a light to my path.\"",
+        reference: "Psalm 119:105",
+        menuTitle: "Choose a section",
+        bibleTitle: "Holy Bible",
+        bibleText: "Read books, chapters, and verses",
+        searchTitle: "Search",
+        searchText: "Search the Bible text",
+        studiesTitle: "Bible Studies",
+        studiesText: "Studies, topics, and Bible encyclopedia",
+        churchTitle: "Church",
+        churchText: "Church information and meeting times",
+        footer: "Hope Of Nation Church NSW — Bible Study"
     }
-
 };
 
-
 function setLanguage(lang){
+    language = lang;
+    const t = translations[lang];
 
-    language=lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = t.direction;
+    document.body.dir = t.direction;
 
-    const t=translations[lang];
+    $("brandSub").textContent = t.brandSub;
+    $("welcomeTitle").textContent = t.welcomeTitle;
+    $("welcomeText").textContent = t.welcomeText;
+    $("verseText").textContent = t.verse;
+    $("verseReference").textContent = t.reference;
+    $("menuTitle").textContent = t.menuTitle;
+    $("bibleTitle").textContent = t.bibleTitle;
+    $("bibleText").textContent = t.bibleText;
+    $("searchTitle").textContent = t.searchTitle;
+    $("searchText").textContent = t.searchText;
+    $("studiesTitle").textContent = t.studiesTitle;
+    $("studiesText").textContent = t.studiesText;
+    $("churchTitle").textContent = t.churchTitle;
+    $("churchText").textContent = t.churchText;
+    $("footerText").textContent = t.footer;
 
-    document.documentElement.lang=lang;
-
-    document.documentElement.dir=t.direction;
-
-    document.body.dir=t.direction;
-
-    $("welcomeTitle").textContent=t.welcomeTitle;
-
-    $("welcomeText").textContent=t.welcomeText;
-
-    $("verseText").textContent=t.verse;
-
-    $("verseReference").textContent=t.reference;
-
-    $("menuTitle").textContent=t.menuTitle;
-
-    $("bibleTitle").textContent=t.bibleTitle;
-
-    $("bibleText").textContent=t.bibleText;
-
-    $("searchTitle").textContent=t.searchTitle;
-
-    $("searchText").textContent=t.searchText;
-
-    $("studiesTitle").textContent=t.studiesTitle;
-
-    $("studiesText").textContent=t.studiesText;
-
-    $("churchTitle").textContent=t.churchTitle;
-
-    $("churchText").textContent=t.churchText;
-
-    $("footerText").textContent=t.footer;
-
-    $("arBtn").classList.toggle("active",lang==="ar");
-
-    $("enBtn").classList.toggle("active",lang==="en");
-
+    $("arBtn").classList.toggle("active", lang === "ar");
+    $("enBtn").classList.toggle("active", lang === "en");
 }
-
 
 function $(id){
-
     return document.getElementById(id);
-
 }
-
-
-/*
-   المرحلة الثانية:
-   الأزرار أصبحت جاهزة للربط بالصفحات الفعلية.
-*/
 
 function openBible(){
-
-    window.location.href="bible.html";
-
+    window.location.href = "bible.html";
 }
-
 
 function openSearch(){
-
-    window.location.href="search.html";
-
+    window.location.href = "search.html";
 }
-
 
 function openStudies(){
-
-    window.location.href="studies.html";
-
+    window.location.href = "studies.html";
 }
-
 
 function openChurch(){
-
-    window.location.href="church.html";
-
+    window.location.href = "church.html";
 }
-
-
 </script>
 
 </body>
 </html>
-Create main application home page
