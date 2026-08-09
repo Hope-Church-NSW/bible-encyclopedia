@@ -4,309 +4,288 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>الكتاب المقدس | Hope Church NSW</title>
+<title>تطبيق الكتاب المقدس | Hope Of Nation Church NSW</title>
 
 <style>
 :root{
-    --bg:#061322;
-    --bg2:#0b1d31;
-    --card:#102941;
+    --bg:#071525;
+    --card:#0d2238;
+    --card-hover:#143554;
     --gold:#d4af37;
-    --gold-light:#f4dc7b;
-    --white:#ffffff;
-    --muted:#aab9c9;
-    --blue:#2d7ff9;
+    --gold-light:#f4d76b;
+    --blue:#35a7ff;
+    --text:#f5f7fa;
+    --muted:#9eafc1;
+    --border:#1d3d5c;
 }
 
 *{
     box-sizing:border-box;
 }
 
-html,
 body{
     margin:0;
-    padding:0;
-    width:100%;
-    min-height:100%;
-}
-
-body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top,#123457 0%,transparent 42%),
+        linear-gradient(145deg,#06111f,#091d32 60%,#061321);
+    color:var(--text);
     font-family:
         Arial,
         Tahoma,
         "Segoe UI",
         sans-serif;
-
-    color:var(--white);
-
-    background:
-        radial-gradient(
-            circle at center top,
-            #173454 0%,
-            var(--bg2) 42%,
-            var(--bg) 100%
-        );
-
-    overflow-x:hidden;
 }
 
-/* الصفحة الأولى */
+/* HEADER */
 
-.welcome{
-    min-height:100vh;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:30px 20px;
-}
-
-.welcome-card{
-    width:100%;
-    max-width:720px;
-
-    text-align:center;
-
-    padding:45px 25px 35px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(16,41,65,.97),
-            rgba(7,22,38,.97)
-        );
-
-    border:1px solid rgba(212,175,55,.35);
-
-    border-radius:28px;
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.45);
-
+header{
+    padding:18px 6%;
+    border-bottom:1px solid var(--border);
+    background:rgba(5,16,29,.92);
     backdrop-filter:blur(10px);
 }
 
-/* الشعار */
+.header-inner{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
 
 .logo{
-    width:150px;
-    height:150px;
-
-    object-fit:contain;
-
-    margin:0 auto 20px;
-
-    display:block;
-
-    filter:
-        drop-shadow(
-            0 8px 20px rgba(0,0,0,.5)
-        );
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+    object-fit:cover;
+    background:#0b2036;
 }
 
-/* العناوين */
-
-h1{
-    margin:10px 0 8px;
-
+.brand h1{
+    margin:0;
     color:var(--gold-light);
-
-    font-size:clamp(27px,5vw,42px);
-
-    font-weight:700;
+    font-size:21px;
 }
 
-.subtitle{
-    margin:0 0 25px;
-
+.brand p{
+    margin:5px 0 0;
     color:var(--muted);
-
-    font-size:16px;
-
-    line-height:1.8;
+    font-size:12px;
 }
 
-/* الآية */
+/* LANGUAGE */
+
+.language{
+    display:flex;
+    gap:6px;
+}
+
+.language button{
+    border:1px solid var(--border);
+    background:#102943;
+    color:var(--text);
+    padding:8px 13px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.language button.active{
+    background:var(--gold);
+    color:#101820;
+}
+
+/* MAIN */
+
+main{
+    max-width:1200px;
+    margin:auto;
+    padding:45px 6%;
+}
+
+/* WELCOME */
+
+.welcome{
+    text-align:center;
+    margin-bottom:42px;
+}
+
+.welcome h2{
+    margin:0;
+    font-size:34px;
+    color:var(--gold-light);
+}
+
+.welcome p{
+    color:var(--muted);
+    font-size:16px;
+    margin:12px auto;
+    max-width:700px;
+    line-height:1.9;
+}
 
 .verse{
-    margin:25px auto;
-
-    max-width:600px;
-
-    padding:22px 20px;
-
-    border-right:4px solid var(--gold);
-    border-left:4px solid rgba(212,175,55,.25);
-
-    background:rgba(0,0,0,.18);
-
-    border-radius:15px;
-
+    max-width:800px;
+    margin:25px auto 0;
+    padding:18px 24px;
+    border-right:3px solid var(--gold);
+    border-left:3px solid var(--gold);
+    background:rgba(13,34,56,.75);
+    border-radius:12px;
     line-height:2;
-
-    font-size:20px;
-
-    color:#f5f7fa;
+    font-size:18px;
 }
 
-.verse-reference{
+.reference{
     display:block;
+    color:var(--gold-light);
+    margin-top:8px;
+    font-size:14px;
+}
 
-    margin-top:10px;
+/* MENU */
+
+.menu-title{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:20px;
+    font-size:15px;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.menu-card{
+    min-height:190px;
+    border:1px solid var(--border);
+    border-radius:18px;
+    background:
+        linear-gradient(145deg,rgba(17,45,72,.95),rgba(9,29,49,.95));
+    color:var(--text);
+    cursor:pointer;
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:25px;
+}
+
+.menu-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--gold);
+    background:var(--card-hover);
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+.icon{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    margin-bottom:18px;
 
     color:var(--gold-light);
-
-    font-size:14px;
+    border:1px solid rgba(212,175,55,.5);
+    background:rgba(212,175,55,.08);
 }
 
-/* اختيار اللغة */
+.menu-card h3{
+    margin:0 0 8px;
+    color:var(--gold-light);
+    font-size:20px;
+}
 
-.language-title{
-    margin-top:30px;
-
-    margin-bottom:14px;
-
+.menu-card p{
+    margin:0;
     color:var(--muted);
-
-    font-size:14px;
+    font-size:13px;
+    line-height:1.7;
 }
 
-.languages{
-    display:flex;
+/* FOOTER */
 
-    justify-content:center;
-
-    gap:12px;
-
-    flex-wrap:wrap;
+footer{
+    margin-top:45px;
+    padding:25px 6%;
+    border-top:1px solid var(--border);
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
 }
 
-.language-btn{
-    min-width:130px;
+/* MOBILE */
 
-    padding:13px 25px;
+@media(max-width:900px){
 
-    border:1px solid rgba(212,175,55,.45);
+    .menu{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-    border-radius:12px;
-
-    background:#122f4b;
-
-    color:white;
-
-    font-size:16px;
-
-    cursor:pointer;
-
-    transition:.25s;
 }
-
-.language-btn:hover{
-    background:#193d61;
-
-    border-color:var(--gold);
-
-    transform:translateY(-2px);
-}
-
-.language-btn.active{
-    background:
-        linear-gradient(
-            135deg,
-            #b99525,
-            #e5c85d
-        );
-
-    color:#071526;
-
-    font-weight:bold;
-
-    border-color:var(--gold-light);
-}
-
-/* زر الدخول */
-
-.enter-btn{
-    margin-top:28px;
-
-    width:min(100%,300px);
-
-    padding:15px 25px;
-
-    border:0;
-
-    border-radius:14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c29d2d,
-            #f0d568
-        );
-
-    color:#071526;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.3);
-
-    transition:.25s;
-}
-
-.enter-btn:hover{
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 15px 30px rgba(0,0,0,.4);
-}
-
-/* أسفل الصفحة */
-
-.footer{
-    margin-top:28px;
-
-    color:#71859a;
-
-    font-size:12px;
-
-    line-height:1.8;
-}
-
-/* الهاتف */
 
 @media(max-width:600px){
 
-    .welcome{
-        padding:15px;
+    header{
+        padding:14px 5%;
     }
 
-    .welcome-card{
-        padding:35px 18px 28px;
+    .header-inner{
+        align-items:flex-start;
+    }
 
-        border-radius:22px;
+    .brand h1{
+        font-size:17px;
     }
 
     .logo{
-        width:120px;
-        height:120px;
+        width:48px;
+        height:48px;
+    }
+
+    main{
+        padding:32px 5%;
+    }
+
+    .welcome h2{
+        font-size:27px;
+    }
+
+    .welcome p{
+        font-size:14px;
     }
 
     .verse{
-        font-size:18px;
+        font-size:16px;
+        padding:15px;
     }
 
-    .language-btn{
-        width:100%;
+    .menu{
+        grid-template-columns:1fr;
     }
 
-    .enter-btn{
-        width:100%;
+    .menu-card{
+        min-height:155px;
     }
 }
 </style>
@@ -314,205 +293,360 @@ h1{
 
 <body>
 
-<section class="welcome">
+<header>
 
-    <div class="welcome-card">
+    <div class="header-inner">
 
-        <!-- شعار الكنيسة -->
-        <img
-            src="2.png"
-            alt="Hope Church NSW"
-            class="logo"
-        >
+        <div class="brand">
 
-        <!-- اسم الكنيسة -->
-        <h1 id="churchName">
-            كنيسة رجاء الأمم سيدني
-        </h1>
+            <!-- إذا كان اسم اللوجو مختلفاً غيّر فقط اسم الملف هنا -->
+            <img
+                src="assets/logo.png"
+                class="logo"
+                alt="Hope Of Nation Church NSW">
 
-        <p
-            class="subtitle"
-            id="subtitle"
-        >
-            الكتاب المقدس والدراسة الكتابية
-        </p>
-
-        <!-- الآية -->
-        <div class="verse">
-
-            <span id="verseText">
-                أَمَّا كَلِمَةُ إِلهِنَا فَتَثْبُتُ إِلَى الأَبَدِ
-            </span>
-
-            <span
-                class="verse-reference"
-                id="verseReference"
-            >
-                إشعياء 40:8
-            </span>
+            <div>
+                <h1>Hope Of Nation Church NSW</h1>
+                <p>موسوعة الكتاب المقدس والدراسة الكتابية</p>
+            </div>
 
         </div>
 
-        <!-- اختيار اللغة -->
-
-        <div
-            class="language-title"
-            id="languageTitle"
-        >
-            اختر لغة التطبيق
-        </div>
-
-        <div class="languages">
+        <div class="language">
 
             <button
-                class="language-btn active"
-                id="arabicBtn"
-                onclick="setLanguage('ar')"
-            >
+                id="arBtn"
+                class="active"
+                onclick="setLanguage('ar')">
                 العربية
             </button>
 
             <button
-                class="language-btn"
-                id="englishBtn"
-                onclick="setLanguage('en')"
-            >
+                id="enBtn"
+                onclick="setLanguage('en')">
                 English
             </button>
 
         </div>
 
-        <!-- الدخول للتطبيق -->
+    </div>
 
-        <button
-            class="enter-btn"
-            onclick="enterApp()"
-            id="enterBtn"
-        >
-            الدخول إلى التطبيق
-        </button>
+</header>
 
-        <div class="footer">
 
-            Hope Of Nation Church NSW
+<main>
 
-            <br>
+    <section class="welcome">
 
-            Bible Study & Encyclopedia
+        <h2 id="welcomeTitle">
+            أهلاً بكم في تطبيق الكتاب المقدس
+        </h2>
+
+        <p id="welcomeText">
+            موسوعة كتابية متكاملة للدارسين والباحثين وكل من
+            يشتاق إلى دراسة كلمة الله بعمق ودقة.
+        </p>
+
+        <div class="verse">
+
+            <span id="verseText">
+                «سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»
+            </span>
+
+            <span
+                class="reference"
+                id="verseReference">
+                مزمور 119:105
+            </span>
 
         </div>
 
+    </section>
+
+
+    <div class="menu-title" id="menuTitle">
+        اختر القسم الذي تريد الدخول إليه
     </div>
 
-</section>
+
+    <section class="menu">
+
+        <!-- الكتاب المقدس -->
+
+        <button
+            class="menu-card"
+            onclick="openBible()">
+
+            <div class="icon">📖</div>
+
+            <h3 id="bibleTitle">
+                الكتاب المقدس
+            </h3>
+
+            <p id="bibleText">
+                قراءة الأسفار والأصحاحات والآيات
+            </p>
+
+        </button>
+
+
+        <!-- البحث -->
+
+        <button
+            class="menu-card"
+            onclick="openSearch()">
+
+            <div class="icon">🔎</div>
+
+            <h3 id="searchTitle">
+                البحث
+            </h3>
+
+            <p id="searchText">
+                البحث في نص الكتاب المقدس
+            </p>
+
+        </button>
+
+
+        <!-- الدراسات -->
+
+        <button
+            class="menu-card"
+            onclick="openStudies()">
+
+            <div class="icon">📚</div>
+
+            <h3 id="studiesTitle">
+                دراسات كتابية
+            </h3>
+
+            <p id="studiesText">
+                موضوعات ودراسات وموسوعة كتابية
+            </p>
+
+        </button>
+
+
+        <!-- الكنيسة -->
+
+        <button
+            class="menu-card"
+            onclick="openChurch()">
+
+            <div class="icon">⛪</div>
+
+            <h3 id="churchTitle">
+                الكنيسة
+            </h3>
+
+            <p id="churchText">
+                معلومات الكنيسة ومواعيد الاجتماعات
+            </p>
+
+        </button>
+
+    </section>
+
+</main>
+
+
+<footer id="footerText">
+    Hope Of Nation Church NSW — Bible Study
+</footer>
+
 
 <script>
 
-let selectedLanguage = "ar";
+let language="ar";
 
-/* تغيير اللغة */
+
+const translations={
+
+    ar:{
+
+        direction:"rtl",
+
+        welcomeTitle:
+            "أهلاً بكم في تطبيق الكتاب المقدس",
+
+        welcomeText:
+            "موسوعة كتابية متكاملة للدارسين والباحثين وكل من يشتاق إلى دراسة كلمة الله بعمق ودقة.",
+
+        verse:
+            "«سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»",
+
+        reference:
+            "مزمور 119:105",
+
+        menuTitle:
+            "اختر القسم الذي تريد الدخول إليه",
+
+        bibleTitle:
+            "الكتاب المقدس",
+
+        bibleText:
+            "قراءة الأسفار والأصحاحات والآيات",
+
+        searchTitle:
+            "البحث",
+
+        searchText:
+            "البحث في نص الكتاب المقدس",
+
+        studiesTitle:
+            "دراسات كتابية",
+
+        studiesText:
+            "موضوعات ودراسات وموسوعة كتابية",
+
+        churchTitle:
+            "الكنيسة",
+
+        churchText:
+            "معلومات الكنيسة ومواعيد الاجتماعات",
+
+        footer:
+            "Hope Of Nation Church NSW — Bible Study"
+    },
+
+
+    en:{
+
+        direction:"ltr",
+
+        welcomeTitle:
+            "Welcome to the Bible App",
+
+        welcomeText:
+            "A comprehensive Bible study encyclopedia for students, researchers, pastors, and everyone passionate about God's Word.",
+
+        verse:
+            "\"Your word is a lamp to my feet and a light to my path.\"",
+
+        reference:
+            "Psalm 119:105",
+
+        menuTitle:
+            "Choose a section",
+
+        bibleTitle:
+            "Holy Bible",
+
+        bibleText:
+            "Read books, chapters, and verses",
+
+        searchTitle:
+            "Search",
+
+        searchText:
+            "Search the Bible text",
+
+        studiesTitle:
+            "Bible Studies",
+
+        studiesText:
+            "Studies, topics, and Bible encyclopedia",
+
+        churchTitle:
+            "Church",
+
+        churchText:
+            "Church information and meeting times",
+
+        footer:
+            "Hope Of Nation Church NSW — Bible Study"
+    }
+
+};
+
 
 function setLanguage(lang){
 
-    selectedLanguage = lang;
+    language=lang;
 
-    const arabic =
-        lang === "ar";
+    const t=translations[lang];
 
-    document.documentElement.lang =
-        lang;
+    document.documentElement.lang=lang;
 
-    document.documentElement.dir =
-        arabic ? "rtl" : "ltr";
+    document.documentElement.dir=t.direction;
 
-    document
-        .getElementById("arabicBtn")
-        .classList.toggle(
-            "active",
-            arabic
-        );
+    document.body.dir=t.direction;
 
-    document
-        .getElementById("englishBtn")
-        .classList.toggle(
-            "active",
-            !arabic
-        );
+    $("welcomeTitle").textContent=t.welcomeTitle;
 
-    if(arabic){
+    $("welcomeText").textContent=t.welcomeText;
 
-        document.getElementById("churchName")
-            .textContent =
-            "كنيسة رجاء الأمم سيدني";
+    $("verseText").textContent=t.verse;
 
-        document.getElementById("subtitle")
-            .textContent =
-            "الكتاب المقدس والدراسة الكتابية";
+    $("verseReference").textContent=t.reference;
 
-        document.getElementById("verseText")
-            .textContent =
-            "أَمَّا كَلِمَةُ إِلهِنَا فَتَثْبُتُ إِلَى الأَبَدِ";
+    $("menuTitle").textContent=t.menuTitle;
 
-        document.getElementById("verseReference")
-            .textContent =
-            "إشعياء 40:8";
+    $("bibleTitle").textContent=t.bibleTitle;
 
-        document.getElementById("languageTitle")
-            .textContent =
-            "اختر لغة التطبيق";
+    $("bibleText").textContent=t.bibleText;
 
-        document.getElementById("enterBtn")
-            .textContent =
-            "الدخول إلى التطبيق";
+    $("searchTitle").textContent=t.searchTitle;
 
-    }else{
+    $("searchText").textContent=t.searchText;
 
-        document.getElementById("churchName")
-            .textContent =
-            "Hope Of Nation Church NSW";
+    $("studiesTitle").textContent=t.studiesTitle;
 
-        document.getElementById("subtitle")
-            .textContent =
-            "Bible Study & Encyclopedia";
+    $("studiesText").textContent=t.studiesText;
 
-        document.getElementById("verseText")
-            .textContent =
-            "The word of our God stands forever.";
+    $("churchTitle").textContent=t.churchTitle;
 
-        document.getElementById("verseReference")
-            .textContent =
-            "Isaiah 40:8";
+    $("churchText").textContent=t.churchText;
 
-        document.getElementById("languageTitle")
-            .textContent =
-            "Choose application language";
+    $("footerText").textContent=t.footer;
 
-        document.getElementById("enterBtn")
-            .textContent =
-            "Enter Application";
-    }
+    $("arBtn").classList.toggle("active",lang==="ar");
+
+    $("enBtn").classList.toggle("active",lang==="en");
+
 }
 
-/* زر الدخول */
 
-function enterApp(){
+function $(id){
 
-    /*
-       المرحلة التالية ستفتح الصفحة الرئيسية
-       التي تحتوي على:
+    return document.getElementById(id);
 
-       1. الكتاب المقدس
-       2. البحث
-       3. الدراسات الكتابية
-       4. الكنيسة
-    */
-
-    alert(
-        selectedLanguage === "ar"
-        ? "تم اختيار العربية — سيتم فتح الصفحة الرئيسية في المرحلة التالية."
-        : "English selected — the main application will open in the next stage."
-    );
 }
+
+
+/*
+   المرحلة الثانية:
+   الأزرار أصبحت جاهزة للربط بالصفحات الفعلية.
+*/
+
+function openBible(){
+
+    window.location.href="bible.html";
+
+}
+
+
+function openSearch(){
+
+    window.location.href="search.html";
+
+}
+
+
+function openStudies(){
+
+    window.location.href="studies.html";
+
+}
+
+
+function openChurch(){
+
+    window.location.href="church.html";
+
+}
+
 
 </script>
 
