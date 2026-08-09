@@ -4,15 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>تطبيق الكتاب المقدس | Hope Of Nation Church NSW</title>
+<title>موسوعة الكتاب المقدس | Hope Church NSW</title>
 
 <style>
 :root{
-    --bg:#071525;
+    --bg:#06111f;
     --card:#0d2238;
     --card-hover:#143554;
     --gold:#d4af37;
     --gold-light:#f4d76b;
+    --gold-glow: rgba(212, 175, 55, 0.4);
     --blue:#35a7ff;
     --text:#f5f7fa;
     --muted:#9eafc1;
@@ -27,14 +28,11 @@ body{
     margin:0;
     min-height:100vh;
     background:
-        radial-gradient(circle at top,#123457 0%,transparent 42%),
-        linear-gradient(145deg,#06111f,#091d32 60%,#061321);
+        radial-gradient(circle at top,#123457 0%,transparent 45%),
+        linear-gradient(145deg,#040c17,#091d32 60%,#051220);
     color:var(--text);
-    font-family:
-        Arial,
-        Tahoma,
-        "Segoe UI",
-        sans-serif;
+    font-family: Arial, Tahoma, "Segoe UI", sans-serif;
+    overflow-x: hidden;
 }
 
 /* HEADER */
@@ -43,7 +41,7 @@ header{
     padding:18px 6%;
     border-bottom:1px solid var(--border);
     background:rgba(5,16,29,.92);
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(12px);
 }
 
 .header-inner{
@@ -62,23 +60,24 @@ header{
 }
 
 .logo{
-    width:58px;
-    height:58px;
+    width:60px;
+    height:60px;
     border-radius:50%;
     border:2px solid var(--gold);
     object-fit:cover;
     background:#0b2036;
-    display:block;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 .brand h1{
     margin:0;
     color:var(--gold-light);
-    font-size:21px;
+    font-size:22px;
+    font-weight: bold;
 }
 
 .brand p{
-    margin:5px 0 0;
+    margin:4px 0 0;
     color:var(--muted);
     font-size:12px;
 }
@@ -94,16 +93,17 @@ header{
     border:1px solid var(--border);
     background:#102943;
     color:var(--text);
-    padding:8px 13px;
+    padding:8px 15px;
     border-radius:8px;
     cursor:pointer;
-    transition: background 0.2s ease, color 0.2s ease;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
 .language button.active{
     background:var(--gold);
-    color:#101820;
-    font-weight:bold;
+    color:#09121d;
+    box-shadow: 0 0 12px var(--gold-glow);
 }
 
 /* MAIN */
@@ -111,20 +111,21 @@ header{
 main{
     max-width:1200px;
     margin:auto;
-    padding:45px 6%;
+    padding:40px 6%;
 }
 
 /* WELCOME */
 
 .welcome{
     text-align:center;
-    margin-bottom:42px;
+    margin-bottom:35px;
 }
 
 .welcome h2{
     margin:0;
-    font-size:34px;
+    font-size:36px;
     color:var(--gold-light);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 .welcome p{
@@ -132,70 +133,116 @@ main{
     font-size:16px;
     margin:12px auto;
     max-width:700px;
-    line-height:1.9;
+    line-height:1.8;
 }
 
-.verse{
-    max-width:800px;
-    margin:25px auto 0;
-    padding:18px 24px;
-    border-right:3px solid var(--gold);
-    border-left:3px solid var(--gold);
-    background:rgba(13,34,56,.75);
-    border-radius:12px;
-    line-height:2;
-    font-size:18px;
+/* 3D VERSE CONTAINER */
+
+.verse-3d-wrapper {
+    perspective: 1000px;
+    max-width: 820px;
+    margin: 35px auto 45px;
 }
 
-.reference{
-    display:block;
-    color:var(--gold-light);
-    margin-top:8px;
-    font-size:14px;
+.verse-card {
+    position: relative;
+    padding: 28px 32px;
+    background: linear-gradient(135deg, rgba(20, 53, 84, 0.7), rgba(9, 29, 50, 0.85));
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        inset 0 1px 2px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 10px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(212, 175, 55, 0.15);
+    transform-style: preserve-3d;
+    transform: rotateX(4deg) translateZ(0);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
+    backdrop-filter: blur(8px);
+    overflow: hidden;
 }
 
-/* MENU */
-
-.menu-title{
-    text-align:center;
-    color:var(--muted);
-    margin-bottom:20px;
-    font-size:15px;
+.verse-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 45%,
+        rgba(212, 175, 55, 0.12) 50%,
+        transparent 55%
+    );
+    animation: goldShimmer 7s infinite linear;
+    pointer-events: none;
 }
+
+@keyframes goldShimmer {
+    0% { transform: translate(-30%, -30%) rotate(0deg); }
+    100% { transform: translate(30%, 30%) rotate(360deg); }
+}
+
+.verse-card:hover {
+    transform: rotateX(0deg) translateY(-8deg) scale(1.01);
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.7),
+        0 0 35px rgba(212, 175, 55, 0.3);
+}
+
+.verse-text {
+    font-size: 22px;
+    line-height: 1.9;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 12px rgba(244, 215, 107, 0.2);
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+}
+
+.reference {
+    display: block;
+    color: var(--gold-light);
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 2;
+}
+
+/* MENU GRID */
 
 .menu{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:18px;
+    gap:20px;
 }
 
 .menu-card{
-    min-height:190px;
+    min-height:200px;
     border:1px solid var(--border);
     border-radius:18px;
-    background:
-        linear-gradient(145deg,rgba(17,45,72,.95),rgba(9,29,49,.95));
+    background: linear-gradient(145deg,rgba(17,45,72,.95),rgba(9,29,49,.95));
     color:var(--text);
     cursor:pointer;
-    transition:
-        transform .2s ease,
-        border-color .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
-
+    transition: all .3s cubic-bezier(0.2, 0.8, 0.2, 1);
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     text-align:center;
     padding:25px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .menu-card:hover{
-    transform:translateY(-6px);
+    transform:translateY(-8px);
     border-color:var(--gold);
     background:var(--card-hover);
-    box-shadow:0 15px 40px rgba(0,0,0,.3);
+    box-shadow:0 18px 45px rgba(0,0,0,.5), 0 0 20px rgba(212,175,55,0.2);
 }
 
 .icon{
@@ -207,10 +254,10 @@ main{
     justify-content:center;
     font-size:34px;
     margin-bottom:18px;
-
     color:var(--gold-light);
     border:1px solid rgba(212,175,55,.5);
     background:rgba(212,175,55,.08);
+    box-shadow: inset 0 0 10px rgba(212,175,55,0.2);
 }
 
 .menu-card h3{
@@ -229,7 +276,7 @@ main{
 /* FOOTER */
 
 footer{
-    margin-top:45px;
+    margin-top:50px;
     padding:25px 6%;
     border-top:1px solid var(--border);
     text-align:center;
@@ -237,7 +284,7 @@ footer{
     font-size:13px;
 }
 
-/* MOBILE */
+/* MOBILE RESPONSIVE */
 
 @media(max-width:900px){
     .menu{
@@ -246,47 +293,13 @@ footer{
 }
 
 @media(max-width:600px){
-    header{
-        padding:14px 5%;
-    }
-
-    .header-inner{
-        align-items:flex-start;
-    }
-
-    .brand h1{
-        font-size:17px;
-    }
-
-    .logo{
-        width:48px;
-        height:48px;
-    }
-
-    main{
-        padding:32px 5%;
-    }
-
-    .welcome h2{
-        font-size:27px;
-    }
-
-    .welcome p{
-        font-size:14px;
-    }
-
-    .verse{
-        font-size:16px;
-        padding:15px;
-    }
-
-    .menu{
-        grid-template-columns:1fr;
-    }
-
-    .menu-card{
-        min-height:155px;
-    }
+    header{ padding:14px 5%; }
+    .brand h1{ font-size:17px; }
+    .logo{ width:48px; height:48px; }
+    main{ padding:30px 5%; }
+    .welcome h2{ font-size:26px; }
+    .verse-text{ font-size:18px; }
+    .menu{ grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -296,95 +309,65 @@ footer{
 <header>
     <div class="header-inner">
         <div class="brand">
-            <!-- مسار الشعار الصحيح في مجلد assets -->
             <img
                 src="assets/logo.png"
                 class="logo"
-                alt="Hope Of Nation Church NSW Logo"
+                alt="Logo"
                 onerror="this.style.display='none'">
 
             <div>
-                <h1>Hope Of Nation Church NSW</h1>
+                <h1 id="churchTitleHeader">كنيسة رجاء الأمم سيدني</h1>
                 <p id="brandSub">موسوعة الكتاب المقدس والدراسة الكتابية</p>
             </div>
         </div>
 
         <div class="language">
-            <button
-                id="arBtn"
-                class="active"
-                onclick="setLanguage('ar')">
-                العربية
-            </button>
-
-            <button
-                id="enBtn"
-                onclick="setLanguage('en')">
-                English
-            </button>
+            <button id="arBtn" class="active" onclick="setLanguage('ar')">العربية</button>
+            <button id="enBtn" onclick="setLanguage('en')">English</button>
         </div>
     </div>
 </header>
 
 <main>
     <section class="welcome">
-        <h2 id="welcomeTitle">
-            أهلاً بكم في تطبيق الكتاب المقدس
-        </h2>
+        <h2 id="welcomeTitle">أهلاً بكم في موسوعة الكتاب المقدس</h2>
+        <p id="welcomeText">موسوعة كتابية متكاملة للدارسين والباحثين وكل من يشتاق إلى دراسة كلمة الله بعمق ودقة.</p>
 
-        <p id="welcomeText">
-            موسوعة كتابية متكاملة للدارسين والباحثين وكل من يشتاق إلى دراسة كلمة الله بعمق ودقة.
-        </p>
-
-        <div class="verse">
-            <span id="verseText">
-                «سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»
-            </span>
-
-            <span
-                class="reference"
-                id="verseReference">
-                مزمور 119:105
-            </span>
+        <!-- الواجهة ثلاثية الأبعاد للآية -->
+        <div class="verse-3d-wrapper">
+            <div class="verse-card">
+                <div class="verse-text" id="verseText">«سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»</div>
+                <span class="reference" id="verseReference">مزمور 119:105</span>
+            </div>
         </div>
     </section>
 
-    <div class="menu-title" id="menuTitle">
-        اختر القسم الذي تريد الدخول إليه
-    </div>
+    <!-- تم حذف العنصر المطلوب إزالته من هذا المكان -->
 
     <section class="menu">
         <!-- الكتاب المقدس -->
-        <button
-            class="menu-card"
-            onclick="openBible()">
+        <button class="menu-card" onclick="openBible()">
             <div class="icon">📖</div>
             <h3 id="bibleTitle">الكتاب المقدس</h3>
             <p id="bibleText">قراءة الأسفار والأصحاحات والآيات</p>
         </button>
 
         <!-- البحث -->
-        <button
-            class="menu-card"
-            onclick="openSearch()">
+        <button class="menu-card" onclick="openSearch()">
             <div class="icon">🔎</div>
             <h3 id="searchTitle">البحث</h3>
             <p id="searchText">البحث في نص الكتاب المقدس</p>
         </button>
 
         <!-- الدراسات -->
-        <button
-            class="menu-card"
-            onclick="openStudies()">
+        <button class="menu-card" onclick="openStudies()">
             <div class="icon">📚</div>
             <h3 id="studiesTitle">دراسات كتابية</h3>
             <p id="studiesText">موضوعات ودراسات وموسوعة كتابية</p>
         </button>
 
         <!-- الكنيسة -->
-        <button
-            class="menu-card"
-            onclick="openChurch()">
+        <button class="menu-card" onclick="openChurch()">
             <div class="icon">⛪</div>
             <h3 id="churchTitle">الكنيسة</h3>
             <p id="churchText">معلومات الكنيسة ومواعيد الاجتماعات</p>
@@ -393,7 +376,7 @@ footer{
 </main>
 
 <footer id="footerText">
-    Hope Of Nation Church NSW — Bible Study
+    Hope Church NSW — Bible Study
 </footer>
 
 <script>
@@ -402,12 +385,12 @@ let language = "ar";
 const translations = {
     ar: {
         direction: "rtl",
+        churchTitleHeader: "كنيسة رجاء الأمم سيدني",
         brandSub: "موسوعة الكتاب المقدس والدراسة الكتابية",
-        welcomeTitle: "أهلاً بكم في تطبيق الكتاب المقدس",
+        welcomeTitle: "أهلاً بكم في موسوعة الكتاب المقدس",
         welcomeText: "موسوعة كتابية متكاملة للدارسين والباحثين وكل من يشتاق إلى دراسة كلمة الله بعمق ودقة.",
         verse: "«سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»",
         reference: "مزمور 119:105",
-        menuTitle: "اختر القسم الذي تريد الدخول إليه",
         bibleTitle: "الكتاب المقدس",
         bibleText: "قراءة الأسفار والأصحاحات والآيات",
         searchTitle: "البحث",
@@ -416,16 +399,16 @@ const translations = {
         studiesText: "موضوعات ودراسات وموسوعة كتابية",
         churchTitle: "الكنيسة",
         churchText: "معلومات الكنيسة ومواعيد الاجتماعات",
-        footer: "Hope Of Nation Church NSW — Bible Study"
+        footer: "Hope Church NSW — Bible Study"
     },
     en: {
         direction: "ltr",
+        churchTitleHeader: "Hope Church NSW",
         brandSub: "Bible Encyclopedia & Biblical Studies",
-        welcomeTitle: "Welcome to the Bible App",
-        welcomeText: "A comprehensive Bible study encyclopedia for students, researchers, pastors, and everyone passionate about God's Word.",
+        welcomeTitle: "Welcome to the Bible Encyclopedia",
+        welcomeText: "A comprehensive Bible study encyclopedia for students, researchers, and everyone passionate about God's Word.",
         verse: "\"Your word is a lamp to my feet and a light to my path.\"",
         reference: "Psalm 119:105",
-        menuTitle: "Choose a section",
         bibleTitle: "Holy Bible",
         bibleText: "Read books, chapters, and verses",
         searchTitle: "Search",
@@ -434,7 +417,7 @@ const translations = {
         studiesText: "Studies, topics, and Bible encyclopedia",
         churchTitle: "Church",
         churchText: "Church information and meeting times",
-        footer: "Hope Of Nation Church NSW — Bible Study"
+        footer: "Hope Church NSW — Bible Study"
     }
 };
 
@@ -446,12 +429,12 @@ function setLanguage(lang){
     document.documentElement.dir = t.direction;
     document.body.dir = t.direction;
 
+    $("churchTitleHeader").textContent = t.churchTitleHeader;
     $("brandSub").textContent = t.brandSub;
     $("welcomeTitle").textContent = t.welcomeTitle;
     $("welcomeText").textContent = t.welcomeText;
     $("verseText").textContent = t.verse;
     $("verseReference").textContent = t.reference;
-    $("menuTitle").textContent = t.menuTitle;
     $("bibleTitle").textContent = t.bibleTitle;
     $("bibleText").textContent = t.bibleText;
     $("searchTitle").textContent = t.searchTitle;
@@ -470,21 +453,10 @@ function $(id){
     return document.getElementById(id);
 }
 
-function openBible(){
-    window.location.href = "bible.html";
-}
-
-function openSearch(){
-    window.location.href = "search.html";
-}
-
-function openStudies(){
-    window.location.href = "studies.html";
-}
-
-function openChurch(){
-    window.location.href = "church.html";
-}
+function openBible(){ window.location.href = "bible.html"; }
+function openSearch(){ window.location.href = "search.html"; }
+function openStudies(){ window.location.href = "studies.html"; }
+function openChurch(){ window.location.href = "church.html"; }
 </script>
 
 </body>
