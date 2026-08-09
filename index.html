@@ -61,7 +61,7 @@ header{
     perspective: 1000px;
 }
  
-/* اللوجو: توقف 3 ثوانٍ ودوران هادئ لمدة 3 ثوانٍ (إجمالي 6 ثوانٍ) */
+/* اللوجو: دوران هادئ كل 6 ثوانٍ */
 .logo{
     width:85px;
     height:85px;
@@ -74,19 +74,9 @@ header{
     transform-style: preserve-3d;
 }
  
-.logo.navigating {
-    animation: transitionSpin 0.8s ease-in-out forwards !important;
-}
- 
 @keyframes rotateLogo {
     0%, 50% { transform: rotateY(0deg); }
     100% { transform: rotateY(-360deg); }
-}
- 
-@keyframes transitionSpin {
-    0% { transform: rotateY(0deg) scale(1); }
-    50% { transform: rotateY(-180deg) scale(1.15); }
-    100% { transform: rotateY(-360deg) scale(1); }
 }
  
 .brand h1{
@@ -259,7 +249,7 @@ main{
     line-height:1.7;
 }
 
-/* 3D MODAL POPUP FOR CHURCH INFO */
+/* MODAL POPUP */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -268,19 +258,15 @@ main{
     height: 100%;
     background: rgba(4, 12, 23, 0.88);
     backdrop-filter: blur(10px);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 99999;
     padding: 20px;
 }
 
-.modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
+.modal-overlay.open {
+    display: flex !important;
 }
 
 .modal-content {
@@ -294,13 +280,7 @@ main{
     padding: 35px;
     position: relative;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.2);
-    transform: scale(0.85);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     font-family: 'Times New Roman', Times, serif;
-}
-
-.modal-overlay.active .modal-content {
-    transform: scale(1);
 }
 
 .close-btn {
@@ -459,8 +439,8 @@ footer{
         </div>
  
         <div class="language">
-            <button id="arBtn" class="active" onclick="setLanguage('ar')">العربية</button>
-            <button id="enBtn" onclick="setLanguage('en')">English</button>
+            <button id="arBtn" class="active" onclick="switchLanguage('ar')">العربية</button>
+            <button id="enBtn" onclick="switchLanguage('en')">English</button>
         </div>
     </div>
 </header>
@@ -479,25 +459,25 @@ footer{
     </section>
  
     <section class="menu">
-        <button class="menu-card" onclick="navigateTo('bible.html')">
+        <button class="menu-card" onclick="window.location.href='bible.html'">
             <div class="icon">📖</div>
             <h3 id="bibleTitle">الكتاب المقدس</h3>
             <p id="bibleText">قراءة الأسفار والأصحاحات والآيات</p>
         </button>
  
-        <button class="menu-card" onclick="navigateTo('search.html')">
+        <button class="menu-card" onclick="window.location.href='search.html'">
             <div class="icon">🔎</div>
             <h3 id="searchTitle">البحث</h3>
             <p id="searchText">البحث في نص الكتاب المقدس</p>
         </button>
  
-        <button class="menu-card" onclick="navigateTo('studies.html')">
+        <button class="menu-card" onclick="window.location.href='studies.html'">
             <div class="icon">📚</div>
             <h3 id="studiesTitle">دراسات كتابية</h3>
             <p id="studiesText">موضوعات ودراسات وموسوعة كتابية</p>
         </button>
  
-        <button class="menu-card" id="churchMenuBtn" onclick="openChurchModal()">
+        <button class="menu-card" id="churchCardBtn" onclick="toggleModal(true)">
             <div class="icon">⛪</div>
             <h3 id="churchTitle">الكنيسة</h3>
             <p id="churchText">معلومات الكنيسة ومواعيد الاجتماعات</p>
@@ -507,7 +487,7 @@ footer{
 
 <div class="modal-overlay" id="churchModal">
     <div class="modal-content">
-        <button class="close-btn" onclick="closeChurchModal()">&times;</button>
+        <button class="close-btn" onclick="toggleModal(false)">&times;</button>
         
         <div class="modal-section">
             <h2 class="modal-title" id="mAboutTitle"><i class="fa-solid fa-church"></i> نبذة عن الكنيسة</h2>
@@ -553,4 +533,151 @@ footer{
                 <a href="https://www.youtube.com/@HCNSW" target="_blank" class="social-btn yt"><i class="fa-brands fa-youtube"></i> <span id="btnYt">يوتيوب</span></a>
                 <a href="https://www.facebook.com/hopechurchNSW" target="_blank" class="social-btn fb"><i class="fa-brands fa-facebook"></i> <span id="btnFb">فيسبوك</span></a>
                 <a href="https://www.tiktok.com/@hopechurch.nsw?_r=1&_t=ZS-98A3PzMmW2K" target="_blank" class="social-btn tk"><i class="fa-brands fa-tiktok"></i> <span id="btnTk">تيك توك</span></a>
-                <a href="https://www.alkerazatv.com/" target="_blank" class="social-btn tv"><i class="fa-solid fa-tv"></i> <span id
+                <a href="https://www.alkerazatv.com/" target="_blank" class="social-btn tv"><i class="fa-solid fa-tv"></i> <span id="btnTv">قناة الكرازة</span></a>
+                <a href="https://hope-church-nsw-rmwpk10e.durable.site" target="_blank" class="social-btn web"><i class="fa-solid fa-globe"></i> <span id="btnWeb">الموقع الرسمي</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<footer id="footerText">
+    Hope Church NSW — Bible Study
+</footer>
+ 
+<script>
+const translations = {
+    ar: {
+        dir: "rtl",
+        churchTitleHeader: "كنيسة رجاء الأمم سيدني",
+        welcomeTitle: "أهلاً بكم في موسوعة الكتاب المقدس",
+        welcomeText: "موسوعة كتابية متكاملة للدارسين والباحثين وكل من يشتاق إلى دراسة كلمة الله بعمق ودقة.",
+        verse: "«سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»",
+        reference: "مزمور 119:105",
+        bibleTitle: "الكتاب المقدس",
+        bibleText: "قراءة الأسفار والأصحاحات والآيات",
+        searchTitle: "البحث",
+        searchText: "البحث في نص الكتاب المقدس",
+        studiesTitle: "دراسات كتابية",
+        studiesText: "موضوعات ودراسات وموسوعة كتابية",
+        churchTitle: "الكنيسة",
+        churchText: "معلومات الكنيسة ومواعيد الاجتماعات",
+        footerText: "Hope Church NSW — Bible Study",
+        
+        mAboutTitle: "<i class='fa-solid fa-church'></i> نبذة عن الكنيسة",
+        mChurchName: "كنيسة رجاء الأمم – سيدني",
+        mAboutP1: "مكان يلتقي فيه الإنسان بحضور الله، وتتحول فيه الكلمة إلى حياة.",
+        mAboutP2: "نؤمن أن الكنيسة ليست مجرد مكان نأتي إليه، بل عائلة ننتمي إليها، وكلمة نعيشها، وحياتنا تتشكل على صورة المسيح. نلتقي لنكتشف محبة الله، وننمو في معرفة كلمته، ونمتلئ بالروح القدس، ونحمل رجاء المسيح إلى بيوتنا ومجتمعنا وكل من حولنا.",
+        mAboutQ: "هل تبحث عن الله، أم عن حياة تجد فيها الله؟",
+        mAboutP3: "هنا نرجع إلى الكتاب المقدس بعهديه ، لا كمجرد معرفة، بل ككلمة تغيّر الحياة؛ نكتشف المسيح، وننمو في الإيمان، ونختبر عمل الروح القدس فينا.",
+        mVerse: "«وَتَعْرِفُونَ الْحَقَّ، وَالْحَقُّ يُحَرِّرُكُمْ.» (يوحنا ٨: ٣٢)",
+        mTagline: "كنيسة رجاء الأمم — تلتقي فيها بالكلمة، فتجد المسيح، وتكتشف الحياة.",
+        mAddressTitle: "<i class='fa-solid fa-location-dot'></i> العنوان ومواعيد الاجتماعات",
+        mAddrLabel: "العنوان:",
+        mAddress: "704 The Horsley Dr Smithfield NSW",
+        mTimesLabel: "مواعيد الاجتماعات:",
+        mSunLabel: "الأحد (10 صباحاً):",
+        mSunText: "اجتماع عبادة عام عربي وانجليزي",
+        mWedLabel: "الأربعاء (7 مساءً):",
+        mWedText: "برنامج عمق جديد",
+        mThuLabel: "الخميس (11 صباحاً):",
+        mThuText: "اجتماع السيدات",
+        mFriLabel: "الجمعة (7 مساءً):",
+        mFriText: "اجتماع الصلاة ودراسة الكتاب المقدس",
+        mSocialTitle: "<i class='fa-solid fa-link'></i> التواصل والخدمات",
+        btnYt: "يوتيوب",
+        btnFb: "فيسبوك",
+        btnTk: "تيك توك",
+        btnTv: "قناة الكرازة",
+        btnWeb: "الموقع الرسمي"
+    },
+    en: {
+        dir: "ltr",
+        churchTitleHeader: "Hope Church NSW",
+        welcomeTitle: "Welcome to the Bible Encyclopedia",
+        welcomeText: "A comprehensive Bible study encyclopedia for students, researchers, and everyone passionate about God's Word.",
+        verse: "\"Your word is a lamp to my feet and a light to my path.\"",
+        reference: "Psalm 119:105",
+        bibleTitle: "Holy Bible",
+        bibleText: "Read books, chapters, and verses",
+        searchTitle: "Search",
+        searchText: "Search the Bible text",
+        studiesTitle: "Bible Studies",
+        studiesText: "Studies, topics, and Bible encyclopedia",
+        churchTitle: "Church",
+        churchText: "Church information and meeting times",
+        footerText: "Hope Church NSW — Bible Study",
+        
+        mAboutTitle: "<i class='fa-solid fa-church'></i> About the Church",
+        mChurchName: "Hope Church – Sydney",
+        mAboutP1: "A place where man meets God's presence, and the Word transforms into life.",
+        mAboutP2: "We believe that church is not just a place we visit, but a family we belong to, a word we live by, and a life shaped into the image of Christ. We gather to discover God's love, grow in the knowledge of His Word, be filled with the Holy Spirit, and carry the hope of Christ to our homes, community, and everyone around us.",
+        mAboutQ: "Are you seeking God, or a life where you find God?",
+        mAboutP3: "Here we return to the Holy Bible in both Testaments—not merely for knowledge, but as a life-changing Word; discovering Christ, growing in faith, and experiencing the Holy Spirit at work within us.",
+        mVerse: "\"And you shall know the truth, and the truth shall make you free.\" (John 8:32)",
+        mTagline: "Hope Church — Meet the Word, find Christ, and discover life.",
+        mAddressTitle: "<i class='fa-solid fa-location-dot'></i> Address & Service Times",
+        mAddrLabel: "Address:",
+        mAddress: "704 The Horsley Dr Smithfield NSW",
+        mTimesLabel: "Service Times:",
+        mSunLabel: "Sunday (10:00 AM):",
+        mSunText: "General Worship Service (Arabic & English)",
+        mWedLabel: "Wednesday (7:00 PM):",
+        mWedText: "New Depth Program",
+        mThuLabel: "Thursday (11:00 AM):",
+        mThuText: "Ladies Meeting",
+        mFriLabel: "Friday (7:00 PM):",
+        mFriText: "Prayer Meeting & Bible Study",
+        mSocialTitle: "<i class='fa-solid fa-link'></i> Social Links & Services",
+        btnYt: "YouTube",
+        btnFb: "Facebook",
+        btnTk: "TikTok",
+        btnTv: "Alkeraza TV",
+        btnWeb: "Official Website"
+    }
+};
+
+function switchLanguage(lang) {
+    const t = translations[lang];
+    if (!t) return;
+
+    document.documentElement.lang = lang;
+    document.documentElement.dir = t.dir;
+    document.body.dir = t.dir;
+
+    for (let key in t) {
+        if (key === 'dir') continue;
+        const el = document.getElementById(key);
+        if (el) {
+            if (key.includes('Title') && t[key].includes('<i')) {
+                el.innerHTML = t[key];
+            } else {
+                el.textContent = t[key];
+            }
+        }
+    }
+
+    document.getElementById("arBtn").classList.toggle("active", lang === "ar");
+    document.getElementById("enBtn").classList.toggle("active", lang === "en");
+}
+
+function toggleModal(show) {
+    const modal = document.getElementById("churchModal");
+    if (modal) {
+        if (show) {
+            modal.classList.add("open");
+        } else {
+            modal.classList.remove("open");
+        }
+    }
+}
+
+window.onclick = function(e) {
+    const modal = document.getElementById("churchModal");
+    if (e.target === modal) {
+        toggleModal(false);
+    }
+};
+</script>
+ 
+</body>
+</html>
