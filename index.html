@@ -1,136 +1,519 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موسوعة الكتاب المقدس</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            color: #fbbf24;
-            margin-bottom: 20px;
-        }
-        .selector {
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        select {
-            padding: 10px 15px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background-color: #1e293b;
-            color: #ffffff;
-            cursor: pointer;
-            width: 100%;
-            max-width: 400px;
-        }
-        .book-title {
-            color: #38bdf8;
-            border-bottom: 2px solid #334155;
-            padding-bottom: 10px;
-            margin-top: 30px;
-        }
-        .text-content {
-            background-color: #1e293b;
-            padding: 20px;
-            border-radius: 8px;
-            line-height: 1.8;
-            font-size: 18px;
-            white-space: pre-line;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-        }
-        .loading {
-            text-align: center;
-            font-size: 18px;
-            color: #94a3b8;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>الكتاب المقدس | Hope Church NSW</title>
+
+<style>
+:root{
+    --bg:#061322;
+    --bg2:#0b1d31;
+    --card:#102941;
+    --gold:#d4af37;
+    --gold-light:#f4dc7b;
+    --white:#ffffff;
+    --muted:#aab9c9;
+    --blue:#2d7ff9;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:
+        Arial,
+        Tahoma,
+        "Segoe UI",
+        sans-serif;
+
+    color:var(--white);
+
+    background:
+        radial-gradient(
+            circle at center top,
+            #173454 0%,
+            var(--bg2) 42%,
+            var(--bg) 100%
+        );
+
+    overflow-x:hidden;
+}
+
+/* الصفحة الأولى */
+
+.welcome{
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:30px 20px;
+}
+
+.welcome-card{
+    width:100%;
+    max-width:720px;
+
+    text-align:center;
+
+    padding:45px 25px 35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16,41,65,.97),
+            rgba(7,22,38,.97)
+        );
+
+    border:1px solid rgba(212,175,55,.35);
+
+    border-radius:28px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.45);
+
+    backdrop-filter:blur(10px);
+}
+
+/* الشعار */
+
+.logo{
+    width:150px;
+    height:150px;
+
+    object-fit:contain;
+
+    margin:0 auto 20px;
+
+    display:block;
+
+    filter:
+        drop-shadow(
+            0 8px 20px rgba(0,0,0,.5)
+        );
+}
+
+/* العناوين */
+
+h1{
+    margin:10px 0 8px;
+
+    color:var(--gold-light);
+
+    font-size:clamp(27px,5vw,42px);
+
+    font-weight:700;
+}
+
+.subtitle{
+    margin:0 0 25px;
+
+    color:var(--muted);
+
+    font-size:16px;
+
+    line-height:1.8;
+}
+
+/* الآية */
+
+.verse{
+    margin:25px auto;
+
+    max-width:600px;
+
+    padding:22px 20px;
+
+    border-right:4px solid var(--gold);
+    border-left:4px solid rgba(212,175,55,.25);
+
+    background:rgba(0,0,0,.18);
+
+    border-radius:15px;
+
+    line-height:2;
+
+    font-size:20px;
+
+    color:#f5f7fa;
+}
+
+.verse-reference{
+    display:block;
+
+    margin-top:10px;
+
+    color:var(--gold-light);
+
+    font-size:14px;
+}
+
+/* اختيار اللغة */
+
+.language-title{
+    margin-top:30px;
+
+    margin-bottom:14px;
+
+    color:var(--muted);
+
+    font-size:14px;
+}
+
+.languages{
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+}
+
+.language-btn{
+    min-width:130px;
+
+    padding:13px 25px;
+
+    border:1px solid rgba(212,175,55,.45);
+
+    border-radius:12px;
+
+    background:#122f4b;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.language-btn:hover{
+    background:#193d61;
+
+    border-color:var(--gold);
+
+    transform:translateY(-2px);
+}
+
+.language-btn.active{
+    background:
+        linear-gradient(
+            135deg,
+            #b99525,
+            #e5c85d
+        );
+
+    color:#071526;
+
+    font-weight:bold;
+
+    border-color:var(--gold-light);
+}
+
+/* زر الدخول */
+
+.enter-btn{
+    margin-top:28px;
+
+    width:min(100%,300px);
+
+    padding:15px 25px;
+
+    border:0;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c29d2d,
+            #f0d568
+        );
+
+    color:#071526;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.3);
+
+    transition:.25s;
+}
+
+.enter-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 15px 30px rgba(0,0,0,.4);
+}
+
+/* أسفل الصفحة */
+
+.footer{
+    margin-top:28px;
+
+    color:#71859a;
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+/* الهاتف */
+
+@media(max-width:600px){
+
+    .welcome{
+        padding:15px;
+    }
+
+    .welcome-card{
+        padding:35px 18px 28px;
+
+        border-radius:22px;
+    }
+
+    .logo{
+        width:120px;
+        height:120px;
+    }
+
+    .verse{
+        font-size:18px;
+    }
+
+    .language-btn{
+        width:100%;
+    }
+
+    .enter-btn{
+        width:100%;
+    }
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>الكتاب المقدس</h1>
+<section class="welcome">
 
-    <div class="selector">
-        <select id="bookSelect" onchange="displayBook()">
-            <option value="">-- اختر السفر --</option>
-        </select>
+    <div class="welcome-card">
+
+        <!-- شعار الكنيسة -->
+        <img
+            src="2.png"
+            alt="Hope Church NSW"
+            class="logo"
+        >
+
+        <!-- اسم الكنيسة -->
+        <h1 id="churchName">
+            كنيسة رجاء الأمم سيدني
+        </h1>
+
+        <p
+            class="subtitle"
+            id="subtitle"
+        >
+            الكتاب المقدس والدراسة الكتابية
+        </p>
+
+        <!-- الآية -->
+        <div class="verse">
+
+            <span id="verseText">
+                أَمَّا كَلِمَةُ إِلهِنَا فَتَثْبُتُ إِلَى الأَبَدِ
+            </span>
+
+            <span
+                class="verse-reference"
+                id="verseReference"
+            >
+                إشعياء 40:8
+            </span>
+
+        </div>
+
+        <!-- اختيار اللغة -->
+
+        <div
+            class="language-title"
+            id="languageTitle"
+        >
+            اختر لغة التطبيق
+        </div>
+
+        <div class="languages">
+
+            <button
+                class="language-btn active"
+                id="arabicBtn"
+                onclick="setLanguage('ar')"
+            >
+                العربية
+            </button>
+
+            <button
+                class="language-btn"
+                id="englishBtn"
+                onclick="setLanguage('en')"
+            >
+                English
+            </button>
+
+        </div>
+
+        <!-- الدخول للتطبيق -->
+
+        <button
+            class="enter-btn"
+            onclick="enterApp()"
+            id="enterBtn"
+        >
+            الدخول إلى التطبيق
+        </button>
+
+        <div class="footer">
+
+            Hope Of Nation Church NSW
+
+            <br>
+
+            Bible Study & Encyclopedia
+
+        </div>
+
     </div>
 
-    <div id="loading" class="loading">جاري تحميل البيانات...</div>
-    
-    <div id="displayArea" style="display: none;">
-        <h2 id="bookTitle" class="book-title"></h2>
-        <div id="bookContent" class="text-content"></div>
-    </div>
-</div>
+</section>
 
 <script>
-    let bibleData = [];
 
-    // جلب ملف bible.json
-    fetch('./bible.json')
-        .then(response => {
-            if (!response.ok) throw new Error("تعذر تحميل ملف bible.json");
-            return response.json();
-        })
-        .then(data => {
-            bibleData = data;
-            document.getElementById('loading').style.display = 'none';
-            populateDropdown();
-        })
-        .catch(err => {
-            document.getElementById('loading').innerText = "حدث خطأ أثناء تحميل البيانات: " + err.message;
-        });
+let selectedLanguage = "ar";
 
-    // ملء قائمة الأسفار المنسدلة
-    function populateDropdown() {
-        const select = document.getElementById('bookSelect');
-        bibleData.forEach((book, index) => {
-            const option = document.createElement('option');
-            option.value = index;
-            option.textContent = book.book;
-            select.appendChild(option);
-        });
-        
-        // عرض أول سفر تلقائياً عند الفتح
-        if (bibleData.length > 0) {
-            select.value = 0;
-            displayBook();
-        }
+/* تغيير اللغة */
+
+function setLanguage(lang){
+
+    selectedLanguage = lang;
+
+    const arabic =
+        lang === "ar";
+
+    document.documentElement.lang =
+        lang;
+
+    document.documentElement.dir =
+        arabic ? "rtl" : "ltr";
+
+    document
+        .getElementById("arabicBtn")
+        .classList.toggle(
+            "active",
+            arabic
+        );
+
+    document
+        .getElementById("englishBtn")
+        .classList.toggle(
+            "active",
+            !arabic
+        );
+
+    if(arabic){
+
+        document.getElementById("churchName")
+            .textContent =
+            "كنيسة رجاء الأمم سيدني";
+
+        document.getElementById("subtitle")
+            .textContent =
+            "الكتاب المقدس والدراسة الكتابية";
+
+        document.getElementById("verseText")
+            .textContent =
+            "أَمَّا كَلِمَةُ إِلهِنَا فَتَثْبُتُ إِلَى الأَبَدِ";
+
+        document.getElementById("verseReference")
+            .textContent =
+            "إشعياء 40:8";
+
+        document.getElementById("languageTitle")
+            .textContent =
+            "اختر لغة التطبيق";
+
+        document.getElementById("enterBtn")
+            .textContent =
+            "الدخول إلى التطبيق";
+
+    }else{
+
+        document.getElementById("churchName")
+            .textContent =
+            "Hope Of Nation Church NSW";
+
+        document.getElementById("subtitle")
+            .textContent =
+            "Bible Study & Encyclopedia";
+
+        document.getElementById("verseText")
+            .textContent =
+            "The word of our God stands forever.";
+
+        document.getElementById("verseReference")
+            .textContent =
+            "Isaiah 40:8";
+
+        document.getElementById("languageTitle")
+            .textContent =
+            "Choose application language";
+
+        document.getElementById("enterBtn")
+            .textContent =
+            "Enter Application";
     }
+}
 
-    // عرض محتوى السفر المحدد
-    function displayBook() {
-        const select = document.getElementById('bookSelect');
-        const selectedIndex = select.value;
+/* زر الدخول */
 
-        if (selectedIndex === "") return;
+function enterApp(){
 
-        const book = bibleData[selectedIndex];
-        document.getElementById('bookTitle').textContent = book.book;
-        
-        // تجميع محتوى السفر
-        if (Array.isArray(book.content)) {
-            document.getElementById('bookContent').innerText = book.content.join('\n');
-        } else {
-            document.getElementById('bookContent').innerText = book.content;
-        }
+    /*
+       المرحلة التالية ستفتح الصفحة الرئيسية
+       التي تحتوي على:
 
-        document.getElementById('displayArea').style.display = 'block';
-    }
+       1. الكتاب المقدس
+       2. البحث
+       3. الدراسات الكتابية
+       4. الكنيسة
+    */
+
+    alert(
+        selectedLanguage === "ar"
+        ? "تم اختيار العربية — سيتم فتح الصفحة الرئيسية في المرحلة التالية."
+        : "English selected — the main application will open in the next stage."
+    );
+}
+
 </script>
 
 </body>
