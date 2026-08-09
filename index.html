@@ -6,10 +6,10 @@
 
 <title>موسوعة الكتاب المقدس | Hope Church NSW</title>
 
-<!-- استدعاء خط عربي فاخر يدعم المجسمات والتأثيرات -->
+<!-- استدعاء خط عربي فاخر -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -62,9 +62,10 @@ header{
     display:flex;
     align-items:center;
     gap:18px;
+    perspective: 1000px; /* تفعيل منظور الأبعاد الثلاثية للدوران */
 }
 
-/* تعديل اللوجو: تكبير الحجم وإزالة الإطار الدائري */
+/* اللوجو مع أنيميشن الدوران كل 3 ثوانٍ */
 .logo{
     width:85px;
     height:85px;
@@ -73,9 +74,44 @@ header{
     border:none;
     box-shadow:none;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    
+    /* إضافة أنيميشن الدوران */
+    animation: rotateLogo 1.2s ease-in-out infinite alternate;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+    animation-duration: 4.2s; /* 1.2 ثانية دوران + 3 ثوانٍ توقف */
+    transform-style: preserve-3d;
 }
 
-/* خط 3D متدرج باللون الذهبي الخالص لاسم الكنيسة */
+/* كلاس يتم إضافته بالـ JavaScript عند التنقل بين الصفحات */
+.logo.navigating {
+    animation: transitionSpin 0.8s ease-in-out forwards !important;
+}
+
+/* أنيميشن الدوران التلقائي كل 3 ثوانٍ (من اليمين لليسار) */
+@keyframes rotateLogo {
+    0%, 71.4% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(-360deg);
+    }
+}
+
+/* أنيميشن الدوران السريع عند الانتقال بين الصفحات */
+@keyframes transitionSpin {
+    0% {
+        transform: rotateY(0deg) scale(1);
+    }
+    50% {
+        transform: rotateY(-180deg) scale(1.15);
+    }
+    100% {
+        transform: rotateY(-360deg) scale(1);
+    }
+}
+
+/* خط 3D متدرج باللون الذهبي لاسم الكنيسة */
 .brand h1{
     margin:0;
     font-size:32px;
@@ -323,6 +359,7 @@ footer{
     <div class="header-inner">
         <div class="brand">
             <img
+                id="mainLogo"
                 src="assets/logo.png"
                 class="logo"
                 alt="Logo">
@@ -351,25 +388,25 @@ footer{
     </section>
 
     <section class="menu">
-        <button class="menu-card" onclick="openBible()">
+        <button class="menu-card" onclick="navigateTo('bible.html')">
             <div class="icon">📖</div>
             <h3 id="bibleTitle">الكتاب المقدس</h3>
             <p id="bibleText">قراءة الأسفار والأصحاحات والآيات</p>
         </button>
 
-        <button class="menu-card" onclick="openSearch()">
+        <button class="menu-card" onclick="navigateTo('search.html')">
             <div class="icon">🔎</div>
             <h3 id="searchTitle">البحث</h3>
             <p id="searchText">البحث في نص الكتاب المقدس</p>
         </button>
 
-        <button class="menu-card" onclick="openStudies()">
+        <button class="menu-card" onclick="navigateTo('studies.html')">
             <div class="icon">📚</div>
             <h3 id="studiesTitle">دراسات كتابية</h3>
             <p id="studiesText">موضوعات ودراسات وموسوعة كتابية</p>
         </button>
 
-        <button class="menu-card" onclick="openChurch()">
+        <button class="menu-card" onclick="navigateTo('church.html')">
             <div class="icon">⛪</div>
             <h3 id="churchTitle">الكنيسة</h3>
             <p id="churchText">معلومات الكنيسة ومواعيد الاجتماعات</p>
@@ -452,10 +489,16 @@ function $(id){
     return document.getElementById(id);
 }
 
-function openBible(){ window.location.href = "bible.html"; }
-function openSearch(){ window.location.href = "search.html"; }
-function openStudies(){ window.location.href = "studies.html"; }
-function openChurch(){ window.location.href = "church.html"; }
+/* دالة الانتقال مع دوران اللوجو عند الضغط */
+function navigateTo(url){
+    const logo = $("mainLogo");
+    logo.classList.add("navigating");
+    
+    // الانتظار 350 مللي ثانية حتى يلف اللوجو نصف لفة ثم يفتح الصفحة الجديدة
+    setTimeout(() => {
+        window.location.href = url;
+    }, 350);
+}
 </script>
 
 </body>
