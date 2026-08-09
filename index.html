@@ -43,7 +43,7 @@ body{
 /* HEADER */
 
 header{
-    padding:18px 6%;
+    padding:16px 6%;
     border-bottom:1px solid var(--border);
     background:rgba(5,16,29,.92);
     backdrop-filter:blur(12px);
@@ -61,34 +61,31 @@ header{
 .brand{
     display:flex;
     align-items:center;
-    gap:16px;
+    gap:18px;
 }
 
+/* تعديل اللوجو: تكبير الحجم وإزالة الإطار الدائري */
 .logo{
-    width:65px;
-    height:65px;
-    border-radius:50%;
-    border:2.5px solid var(--gold);
-    object-fit:cover;
-    background:#0b2036;
-    box-shadow: 
-        0 0 15px rgba(212, 175, 55, 0.4),
-        0 4px 10px rgba(0,0,0,0.5);
+    width:85px;
+    height:85px;
+    object-fit:contain;
+    background:transparent;
+    border:none;
+    box-shadow:none;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
 }
 
 /* خط 3D متدرج باللون الذهبي الخالص لاسم الكنيسة */
 .brand h1{
     margin:0;
-    font-size:30px;
+    font-size:32px;
     font-weight: 900;
     font-family: 'Cairo', sans-serif;
     
-    /* التدرج الذهبي الفاخر */
     background: linear-gradient(180deg, #ffe893 0%, #f4d76b 35%, #ca9e2e 70%, #8a640f 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     
-    /* التأثير ثلاثي الأبعاد 3D Text Shadow */
     filter: drop-shadow(0px 2px 0px #5c4308) 
             drop-shadow(0px 4px 6px rgba(0,0,0,0.8));
     
@@ -311,7 +308,7 @@ footer{
 @media(max-width:600px){
     header{ padding:14px 5%; }
     .brand h1{ font-size:22px; }
-    .logo{ width:50px; height:50px; }
+    .logo{ width:60px; height:60px; }
     main{ padding:30px 5%; }
     .welcome h2{ font-size:26px; }
     .verse-text{ font-size:18px; }
@@ -325,14 +322,11 @@ footer{
 <header>
     <div class="header-inner">
         <div class="brand">
-            <!-- اللوجو عن يمين اسم الكنيسة مباشرة -->
             <img
                 src="assets/logo.png"
                 class="logo"
-                alt="Logo"
-                onerror="this.style.display='none'">
+                alt="Logo">
 
-            <!-- اسم الكنيسة بالخط الذهبي الثلاثي الأبعاد بدون أي كلام أسفله -->
             <h1 id="churchTitleHeader">كنيسة رجاء الأمم سيدني</h1>
         </div>
 
@@ -348,7 +342,6 @@ footer{
         <h2 id="welcomeTitle">أهلاً بكم في موسوعة الكتاب المقدس</h2>
         <p id="welcomeText">موسوعة كتابية متكاملة للدارسين والباحثين وكل من يشتاق إلى دراسة كلمة الله بعمق ودقة.</p>
 
-        <!-- الواجهة ثلاثية الأبعاد للآية -->
         <div class="verse-3d-wrapper">
             <div class="verse-card">
                 <div class="verse-text" id="verseText">«سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»</div>
@@ -358,28 +351,24 @@ footer{
     </section>
 
     <section class="menu">
-        <!-- الكتاب المقدس -->
         <button class="menu-card" onclick="openBible()">
             <div class="icon">📖</div>
             <h3 id="bibleTitle">الكتاب المقدس</h3>
             <p id="bibleText">قراءة الأسفار والأصحاحات والآيات</p>
         </button>
 
-        <!-- البحث -->
         <button class="menu-card" onclick="openSearch()">
             <div class="icon">🔎</div>
             <h3 id="searchTitle">البحث</h3>
             <p id="searchText">البحث في نص الكتاب المقدس</p>
         </button>
 
-        <!-- الدراسات -->
         <button class="menu-card" onclick="openStudies()">
             <div class="icon">📚</div>
             <h3 id="studiesTitle">دراسات كتابية</h3>
             <p id="studiesText">موضوعات ودراسات وموسوعة كتابية</p>
         </button>
 
-        <!-- الكنيسة -->
         <button class="menu-card" onclick="openChurch()">
             <div class="icon">⛪</div>
             <h3 id="churchTitle">الكنيسة</h3>
