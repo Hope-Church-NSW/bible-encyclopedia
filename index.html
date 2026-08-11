@@ -2,23 +2,25 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>الكتاب المقدس | كنيسة رجاء الأمم سيدني</title>
+<title>كنيسة رجاء الأمم سيدني | موسوعة الكتاب المقدس</title>
+
+<meta name="description"
+      content="موسوعة الكتاب المقدس - كنيسة رجاء الأمم سيدني">
 
 <style>
 :root{
     --bg:#061321;
     --bg2:#0a1d31;
     --card:#0d243d;
-    --card2:#102d4b;
+    --card2:#123352;
     --gold:#d4af37;
-    --gold2:#f4d875;
-    --text:#f5f7fa;
-    --muted:#a9b8c8;
-    --line:#23415d;
+    --gold-light:#f5dc79;
+    --white:#f7f9fc;
+    --muted:#aab9c8;
+    --line:#254661;
     --blue:#277df5;
-    --danger:#ef6b6b;
 }
 
 *{
@@ -33,35 +35,29 @@ body{
     margin:0;
     min-height:100vh;
     background:
-        radial-gradient(circle at top,#12385c 0,#061321 45%,#030b14 100%);
-    color:var(--text);
+        radial-gradient(circle at 50% 0%,#164a76 0%,#0a2035 30%,#061321 70%,#030a12 100%);
+    color:var(--white);
     font-family:Arial,Tahoma,sans-serif;
 }
 
-button,
-select,
-input{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
+/* =========================
+   HEADER
+========================= */
 
 .header{
+    width:100%;
     position:sticky;
     top:0;
-    z-index:100;
-    background:rgba(5,17,30,.96);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line);
+    z-index:1000;
+    background:rgba(4,15,27,.94);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(212,175,55,.25);
 }
 
 .header-inner{
-    max-width:1250px;
+    width:min(1250px,94%);
+    min-height:92px;
     margin:auto;
-    min-height:88px;
-    padding:12px 20px;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -71,16 +67,43 @@ button{
 .brand{
     display:flex;
     align-items:center;
-    gap:15px;
+    gap:16px;
     min-width:0;
 }
 
 .logo{
-    width:62px;
-    height:62px;
+    width:72px;
+    height:72px;
     object-fit:contain;
     border-radius:50%;
-    filter:drop-shadow(0 0 12px rgba(212,175,55,.35));
+    filter:
+        drop-shadow(0 0 10px rgba(212,175,55,.45))
+        drop-shadow(0 0 25px rgba(212,175,55,.18));
+    animation:
+        logoFloat 4s ease-in-out infinite,
+        logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+    0%,100%{
+        transform:translateY(0) rotate(0deg);
+    }
+    50%{
+        transform:translateY(-5px) rotate(1deg);
+    }
+}
+
+@keyframes logoGlow{
+    0%,100%{
+        filter:
+            drop-shadow(0 0 8px rgba(212,175,55,.35))
+            drop-shadow(0 0 20px rgba(212,175,55,.12));
+    }
+    50%{
+        filter:
+            drop-shadow(0 0 15px rgba(212,175,55,.65))
+            drop-shadow(0 0 32px rgba(212,175,55,.25));
+    }
 }
 
 .brand-text{
@@ -89,1689 +112,1297 @@ button{
 
 .brand-ar{
     display:block;
-    color:var(--gold2);
-    font-size:25px;
-    font-weight:800;
-    line-height:1.25;
+    color:var(--gold-light);
+    font-size:27px;
+    font-weight:900;
+    line-height:1.2;
+    white-space:nowrap;
 }
 
 .brand-en{
     display:block;
-    color:#d9e4ef;
-    font-size:15px;
-    margin-top:3px;
-}
-
-.home-btn{
-    border:1px solid var(--line);
-    background:var(--card);
-    color:var(--gold2);
-    border-radius:12px;
-    padding:11px 17px;
-    font-size:15px;
-    text-decoration:none;
-    white-space:nowrap;
-}
-
-.home-btn:hover{
-    border-color:var(--gold);
-}
-
-.container{
-    width:min(1200px,94%);
-    margin:auto;
-    padding:28px 0 60px;
-}
-
-.page-title{
-    text-align:center;
-    margin:10px 0 8px;
-    color:var(--gold2);
-    font-size:30px;
-}
-
-.page-subtitle{
-    text-align:center;
-    color:var(--muted);
-    margin:0 0 25px;
-}
-
-.controls{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    background:rgba(13,36,61,.88);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:18px;
-    margin-bottom:20px;
-}
-
-.control{
-    display:flex;
-    flex-direction:column;
-    gap:7px;
-}
-
-.control label{
-    color:var(--gold2);
-    font-weight:bold;
-    font-size:14px;
-}
-
-select,
-input{
-    width:100%;
-    border:1px solid var(--line);
-    background:#081a2c;
-    color:var(--text);
-    border-radius:11px;
-    padding:13px;
+    color:#dbe6f0;
     font-size:16px;
-    outline:none;
+    margin-top:5px;
+    direction:ltr;
+    text-align:right;
 }
 
-select:focus,
-input:focus{
-    border-color:var(--gold);
-}
+/* =========================
+   LANGUAGE
+========================= */
 
-.search-box{
+.language{
     display:flex;
-    gap:8px;
-    margin-bottom:20px;
-}
-
-.search-box button{
+    gap:6px;
     border:1px solid var(--line);
-    background:#153b61;
-    color:white;
-    border-radius:11px;
-    padding:0 22px;
-}
-
-.status{
-    border:1px solid var(--line);
-    background:rgba(13,36,61,.8);
-    border-radius:13px;
-    padding:14px;
-    margin-bottom:18px;
-    color:var(--muted);
-    text-align:center;
-}
-
-.status.success{
-    border-color:#286e50;
-    color:#a8e6c5;
-}
-
-.status.error{
-    border-color:#703d3d;
-    color:#ffaaaa;
-}
-
-.reader{
-    display:none;
-    background:rgba(8,25,42,.92);
-    border:1px solid var(--line);
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.reader.visible{
-    display:block;
-}
-
-.reader-head{
-    padding:18px 20px;
-    background:linear-gradient(135deg,#102f4f,#0b2037);
-    border-bottom:1px solid var(--line);
-}
-
-.reader-title{
-    margin:0;
-    color:var(--gold2);
-    font-size:24px;
-}
-
-.chapter-bar{
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-    padding:15px;
-    border-bottom:1px solid var(--line);
+    padding:5px;
+    border-radius:12px;
     background:#091a2c;
 }
 
-.chapter-btn{
-    min-width:43px;
-    border:1px solid var(--line);
-    background:#102a44;
-    color:#dce7f1;
-    border-radius:9px;
-    padding:8px 10px;
-}
-
-.chapter-btn:hover,
-.chapter-btn.active{
-    background:var(--gold);
-    color:#111;
-    border-color:var(--gold);
-}
-
-.verses{
-    padding:12px 20px 25px;
-}
-
-.verse{
-    padding:18px 8px;
-    border-bottom:1px solid #17334d;
-    line-height:2.15;
-    font-size:19px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.verse:hover{
-    background:rgba(212,175,55,.07);
-}
-
-.verse-number{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-width:34px;
-    height:30px;
-    padding:0 7px;
-    margin-left:8px;
+.language button{
+    border:0;
+    padding:9px 13px;
     border-radius:8px;
-    background:#153a5d;
-    color:var(--gold2);
-    font-weight:bold;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
     font-size:14px;
-    vertical-align:middle;
 }
 
-.modal{
-    position:fixed;
-    inset:0;
-    z-index:500;
-    display:none;
+.language button.active{
+    background:var(--gold);
+    color:#101010;
+    font-weight:bold;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+    width:min(1200px,94%);
+    margin:auto;
+}
+
+/* =========================
+   WELCOME
+========================= */
+
+.hero{
+    min-height:470px;
+    display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
-    padding:20px;
-    background:rgba(0,0,0,.72);
+    text-align:center;
+    padding:55px 15px 40px;
 }
 
-.modal.show{
-    display:flex;
+.hero-logo{
+    width:125px;
+    height:125px;
+    object-fit:contain;
+    margin-bottom:22px;
+    animation:
+        heroLogo 5s ease-in-out infinite,
+        heroGlow 3s ease-in-out infinite;
 }
 
-.modal-box{
-    width:min(700px,100%);
-    max-height:88vh;
-    overflow:auto;
-    background:#0b2035;
-    border:1px solid var(--gold);
-    border-radius:20px;
-    box-shadow:0 20px 70px rgba(0,0,0,.55);
+@keyframes heroLogo{
+    0%,100%{
+        transform:translateY(0) scale(1);
+    }
+    50%{
+        transform:translateY(-9px) scale(1.035);
+    }
 }
 
-.modal-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    padding:17px 20px;
-    border-bottom:1px solid var(--line);
+@keyframes heroGlow{
+    0%,100%{
+        filter:drop-shadow(0 0 15px rgba(212,175,55,.35));
+    }
+    50%{
+        filter:drop-shadow(0 0 32px rgba(212,175,55,.75));
+    }
 }
 
-.modal-head h2{
+.hero h1{
     margin:0;
-    color:var(--gold2);
-    font-size:21px;
+    color:var(--gold-light);
+    font-size:clamp(30px,5vw,52px);
+    font-weight:900;
+    line-height:1.25;
+    text-shadow:0 4px 20px rgba(0,0,0,.35);
 }
 
-.close-btn{
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    border:1px solid var(--line);
-    background:#152f49;
-    color:white;
-    font-size:20px;
+.hero h2{
+    margin:12px 0 0;
+    color:#e6edf5;
+    font-size:clamp(19px,3vw,27px);
+    font-weight:500;
 }
 
-.modal-body{
-    padding:25px;
-    line-height:2.2;
-    font-size:19px;
+.hero-description{
+    max-width:760px;
+    margin:18px auto 0;
+    color:var(--muted);
+    font-size:17px;
+    line-height:2;
 }
 
-.modal-reference{
+/* =========================
+   VERSE OF THE DAY
+========================= */
+
+.verse-3d-wrapper{
+    width:min(850px,100%);
+    margin:25px auto 0;
+    perspective:1000px;
+}
+
+.verse-card{
+    position:relative;
+    padding:28px 30px;
+    border-radius:22px;
+    border:1px solid rgba(212,175,55,.38);
+    background:
+        linear-gradient(135deg,
+        rgba(19,51,82,.95),
+        rgba(7,25,42,.96));
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.04);
+    transform-style:preserve-3d;
+    animation:verseFloat 5s ease-in-out infinite;
+}
+
+@keyframes verseFloat{
+    0%,100%{
+        transform:rotateX(0deg) translateY(0);
+    }
+    50%{
+        transform:rotateX(2deg) translateY(-5px);
+    }
+}
+
+.verse-title{
     color:var(--gold);
+    font-size:14px;
     font-weight:bold;
     margin-bottom:12px;
 }
 
-.modal-verse{
-    color:white;
+.verse-text{
+    color:#f7f9fc;
+    font-size:clamp(18px,3vw,25px);
+    line-height:2;
+    font-weight:bold;
 }
 
-.back-home{
+.reference{
     display:block;
-    width:max-content;
-    margin:25px auto 0;
-    padding:11px 20px;
-    border-radius:11px;
-    background:#153b61;
-    border:1px solid var(--line);
-    color:white;
-    text-decoration:none;
+    margin-top:10px;
+    color:var(--gold-light);
+    font-size:15px;
 }
+
+/* =========================
+   MENU
+========================= */
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    padding:35px 0 70px;
+}
+
+.menu-card{
+    position:relative;
+    min-height:190px;
+    padding:25px 18px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:
+        linear-gradient(145deg,
+        rgba(15,43,70,.97),
+        rgba(8,27,45,.97));
+    color:var(--white);
+    cursor:pointer;
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+    text-align:center;
+    overflow:hidden;
+}
+
+.menu-card::before{
+    content:"";
+    position:absolute;
+    inset:-80px;
+    background:radial-gradient(
+        circle,
+        rgba(212,175,55,.13),
+        transparent 60%
+    );
+    opacity:0;
+    transition:opacity .3s ease;
+}
+
+.menu-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(212,175,55,.65);
+    box-shadow:0 20px 45px rgba(0,0,0,.3);
+}
+
+.menu-card:hover::before{
+    opacity:1;
+}
+
+.icon{
+    position:relative;
+    z-index:1;
+    width:70px;
+    height:70px;
+    margin:0 auto 15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:20px;
+    background:linear-gradient(
+        145deg,
+        #173e63,
+        #0b2239
+    );
+    border:1px solid rgba(212,175,55,.25);
+    font-size:35px;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.menu-card h3{
+    position:relative;
+    z-index:1;
+    margin:0;
+    color:var(--gold-light);
+    font-size:21px;
+}
+
+.menu-card p{
+    position:relative;
+    z-index:1;
+    margin:10px 0 0;
+    color:var(--muted);
+    line-height:1.7;
+    font-size:14px;
+}
+
+/* =========================
+   CHURCH MODAL
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(7px);
+    padding:20px;
+    overflow-y:auto;
+}
+
+.modal.show{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+}
+
+.modal-box{
+    width:min(850px,100%);
+    margin:40px auto;
+    background:
+        linear-gradient(145deg,#0d2945,#071a2d);
+    border:1px solid rgba(212,175,55,.4);
+    border-radius:24px;
+    box-shadow:0 30px 80px rgba(0,0,0,.55);
+    overflow:hidden;
+    animation:modalIn .3s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:20px;
+    border-bottom:1px solid var(--line);
+}
+
+.modal-header h2{
+    margin:0;
+    color:var(--gold-light);
+}
+
+.close{
+    border:1px solid var(--line);
+    background:#102d4b;
+    color:var(--gold-light);
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:22px;
+}
+
+.modal-content{
+    padding:25px;
+}
+
+.modal-section{
+    padding:20px 0;
+    border-bottom:1px solid var(--line);
+}
+
+.modal-section:last-child{
+    border-bottom:0;
+}
+
+.modal-title{
+    color:var(--gold-light);
+    margin-top:0;
+}
+
+.modal-body-text{
+    color:#dbe5ef;
+    line-height:2;
+}
+
+.highlight-quote{
+    margin:18px 0;
+    padding:18px;
+    border-right:4px solid var(--gold);
+    border-radius:10px;
+    background:rgba(212,175,55,.07);
+    color:var(--gold-light);
+    font-weight:bold;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:15px;
+}
+
+.info-card-item{
+    padding:15px;
+    background:#091d31;
+    border:1px solid var(--line);
+    border-radius:12px;
+    color:#dce7f1;
+}
+
+.social-links{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.social-btn{
+    display:block;
+    padding:13px;
+    text-align:center;
+    text-decoration:none;
+    color:white;
+    border:1px solid var(--line);
+    border-radius:11px;
+    background:#102d4b;
+    transition:.2s;
+}
+
+.social-btn:hover{
+    border-color:var(--gold);
+    transform:translateY(-2px);
+}
+
+/* =========================
+   FOOTER
+========================= */
 
 footer{
     text-align:center;
     padding:30px 15px;
     color:var(--muted);
-    border-top:1px solid var(--line);
+    border-top:1px solid rgba(212,175,55,.15);
+    background:#040f1b;
 }
 
-@media(max-width:700px){
+footer strong{
+    color:var(--gold-light);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .menu{
+        grid-template-columns:repeat(2,1fr);
+    }
 
     .header-inner{
-        padding:10px 13px;
+        flex-wrap:wrap;
+        padding:12px 0;
     }
 
-    .logo{
-        width:50px;
-        height:50px;
-    }
+}
+
+@media(max-width:600px){
 
     .brand-ar{
-        font-size:18px;
+        font-size:19px;
     }
 
     .brand-en{
-        font-size:11px;
-    }
-
-    .home-btn{
         font-size:12px;
-        padding:9px 10px;
     }
 
-    .controls{
+    .logo{
+        width:55px;
+        height:55px;
+    }
+
+    .language{
+        width:100%;
+        justify-content:center;
+    }
+
+    .language button{
+        flex:1;
+    }
+
+    .hero{
+        padding-top:35px;
+    }
+
+    .hero-logo{
+        width:100px;
+        height:100px;
+    }
+
+    .menu{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .menu-card{
+        min-height:175px;
+        padding:18px 10px;
+    }
+
+    .icon{
+        width:58px;
+        height:58px;
+        font-size:28px;
+    }
+
+    .menu-card h3{
+        font-size:17px;
+    }
+
+    .menu-card p{
+        font-size:12px;
+    }
+
+    .info-grid,
+    .social-links{
         grid-template-columns:1fr;
     }
 
-    .page-title{
-        font-size:24px;
+    .modal-box{
+        margin:10px auto;
     }
 
-    .search-box{
-        flex-direction:column;
-    }
+}
 
-    .search-box button{
-        padding:12px;
-    }
+/* =========================
+   ENGLISH MODE
+========================= */
 
-    .verse{
-        font-size:17px;
-    }
+body.en{
+    direction:ltr;
+}
+
+body.en .brand-en{
+    text-align:left;
+}
+
+body.en .hero-description,
+body.en .verse-text,
+body.en .reference{
+    direction:ltr;
+}
+
+body.en .highlight-quote{
+    border-right:0;
+    border-left:4px solid var(--gold);
+}
+
+body.en .modal-body-text{
+    direction:ltr;
+}
+
+.hidden{
+    display:none!important;
 }
 </style>
 </head>
 
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header class="header">
 
-<div class="header-inner">
+    <div class="header-inner">
 
-<div class="brand">
+        <div class="brand">
 
-<img
-    class="logo"
-    src="assets/logo.png"
-    alt="Hope Church NSW"
-    onerror="this.style.display='none'"
->
+            <img
+                src="assets/logo.png"
+                alt="Hope Church NSW"
+                class="logo"
+                onerror="this.style.display='none';"
+            >
 
-<div class="brand-text">
+            <div class="brand-text">
 
-<span class="brand-ar">
-كنيسة رجاء الأمم سيدني
-</span>
+                <span
+                    class="brand-ar"
+                    id="brandAr">
+                    كنيسة رجاء الأمم سيدني
+                </span>
 
-<span class="brand-en">
-Hope Church NSW
-</span>
+                <span
+                    class="brand-en"
+                    id="brandEn">
+                    Hope Church NSW
+                </span>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-<a
-    class="home-btn"
-    href="index.html"
->
-الصفحة الرئيسية
-</a>
+        <div class="language">
 
-</div>
+            <button
+                id="arBtn"
+                class="active"
+                onclick="switchLanguage('ar')">
+                العربية
+            </button>
+
+            <button
+                id="enBtn"
+                onclick="switchLanguage('en')">
+                English
+            </button>
+
+        </div>
+
+    </div>
 
 </header>
 
 
-<main class="container">
+<main>
 
-<h1 class="page-title">
-الكتاب المقدس
-</h1>
+<!-- =========================
+     HERO
+========================= -->
 
-<p class="page-subtitle">
-العهد القديم والعهد الجديد — اختر السفر ثم الأصحاح
-</p>
+<section class="hero">
 
+    <img
+        src="assets/logo.png"
+        alt="كنيسة رجاء الأمم سيدني"
+        class="hero-logo"
+        onerror="this.style.display='none';"
+    >
 
-<div
-    id="status"
-    class="status"
->
-جاري تحميل الكتاب المقدس...
-</div>
+    <h1 id="welcomeTitle">
+        أهلاً بكم في موسوعة الكتاب المقدس
+    </h1>
 
+    <h2 id="welcomeSubtitle">
+        كنيسة رجاء الأمم سيدني
+    </h2>
 
-<div class="controls">
-
-<div class="control">
-
-<label for="bookSelect">
-اختر السفر
-</label>
-
-<select id="bookSelect">
-
-<option value="">
-جاري تحميل الأسفار...
-</option>
-
-</select>
-
-</div>
+    <p
+        class="hero-description"
+        id="welcomeDescription">
+        الكتاب المقدس والدراسة والبحث الكتابي في مكان واحد،
+        لخدمة الدارسين والباحثين وكل من يشتاق إلى معرفة كلمة الله.
+    </p>
 
 
-<div class="control">
+    <!-- =========================
+         VERSE OF THE DAY
+    ========================= -->
 
-<label for="chapterSelect">
-اختر الأصحاح
-</label>
+    <div class="verse-3d-wrapper">
 
-<select id="chapterSelect">
+        <div class="verse-card">
 
-<option value="">
-اختر السفر أولاً
-</option>
+            <div
+                class="verse-title"
+                id="verseTitle">
+                ✦ آية اليوم ✦
+            </div>
 
-</select>
+            <div
+                class="verse-text"
+                id="verseText">
+                «سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»
+            </div>
 
-</div>
+            <span
+                class="reference"
+                id="verseReference">
+                مزمور 119:105
+            </span>
 
-</div>
+        </div>
 
-
-<div class="search-box">
-
-<input
-    id="searchInput"
-    type="search"
-    placeholder="ابحث في نص الكتاب المقدس..."
->
-
-<button
-    id="searchButton"
-    type="button"
->
-بحث
-</button>
-
-</div>
-
-
-<section
-    id="reader"
-    class="reader"
->
-
-<div class="reader-head">
-
-<h2
-    id="readerTitle"
-    class="reader-title"
->
-الكتاب المقدس
-</h2>
-
-</div>
-
-
-<div
-    id="chapterGrid"
-    class="chapter-bar"
->
-</div>
-
-
-<div
-    id="verses"
-    class="verses"
->
-</div>
+    </div>
 
 </section>
 
 
-<a
-    class="back-home"
-    href="index.html"
->
-← العودة إلى الصفحة الرئيسية
-</a>
+<!-- =========================
+     MAIN MENU
+========================= -->
+
+<section class="menu">
+
+    <button
+        class="menu-card"
+        onclick="window.location.href='bible.html'">
+
+        <div class="icon">📖</div>
+
+        <h3 id="bibleTitle">
+            الكتاب المقدس
+        </h3>
+
+        <p id="bibleText">
+            قراءة الأسفار والأصحاحات والآيات
+        </p>
+
+    </button>
+
+
+    <button
+        class="menu-card"
+        onclick="openPage('search.html')">
+
+        <div class="icon">🔎</div>
+
+        <h3 id="searchTitle">
+            البحث
+        </h3>
+
+        <p id="searchText">
+            البحث في نص الكتاب المقدس
+        </p>
+
+    </button>
+
+
+    <button
+        class="menu-card"
+        onclick="openPage('studies.html')">
+
+        <div class="icon">📚</div>
+
+        <h3 id="studiesTitle">
+            دراسات كتابية
+        </h3>
+
+        <p id="studiesText">
+            موضوعات ودراسات وموسوعة كتابية
+        </p>
+
+    </button>
+
+
+    <button
+        class="menu-card"
+        onclick="toggleModal(true)">
+
+        <div class="icon">⛪</div>
+
+        <h3 id="churchTitle">
+            الكنيسة
+        </h3>
+
+        <p id="churchText">
+            معلومات الكنيسة ومواعيد الاجتماعات
+        </p>
+
+    </button>
+
+</section>
 
 </main>
 
 
+<!-- =========================
+     CHURCH MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="churchModal"
+    onclick="outsideClose(event)">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2 id="modalMainTitle">
+                كنيسة رجاء الأمم سيدني
+            </h2>
+
+            <button
+                class="close"
+                onclick="toggleModal(false)">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-content">
+
+
+            <div class="modal-section">
+
+                <h2
+                    class="modal-title"
+                    id="mAboutTitle">
+                    نبذة عن الكنيسة
+                </h2>
+
+                <div class="modal-body-text">
+
+                    <p>
+                        <strong id="mChurchName">
+                            كنيسة رجاء الأمم – سيدني
+                        </strong>
+                    </p>
+
+                    <p id="mAboutP1">
+                        مكان يلتقي فيه الإنسان بحضور الله،
+                        وتتحول فيه الكلمة إلى حياة.
+                    </p>
+
+                    <p id="mAboutP2">
+                        نؤمن أن الكنيسة ليست مجرد مكان نأتي إليه،
+                        بل عائلة ننتمي إليها، وكلمة نعيشها،
+                        وحياتنا تتشكل على صورة المسيح.
+                        نلتقي لنكتشف محبة الله، وننمو في معرفة كلمته،
+                        ونمتلئ بالروح القدس، ونحمل رجاء المسيح
+                        إلى بيوتنا ومجتمعنا وكل من حولنا.
+                    </p>
+
+                    <p
+                        id="mAboutQ"
+                        style="color:var(--gold-light);font-weight:bold;">
+                        هل تبحث عن الله، أم عن حياة تجد فيها الله؟
+                    </p>
+
+                    <p id="mAboutP3">
+                        هنا نرجع إلى الكتاب المقدس بعهديه،
+                        لا كمجرد معرفة، بل ككلمة تغيّر الحياة؛
+                        نكتشف المسيح، وننمو في الإيمان،
+                        ونختبر عمل الروح القدس فينا.
+                    </p>
+
+                    <div
+                        class="highlight-quote"
+                        id="mVerse">
+                        «وَتَعْرِفُونَ الْحَقَّ،
+                        وَالْحَقُّ يُحَرِّرُكُمْ.»
+                        (يوحنا ٨: ٣٢)
+                    </div>
+
+                    <p
+                        id="mTagline"
+                        style="text-align:center;color:var(--gold-light);font-weight:bold;">
+                        كنيسة رجاء الأمم — تلتقي فيها بالكلمة،
+                        فتجد المسيح، وتكتشف الحياة.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-section">
+
+                <h2
+                    class="modal-title"
+                    id="mAddressTitle">
+                    العنوان ومواعيد الاجتماعات
+                </h2>
+
+                <div class="modal-body-text">
+
+                    <p>
+                        <strong id="mAddrLabel">
+                            العنوان:
+                        </strong>
+
+                        <span id="mAddress">
+                            704 The Horsley Dr Smithfield NSW
+                        </span>
+                    </p>
+
+
+                    <strong
+                        id="mTimesLabel"
+                        style="color:var(--gold-light);display:block;margin-top:15px;">
+                        مواعيد الاجتماعات:
+                    </strong>
+
+
+                    <div class="info-grid">
+
+                        <div class="info-card-item">
+
+                            <strong
+                                style="color:var(--gold)"
+                                id="mSunLabel">
+                                الأحد (10 صباحاً):
+                            </strong>
+
+                            <br>
+
+                            <span id="mSunText">
+                                اجتماع عبادة عام عربي وانجليزي
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-card-item">
+
+                            <strong
+                                style="color:var(--gold)"
+                                id="mWedLabel">
+                                الأربعاء (7 مساءً):
+                            </strong>
+
+                            <br>
+
+                            <span id="mWedText">
+                                برنامج عمق جديد
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-card-item">
+
+                            <strong
+                                style="color:var(--gold)"
+                                id="mThuLabel">
+                                الخميس (11 صباحاً):
+                            </strong>
+
+                            <br>
+
+                            <span id="mThuText">
+                                اجتماع السيدات
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-card-item">
+
+                            <strong
+                                style="color:var(--gold)"
+                                id="mFriLabel">
+                                الجمعة (7 مساءً):
+                            </strong>
+
+                            <br>
+
+                            <span id="mFriText">
+                                اجتماع الصلاة ودراسة الكتاب المقدس
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-section">
+
+                <h2
+                    class="modal-title"
+                    id="mSocialTitle">
+                    التواصل والخدمات
+                </h2>
+
+
+                <div class="social-links">
+
+                    <a
+                        href="https://www.youtube.com/@HCNSW"
+                        target="_blank"
+                        rel="noopener"
+                        class="social-btn">
+                        ▶ يوتيوب
+                    </a>
+
+
+                    <a
+                        href="https://www.facebook.com/hopechurchNSW"
+                        target="_blank"
+                        rel="noopener"
+                        class="social-btn">
+                        f فيسبوك
+                    </a>
+
+
+                    <a
+                        href="https://www.tiktok.com/@hopechurch.nsw"
+                        target="_blank"
+                        rel="noopener"
+                        class="social-btn">
+                        ♪ تيك توك
+                    </a>
+
+
+                    <a
+                        href="https://www.alkerazatv.com/"
+                        target="_blank"
+                        rel="noopener"
+                        class="social-btn">
+                        📺 قناة الكرازة
+                    </a>
+
+
+                    <a
+                        href="https://hope-church-nsw-rmwpk10e.durable.site"
+                        target="_blank"
+                        rel="noopener"
+                        class="social-btn">
+                        🌐 الموقع الرسمي
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
 
-كنيسة رجاء الأمم سيدني —
-Hope Church NSW
+    <strong>
+        كنيسة رجاء الأمم سيدني
+    </strong>
+
+    <br>
+
+    <span id="footerText">
+        Hope Church NSW — Bible Encyclopedia
+    </span>
 
 </footer>
 
 
-<!-- نافذة الآية -->
-
-<div
-    id="verseModal"
-    class="modal"
->
-
-<div class="modal-box">
-
-<div class="modal-head">
-
-<h2>
-الآية
-</h2>
-
-<button
-    id="closeModal"
-    class="close-btn"
-    type="button"
->
-×
-</button>
-
-</div>
-
-<div class="modal-body">
-
-<div
-    id="modalReference"
-    class="modal-reference"
->
-</div>
-
-<div
-    id="modalVerse"
-    class="modal-verse"
->
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
 <script>
 
-/* =========================================================
-   FILE
-========================================================= */
+/* =========================
+   SAFE NAVIGATION
+========================= */
 
-const BIBLE_FILE = "bible.json";
+function openPage(page){
 
+    window.location.href = page;
 
-/* =========================================================
-   66 BIBLE BOOKS
-========================================================= */
-
-const BOOKS = [
-
-/* OLD TESTAMENT */
-
-{id:"01-gen",name:"التكوين"},
-{id:"02-exo",name:"الخروج"},
-{id:"03-lev",name:"اللاويين"},
-{id:"04-num",name:"العدد"},
-{id:"05-deu",name:"التثنية"},
-{id:"06-jos",name:"يشوع"},
-{id:"07-jdg",name:"القضاة"},
-{id:"08-rut",name:"راعوث"},
-{id:"09-1sam",name:"صموئيل الأول"},
-{id:"10-2sam",name:"صموئيل الثاني"},
-{id:"11-1kgs",name:"ملوك الأول"},
-{id:"12-2kgs",name:"ملوك الثاني"},
-{id:"13-1chr",name:"أخبار الأيام الأول"},
-{id:"14-2chr",name:"أخبار الأيام الثاني"},
-{id:"15-ezr",name:"عزرا"},
-{id:"16-neh",name:"نحميا"},
-{id:"17-est",name:"أستير"},
-{id:"18-job",name:"أيوب"},
-{id:"19-psa",name:"المزامير"},
-{id:"20-pro",name:"الأمثال"},
-{id:"21-ecc",name:"الجامعة"},
-{id:"22-son",name:"نشيد الأنشاد"},
-{id:"23-isa",name:"إشعياء"},
-{id:"24-jer",name:"إرميا"},
-{id:"25-lam",name:"مراثي إرميا"},
-{id:"26-eze",name:"حزقيال"},
-{id:"27-dan",name:"دانيال"},
-{id:"28-hos",name:"هوشع"},
-{id:"29-joe",name:"يوئيل"},
-{id:"30-amo",name:"عاموس"},
-{id:"31-oba",name:"عوبديا"},
-{id:"32-jon",name:"يونان"},
-{id:"33-mic",name:"ميخا"},
-{id:"34-nah",name:"ناحوم"},
-{id:"35-hab",name:"حبقوق"},
-{id:"36-zep",name:"صفنيا"},
-{id:"37-hag",name:"حجي"},
-{id:"38-zec",name:"زكريا"},
-{id:"39-mal",name:"ملاخي"},
-
-/* NEW TESTAMENT */
-
-{id:"40-mat",name:"متى"},
-{id:"41-mar",name:"مرقس"},
-{id:"42-luk",name:"لوقا"},
-{id:"43-joh",name:"يوحنا"},
-{id:"44-act",name:"أعمال الرسل"},
-{id:"45-rom",name:"رومية"},
-{id:"46-1cor",name:"كورنثوس الأولى"},
-{id:"47-2cor",name:"كورنثوس الثانية"},
-{id:"48-gal",name:"غلاطية"},
-{id:"49-eph",name:"أفسس"},
-{id:"50-phi",name:"فيلبي"},
-{id:"51-col",name:"كولوسي"},
-{id:"52-1the",name:"تسالونيكي الأولى"},
-{id:"53-2the",name:"تسالونيكي الثانية"},
-{id:"54-1tim",name:"تيموثاوس الأولى"},
-{id:"55-2tim",name:"تيموثاوس الثانية"},
-{id:"56-tit",name:"تيطس"},
-{id:"57-phm",name:"فليمون"},
-{id:"58-heb",name:"العبرانيين"},
-{id:"59-jam",name:"يعقوب"},
-{id:"60-1pet",name:"بطرس الأولى"},
-{id:"61-2pet",name:"بطرس الثانية"},
-{id:"62-1joh",name:"يوحنا الأولى"},
-{id:"63-2joh",name:"يوحنا الثانية"},
-{id:"64-3joh",name:"يوحنا الثالثة"},
-{id:"65-jud",name:"يهوذا"},
-{id:"66-rev",name:"رؤيا يوحنا"}
-
-];
+}
 
 
-/* =========================================================
-   CHAPTER COUNTS
-========================================================= */
+/* =========================
+   CHURCH MODAL
+========================= */
 
-const CHAPTER_COUNTS = {
+function toggleModal(show){
 
-"01-gen":50,
-"02-exo":40,
-"03-lev":27,
-"04-num":36,
-"05-deu":34,
-"06-jos":24,
-"07-jdg":21,
-"08-rut":4,
-"09-1sam":31,
-"10-2sam":24,
-"11-1kgs":22,
-"12-2kgs":25,
-"13-1chr":29,
-"14-2chr":36,
-"15-ezr":10,
-"16-neh":13,
-"17-est":10,
-"18-job":42,
-"19-psa":150,
-"20-pro":31,
-"21-ecc":12,
-"22-son":8,
-"23-isa":66,
-"24-jer":52,
-"25-lam":5,
-"26-eze":48,
-"27-dan":12,
-"28-hos":14,
-"29-joe":3,
-"30-amo":9,
-"31-oba":1,
-"32-jon":4,
-"33-mic":7,
-"34-nah":3,
-"35-hab":3,
-"36-zep":3,
-"37-hag":2,
-"38-zec":14,
-"39-mal":4,
+    const modal = document.getElementById("churchModal");
 
-"40-mat":28,
-"41-mar":16,
-"42-luk":24,
-"43-joh":21,
-"44-act":28,
-"45-rom":16,
-"46-1cor":16,
-"47-2cor":13,
-"48-gal":6,
-"49-eph":6,
-"50-phi":4,
-"51-col":4,
-"52-1the":5,
-"53-2the":3,
-"54-1tim":6,
-"55-2tim":4,
-"56-tit":3,
-"57-phm":1,
-"58-heb":13,
-"59-jam":5,
-"60-1pet":5,
-"61-2pet":3,
-"62-1joh":5,
-"63-2joh":1,
-"64-3joh":1,
-"65-jud":1,
-"66-rev":22
+    if(show){
+
+        modal.classList.add("show");
+        document.body.style.overflow="hidden";
+
+    }else{
+
+        modal.classList.remove("show");
+        document.body.style.overflow="";
+
+    }
+
+}
+
+
+function outsideClose(event){
+
+    if(event.target.id === "churchModal"){
+
+        toggleModal(false);
+
+    }
+
+}
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+const translations = {
+
+    ar:{
+
+        brandAr:"كنيسة رجاء الأمم سيدني",
+        brandEn:"Hope Church NSW",
+
+        welcomeTitle:"أهلاً بكم في موسوعة الكتاب المقدس",
+
+        welcomeSubtitle:"كنيسة رجاء الأمم سيدني",
+
+        welcomeDescription:
+        "الكتاب المقدس والدراسة والبحث الكتابي في مكان واحد، لخدمة الدارسين والباحثين وكل من يشتاق إلى معرفة كلمة الله.",
+
+        verseTitle:"✦ آية اليوم ✦",
+
+        verseText:
+        "«سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي»",
+
+        verseReference:"مزمور 119:105",
+
+        bibleTitle:"الكتاب المقدس",
+        bibleText:"قراءة الأسفار والأصحاحات والآيات",
+
+        searchTitle:"البحث",
+        searchText:"البحث في نص الكتاب المقدس",
+
+        studiesTitle:"دراسات كتابية",
+        studiesText:"موضوعات ودراسات وموسوعة كتابية",
+
+        churchTitle:"الكنيسة",
+        churchText:"معلومات الكنيسة ومواعيد الاجتماعات",
+
+        modalMainTitle:"كنيسة رجاء الأمم سيدني",
+
+        mAboutTitle:"نبذة عن الكنيسة",
+        mChurchName:"كنيسة رجاء الأمم – سيدني",
+
+        mAboutP1:
+        "مكان يلتقي فيه الإنسان بحضور الله، وتتحول فيه الكلمة إلى حياة.",
+
+        mAboutP2:
+        "نؤمن أن الكنيسة ليست مجرد مكان نأتي إليه، بل عائلة ننتمي إليها، وكلمة نعيشها، وحياتنا تتشكل على صورة المسيح. نلتقي لنكتشف محبة الله، وننمو في معرفة كلمته، ونمتلئ بالروح القدس، ونحمل رجاء المسيح إلى بيوتنا ومجتمعنا وكل من حولنا.",
+
+        mAboutQ:
+        "هل تبحث عن الله، أم عن حياة تجد فيها الله؟",
+
+        mAboutP3:
+        "هنا نرجع إلى الكتاب المقدس بعهديه، لا كمجرد معرفة، بل ككلمة تغيّر الحياة؛ نكتشف المسيح، وننمو في الإيمان، ونختبر عمل الروح القدس فينا.",
+
+        mVerse:
+        "«وَتَعْرِفُونَ الْحَقَّ، وَالْحَقُّ يُحَرِّرُكُمْ.» (يوحنا ٨: ٣٢)",
+
+        mTagline:
+        "كنيسة رجاء الأمم — تلتقي فيها بالكلمة، فتجد المسيح، وتكتشف الحياة.",
+
+        mAddressTitle:"العنوان ومواعيد الاجتماعات",
+        mAddrLabel:"العنوان:",
+        mTimesLabel:"مواعيد الاجتماعات:",
+
+        mSunLabel:"الأحد (10 صباحاً):",
+        mSunText:"اجتماع عبادة عام عربي وانجليزي",
+
+        mWedLabel:"الأربعاء (7 مساءً):",
+        mWedText:"برنامج عمق جديد",
+
+        mThuLabel:"الخميس (11 صباحاً):",
+        mThuText:"اجتماع السيدات",
+
+        mFriLabel:"الجمعة (7 مساءً):",
+        mFriText:"اجتماع الصلاة ودراسة الكتاب المقدس",
+
+        mSocialTitle:"التواصل والخدمات",
+
+        footerText:"Hope Church NSW — Bible Encyclopedia"
+
+    },
+
+
+    en:{
+
+        brandAr:"Hope Church NSW",
+        brandEn:"Hope of Nations Church Sydney",
+
+        welcomeTitle:"Welcome to the Bible Encyclopedia",
+
+        welcomeSubtitle:"Hope Church NSW",
+
+        welcomeDescription:
+        "Bible reading, study and research in one place, serving students, pastors, researchers and everyone passionate about God's Word.",
+
+        verseTitle:"✦ Verse of the Day ✦",
+
+        verseText:
+        "\"Your word is a lamp to my feet and a light to my path.\"",
+
+        verseReference:"Psalm 119:105",
+
+        bibleTitle:"Holy Bible",
+        bibleText:"Read books, chapters and verses",
+
+        searchTitle:"Search",
+        searchText:"Search the Bible text",
+
+        studiesTitle:"Bible Studies",
+        studiesText:"Studies, topics and Bible encyclopedia",
+
+        churchTitle:"Church",
+        churchText:"Church information and meeting times",
+
+        modalMainTitle:"Hope Church NSW",
+
+        mAboutTitle:"About the Church",
+        mChurchName:"Hope of Nations Church – Sydney",
+
+        mAboutP1:
+        "A place where people encounter God's presence and His Word becomes life.",
+
+        mAboutP2:
+        "We believe the church is not merely a place we attend, but a family we belong to, a Word we live, and a life shaped by Christ.",
+
+        mAboutQ:
+        "Are you looking for God, or for a life in which you can find God?",
+
+        mAboutP3:
+        "Here we return to the Holy Bible not merely for knowledge, but as the living Word that transforms life.",
+
+        mVerse:
+        "\"And you shall know the truth, and the truth shall make you free.\" (John 8:32)",
+
+        mTagline:
+        "Hope Church NSW — Encounter the Word, discover Christ, and discover life.",
+
+        mAddressTitle:"Address & Meeting Times",
+        mAddrLabel:"Address:",
+        mTimesLabel:"Meeting Times:",
+
+        mSunLabel:"Sunday (10 AM):",
+        mSunText:"Arabic & English worship service",
+
+        mWedLabel:"Wednesday (7 PM):",
+        mWedText:"New Depth program",
+
+        mThuLabel:"Thursday (11 AM):",
+        mThuText:"Ladies meeting",
+
+        mFriLabel:"Friday (7 PM):",
+        mFriText:"Prayer meeting & Bible study",
+
+        mSocialTitle:"Contact & Services",
+
+        footerText:"Hope Church NSW — Bible Encyclopedia"
+
+    }
 
 };
 
 
-/* =========================================================
-   STATE
-========================================================= */
+function setText(id,text){
 
-let verses = [];
+    const element=document.getElementById(id);
 
-let currentBook = "";
+    if(element){
 
-let currentChapter = 0;
+        element.textContent=text;
 
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function getBookNumber(value){
-
-    const match =
-        String(value ?? "")
-        .match(/^(\d{1,2})-/);
-
-    return match
-        ? Number(match[1])
-        : null;
-}
-
-
-function getBookName(id){
-
-    const number =
-        getBookNumber(id);
-
-    const book =
-        BOOKS.find(
-            b =>
-                getBookNumber(b.id) === number
-        );
-
-    return book
-        ? book.name
-        : id;
-}
-
-
-function escapeHTML(value){
-
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    }
 
 }
 
 
-function setStatus(text,type=""){
+function switchLanguage(lang){
 
-    const el =
-        document.getElementById("status");
+    const t=translations[lang];
 
-    if(!el) return;
-
-    el.className =
-        "status " + type;
-
-    el.textContent =
-        text;
-
-}
+    if(!t) return;
 
 
-/* =========================================================
-   BUILD BOOK LIST
-========================================================= */
+    document.body.classList.toggle("en",lang==="en");
 
-function buildBooks(){
+    document.documentElement.lang=lang;
 
-    const select =
-        document.getElementById(
-            "bookSelect"
-        );
-
-    if(!select) return;
-
-    select.innerHTML =
-        `<option value="">
-            اختر السفر
-        </option>`;
+    document.documentElement.dir=
+        lang==="ar" ? "rtl" : "ltr";
 
 
-    BOOKS.forEach(book => {
+    Object.keys(t).forEach(key=>{
 
-        const option =
-            document.createElement("option");
-
-        option.value =
-            book.id;
-
-        option.textContent =
-            book.name;
-
-        select.appendChild(option);
+        setText(key,t[key]);
 
     });
 
-}
+
+    document.getElementById("arBtn")
+        .classList.toggle("active",lang==="ar");
+
+    document.getElementById("enBtn")
+        .classList.toggle("active",lang==="en");
 
 
-/* =========================================================
-   BUILD CHAPTER LIST
-========================================================= */
-
-function buildChapters(){
-
-    const select =
-        document.getElementById(
-            "chapterSelect"
-        );
-
-    const grid =
-        document.getElementById(
-            "chapterGrid"
-        );
-
-    if(!select || !grid) return;
-
-
-    select.innerHTML =
-        `<option value="">
-            اختر الأصحاح
-        </option>`;
-
-
-    grid.innerHTML = "";
-
-
-    if(!currentBook){
-
-        select.innerHTML =
-            `<option value="">
-                اختر السفر أولاً
-            </option>`;
-
-        return;
-
-    }
-
-
-    const bookNumber =
-        getBookNumber(
-            currentBook
-        );
-
-
-    /*
-       أولاً نقرأ الأصحاحات
-       الموجودة فعلياً في JSON.
-    */
-
-    let chapters = [
-
-        ...new Set(
-
-            verses
-
-                .filter(
-                    v =>
-                        getBookNumber(v.book) ===
-                        bookNumber
-                )
-
-                .map(
-                    v =>
-                        Number(v.chapter)
-                )
-
-                .filter(
-                    n =>
-                        Number.isFinite(n)
-                )
-
-        )
-
-    ].sort(
-        (a,b)=>a-b
-    );
-
-
-    /*
-       إذا لم تكن البيانات كاملة،
-       نستخدم العدد الرسمي للأصحاحات.
-    */
-
-    if(!chapters.length){
-
-        const count =
-            CHAPTER_COUNTS[currentBook] || 0;
-
-        chapters =
-            Array.from(
-                {length:count},
-                (_,i)=>i+1
-            );
-
-    }
-
-
-    chapters.forEach(chapter => {
-
-        const option =
-            document.createElement("option");
-
-        option.value =
-            chapter;
-
-        option.textContent =
-            `الإصحاح ${chapter}`;
-
-        select.appendChild(option);
-
-
-        const button =
-            document.createElement("button");
-
-        button.type =
-            "button";
-
-        button.className =
-            "chapter-btn";
-
-        button.textContent =
-            chapter;
-
-        button.addEventListener(
-            "click",
-            () =>
-                selectChapter(chapter)
-        );
-
-        grid.appendChild(button);
-
-    });
+    localStorage.setItem("bibleAppLanguage",lang);
 
 }
 
 
-/* =========================================================
-   SELECT BOOK
-========================================================= */
+/* =========================
+   INITIAL LANGUAGE
+========================= */
 
-function selectBook(bookId){
+(function(){
 
-    currentBook =
-        bookId;
+    const saved=
+        localStorage.getItem("bibleAppLanguage") || "ar";
 
-    currentChapter =
-        0;
+    switchLanguage(saved);
 
-
-    const select =
-        document.getElementById(
-            "bookSelect"
-        );
-
-    if(select){
-
-        select.value =
-            bookId;
-
-    }
-
-
-    const reader =
-        document.getElementById(
-            "reader"
-        );
-
-    if(reader){
-
-        reader.classList.add(
-            "visible"
-        );
-
-    }
-
-
-    const title =
-        document.getElementById(
-            "readerTitle"
-        );
-
-    if(title){
-
-        title.textContent =
-            getBookName(bookId);
-
-    }
-
-
-    buildChapters();
-
-
-    document.getElementById(
-        "verses"
-    ).innerHTML = "";
-
-}
-
-
-/* =========================================================
-   SELECT CHAPTER
-========================================================= */
-
-function selectChapter(chapter){
-
-    currentChapter =
-        Number(chapter);
-
-
-    const select =
-        document.getElementById(
-            "chapterSelect"
-        );
-
-    if(select){
-
-        select.value =
-            String(chapter);
-
-    }
-
-
-    document
-        .querySelectorAll(
-            ".chapter-btn"
-        )
-        .forEach(btn => {
-
-            btn.classList.toggle(
-                "active",
-                Number(
-                    btn.textContent
-                ) ===
-                currentChapter
-            );
-
-        });
-
-
-    renderVerses();
-
-}
-
-
-/* =========================================================
-   RENDER VERSES
-========================================================= */
-
-function renderVerses(){
-
-    const container =
-        document.getElementById(
-            "verses"
-        );
-
-    if(!container) return;
-
-
-    if(
-        !currentBook ||
-        !currentChapter
-    ){
-
-        container.innerHTML = "";
-
-        return;
-
-    }
-
-
-    const number =
-        getBookNumber(
-            currentBook
-        );
-
-
-    const rows =
-        verses
-
-            .filter(
-
-                v =>
-
-                    getBookNumber(v.book) ===
-                    number &&
-
-                    Number(v.chapter) ===
-                    currentChapter
-
-            )
-
-            .sort(
-                (a,b) =>
-                    Number(a.verse) -
-                    Number(b.verse)
-            );
-
-
-    if(!rows.length){
-
-        container.innerHTML = `
-
-            <div class="status error">
-
-                لا توجد آيات لهذا الأصحاح
-                في ملف البيانات الحالي.
-
-                <br><br>
-
-                ${escapeHTML(
-                    getBookName(currentBook)
-                )}
-                — الإصحاح
-                ${currentChapter}
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-
-        rows.map(v => `
-
-            <div
-                class="verse"
-                data-book="${escapeHTML(v.book)}"
-                data-chapter="${Number(v.chapter)}"
-                data-verse="${Number(v.verse)}"
-            >
-
-                <span class="verse-number">
-                    ${Number(v.verse)}
-                </span>
-
-                ${escapeHTML(v.text)}
-
-            </div>
-
-        `).join("");
-
-
-    container
-        .querySelectorAll(".verse")
-        .forEach(el => {
-
-            el.addEventListener(
-                "click",
-                () => {
-
-                    openVerse(
-                        el.dataset.book,
-                        Number(
-                            el.dataset.chapter
-                        ),
-                        Number(
-                            el.dataset.verse
-                        )
-                    );
-
-                }
-            );
-
-        });
-
-
-    const title =
-        document.getElementById(
-            "readerTitle"
-        );
-
-    if(title){
-
-        title.textContent =
-
-            `${getBookName(currentBook)}
-             — الإصحاح ${currentChapter}`;
-
-    }
-
-}
-
-
-/* =========================================================
-   OPEN VERSE MODAL
-========================================================= */
-
-function openVerse(
-    book,
-    chapter,
-    verse
-){
-
-    const number =
-        getBookNumber(book);
-
-
-    const row =
-        verses.find(
-
-            v =>
-
-                getBookNumber(v.book) ===
-                number &&
-
-                Number(v.chapter) ===
-                Number(chapter) &&
-
-                Number(v.verse) ===
-                Number(verse)
-
-        );
-
-
-    if(!row){
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "modalReference"
-    ).textContent =
-
-        `${getBookName(book)}
-         ${chapter}:${verse}`;
-
-
-    document.getElementById(
-        "modalVerse"
-    ).textContent =
-        row.text;
-
-
-    document.getElementById(
-        "verseModal"
-    ).classList.add(
-        "show"
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-function closeModal(){
-
-    document.getElementById(
-        "verseModal"
-    ).classList.remove(
-        "show"
-    );
-
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function searchBible(){
-
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-    const container =
-        document.getElementById(
-            "verses"
-        );
-
-    if(!input || !container) return;
-
-
-    const query =
-        input.value
-            .trim()
-            .toLowerCase();
-
-
-    if(!query){
-
-        if(currentBook && currentChapter){
-
-            renderVerses();
-
-        }
-
-        return;
-
-    }
-
-
-    const results =
-        verses
-
-            .filter(
-                v =>
-                    String(v.text)
-                        .toLowerCase()
-                        .includes(query)
-            )
-
-            .slice(0,300);
-
-
-    document.getElementById(
-        "reader"
-    ).classList.add(
-        "visible"
-    );
-
-
-    document.getElementById(
-        "chapterGrid"
-    ).innerHTML = "";
-
-
-    document.getElementById(
-        "readerTitle"
-    ).textContent =
-
-        `نتائج البحث — ${results.length}`;
-
-
-    if(!results.length){
-
-        container.innerHTML = `
-
-            <div class="status">
-                لا توجد نتائج للبحث.
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-
-        results.map(v => `
-
-            <div
-                class="verse"
-                data-book="${escapeHTML(v.book)}"
-                data-chapter="${Number(v.chapter)}"
-                data-verse="${Number(v.verse)}"
-            >
-
-                <span class="verse-number">
-
-                    ${escapeHTML(
-                        getBookName(v.book)
-                    )}
-
-                    ${Number(v.chapter)}:
-                    ${Number(v.verse)}
-
-                </span>
-
-                ${escapeHTML(v.text)}
-
-            </div>
-
-        `).join("");
-
-
-    container
-        .querySelectorAll(".verse")
-        .forEach(el => {
-
-            el.addEventListener(
-                "click",
-                () => {
-
-                    openVerse(
-                        el.dataset.book,
-                        Number(
-                            el.dataset.chapter
-                        ),
-                        Number(
-                            el.dataset.verse
-                        )
-                    );
-
-                }
-            );
-
-        });
-
-}
-
-
-/* =========================================================
-   LOAD BIBLE JSON
-========================================================= */
-
-async function loadBible(){
-
-    setStatus(
-        "جاري تحميل الكتاب المقدس..."
-    );
-
-
-    try{
-
-        const response =
-            await fetch(
-                BIBLE_FILE +
-                "?v=" +
-                Date.now(),
-                {
-                    cache:"no-store"
-                }
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "HTTP " +
-                response.status
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if(!Array.isArray(data)){
-
-            throw new Error(
-                "bible.json ليس Array"
-            );
-
-        }
-
-
-        verses =
-            data
-
-                .filter(
-                    v =>
-                        v &&
-                        v.book &&
-                        v.chapter &&
-                        v.verse &&
-                        v.text
-                )
-
-                .map(
-                    v => ({
-
-                        book:
-                            String(v.book),
-
-                        chapter:
-                            Number(v.chapter),
-
-                        verse:
-                            Number(v.verse),
-
-                        text:
-                            String(v.text)
-
-                    })
-                );
-
-
-        if(!verses.length){
-
-            throw new Error(
-                "لم يتم العثور على آيات"
-            );
-
-        }
-
-
-        buildBooks();
-
-
-        /*
-           حساب عدد الأسفار الفعلية
-           الموجودة في JSON.
-        */
-
-        const available =
-            new Set(
-
-                verses
-                    .map(
-                        v =>
-                            getBookNumber(
-                                v.book
-                            )
-                    )
-                    .filter(
-                        n =>
-                            n !== null
-                    )
-
-            );
-
-
-        setStatus(
-
-            `تم تحميل ${
-                verses.length.toLocaleString("ar-EG")
-            } آية من ${
-                available.size
-            } سفرًا. اختر السفر.`,
-
-            "success"
-
-        );
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Bible loading error:",
-            error
-        );
-
-
-        setStatus(
-
-            "⚠️ تعذر تحميل الكتاب المقدس — " +
-            error.message,
-
-            "error"
-
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   EVENTS
-========================================================= */
-
-document
-    .getElementById(
-        "bookSelect"
-    )
-    .addEventListener(
-        "change",
-        function(){
-
-            if(this.value){
-
-                selectBook(
-                    this.value
-                );
-
-            }
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "chapterSelect"
-    )
-    .addEventListener(
-        "change",
-        function(){
-
-            if(this.value){
-
-                selectChapter(
-                    Number(this.value)
-                );
-
-            }
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "searchButton"
-    )
-    .addEventListener(
-        "click",
-        searchBible
-    );
-
-
-document
-    .getElementById(
-        "searchInput"
-    )
-    .addEventListener(
-        "keydown",
-        function(e){
-
-            if(e.key === "Enter"){
-
-                searchBible();
-
-            }
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "closeModal"
-    )
-    .addEventListener(
-        "click",
-        closeModal
-    );
-
-
-document
-    .getElementById(
-        "verseModal"
-    )
-    .addEventListener(
-        "click",
-        function(e){
-
-            if(e.target === this){
-
-                closeModal();
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-   START
-========================================================= */
-
-loadBible();
+})();
 
 </script>
 
