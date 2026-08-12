@@ -2,449 +2,420 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>الدراسات الكتابية | كنيسة رجاء الأمم سيدني</title>
 
 <style>
 :root{
-  --bg:#061321;
-  --bg2:#0b1d31;
-  --card:#0d2138;
-  --card2:#102a46;
-  --gold:#d4af37;
-  --gold2:#f2d675;
-  --text:#f4f7fb;
-  --muted:#9fb0c3;
-  --line:#1d3b59;
-  --blue:#2d7ff9;
+--bg:#061321;
+--bg2:#0b1d31;
+--card:#0d243d;
+--card2:#102d49;
+--line:#1d3b59;
+--gold:#d4af37;
+--gold2:#f2d675;
+--text:#f4f7fb;
+--muted:#9fb0c3;
 }
 
 *{box-sizing:border-box}
 
-html{scroll-behavior:smooth}
-
 body{
-  margin:0;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 20% 10%,rgba(45,127,249,.10),transparent 30%),
-    radial-gradient(circle at 80% 20%,rgba(212,175,55,.08),transparent 30%),
-    linear-gradient(145deg,var(--bg),var(--bg2));
-  color:var(--text);
-  font-family:Arial,Tahoma,sans-serif;
+margin:0;
+background:
+radial-gradient(circle at top right,#247cff18,transparent 35%),
+linear-gradient(145deg,var(--bg),var(--bg2));
+color:var(--text);
+font-family:Tahoma,Arial,sans-serif;
+min-height:100vh;
 }
 
 header{
-  position:sticky;
-  top:0;
-  z-index:100;
-  padding:14px 5%;
-  background:rgba(6,19,33,.96);
-  border-bottom:1px solid var(--line);
-  backdrop-filter:blur(12px);
+position:sticky;
+top:0;
+z-index:100;
+background:#061321f5;
+border-bottom:1px solid var(--line);
+box-shadow:0 8px 30px #0005;
 }
 
-.header-inner{
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
+.header{
+max-width:1250px;
+margin:auto;
+padding:10px 5%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
+display:flex;
+align-items:center;
+gap:16px;
 }
 
 .logo{
-  width:72px;
-  height:72px;
-  object-fit:contain;
-  filter:drop-shadow(0 0 12px rgba(212,175,55,.28));
+width:88px;
+height:88px;
+object-fit:contain;
+filter:drop-shadow(0 5px 12px #000);
+animation:floatLogo 5s ease-in-out infinite;
 }
 
-.brand-title{
-  font-size:28px;
-  font-weight:900;
-  color:var(--gold2);
-  text-shadow:
-    0 2px 0 #806817,
-    0 4px 12px rgba(212,175,55,.35);
+@keyframes floatLogo{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-5px)}
 }
 
-.home-link{
-  color:var(--gold2);
-  text-decoration:none;
-  font-weight:900;
-  font-size:20px;
-  text-shadow:0 2px 8px rgba(212,175,55,.35);
+.brand-name{
+margin:0;
+font-size:26px;
+font-weight:900;
+background:linear-gradient(
+180deg,
+#fff6b0,
+#f2d675 35%,
+#d4af37 65%,
+#8e6810
+);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+filter:drop-shadow(0 2px 0 #503400);
+}
+
+.brand-en{
+margin-top:4px;
+color:var(--muted);
+font-size:13px;
+}
+
+.home{
+background:#173e64;
+border:1px solid var(--gold);
+color:var(--gold2);
+border-radius:12px;
+padding:11px 18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.home:hover{
+background:#1d4d7d;
 }
 
 main{
-  max-width:1200px;
-  margin:auto;
-  padding:30px 5% 50px;
+max-width:1250px;
+margin:auto;
+padding:35px 5% 60px;
 }
 
-.hero{
-  text-align:center;
-  margin-bottom:30px;
+.page-title{
+text-align:center;
+font-size:36px;
+margin:10px 0;
+background:linear-gradient(
+180deg,
+#fff6b0,
+#f2d675 35%,
+#d4af37 65%,
+#8e6810
+);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+filter:drop-shadow(0 3px 0 #503400);
 }
 
-.hero h1{
-  margin:0;
-  font-size:36px;
-  color:var(--gold2);
-  text-shadow:
-    0 2px 0 #806817,
-    0 6px 20px rgba(212,175,55,.25);
+.page-subtitle{
+text-align:center;
+color:var(--muted);
+margin-bottom:30px;
+line-height:1.9;
 }
 
-.hero p{
-  color:var(--muted);
-  font-size:17px;
-  line-height:1.9;
-  max-width:850px;
-  margin:12px auto 0;
+.search{
+width:100%;
+padding:15px;
+background:#071a2c;
+border:1px solid var(--line);
+border-radius:12px;
+color:white;
+font-size:16px;
+outline:none;
+margin-bottom:28px;
 }
 
-.ai-card{
-  position:relative;
-  overflow:hidden;
-  margin:0 0 30px;
-  padding:25px;
-  border:1px solid rgba(212,175,55,.55);
-  border-radius:20px;
-  background:
-    linear-gradient(135deg,rgba(16,42,70,.98),rgba(9,27,46,.98));
-  box-shadow:0 15px 45px rgba(0,0,0,.25);
-}
-
-.ai-card:before{
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  background:rgba(45,127,249,.12);
-  top:-90px;
-  left:-60px;
-}
-
-.ai-content{
-  position:relative;
-  z-index:1;
-}
-
-.ai-icon{
-  font-size:42px;
-  margin-bottom:8px;
-}
-
-.ai-card h2{
-  margin:0 0 8px;
-  color:var(--gold2);
-  font-size:25px;
-}
-
-.ai-card p{
-  margin:0;
-  color:#dce7f2;
-  line-height:1.9;
-}
-
-.ai-badge{
-  display:inline-block;
-  margin-top:14px;
-  padding:7px 13px;
-  border-radius:999px;
-  background:#153657;
-  border:1px solid var(--line);
-  color:var(--gold2);
-  font-size:13px;
+.search:focus{
+border-color:var(--gold);
 }
 
 .section-title{
-  text-align:center;
-  color:var(--gold2);
-  font-size:27px;
-  margin:35px 0 20px;
+color:var(--gold2);
+border-right:4px solid var(--gold);
+padding-right:12px;
+font-size:23px;
+margin:25px 0 18px;
 }
 
-.study-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
 }
 
-.study-card{
-  position:relative;
-  min-height:190px;
-  padding:22px;
-  text-align:right;
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:linear-gradient(145deg,var(--card),#0a1b2d);
-  color:var(--text);
-  cursor:pointer;
-  transition:
-    transform .25s ease,
-    border-color .25s ease,
-    box-shadow .25s ease,
-    background .25s ease;
+.card{
+background:linear-gradient(145deg,var(--card),#081b2d);
+border:1px solid var(--line);
+border-radius:17px;
+padding:22px;
+min-height:190px;
+cursor:pointer;
+transition:.3s;
+position:relative;
+overflow:hidden;
 }
 
-.study-card:hover{
-  transform:translateY(-5px);
-  border-color:var(--gold);
-  box-shadow:0 15px 35px rgba(0,0,0,.28);
-  background:linear-gradient(145deg,var(--card2),#0d2239);
+.card:before{
+content:"";
+position:absolute;
+top:0;
+right:0;
+left:0;
+height:3px;
+background:linear-gradient(
+90deg,
+transparent,
+var(--gold),
+transparent
+);
 }
 
-.study-icon{
-  font-size:38px;
-  margin-bottom:12px;
+.card:hover{
+transform:translateY(-5px);
+border-color:var(--gold);
+box-shadow:0 15px 35px #0005;
 }
 
-.study-card h3{
-  margin:0 0 9px;
-  color:var(--gold2);
-  font-size:20px;
+.icon{
+font-size:38px;
+margin-bottom:12px;
 }
 
-.study-card p{
-  margin:0;
-  color:var(--muted);
-  line-height:1.8;
-  font-size:14px;
+.card h3{
+margin:0 0 10px;
+color:var(--gold2);
+font-size:20px;
 }
 
-.study-number{
-  position:absolute;
-  top:14px;
-  left:15px;
-  width:28px;
-  height:28px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  background:#153657;
-  color:var(--gold2);
-  font-size:12px;
-  font-weight:bold;
+.card p{
+margin:0;
+color:var(--muted);
+line-height:1.8;
+font-size:14px;
 }
 
-.references{
-  margin-top:35px;
-  padding:24px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:rgba(13,33,56,.9);
+.tag{
+display:inline-block;
+margin-top:14px;
+padding:5px 10px;
+border-radius:20px;
+background:#123354;
+color:#b8c9db;
+font-size:12px;
 }
 
-.references h2{
-  margin-top:0;
-  color:var(--gold2);
+.ai{
+margin-top:30px;
+padding:25px;
+border:1px solid var(--gold);
+border-radius:20px;
+background:
+radial-gradient(circle at top left,#247cff20,transparent 40%),
+linear-gradient(145deg,#102d49,#071827);
 }
 
-.references p{
-  color:var(--muted);
-  line-height:1.9;
+.ai h2{
+margin-top:0;
+color:var(--gold2);
 }
 
-.ref-list{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-top:15px;
+.ai p{
+color:var(--muted);
+line-height:1.9;
 }
 
-.ref-item{
-  padding:13px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:#0a1b2d;
-  color:#dce7f2;
-  line-height:1.7;
+.ai-row{
+display:flex;
+gap:10px;
 }
 
-.modal-backdrop{
-  position:fixed;
-  inset:0;
-  z-index:200;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(0,0,0,.78);
-  backdrop-filter:blur(7px);
+.ai-row input{
+flex:1;
+padding:14px;
+border-radius:12px;
+border:1px solid var(--line);
+background:#061827;
+color:white;
+font-size:16px;
 }
 
-.modal-backdrop.show{
-  display:flex;
+.ai-row button{
+padding:0 22px;
+border-radius:12px;
+border:1px solid var(--gold);
+background:#173e64;
+color:var(--gold2);
+font-weight:bold;
+cursor:pointer;
+}
+
+.ai-result{
+display:none;
+margin-top:18px;
+padding:18px;
+background:#061827;
+border:1px solid var(--line);
+border-radius:12px;
+line-height:2;
 }
 
 .modal{
-  width:100%;
-  max-width:900px;
-  max-height:88vh;
-  overflow:auto;
-  padding:28px;
-  border:1px solid var(--gold);
-  border-radius:20px;
-  background:
-    linear-gradient(145deg,#0d2138,#081827);
-  box-shadow:0 25px 70px rgba(0,0,0,.55);
+display:none;
+position:fixed;
+inset:0;
+background:#000d;
+z-index:1000;
+padding:20px;
+align-items:center;
+justify-content:center;
 }
 
-.modal-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:20px;
-  padding-bottom:15px;
-  border-bottom:1px solid var(--line);
+.modal.active{
+display:flex;
+}
+
+.modal-box{
+width:min(900px,100%);
+max-height:90vh;
+overflow:auto;
+background:linear-gradient(145deg,#0d243d,#071827);
+border:1px solid var(--gold);
+border-radius:20px;
+padding:28px;
+box-shadow:0 20px 70px #0008;
+}
+
+.close{
+float:left;
+background:none;
+border:0;
+color:var(--muted);
+font-size:30px;
+cursor:pointer;
 }
 
 .modal-title{
-  margin:0;
-  color:var(--gold2);
-  font-size:27px;
+color:var(--gold2);
+font-size:28px;
+margin-top:0;
 }
 
-.close-btn{
-  width:42px;
-  height:42px;
-  padding:0;
-  border:1px solid var(--line);
-  border-radius:50%;
-  background:#153657;
-  color:var(--gold2);
-  font-size:22px;
-  cursor:pointer;
+.modal-content{
+color:#dbe5ef;
+line-height:2;
 }
 
-.article{
-  color:#e7edf4;
-  line-height:2;
-  font-size:17px;
+.modal-content h3{
+color:var(--gold2);
 }
 
-.article h3{
-  color:var(--gold2);
-  margin-top:25px;
+.modal-content li{
+margin-bottom:8px;
 }
 
-.article h4{
-  color:#dce7f2;
+.references{
+margin-top:30px;
+padding:22px;
+border:1px solid var(--line);
+border-radius:18px;
+background:#081a2c;
 }
 
-.article ul{
-  padding-right:25px;
+.references h2{
+color:var(--gold2);
+margin-top:0;
 }
 
-.article li{
-  margin-bottom:8px;
+.reference{
+padding:12px 0;
+border-bottom:1px solid #173650;
+color:var(--muted);
+line-height:1.8;
 }
 
-.citation{
-  margin-top:20px;
-  padding:15px;
-  border-right:3px solid var(--gold);
-  background:#0a1b2d;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.8;
+.reference:last-child{
+border-bottom:0;
 }
 
-.ai-chat{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.ai-chat input{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  background:#071526;
-  color:white;
-  font-size:16px;
-}
-
-.ai-chat button{
-  align-self:flex-start;
-  padding:12px 20px;
-  border:1px solid var(--gold);
-  border-radius:10px;
-  background:#153657;
-  color:var(--gold2);
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.ai-response{
-  min-height:80px;
-  padding:16px;
-  border-radius:12px;
-  background:#081827;
-  border:1px solid var(--line);
-  color:var(--muted);
-  line-height:1.9;
+.reference strong{
+color:#e9edf2;
 }
 
 footer{
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
-  border-top:1px solid var(--line);
+text-align:center;
+color:var(--muted);
+padding:30px;
+border-top:1px solid var(--line);
 }
 
 @media(max-width:900px){
-  .study-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .ref-list{
-    grid-template-columns:1fr;
-  }
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
 }
 
 @media(max-width:650px){
-  .header-inner{
-    align-items:center;
-  }
 
-  .brand-title{
-    font-size:20px;
-  }
+.header{
+padding:8px 4%;
+}
 
-  .logo{
-    width:60px;
-    height:60px;
-  }
+.logo{
+width:65px;
+height:65px;
+}
 
-  .home-link{
-    font-size:16px;
-  }
+.brand-name{
+font-size:19px;
+}
 
-  .hero h1{
-    font-size:28px;
-  }
+.brand-en{
+font-size:10px;
+}
 
-  .study-grid{
-    grid-template-columns:1fr;
-  }
+.home{
+padding:9px 12px;
+font-size:12px;
+}
 
-  .modal{
-    padding:20px;
-  }
+.page-title{
+font-size:28px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.ai-row{
+flex-direction:column;
+}
+
+.ai-row button{
+padding:13px;
+}
 }
 </style>
 </head>
@@ -452,571 +423,537 @@ footer{
 <body>
 
 <header>
-  <div class="header-inner">
 
-    <a class="home-link" href="index.html">
-      الرئيسية
-    </a>
+<div class="header">
 
-    <div class="brand">
-      <div class="brand-title">
-        كنيسة رجاء الأمم سيدني
-      </div>
+<div class="brand">
 
-      <img
-        class="logo"
-        src="assets/logo.png"
-        alt="شعار كنيسة رجاء الأمم سيدني"
-      >
-    </div>
+<img
+src="assets/logo.png"
+class="logo"
+alt="Hope Church NSW"
+>
 
-  </div>
+<div>
+
+<h1 class="brand-name">
+كنيسة رجاء الأمم سيدني
+</h1>
+
+<div class="brand-en">
+Hope Church NSW — Bible Encyclopedia
+</div>
+
+</div>
+
+</div>
+
+<button
+class="home"
+onclick="goHome()"
+>
+الرئيسية
+</button>
+
+</div>
+
 </header>
+
 
 <main>
 
-  <section class="hero">
-    <h1>الدراسات الكتابية</h1>
+<h1 class="page-title">
+📚 الدراسات الكتابية
+</h1>
 
-    <p>
-      موسوعة دراسية متكاملة تساعد الدارس والباحث والخادم
-      على دراسة الكتاب المقدس في سياقه الكتابي والتاريخي والجغرافي واللاهوتي.
-    </p>
-  </section>
-
-  <section class="ai-card">
-
-    <div class="ai-content">
-
-      <div class="ai-icon">🤖</div>
-
-      <h2>أسأل AI — المساعد اللاهوتي</h2>
-
-      <p>
-        مساعد بحثي مخصص للدراسة الكتابية، مصمم ليعمل مستقبلًا
-        بنظام RAG يعتمد على مصادر ومراجع موثوقة، مع إظهار
-        الشواهد الكتابية والمراجع التاريخية والأكاديمية المرتبطة بالإجابة.
-      </p>
-
-      <span class="ai-badge">
-        AI Assistant • RAG • Biblical Research • Citations
-      </span>
-
-    </div>
-
-  </section>
-
-  <h2 class="section-title">
-    موسوعة الدراسات والموضوعات
-  </h2>
-
-  <section class="study-grid">
-
-    <button class="study-card" onclick="openStudy('tabernacle')">
-      <span class="study-number">1</span>
-      <div class="study-icon">⛺</div>
-      <h3>خيمة الاجتماع</h3>
-      <p>
-        دراسة شاملة للخيمة، أقسامها، أدواتها، الكهنوت،
-        الذبائح، والرموز الكتابية المرتبطة بها.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('solomonTemple')">
-      <span class="study-number">2</span>
-      <div class="study-icon">🏛️</div>
-      <h3>هيكل سليمان</h3>
-      <p>
-        البناء والتاريخ والأقسام والأدوات والعبادة
-        والسياق الكتابي والتاريخي للهيكل.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('herodTemple')">
-      <span class="study-number">3</span>
-      <div class="study-icon">🏛️</div>
-      <h3>هيكل هيرودس</h3>
-      <p>
-        دراسة الهيكل في زمن المسيح وخلفيته التاريخية
-        واليهودية في القرن الأول.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('encyclopedia')">
-      <span class="study-number">4</span>
-      <div class="study-icon">📚</div>
-      <h3>الموسوعة الكتابية</h3>
-      <p>
-        موضوعات ومصطلحات وأماكن وأحداث وأشخاص مرتبطة
-        بالكتاب المقدس.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('miracles')">
-      <span class="study-number">5</span>
-      <div class="study-icon">✨</div>
-      <h3>معجزات المسيح</h3>
-      <p>
-        دراسة معجزات المسيح وسياقها ورسالتها وعلاقتها
-        بإعلانات ومعجزات العهد القديم.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('parables')">
-      <span class="study-number">6</span>
-      <div class="study-icon">🕊️</div>
-      <h3>أمثال المسيح</h3>
-      <p>
-        دراسة أمثال المسيح وسياقها ورسالتها والمفاهيم
-        الروحية واللاهوتية المرتبطة بها.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('churchHistory')">
-      <span class="study-number">7</span>
-      <div class="study-icon">⛪</div>
-      <h3>الكنيسة عبر العصور</h3>
-      <p>
-        خط زمني لدراسة الكنيسة منذ العصر الرسولي
-        مرورًا بالعصور التاريخية المختلفة.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('characters')">
-      <span class="study-number">8</span>
-      <div class="study-icon">👤</div>
-      <h3>شخصيات كتابية</h3>
-      <p>
-        دراسة الشخصيات، نقاط القوة والضعف، الأماكن،
-        السنوات، المعاصرين، والدروس المستفادة.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('bookIntroductions')">
-      <span class="study-number">9</span>
-      <div class="study-icon">📖</div>
-      <h3>مقدمات أسفار الكتاب المقدس</h3>
-      <p>
-        الكاتب، التاريخ، المكان، الظروف، الجمهور،
-        الهدف، والبنية العامة لكل سفر.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('jerusalemGates')">
-      <span class="study-number">10</span>
-      <div class="study-icon">🧱</div>
-      <h3>أبواب أورشليم</h3>
-      <p>
-        دراسة أبواب أورشليم وأسمائها ومواقعها
-        ودلالاتها الكتابية والتاريخية.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('academic')">
-      <span class="study-number">11</span>
-      <div class="study-icon">🎓</div>
-      <h3>التوثيق الأكاديمي والمراجع</h3>
-      <p>
-        منهجية توثيق المصادر التاريخية والكتابية
-        والمخطوطات والمراجع المستخدمة في الدراسات.
-      </p>
-    </button>
-
-    <button class="study-card" onclick="openStudy('ai')">
-      <span class="study-number">12</span>
-      <div class="study-icon">🤖</div>
-      <h3>أسأل AI</h3>
-      <p>
-        واجهة المساعد الذكي للبحث الكتابي واللاهوتي
-        مع نظام المراجع والاستشهادات.
-      </p>
-    </button>
-
-  </section>
-
-  <section class="references">
-
-    <h2>منهج التوثيق</h2>
-
-    <p>
-      سيتم بناء الدراسات مع فصل واضح بين النص الكتابي،
-      والمعلومات التاريخية، والتفسير اللاهوتي، والاستنتاج البحثي.
-      وعند إضافة المصادر الأكاديمية سيتم تسجيل بيانات المرجع
-      بصورة منظمة لتسهيل التحقق والرجوع إلى المصدر الأصلي.
-    </p>
-
-    <div class="ref-list">
-
-      <div class="ref-item">
-        📜 يوسيفوس — المصادر التاريخية المتعلقة باليهودية والقرن الأول.
-      </div>
-
-      <div class="ref-item">
-        📜 الأدبيات اليهودية والتقاليد المتعلقة بالسياق الكتابي.
-      </div>
-
-      <div class="ref-item">
-        📜 مخطوطات قمران ودراسات البحر الميت.
-      </div>
-
-      <div class="ref-item">
-        📜 المصادر التاريخية والأثرية المرتبطة بالعالم الكتابي.
-      </div>
-
-    </div>
-
-  </section>
-
-</main>
-
-<footer>
-  Hope Church NSW — Bible Study & Biblical Encyclopedia
-</footer>
-
-
-<div class="modal-backdrop" id="studyModal">
-
-  <div class="modal">
-
-    <div class="modal-header">
-
-      <h2 class="modal-title" id="modalTitle">
-        الدراسة
-      </h2>
-
-      <button
-        class="close-btn"
-        onclick="closeStudy()"
-        aria-label="إغلاق"
-      >
-        ×
-      </button>
-
-    </div>
-
-    <div class="article" id="modalContent"></div>
-
-  </div>
-
+<div class="page-subtitle">
+دراسات كتابية وموسوعة للباحثين والدارسين في كلمة الله
 </div>
 
-
-<script>
-
-const STUDIES = {
-
-tabernacle:{
-title:"خيمة الاجتماع",
-content:`
-<h3>مقدمة</h3>
-<p>
-تتناول هذه الدراسة خيمة الاجتماع باعتبارها مركز العبادة
-في مرحلة مهمة من تاريخ شعب إسرائيل، مع دراسة تصميمها
-وأقسامها وأدواتها والكهنوت والذبائح والسياق الكتابي.
-</p>
-
-<h3>محاور الدراسة</h3>
-<ul>
-<li>الخطة العامة لخيمة الاجتماع.</li>
-<li>الدار والمذبح والمرحضة.</li>
-<li>المقدس وقدس الأقداس.</li>
-<li>تابوت العهد والغطاء.</li>
-<li>المنارة ومائدة خبز الوجوه ومذبح البخور.</li>
-<li>الكهنة ورئيس الكهنة.</li>
-<li>الذبائح والخدمة.</li>
-<li>الرحلة التاريخية للخيمة.</li>
-<li>الدلالات الكتابية والرمزية.</li>
-</ul>
-
-<div class="citation">
-المراجع الأساسية للنص: خروج 25–40، لاويين 1–27، عدد 1–10.
-</div>
-`
-},
-
-solomonTemple:{
-title:"هيكل سليمان",
-content:`
-<h3>مقدمة</h3>
-<p>
-دراسة هيكل سليمان من خلال النصوص الكتابية المتعلقة
-بالتخطيط والبناء والتكريس والعبادة ثم تاريخ الهيكل.
-</p>
-
-<h3>محاور الدراسة</h3>
-<ul>
-<li>فكرة بناء الهيكل.</li>
-<li>سليمان وبناء الهيكل.</li>
-<li>الأقسام والأدوات.</li>
-<li>تابوت العهد.</li>
-<li>تكريس الهيكل.</li>
-<li>الخدمة والعبادة.</li>
-<li>تاريخ الهيكل وسقوطه.</li>
-</ul>
-
-<div class="citation">
-المراجع الكتابية الأساسية: 1 ملوك 5–8، 2 أخبار الأيام 2–7.
-</div>
-`
-},
-
-herodTemple:{
-title:"هيكل هيرودس",
-content:`
-<h3>السياق التاريخي</h3>
-<p>
-تتناول الدراسة هيكل هيرودس كما كان في البيئة التي عاش
-فيها المسيح وخدم فيها، مع ربط النصوص الإنجيلية بالسياق
-التاريخي لليهودية في القرن الأول.
-</p>
-
-<h3>محاور الدراسة</h3>
-<ul>
-<li>هيرودس الكبير.</li>
-<li>مشروع توسعة الهيكل.</li>
-<li>أقسام الهيكل.</li>
-<li>الخدمة والعبادة.</li>
-<li>الهيكل في الأناجيل.</li>
-<li>المسيح والهيكل.</li>
-<li>نبوءة خراب الهيكل.</li>
-</ul>
-
-<div class="citation">
-نصوص كتابية رئيسية: متى 21–24، مرقس 11–13،
-لوقا 19–21، يوحنا 2.
-</div>
-`
-},
-
-encyclopedia:{
-title:"الموسوعة الكتابية",
-content:`
-<h3>الموسوعة الكتابية</h3>
-<p>
-قسم موسوعي قابل للتوسع ليضم الأشخاص والأماكن والأحداث
-والمصطلحات والأدوات والعادات والموضوعات اللاهوتية
-والتاريخية المرتبطة بالكتاب المقدس.
-</p>
-
-<h3>التصنيف</h3>
-<ul>
-<li>أشخاص.</li>
-<li>أماكن ومدن.</li>
-<li>أنهار وجبال.</li>
-<li>ممالك وشعوب.</li>
-<li>أدوات ومبانٍ.</li>
-<li>أعياد ومناسبات.</li>
-<li>مصطلحات كتابية.</li>
-<li>موضوعات لاهوتية.</li>
-</ul>
-`
-},
-
-miracles:{
-title:"معجزات المسيح",
-content:`
-<h3>هدف الدراسة</h3>
-<p>
-دراسة معجزات المسيح في سياقها الإنجيلي، مع تتبع طبيعة
-المعجزة والموقف والشخصيات والنتيجة والرسالة التي يقدمها
-النص.
-</p>
-
-<h3>محاور الدراسة</h3>
-<ul>
-<li>معجزات الشفاء.</li>
-<li>إقامة الموتى.</li>
-<li>سلطان المسيح على الطبيعة.</li>
-<li>إخراج الأرواح الشريرة.</li>
-<li>معجزات الإشباع.</li>
-<li>العلاقة بين معجزات المسيح والعهد القديم.</li>
-</ul>
-`
-},
-
-parables:{
-title:"أمثال المسيح",
-content:`
-<h3>منهج الدراسة</h3>
-<p>
-دراسة الأمثال في سياقها الأدبي والتاريخي، مع تحديد
-المتكلمين والمخاطبين والظروف والرسالة الرئيسية.
-</p>
-
-<h3>محاور الدراسة</h3>
-<ul>
-<li>ملكوت الله في أمثال المسيح.</li>
-<li>الدينونة والمسؤولية.</li>
-<li>الغفران والرحمة.</li>
-<li>الصلاة والإيمان.</li>
-<li>الأمانة والخدمة.</li>
-<li>الاستعداد لمجيء الرب.</li>
-</ul>
-`
-},
-
-churchHistory:{
-title:"الكنيسة عبر العصور",
-content:`
-<h3>خط زمني للدراسة</h3>
-<ul>
-<li>العصر الرسولي.</li>
-<li>القرون الأولى.</li>
-<li>الاضطهادات.</li>
-<li>المجامع الأولى.</li>
-<li>العصور الوسطى.</li>
-<li>الإصلاح.</li>
-<li>العصر الحديث.</li>
-<li>الكنيسة المعاصرة.</li>
-</ul>
-
-<div class="citation">
-سيتم لاحقًا ربط كل مرحلة بالمراجع التاريخية
-والوثائق الأساسية الخاصة بها.
-</div>
-`
-},
-
-characters:{
-title:"شخصيات كتابية",
-content:`
-<h3>منهج دراسة الشخصية</h3>
-<ul>
-<li>الاسم ومعناه.</li>
-<li>العائلة والنسب.</li>
-<li>الفترة الزمنية.</li>
-<li>الأماكن التي عاش فيها الشخص.</li>
-<li>المعاصرون.</li>
-<li>نقاط القوة.</li>
-<li>نقاط الضعف.</li>
-<li>الأحداث الرئيسية.</li>
-<li>الدروس المستفادة.</li>
-<li>الشواهد الكتابية.</li>
-</ul>
-`
-},
-
-bookIntroductions:{
-title:"مقدمات أسفار الكتاب المقدس",
-content:`
-<h3>مقدمة كل سفر</h3>
-<p>
-سيحتوي هذا القسم على بطاقة بحثية لكل سفر من أسفار الكتاب
-المقدس.
-</p>
-
-<ul>
-<li>اسم السفر.</li>
-<li>الكاتب ونسبة الكتاب إليه بحسب المصادر.</li>
-<li>تاريخ الكتابة المقترح.</li>
-<li>مكان الكتابة عند توفر الدليل.</li>
-<li>الجمهور الأصلي.</li>
-<li>الظروف التاريخية.</li>
-<li>الغرض والرسالة.</li>
-<li>البنية الأدبية.</li>
-<li>الموضوعات الرئيسية.</li>
-<li>الشواهد والمراجع.</li>
-</ul>
-`
-},
-
-jerusalemGates:{
-title:"أبواب أورشليم",
-content:`
-<h3>دراسة أبواب أورشليم</h3>
-<p>
-دراسة الأبواب المذكورة في الكتاب المقدس وربط أسمائها
-بمواقعها وسياقها التاريخي، مع تطوير القسم لاحقًا إلى
-خريطة تفاعلية.
-</p>
-
-<h3>محاور الدراسة</h3>
-<ul>
-<li>باب الضأن.</li>
-<li>باب السمك.</li>
-<li>الباب القديم.</li>
-<li>باب الوادي.</li>
-<li>باب الزبل.</li>
-<li>باب العين.</li>
-<li>باب الماء.</li>
-<li>باب الخيل.</li>
-<li>باب الشرق.</li>
-<li>باب التفقد.</li>
-</ul>
-
-<div class="citation">
-الشاهد الأساسي: نحميا 3، 12.
-</div>
-`
-},
-
-academic:{
-title:"التوثيق الأكاديمي والمراجع",
-content:`
-<h3>منهج التوثيق</h3>
-<p>
-كل مادة بحثية سيتم فصلها إلى: النص الكتابي، الخلفية
-التاريخية، المصادر الأولية، الدراسات الأكاديمية،
-ثم الاستنتاجات.
-</p>
-
-<h3>مصادر مقترحة للمشروع</h3>
-<ul>
-<li>يوسيفوس — الأعمال التاريخية المتعلقة باليهودية والقرن الأول.</li>
-<li>المصادر اليهودية القديمة ذات الصلة بالسياق الكتابي.</li>
-<li>الأدبيات الربانية عند الحاجة مع تحديد طبيعة المصدر.</li>
-<li>مخطوطات قمران والدراسات العلمية المرتبطة بها.</li>
-<li>المصادر الأثرية والتاريخية.</li>
-<li>التفاسير والدراسات اللاهوتية المعتمدة.</li>
-</ul>
-
-<div class="citation">
-مهم: عند إدخال المرجع النهائي في قاعدة البيانات سيتم تسجيل
-اسم المؤلف، عنوان العمل، الناشر، الطبعة، السنة، ورقم الصفحة
-أو القسم متى كان ذلك متاحًا.
-</div>
-`
-},
-
-ai:{
-title:"أسأل AI — المساعد اللاهوتي",
-content:`
-<h3>المساعد الذكي</h3>
-
-<p>
-هذه الواجهة هي المرحلة الأولى من قسم المساعد الذكي.
-الهدف النهائي هو ربطها بنظام RAG خاص بالمشروع،
-بحيث لا يعتمد المساعد على المعرفة العامة فقط، بل يبحث
-داخل قاعدة مصادر موثقة قبل تكوين الإجابة.
-</p>
-
-<div class="ai-chat">
 
 <input
-id="aiQuestion"
-type="text"
-placeholder="اكتب سؤالك الكتابي أو التاريخي..."
+id="search"
+class="search"
+type="search"
+placeholder="ابحث في الدراسات..."
+oninput="filterStudies()"
+>
+
+
+<h2 class="section-title">
+الدراسات والموسوعة الكتابية
+</h2>
+
+
+<div id="grid" class="grid">
+
+
+<div class="card"
+data-search="خيمة الاجتماع tabernacle"
+onclick="openStudy('tabernacle')">
+
+<div class="icon">⛺</div>
+
+<h3>خيمة الاجتماع</h3>
+
+<p>
+دراسة شاملة لخيمة الاجتماع ومكوناتها ووظيفتها ورموزها الكتابية.
+</p>
+
+<span class="tag">دراسة كتابية</span>
+
+</div>
+
+
+<div class="card"
+data-search="هيكل سليمان"
+onclick="openStudy('solomon')">
+
+<div class="icon">🏛️</div>
+
+<h3>هيكل سليمان</h3>
+
+<p>
+دراسة تاريخية وكتابية عن بناء الهيكل ومكوناته ودوره في تاريخ إسرائيل.
+</p>
+
+<span class="tag">تاريخ كتابي</span>
+
+</div>
+
+
+<div class="card"
+data-search="هيكل هيرودس"
+onclick="openStudy('herod')">
+
+<div class="icon">🏛️</div>
+
+<h3>هيكل هيرودس</h3>
+
+<p>
+دراسة الهيكل في زمن المسيح وخلفيته التاريخية والدينية.
+</p>
+
+<span class="tag">العهد الجديد</span>
+
+</div>
+
+
+<div class="card"
+data-search="الموسوعة الكتابية"
+onclick="openStudy('encyclopedia')">
+
+<div class="icon">📖</div>
+
+<h3>الموسوعة الكتابية</h3>
+
+<p>
+موسوعة للأشخاص والأماكن والأحداث والمصطلحات والموضوعات الكتابية.
+</p>
+
+<span class="tag">موسوعة</span>
+
+</div>
+
+
+<div class="card"
+data-search="معجزات المسيح"
+onclick="openStudy('miracles')">
+
+<div class="icon">✨</div>
+
+<h3>معجزات المسيح</h3>
+
+<p>
+دراسة معجزات المسيح في الأناجيل وربطها بالسياق الكتابي.
+</p>
+
+<span class="tag">المسيح</span>
+
+</div>
+
+
+<div class="card"
+data-search="أمثال المسيح"
+onclick="openStudy('parables')">
+
+<div class="icon">🕊️</div>
+
+<h3>أمثال المسيح</h3>
+
+<p>
+دراسة أمثال المسيح وسياقها التاريخي والرسالة اللاهوتية.
+</p>
+
+<span class="tag">المسيح</span>
+
+</div>
+
+
+<div class="card"
+data-search="الكنيسة عبر العصور تاريخ الكنيسة"
+onclick="openStudy('church')">
+
+<div class="icon">⛪</div>
+
+<h3>الكنيسة عبر العصور</h3>
+
+<p>
+دراسة تاريخ الكنيسة وأبرز الأحداث والشخصيات والمراحل التاريخية.
+</p>
+
+<span class="tag">تاريخ الكنيسة</span>
+
+</div>
+
+
+<div class="card"
+data-search="شخصيات كتابية"
+onclick="openStudy('characters')">
+
+<div class="icon">👤</div>
+
+<h3>شخصيات كتابية</h3>
+
+<p>
+دراسة الشخصيات الكتابية ونقاط القوة والضعف والأحداث والدروس.
+</p>
+
+<span class="tag">شخصيات</span>
+
+</div>
+
+
+<div class="card"
+data-search="مقدمة أسفار الكتاب المقدس"
+onclick="openStudy('books')">
+
+<div class="icon">📚</div>
+
+<h3>مقدمة أسفار الكتاب المقدس</h3>
+
+<p>
+الكاتب والزمان والمكان والخلفية والهدف والبنية لكل سفر.
+</p>
+
+<span class="tag">الأسفار</span>
+
+</div>
+
+
+<div class="card"
+data-search="أبواب أورشليم"
+onclick="openStudy('gates')">
+
+<div class="icon">🚪</div>
+
+<h3>أبواب أورشليم</h3>
+
+<p>
+دراسة أبواب أورشليم وأسمائها وخلفيتها الكتابية والتاريخية.
+</p>
+
+<span class="tag">جغرافيا كتابية</span>
+
+</div>
+
+
+</div>
+
+
+<div class="ai">
+
+<h2>🤖 أسأل AI</h2>
+
+<p>
+مساعد ذكي مخصص للبحث الكتابي واللاهوتي، وسيتم ربطه لاحقًا
+بقاعدة معرفة RAG ومراجع موثقة.
+</p>
+
+<div class="ai-row">
+
+<input
+id="question"
+placeholder="اكتب سؤالك الكتابي..."
 >
 
 <button onclick="askAI()">
 اسأل AI
 </button>
 
-<div class="ai-response" id="aiResponse">
-اكتب السؤال ثم اضغط «اسأل AI».
+</div>
+
+<div
+id="aiResult"
+class="ai-result"
+></div>
+
+</div>
+
+
+<div class="references">
+
+<h2>📑 التوثيق الأكاديمي</h2>
+
+<div class="reference">
+<strong>الكتاب المقدس:</strong>
+النصوص والشواهد الكتابية المرتبطة بكل دراسة.
+</div>
+
+<div class="reference">
+<strong>المصادر التاريخية:</strong>
+المراجع التاريخية المتعلقة بالسياق الكتابي.
+</div>
+
+<div class="reference">
+<strong>يوسيفوس:</strong>
+المصادر التاريخية المرتبطة بالتاريخ اليهودي والروماني.
+</div>
+
+<div class="reference">
+<strong>الخلفية اليهودية:</strong>
+الدراسات المتعلقة بالعادات والتقاليد والسياق اليهودي.
+</div>
+
+<div class="reference">
+<strong>مخطوطات قمران:</strong>
+الدراسات والمصادر المتعلقة بمخطوطات البحر الميت.
+</div>
+
+<div class="reference">
+<strong>التوثيق:</strong>
+سيتم إظهار بيانات المرجع والطبعة والصفحة عند إدخال المادة العلمية الموثقة.
 </div>
 
 </div>
 
-<h3>مبادئ النظام النهائي</h3>
+</main>
+
+
+<footer>
+Hope Church NSW — Bible Encyclopedia
+</footer>
+
+
+<div
+id="modal"
+class="modal"
+onclick="closeOutside(event)"
+>
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeStudy()"
+>
+×
+</button>
+
+<h2
+id="modalTitle"
+class="modal-title"
+></h2>
+
+<div
+id="modalContent"
+class="modal-content"
+></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const studies={
+
+tabernacle:{
+title:"⛺ خيمة الاجتماع",
+content:`
+<h3>الدراسة الكاملة</h3>
 
 <ul>
-<li>الإجابة مدعومة بالشاهد الكتابي.</li>
-<li>إظهار المرجع التاريخي عند استخدامه.</li>
-<li>إظهار المصدر الأكاديمي.</li>
-<li>تمييز المعلومات المؤكدة عن الاستنتاجات.</li>
-<li>تقليل الهلوسة من خلال RAG والمصادر الموثقة.</li>
-<li>دعم العربية والإنجليزية.</li>
+<li>خلفية إنشاء خيمة الاجتماع.</li>
+<li>القدس وقدس الأقداس.</li>
+<li>تابوت العهد.</li>
+<li>مذبح المحرقة.</li>
+<li>مذبح البخور.</li>
+<li>المغسلة.</li>
+<li>المنارة.</li>
+<li>مائدة خبز الوجوه.</li>
+<li>الكهنة والذبائح.</li>
+<li>الدلالات والرموز الكتابية.</li>
+</ul>
+
+<h3>التوثيق</h3>
+<p>
+سيتم ربط كل عنصر بالنصوص الكتابية والمراجع التاريخية والأكاديمية.
+</p>
+`
+},
+
+solomon:{
+title:"🏛️ هيكل سليمان",
+content:`
+<h3>الدراسة الكاملة</h3>
+
+<ul>
+<li>خلفية بناء الهيكل.</li>
+<li>داود وسليمان ومشروع البناء.</li>
+<li>تصميم الهيكل.</li>
+<li>أقسام الهيكل.</li>
+<li>أدوات الهيكل.</li>
+<li>تدشين الهيكل.</li>
+<li>الهيكل في تاريخ إسرائيل.</li>
+<li>سقوط الهيكل.</li>
+</ul>
+`
+},
+
+herod:{
+title:"🏛️ هيكل هيرودس",
+content:`
+<h3>الدراسة الكاملة</h3>
+
+<ul>
+<li>هيرودس الكبير.</li>
+<li>مشروع إعادة بناء الهيكل.</li>
+<li>منطقة الهيكل.</li>
+<li>باحات الهيكل.</li>
+<li>الهيكل في زمن المسيح.</li>
+<li>المسيح والهيكل.</li>
+<li>أحداث الأسبوع الأخير.</li>
+<li>دمار الهيكل سنة 70م.</li>
+</ul>
+`
+},
+
+encyclopedia:{
+title:"📖 الموسوعة الكتابية",
+content:`
+<h3>الموسوعة</h3>
+
+<ul>
+<li>الأشخاص.</li>
+<li>الأماكن.</li>
+<li>المدن والبلدان.</li>
+<li>الأنهار.</li>
+<li>الجبال.</li>
+<li>الأعياد.</li>
+<li>العادات والتقاليد.</li>
+<li>المصطلحات اللاهوتية.</li>
+<li>الموضوعات الكتابية.</li>
+</ul>
+`
+},
+
+miracles:{
+title:"✨ معجزات المسيح",
+content:`
+<h3>منهج دراسة المعجزات</h3>
+
+<ul>
+<li>النص الكتابي.</li>
+<li>السياق التاريخي.</li>
+<li>الأشخاص المشاركون.</li>
+<li>نوع المعجزة.</li>
+<li>الرسالة اللاهوتية.</li>
+<li>العلاقة بنصوص العهد القديم.</li>
+<li>المراجع والتفاسير.</li>
+</ul>
+`
+},
+
+parables:{
+title:"🕊️ أمثال المسيح",
+content:`
+<h3>منهج الدراسة</h3>
+
+<ul>
+<li>النص الكتابي.</li>
+<li>المتلقي الأصلي.</li>
+<li>الخلفية اليهودية.</li>
+<li>الفكرة الرئيسية.</li>
+<li>الرسالة اللاهوتية.</li>
+<li>التطبيق الكتابي.</li>
+</ul>
+`
+},
+
+church:{
+title:"⛪ الكنيسة عبر العصور",
+content:`
+<h3>خط زمني للدراسة</h3>
+
+<ul>
+<li>الكنيسة الرسولية.</li>
+<li>القرون الأولى.</li>
+<li>المجامع التاريخية.</li>
+<li>الكنيسة في الإمبراطورية الرومانية.</li>
+<li>العصور الوسطى.</li>
+<li>الإصلاح.</li>
+<li>الكنائس الإنجيلية.</li>
+<li>الكنيسة في العصر الحديث.</li>
+</ul>
+`
+},
+
+characters:{
+title:"👤 شخصيات كتابية",
+content:`
+<h3>منهج دراسة الشخصية</h3>
+
+<ul>
+<li>الاسم والنسب.</li>
+<li>الزمن والمكان.</li>
+<li>المعاصرون.</li>
+<li>نقاط القوة.</li>
+<li>نقاط الضعف.</li>
+<li>الأحداث الرئيسية.</li>
+<li>النصوص المرتبطة بالشخصية.</li>
+<li>الدروس المستفادة.</li>
+</ul>
+`
+},
+
+books:{
+title:"📚 مقدمة أسفار الكتاب المقدس",
+content:`
+<h3>بطاقة دراسة كل سفر</h3>
+
+<ul>
+<li>اسم السفر.</li>
+<li>الكاتب أو نسبة الكتابة بحسب الأدلة.</li>
+<li>تاريخ الكتابة المقترح.</li>
+<li>مكان الكتابة عند توفر الدليل.</li>
+<li>الخلفية التاريخية.</li>
+<li>المعاصرون.</li>
+<li>الغرض من السفر.</li>
+<li>البنية والمحتوى.</li>
+<li>الموضوعات الرئيسية.</li>
+<li>المراجع الأكاديمية.</li>
+</ul>
+`
+},
+
+gates:{
+title:"🚪 أبواب أورشليم",
+content:`
+<h3>الدراسة</h3>
+
+<ul>
+<li>باب الضأن.</li>
+<li>باب السمك.</li>
+<li>الباب العتيق.</li>
+<li>باب الوادي.</li>
+<li>باب الدمن.</li>
+<li>باب العين.</li>
+<li>باب الماء.</li>
+<li>باب الخيل.</li>
+<li>باب الشرق.</li>
+<li>باب حميف.</li>
 </ul>
 `
 }
@@ -1024,78 +961,109 @@ placeholder="اكتب سؤالك الكتابي أو التاريخي..."
 };
 
 
-function openStudy(key){
+function goHome(){
 
-  const study=STUDIES[key];
+window.location.href="./index.html";
 
-  if(!study)return;
+}
 
-  document.getElementById("modalTitle").textContent=study.title;
 
-  document.getElementById("modalContent").innerHTML=study.content;
+function openStudy(id){
 
-  document.getElementById("studyModal").classList.add("show");
+if(!studies[id]) return;
 
-  document.body.style.overflow="hidden";
+document.getElementById("modalTitle").textContent=
+studies[id].title;
+
+document.getElementById("modalContent").innerHTML=
+studies[id].content;
+
+document.getElementById("modal").classList.add("active");
+
 }
 
 
 function closeStudy(){
 
-  document.getElementById("studyModal").classList.remove("show");
-
-  document.body.style.overflow="";
+document.getElementById("modal").classList.remove("active");
 
 }
 
 
-document.getElementById("studyModal").addEventListener("click",function(e){
+function closeOutside(event){
 
-  if(e.target===this){
-    closeStudy();
-  }
+if(event.target.id==="modal"){
+closeStudy();
+}
+
+}
+
+
+function filterStudies(){
+
+const q=
+document.getElementById("search").value
+.trim()
+.toLowerCase();
+
+document.querySelectorAll(".card").forEach(card=>{
+
+const text=
+(card.dataset.search||"").toLowerCase();
+
+card.style.display=
+!q || text.includes(q)
+?""
+:"none";
 
 });
 
-
-document.addEventListener("keydown",function(e){
-
-  if(e.key==="Escape"){
-    closeStudy();
-  }
-
-});
+}
 
 
 function askAI(){
 
-  const input=document.getElementById("aiQuestion");
+const q=
+document.getElementById("question").value.trim();
 
-  const response=document.getElementById("aiResponse");
+if(!q){
+document.getElementById("question").focus();
+return;
+}
 
-  const question=input.value.trim();
+const result=
+document.getElementById("aiResult");
 
-  if(!question){
+result.style.display="block";
 
-    response.textContent="من فضلك اكتب السؤال أولاً.";
+result.innerHTML=`
+<strong style="color:var(--gold2)">
+تم استلام السؤال
+</strong>
 
-    return;
+<p>
+${escapeHTML(q)}
+</p>
 
-  }
-
-  response.innerHTML=`
-    <strong style="color:var(--gold2)">
-      تم استلام السؤال.
-    </strong>
-    <br><br>
-    المساعد اللاهوتي سيتم ربطه في المرحلة القادمة
-    بمحرك RAG وقاعدة المصادر والمراجع الأكاديمية
-    الخاصة بالمشروع، بحيث يتم البحث في المصادر أولاً
-    قبل تقديم الإجابة والاستشهادات.
-  `;
+<p>
+هذه الواجهة مجهزة للمرحلة القادمة:
+ربط المساعد بمحرك RAG ومصادر كتابية وتاريخية موثقة.
+</p>
+`;
 
 }
 
+
+function escapeHTML(text){
+
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
 
 </script>
 
