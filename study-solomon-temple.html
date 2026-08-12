@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>هيكل سليمان | موسوعة الكتاب المقدس</title>
+
+<style>
+:root{
+    --blue:#062b63;
+    --blue-dark:#031b3f;
+    --blue-light:#0b4b9a;
+    --gold:#c99a32;
+    --gold-light:#f0cf72;
+    --white:#ffffff;
+    --text:#14213d;
+    --muted:#667085;
+    --border:#d9e1ec;
+    --bg:#f4f8fc;
+    --shadow:0 12px 35px rgba(3,27,63,.12);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:"Tahoma","Arial",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.9;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    min-height:78px;
+    padding:10px 22px;
+    background:linear-gradient(135deg,var(--blue-dark),var(--blue));
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 5px 25px rgba(0,0,0,.18);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.logo{
+    width:68px;
+    height:68px;
+    object-fit:contain;
+    filter:drop-shadow(0 4px 8px rgba(0,0,0,.3));
+}
+
+.brand-name{
+    color:var(--gold-light);
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand-sub{
+    color:#d9e6f7;
+    font-size:12px;
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.header-btn{
+    text-decoration:none;
+    color:white;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(255,255,255,.08);
+    padding:8px 15px;
+    border-radius:12px;
+    font-weight:bold;
+    transition:.25s;
+}
+
+.header-btn:hover{
+    background:var(--gold);
+    color:var(--blue-dark);
+    transform:translateY(-2px);
+}
+
+.page{
+    width:min(1180px,94%);
+    margin:auto;
+    padding:30px 0 60px;
+}
+
+.hero{
+    background:linear-gradient(135deg,var(--blue-dark),var(--blue-light));
+    color:white;
+    padding:38px;
+    border-radius:25px;
+    box-shadow:var(--shadow);
+    margin-bottom:28px;
+}
+
+.hero h1{
+    margin:0 0 10px;
+    color:var(--gold-light);
+    font-size:36px;
+}
+
+.hero p{
+    margin:0;
+    color:#edf4ff;
+    max-width:950px;
+}
+
+.contents{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:22px;
+    box-shadow:var(--shadow);
+    margin-bottom:28px;
+}
+
+.contents h2{
+    color:var(--blue);
+    margin-top:0;
+}
+
+.contents-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:10px;
+}
+
+.contents a{
+    text-decoration:none;
+    color:var(--blue);
+    background:#f3f7fc;
+    border:1px solid var(--border);
+    padding:10px 13px;
+    border-radius:11px;
+    transition:.2s;
+}
+
+.contents a:hover{
+    background:var(--blue);
+    color:white;
+    border-color:var(--blue);
+}
+
+.section{
+    background:white;
+    border-radius:20px;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    padding:30px;
+    margin-bottom:25px;
+}
+
+.section h2{
+    color:var(--blue);
+    font-size:27px;
+    border-right:5px solid var(--gold);
+    padding-right:13px;
+    margin-top:0;
+}
+
+.section h3{
+    color:var(--blue-light);
+    margin-top:28px;
+}
+
+.reference{
+    display:inline-block;
+    background:#edf4fc;
+    color:var(--blue);
+    border-right:4px solid var(--gold);
+    padding:7px 12px;
+    margin:7px 0;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.highlight{
+    background:linear-gradient(135deg,#f9f0d6,#fffaf0);
+    border:1px solid #e6c96c;
+    border-right:6px solid var(--gold);
+    padding:18px;
+    border-radius:14px;
+    margin:18px 0;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:16px;
+    margin:20px 0;
+}
+
+.card{
+    background:#f7faff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px;
+}
+
+.card h4{
+    color:var(--blue);
+    margin-top:0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+    background:white;
+}
+
+th{
+    background:var(--blue);
+    color:white;
+    padding:12px;
+}
+
+td{
+    border:1px solid var(--border);
+    padding:11px;
+    vertical-align:top;
+}
+
+tr:nth-child(even){
+    background:#f7faff;
+}
+
+.timeline{
+    border-right:4px solid var(--gold);
+    padding-right:20px;
+}
+
+.timeline-item{
+    margin-bottom:20px;
+    position:relative;
+}
+
+.timeline-item::before{
+    content:"";
+    position:absolute;
+    right:-30px;
+    top:8px;
+    width:13px;
+    height:13px;
+    border-radius:50%;
+    background:var(--gold);
+    border:3px solid white;
+    box-shadow:0 0 0 2px var(--gold);
+}
+
+.footer{
+    text-align:center;
+    color:#667085;
+    padding:30px 10px;
+    border-top:1px solid var(--border);
+}
+
+@media(max-width:700px){
+
+    .header{
+        padding:8px 12px;
+    }
+
+    .logo{
+        width:52px;
+        height:52px;
+    }
+
+    .brand-name{
+        font-size:15px;
+    }
+
+    .brand-sub{
+        display:none;
+    }
+
+    .header-actions{
+        gap:5px;
+    }
+
+    .header-btn{
+        padding:6px 9px;
+        font-size:12px;
+    }
+
+    .hero{
+        padding:25px 20px;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .section{
+        padding:21px;
+    }
+
+    table{
+        font-size:13px;
+    }
+
+    th,td{
+        padding:8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand">
+
+        <img
+            src="assets/logo.png"
+            class="logo"
+            alt="كنيسة رجاء الأمم سيدني"
+        >
+
+        <div>
+            <div class="brand-name">
+                كنيسة رجاء الأمم – سيدني
+            </div>
+
+            <div class="brand-sub">
+                موسوعة الكتاب المقدس والدراسات الكتابية
+            </div>
+        </div>
+
+    </div>
+
+    <div class="header-actions">
+
+        <a href="studies.html" class="header-btn">
+            ← الدراسات
+        </a>
+
+        <a href="index.html" class="header-btn">
+            الرئيسية
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="page">
+
+<section class="hero">
+
+    <h1>هيكل سليمان</h1>
+
+    <p>
+        دراسة كتابية وتاريخية وأثرية ولاهوتية عن الهيكل الذي بناه سليمان في أورشليم،
+        من فكرة البناء والإعداد والتصميم، إلى التكريس والعبادة، ثم الانحراف والسقوط
+        والدمار، مع قراءة رمزية ولاهوتية في ضوء العهد الجديد.
+    </p>
+
+</section>
+
+
+<section class="contents">
+
+<h2>محتويات الدراسة</h2>
+
+<div class="contents-grid">
+
+<a href="#background">1. الخلفية التاريخية</a>
+<a href="#preparation">2. إعداد داود وسليمان</a>
+<a href="#construction">3. بناء الهيكل</a>
+<a href="#architecture">4. التصميم والأبعاد</a>
+<a href="#holy-places">5. القدس وقدس الأقداس</a>
+<a href="#furniture">6. أثاث الهيكل</a>
+<a href="#priests">7. الكهنة واللاويون</a>
+<a href="#dedication">8. تكريس الهيكل</a>
+<a href="#glory">9. مجد الرب</a>
+<a href="#worship">10. العبادة والذبائح</a>
+<a href="#queen">11. ملكة سبأ</a>
+<a href="#decline">12. الانحراف الروحي</a>
+<a href="#destruction">13. سقوط الهيكل</a>
+<a href="#exile">14. الهيكل والسبي</a>
+<a href="#second-temple">15. علاقته بالهيكل الثاني</a>
+<a href="#new-testament">16. الهيكل في العهد الجديد</a>
+<a href="#christ">17. المسيح والهيكل</a>
+<a href="#church">18. الكنيسة هيكل الله</a>
+<a href="#theology">19. البعد اللاهوتي</a>
+<a href="#summary">20. الخلاصة</a>
+
+</div>
+
+</section>
+
+
+<section class="section" id="background">
+
+<h2>1. الخلفية التاريخية</h2>
+
+<p>
+جاء بناء هيكل سليمان في مرحلة مختلفة عن مرحلة الخيمة المتنقلة.
+فقد استقر شعب إسرائيل في الأرض، وأصبحت أورشليم مركز المملكة،
+وأصبح هناك انتقال من نمط المسكن المتنقل إلى مركز عبادة ثابت.
+</p>
+
+<div class="reference">
+1 ملوك 5:1–5
+</div>
+
+<div class="reference">
+2 صموئيل 7:1–13
+</div>
+
+<p>
+كان داود قد أراد أن يبني بيتًا للرب، إلا أن الرب أعلن أن بناء البيت
+سيتم بواسطة ابنه. وهكذا ارتبط الهيكل بوعد الله لداود وباستمرار
+العهد الملكي.
+</p>
+
+<div class="highlight">
+
+<strong>الفكرة المركزية:</strong>
+
+الهيكل لم يكن مجرد مشروع معماري ملكي، بل ارتبط بمسكن اسم الرب
+وبالعبادة وبهوية أورشليم وبالعهد الملكي.
+
+</div>
+
+</section>
+
+
+<section class="section" id="preparation">
+
+<h2>2. إعداد داود وسليمان للبناء</h2>
+
+<h3>دور داود</h3>
+
+<p>
+أعد داود مواد كثيرة للبناء، وهيأ ما أمكنه من الموارد، وسلم المهمة
+إلى سليمان.
+</p>
+
+<div class="reference">
+1 أخبار الأيام 22:1–19
+</div>
+
+<div class="reference">
+1 أخبار الأيام 28:1–21
+</div>
+
+<h3>دور سليمان</h3>
+
+<p>
+تولى سليمان تنفيذ المشروع، واستعان بالعمال والحرفيين والمواد
+المستوردة من خارج إسرائيل، وخاصة من صور.
+</p>
+
+<div class="reference">
+1 ملوك 5:6–18
+</div>
+
+<div class="reference">
+2 أخبار الأيام 2:1–18
+</div>
+
+</section>
+
+
+<section class="section" id="construction">
+
+<h2>3. بناء الهيكل</h2>
+
+<p>
+بدأ بناء بيت الرب في السنة الرابعة من ملك سليمان، في شهر زيو،
+وهو الشهر الثاني.
+</p>
+
+<div class="reference">
+1 ملوك 6:1
+</div>
+
+<p>
+استمر البناء سبع سنوات ونصف تقريبًا، بحسب التسلسل الوارد في
+1 ملوك 6:37–38.
+</p>
+
+<div class="reference">
+1 ملوك 6:37–38
+</div>
+
+<div class="highlight">
+
+كان البناء مشروعًا ضخمًا من حيث المواد والحرفيين والأعمال الداخلية
+والذهب والأخشاب والأحجار المنحوتة.
+
+</div>
+
+</section>
+
+
+<section class="section" id="architecture">
+
+<h2>4. التصميم والأبعاد</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>العنصر</th>
+<th>الوصف الكتابي</th>
+<th>الشاهد</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>الهيكل</td>
+<td>60 ذراعًا طولًا، 20 ذراعًا عرضًا، 30 ذراعًا ارتفاعًا.</td>
+<td>1 ملوك 6:2</td>
+</tr>
+
+<tr>
+<td>الرواق</td>
+<td>رواق أمام بيت الهيكل.</td>
+<td>1 ملوك 6:3</td>
+</tr>
+
+<tr>
+<td>القدس</td>
+<td>المكان الرئيسي للعبادة الداخلية.</td>
+<td>1 ملوك 6:16–20</td>
+</tr>
+
+<tr>
+<td>قدس الأقداس</td>
+<td>مكعب الأبعاد، وفيه تابوت العهد.</td>
+<td>1 ملوك 6:19–20</td>
+</tr>
+
+<tr>
+<td>الأبواب</td>
+<td>أبواب خشبية مزينة بالنقوش والذهب.</td>
+<td>1 ملوك 6:31–35</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<p>
+الأبعاد الواردة في سفر الملوك هي أبعاد المبنى الرئيسي، بينما يقدم
+النص تفاصيل أخرى عن الملحقات والغرف والبناء المحيط بالهيكل.
+</p>
+
+</section>
+
+
+<section class="section" id="holy-places">
+
+<h2>5. القدس وقدس الأقداس</h2>
+
+<h3>القدس</h3>
+
+<p>
+كان القدس القسم الداخلي الذي يسبق قدس الأقداس، واحتوى على عناصر
+مرتبطة بالعبادة اليومية، مثل المنارة ومائدة خبز الوجوه ومذبح البخور.
+</p>
+
+<div class="reference">
+1 ملوك 7:48–49
+</div>
+
+<h3>قدس الأقداس</h3>
+
+<p>
+كان قدس الأقداس هو أقدس موضع، ووضع فيه تابوت عهد الرب.
+وكان دخوله مرتبطًا بنظام القداسة والكهنوت.
+</p>
+
+<div class="reference">
+1 ملوك 6:19–28
+</div>
+
+<div class="highlight">
+
+<strong>المعنى اللاهوتي:</strong>
+
+كان الفصل بين القدس وقدس الأقداس يعلن قداسة الله وحدود الاقتراب
+من حضرته ضمن نظام العهد القديم.
+
+</div>
+
+</section>
+
+
+<section class="section" id="furniture">
+
+<h2>6. أثاث الهيكل</h2>
+
+<div class="grid">
+
+<div class="card">
+<h4>تابوت العهد</h4>
+<p>
+رمز حضور العهد، ووضع في قدس الأقداس.
+</p>
+<div class="reference">1 ملوك 8:6–9</div>
+</div>
+
+<div class="card">
+<h4>مذبح الذهب</h4>
+<p>
+ارتبط بالبخور والخدمة أمام الرب.
+</p>
+<div class="reference">1 ملوك 7:48</div>
+</div>
+
+<div class="card">
+<h4>المنائر</h4>
+<p>
+صنع سليمان منائر من الذهب ووضعها في الهيكل.
+</p>
+<div class="reference">1 ملوك 7:49</div>
+</div>
+
+<div class="card">
+<h4>مائدة خبز الوجوه</h4>
+<p>
+كانت جزءًا من أثاث القدس.
+</p>
+<div class="reference">1 ملوك 7:48</div>
+</div>
+
+<div class="card">
+<h4>البحر النحاسي</h4>
+<p>
+حوض ضخم استخدم في سياق خدمة الكهنة.
+</p>
+<div class="reference">1 ملوك 7:23–26</div>
+</div>
+
+<div class="card">
+<h4>المذابح</h4>
+<p>
+ارتبطت الذبائح والعبادة بالهيكل.
+</p>
+<div class="reference">1 ملوك 8:64</div>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section" id="priests">
+
+<h2>7. الكهنة واللاويون</h2>
+
+<p>
+كان النظام الكهنوتي قائمًا على نسل هارون، بينما قام اللاويون بخدمات
+مختلفة مرتبطة بالعبادة وحراسة وتنظيم الخدمة.
+</p>
+
+<div class="reference">
+1 أخبار الأيام 24
+</div>
+
+<div class="reference">
+1 أخبار الأيام 25
+</div>
+
+<div class="reference">
+1 أخبار الأيام 26
+</div>
+
+<p>
+وعند نقل تابوت العهد إلى الهيكل شارك الكهنة واللاويون في الحدث
+بحسب النظام المحدد للخدمة.
+</p>
+
+<div class="reference">
+2 أخبار الأيام 5:4–14
+</div>
+
+</section>
+
+
+<section class="section" id="dedication">
+
+<h2>8. تكريس الهيكل</h2>
+
+<p>
+كان تكريس الهيكل من أهم الأحداث في عهد سليمان. اجتمع شيوخ إسرائيل
+ورؤساء الأسباط، ونقلوا تابوت العهد إلى قدس الأقداس.
+</p>
+
+<div class="reference">
+1 ملوك 8:1–9
+</div>
+
+<div class="reference">
+2 أخبار الأيام 5:2–10
+</div>
+
+<p>
+ثم قدم سليمان صلاة طويلة تركز على العهد والتوبة والصلاة والرحمة
+والرجوع إلى الله.
+</p>
+
+<div class="reference">
+1 ملوك 8:22–53
+</div>
+
+</section>
+
+
+<section class="section" id="glory">
+
+<h2>9. مجد الرب وملء الهيكل</h2>
+
+<p>
+بعد وضع التابوت والخدمة والتسبيح، امتلأ بيت الرب بالسحابة،
+حتى لم يستطع الكهنة أن يقفوا للخدمة بسبب مجد الرب.
+</p>
+
+<div class="reference">
+1 ملوك 8:10–11
+</div>
+
+<div class="reference">
+2 أخبار الأيام 5:13–14
+</div>
+
+<div class="highlight">
+
+<strong>المبدأ الكتابي:</strong>
+
+قيمة الهيكل الأساسية في السرد الكتابي ليست في حجمه أو ثرائه،
+بل في ارتباطه بإعلان حضور الرب وسط شعبه.
+
+</div>
+
+</section>
+
+
+<section class="section" id="worship">
+
+<h2>10. العبادة والذبائح</h2>
+
+<p>
+ارتبط الهيكل بتقديم الذبائح والصلاة والتسبيح والأعياد والمناسبات
+الوطنية والدينية.
+</p>
+
+<div class="reference">
+1 ملوك 8:62–66
+</div>
+
+<div class="reference">
+2 أخبار الأيام 7:4–10
+</div>
+
+<p>
+وقد صار الهيكل مركزًا قوميًّا وروحيًّا للعبادة في أورشليم.
+</p>
+
+</section>
+
+
+<section class="section" id="queen">
+
+<h2>11. ملكة سبأ وهيكل سليمان</h2>
+
+<p>
+جاءت ملكة سبأ إلى أورشليم لتختبر سليمان بالحكمة والأسئلة،
+ورأت حكمته وبيته ومائدته وخدمة خدامه.
+</p>
+
+<div class="reference">
+1 ملوك 10:1–13
+</div>
+
+<div class="reference">
+2 أخبار الأيام 9:1–12
+</div>
+
+<p>
+ويقدم النص الحدث بوصفه شهادة على الحكمة والمجد الذي ارتبط
+بمملكة سليمان في تلك المرحلة.
+</p>
+
+</section>
+
+
+<section class="section" id="decline">
+
+<h2>12. الانحراف الروحي</h2>
+
+<p>
+رغم عظمة الهيكل، لم يكن وجود المبنى ضمانًا لاستمرار أمانة الشعب.
+فقد أدى انحراف سليمان في نهاية حياته إلى تغيرات روحية عميقة.
+</p>
+
+<div class="reference">
+1 ملوك 11:1–13
+</div>
+
+<p>
+وفي الأجيال التالية ارتبط تاريخ يهوذا مرارًا بالإصلاحات والانحرافات
+المرتبطة بالعبادة والوثنية والهيكل.
+</p>
+
+<div class="reference">
+2 ملوك 18:1–6
+</div>
+
+<div class="reference">
+2 ملوك 21:1–9
+</div>
+
+<div class="reference">
+2 ملوك 22:1–23:25
+</div>
+
+</section>
+
+
+<section class="section" id="destruction">
+
+<h2>13. سقوط الهيكل ودماره</h2>
+
+<p>
+بلغ الانحراف الروحي مرحلة خطيرة، وجاء الحكم البابلي على أورشليم
+ويهوذا، وانتهى الأمر بتدمير الهيكل ونهب خزائنه وحرقه.
+</p>
+
+<div class="reference">
+2 ملوك 24:18–25:21
+</div>
+
+<div class="reference">
+2 أخبار الأيام 36:15–21
+</div>
+
+<p>
+وهكذا لم يكن الهيكل بمنأى عن دينونة الله عندما أصر الشعب على
+التمرد وعدم التوبة.
+</p>
+
+</section>
+
+
+<section class="section" id="exile">
+
+<h2>14. الهيكل والسبي</h2>
+
+<p>
+كان تدمير الهيكل صدمة دينية وقومية كبرى لإسرائيل ويهوذا،
+لأن أورشليم والهيكل كانا في قلب الحياة الدينية للشعب.
+</p>
+
+<div class="reference">
+مزامير 74:1–11
+</div>
+
+<div class="reference">
+مراثي إرميا 2:1–7
+</div>
+
+<p>
+ومع ذلك لم ينته إعلان الله ولا علاقته بشعبه بسبب سقوط البناء،
+بل استمر عمل الله في تاريخ السبي وما بعده.
+</p>
+
+</section>
+
+
+<section class="section" id="second-temple">
+
+<h2>15. علاقته بالهيكل الثاني</h2>
+
+<p>
+بعد السبي عاد اليهود إلى أورشليم وبدأ بناء الهيكل الثاني في عهد
+زربابل ويشوع الكاهن، وفق ما يرويه سفر عزرا.
+</p>
+
+<div class="reference">
+عزرا 3:8–13
+</div>
+
+<div class="reference">
+عزرا 6:13–22
+</div>
+
+<p>
+لم يكن الهيكل الثاني مطابقًا بكل تفاصيله لهيكل سليمان،
+لكن استمر مفهوم الهيكل كمركز لعبادة الرب في أورشليم.
+</p>
+
+</section>
+
+
+<section class="section" id="new-testament">
+
+<h2>16. الهيكل في العهد الجديد</h2>
+
+<p>
+كان الهيكل في أورشليم حاضرًا في حياة يسوع والرسل،
+وخاصة في الأعياد والمناسبات الدينية.
+</p>
+
+<div class="reference">
+لوقا 2:22–38
+</div>
+
+<div class="reference">
+لوقا 2:41–52
+</div>
+
+<div class="reference">
+يوحنا 2:13–22
+</div>
+
+<div class="reference">
+أعمال 2:46
+</div>
+
+<div class="reference">
+أعمال 3:1–10
+</div>
+
+</section>
+
+
+<section class="section" id="christ">
+
+<h2>17. المسيح والهيكل</h2>
+
+<h3>تنقية الهيكل</h3>
+
+<p>
+دخل يسوع الهيكل وأعلن أن بيت الله يجب أن يكون بيت صلاة،
+ورفض تحويل العبادة إلى تجارة واستغلال.
+</p>
+
+<div class="reference">
+متى 21:12–13
+</div>
+
+<div class="reference">
+مرقس 11:15–17
+</div>
+
+<div class="reference">
+لوقا 19:45–46
+</div>
+
+<h3>جسد المسيح والهيكل</h3>
+
+<p>
+في يوحنا 2 يستخدم يسوع لغة الهيكل بصورة مرتبطة بجسده،
+وهو انتقال لاهوتي بالغ الأهمية من المبنى إلى شخص المسيح.
+</p>
+
+<div class="reference">
+يوحنا 2:19–21
+</div>
+
+<div class="highlight">
+
+<strong>النقطة المسيانية:</strong>
+
+المسيح لا يقدم نفسه باعتباره مجرد مصلح للهيكل،
+بل يكشف أن العلاقة بين الله والإنسان ستتمركز بصورة حاسمة
+في شخصه.
+
+</div>
+
+</section>
+
+
+<section class="section" id="church">
+
+<h2>18. الكنيسة هيكل الله</h2>
+
+<p>
+ينقل العهد الجديد مفهوم الهيكل إلى جماعة المؤمنين،
+حيث يصبح شعب الله نفسه مسكنًا للروح القدس.
+</p>
+
+<div class="reference">
+1 كورنثوس 3:16–17
+</div>
+
+<div class="reference">
+1 كورنثوس 6:19
+</div>
+
+<div class="reference">
+2 كورنثوس 6:16
+</div>
+
+<div class="reference">
+أفسس 2:19–22
+</div>
+
+<div class="reference">
+1 بطرس 2:4–5
+</div>
+
+</section>
+
+
+<section class="section" id="theology">
+
+<h2>19. البعد اللاهوتي</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>الموضوع</th>
+<th>في الهيكل</th>
+<th>في العهد الجديد</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>الحضور الإلهي</td>
+<td>مجد الرب في الهيكل</td>
+<td>الله يسكن في شعبه بالروح</td>
+</tr>
+
+<tr>
+<td>القداسة</td>
+<td>القدس وقدس الأقداس</td>
+<td>دعوة المؤمنين إلى القداسة</td>
+</tr>
+
+<tr>
+<td>الذبيحة</td>
+<td>ذبائح العهد القديم</td>
+<td>ذبيحة المسيح الكاملة</td>
+</tr>
+
+<tr>
+<td>الكهنوت</td>
+<td>كهنوت هاروني</td>
+<td>المسيح رئيس الكهنة، والمؤمنون كهنوت مقدس</td>
+</tr>
+
+<tr>
+<td>المسكن</td>
+<td>بيت الرب في أورشليم</td>
+<td>جماعة المؤمنين مسكن الله بالروح</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="reference">
+عبرانيين 8:1–6
+</div>
+
+<div class="reference">
+عبرانيين 9:1–15
+</div>
+
+<div class="reference">
+عبرانيين 10:1–14
+</div>
+
+</section>
+
+
+<section class="section" id="summary">
+
+<h2>20. الخلاصة</h2>
+
+<p>
+يمثل هيكل سليمان مرحلة مهمة في تطور مفهوم المسكن والعبادة
+في تاريخ الكتاب المقدس. فقد انتقلت العبادة من المسكن المتنقل
+إلى بيت ثابت في أورشليم، وأصبح الهيكل مركزًا للذبائح والكهنوت
+والصلاة والأعياد.
+</p>
+
+<p>
+لكن التاريخ الكتابي يكشف أيضًا أن قداسة المكان لا يمكن أن تحل
+محل قداسة الإنسان وطاعته لله. ولذلك انتهى الهيكل الأول إلى الدمار
+عندما استمر الشعب في العصيان.
+</p>
+
+<p>
+وفي العهد الجديد تتجه الصورة نحو المسيح، ثم نحو جماعة المؤمنين
+كهيكل للروح القدس، بحيث يصبح محور حضور الله وعلاقته بشعبه
+أعمق من مجرد البناء المادي.
+</p>
+
+<div class="highlight">
+
+<strong>الخلاصة اللاهوتية:</strong>
+
+هيكل سليمان كان مركزًا تاريخيًا للعبادة وحضور اسم الرب في أورشليم،
+لكن العهد الجديد يعيد توجيه مفهوم الهيكل نحو المسيح،
+ثم نحو شعب الله الذي يسكن فيه الروح القدس.
+
+</div>
+
+<h3>أهم المراجع الكتابية للدراسة</h3>
+
+<div class="grid">
+
+<div class="card">
+<h4>1 ملوك</h4>
+<p>5–10، 11، وخاصة 6–8.</p>
+</div>
+
+<div class="card">
+<h4>2 أخبار الأيام</h4>
+<p>2–9، وخاصة 3–7.</p>
+</div>
+
+<div class="card">
+<h4>عزرا</h4>
+<p>3–6، للانتقال إلى الهيكل الثاني.</p>
+</div>
+
+<div class="card">
+<h4>يوحنا</h4>
+<p>2، وخاصة علاقة المسيح بالهيكل.</p>
+</div>
+
+<div class="card">
+<h4>العبرانيين</h4>
+<p>8–10، لفهم الكهنوت والذبيحة والرموز.</p>
+</div>
+
+<div class="card">
+<h4>رسائل بولس</h4>
+<p>1 كورنثوس 3 و6، وأفسس 2.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<footer class="footer">
+
+كنيسة رجاء الأمم – سيدني<br>
+موسوعة الكتاب المقدس والدراسات الكتابية
+
+</footer>
+
+</main>
+
+</body>
+</html>
