@@ -3,2438 +3,1234 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>الدراسات الكتابية | موسوعة الكتاب المقدس</title>
 
 <style>
 :root{
-    --blue:#061a33;
-    --blue2:#0b2d52;
-    --blue3:#123f6b;
-    --gold:#c9a227;
-    --gold-light:#f4d76b;
-    --white:#ffffff;
-    --text:#eef4fb;
-    --muted:#b9c7d6;
-    --card:#0c2948;
-    --border:rgba(201,162,39,.35);
-    --shadow:0 15px 40px rgba(0,0,0,.35);
+  --blue:#071b3a;
+  --blue2:#0b2d5c;
+  --blue3:#123f78;
+  --gold:#d4af37;
+  --gold2:#f3d675;
+  --white:#ffffff;
+  --text:#eef5ff;
+  --muted:#b8c8df;
+  --card:#0b2448;
+  --shadow:0 12px 35px rgba(0,0,0,.35);
 }
 
 *{
-    box-sizing:border-box;
+  box-sizing:border-box;
 }
 
 html{
-    scroll-behavior:smooth;
+  scroll-behavior:smooth;
 }
 
 body{
-    margin:0;
-    min-height:100vh;
-    font-family:Tahoma,Arial,sans-serif;
-    background:
-        radial-gradient(circle at 90% 0%,rgba(201,162,39,.14),transparent 28%),
-        radial-gradient(circle at 10% 30%,rgba(18,63,107,.35),transparent 35%),
-        linear-gradient(135deg,#03101f,#071d35 50%,#041323);
-    color:var(--text);
+  margin:0;
+  font-family:Tahoma,Arial,sans-serif;
+  background:
+    radial-gradient(circle at top right,#123f78 0,#071b3a 38%,#031126 100%);
+  color:var(--text);
+  min-height:100vh;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* ================= HEADER ================= */
 
 .header{
-    position:sticky;
-    top:0;
-    z-index:9999;
-
-    min-height:88px;
-    padding:10px 25px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    background:rgba(3,16,31,.97);
-    border-bottom:1px solid var(--border);
-    box-shadow:0 6px 28px rgba(0,0,0,.45);
+  position:sticky;
+  top:0;
+  z-index:1000;
+  min-height:88px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 28px;
+  background:rgba(3,17,38,.96);
+  border-bottom:1px solid rgba(212,175,55,.35);
+  box-shadow:0 8px 25px rgba(0,0,0,.3);
+  backdrop-filter:blur(12px);
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:15px;
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
 
 .logo{
-    width:76px;
-    height:76px;
-    object-fit:contain;
-    filter:
-        drop-shadow(0 0 7px rgba(244,215,107,.45))
-        drop-shadow(0 0 18px rgba(201,162,39,.18));
+  width:72px;
+  height:72px;
+  object-fit:contain;
+  filter:drop-shadow(0 0 12px rgba(212,175,55,.45));
 }
 
-.brand-name{
-    font-size:25px;
-    font-weight:900;
-
-    background:
-        linear-gradient(
-            90deg,
-            #fff4ae,
-            #c9a227 35%,
-            #fff2a3 55%,
-            #a77d0c 78%,
-            #ffe98a
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
+.church-name{
+  color:var(--gold2);
+  font-size:20px;
+  font-weight:800;
+  text-shadow:
+    1px 1px 0 #8a6c15,
+    2px 2px 0 #684f0d,
+    0 0 12px rgba(212,175,55,.35);
 }
 
-.brand-sub{
-    margin-top:4px;
-    color:var(--muted);
-    font-size:13px;
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.header-btn{
+  border:1px solid rgba(212,175,55,.6);
+  background:linear-gradient(145deg,#123f78,#071b3a);
+  color:var(--gold2);
+  padding:10px 17px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.25s;
 }
 
-.nav-btn{
-    text-decoration:none;
-    color:white;
-
-    padding:11px 18px;
-
-    border:1px solid var(--gold);
-    border-radius:12px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #163d65,
-            #071a32
-        );
-
-    font-weight:bold;
-    font-size:16px;
-
-    transition:.25s;
+.header-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(212,175,55,.2);
 }
 
-.nav-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 22px rgba(201,162,39,.18);
-    color:var(--gold-light);
-}
-
-/* =========================
-   MAIN PAGE
-========================= */
+/* ================= PAGE ================= */
 
 .container{
-    width:min(1200px,94%);
-    margin:35px auto 70px;
+  width:min(1200px,94%);
+  margin:auto;
+  padding:45px 0 80px;
 }
 
 .page-title{
-    text-align:center;
-    margin:10px 0 12px;
-
-    font-size:40px;
-    font-weight:900;
-
-    background:
-        linear-gradient(
-            90deg,
-            #fff5ad,
-            #c9a227,
-            #fff3a0,
-            #a77d0c,
-            #fff0a0
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
+  text-align:center;
+  margin:15px 0 10px;
+  font-size:42px;
+  color:var(--gold2);
+  text-shadow:
+    2px 2px 0 #795f12,
+    4px 4px 0 #4f3c09,
+    0 0 18px rgba(212,175,55,.35);
 }
 
 .page-subtitle{
-    text-align:center;
-    color:var(--muted);
-    font-size:18px;
-    margin-bottom:35px;
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:42px;
+  font-size:17px;
 }
 
-/* =========================
-   STUDY CARDS
-========================= */
+/* ================= STUDY GRID ================= */
 
 .study-grid{
-    display:grid;
-    grid-template-columns:
-        repeat(auto-fit,minmax(245px,1fr));
-
-    gap:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:22px;
 }
 
 .study-card{
-    width:100%;
+  position:relative;
+  background:
+    linear-gradient(145deg,rgba(18,63,120,.95),rgba(5,25,55,.98));
+  border:1px solid rgba(212,175,55,.32);
+  border-radius:20px;
+  padding:28px 22px;
+  min-height:205px;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  transition:.3s ease;
+  overflow:hidden;
+}
 
-    border:1px solid var(--border);
-    border-radius:20px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(15,48,82,.98),
-            rgba(4,21,39,.98)
-        );
-
-    color:white;
-
-    padding:25px 20px;
-
-    text-align:center;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.25);
-
-    transition:
-        transform .3s ease,
-        border-color .3s ease,
-        box-shadow .3s ease;
+.study-card::before{
+  content:"";
+  position:absolute;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:rgba(212,175,55,.08);
+  top:-45px;
+  left:-35px;
 }
 
 .study-card:hover{
-    transform:translateY(-7px);
-
-    border-color:var(--gold-light);
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.45),
-        0 0 20px rgba(201,162,39,.08);
+  transform:translateY(-7px);
+  border-color:var(--gold);
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.45),
+    0 0 25px rgba(212,175,55,.13);
 }
 
 .study-icon{
-    font-size:45px;
-    margin-bottom:12px;
+  font-size:42px;
+  margin-bottom:15px;
 }
 
-.study-card h3{
-    margin:5px 0 10px;
-
-    font-size:21px;
-
-    color:var(--gold-light);
+.study-card h2{
+  margin:0 0 12px;
+  color:var(--gold2);
+  font-size:22px;
 }
 
 .study-card p{
-    margin:0;
-
-    color:var(--muted);
-
-    line-height:1.8;
-
-    font-size:15px;
+  margin:0;
+  line-height:1.8;
+  color:#d8e5f7;
+  font-size:15px;
 }
 
-/* =========================
-   STUDY VIEW
-========================= */
+/* ================= STUDY VIEW ================= */
 
 .study-view{
-    display:none;
-    animation:studyOpen .45s ease;
+  display:none;
+  animation:fadeIn .45s ease;
 }
 
 .study-view.active{
-    display:block;
+  display:block;
 }
 
-@keyframes studyOpen{
-    from{
-        opacity:0;
-        transform:translateY(18px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+.study-navigation{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:25px;
 }
 
-.study-toolbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-
-    margin-bottom:20px;
-
-    padding:12px;
-
-    background:rgba(5,22,41,.88);
-
-    border:1px solid var(--border);
-
-    border-radius:16px;
+.back-study{
+  border:1px solid rgba(212,175,55,.65);
+  background:#09244a;
+  color:var(--gold2);
+  border-radius:12px;
+  padding:11px 18px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-.study-back{
-    border:1px solid var(--gold);
-    border-radius:10px;
-
-    background:#0b2d52;
-
-    color:white;
-
-    padding:10px 16px;
-
-    cursor:pointer;
-
-    font-family:inherit;
-    font-weight:bold;
-    font-size:15px;
+.study-heading{
+  text-align:center;
+  color:var(--gold2);
+  font-size:35px;
+  margin:15px 0 8px;
+  text-shadow:2px 2px 0 #634c0c;
 }
 
-.study-back:hover{
-    background:#123f6b;
-    color:var(--gold-light);
+.study-intro{
+  background:rgba(7,27,58,.85);
+  border-right:4px solid var(--gold);
+  padding:22px;
+  border-radius:15px;
+  line-height:2;
+  color:#e6effb;
+  margin-bottom:25px;
 }
 
-.study-name{
-    color:var(--gold-light);
-    font-size:20px;
-    font-weight:bold;
+/* ================= CONTENT ================= */
+
+.content-section{
+  background:rgba(7,27,58,.82);
+  border:1px solid rgba(212,175,55,.22);
+  border-radius:18px;
+  padding:25px;
+  margin:20px 0;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
-.article{
-    background:
-        linear-gradient(
-            145deg,
-            rgba(12,41,72,.98),
-            rgba(3,18,34,.98)
-        );
-
-    border:1px solid var(--border);
-
-    border-radius:22px;
-
-    padding:32px;
-
-    box-shadow:var(--shadow);
-
-    margin-bottom:22px;
+.content-section h3{
+  color:var(--gold2);
+  font-size:24px;
+  margin-top:0;
+  border-bottom:1px solid rgba(212,175,55,.25);
+  padding-bottom:10px;
 }
 
-.article h2{
-    color:var(--gold-light);
-
-    font-size:31px;
-
-    margin-top:0;
-
-    padding-bottom:14px;
-
-    border-bottom:1px solid var(--border);
+.content-section h4{
+  color:#e7ca6a;
+  font-size:19px;
 }
 
-.article h3{
-    color:#f5dc78;
-
-    font-size:22px;
-
-    margin-top:30px;
+.content-section p{
+  line-height:2;
+  color:#e0ebfa;
 }
 
-.article p,
-.article li{
-    color:#e8eef5;
-
-    font-size:17px;
-
-    line-height:2.05;
+.content-section ul{
+  line-height:2;
+  color:#d9e7f8;
 }
 
-.article ul{
-    padding-right:25px;
+.verse{
+  background:linear-gradient(145deg,#0d3569,#061a37);
+  border-right:4px solid var(--gold);
+  padding:17px 20px;
+  margin:15px 0;
+  border-radius:12px;
+  line-height:2;
 }
 
 .reference{
-    border-right:4px solid var(--gold);
-
-    background:
-        rgba(201,162,39,.08);
-
-    padding:14px 18px;
-
-    margin:18px 0;
-
-    border-radius:9px;
-
-    color:#f5dc78;
-
-    line-height:1.9;
+  display:block;
+  color:var(--gold2);
+  margin-top:7px;
+  font-weight:bold;
 }
 
-.info-box{
-    background:
-        rgba(0,0,0,.18);
+/* ================= TABLE ================= */
 
-    border:1px solid rgba(201,162,39,.25);
-
-    border-radius:14px;
-
-    padding:20px;
-
-    margin:20px 0;
-
-    line-height:2;
+.table-wrapper{
+  overflow-x:auto;
 }
 
-.info-box strong{
-    color:var(--gold-light);
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+  min-width:650px;
 }
 
-.study-table{
-    width:100%;
-
-    border-collapse:collapse;
-
-    margin:20px 0;
-
-    overflow:hidden;
-
-    border-radius:12px;
+th,td{
+  border:1px solid rgba(212,175,55,.25);
+  padding:13px;
+  text-align:right;
+  vertical-align:top;
+  line-height:1.8;
 }
 
-.study-table th{
-    background:#123f6b;
-    color:var(--gold-light);
-    padding:13px;
-    border:1px solid rgba(201,162,39,.3);
+th{
+  background:#123f78;
+  color:var(--gold2);
 }
 
-.study-table td{
-    padding:12px;
-    border:1px solid rgba(201,162,39,.2);
-    color:#e9eef4;
-    line-height:1.8;
+td{
+  background:rgba(6,25,52,.75);
 }
 
-.study-table tr:nth-child(even){
-    background:rgba(255,255,255,.025);
-}
-
-.quote{
-    margin:20px 0;
-
-    padding:18px 22px;
-
-    border-right:5px solid var(--gold);
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(201,162,39,.04),
-            rgba(201,162,39,.12)
-        );
-
-    border-radius:12px;
-
-    color:#ffe995;
-
-    font-size:18px;
-
-    line-height:2;
-}
-
-.section-divider{
-    height:1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--gold),
-            transparent
-        );
-
-    margin:35px 0;
-}
-
-/* =========================
-   FOOTER
-========================= */
+/* ================= FOOTER ================= */
 
 .footer{
-    text-align:center;
-
-    color:#8f9dad;
-
-    padding:30px 15px;
-
-    margin-top:50px;
-
-    border-top:1px solid var(--border);
-
-    font-size:13px;
+  text-align:center;
+  color:#9eb1cb;
+  border-top:1px solid rgba(212,175,55,.2);
+  padding:30px 10px;
+  margin-top:50px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 
-@media(max-width:700px){
+@media(max-width:650px){
+  .header{
+    padding:10px 14px;
+  }
 
-    .header{
-        padding:8px 12px;
-        min-height:72px;
-    }
+  .logo{
+    width:58px;
+    height:58px;
+  }
 
-    .logo{
-        width:54px;
-        height:54px;
-    }
+  .church-name{
+    font-size:15px;
+  }
 
-    .brand-name{
-        font-size:17px;
-    }
+  .page-title{
+    font-size:30px;
+  }
 
-    .brand-sub{
-        font-size:10px;
-    }
+  .study-heading{
+    font-size:27px;
+  }
 
-    .nav-btn{
-        padding:8px 10px;
-        font-size:13px;
-    }
-
-    .page-title{
-        font-size:29px;
-    }
-
-    .page-subtitle{
-        font-size:15px;
-    }
-
-    .article{
-        padding:20px 16px;
-    }
-
-    .article h2{
-        font-size:25px;
-    }
-
-    .article h3{
-        font-size:20px;
-    }
-
-    .article p,
-    .article li{
-        font-size:16px;
-    }
-
-    .study-toolbar{
-        flex-wrap:wrap;
-    }
-
-    .study-name{
-        order:-1;
-        width:100%;
-        text-align:center;
-    }
-
-    .study-table{
-        font-size:14px;
-    }
-
-    .study-table th,
-    .study-table td{
-        padding:8px;
-    }
+  .header-btn{
+    padding:8px 11px;
+    font-size:13px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header class="header">
 
-    <div class="brand">
+  <div class="header-right">
+    <img src="assets/logo.png" class="logo" alt="Hope Of Nation Church NSW">
+    <div class="church-name">كنيسة رجاء الأمم سيدني</div>
+  </div>
 
-        <img
-            src="assets/logo.png"
-            class="logo"
-            alt="كنيسة رجاء الأمم سيدني"
-        >
-
-        <div>
-            <div class="brand-name">
-                كنيسة رجاء الأمم – سيدني
-            </div>
-
-            <div class="brand-sub">
-                موسوعة الكتاب المقدس والدراسات الكتابية
-            </div>
-        </div>
-
-    </div>
-
-    <div class="header-actions">
-
-        <a
-            href="index.html"
-            class="nav-btn"
-        >
-            الرئيسية
-        </a>
-
-    </div>
+  <div class="header-left">
+    <a href="index.html" class="header-btn">الرئيسية</a>
+  </div>
 
 </header>
 
-
 <main class="container">
 
-    <!-- =========================
-         MAIN STUDIES MENU
-    ========================= -->
-
-    <div id="studiesHome">
-
-        <h1 class="page-title">
-            الدراسات الكتابية
-        </h1>
-
-        <div class="page-subtitle">
-            موسوعة دراسية متخصصة للدارسين والباحثين في كلمة الله
-        </div>
-
-
-        <section class="study-grid">
-
-
-            <!-- TABERNACLE -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('tabernacle')"
-            >
-
-                <div class="study-icon">⛺</div>
-
-                <h3>
-                    خيمة الاجتماع
-                </h3>
-
-                <p>
-                    دراسة موسوعية شاملة للتصميم والأثاث والكهنوت والذبائح والرموز والامتداد في العهد الجديد.
-                </p>
-
-            </button>
-
-
-            <!-- SOLOMON -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('solomon')"
-            >
-
-                <div class="study-icon">🏛️</div>
-
-                <h3>
-                    هيكل سليمان
-                </h3>
-
-                <p>
-                    دراسة كتابية وتاريخية ومعمارية ولاهوتية للهيكل الأول في أورشليم.
-                </p>
-
-            </button>
-
-
-            <!-- HEROD -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('herod')"
-            >
-
-                <div class="study-icon">🏛️</div>
-
-                <h3>
-                    هيكل هيرودس
-                </h3>
-
-                <p>
-                    الخلفية التاريخية والمعمارية والكتابية للهيكل في زمن المسيح.
-                </p>
-
-            </button>
-
-
-            <!-- FEASTS -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('feasts')"
-            >
-
-                <div class="study-icon">🕎</div>
-
-                <h3>
-                    الأعياد والمواسم الكتابية
-                </h3>
-
-                <p>
-                    دراسة الأعياد والمواسم في العهدين القديم والجديد ومعانيها الرمزية والنبية.
-                </p>
-
-            </button>
-
-
-            <!-- MIRACLES -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('miracles')"
-            >
-
-                <div class="study-icon">✨</div>
-
-                <h3>
-                    معجزات المسيح
-                </h3>
-
-                <p>
-                    دراسة معجزات المسيح وسياقها ورسالتها وعلاقتها بالعهد القديم.
-                </p>
-
-            </button>
-
-
-            <!-- PARABLES -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('parables')"
-            >
-
-                <div class="study-icon">📖</div>
-
-                <h3>
-                    أمثال المسيح
-                </h3>
-
-                <p>
-                    دراسة أمثال المسيح وسياقاتها ورسائلها اللاهوتية.
-                </p>
-
-            </button>
-
-
-            <!-- CHARACTERS -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('characters')"
-            >
-
-                <div class="study-icon">👤</div>
-
-                <h3>
-                    شخصيات كتابية
-                </h3>
-
-                <p>
-                    دراسة الشخصيات ونقاط القوة والضعف والقرارات والدروس الروحية.
-                </p>
-
-            </button>
-
-
-            <!-- BOOK INTRODUCTIONS -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('books')"
-            >
-
-                <div class="study-icon">📚</div>
-
-                <h3>
-                    مقدمة أسفار الكتاب المقدس
-                </h3>
-
-                <p>
-                    الكاتب والزمان والمكان والظروف التاريخية والرسالة والموضوعات الرئيسية.
-                </p>
-
-            </button>
-
-
-            <!-- BIBLICAL ENCYCLOPEDIA -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('encyclopedia')"
-            >
-
-                <div class="study-icon">🔎</div>
-
-                <h3>
-                    الموسوعة الكتابية
-                </h3>
-
-                <p>
-                    موضوعات ومصطلحات وأماكن وشخصيات ومفاهيم كتابية.
-                </p>
-
-            </button>
-
-
-            <!-- CHURCH HISTORY -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('church')"
-            >
-
-                <div class="study-icon">⛪</div>
-
-                <h3>
-                    الكنيسة عبر العصور
-                </h3>
-
-                <p>
-                    خط زمني مختصر لتاريخ الكنيسة وتطورها عبر العصور.
-                </p>
-
-            </button>
-
-
-            <!-- JERUSALEM -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('jerusalem')"
-            >
-
-                <div class="study-icon">🧱</div>
-
-                <h3>
-                    أورشليم وأسوارها وأبوابها
-                </h3>
-
-                <p>
-                    دراسة المدينة والأسوار والأبواب والحراس والأحداث الكتابية المرتبطة بها.
-                </p>
-
-            </button>
-
-
-            <!-- JEWISH BACKGROUND -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('jewish')"
-            >
-
-                <div class="study-icon">🕍</div>
-
-                <h3>
-                    الخلفية اليهودية للعهد الجديد
-                </h3>
-
-                <p>
-                    العادات والمجامع والأعياد والفرق اليهودية والبيئة التاريخية في زمن المسيح.
-                </p>
-
-            </button>
-
-
-            <!-- CHRIST IN BIBLE -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('christ')"
-            >
-
-                <div class="study-icon">✝️</div>
-
-                <h3>
-                    المسيح في الكتاب المقدس
-                </h3>
-
-                <p>
-                    دراسة الوعود والنبوات والرموز والأنماط الكتابية المرتبطة بالمسيح.
-                </p>
-
-            </button>
-
-
-            <!-- RIVERS -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('rivers')"
-            >
-
-                <div class="study-icon">🌊</div>
-
-                <h3>
-                    الأنهار في الكتاب المقدس
-                </h3>
-
-                <p>
-                    الأنهار الرئيسية ومواقعها وأحداثها ودلالاتها الكتابية.
-                </p>
-
-            </button>
-
-
-            <!-- TEMPLE AND TABERNACLE COMPARISON -->
-
-            <button
-                class="study-card"
-                onclick="openStudy('comparison')"
-            >
-
-                <div class="study-icon">📐</div>
-
-                <h3>
-                    مقارنة الخيمة والهيكل
-                </h3>
-
-                <p>
-                    مقارنة كتابية ولاهوتية بين الخيمة وهيكل سليمان وهيكل هيرودس.
-                </p>
-
-            </button>
-
-
-        </section>
-
+<section id="studiesHome">
+
+  <h1 class="page-title">الدراسات الكتابية</h1>
+
+  <p class="page-subtitle">
+    موسوعة دراسات كتابية وتاريخية ولاهوتية لفهم كلمة الله بعمق
+  </p>
+
+  <div class="study-grid">
+
+    <article class="study-card" onclick="openStudy('tabernacle')">
+      <div class="study-icon">⛺</div>
+      <h2>خيمة الاجتماع</h2>
+      <p>
+        دراسة شاملة لخيمة الاجتماع: التصميم، الأدوات، الكهنوت،
+        الذبائح، الخدمة، الرمزية، والمسيح في تحقيقها.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('solomon')">
+      <div class="study-icon">🏛️</div>
+      <h2>هيكل سليمان</h2>
+      <p>
+        دراسة تاريخية وكتابية ومعمارية ولاهوتية عن الهيكل
+        منذ التخطيط والبناء حتى سقوطه.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('herod')">
+      <div class="study-icon">🏛️</div>
+      <h2>هيكل هيرودس</h2>
+      <p>
+        دراسة الهيكل في زمن المسيح، توسعات هيرودس،
+        أقسامه، خدمته، وأهم أحداث العهد الجديد المرتبطة به.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('comparison')">
+      <div class="study-icon">⚖️</div>
+      <h2>مقارنة الخيمة والهياكل</h2>
+      <p>
+        مقارنة بين خيمة الاجتماع وهيكل سليمان وهيكل هيرودس
+        من حيث المكان والوظيفة والعبادة والرمزية.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('feasts')">
+      <div class="study-icon">🕎</div>
+      <h2>الأعياد والمواسم الكتابية</h2>
+      <p>
+        دراسة الأعياد والمواسم في العهدين القديم والجديد
+        ومواعيدها وطقوسها وأبعادها النبوية والمسيانية.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('jewish')">
+      <div class="study-icon">📜</div>
+      <h2>الخلفية اليهودية للعهد الجديد</h2>
+      <p>
+        العادات والمجتمع والكتابات اليهودية والخلفية الدينية
+        التي تساعد على فهم نصوص العهد الجديد.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('christ')">
+      <div class="study-icon">✝️</div>
+      <h2>المسيح في الكتاب المقدس</h2>
+      <p>
+        دراسة الإعلان عن المسيح في العهد القديم وتحقيقه
+        في العهد الجديد.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('miracles')">
+      <div class="study-icon">✨</div>
+      <h2>معجزات المسيح</h2>
+      <p>
+        دراسة معجزات المسيح وسياقها الكتابي ورسالتها
+        وعلاقتها بإعلانات العهد القديم.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('books')">
+      <div class="study-icon">📖</div>
+      <h2>مقدمات أسفار الكتاب المقدس</h2>
+      <p>
+        الكاتب، التاريخ، المكان، الظروف التاريخية،
+        المخاطبون، والهدف من كل سفر.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('characters')">
+      <div class="study-icon">👥</div>
+      <h2>شخصيات الكتاب المقدس</h2>
+      <p>
+        دراسات في الشخصيات الكتابية: نقاط القوة والضعف،
+        الأماكن، الأزمنة، العلاقات، والدروس الروحية.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('temple-herod')">
+      <div class="study-icon">🧱</div>
+      <h2>العمارة والآثار الكتابية</h2>
+      <p>
+        دراسة المدن والأنهار والهياكل والآثار والجغرافيا
+        التي تساعد على فهم النص الكتابي.
+      </p>
+    </article>
+
+    <article class="study-card" onclick="openStudy('rivers')">
+      <div class="study-icon">🌊</div>
+      <h2>الأنهار والأماكن في الكتاب المقدس</h2>
+      <p>
+        دراسة الأنهار والمدن والأماكن المهمة ودورها
+        في الأحداث الكتابية.
+      </p>
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- خيمة الاجتماع -->
+<!-- ========================================================= -->
+
+<section id="tabernacle" class="study-view">
+
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+    <span></span>
+  </div>
+
+  <h1 class="study-heading">خيمة الاجتماع</h1>
+
+  <div class="study-intro">
+    خيمة الاجتماع هي مركز العبادة الذي أقامه الله وسط شعب إسرائيل
+    في البرية، وكانت تمثل حضور الله وسط شعبه، ونظام الاقتراب إليه
+    من خلال الكهنوت والذبائح والقداسة.
+  </div>
+
+  <div class="content-section">
+    <h3>1. التأسيس والغاية</h3>
+
+    <div class="verse">
+      «فَيَصْنَعُونَ لِي مَقْدِسًا لِأَسْكُنَ فِي وَسَطِهِمْ.»
+      <span class="reference">خروج 25:8</span>
     </div>
 
+    <p>
+      لم تكن الخيمة مجرد مبنى للعبادة، بل كانت إعلانًا عمليًا عن
+      رغبة الله في السكن وسط شعبه. وهي مرتبطة مباشرة بعهد الله
+      مع إسرائيل وبنظام العبادة الذي أُعطي لموسى.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h3>2. التصميم العام</h3>
+
+    <div class="table-wrapper">
+      <table>
+        <tr>
+          <th>القسم</th>
+          <th>المحتوى</th>
+          <th>الدلالة</th>
+        </tr>
+
+        <tr>
+          <td>الدائرة الخارجية</td>
+          <td>دار الخيمة</td>
+          <td>الاقتراب المنظم إلى العبادة</td>
+        </tr>
+
+        <tr>
+          <td>المذبح</td>
+          <td>مذبح المحرقة</td>
+          <td>الذبيحة والتكفير</td>
+        </tr>
+
+        <tr>
+          <td>المرحضة</td>
+          <td>للغسل</td>
+          <td>الطهارة للخدمة</td>
+        </tr>
+
+        <tr>
+          <td>القدس</td>
+          <td>المنارة ومائدة خبز الوجوه ومذبح البخور</td>
+          <td>الخدمة والكهنوت والحضور</td>
+        </tr>
+
+        <tr>
+          <td>قدس الأقداس</td>
+          <td>تابوت العهد</td>
+          <td>أقدس موضع وحضور الله</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h3>3. التابوت</h3>
+
+    <div class="verse">
+      «وَيَصْنَعُونَ تَابُوتًا مِنْ خَشَبِ السَّنْطِ.»
+      <span class="reference">خروج 25:10</span>
+    </div>
+
+    <p>
+      كان التابوت في قدس الأقداس، وفوقه غطاء الكفارة والكروبيم.
+      وقد ارتبط بالتذكار والعهد وحضور الله وسط شعبه.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h3>4. الذبائح والكهنوت</h3>
+
+    <p>
+      ارتبطت الخيمة بنظام الذبائح والكهنوت، وكان هارون وبنوه
+      يخدمون في الكهنوت، بينما كان اللاويون مسؤولين عن أعمال
+      الخدمة المرتبطة بالخيمة.
+    </p>
+
+    <div class="verse">
+      «وَيَكُونُ هَارُونُ وَبَنُوهُ مَعَكَ، وَيَحْرُسُونَ حِرَاسَةَ
+      الْمَقْدِسِ.»
+      <span class="reference">العدد 18:7</span>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h3>5. المسيح والخيمة</h3>
+
+    <div class="verse">
+      «وَالْكَلِمَةُ صَارَ جَسَدًا وَحَلَّ بَيْنَنَا.»
+      <span class="reference">يوحنا 1:14</span>
+    </div>
+
+    <p>
+      يقدم العهد الجديد لغة ترتبط بفكرة حلول حضور الله وسط الإنسان،
+      ويشرح سفر العبرانيين العلاقة بين نظام العبادة القديم وعمل
+      المسيح الكهنوتي والذبيحي.
+    </p>
+
+    <div class="verse">
+      «وَلَيْسَ بِدَمِ تُيُوسٍ وَعُجُولٍ، بَلْ بِدَمِ نَفْسِهِ،
+      دَخَلَ مَرَّةً وَاحِدَةً إِلَى الْأَقْدَاسِ، فَوَجَدَ فِدَاءً أَبَدِيًّا.»
+      <span class="reference">عبرانيين 9:12</span>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- هيكل سليمان -->
+<!-- ========================================================= -->
+
+<section id="solomon" class="study-view">
+
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+    <span></span>
+  </div>
+
+  <h1 class="study-heading">هيكل سليمان</h1>
+
+  <div class="study-intro">
+    كان هيكل سليمان أول هيكل ثابت أقامه بنو إسرائيل في أورشليم،
+    وقد ارتبط بعهد داود وسليمان وبإحضار تابوت العهد إلى موضعه
+    في أورشليم.
+  </div>
+
+  <div class="content-section">
+    <h3>1. التخطيط والبناء</h3>
+
+    <div class="verse">
+      «وَكَانَ فِي السَّنَةِ الْأَرْبَعِمِئَةِ وَالثَّمَانِينَ لِخُرُوجِ
+      بَنِي إِسْرَائِيلَ مِنْ أَرْضِ مِصْرَ... بَنَى الْبَيْتَ لِلرَّبِّ.»
+      <span class="reference">1 ملوك 6:1</span>
+    </div>
+
+    <p>
+      يروي سفر الملوك تفاصيل البناء، كما يوضح سفر أخبار الأيام
+      الخلفية المرتبطة بإعداد داود للمشروع وتسليم المهمة لسليمان.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h3>2. المواد والعمارة</h3>
+
+    <div class="table-wrapper">
+      <table>
+        <tr>
+          <th>العنصر</th>
+          <th>المادة / الوصف</th>
+          <th>الشاهد</th>
+        </tr>
+
+        <tr>
+          <td>الأرز</td>
+          <td>أرز لبنان</td>
+          <td>1 ملوك 5–6</td>
+        </tr>
+
+        <tr>
+          <td>الذهب</td>
+          <td>استخدم في تغطية أجزاء مقدسة من البيت</td>
+          <td>1 ملوك 6:20–22</td>
+        </tr>
+
+        <tr>
+          <td>الكروبيم</td>
+          <td>وُضعا في قدس الأقداس</td>
+          <td>1 ملوك 6:23–28</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h3>3. تدشين الهيكل</h3>
+
+    <div class="verse">
+      «فَلَمَّا خَرَجَ الْكَهَنَةُ مِنَ الْقُدْسِ، مَلَأَتِ السَّحَابَةُ بَيْتَ الرَّبِّ.»
+      <span class="reference">1 ملوك 8:10</span>
+    </div>
+
+    <p>
+      يمثل تدشين الهيكل لحظة مركزية في تاريخ العبادة الإسرائيلية،
+      خصوصًا مع نقل تابوت العهد والصلاة التي رفعها سليمان.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h3>4. صلاة سليمان</h3>
+
+    <div class="verse">
+      «هَلْ يَسْكُنُ اللهُ حَقًّا عَلَى الْأَرْضِ؟ هُوَذَا السَّمَاوَاتُ
+      وَسَمَاءُ السَّمَاوَاتِ لاَ تَسَعُكَ، فَكَمْ بِالْأَقَلِّ هذَا الْبَيْتُ
+      الَّذِي بَنَيْتُ!»
+      <span class="reference">1 ملوك 8:27</span>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- هيكل هيرودس -->
+<!-- ========================================================= -->
+
+<section id="herod" class="study-view">
+
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+    <span></span>
+  </div>
+
+  <h1 class="study-heading">هيكل هيرودس</h1>
+
+  <div class="study-intro">
+    هيكل هيرودس هو المجمع الهيكلي الذي كان قائمًا في أورشليم
+    خلال فترة خدمة المسيح، وقد كان مسرحًا لعدد كبير من أحداث
+    الأناجيل وأعمال الرسل.
+  </div>
+
+  <div class="content-section">
+    <h3>1. الهيكل في حياة المسيح</h3>
+
+    <div class="verse">
+      «وَلَمَّا كَانَ عِيدُ الْفِصْحِ لِلْيَهُودِ صَعِدَ يَسُوعُ إِلَى أُورُشَلِيمَ.»
+      <span class="reference">يوحنا 2:13</span>
+    </div>
+
+    <div class="verse">
+      «وَوَجَدَ فِي الْهَيْكَلِ الَّذِينَ كَانُوا يَبِيعُونَ بَقَرًا
+      وَغَنَمًا وَحَمَامًا.»
+      <span class="reference">يوحنا 2:14</span>
+    </div>
+
+    <p>
+      يظهر الهيكل في الأناجيل كمكان للصلاة والتعليم والاحتفال بالأعياد،
+      كما شهد مواجهة المسيح للممارسات التي شوّهت غرض العبادة.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h3>2. إعلان المسيح عن الهيكل</h3>
+
+    <div class="verse">
+      «انْقُضُوا هذَا الْهَيْكَلَ وَفِي ثَلاَثَةِ أَيَّامٍ أُقِيمُهُ.»
+      <span class="reference">يوحنا 2:19</span>
+    </div>
+
+    <p>
+      يفسر يوحنا أن المسيح كان يتكلم عن هيكل جسده، وبذلك ينتقل
+      التركيز من البناء المادي إلى شخص المسيح نفسه.
+    </p>
+  </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- المقارنة -->
+<!-- ========================================================= -->
+
+<section id="comparison" class="study-view">
+
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+    <span></span>
+  </div>
+
+  <h1 class="study-heading">مقارنة خيمة الاجتماع والهياكل</h1>
+
+  <div class="content-section">
+
+    <div class="table-wrapper">
+      <table>
+
+        <tr>
+          <th>العنصر</th>
+          <th>خيمة الاجتماع</th>
+          <th>هيكل سليمان</th>
+          <th>هيكل هيرودس</th>
+        </tr>
+
+        <tr>
+          <td>طبيعة المكان</td>
+          <td>محمول في البرية</td>
+          <td>هيكل ثابت</td>
+          <td>مجمع هيكلي ضخم في أورشليم</td>
+        </tr>
+
+        <tr>
+          <td>الموقع</td>
+          <td>مواقع متعددة أثناء الترحال</td>
+          <td>أورشليم</td>
+          <td>أورشليم</td>
+        </tr>
+
+        <tr>
+          <td>تابوت العهد</td>
+          <td>في قدس الأقداس</td>
+          <td>في قدس الأقداس</td>
+          <td>لم يعد ظاهرًا في موضعه كما في الهيكل الأول</td>
+        </tr>
+
+        <tr>
+          <td>الخدمة</td>
+          <td>كهنوت ولاويون</td>
+          <td>كهنوت ولاويون</td>
+          <td>كهنوت وخدمة الهيكل</td>
+        </tr>
+
+        <tr>
+          <td>الذبيحة</td>
+          <td>جزء أساسي من العبادة</td>
+          <td>جزء أساسي من العبادة</td>
+          <td>استمرت العبادة الذبيحية</td>
+        </tr>
+
+      </table>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- الأعياد -->
+<!-- ========================================================= -->
+
+<section id="feasts" class="study-view">
+
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+    <span></span>
+  </div>
+
+  <h1 class="study-heading">الأعياد والمواسم الكتابية</h1>
+
+  <div class="study-intro">
+    دراسة الأعياد والمواسم في الكتاب المقدس، مع تتبع أساسها
+    في العهد القديم وامتدادها وتحقيقاتها في العهد الجديد.
+  </div>
+
+  <div class="content-section">
+
+    <div class="table-wrapper">
+      <table>
+
+        <tr>
+          <th>العيد / الموسم</th>
+          <th>الشاهد الأساسي</th>
+          <th>الارتباط بالعهد الجديد</th>
+        </tr>
+
+        <tr>
+          <td>الفصح</td>
+          <td>خروج 12</td>
+          <td>المسيح حمل الفصح — 1 كورنثوس 5:7</td>
+        </tr>
+
+        <tr>
+          <td>عيد الفطير</td>
+          <td>خروج 12:15–20</td>
+          <td>يرتبط بالفصح وأيام الآلام</td>
+        </tr>
+
+        <tr>
+          <td>عيد الأسابيع / الخمسين</td>
+          <td>لاويين 23:15–22</td>
+          <td>حلول الروح القدس — أعمال 2</td>
+        </tr>
+
+        <tr>
+          <td>عيد الأبواق</td>
+          <td>لاويين 23:23–25</td>
+          <td>موضوعات الدينونة والإعلان والملكوت</td>
+        </tr>
+
+        <tr>
+          <td>يوم الكفارة</td>
+          <td>لاويين 16</td>
+          <td>شرح لاهوتي عميق في عبرانيين 9–10</td>
+        </tr>
+
+        <tr>
+          <td>عيد المظال</td>
+          <td>لاويين 23:33–43</td>
+          <td>يوحنا 7–8 وأحداث المسيح في العيد</td>
+        </tr>
+
+        <tr>
+          <td>عيد التجديد / حانوكا</td>
+          <td>يوحنا 10:22</td>
+          <td>ذكره صراحة في حياة المسيح</td>
+        </tr>
+
+        <tr>
+          <td>الفوريم</td>
+          <td>أستير 9</td>
+          <td>ذكرى نجاة اليهود في أيام أستير</td>
+        </tr>
 
-    <!-- =====================================================
-         TABERNACLE
-    ====================================================== -->
+      </table>
+    </div>
 
-    <section
-        id="study-tabernacle"
-        class="study-view"
-    >
+  </div>
 
-        <div class="study-toolbar">
+</section>
 
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
 
-            <div class="study-name">
-                خيمة الاجتماع
-            </div>
+<!-- ========================================================= -->
+<!-- الخلفية اليهودية -->
+<!-- ========================================================= -->
 
-        </div>
+<section id="jewish" class="study-view">
 
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+  </div>
 
-        <article class="article">
+  <h1 class="study-heading">الخلفية اليهودية للعهد الجديد</h1>
 
-            <h2>
-                ⛺ خيمة الاجتماع — دراسة موسوعية
-            </h2>
+  <div class="content-section">
+    <h3>محاور الدراسة</h3>
+
+    <ul>
+      <li>الحياة اليومية في اليهودية في القرن الأول.</li>
+      <li>الهيكل والكهنوت.</li>
+      <li>الفرّيسيون والصدوقيون والكتبة.</li>
+      <li>الأعياد والمواسم.</li>
+      <li>السبت والتقاليد الدينية.</li>
+      <li>الخلفية التاريخية للرومان.</li>
+      <li>الكتابات اليهودية في فترة الهيكل الثاني.</li>
+    </ul>
+  </div>
+
+</section>
 
-            <p>
-                خيمة الاجتماع كانت مركز حضور الله وعبادة إسرائيل في البرية،
-                وقد أُقيمت بحسب النموذج الذي أراه الله لموسى.
-            </p>
 
-            <div class="reference">
-                خروج 25:8–9؛ خروج 25–40؛ لاويين؛ عدد؛ عبرانيين 8–10
-            </div>
+<!-- ========================================================= -->
+<!-- المسيح -->
+<!-- ========================================================= -->
 
+<section id="christ" class="study-view">
 
-            <h3>
-                1. الغرض من الخيمة
-            </h3>
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+  </div>
 
-            <div class="quote">
-                «فَيَصْنَعُونَ لِي مَقْدِسًا لِأَسْكُنَ فِي وَسَطِهِمْ.»
-            </div>
+  <h1 class="study-heading">المسيح في الكتاب المقدس</h1>
 
-            <div class="reference">
-                خروج 25:8
-            </div>
+  <div class="content-section">
+    <h3>من الوعد إلى التحقيق</h3>
 
+    <div class="verse">
+      «هُوَذَا الْعَذْرَاءُ تَحْبَلُ وَتَلِدُ ابْنًا وَتَدْعُو اسْمَهُ
+      عِمَّانُوئِيلَ.»
+      <span class="reference">إشعياء 7:14</span>
+    </div>
+
+    <div class="verse">
+      «وَالْكَلِمَةُ صَارَ جَسَدًا وَحَلَّ بَيْنَنَا.»
+      <span class="reference">يوحنا 1:14</span>
+    </div>
+  </div>
 
-            <h3>
-                2. أقسام الخيمة
-            </h3>
+</section>
 
-            <ul>
-                <li>الدار الخارجية.</li>
-                <li>المكان المقدس.</li>
-                <li>قدس الأقداس.</li>
-            </ul>
 
+<!-- ========================================================= -->
+<!-- المعجزات -->
+<!-- ========================================================= -->
 
-            <h3>
-                3. أهم الأثاث والأدوات
-            </h3>
+<section id="miracles" class="study-view">
 
-            <table class="study-table">
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+  </div>
 
-                <tr>
-                    <th>الأداة</th>
-                    <th>المكان</th>
-                    <th>المرجع</th>
-                </tr>
+  <h1 class="study-heading">معجزات المسيح</h1>
 
-                <tr>
-                    <td>المذبح النحاسي</td>
-                    <td>الدار</td>
-                    <td>خروج 27</td>
-                </tr>
+  <div class="content-section">
 
-                <tr>
-                    <td>المرحضة</td>
-                    <td>الدار</td>
-                    <td>خروج 30:17–21</td>
-                </tr>
+    <h3>تصنيف المعجزات</h3>
 
-                <tr>
-                    <td>المنارة</td>
-                    <td>المكان المقدس</td>
-                    <td>خروج 25:31–40</td>
-                </tr>
+    <ul>
+      <li>شفاء المرضى.</li>
+      <li>إقامة الموتى.</li>
+      <li>سلطان على الطبيعة.</li>
+      <li>إخراج الأرواح الشريرة.</li>
+      <li>معجزات مرتبطة بالخبز والطعام.</li>
+      <li>معجزات مرتبطة بالإعلان عن هوية المسيح.</li>
+    </ul>
 
-                <tr>
-                    <td>مائدة خبز الوجوه</td>
-                    <td>المكان المقدس</td>
-                    <td>خروج 25:23–30</td>
-                </tr>
+  </div>
 
-                <tr>
-                    <td>مذبح البخور</td>
-                    <td>المكان المقدس</td>
-                    <td>خروج 30:1–10</td>
-                </tr>
+</section>
 
-                <tr>
-                    <td>تابوت العهد</td>
-                    <td>قدس الأقداس</td>
-                    <td>خروج 25:10–22</td>
-                </tr>
 
-            </table>
+<!-- ========================================================= -->
+<!-- مقدمات الأسفار -->
+<!-- ========================================================= -->
 
+<section id="books" class="study-view">
 
-            <h3>
-                4. الكهنوت
-            </h3>
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+  </div>
 
-            <p>
-                أُعطي نسل هارون خدمة كهنوتية محددة، بينما كان اللاويون
-                مسؤولين عن خدمة الخيمة ونقلها وحراسة وظائفها المختلفة.
-            </p>
+  <h1 class="study-heading">مقدمات أسفار الكتاب المقدس</h1>
 
-            <div class="reference">
-                خروج 28–29؛ عدد 3–4
-            </div>
+  <div class="content-section">
+    <p>
+      سيكون هذا القسم موسوعة مستقلة لكل سفر، وتشمل الدراسة:
+    </p>
 
+    <ul>
+      <li>اسم السفر ومعناه.</li>
+      <li>الكاتب ونسبة الكتاب إليه.</li>
+      <li>الفترة التاريخية.</li>
+      <li>مكان الكتابة.</li>
+      <li>المخاطبون.</li>
+      <li>الهدف من السفر.</li>
+      <li>البنية الأدبية.</li>
+      <li>الموضوعات اللاهوتية الرئيسية.</li>
+      <li>العلاقة ببقية الأسفار.</li>
+    </ul>
+  </div>
 
-            <h3>
-                5. يوم الكفارة
-            </h3>
+</section>
 
-            <p>
-                كان يوم الكفارة مناسبة مركزية في النظام القديم،
-                وكان رئيس الكهنة يدخل إلى قدس الأقداس في الخدمة المحددة.
-            </p>
 
-            <div class="reference">
-                لاويين 16؛ لاويين 23:26–32
-            </div>
+<!-- ========================================================= -->
+<!-- الشخصيات -->
+<!-- ========================================================= -->
 
+<section id="characters" class="study-view">
 
-            <h3>
-                6. الخيمة والعهد الجديد
-            </h3>
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+  </div>
 
-            <p>
-                يستخدم كاتب العبرانيين الخيمة والخدمة الكهنوتية القديمة
-                لتوضيح خدمة المسيح العظمى والعهد الجديد.
-            </p>
+  <h1 class="study-heading">شخصيات الكتاب المقدس</h1>
 
-            <div class="reference">
-                عبرانيين 8:1–6؛ 9:1–28؛ 10:1–14
-            </div>
+  <div class="content-section">
 
-        </article>
+    <h3>منهج دراسة الشخصية</h3>
 
-    </section>
+    <ul>
+      <li>الاسم والمعنى.</li>
+      <li>العائلة والنسب.</li>
+      <li>الزمن التاريخي.</li>
+      <li>الأماكن المرتبطة بالشخصية.</li>
+      <li>نقاط القوة.</li>
+      <li>نقاط الضعف.</li>
+      <li>قرارات الشخصية ونتائجها.</li>
+      <li>علاقة الشخصية بالله.</li>
+      <li>الدروس الروحية واللاهوتية.</li>
+    </ul>
 
+  </div>
 
-    <!-- =====================================================
-         SOLOMON TEMPLE
-    ====================================================== -->
+</section>
 
-    <section
-        id="study-solomon"
-        class="study-view"
-    >
 
-        <div class="study-toolbar">
+<!-- ========================================================= -->
+<!-- الآثار -->
+<!-- ========================================================= -->
 
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
+<section id="temple-herod" class="study-view">
 
-            <div class="study-name">
-                هيكل سليمان
-            </div>
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+  </div>
 
-        </div>
+  <h1 class="study-heading">العمارة والآثار الكتابية</h1>
 
+  <div class="content-section">
 
-        <article class="article">
+    <h3>محاور الدراسة</h3>
 
-            <h2>
-                🏛️ هيكل سليمان — دراسة كتابية وتاريخية
-            </h2>
+    <ul>
+      <li>أورشليم.</li>
+      <li>الهيكل.</li>
+      <li>خيمة الاجتماع.</li>
+      <li>المدن الكتابية.</li>
+      <li>الطرق القديمة.</li>
+      <li>الخلفية الأثرية للنصوص.</li>
+    </ul>
 
-            <p>
-                كان هيكل سليمان أول هيكل ثابت أقيم في أورشليم لعبادة الرب،
-                وارتبط بمركزية العبادة ونقل تابوت العهد إلى البيت الذي بناه سليمان.
-            </p>
+  </div>
 
-            <div class="reference">
-                1 ملوك 5–8؛ 2 أخبار الأيام 2–7؛ 1 أخبار الأيام 28–29
-            </div>
+</section>
 
 
-            <h3>
-                1. خلفية بناء الهيكل
-            </h3>
+<!-- ========================================================= -->
+<!-- الأنهار -->
+<!-- ========================================================= -->
 
-            <p>
-                كان داود قد اشتاق إلى بناء بيت للرب، لكن الرب أعلن أن ابنه
-                هو الذي سيبني البيت.
-            </p>
+<section id="rivers" class="study-view">
 
-            <div class="reference">
-                2 صموئيل 7:12–13؛ 1 أخبار الأيام 28:2–7
-            </div>
+  <div class="study-navigation">
+    <button class="back-study" onclick="backToStudies()">← الدراسات</button>
+  </div>
 
+  <h1 class="study-heading">الأنهار والأماكن في الكتاب المقدس</h1>
 
-            <h3>
-                2. بداية البناء
-            </h3>
+  <div class="content-section">
 
-            <p>
-                بدأ سليمان بناء الهيكل في السنة الرابعة من ملكه،
-                في شهر زيو، وهو الشهر الثاني.
-            </p>
+    <h3>أمثلة رئيسية</h3>
 
-            <div class="quote">
-                «وَكَانَ فِي السَّنَةِ الرَّابِعَةِ لِمُلْكِ سُلَيْمَانَ عَلَى إِسْرَائِيلَ،
-                فِي شَهْرِ زِو، وَهُوَ الشَّهْرُ الثَّانِي، أَنَّهُ بَنَى بَيْتَ الرَّبِّ.»
-            </div>
+    <ul>
+      <li>نهر النيل.</li>
+      <li>نهر الأردن.</li>
+      <li>دجلة والفرات.</li>
+      <li>بحر الجليل.</li>
+      <li>البحر الميت.</li>
+      <li>أورشليم.</li>
+      <li>بيت لحم.</li>
+      <li>الناصرة.</li>
+      <li>الجليل.</li>
+      <li>اليهودية.</li>
+    </ul>
 
-            <div class="reference">
-                1 ملوك 6:1
-            </div>
+  </div>
 
-
-            <h3>
-                3. أبعاد البناء الأساسي
-            </h3>
-
-            <table class="study-table">
-
-                <tr>
-                    <th>العنصر</th>
-                    <th>المقاس</th>
-                    <th>المرجع</th>
-                </tr>
-
-                <tr>
-                    <td>طول البيت</td>
-                    <td>60 ذراعًا</td>
-                    <td>1 ملوك 6:2</td>
-                </tr>
-
-                <tr>
-                    <td>العرض</td>
-                    <td>20 ذراعًا</td>
-                    <td>1 ملوك 6:2</td>
-                </tr>
-
-                <tr>
-                    <td>الارتفاع</td>
-                    <td>30 ذراعًا</td>
-                    <td>1 ملوك 6:2</td>
-                </tr>
-
-                <tr>
-                    <td>قدس الأقداس</td>
-                    <td>20 × 20 × 20 ذراعًا</td>
-                    <td>1 ملوك 6:20</td>
-                </tr>
-
-            </table>
-
-
-            <h3>
-                4. المواد والحرفيون
-            </h3>
-
-            <p>
-                تضمنت أعمال البناء الحجارة والأخشاب والذهب والنحاس،
-                وكان حيرام من أبرز الحرفيين المرتبطين بالأعمال الفنية والمعدنية.
-            </p>
-
-            <div class="reference">
-                1 ملوك 5:6–18؛ 1 ملوك 7:13–14؛ 2 أخبار الأيام 2:13–14
-            </div>
-
-
-            <h3>
-                5. تابوت العهد
-            </h3>
-
-            <p>
-                نُقل تابوت عهد الرب إلى الهيكل ووُضع في قدس الأقداس
-                تحت أجنحة الكروبين.
-            </p>
-
-            <div class="reference">
-                1 ملوك 8:1–9؛ 2 أخبار الأيام 5:2–10
-            </div>
-
-
-            <h3>
-                6. أعمدة ياكين وبوعز
-            </h3>
-
-            <p>
-                أقيم عمودان أمام رواق الهيكل، وسُميا ياكين وبوعز.
-            </p>
-
-            <div class="reference">
-                1 ملوك 7:15–22؛ 2 أخبار الأيام 3:15–17
-            </div>
-
-
-            <h3>
-                7. تدشين الهيكل
-            </h3>
-
-            <p>
-                كان التدشين حدثًا وطنيًا وروحيًا واسعًا،
-                حضره الكهنة واللاويون والشيوخ والشعب.
-            </p>
-
-            <div class="reference">
-                1 ملوك 8؛ 2 أخبار الأيام 5–7
-            </div>
-
-
-            <h3>
-                8. صلاة سليمان
-            </h3>
-
-            <p>
-                صلى سليمان طالبًا من الرب أن يسمع صلوات شعبه،
-                وأن يغفر لهم عندما يرجعون إليه.
-            </p>
-
-            <div class="reference">
-                1 ملوك 8:22–53
-            </div>
-
-
-            <h3>
-                9. مجد الرب
-            </h3>
-
-            <p>
-                بعد وضع التابوت وتقديم التسبيح والذبائح،
-                امتلأ بيت الرب بالسحابة حتى لم يستطع الكهنة الوقوف للخدمة.
-            </p>
-
-            <div class="reference">
-                1 ملوك 8:10–11؛ 2 أخبار الأيام 5:13–14
-            </div>
-
-
-            <h3>
-                10. نهاية الهيكل
-            </h3>
-
-            <p>
-                دُمّر الهيكل في سقوط أورشليم أمام البابليين،
-                وأُحرقت المدينة والبيت ونُقلت أدواته إلى بابل.
-            </p>
-
-            <div class="reference">
-                2 ملوك 25:8–17؛ 2 أخبار الأيام 36:17–19
-            </div>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         HEROD TEMPLE
-    ====================================================== -->
-
-    <section
-        id="study-herod"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                هيكل هيرودس
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                🏛️ هيكل هيرودس
-            </h2>
-
-            <p>
-                يمثل هيكل هيرودس الخلفية المعمارية والتاريخية الرئيسية
-                لكثير من أحداث الأناجيل في أورشليم.
-            </p>
-
-            <div class="reference">
-                متى 24:1–2؛ مرقس 13:1–2؛ لوقا 21:5–6؛ يوحنا 2:13–22
-            </div>
-
-
-            <h3>
-                1. هيرودس الكبير ومشروع التوسعة
-            </h3>
-
-            <p>
-                ارتبط مشروع هيرودس بتوسعة وإعادة بناء مجمع الهيكل
-                بصورة ضخمة، مع تطوير ساحاته ومبانيه.
-            </p>
-
-            <div class="reference">
-                يوحنا 2:20؛ متى 24:1
-            </div>
-
-
-            <h3>
-                2. الهيكل في حياة المسيح
-            </h3>
-
-            <p>
-                ظهر الهيكل في عدد من أحداث حياة المسيح وتعليمه،
-                ومنها تطهير الهيكل ومناقشات المسيح مع القادة الدينيين.
-            </p>
-
-            <div class="reference">
-                متى 21:12–17؛ يوحنا 2:13–22؛ لوقا 19:45–48
-            </div>
-
-
-            <h3>
-                3. المسيح والهيكل
-            </h3>
-
-            <div class="quote">
-                «انْقُضُوا هذَا الْهَيْكَلَ، وَفِي ثَلاَثَةِ أَيَّامٍ أُقِيمُهُ.»
-            </div>
-
-            <div class="reference">
-                يوحنا 2:19–21
-            </div>
-
-
-            <h3>
-                4. نهاية الهيكل الثاني
-            </h3>
-
-            <p>
-                أعلن المسيح عن خراب الهيكل، وهو ما يرتبط لاحقًا
-                بسقوط أورشليم والهيكل في القرن الأول.
-            </p>
-
-            <div class="reference">
-                متى 24:1–2؛ مرقس 13:1–2؛ لوقا 21:5–6
-            </div>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         FEASTS
-    ====================================================== -->
-
-    <section
-        id="study-feasts"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                الأعياد والمواسم الكتابية
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                🕎 الأعياد والمواسم في الكتاب المقدس
-            </h2>
-
-            <p>
-                ترتبط أعياد الرب في العهد القديم بالعبادة والذاكرة التاريخية
-                والمواسم الزراعية، بينما يربط العهد الجديد عددًا من هذه الصور
-                بعمل المسيح والكنيسة.
-            </p>
-
-
-            <table class="study-table">
-
-                <tr>
-                    <th>العيد</th>
-                    <th>التوقيت</th>
-                    <th>الحدث الأساسي</th>
-                    <th>مراجع رئيسية</th>
-                </tr>
-
-                <tr>
-                    <td>الفصح</td>
-                    <td>14 نيسان</td>
-                    <td>ذكرى الخروج من مصر</td>
-                    <td>خروج 12؛ لاويين 23:5</td>
-                </tr>
-
-                <tr>
-                    <td>عيد الفطير</td>
-                    <td>15–21 نيسان</td>
-                    <td>ذكرى الخروج والخبز غير المختمر</td>
-                    <td>خروج 12:15–20؛ لاويين 23:6–8</td>
-                </tr>
-
-                <tr>
-                    <td>الباكورة</td>
-                    <td>ضمن موسم الفصح</td>
-                    <td>تقديم باكورة الحصاد</td>
-                    <td>لاويين 23:9–14</td>
-                </tr>
-
-                <tr>
-                    <td>الأسابيع / الخمسين</td>
-                    <td>بعد سبعة أسابيع</td>
-                    <td>موسم حصاد الحنطة</td>
-                    <td>لاويين 23:15–22؛ أعمال 2</td>
-                </tr>
-
-                <tr>
-                    <td>الأبواق</td>
-                    <td>1 تشري</td>
-                    <td>يوم الهتاف والأبواق</td>
-                    <td>لاويين 23:23–25</td>
-                </tr>
-
-                <tr>
-                    <td>يوم الكفارة</td>
-                    <td>10 تشري</td>
-                    <td>الكفارة والتذلل أمام الرب</td>
-                    <td>لاويين 16؛ 23:26–32</td>
-                </tr>
-
-                <tr>
-                    <td>المظال</td>
-                    <td>15 تشري</td>
-                    <td>ذكرى السكن في المظال وموسم القطاف</td>
-                    <td>لاويين 23:33–43</td>
-                </tr>
-
-                <tr>
-                    <td>التجديد / حنوكا</td>
-                    <td>كسليف</td>
-                    <td>تذكار تدشين الهيكل</td>
-                    <td>يوحنا 10:22</td>
-                </tr>
-
-                <tr>
-                    <td>الفوريم</td>
-                    <td>14–15 أذار</td>
-                    <td>ذكرى نجاة اليهود في أيام أستير</td>
-                    <td>أستير 9</td>
-                </tr>
-
-            </table>
-
-
-            <h3>
-                الفصح والمسيح
-            </h3>
-
-            <p>
-                يقدم العهد الجديد موت المسيح في سياق الفصح،
-                ويستخدم بولس لغة الفصح عند الحديث عن المسيح.
-            </p>
-
-            <div class="reference">
-                يوحنا 19؛ 1 كورنثوس 5:7
-            </div>
-
-
-            <h3>
-                الخمسين والكنيسة
-            </h3>
-
-            <p>
-                ارتبط يوم الخمسين في سفر الأعمال بحلول الروح القدس
-                وتكوين شهادة الكنيسة في أورشليم.
-            </p>
-
-            <div class="reference">
-                أعمال 2:1–41
-            </div>
-
-
-            <h3>
-                عيد التجديد في حياة المسيح
-            </h3>
-
-            <p>
-                يذكر يوحنا صراحة أن يسوع كان في الهيكل في أورشليم
-                في عيد التجديد.
-            </p>
-
-            <div class="reference">
-                يوحنا 10:22–39
-            </div>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         MIRACLES
-    ====================================================== -->
-
-    <section
-        id="study-miracles"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                معجزات المسيح
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                ✨ معجزات المسيح
-            </h2>
-
-            <p>
-                تعرض الأناجيل معجزات المسيح كأعمال مرتبطة بهويته
-                وسلطانه ورسالته وإعلان ملكوت الله.
-            </p>
-
-            <div class="reference">
-                متى 8–9؛ مرقس 1–6؛ لوقا 4–9؛ يوحنا 2–11
-            </div>
-
-
-            <h3>
-                أمثلة رئيسية
-            </h3>
-
-            <ul>
-                <li>تحويل الماء إلى خمر — يوحنا 2:1–11.</li>
-                <li>شفاء المفلوج — مرقس 2:1–12.</li>
-                <li>تهدئة العاصفة — مرقس 4:35–41.</li>
-                <li>إقامة لعازر — يوحنا 11:1–44.</li>
-                <li>إشباع الخمسة آلاف — يوحنا 6:1–15.</li>
-            </ul>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         PARABLES
-    ====================================================== -->
-
-    <section
-        id="study-parables"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                أمثال المسيح
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                📖 أمثال المسيح
-            </h2>
-
-            <p>
-                استخدم المسيح الأمثال في التعليم وإعلان حقائق ملكوت الله،
-                وكشف مواقف القلب، وتقديم صور عملية للحق الروحي.
-            </p>
-
-            <div class="reference">
-                متى 13؛ مرقس 4؛ لوقا 15–16
-            </div>
-
-
-            <h3>
-                أمثلة
-            </h3>
-
-            <ul>
-                <li>الزارع — متى 13:1–23.</li>
-                <li>السامري الصالح — لوقا 10:25–37.</li>
-                <li>الابن الضال — لوقا 15:11–32.</li>
-                <li>الدرهم المفقود — لوقا 15:8–10.</li>
-                <li>العذارى العشر — متى 25:1–13.</li>
-            </ul>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         CHARACTERS
-    ====================================================== -->
-
-    <section
-        id="study-characters"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                شخصيات كتابية
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                👤 شخصيات كتابية
-            </h2>
-
-            <p>
-                تدرس الشخصية الكتابية ضمن السياق التاريخي والعائلي والجغرافي،
-                مع ملاحظة نقاط القوة والضعف والقرارات والنتائج والدروس.
-            </p>
-
-            <table class="study-table">
-
-                <tr>
-                    <th>الشخصية</th>
-                    <th>المحور</th>
-                    <th>مراجع</th>
-                </tr>
-
-                <tr>
-                    <td>إبراهيم</td>
-                    <td>الإيمان والدعوة والعهد</td>
-                    <td>تكوين 12–25</td>
-                </tr>
-
-                <tr>
-                    <td>موسى</td>
-                    <td>الدعوة والقيادة والشريعة</td>
-                    <td>خروج 1–40</td>
-                </tr>
-
-                <tr>
-                    <td>داود</td>
-                    <td>الملك والتوبة والعهد</td>
-                    <td>1 صموئيل 16–31؛ 2 صموئيل</td>
-                </tr>
-
-                <tr>
-                    <td>سليمان</td>
-                    <td>الحكمة والملك والهيكل</td>
-                    <td>1 ملوك 1–11</td>
-                </tr>
-
-                <tr>
-                    <td>بطرس</td>
-                    <td>التلمذة والفشل والاسترداد</td>
-                    <td>الأناجيل؛ أعمال 1–12</td>
-                </tr>
-
-                <tr>
-                    <td>بولس</td>
-                    <td>الدعوة والكرازة والرسالة</td>
-                    <td>أعمال 9–28</td>
-                </tr>
-
-            </table>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         BOOK INTRODUCTIONS
-    ====================================================== -->
-
-    <section
-        id="study-books"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                مقدمة أسفار الكتاب المقدس
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                📚 مقدمة أسفار الكتاب المقدس
-            </h2>
-
-            <p>
-                يهدف هذا القسم إلى تقديم كل سفر من حيث الكاتب والسياق التاريخي
-                والمكان والزمان والموضوع والغاية والبنية الأدبية.
-            </p>
-
-            <div class="reference">
-                سيتم ربط هذه المقدمة لاحقًا مباشرة بكل سفر من صفحة الكتاب المقدس.
-            </div>
-
-
-            <h3>
-                العناصر الثابتة لكل سفر
-            </h3>
-
-            <ul>
-                <li>اسم السفر.</li>
-                <li>الكاتب أو نسبة الكتاب مع بيان درجة اليقين.</li>
-                <li>الفترة التاريخية.</li>
-                <li>مكان الكتابة عندما يمكن تحديده.</li>
-                <li>الجمهور المقصود.</li>
-                <li>الغرض والرسالة الرئيسية.</li>
-                <li>البنية الأدبية.</li>
-                <li>أهم الموضوعات اللاهوتية.</li>
-                <li>العلاقة بباقي أسفار الكتاب المقدس.</li>
-            </ul>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         ENCYCLOPEDIA
-    ====================================================== -->
-
-    <section
-        id="study-encyclopedia"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                الموسوعة الكتابية
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                🔎 الموسوعة الكتابية
-            </h2>
-
-            <p>
-                قسم موسوعي للموضوعات والمصطلحات والشخصيات والأماكن والأشياء
-                المرتبطة بالكتاب المقدس.
-            </p>
-
-
-            <table class="study-table">
-
-                <tr>
-                    <th>الفئة</th>
-                    <th>أمثلة</th>
-                </tr>
-
-                <tr>
-                    <td>أماكن</td>
-                    <td>أورشليم، بيت لحم، الناصرة، الجليل، السامرة</td>
-                </tr>
-
-                <tr>
-                    <td>أنهار</td>
-                    <td>الأردن، الفرات، دجلة، النيل</td>
-                </tr>
-
-                <tr>
-                    <td>أعياد</td>
-                    <td>الفصح، الأسابيع، المظال، التجديد، الفوريم</td>
-                </tr>
-
-                <tr>
-                    <td>أشخاص</td>
-                    <td>الأنبياء، الملوك، الرسل، الشخصيات الكتابية</td>
-                </tr>
-
-                <tr>
-                    <td>مفاهيم</td>
-                    <td>العهد، الكفارة، الملكوت، القداسة، الفداء</td>
-                </tr>
-
-            </table>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         CHURCH HISTORY
-    ====================================================== -->
-
-    <section
-        id="study-church"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                الكنيسة عبر العصور
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                ⛪ الكنيسة عبر العصور
-            </h2>
-
-            <p>
-                قسم مخصص لدراسة تاريخ الكنيسة الأولى وتطورها وانتشارها
-                والمدارس اللاهوتية والأحداث التاريخية الكبرى.
-            </p>
-
-            <div class="reference">
-                أعمال الرسل 1–28؛ رسائل العهد الجديد
-            </div>
-
-
-            <h3>
-                المراحل الأساسية
-            </h3>
-
-            <ul>
-                <li>الكنيسة في أورشليم.</li>
-                <li>انتشار الإنجيل في اليهودية والسامرة.</li>
-                <li>الانتشار بين الأمم.</li>
-                <li>رحلات بولس الرسول.</li>
-                <li>الكنيسة في القرن الأول.</li>
-                <li>التطورات اللاحقة في التاريخ المسيحي.</li>
-            </ul>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         JERUSALEM
-    ====================================================== -->
-
-    <section
-        id="study-jerusalem"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                أورشليم وأسوارها وأبوابها
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                🧱 أورشليم وأسوارها وأبوابها
-            </h2>
-
-            <p>
-                كانت أورشليم مركزًا مهمًا في تاريخ إسرائيل والكتاب المقدس،
-                وتظهر أسوارها وأبوابها بصورة بارزة خصوصًا في سفر نحميا.
-            </p>
-
-            <div class="reference">
-                نحميا 1–6؛ 2 أخبار الأيام؛ ملوك؛ الأناجيل
-            </div>
-
-
-            <h3>
-                أسوار المدينة
-            </h3>
-
-            <p>
-                ارتبطت الأسوار بالحماية والهوية والاستقرار،
-                وأصبح إصلاحها في أيام نحميا علامة على استعادة المدينة.
-            </p>
-
-            <div class="reference">
-                نحميا 2:17–18؛ نحميا 3–4
-            </div>
-
-
-            <h3>
-                الحراس
-            </h3>
-
-            <p>
-                أُقيم الحراس لحماية المدينة وتنظيم الدخول،
-                وارتبطت الحراسة أيضًا بالمسؤولية الروحية في بعض الصور الكتابية.
-            </p>
-
-            <div class="reference">
-                نحميا 4:9؛ إشعياء 62:6
-            </div>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         JEWISH BACKGROUND
-    ====================================================== -->
-
-    <section
-        id="study-jewish"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                الخلفية اليهودية للعهد الجديد
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                🕍 الخلفية اليهودية للعهد الجديد
-            </h2>
-
-            <p>
-                لفهم العهد الجديد بصورة دقيقة يحتاج الدارس إلى فهم البيئة
-                اليهودية والتاريخية والدينية التي ظهر فيها يسوع والرسل.
-            </p>
-
-
-            <h3>
-                الموضوعات الأساسية
-            </h3>
-
-            <ul>
-                <li>الهيكل والعبادة.</li>
-                <li>المجامع.</li>
-                <li>الفريسيون والصدوقيون.</li>
-                <li>الكتبة والناموس.</li>
-                <li>الأعياد اليهودية.</li>
-                <li>السبت.</li>
-                <li>التقاليد والتفسيرات اليهودية.</li>
-                <li>الخلفية السياسية في زمن هيرودس والرومان.</li>
-            </ul>
-
-            <div class="reference">
-                متى 5–7؛ متى 23؛ مرقس 7؛ يوحنا 10–18
-            </div>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         CHRIST
-    ====================================================== -->
-
-    <section
-        id="study-christ"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                المسيح في الكتاب المقدس
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                ✝️ المسيح في الكتاب المقدس
-            </h2>
-
-            <p>
-                يدرس هذا القسم العلاقة بين وعود العهد القديم وموضوع المسيح
-                وتحقيقها في العهد الجديد، مع مراعاة السياق الأدبي والتاريخي
-                لكل نص وعدم فرض معنى مسياني على نص لا يدعمه السياق.
-            </p>
-
-
-            <h3>
-                محاور الدراسة
-            </h3>
-
-            <ul>
-                <li>نسل المرأة — تكوين 3:15.</li>
-                <li>نسل إبراهيم — تكوين 12:1–3.</li>
-                <li>الوعد لداود — 2 صموئيل 7.</li>
-                <li>الملك الممسوح في المزامير.</li>
-                <li>النبوات المسيانية.</li>
-                <li>تحقيق الوعود في العهد الجديد.</li>
-            </ul>
-
-            <div class="reference">
-                لوقا 24:25–27؛ لوقا 24:44–47
-            </div>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         RIVERS
-    ====================================================== -->
-
-    <section
-        id="study-rivers"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                الأنهار في الكتاب المقدس
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                🌊 الأنهار في الكتاب المقدس
-            </h2>
-
-            <table class="study-table">
-
-                <tr>
-                    <th>النهر</th>
-                    <th>أمثلة كتابية</th>
-                    <th>السياق</th>
-                </tr>
-
-                <tr>
-                    <td>النيل</td>
-                    <td>خروج 1–14</td>
-                    <td>مصر والخروج</td>
-                </tr>
-
-                <tr>
-                    <td>الأردن</td>
-                    <td>يشوع 3؛ متى 3</td>
-                    <td>دخول الأرض ومعمودية المسيح</td>
-                </tr>
-
-                <tr>
-                    <td>الفرات</td>
-                    <td>تكوين 2؛ رؤيا 9؛ 16</td>
-                    <td>الجغرافيا والتاريخ والرؤى</td>
-                </tr>
-
-                <tr>
-                    <td>دجلة</td>
-                    <td>تكوين 2:14؛ دانيال 10:4</td>
-                    <td>الجغرافيا ومشهد دانيال</td>
-                </tr>
-
-            </table>
-
-        </article>
-
-    </section>
-
-
-    <!-- =====================================================
-         COMPARISON
-    ====================================================== -->
-
-    <section
-        id="study-comparison"
-        class="study-view"
-    >
-
-        <div class="study-toolbar">
-
-            <button
-                class="study-back"
-                onclick="showStudiesHome()"
-            >
-                ← الدراسات
-            </button>
-
-            <div class="study-name">
-                مقارنة الخيمة والهيكل
-            </div>
-
-        </div>
-
-
-        <article class="article">
-
-            <h2>
-                📐 مقارنة الخيمة والهيكل
-            </h2>
-
-            <table class="study-table">
-
-                <tr>
-                    <th>العنصر</th>
-                    <th>خيمة الاجتماع</th>
-                    <th>هيكل سليمان</th>
-                    <th>هيكل هيرودس</th>
-                </tr>
-
-                <tr>
-                    <td>الطبيعة</td>
-                    <td>مقدس متنقل</td>
-                    <td>مقدس ثابت</td>
-                    <td>مجمع هيكلي ضخم في أورشليم</td>
-                </tr>
-
-                <tr>
-                    <td>الموقع</td>
-                    <td>رحلة إسرائيل في البرية</td>
-                    <td>أورشليم</td>
-                    <td>أورشليم</td>
-                </tr>
-
-                <tr>
-                    <td>التابوت</td>
-                    <td>في قدس الأقداس</td>
-                    <td>نُقل إلى قدس الأقداس</td>
-                    <td>الهيكل في زمن المسيح</td>
-                </tr>
-
-                <tr>
-                    <td>المراجع الرئيسية</td>
-                    <td>خروج 25–40</td>
-                    <td>1 ملوك 5–8</td>
-                    <td>الأناجيل</td>
-                </tr>
-
-            </table>
-
-
-            <div class="reference">
-                عبرانيين 8–10؛ يوحنا 2:19–21
-            </div>
-
-        </article>
-
-    </section>
-
-
-</main>
+</section>
 
 
 <footer class="footer">
-
-    كنيسة رجاء الأمم – سيدني
-    <br>
-    موسوعة الكتاب المقدس والدراسات الكتابية
-
+  © كنيسة رجاء الأمم سيدني — موسوعة الكتاب المقدس
 </footer>
+
+</main>
 
 
 <script>
 
 /* =========================================================
-   STUDY NAVIGATION
-========================================================= */
+   فتح الدراسة وإخفاء باقي الأقسام
+   ========================================================= */
 
-function openStudy(name){
+function openStudy(id){
 
-    const home = document.getElementById("studiesHome");
+  const home = document.getElementById("studiesHome");
 
-    const views =
-        document.querySelectorAll(".study-view");
-
+  if(home){
     home.style.display = "none";
+  }
 
-    views.forEach(function(view){
+  document.querySelectorAll(".study-view").forEach(function(section){
+    section.classList.remove("active");
+  });
 
-        view.classList.remove("active");
+  const target = document.getElementById(id);
 
-    });
-
-    const target =
-        document.getElementById("study-" + name);
-
-    if(target){
-
-        target.classList.add("active");
-
-        window.scrollTo({
-            top:0,
-            behavior:"smooth"
-        });
-
-        history.replaceState(
-            null,
-            "",
-            "#" + name
-        );
-
-    }
-
-}
-
-
-function showStudiesHome(){
-
-    const home =
-        document.getElementById("studiesHome");
-
-    const views =
-        document.querySelectorAll(".study-view");
-
-    views.forEach(function(view){
-
-        view.classList.remove("active");
-
-    });
-
-    home.style.display = "block";
-
+  if(target){
+    target.classList.add("active");
     window.scrollTo({
-        top:0,
-        behavior:"smooth"
+      top:0,
+      behavior:"smooth"
     });
-
-    history.replaceState(
-        null,
-        "",
-        window.location.pathname
-    );
-
+  }
 }
 
 
 /* =========================================================
-   OPEN STUDY DIRECTLY FROM HASH
-========================================================= */
+   العودة إلى قائمة الدراسات
+   ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
+function backToStudies(){
 
-        const hash =
-            window.location.hash.replace("#","");
+  document.querySelectorAll(".study-view").forEach(function(section){
+    section.classList.remove("active");
+  });
 
-        const validStudies = [
-            "tabernacle",
-            "solomon",
-            "herod",
-            "feasts",
-            "miracles",
-            "parables",
-            "characters",
-            "books",
-            "encyclopedia",
-            "church",
-            "jerusalem",
-            "jewish",
-            "christ",
-            "rivers",
-            "comparison"
-        ];
+  const home = document.getElementById("studiesHome");
 
-        if(validStudies.includes(hash)){
+  if(home){
+    home.style.display = "block";
+  }
 
-            openStudy(hash);
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
 
-        }
 
-    }
-);
+/* =========================================================
+   فتح الدراسة مباشرة إذا كان الرابط يحتوي على #study
+   مثال:
+   studies.html#solomon
+   ========================================================= */
+
+window.addEventListener("load",function(){
+
+  const id = window.location.hash.replace("#","");
+
+  if(id && document.getElementById(id)){
+    openStudy(id);
+  }
+
+});
 
 </script>
 
