@@ -1,265 +1,1734 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>الدراسات الكتابية | موسوعة الكتاب المقدس</title>
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+    --blue-950:#03101d;
+    --blue-900:#061a2c;
+    --blue-800:#082943;
+    --blue-700:#0d385d;
+    --blue-600:#14527e;
+
+    --gold:#d4af37;
+    --gold-light:#f4dc79;
+    --gold-dark:#806018;
+
+    --white:#f8fbff;
+    --muted:#b7c7d6;
+
+    --border:rgba(212,175,55,.34);
+
+    --shadow:
+        0 22px 55px rgba(0,0,0,.52);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+
+    color:var(--white);
+
+    font-family:
+        "Noto Naskh Arabic",
+        "Amiri",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 5%,
+            rgba(20,82,126,.72),
+            transparent 42%
+        ),
+        radial-gradient(
+            circle at 15% 80%,
+            rgba(13,56,93,.35),
+            transparent 38%
+        ),
+        linear-gradient(
+            145deg,
+            var(--blue-950),
+            var(--blue-900) 48%,
+            #020911
+        );
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.top-frame{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    width:100%;
+
+    border-bottom:
+        1px solid
+        rgba(212,175,55,.30);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(8,41,67,.98),
+            rgba(3,16,29,.98)
+        );
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.55);
+}
+
+.topbar{
+    max-width:1450px;
+    min-height:92px;
+
+    margin:auto;
+    padding:10px 25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+
+/* =========================================================
+   RIGHT BRAND
+========================================================= */
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.brand-logo{
+    width:65px;
+    height:65px;
+
+    object-fit:contain;
+
+    filter:
+        drop-shadow(
+            0 7px 8px rgba(0,0,0,.85)
+        );
+}
+
+.brand-name{
+    font-size:22px;
+    font-weight:900;
+    white-space:nowrap;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff6bf,
+            var(--gold-light) 35%,
+            var(--gold) 70%,
+            var(--gold-dark)
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+}
+
+
+/* =========================================================
+   LEFT NAVIGATION
+========================================================= */
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.nav-button{
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    padding:10px 15px;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    border:
+        1px solid
+        rgba(212,175,55,.55);
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #16476d,
+            #061a2d
+        );
+
+    font-weight:800;
+
+    transition:.25s;
+}
+
+.nav-button:hover{
+    color:#071526;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff1a2,
+            var(--gold),
+            var(--gold-dark)
+        );
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:
+        50px 20px 80px;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.page-intro{
+    text-align:center;
+
+    max-width:900px;
+
+    margin:
+        0 auto 45px;
+}
+
+.page-icon{
+    width:88px;
+    height:88px;
+
+    margin:0 auto 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:45px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.7);
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1b5b89,
+            #071b2e
+        );
+
+    box-shadow:
+        inset 0 2px 3px rgba(255,255,255,.13),
+        0 12px 28px rgba(0,0,0,.55);
+}
+
+.page-intro h1{
+    margin:0 0 15px;
+
+    font-size:
+        clamp(30px,5vw,46px);
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff5b4,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+}
+
+.page-intro p{
+    margin:0;
+
+    color:#d1dce5;
+
+    font-size:18px;
+
+    line-height:2;
+}
+
+
+/* =========================================================
+   STUDY CATEGORIES
+========================================================= */
+
+.categories{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:22px;
+}
+
+
+/* =========================================================
+   CATEGORY CARD
+========================================================= */
+
+.category-card{
+
+    position:relative;
+
+    min-height:205px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:25px 18px;
+
+    text-align:center;
+
+    border:
+        1px solid
+        rgba(212,175,55,.35);
+
+    border-radius:23px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16,62,98,.98),
+            rgba(4,23,39,.99)
+        );
+
+    box-shadow:
+        var(--shadow),
+        inset 0 1px 0 rgba(255,255,255,.05);
+
+    cursor:pointer;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+.category-card:hover{
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(243,214,107,.9);
+
+    box-shadow:
+        0 28px 60px rgba(0,0,0,.65),
+        0 0 30px rgba(212,175,55,.12);
+}
+
+.category-icon{
+
+    width:82px;
+    height:82px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:15px;
+
+    font-size:42px;
+
+    border-radius:22px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.65);
+
+    background:
+        linear-gradient(
+            145deg,
+            #1b5b89,
+            #071b2e
+        );
+
+    box-shadow:
+        inset 0 2px 3px rgba(255,255,255,.12),
+        0 10px 25px rgba(0,0,0,.45);
+}
+
+.category-card h2{
+
+    margin:0;
+
+    color:var(--gold-light);
+
+    font-size:22px;
+
+    font-weight:900;
+}
+
+
+/* =========================================================
+   VIEW SYSTEM
+========================================================= */
+
+.view{
+    display:none;
+}
+
+.view.active{
+    display:block;
+}
+
+
+/* =========================================================
+   STUDY HEADER
+========================================================= */
+
+.study-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:30px;
+
+    padding:15px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.3);
+
+    border-radius:18px;
+
+    background:
+        rgba(3,20,34,.78);
+}
+
+.study-header-left,
+.study-header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.study-header-title{
+
+    color:var(--gold-light);
+
+    font-size:20px;
+
+    font-weight:900;
+}
+
+.back-button{
+
+    border:1px solid rgba(212,175,55,.55);
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            145deg,
+            #16476d,
+            #061a2d
+        );
+
+    padding:10px 15px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-family:inherit;
+
+    font-weight:800;
+}
+
+.back-button:hover{
+
+    color:#071526;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff1a2,
+            var(--gold),
+            var(--gold-dark)
+        );
+}
+
+
+/* =========================================================
+   TABERNACLE INNER NAV
+========================================================= */
+
+.tabernacle-intro{
+
+    text-align:center;
+
+    margin-bottom:35px;
+}
+
+.tabernacle-intro h2{
+
+    margin:0 0 12px;
+
+    color:var(--gold-light);
+
+    font-size:31px;
+}
+
+.tabernacle-intro p{
+
+    margin:0;
+
+    color:#cbd8e2;
+
+    line-height:2;
+
+    font-size:17px;
+}
+
+.tabernacle-menu{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:15px;
+
+    margin-bottom:35px;
+}
+
+.inner-study-button{
+
+    min-height:125px;
+
+    padding:15px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.30);
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #103e62,
+            #061b2d
+        );
+
+    color:#fff;
+
+    font-family:inherit;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.inner-study-button:hover,
+.inner-study-button.active{
+
+    border-color:
+        var(--gold);
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.4),
+        0 0 20px rgba(212,175,55,.1);
+}
+
+.inner-study-icon{
+
+    display:block;
+
+    font-size:32px;
+
+    margin-bottom:8px;
+}
+
+.inner-study-name{
+
+    display:block;
+
+    color:var(--gold-light);
+
+    font-weight:900;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   RESEARCH CONTENT
+========================================================= */
+
+.research-area{
+    display:none;
+}
+
+.research-area.active{
+    display:block;
+}
+
+.research-card{
+
+    margin:20px 0;
+
+    padding:28px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.28);
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9,45,73,.96),
+            rgba(3,19,32,.99)
+        );
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.35);
+}
+
+.research-card h3{
+
+    margin:0 0 20px;
+
+    color:var(--gold-light);
+
+    font-size:25px;
+}
+
+.research-card h4{
+
+    color:var(--gold-light);
+
+    font-size:20px;
+
+    margin-top:25px;
+}
+
+.research-card p{
+
+    color:#d5e0e9;
+
+    font-size:17px;
+
+    line-height:2.1;
+}
+
+.research-card strong{
+    color:#f4dc79;
+}
+
+
+/* =========================================================
+   VERSE
+========================================================= */
+
+.verse-box{
+
+    margin:22px 0;
+
+    padding:20px;
+
+    border-right:
+        4px solid
+        var(--gold);
+
+    border-radius:14px;
+
+    background:
+        rgba(0,0,0,.25);
+}
+
+.verse-reference{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:var(--gold-light);
+
+    font-weight:900;
+}
+
+
+/* =========================================================
+   RESEARCH LIST
+========================================================= */
+
+.research-list{
+
+    padding-right:25px;
+}
+
+.research-list li{
+
+    margin:12px 0;
+
+    color:#d4dfe7;
+
+    line-height:2;
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.timeline{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+}
+
+.timeline-item{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+    padding:18px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius:16px;
+
+    background:
+        rgba(0,0,0,.18);
+}
+
+.timeline-number{
+
+    width:42px;
+    height:42px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    color:#071526;
+
+    font-weight:900;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff1a2,
+            #d4af37
+        );
+}
+
+
+/* =========================================================
+   PEOPLE GRID
+========================================================= */
+
+.people-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:18px;
+}
+
+.people-card{
+
+    padding:22px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.22);
+
+    border-radius:17px;
+
+    background:
+        rgba(0,0,0,.18);
+}
+
+
+/* =========================================================
+   MATERIAL GRID
+========================================================= */
+
+.material-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+}
+
+.material{
+
+    padding:15px 10px;
+
+    text-align:center;
+
+    border:
+        1px solid
+        rgba(212,175,55,.22);
+
+    border-radius:13px;
+
+    background:
+        rgba(0,0,0,.18);
+
+    color:#dce6ed;
+}
+
+
+/* =========================================================
+   SOURCE BOX
+========================================================= */
+
+.source-box{
+
+    padding:20px;
+
+    margin-top:20px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.30);
+
+    border-radius:16px;
+
+    background:
+        rgba(0,0,0,.20);
+}
+
+.source-box p{
+
+    margin:7px 0;
+
+    font-size:15px;
+}
+
+
+/* =========================================================
+   STATUS LABEL
+========================================================= */
+
+.methodology{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+}
+
+.method{
+
+    padding:20px;
+
+    text-align:center;
+
+    border-radius:16px;
+
+    background:
+        rgba(0,0,0,.18);
+
+    border:
+        1px solid
+        rgba(212,175,55,.22);
+}
+
+.method-icon{
+
+    font-size:32px;
+
+    margin-bottom:8px;
+}
+
+.method strong{
+
+    display:block;
+
+    color:var(--gold-light);
+
+    margin-bottom:8px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        25px 20px 35px;
+
+    text-align:center;
+
+    color:#8195a8;
+
+    border-top:
+        1px solid
+        rgba(212,175,55,.16);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:950px){
+
+    .categories{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .tabernacle-menu{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .material-grid{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .methodology{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .topbar{
+        padding:8px 12px;
+    }
+
+    .brand-name{
+        font-size:15px;
+    }
+
+    .brand-logo{
+        width:50px;
+        height:50px;
+    }
+
+    .nav-button span.label{
+        display:none;
+    }
+
+    main{
+        padding:
+            35px 12px 60px;
+    }
+
+    .categories{
+        grid-template-columns:1fr;
+    }
+
+    .tabernacle-menu{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .people-grid{
+        grid-template-columns:1fr;
+    }
+
+    .material-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .research-card{
+        padding:20px;
+    }
+
+    .research-card p{
+        font-size:16px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
 <!-- =========================================================
-     خيمة الاجتماع
-     الدراسة المتخصصة: الأصل وزمن البناء
+     HEADER
 ========================================================= -->
 
-<section id="tabernacle-origin" class="study-section">
+<header class="top-frame">
 
-    <div class="study-section-header">
+    <div class="topbar">
 
-        <div class="study-section-icon">
-            🏕️
+        <!-- اليسار -->
+
+        <div class="header-actions">
+
+            <a
+                href="index.html"
+                class="nav-button"
+            >
+                🏠
+                <span class="label">الرئيسية</span>
+            </a>
+
         </div>
 
-        <div>
-            <h2>الأصل وزمن البناء</h2>
 
-            <p>
-                دراسة تاريخية ولاهوتية في نشأة خيمة الاجتماع،
-                وظروف ظهورها، وزمن بنائها، ومن قام بتنفيذها.
-            </p>
+        <!-- اليمين -->
+
+        <div class="brand">
+
+            <div class="brand-name">
+                كنيسة رجاء الأمم سيدني
+            </div>
+
+            <img
+                src="assets/logo.png"
+                class="brand-logo"
+                alt="كنيسة رجاء الأمم سيدني"
+            >
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =========================================================
+     الصفحة الرئيسية للدراسات
+========================================================= -->
+
+<section
+    id="categoriesView"
+    class="view active"
+>
+
+    <div class="page-intro">
+
+        <div class="page-icon">
+            📚
+        </div>
+
+        <h1>
+            الدراسات الكتابية
+        </h1>
+
+        <p>
+            مجموعة متخصصة من الدراسات الكتابية واللاهوتية
+            والتاريخية والموسوعية، مصممة للدارس والباحث
+            ومحبي كلمة الله.
+        </p>
+
+    </div>
+
+
+    <div class="categories">
+
+
+        <!-- 1 -->
+
+        <div
+            class="category-card"
+            onclick="openTabernacle()"
+        >
+
+            <div class="category-icon">
+                ⛺
+            </div>
+
+            <h2>
+                خيمة الاجتماع
+            </h2>
+
+        </div>
+
+
+        <!-- 2 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🏛️
+            </div>
+
+            <h2>
+                هيكل سليمان
+            </h2>
+
+        </div>
+
+
+        <!-- 3 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🏗️
+            </div>
+
+            <h2>
+                هيكل هيرودس
+            </h2>
+
+        </div>
+
+
+        <!-- 4 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                ⚖️
+            </div>
+
+            <h2>
+                مقارنة خيمة الاجتماع والهياكل
+            </h2>
+
+        </div>
+
+
+        <!-- 5 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🕎
+            </div>
+
+            <h2>
+                مواسم وأعياد الكتاب المقدس
+            </h2>
+
+        </div>
+
+
+        <!-- 6 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                📚
+            </div>
+
+            <h2>
+                الموسوعة الكتابية
+            </h2>
+
+        </div>
+
+
+        <!-- 7 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                📜
+            </div>
+
+            <h2>
+                مقدمة أسفار الكتاب المقدس
+            </h2>
+
+        </div>
+
+
+        <!-- 8 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                ✝️
+            </div>
+
+            <h2>
+                المسيح في نبوات الكتاب
+            </h2>
+
+        </div>
+
+
+        <!-- 9 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                ✨
+            </div>
+
+            <h2>
+                معجزات المسيح
+            </h2>
+
+        </div>
+
+
+        <!-- 10 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                👤
+            </div>
+
+            <h2>
+                شخصيات الكتاب المقدس
+            </h2>
+
+        </div>
+
+
+        <!-- 11 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🕍
+            </div>
+
+            <h2>
+                أمثلة المسيح والخلفية اليهودية
+            </h2>
+
+        </div>
+
+
+        <!-- 12 -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🌊
+            </div>
+
+            <h2>
+                الأنهار في الكتاب المقدس
+            </h2>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     خيمة الاجتماع
+========================================================= -->
+
+<section
+    id="tabernacleView"
+    class="view"
+>
+
+
+    <div class="study-header">
+
+        <div class="study-header-right">
+
+            <button
+                class="back-button"
+                onclick="showCategories()"
+            >
+                🏠 الرئيسية
+            </button>
+
+            <span class="study-header-title">
+                ⛺ خيمة الاجتماع
+            </span>
+
+        </div>
+
+
+        <div class="study-header-left">
+
+            <button
+                class="back-button"
+                onclick="showCategories()"
+            >
+                📚 الدراسات
+            </button>
+
         </div>
 
     </div>
 
 
+    <div class="tabernacle-intro">
+
+        <h2>
+            دراسة خيمة الاجتماع
+        </h2>
+
+        <p>
+            دراسة موسوعية متدرجة تبدأ من أصل الخيمة وزمن بنائها،
+            ثم تنتقل إلى المواد والمقاسات والأجزاء والأثاث
+            والخدمة والكهنوت والرموز والخلفية التاريخية واللاهوتية.
+        </p>
+
+    </div>
+
+
     <!-- =====================================================
-         مقدمة
+         أيقونات خيمة الاجتماع
     ====================================================== -->
+
+    <div class="tabernacle-menu">
+
+
+        <button
+            class="inner-study-button active"
+            onclick="openResearch('origin',this)"
+        >
+
+            <span class="inner-study-icon">
+                📜
+            </span>
+
+            <span class="inner-study-name">
+                الأصل وزمن البناء
+            </span>
+
+        </button>
+
+
+        <button
+            class="inner-study-button"
+            onclick="openResearch('materials',this)"
+        >
+
+            <span class="inner-study-icon">
+                🪵
+            </span>
+
+            <span class="inner-study-name">
+                المواد والخامات
+            </span>
+
+        </button>
+
+
+        <button
+            class="inner-study-button"
+            onclick="openResearch('dimensions',this)"
+        >
+
+            <span class="inner-study-icon">
+                📐
+            </span>
+
+            <span class="inner-study-name">
+                المقاسات والتصميم
+            </span>
+
+        </button>
+
+
+        <button
+            class="inner-study-button"
+            onclick="openResearch('parts',this)"
+        >
+
+            <span class="inner-study-icon">
+                🏕️
+            </span>
+
+            <span class="inner-study-name">
+                أجزاء الخيمة
+            </span>
+
+        </button>
+
+
+        <button
+            class="inner-study-button"
+            onclick="openResearch('furniture',this)"
+        >
+
+            <span class="inner-study-icon">
+                🕯️
+            </span>
+
+            <span class="inner-study-name">
+                أثاث الخيمة
+            </span>
+
+        </button>
+
+
+        <button
+            class="inner-study-button"
+            onclick="openResearch('priests',this)"
+        >
+
+            <span class="inner-study-icon">
+                👑
+            </span>
+
+            <span class="inner-study-name">
+                الكهنوت والخدمة
+            </span>
+
+        </button>
+
+
+        <button
+            class="inner-study-button"
+            onclick="openResearch('symbols',this)"
+        >
+
+            <span class="inner-study-icon">
+                ✨
+            </span>
+
+            <span class="inner-study-name">
+                الرموز والدلالات
+            </span>
+
+        </button>
+
+
+        <button
+            class="inner-study-button"
+            onclick="openResearch('journey',this)"
+        >
+
+            <span class="inner-study-icon">
+                🗺️
+            </span>
+
+            <span class="inner-study-name">
+                الرحلة والتنقل
+            </span>
+
+        </button>
+
+    </div>
+
+
+
+<!-- =========================================================
+     ORIGINALITY / TIME
+========================================================= -->
+
+<div
+    id="research-origin"
+    class="research-area active"
+>
+
 
     <article class="research-card">
 
-        <div class="research-title">
-            <span>📜</span>
-            <h3>أولاً: من أين جاءت فكرة خيمة الاجتماع؟</h3>
-        </div>
+        <h3>
+            📜 الأصل وزمن البناء — المدخل البحثي
+        </h3>
 
         <p>
-            لا يقدم سفر الخروج خيمة الاجتماع باعتبارها فكرة ابتكرها
-            موسى أو الشعب الإسرائيلي، بل يبدأ الأمر الإلهي بوضوح:
-            «فَيَصْنَعُونَ لِي مَقْدِسًا لِأَسْكُنَ فِي وَسَطِهِمْ»
+            خيمة الاجتماع ليست في الرواية الكتابية مجرد منشأة
+            دينية متنقلة، بل هي المسكن المقدس الذي ارتبط بإعلان
+            حضور الله في وسط إسرائيل بعد الخروج من مصر.
+        </p>
+
+        <p>
+            نقطة البداية النصية واضحة في الأمر:
+            <strong>
+                «فَيَصْنَعُونَ لِي مَقْدِسًا لِأَسْكُنَ فِي وَسَطِهِمْ»
+            </strong>
             (خروج 25:8).
         </p>
 
         <p>
-            لذلك فإن نقطة البداية في الرواية الكتابية هي
-            <strong>المبادرة الإلهية</strong>، ثم تأتي بعد ذلك
-            استجابة الشعب والتنفيذ بواسطة أصحاب المواهب والحرف.
+            ولذلك ينبغي أن يبدأ البحث من السؤال:
+            هل اخترع إسرائيل هذا النظام الديني، أم أن الرواية
+            الكتابية تقدمه باعتباره استجابة لأمر إلهي؟
+        </p>
+
+        <p>
+            بحسب نص الخروج، المبادرة تأتي من الله، ثم يتلقى موسى
+            التعليمات، ثم يقوم الشعب بتقديم المواد، ويتولى
+            بَصَلْئيل وأهوليآب وأصحاب المهارات تنفيذ العمل.
+        </p>
+
+    </article>
+
+
+
+    <article class="research-card">
+
+        <h3>
+            ⛰️ السياق التاريخي — الخروج وسيناء
+        </h3>
+
+        <p>
+            لا يمكن دراسة أصل الخيمة بمعزل عن حدث الخروج والعهد.
+            فبعد خروج بني إسرائيل من مصر تبدأ رحلة الشعب في البرية،
+            ثم يصل إلى برية سيناء في الشهر الثالث بعد الخروج.
         </p>
 
         <div class="verse-box">
 
-            <strong>خروج 25:8-9</strong>
+            <span class="verse-reference">
+                خروج 19:1
+            </span>
 
             <p>
-                «فَيَصْنَعُونَ لِي مَقْدِسًا لِأَسْكُنَ فِي وَسَطِهِمْ.
-                كَمَا أَنَا أُرِيكَ مِثَالَ الْمَسْكَنِ وَمِثَالَ
-                جَمِيعِ آنِيَتِهِ هكَذَا تَصْنَعُونَ».
+                يربط النص وصول إسرائيل إلى برية سيناء
+                بالمرحلة المبكرة من السنة الأولى بعد الخروج.
             </p>
 
         </div>
 
         <p>
-            وهنا تظهر فكرة محورية في الدراسة:
-            الخيمة لم تكن مجرد خيمة دينية متنقلة، بل كانت
-            <strong>المسكن المقدس المرتبط بحضور الله وسط شعبه</strong>.
+            في سيناء يدخل الشعب مرحلة جديدة:
+            إعلان العهد، وإعطاء الشريعة، وتنظيم العبادة،
+            ثم يأتي المسكن باعتباره مركزًا مرئيًا لحضور الله
+            في وسط الجماعة.
         </p>
 
     </article>
 
 
-    <!-- =====================================================
-         سيناء
-    ====================================================== -->
 
     <article class="research-card">
 
-        <div class="research-title">
-            <span>⛰️</span>
-            <h3>ثانياً: لماذا ظهرت الخيمة عند سيناء؟</h3>
-        </div>
+        <h3>
+            📐 النموذج الذي أُري لموسى
+        </h3>
 
         <p>
-            بعد خروج إسرائيل من مصر، وصل الشعب إلى برية سيناء،
-            وهناك بدأت مرحلة تأسيس العهد والشريعة ونظام العبادة
-            المركزي.
-        </p>
-
-        <p>
-            بحسب خروج 19:1 وصل بنو إسرائيل إلى برية سيناء في
-            الشهر الثالث بعد خروجهم من أرض مصر.
-        </p>
-
-        <p>
-            وبعد إقامة العهد وإعطاء موسى التعليمات الخاصة بالمقدس،
-            جاءت أوامر بناء المسكن في خروج 25 وما بعده.
-        </p>
-
-        <p>
-            لذلك لا ينبغي النظر إلى الخيمة باعتبارها مشروعًا منفصلًا
-            عن الخروج والعهد، بل باعتبارها جزءًا من المرحلة التي
-            أصبح فيها إسرائيل شعب العهد الذي يسكن الله في وسطه.
-        </p>
-
-    </article>
-
-
-    <!-- =====================================================
-         النموذج الإلهي
-    ====================================================== -->
-
-    <article class="research-card">
-
-        <div class="research-title">
-            <span>📐</span>
-            <h3>ثالثاً: هل أعطى الله تصميم الخيمة؟</h3>
-        </div>
-
-        <p>
-            النص الكتابي يؤكد أن موسى تلقى تعليمات تفصيلية بشأن
-            تصميم المسكن وأثاثه.
-        </p>
-
-        <p>
-            وتتكرر عبارة «مِثَال» أو «النموذج» في سياق التعليمات،
-            خصوصًا في خروج 25:9 و25:40 و26:30 و27:8.
+            من أهم النصوص المؤسسة لفهم أصل الخيمة قول الرب لموسى
+            أن يصنع المسكن وفق «المثال» الذي أُري له في الجبل.
         </p>
 
         <div class="verse-box">
 
-            <strong>خروج 25:40</strong>
+            <span class="verse-reference">
+                خروج 25:9
+            </span>
 
             <p>
-                «وَانْظُرْ فَاصْنَعْهَا عَلَى مِثَالِهَا الَّذِي
-                أُظْهِرَ لَكَ فِي الْجَبَلِ».
+                «كَمَا أَنَا أُرِيكَ مِثَالَ الْمَسْكَنِ
+                وَمِثَالَ جَمِيعِ آنِيَتِهِ هكَذَا تَصْنَعُونَ».
+            </p>
+
+        </div>
+
+        <div class="verse-box">
+
+            <span class="verse-reference">
+                خروج 25:40
+            </span>
+
+            <p>
+                «وَانْظُرْ فَاصْنَعْهَا عَلَى مِثَالِهَا
+                الَّذِي أُظْهِرَ لَكَ فِي الْجَبَلِ».
             </p>
 
         </div>
 
         <p>
-            ومن ثم توجد في الرواية ثلاثة مستويات يجب عدم الخلط بينها:
+            وهنا يجب أن نفرق منهجيًا بين أمرين:
+            <strong>النص يؤكد وجود نموذج إلهي للتصميم</strong>،
+            لكنه لا يشرح لنا بصورة هندسية تفصيلية طبيعة هذا
+            «النموذج» وكيفية رؤيته.
         </p>
 
-        <ul class="research-list">
-
-            <li>
-                <strong>المصدر:</strong>
-                التعليم الإلهي.
-            </li>
-
-            <li>
-                <strong>الوسيط:</strong>
-                موسى الذي تلقى التعليمات.
-            </li>
-
-            <li>
-                <strong>التنفيذ:</strong>
-                بَصَلْئيل وأهوليآب والحرفيون المهرة من الشعب.
-            </li>
-
-        </ul>
+        <p>
+            لذلك لا يجوز تحويل التأملات اللاحقة إلى حقيقة تاريخية
+            مؤكدة دون الإشارة إلى طبيعة المصدر.
+        </p>
 
     </article>
 
 
-    <!-- =====================================================
-         من بنى الخيمة
-    ====================================================== -->
 
     <article class="research-card">
 
-        <div class="research-title">
-            <span>🛠️</span>
-            <h3>رابعاً: من قام ببناء خيمة الاجتماع؟</h3>
-        </div>
-
-        <p>
-            لا يصح اختزال بناء الخيمة في شخص واحد.
-            فالنص يقدم منظومة عمل كاملة.
-        </p>
+        <h3>
+            🛠️ من قام بالبناء؟
+        </h3>
 
         <div class="people-grid">
 
-            <div class="person-card">
 
-                <div class="person-icon">
-                    👤
-                </div>
+            <div class="people-card">
 
-                <h4>موسى</h4>
+                <h4>
+                    موسى
+                </h4>
 
                 <p>
-                    تلقى التعليمات الإلهية المتعلقة بالمسكن،
-                    ونقلها إلى الشعب، وأشرف على إتمام العمل
-                    وإقامة المسكن.
+                    تلقى التعليمات المتعلقة بالمسكن، ونقلها إلى
+                    الشعب، وأشرف على إتمام العمل، ثم أقام المسكن
+                    في الموعد المحدد.
                 </p>
 
-                <small>
+                <strong>
                     خروج 25–40
-                </small>
+                </strong>
 
             </div>
 
 
-            <div class="person-card">
+            <div class="people-card">
 
-                <div class="person-icon">
-                    🛠️
-                </div>
-
-                <h4>بَصَلْئيل</h4>
+                <h4>
+                    بَصَلْئيل
+                </h4>
 
                 <p>
-                    من سبط يهوذا، ابن أوري بن حور.
-                    عُيّن بصورة خاصة لقيادة العمل الفني،
-                    ووُصف بأنه ممتلئ بروح الله والحكمة والفهم
-                    والمعرفة في كل صنعة.
+                    ابن أوري بن حور من سبط يهوذا.
+                    عُيّن للعمل الفني، ووصف النص أنه امتلأ
+                    من روح الله بالحكمة والفهم والمعرفة وكل صنعة.
                 </p>
 
-                <small>
-                    خروج 31:1-5؛ 35:30-35
-                </small>
+                <strong>
+                    خروج 31:1–5
+                </strong>
 
             </div>
 
 
-            <div class="person-card">
+            <div class="people-card">
 
-                <div class="person-icon">
-                    🧵
-                </div>
-
-                <h4>أهوليآب</h4>
+                <h4>
+                    أَهُولِيآب
+                </h4>
 
                 <p>
                     ابن أخيسامخ من سبط دان.
-                    عُيّن مع بَصَلْئيل، ووُصف بمهاراته في النقش
-                    والتطريز والعمل الفني.
+                    شارك بَصَلْئيل في العمل الفني والحرفي،
+                    وخاصة في مجالات النقش والتطريز.
                 </p>
 
-                <small>
-                    خروج 31:6؛ 35:34-35؛ 38:23
-                </small>
+                <strong>
+                    خروج 31:6؛ 35:34–35
+                </strong>
 
             </div>
 
 
-            <div class="person-card">
+            <div class="people-card">
 
-                <div class="person-icon">
-                    👥
-                </div>
-
-                <h4>الحرفيون والشعب</h4>
+                <h4>
+                    أصحاب المهارات والشعب
+                </h4>
 
                 <p>
-                    شارك أصحاب المهارات والنساء والرجال الذين
-                    تحركت قلوبهم في تقديم المواد والعمل في المشروع.
+                    لم يكن المشروع عمل شخصين فقط.
+                    يذكر النص رجالًا ونساءً قدموا المواد،
+                    وأصحاب مهارات شاركوا في التصنيع.
                 </p>
 
-                <small>
-                    خروج 35:20-29؛ 36:1-7
-                </small>
+                <strong>
+                    خروج 35–36
+                </strong>
 
             </div>
 
@@ -268,109 +1737,109 @@
     </article>
 
 
-    <!-- =====================================================
-         بصلئيل
-    ====================================================== -->
 
     <article class="research-card">
 
-        <div class="research-title">
-            <span>🧠</span>
-            <h3>خامساً: لماذا اختير بَصَلْئيل؟</h3>
-        </div>
-
-        <p>
-            يقدم سفر الخروج بَصَلْئيل كشخص لم تكن موهبته مجرد
-            مهارة بشرية، بل موهبة مرتبطة بالعطاء الإلهي.
-        </p>
+        <h3>
+            🧠 بَصَلْئيل — الموهبة والحكمة والصنعة
+        </h3>
 
         <div class="verse-box">
 
-            <strong>خروج 31:2-5</strong>
+            <span class="verse-reference">
+                خروج 31:2–5
+            </span>
 
             <p>
-                «انظر. قد دعوت بَصَلْئيل بن أوري بن حور من سبط يهوذا،
-                وملأته من روح الله بالحكمة والفهم والمعرفة وكل صنعة...
-                ليخترع اختراعات ليعمل في الذهب والفضة والنحاس،
-                ونقش حجارة للترصيع، ونجارة الخشب، ليعمل في كل صنعة».
+                يصف النص بَصَلْئيل بأنه ممتلئ من روح الله بالحكمة
+                والفهم والمعرفة وكل صنعة.
             </p>
 
         </div>
 
         <p>
-            هذه النقطة مهمة لاهوتيًا:
-            النص لا يضع تعارضًا بين
-            <strong>الموهبة البشرية</strong>
-            و<strong>عمل روح الله</strong>.
-            بل يقدم المهارة الفنية نفسها باعتبارها مجالًا يمكن
-            أن يستخدمه الله في تنفيذ العمل المقدس.
+            وهذه إحدى النقاط اللاهوتية المهمة في دراسة الخيمة:
+            الكتاب لا يفصل بين العمل الروحي والعمل الحرفي.
+            فالذهب والفضة والخشب والنقش والتطريز أصبحت كلها
+            مجالات لخدمة المقدس عندما وُضعت تحت الدعوة الإلهية.
         </p>
 
         <p>
-            وتؤكد الدراسات الحديثة حول صُنّاع الخيمة أن الرواية
-            الكتابية لا تتحدث عن مهندس واحد فقط، بل عن شبكة من
-            الحرفيين والعمال والقيادات واللاويين وأفراد المجتمع.
-            
+            وبالتالي فإن دراسة بَصَلْئيل لا ينبغي أن تكون مجرد
+            سيرة شخصية، بل مدخلًا لفهم مفهوم
+            <strong>الموهبة المقدسة والخدمة المهنية</strong>
+            في العهد القديم.
         </p>
 
     </article>
 
 
-    <!-- =====================================================
-         المواد
-    ====================================================== -->
 
     <article class="research-card">
 
-        <div class="research-title">
-            <span>🪵</span>
-            <h3>سادساً: من أين جاءت مواد البناء؟</h3>
-        </div>
+        <h3>
+            🎁 المواد جاءت من الشعب
+        </h3>
 
         <p>
-            لم تُبنَ الخيمة من موارد مجهولة المصدر، بل من عطايا
-            قدمها الشعب استجابة للدعوة.
+            أمر الرب موسى أن يأخذ تقدمة ممن يدفعه قلبه.
+            ثم يقدم سفر الخروج وصفًا واسعًا للذهب والفضة والنحاس
+            والأقمشة والجلود والخشب والأحجار والزيت والأطياب.
         </p>
 
-        <div class="materials-grid">
+        <div class="material-grid">
 
-            <div>🥇 الذهب</div>
-            <div>🥈 الفضة</div>
-            <div>🥉 النحاس</div>
-            <div>🪵 خشب السنط</div>
-            <div>🧵 الكتان</div>
-            <div>🔵 الأسمانجوني</div>
-            <div>🟣 الأرجوان</div>
-            <div>🔴 القرمزي</div>
-            <div>🐏 جلود الكباش</div>
-            <div>💎 الأحجار الكريمة</div>
-            <div>🫒 الزيت</div>
-            <div>🌿 الأطياب</div>
+            <div class="material">🥇 الذهب</div>
+
+            <div class="material">🥈 الفضة</div>
+
+            <div class="material">🥉 النحاس</div>
+
+            <div class="material">🪵 خشب السنط</div>
+
+            <div class="material">🧵 الكتان</div>
+
+            <div class="material">🔵 الأسمانجوني</div>
+
+            <div class="material">🟣 الأرجوان</div>
+
+            <div class="material">🔴 القرمزي</div>
+
+            <div class="material">🐏 جلود الكباش</div>
+
+            <div class="material">💎 الأحجار</div>
+
+            <div class="material">🫒 الزيت</div>
+
+            <div class="material">🌿 الأطياب</div>
 
         </div>
 
-        <p>
-            وتظهر رواية التنفيذ في خروج 35–39 أن الشعب قدم المواد
-            بكثرة حتى اضطر موسى إلى إصدار أمر بإيقاف التبرعات،
-            لأن المواد أصبحت أكثر من كافية للعمل.
-            
-        </p>
+        <div class="verse-box">
+
+            <span class="verse-reference">
+                خروج 36:5–7
+            </span>
+
+            <p>
+                بلغ ما قدمه الشعب من المواد حدًا جعل موسى يأمر
+                بإيقاف التقدمة لأن الموجود أصبح أكثر من كافٍ للعمل.
+            </p>
+
+        </div>
 
     </article>
 
 
-    <!-- =====================================================
-         زمن البناء
-    ====================================================== -->
 
     <article class="research-card">
 
-        <div class="research-title">
-            <span>🗓️</span>
-            <h3>سابعاً: متى بُنيت خيمة الاجتماع؟</h3>
-        </div>
+        <h3>
+            🗓️ التسلسل الزمني للبناء
+        </h3>
 
         <div class="timeline">
+
 
             <div class="timeline-item">
 
@@ -380,10 +1849,12 @@
 
                 <div>
 
-                    <strong>الخروج من مصر</strong>
+                    <strong>
+                        الخروج من مصر
+                    </strong>
 
                     <p>
-                        يبدأ العد الزمني الأساسي من خروج إسرائيل
+                        تبدأ المرحلة التاريخية من خروج إسرائيل
                         من مصر.
                     </p>
 
@@ -400,16 +1871,14 @@
 
                 <div>
 
-                    <strong>الوصول إلى سيناء</strong>
+                    <strong>
+                        الوصول إلى سيناء
+                    </strong>
 
                     <p>
                         وصل الشعب إلى برية سيناء في الشهر الثالث
                         بعد الخروج.
                     </p>
-
-                    <small>
-                        خروج 19:1
-                    </small>
 
                 </div>
 
@@ -424,16 +1893,14 @@
 
                 <div>
 
-                    <strong>إعطاء تعليمات المسكن</strong>
+                    <strong>
+                        التعليمات الخاصة بالمسكن
+                    </strong>
 
                     <p>
-                        تلقى موسى التعليمات المتعلقة بالمسكن
-                        وأثاثه والكهنة وخدمتهم.
+                        جاءت تعليمات المسكن وأثاثه والكهنوت
+                        والخدمة في سياق إعلان العهد.
                     </p>
-
-                    <small>
-                        خروج 25–31
-                    </small>
 
                 </div>
 
@@ -448,23 +1915,21 @@
 
                 <div>
 
-                    <strong>التنفيذ الفعلي</strong>
+                    <strong>
+                        التنفيذ
+                    </strong>
 
                     <p>
-                        بعد ذلك تبدأ رواية التنفيذ التفصيلية
-                        بواسطة بَصَلْئيل وأهوليآب والحرفيين.
+                        بدأ بَصَلْئيل وأهوليآب والحرفيون
+                        تنفيذ العمل وفق التعليمات.
                     </p>
-
-                    <small>
-                        خروج 35–39
-                    </small>
 
                 </div>
 
             </div>
 
 
-            <div class="timeline-item highlight">
+            <div class="timeline-item">
 
                 <span class="timeline-number">
                     5
@@ -473,23 +1938,21 @@
                 <div>
 
                     <strong>
-                        الأول من الشهر الأول — السنة الثانية
+                        اليوم الأول من الشهر الأول
+                        من السنة الثانية
                     </strong>
 
                     <p>
-                        في هذا التاريخ أُقيم المسكن.
+                        يحدد خروج 40:17 هذا التاريخ باعتباره
+                        يوم إقامة المسكن.
                     </p>
-
-                    <small>
-                        خروج 40:17
-                    </small>
 
                 </div>
 
             </div>
 
 
-            <div class="timeline-item highlight">
+            <div class="timeline-item">
 
                 <span class="timeline-number">
                     6
@@ -497,16 +1960,14 @@
 
                 <div>
 
-                    <strong>امتلاء الخيمة بالمجد</strong>
+                    <strong>
+                        امتلاء المسكن بالمجد
+                    </strong>
 
                     <p>
-                        بعد إتمام العمل غطت السحابة خيمة الاجتماع
-                        وملأ مجد الرب المسكن.
+                        غطت السحابة خيمة الاجتماع وملأ مجد الرب
+                        المسكن.
                     </p>
-
-                    <small>
-                        خروج 40:34-38
-                    </small>
 
                 </div>
 
@@ -517,586 +1978,721 @@
     </article>
 
 
-    <!-- =====================================================
-         نقطة علمية مهمة
-    ====================================================== -->
-
-    <article class="research-card caution-card">
-
-        <div class="research-title">
-            <span>⚠️</span>
-            <h3>ثامناً: ماذا نستطيع أن نثبت؟ وماذا لا نستطيع؟</h3>
-        </div>
-
-        <p>
-            من المهم جدًا في موسوعة الكتاب المقدس أن نفرق بين
-            <strong>النص الصريح</strong> و<strong>الاستنتاج التاريخي</strong>.
-        </p>
-
-        <div class="fact-grid">
-
-            <div class="fact confirmed">
-
-                <strong>ثابت نصيًا</strong>
-
-                <p>
-                    الخيمة أُقيمت في اليوم الأول من الشهر الأول
-                    من السنة الثانية.
-                </p>
-
-                <small>
-                    خروج 40:17
-                </small>
-
-            </div>
-
-
-            <div class="fact confirmed">
-
-                <strong>ثابت نصيًا</strong>
-
-                <p>
-                    بَصَلْئيل وأهوليآب قادا العمل الفني مع
-                    أصحاب المهارات.
-                </p>
-
-                <small>
-                    خروج 31؛ 35–39
-                </small>
-
-            </div>
-
-
-            <div class="fact confirmed">
-
-                <strong>ثابت نصيًا</strong>
-
-                <p>
-                    المواد جاءت من عطايا الشعب.
-                </p>
-
-                <small>
-                    خروج 25:1-9؛ 35:20-29
-                </small>
-
-            </div>
-
-
-            <div class="fact uncertain">
-
-                <strong>غير محدد صراحة</strong>
-
-                <p>
-                    عدد الأيام الدقيق الذي استغرقه تصنيع جميع
-                    أجزاء الخيمة لا يذكره سفر الخروج صراحة.
-                </p>
-
-            </div>
-
-        </div>
-
-    </article>
-
-
-    <!-- =====================================================
-         القراءة اليهودية
-    ====================================================== -->
 
     <article class="research-card">
 
-        <div class="research-title">
-            <span>🕎</span>
-            <h3>تاسعاً: القراءة اليهودية التقليدية</h3>
+        <h3>
+            ⚠️ ما نعرفه وما لا نعرفه
+        </h3>
+
+        <ul class="research-list">
+
+            <li>
+                <strong>نعرف:</strong>
+                أن المسكن أُقيم في اليوم الأول من الشهر الأول
+                من السنة الثانية.
+            </li>
+
+            <li>
+                <strong>نعرف:</strong>
+                أن بَصَلْئيل وأهوليآب شاركا في قيادة العمل.
+            </li>
+
+            <li>
+                <strong>نعرف:</strong>
+                أن الشعب قدم المواد اللازمة للبناء.
+            </li>
+
+            <li>
+                <strong>نعرف:</strong>
+                أن التعليمات سبقت التنفيذ.
+            </li>
+
+            <li>
+                <strong>لا يحدد النص:</strong>
+                عدد الأيام الفعلية التي استغرقها تصنيع كل أجزاء
+                المسكن.
+            </li>
+
+            <li>
+                <strong>لا يحدد النص:</strong>
+                تفاصيل هندسية كاملة عن طريقة تنفيذ كل مرحلة
+                زمنية يومًا بيوم.
+            </li>
+
+        </ul>
+
+    </article>
+
+
+
+    <article class="research-card">
+
+        <h3>
+            🕎 التقليد اليهودي والبحث التاريخي
+        </h3>
+
+        <p>
+            عند الانتقال من النص التوراتي إلى المصادر اليهودية
+            اللاحقة يجب أن نضع علامة واضحة تفصل بين المستويات.
+        </p>
+
+        <div class="methodology">
+
+            <div class="method">
+
+                <div class="method-icon">
+                    📖
+                </div>
+
+                <strong>
+                    النص الكتابي
+                </strong>
+
+                <span>
+                    ما يقوله سفر الخروج مباشرة.
+                </span>
+
+            </div>
+
+
+            <div class="method">
+
+                <div class="method-icon">
+                    🕎
+                </div>
+
+                <strong>
+                    التقليد اليهودي
+                </strong>
+
+                <span>
+                    المدراش والتلمود والتفسير اليهودي اللاحق.
+                </span>
+
+            </div>
+
+
+            <div class="method">
+
+                <div class="method-icon">
+                    🎓
+                </div>
+
+                <strong>
+                    البحث الأكاديمي
+                </strong>
+
+                <span>
+                    الدراسات التاريخية والأثرية والنقدية الحديثة.
+                </span>
+
+            </div>
+
         </div>
 
         <p>
-            في التقليد اليهودي، اكتسبت قصة الخيمة أهمية كبيرة،
-            وارتبطت ببناء المسكن بعد حادثة العجل الذهبي باعتبارها
-            علامة على استعادة العلاقة بين الله وإسرائيل.
-        </p>
-
-        <p>
-            وتقدم المصادر اليهودية اللاحقة، بما فيها المدراش
-            والتقاليد التفسيرية، تفاصيل إضافية حول بَصَلْئيل
-            وأهوليآب وطريقة العمل ومواد المسكن.
-        </p>
-
-        <p>
-            لكن هذه التفاصيل يجب أن تُعرض في الموسوعة تحت تصنيف
-            <strong>«التفسير والتقليد اليهودي اللاحق»</strong>
-            وليس باعتبارها نصًا من سفر الخروج نفسه.
-        </p>
-
-        <p>
-            وهذا الفصل بين مستويات المصادر سيكون قاعدة ثابتة في
-            الموسوعة حتى لا تختلط الرواية الكتابية بالتفسير اليهودي
-            أو بالتأملات اللاحقة.
-            
+            وسيكون هذا الفصل ثابتًا في الموسوعة كلها:
+            لا نعرض التقليد اللاحق باعتباره نصًا كتابيًا،
+            ولا نعرض الاستنتاج الأكاديمي باعتباره يقينًا نصيًا.
         </p>
 
     </article>
 
 
-    <!-- =====================================================
-         المصادر
-    ====================================================== -->
 
-    <article class="research-card sources-card">
+    <article class="research-card">
 
-        <div class="research-title">
+        <h3>
+            📚 خريطة المصادر التي سنبني عليها التوسع
+        </h3>
 
-            <span>📚</span>
+        <p>
+            هذه المرحلة تؤسس للبحث المتقدم، وسيتم عند التوسع
+            في الدراسة التعامل مع المصادر بحسب طبيعتها:
+        </p>
 
-            <h3>
-                المصادر الأساسية لهذه الدراسة
-            </h3>
+        <ul class="research-list">
 
-        </div>
+            <li>
+                سفر الخروج 19، 25–31، 35–40.
+            </li>
 
+            <li>
+                سفر اللاويين في دراسة وظيفة المسكن والذبائح.
+            </li>
 
-        <div class="source-item">
+            <li>
+                سفر العدد في دراسة حركة المسكن وتنظيم الخدمة.
+            </li>
 
-            <strong>النص الكتابي الأساسي</strong>
+            <li>
+                التفسير اليهودي والتقاليد المتعلقة بالـ Mishkan.
+            </li>
 
-            <p>
-                خروج 19؛ خروج 25–31؛ خروج 35–40؛
-                لاويين 1؛ عدد 1–4.
-            </p>
+            <li>
+                التلمود والمدراش عند الحاجة إلى دراسة
+                التفسير اليهودي اللاحق.
+            </li>
 
-        </div>
+            <li>
+                التفاسير العربية والإنجليزية المعتمدة
+                التي سنربطها بالمعلومة عند بناء قاعدة المصادر.
+            </li>
 
+            <li>
+                الدراسات الأكاديمية المتعلقة بتاريخ المسكن
+                والبنية الكهنوتية والعبادة في إسرائيل القديم.
+            </li>
 
-        <div class="source-item">
-
-            <strong>دراسة موسوعية</strong>
-
-            <p>
-                Encyclopedia of the Bible —
-                مادة Tabernacle.
-                
-            </p>
-
-        </div>
-
-
-        <div class="source-item">
-
-            <strong>دراسة نقدية تفسيرية</strong>
-
-            <p>
-                Cambridge Bible for Schools and Colleges —
-                تعليقات خروج 25 و38.
-                
-            </p>
-
-        </div>
-
-
-        <div class="source-item">
-
-            <strong>دراسة أكاديمية حديثة</strong>
-
-            <p>
-                Nathan MacDonald,
-                <em>The Making of the Tabernacle and the Construction
-                of Priestly Hegemony</em>,
-                Oxford University Press.
-                
-            </p>
-
-        </div>
-
-
-        <div class="source-item">
-
-            <strong>المصادر اليهودية والتقليد التفسيري</strong>
-
-            <p>
-                مواد Mishkan والتقاليد المرتبطة ببَصَلْئيل وأهوليآب،
-                مع ضرورة الفصل بينها وبين النص التوراتي.
-                
-            </p>
-
-        </div>
+        </ul>
 
     </article>
 
 
-    <!-- =====================================================
-         الخلاصة
-    ====================================================== -->
 
-    <article class="research-card conclusion-card">
+    <article class="research-card">
 
-        <div class="research-title">
+        <h3>
+            ✦ الخلاصة البحثية
+        </h3>
 
-            <span>✦</span>
+        <p>
+            يمكن تلخيص نقطة الانطلاق في أربعة محاور:
+        </p>
 
-            <h3>
-                الخلاصة البحثية
-            </h3>
+        <div class="methodology">
+
+            <div class="method">
+
+                <div class="method-icon">
+                    🔥
+                </div>
+
+                <strong>
+                    المبادرة
+                </strong>
+
+                <span>
+                    أمر إلهي بإقامة مقدس.
+                </span>
+
+            </div>
+
+
+            <div class="method">
+
+                <div class="method-icon">
+                    ⛰️
+                </div>
+
+                <strong>
+                    السياق
+                </strong>
+
+                <span>
+                    الخروج والعهد وسيناء.
+                </span>
+
+            </div>
+
+
+            <div class="method">
+
+                <div class="method-icon">
+                    🛠️
+                </div>
+
+                <strong>
+                    التنفيذ
+                </strong>
+
+                <span>
+                    موسى وبصلئيل وأهوليآب والحرفيون والشعب.
+                </span>
+
+            </div>
 
         </div>
 
         <p>
-            خيمة الاجتماع في الرواية الكتابية لم تبدأ كمشروع معماري
-            بشري، بل بأمر إلهي مرتبط برغبة الله في أن يسكن وسط شعبه.
-        </p>
-
-        <p>
-            بدأت مرحلة المسكن في سياق سيناء والعهد، وتلقى موسى
-            التعليمات المتعلقة بتصميمه، ثم تولى بَصَلْئيل وأهوليآب
-            قيادة التنفيذ مع مجموعة واسعة من أصحاب المهارات.
-        </p>
-
-        <p>
-            أما التاريخ الأكثر وضوحًا في الرواية فهو:
+            والتاريخ النصي الحاسم هو أن المسكن أُقيم في
             <strong>
-                أُقيم المسكن في اليوم الأول من الشهر الأول
-                من السنة الثانية بعد الخروج.
+                اليوم الأول من الشهر الأول من السنة الثانية
             </strong>
-        </p>
-
-        <p>
-            وبذلك تصبح الخيمة نقطة التقاء بين
-            <strong>
-                الخروج — العهد — حضور الله — العبادة — الجماعة
-            </strong>.
+            (خروج 40:17).
         </p>
 
     </article>
 
-</section>
+
+</div>
+
 
 
 <!-- =========================================================
-     تنسيقات دراسة الأصل وزمن البناء
+     المواد والخامات
 ========================================================= -->
 
-<style>
+<div
+    id="research-materials"
+    class="research-area"
+>
 
-.study-section{
-    max-width:1100px;
-    margin:40px auto;
-    padding:20px;
+    <article class="research-card">
+
+        <h3>
+            🪵 المواد والخامات
+        </h3>
+
+        <p>
+            هذه الأيقونة مخصصة لدراسة كل مادة على حدة:
+            مصدرها، طبيعتها، استعمالها في الخيمة، قيمتها،
+            وأي دلالة رمزية يمكن إثباتها من النص أو التفسير.
+        </p>
+
+        <div class="material-grid">
+
+            <div class="material">🥇 الذهب</div>
+            <div class="material">🥈 الفضة</div>
+            <div class="material">🥉 النحاس</div>
+            <div class="material">🪵 السنط</div>
+            <div class="material">🧵 الكتان</div>
+            <div class="material">🔵 الأسمانجوني</div>
+            <div class="material">🟣 الأرجوان</div>
+            <div class="material">🔴 القرمزي</div>
+            <div class="material">🐏 الجلود</div>
+            <div class="material">💎 الأحجار</div>
+            <div class="material">🫒 الزيت</div>
+            <div class="material">🌿 الأطياب</div>
+
+        </div>
+
+        <div class="source-box">
+
+            <strong>
+                المصادر الأساسية:
+            </strong>
+
+            <p>
+                خروج 25:1–9؛ 26؛ 27؛ 28؛ 30؛ 35–39.
+            </p>
+
+        </div>
+
+    </article>
+
+</div>
+
+
+
+<!-- =========================================================
+     المقاسات
+========================================================= -->
+
+<div
+    id="research-dimensions"
+    class="research-area"
+>
+
+    <article class="research-card">
+
+        <h3>
+            📐 المقاسات والتصميم
+        </h3>
+
+        <p>
+            سيتم هنا تفكيك التصميم إلى وحدات هندسية:
+            طول وعرض وارتفاع، الألواح، الأعمدة، الأغطية،
+            الحجاب، المدخل، الدار الخارجية، ومواقع الأثاث.
+        </p>
+
+        <p>
+            المرجع الأساسي لهذه المرحلة هو خروج 25–27،
+            مع ربط كل قياس بالنص الذي يذكره وعدم اختراع
+            قياسات غير موجودة في النص.
+        </p>
+
+    </article>
+
+</div>
+
+
+
+<!-- =========================================================
+     أجزاء الخيمة
+========================================================= -->
+
+<div
+    id="research-parts"
+    class="research-area"
+>
+
+    <article class="research-card">
+
+        <h3>
+            🏕️ أجزاء خيمة الاجتماع
+        </h3>
+
+        <ul class="research-list">
+
+            <li>
+                قدس الأقداس.
+            </li>
+
+            <li>
+                القدس.
+            </li>
+
+            <li>
+                الحجاب.
+            </li>
+
+            <li>
+                أغطية المسكن.
+            </li>
+
+            <li>
+                الألواح والقواعد.
+            </li>
+
+            <li>
+                الأعمدة والستائر.
+            </li>
+
+            <li>
+                دار المسكن.
+            </li>
+
+            <li>
+                مدخل الدار.
+            </li>
+
+        </ul>
+
+    </article>
+
+</div>
+
+
+
+<!-- =========================================================
+     الأثاث
+========================================================= -->
+
+<div
+    id="research-furniture"
+    class="research-area"
+>
+
+    <article class="research-card">
+
+        <h3>
+            🕯️ أثاث الخيمة
+        </h3>
+
+        <p>
+            ستتم دراسة كل قطعة بصورة مستقلة، بداية من
+            المادة والمقاس والوظيفة، ثم علاقتها بالخدمة
+            الكهنوتية ثم ما قاله المفسرون عنها.
+        </p>
+
+        <ul class="research-list">
+
+            <li>تابوت العهد.</li>
+            <li>غطاء التابوت.</li>
+            <li>المائدة.</li>
+            <li>المنارة.</li>
+            <li>مذبح البخور.</li>
+            <li>مذبح المحرقة.</li>
+            <li>المرحضة.</li>
+
+        </ul>
+
+    </article>
+
+</div>
+
+
+
+<!-- =========================================================
+     الكهنوت
+========================================================= -->
+
+<div
+    id="research-priests"
+    class="research-area"
+>
+
+    <article class="research-card">
+
+        <h3>
+            👑 الكهنوت والخدمة
+        </h3>
+
+        <p>
+            تشمل الدراسة القادمة هارون وبنيه، الثياب الكهنوتية،
+            المسح، الذبائح، خدمة القدس وقدس الأقداس،
+            وعلاقة اللاويين بنقل المسكن وخدمته.
+        </p>
+
+        <div class="source-box">
+
+            <strong>
+                النصوص الأساسية
+            </strong>
+
+            <p>
+                خروج 28–29؛ لاويين 1–16؛ عدد 3–4.
+            </p>
+
+        </div>
+
+    </article>
+
+</div>
+
+
+
+<!-- =========================================================
+     الرموز
+========================================================= -->
+
+<div
+    id="research-symbols"
+    class="research-area"
+>
+
+    <article class="research-card">
+
+        <h3>
+            ✨ الرموز والدلالات
+        </h3>
+
+        <p>
+            لن ننسب أي رمز إلى قطعة من الخيمة إلا مع بيان
+            مصدر هذا التفسير. وسنفرق بين الرمز المستند إلى
+            نص كتابي صريح وبين القراءة التفسيرية المسيحية
+            أو اليهودية اللاحقة.
+        </p>
+
+        <p>
+            وسيكون هذا المبدأ أساسيًا في جميع دراسات الموسوعة.
+        </p>
+
+    </article>
+
+</div>
+
+
+
+<!-- =========================================================
+     الرحلة
+========================================================= -->
+
+<div
+    id="research-journey"
+    class="research-area"
+>
+
+    <article class="research-card">
+
+        <h3>
+            🗺️ الرحلة والتنقل
+        </h3>
+
+        <p>
+            ستتناول هذه الدراسة طريقة تفكيك المسكن وحمله،
+            ترتيب الأسباط، أدوار اللاويين، والسحابة وعلامات
+            التحرك والتوقف في البرية.
+        </p>
+
+        <div class="source-box">
+
+            <strong>
+                المصادر الأساسية
+            </strong>
+
+            <p>
+                سفر العدد 1–4؛ العدد 9–10.
+            </p>
+
+        </div>
+
+    </article>
+
+</div>
+
+
+</section>
+
+</main>
+
+
+
+<footer>
+
+    كنيسة رجاء الأمم سيدني — موسوعة الكتاب المقدس
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showCategories(){
+
+    document
+        .getElementById("categoriesView")
+        .classList.add("active");
+
+    document
+        .getElementById("tabernacleView")
+        .classList.remove("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
 }
 
-.study-section-header{
-    display:flex;
-    align-items:center;
-    gap:20px;
-    margin-bottom:30px;
-    padding:22px;
-    border:1px solid rgba(212,175,55,.45);
-    border-radius:24px;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(16,62,98,.98),
-            rgba(4,23,39,.99)
+
+/* =========================================================
+   OPEN TABERNACLE
+========================================================= */
+
+function openTabernacle(){
+
+    document
+        .getElementById("categoriesView")
+        .classList.remove("active");
+
+    document
+        .getElementById("tabernacleView")
+        .classList.add("active");
+
+    openResearchById("origin");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   OPEN RESEARCH
+========================================================= */
+
+function openResearch(type,button){
+
+    document
+        .querySelectorAll(".research-area")
+        .forEach(area => {
+
+            area.classList.remove("active");
+
+        });
+
+
+    const target =
+        document.getElementById(
+            "research-" + type
         );
-    box-shadow:0 18px 45px rgba(0,0,0,.45);
+
+    if(target){
+
+        target.classList.add("active");
+
+    }
+
+
+    document
+        .querySelectorAll(".inner-study-button")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+
+    if(button){
+
+        button.classList.add("active");
+
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
 }
 
-.study-section-icon{
-    width:78px;
-    height:78px;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:42px;
-    border-radius:20px;
-    border:1px solid rgba(212,175,55,.7);
-    background:linear-gradient(145deg,#1b5b89,#071b2e);
-}
 
-.study-section-header h2{
-    margin:0 0 8px;
-    color:#f4dc79;
-    font-size:30px;
-}
+/* =========================================================
+   OPEN BY ID
+========================================================= */
 
-.study-section-header p{
-    margin:0;
-    color:#c4d3df;
-    line-height:1.9;
-}
+function openResearchById(type){
 
-.research-card{
-    margin:22px 0;
-    padding:28px;
-    border:1px solid rgba(212,175,55,.28);
-    border-radius:22px;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(9,45,73,.95),
-            rgba(3,19,32,.98)
+    const buttons =
+        document.querySelectorAll(
+            ".inner-study-button"
         );
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.04);
-}
 
-.research-title{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:20px;
-}
+    let targetButton = null;
 
-.research-title span{
-    font-size:30px;
-}
+    buttons.forEach(button => {
 
-.research-title h3{
-    margin:0;
-    color:#f4dc79;
-    font-size:24px;
-}
+        if(
+            button
+                .getAttribute("onclick")
+                ?.includes(
+                    "'" + type + "'"
+                )
+        ){
 
-.research-card p{
-    color:#d5e0e9;
-    font-size:17px;
-    line-height:2.05;
-}
+            targetButton = button;
 
-.verse-box{
-    margin:22px 0;
-    padding:20px;
-    border-right:4px solid #d4af37;
-    border-radius:14px;
-    background:rgba(0,0,0,.25);
-}
+        }
 
-.verse-box strong{
-    color:#f4dc79;
-}
+    });
 
-.research-list{
-    margin:20px 0;
-    padding-right:25px;
-}
 
-.research-list li{
-    margin:12px 0;
-    color:#d5e0e9;
-    line-height:1.9;
-}
-
-.people-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-}
-
-.person-card{
-    padding:22px;
-    text-align:center;
-    border:1px solid rgba(212,175,55,.25);
-    border-radius:18px;
-    background:rgba(0,0,0,.18);
-}
-
-.person-icon{
-    font-size:38px;
-    margin-bottom:8px;
-}
-
-.person-card h4{
-    margin:5px 0 8px;
-    color:#f4dc79;
-    font-size:21px;
-}
-
-.person-card p{
-    font-size:15px;
-}
-
-.person-card small{
-    color:#aebfcd;
-}
-
-.materials-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-    margin:25px 0;
-}
-
-.materials-grid div{
-    padding:15px 10px;
-    text-align:center;
-    border:1px solid rgba(212,175,55,.22);
-    border-radius:13px;
-    color:#e5edf3;
-    background:rgba(0,0,0,.18);
-}
-
-.timeline{
-    position:relative;
-    margin-top:25px;
-}
-
-.timeline-item{
-    display:flex;
-    align-items:flex-start;
-    gap:18px;
-    margin:0 0 20px;
-    padding:18px;
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(0,0,0,.18);
-}
-
-.timeline-number{
-    width:42px;
-    height:42px;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:50%;
-    color:#071526;
-    font-weight:900;
-    background:linear-gradient(
-        180deg,
-        #fff1a2,
-        #d4af37
+    openResearch(
+        type,
+        targetButton
     );
+
 }
 
-.timeline-item strong{
-    color:#f4dc79;
-    font-size:18px;
-}
 
-.timeline-item p{
-    margin:7px 0;
-    font-size:15px;
-}
+/* =========================================================
+   ESCAPE — SAFETY
+========================================================= */
 
-.timeline-item small{
-    color:#9fb1bf;
-}
+document.addEventListener(
+    "keydown",
+    function(event){
 
-.timeline-item.highlight{
-    border-color:rgba(212,175,55,.65);
-    box-shadow:0 0 25px rgba(212,175,55,.08);
-}
+        if(event.key === "Escape"){
 
-.fact-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-}
+            showCategories();
 
-.fact{
-    padding:20px;
-    border-radius:16px;
-    background:rgba(0,0,0,.18);
-}
+        }
 
-.fact strong{
-    display:block;
-    margin-bottom:8px;
-    color:#f4dc79;
-}
-
-.fact p{
-    margin:0;
-    font-size:15px;
-}
-
-.fact small{
-    display:block;
-    margin-top:10px;
-    color:#9fb1bf;
-}
-
-.fact.confirmed{
-    border:1px solid rgba(72,180,115,.35);
-}
-
-.fact.uncertain{
-    border:1px solid rgba(212,175,55,.35);
-}
-
-.source-item{
-    padding:17px 0;
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.source-item:last-child{
-    border-bottom:0;
-}
-
-.source-item strong{
-    color:#f4dc79;
-}
-
-.source-item p{
-    margin:7px 0 0;
-    font-size:15px;
-}
-
-.conclusion-card{
-    border-color:rgba(212,175,55,.55);
-}
-
-.conclusion-card p{
-    font-size:18px;
-}
-
-@media(max-width:750px){
-
-    .study-section{
-        padding:10px;
     }
+);
 
-    .study-section-header{
-        align-items:flex-start;
-    }
+</script>
 
-    .study-section-header h2{
-        font-size:24px;
-    }
 
-    .people-grid,
-    .fact-grid{
-        grid-template-columns:1fr;
-    }
-
-    .materials-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .research-card{
-        padding:20px;
-    }
-
-}
-
-@media(max-width:450px){
-
-    .study-section-header{
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .study-section-icon{
-        margin:auto;
-    }
-
-    .materials-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .research-title h3{
-        font-size:20px;
-    }
-
-}
-
-</style>
+</body>
+</html>
