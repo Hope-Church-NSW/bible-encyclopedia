@@ -14,7 +14,12 @@
 
 <style>
 
+/* =====================================================
+   VARIABLES
+===================================================== */
+
 :root{
+
     --blue-950:#03101d;
     --blue-900:#061a2c;
     --blue-800:#082943;
@@ -28,11 +33,18 @@
     --white:#f8fbff;
     --muted:#b7c7d6;
 
-    --border:rgba(212,175,55,.34);
+    --border:
+        rgba(212,175,55,.34);
 
     --shadow:
-        0 22px 55px rgba(0,0,0,.52);
+        0 22px 55px
+        rgba(0,0,0,.52);
 }
+
+
+/* =====================================================
+   GLOBAL
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -87,6 +99,7 @@ body{
 .top-frame{
 
     position:relative;
+
     z-index:100;
 
     width:100%;
@@ -96,6 +109,7 @@ body{
         rgba(212,175,55,.30);
 
     background:
+
         linear-gradient(
             180deg,
             rgba(8,41,67,.98),
@@ -103,10 +117,14 @@ body{
         );
 
     box-shadow:
-        0 10px 35px rgba(0,0,0,.55),
+
+        0 10px 35px
+        rgba(0,0,0,.55),
+
         inset 0 -1px 0
         rgba(255,255,255,.04);
 }
+
 
 .topbar{
 
@@ -116,7 +134,8 @@ body{
 
     margin:auto;
 
-    padding:10px 20px;
+    padding:
+        10px 20px;
 
     display:flex;
 
@@ -129,7 +148,7 @@ body{
 
 
 /* =====================================================
-   BRAND
+   RIGHT — CHURCH BRAND
 ===================================================== */
 
 .brand{
@@ -141,9 +160,11 @@ body{
     gap:14px;
 }
 
+
 .brand-logo{
 
     width:70px;
+
     height:70px;
 
     object-fit:contain;
@@ -158,20 +179,24 @@ body{
         logoFloat 5s ease-in-out infinite;
 }
 
+
 @keyframes logoFloat{
 
     0%,100%{
+
         transform:
             translateY(0)
             rotateY(0deg);
     }
 
     50%{
+
         transform:
             translateY(-4px)
             rotateY(8deg);
     }
 }
+
 
 .brand-name{
 
@@ -182,6 +207,7 @@ body{
     white-space:nowrap;
 
     background:
+
         linear-gradient(
             180deg,
             #fff6bf 0%,
@@ -191,36 +217,45 @@ body{
         );
 
     -webkit-background-clip:text;
+
     background-clip:text;
 
     color:transparent;
 
     text-shadow:
-        0 3px 5px rgba(0,0,0,.9);
+        0 3px 5px
+        rgba(0,0,0,.9);
 }
 
 
 /* =====================================================
-   LANGUAGE
+   LEFT — HOME BUTTON
 ===================================================== */
 
-.language-box{
+.home-button{
+
+    width:58px;
+
+    height:58px;
 
     display:flex;
 
     align-items:center;
 
-    gap:6px;
-
-    padding:6px;
+    justify-content:center;
 
     border:
         1px solid
         rgba(212,175,55,.65);
 
-    border-radius:14px;
+    border-radius:16px;
+
+    color:#fff;
+
+    text-decoration:none;
 
     background:
+
         linear-gradient(
             145deg,
             #16476d,
@@ -228,54 +263,46 @@ body{
         );
 
     box-shadow:
+
         inset 0 1px 0
         rgba(255,255,255,.12),
 
         0 8px 22px
         rgba(0,0,0,.48);
+
+    font-size:30px;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
 }
 
-.language-button{
 
-    min-width:45px;
+.home-button:hover{
 
-    border:0;
+    transform:
+        translateY(-4px)
+        scale(1.04);
 
-    border-radius:8px;
-
-    padding:8px 11px;
-
-    color:#fff;
-
-    background:transparent;
-
-    font-family:inherit;
-
-    font-weight:900;
-
-    font-size:13px;
-
-    cursor:pointer;
-
-    transition:.25s;
-}
-
-.language-button.active,
-.language-button:hover{
-
-    color:#071526;
-
-    background:
-        linear-gradient(
-            180deg,
-            #fff1a2,
-            var(--gold),
-            var(--gold-dark)
-        );
+    border-color:
+        var(--gold-light);
 
     box-shadow:
-        0 3px 10px
-        rgba(0,0,0,.35);
+
+        0 13px 28px
+        rgba(0,0,0,.55),
+
+        0 0 20px
+        rgba(212,175,55,.16);
+}
+
+
+.home-button:active{
+
+    transform:
+        translateY(0)
+        scale(.98);
 }
 
 
@@ -295,7 +322,7 @@ main{
 
 
 /* =====================================================
-   BIBLE PANEL
+   BIBLE CONTROL PANEL
 ===================================================== */
 
 .bible-panel{
@@ -311,6 +338,7 @@ main{
     border-radius:24px;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(16,62,98,.96),
@@ -320,6 +348,7 @@ main{
     box-shadow:
         var(--shadow);
 }
+
 
 .select-grid{
 
@@ -331,6 +360,7 @@ main{
     gap:18px;
 }
 
+
 .select-box{
 
     display:flex;
@@ -339,6 +369,7 @@ main{
 
     gap:8px;
 }
+
 
 .select-box label{
 
@@ -349,6 +380,7 @@ main{
 
     font-weight:900;
 }
+
 
 select{
 
@@ -380,15 +412,18 @@ select{
     cursor:pointer;
 }
 
+
 select:focus{
 
     border-color:
         var(--gold-light);
 
     box-shadow:
+
         0 0 0 3px
         rgba(212,175,55,.12);
 }
+
 
 select:disabled{
 
@@ -406,13 +441,13 @@ select:disabled{
 
     margin-top:18px;
 
+    min-height:25px;
+
     text-align:center;
 
     color:var(--muted);
 
     font-size:15px;
-
-    min-height:25px;
 }
 
 
@@ -421,8 +456,10 @@ select:disabled{
 ===================================================== */
 
 #content{
+
     width:100%;
 }
+
 
 .chapter-title{
 
@@ -441,6 +478,7 @@ select:disabled{
     color:var(--gold-light);
 
     background:
+
         linear-gradient(
             145deg,
             rgba(16,62,98,.98),
@@ -448,6 +486,7 @@ select:disabled{
         );
 
     box-shadow:
+
         0 14px 35px
         rgba(0,0,0,.45);
 
@@ -472,7 +511,8 @@ select:disabled{
 
     margin-bottom:10px;
 
-    padding:14px 15px;
+    padding:
+        14px 15px;
 
     border-radius:14px;
 
@@ -489,6 +529,7 @@ select:disabled{
         transform .25s ease;
 }
 
+
 .verse:hover{
 
     transform:
@@ -500,6 +541,7 @@ select:disabled{
     background:
         rgba(13,56,93,.62);
 }
+
 
 .vnum{
 
@@ -520,6 +562,7 @@ select:disabled{
     color:#071526;
 
     background:
+
         linear-gradient(
             180deg,
             #fff1a2,
@@ -535,6 +578,7 @@ select:disabled{
         0 5px 12px
         rgba(0,0,0,.35);
 }
+
 
 .vtext{
 
@@ -552,6 +596,123 @@ select:disabled{
 
 
 /* =====================================================
+   AUDIO BIBLE
+===================================================== */
+
+.audio-bible{
+
+    width:100%;
+
+    margin:
+        40px auto 10px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+}
+
+
+.audio-bible-button{
+
+    width:78px;
+
+    height:78px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:
+        1px solid
+        rgba(212,175,55,.75);
+
+    border-radius:50%;
+
+    color:#071526;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #fff1a2,
+            var(--gold),
+            var(--gold-dark)
+        );
+
+    box-shadow:
+
+        0 12px 28px
+        rgba(0,0,0,.50),
+
+        0 0 20px
+        rgba(212,175,55,.10);
+
+    font-size:34px;
+
+    cursor:pointer;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+
+.audio-bible-button:hover{
+
+    transform:
+        translateY(-5px)
+        scale(1.06);
+
+    box-shadow:
+
+        0 18px 35px
+        rgba(0,0,0,.60),
+
+        0 0 30px
+        rgba(212,175,55,.20);
+}
+
+
+.audio-bible-button:active{
+
+    transform:
+        scale(.96);
+}
+
+
+.audio-bible-title{
+
+    margin-top:12px;
+
+    color:
+        var(--gold-light);
+
+    font-size:16px;
+
+    font-weight:900;
+}
+
+
+.audio-bible-note{
+
+    margin-top:4px;
+
+    color:
+        #8195a8;
+
+    font-size:12px;
+}
+
+
+/* =====================================================
    PREVIOUS / NEXT
 ===================================================== */
 
@@ -560,7 +721,7 @@ select:disabled{
     width:100%;
 
     margin:
-        45px auto 10px;
+        38px auto 10px;
 
     display:grid;
 
@@ -571,6 +732,7 @@ select:disabled{
 
     direction:rtl;
 }
+
 
 .chapter-nav-button{
 
@@ -604,6 +766,7 @@ select:disabled{
     cursor:pointer;
 
     background:
+
         linear-gradient(
             145deg,
             #164d77,
@@ -611,6 +774,7 @@ select:disabled{
         );
 
     box-shadow:
+
         0 10px 25px
         rgba(0,0,0,.45),
 
@@ -623,6 +787,7 @@ select:disabled{
         box-shadow .25s ease;
 }
 
+
 .chapter-nav-button:hover:not(:disabled){
 
     transform:
@@ -632,6 +797,7 @@ select:disabled{
         var(--gold-light);
 
     box-shadow:
+
         0 15px 30px
         rgba(0,0,0,.58),
 
@@ -639,11 +805,6 @@ select:disabled{
         rgba(212,175,55,.16);
 }
 
-.chapter-nav-button:active:not(:disabled){
-
-    transform:
-        translateY(0);
-}
 
 .chapter-nav-button:disabled{
 
@@ -651,8 +812,10 @@ select:disabled{
 
     cursor:not-allowed;
 
-    filter:grayscale(.5);
+    filter:
+        grayscale(.5);
 }
+
 
 .nav-arrow{
 
@@ -704,37 +867,45 @@ select:disabled{
             8px 12px;
     }
 
+
     .brand{
 
         gap:7px;
     }
 
+
     .brand-logo{
 
         width:52px;
+
         height:52px;
     }
+
 
     .brand-name{
 
         font-size:14px;
     }
 
-    .language-button{
 
-        min-width:38px;
+    .home-button{
 
-        padding:
-            7px 8px;
+        width:50px;
 
-        font-size:12px;
+        height:50px;
+
+        font-size:26px;
+
+        border-radius:14px;
     }
+
 
     main{
 
         padding:
             30px 12px 50px;
     }
+
 
     .bible-panel{
 
@@ -743,12 +914,14 @@ select:disabled{
         border-radius:18px;
     }
 
+
     .select-grid{
 
         grid-template-columns:1fr;
 
         gap:12px;
     }
+
 
     select{
 
@@ -757,6 +930,7 @@ select:disabled{
         font-size:16px;
     }
 
+
     .verse{
 
         gap:10px;
@@ -764,6 +938,7 @@ select:disabled{
         padding:
             11px 9px;
     }
+
 
     .vnum{
 
@@ -774,6 +949,7 @@ select:disabled{
         font-size:13px;
     }
 
+
     .vtext{
 
         font-size:18px;
@@ -781,49 +957,67 @@ select:disabled{
         line-height:2;
     }
 
+
+    .audio-bible{
+
+        margin-top:35px;
+    }
+
+
+    .audio-bible-button{
+
+        width:70px;
+
+        height:70px;
+
+        font-size:30px;
+    }
+
+
     .chapter-navigation{
 
         grid-template-columns:1fr;
 
         gap:12px;
 
-        margin-top:35px;
+        margin-top:30px;
     }
+
 
     .chapter-nav-button{
 
         min-height:62px;
 
         font-size:15px;
-
-        padding:
-            12px 14px;
     }
 }
+
 
 @media(max-width:420px){
 
     .brand-name{
+
         font-size:12px;
     }
+
 
     .brand-logo{
 
         width:46px;
+
         height:46px;
     }
 
-    .language-box{
-        padding:3px;
+
+    .home-button{
+
+        width:46px;
+
+        height:46px;
+
+        font-size:24px;
     }
 
-    .language-button{
-
-        min-width:35px;
-
-        padding:
-            6px 7px;
-    }
 
     .chapter-title{
 
@@ -841,34 +1035,28 @@ select:disabled{
 <body>
 
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header class="top-frame">
 
     <div class="topbar">
 
 
-        <div class="language-box">
+        <!-- يسار: الرئيسية -->
 
-            <button
-                class="language-button active"
-                id="arabicButton"
-                type="button"
-                onclick="setLanguage('ar')"
-            >
-                عربي
-            </button>
+        <a
+            href="index.html"
+            class="home-button"
+            title="الرئيسية"
+            aria-label="الرئيسية"
+        >
+            🏠
+        </a>
 
 
-            <button
-                class="language-button"
-                id="englishButton"
-                type="button"
-                onclick="setLanguage('en')"
-            >
-                EN
-            </button>
-
-        </div>
-
+        <!-- يمين: الكنيسة واللوجو -->
 
         <div class="brand">
 
@@ -894,8 +1082,14 @@ select:disabled{
 </header>
 
 
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main>
 
+
+    <!-- لوحة اختيار السفر والأصحاح -->
 
     <section class="bible-panel">
 
@@ -908,6 +1102,7 @@ select:disabled{
                 <label for="book">
                     السفر
                 </label>
+
 
                 <select id="book">
 
@@ -926,6 +1121,7 @@ select:disabled{
                     الأصحاح
                 </label>
 
+
                 <select
                     id="chapter"
                     disabled
@@ -939,7 +1135,6 @@ select:disabled{
 
             </div>
 
-
         </div>
 
 
@@ -950,6 +1145,8 @@ select:disabled{
     </section>
 
 
+    <!-- محتوى الأصحاح -->
+
     <section id="content"></section>
 
 
@@ -957,6 +1154,10 @@ select:disabled{
 
 
 <script>
+
+/* =====================================================
+   BIBLE ENGINE
+===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1060,10 +1261,6 @@ document.addEventListener(
         let bible = [];
 
 
-        /* =================================================
-           حماية النصوص
-        ================================================= */
-
         function escapeHTML(value){
 
             return String(value ?? "")
@@ -1076,23 +1273,12 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           رقم السفر
-        ================================================= */
-
         function getBookNumber(book){
 
             const text =
-                String(book ?? "").trim();
+                String(book ?? "")
+                .trim();
 
-
-            /*
-             * يدعم:
-             *
-             * 01-Genesis
-             * 01 - Genesis
-             * 1-Genesis
-             */
 
             const match =
                 text.match(/^0*(\d+)\s*-/);
@@ -1106,104 +1292,9 @@ document.addEventListener(
             }
 
 
-            /*
-             * إذا كان الاسم إنجليزيًا
-             * بدون رقم
-             */
-
-            const englishNames = [
-
-                "Genesis",
-                "Exodus",
-                "Leviticus",
-                "Numbers",
-                "Deuteronomy",
-                "Joshua",
-                "Judges",
-                "Ruth",
-                "1 Samuel",
-                "2 Samuel",
-                "1 Kings",
-                "2 Kings",
-                "1 Chronicles",
-                "2 Chronicles",
-                "Ezra",
-                "Nehemiah",
-                "Esther",
-                "Job",
-                "Psalms",
-                "Proverbs",
-                "Ecclesiastes",
-                "Song of Solomon",
-                "Isaiah",
-                "Jeremiah",
-                "Lamentations",
-                "Ezekiel",
-                "Daniel",
-                "Hosea",
-                "Joel",
-                "Amos",
-                "Obadiah",
-                "Jonah",
-                "Micah",
-                "Nahum",
-                "Habakkuk",
-                "Zephaniah",
-                "Haggai",
-                "Zechariah",
-                "Malachi",
-                "Matthew",
-                "Mark",
-                "Luke",
-                "John",
-                "Acts",
-                "Romans",
-                "1 Corinthians",
-                "2 Corinthians",
-                "Galatians",
-                "Ephesians",
-                "Philippians",
-                "Colossians",
-                "1 Thessalonians",
-                "2 Thessalonians",
-                "1 Timothy",
-                "2 Timothy",
-                "Titus",
-                "Philemon",
-                "Hebrews",
-                "James",
-                "1 Peter",
-                "2 Peter",
-                "1 John",
-                "2 John",
-                "3 John",
-                "Jude",
-                "Revelation"
-
-            ];
-
-
-            const index =
-                englishNames.findIndex(
-                    name =>
-                        name.toLowerCase()
-                        === text.toLowerCase()
-                );
-
-
-            if(index !== -1){
-
-                return index + 1;
-            }
-
-
             return 999;
         }
 
-
-        /* =================================================
-           اسم السفر العربي
-        ================================================= */
 
         function getArabicBookName(book){
 
@@ -1219,10 +1310,6 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           العهد القديم
-        ================================================= */
-
         function isOldTestament(book){
 
             return (
@@ -1231,10 +1318,6 @@ document.addEventListener(
             );
         }
 
-
-        /* =================================================
-           قراءة bible.json
-        ================================================= */
 
         async function loadBible(){
 
@@ -1259,8 +1342,7 @@ document.addEventListener(
 
                     throw new Error(
                         "HTTP " +
-                        response.status +
-                        " — تعذر فتح bible.json"
+                        response.status
                     );
                 }
 
@@ -1269,14 +1351,10 @@ document.addEventListener(
                     await response.json();
 
 
-                /*
-                 * يجب أن يكون الملف Array
-                 */
-
                 if(!Array.isArray(data)){
 
                     throw new Error(
-                        "صيغة bible.json ليست Array."
+                        "bible.json must be an array."
                     );
                 }
 
@@ -1285,68 +1363,52 @@ document.addEventListener(
 
                     data
 
-                    .filter(item => {
+                    .filter(item =>
 
-                        return (
+                        item &&
+                        item.book !== undefined &&
+                        item.chapter !== undefined &&
+                        item.verse !== undefined &&
+                        item.text !== undefined
 
-                            item &&
-                            item.book !== undefined &&
-                            item.chapter !== undefined &&
-                            item.verse !== undefined &&
-                            item.text !== undefined
+                    )
 
-                        );
+                    .map(item => ({
 
-                    })
+                        book:
+                            String(
+                                item.book
+                            ).trim(),
 
-                    .map(item => {
-
-                        return {
-
-                            book:
-                                String(
-                                    item.book
-                                ).trim(),
-
-                            chapter:
-                                Number(
-                                    item.chapter
-                                ),
-
-                            verse:
-                                Number(
-                                    item.verse
-                                ),
-
-                            text:
-                                String(
-                                    item.text
-                                )
-
-                        };
-
-                    })
-
-                    .filter(item => {
-
-                        return (
-
-                            item.book &&
-                            Number.isFinite(
+                        chapter:
+                            Number(
                                 item.chapter
-                            ) &&
-                            Number.isFinite(
+                            ),
+
+                        verse:
+                            Number(
                                 item.verse
+                            ),
+
+                        text:
+                            String(
+                                item.text
                             )
 
-                        );
+                    }))
 
-                    });
+                    .filter(item =>
 
+                        item.book &&
+                        Number.isFinite(
+                            item.chapter
+                        ) &&
+                        Number.isFinite(
+                            item.verse
+                        )
 
-                /*
-                 * ترتيب البيانات
-                 */
+                    );
+
 
                 bible.sort(
                     (a,b) => {
@@ -1387,20 +1449,12 @@ document.addEventListener(
                 if(!bible.length){
 
                     throw new Error(
-                        "تم تحميل bible.json ولكن لم توجد آيات صالحة."
+                        "No Bible verses found."
                     );
                 }
 
 
-                console.log(
-                    "Bible loaded:",
-                    bible.length,
-                    "verses"
-                );
-
-
                 buildBooks();
-
 
             }
             catch(error){
@@ -1411,52 +1465,18 @@ document.addEventListener(
                 );
 
 
-                bookSelect.innerHTML =
-                    `
-                    <option value="">
-                        حدث خطأ في تحميل الأسفار
-                    </option>
-                    `;
-
-
-                chapterSelect.innerHTML =
-                    `
-                    <option value="">
-                        لا توجد بيانات
-                    </option>
-                    `;
-
-
-                chapterSelect.disabled =
-                    true;
-
-
                 status.innerHTML =
-
                     "❌ تعذر تحميل الكتاب المقدس.<br>" +
-
                     "<small>" +
-
                     escapeHTML(
                         error.message
                     ) +
-
-                    "<br><br>" +
-
-                    "تأكد أن ملف bible.json موجود في نفس مجلد bible.html." +
-
                     "</small>";
 
-
-                content.innerHTML = "";
             }
 
         }
 
-
-        /* =================================================
-           بناء الأسفار
-        ================================================= */
 
         function buildBooks(){
 
@@ -1525,109 +1545,85 @@ document.addEventListener(
                 '<option value="">اختر السفر</option>';
 
 
-            /*
-             * العهد القديم
-             */
+            const oldGroup =
+                document.createElement(
+                    "optgroup"
+                );
 
-            if(oldBooks.length){
 
-                const oldGroup =
+            oldGroup.label =
+                "العهد القديم";
+
+
+            oldBooks.forEach(book => {
+
+                const option =
                     document.createElement(
-                        "optgroup"
+                        "option"
                     );
 
 
-                oldGroup.label =
-                    "العهد القديم";
+                option.value =
+                    book;
 
 
-                oldBooks.forEach(
-                    book => {
-
-                        const option =
-                            document.createElement(
-                                "option"
-                            );
-
-
-                        option.value =
-                            book;
-
-
-                        option.textContent =
-                            getArabicBookName(
-                                book
-                            );
-
-
-                        oldGroup.appendChild(
-                            option
-                        );
-
-                    }
-                );
-
-
-                bookSelect.appendChild(
-                    oldGroup
-                );
-
-            }
-
-
-            /*
-             * العهد الجديد
-             */
-
-            if(newBooks.length){
-
-                const newGroup =
-                    document.createElement(
-                        "optgroup"
+                option.textContent =
+                    getArabicBookName(
+                        book
                     );
 
 
-                newGroup.label =
-                    "العهد الجديد";
+                oldGroup.appendChild(
+                    option
+                );
+
+            });
 
 
-                newBooks.forEach(
-                    book => {
-
-                        const option =
-                            document.createElement(
-                                "option"
-                            );
+            bookSelect.appendChild(
+                oldGroup
+            );
 
 
-                        option.value =
-                            book;
-
-
-                        option.textContent =
-                            getArabicBookName(
-                                book
-                            );
-
-
-                        newGroup.appendChild(
-                            option
-                        );
-
-                    }
+            const newGroup =
+                document.createElement(
+                    "optgroup"
                 );
 
 
-                bookSelect.appendChild(
-                    newGroup
+            newGroup.label =
+                "العهد الجديد";
+
+
+            newBooks.forEach(book => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    book;
+
+
+                option.textContent =
+                    getArabicBookName(
+                        book
+                    );
+
+
+                newGroup.appendChild(
+                    option
                 );
 
-            }
+            });
 
 
-            /*
-             * فتح التكوين تلقائيًا
-             */
+            bookSelect.appendChild(
+                newGroup
+            );
+
 
             const genesis =
                 oldBooks.find(
@@ -1649,20 +1645,12 @@ document.addEventListener(
 
             status.textContent =
                 "تم تحميل " +
-                bible.length
-                .toLocaleString("ar-EG") +
-                " آية — " +
-                (
-                    oldBooks.length +
-                    newBooks.length
+                bible.length.toLocaleString(
+                    "ar-EG"
                 ) +
-                " سفرًا.";
+                " آية.";
         }
 
-
-        /* =================================================
-           بناء الأصحاحات
-        ================================================= */
 
         function buildChapters(){
 
@@ -1679,10 +1667,8 @@ document.addEventListener(
                 chapterSelect.disabled =
                     true;
 
-
                 content.innerHTML =
                     "";
-
 
                 return;
             }
@@ -1694,15 +1680,13 @@ document.addEventListener(
 
                     bible
 
-                    .filter(
-                        item =>
-                            item.book ===
-                            selectedBook
+                    .filter(item =>
+                        item.book ===
+                        selectedBook
                     )
 
-                    .map(
-                        item =>
-                            item.chapter
+                    .map(item =>
+                        item.chapter
                     )
 
                 )
@@ -1712,49 +1696,38 @@ document.addEventListener(
             );
 
 
-            chapters.forEach(
-                chapter => {
+            chapters.forEach(chapter => {
 
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
-
-
-                    option.value =
-                        String(
-                            chapter
-                        );
-
-
-                    option.textContent =
-                        "الأصحاح " +
-                        chapter;
-
-
-                    chapterSelect.appendChild(
-                        option
+                const option =
+                    document.createElement(
+                        "option"
                     );
 
-                }
-            );
+
+                option.value =
+                    chapter;
+
+
+                option.textContent =
+                    "الأصحاح " +
+                    chapter;
+
+
+                chapterSelect.appendChild(
+                    option
+                );
+
+            });
 
 
             chapterSelect.disabled =
                 chapters.length === 0;
 
 
-            /*
-             * فتح أول أصحاح تلقائيًا
-             */
-
             if(chapters.length){
 
                 chapterSelect.value =
-                    String(
-                        chapters[0]
-                    );
-
+                    chapters[0];
 
                 renderChapter();
 
@@ -1762,10 +1735,6 @@ document.addEventListener(
 
         }
 
-
-        /* =================================================
-           جميع الأسفار
-        ================================================= */
 
         function getOrderedBooks(){
 
@@ -1788,21 +1757,13 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           جميع الأصحاحات بالترتيب
-        ================================================= */
-
         function getAllChapters(){
 
             const result = [];
 
 
-            const books =
-                getOrderedBooks();
-
-
-            books.forEach(
-                book => {
+            getOrderedBooks()
+                .forEach(book => {
 
                     const chapters = [
 
@@ -1810,15 +1771,13 @@ document.addEventListener(
 
                             bible
 
-                            .filter(
-                                item =>
-                                    item.book ===
-                                    book
+                            .filter(item =>
+                                item.book ===
+                                book
                             )
 
-                            .map(
-                                item =>
-                                    item.chapter
+                            .map(item =>
+                                item.chapter
                             )
 
                         )
@@ -1844,17 +1803,12 @@ document.addEventListener(
                         }
                     );
 
-                }
-            );
+                });
 
 
             return result;
         }
 
-
-        /* =================================================
-           الانتقال إلى أصحاح
-        ================================================= */
 
         function goToChapter(
             book,
@@ -1869,9 +1823,7 @@ document.addEventListener(
 
 
             chapterSelect.value =
-                String(
-                    chapter
-                );
+                String(chapter);
 
 
             renderChapter();
@@ -1888,10 +1840,6 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           أزرار السابق والتالي
-        ================================================= */
-
         function buildChapterNavigation(
             currentBook,
             currentChapter
@@ -1906,19 +1854,11 @@ document.addEventListener(
                     item =>
 
                         item.book ===
-                        currentBook
-
-                        &&
+                        currentBook &&
 
                         item.chapter ===
                         currentChapter
                 );
-
-
-            if(currentIndex === -1){
-
-                return "";
-            }
 
 
             const previous =
@@ -1944,8 +1884,30 @@ document.addEventListener(
 
             return `
 
-                <div class="chapter-navigation">
+                <div class="audio-bible">
 
+                    <button
+                        type="button"
+                        class="audio-bible-button"
+                        id="audioBibleButton"
+                        title="الكتاب المقدس المسموع"
+                        aria-label="الكتاب المقدس المسموع"
+                    >
+                        🔊
+                    </button>
+
+                    <div class="audio-bible-title">
+                        الكتاب المقدس المسموع
+                    </div>
+
+                    <div class="audio-bible-note">
+                        سيتم تفعيل الصوت لاحقًا
+                    </div>
+
+                </div>
+
+
+                <div class="chapter-navigation">
 
                     <button
                         type="button"
@@ -1965,23 +1927,16 @@ document.addEventListener(
                             ${
                                 previous
                                 ?
-
                                 " — " +
-
                                 escapeHTML(
                                     getArabicBookName(
                                         previous.book
                                     )
                                 ) +
-
                                 " " +
-
                                 previous.chapter
-
                                 :
-
                                 ""
-
                             }
 
                         </span>
@@ -2003,27 +1958,19 @@ document.addEventListener(
                             ${
                                 next
                                 ?
-
                                 " — " +
-
                                 escapeHTML(
                                     getArabicBookName(
                                         next.book
                                     )
                                 ) +
-
                                 " " +
-
                                 next.chapter
-
                                 :
-
                                 ""
-
                             }
 
                         </span>
-
 
                         <span class="nav-arrow">
                             ←
@@ -2031,16 +1978,11 @@ document.addEventListener(
 
                     </button>
 
-
                 </div>
 
             `;
         }
 
-
-        /* =================================================
-           عرض الأصحاح
-        ================================================= */
 
         function renderChapter(){
 
@@ -2067,16 +2009,14 @@ document.addEventListener(
 
 
             const verses =
-                bible.filter(
-                    item =>
+                bible.filter(item =>
 
-                        item.book ===
-                        book
+                    item.book ===
+                    book &&
 
-                        &&
+                    item.chapter ===
+                    chapter
 
-                        item.chapter ===
-                        chapter
                 );
 
 
@@ -2093,7 +2033,9 @@ document.addEventListener(
             }
 
 
-            const titleHTML = `
+            content.innerHTML =
+
+                `
 
                 <div class="chapter-title">
 
@@ -2103,77 +2045,42 @@ document.addEventListener(
                         )
                     )}
 
-                    — الأصحاح
-
-                    ${chapter}
+                    — الأصحاح ${chapter}
 
                 </div>
 
-            `;
+                `
 
+                +
 
-            const versesHTML =
-                verses.map(
-                    item => {
+                verses.map(item => `
 
-                        return `
+                    <div
+                        class="verse"
+                        data-book="${escapeHTML(item.book)}"
+                        data-chapter="${item.chapter}"
+                        data-verse="${item.verse}"
+                    >
 
-                            <div
-                                class="verse"
-                                data-book="${escapeHTML(item.book)}"
-                                data-chapter="${item.chapter}"
-                                data-verse="${item.verse}"
-                            >
+                        <span class="vnum">
+                            ${item.verse}
+                        </span>
 
-                                <span class="vnum">
-                                    ${item.verse}
-                                </span>
+                        <span class="vtext">
+                            ${escapeHTML(
+                                item.text
+                            )}
+                        </span>
 
+                    </div>
 
-                                <span class="vtext">
-                                    ${escapeHTML(
-                                        item.text
-                                    )}
-                                </span>
+                `).join("")
 
-                            </div>
+                +
 
-                        `;
-
-                    }
-                ).join("");
-
-
-            const navigationHTML =
                 buildChapterNavigation(
                     book,
                     chapter
-                );
-
-
-            content.innerHTML =
-                titleHTML +
-                versesHTML +
-                navigationHTML;
-
-
-            /*
-             * ربط السابق
-             */
-
-            const previousButton =
-                document.getElementById(
-                    "previousChapterButton"
-                );
-
-
-            /*
-             * ربط التالي
-             */
-
-            const nextButton =
-                document.getElementById(
-                    "nextChapterButton"
                 );
 
 
@@ -2186,9 +2093,7 @@ document.addEventListener(
                     item =>
 
                         item.book ===
-                        book
-
-                        &&
+                        book &&
 
                         item.chapter ===
                         chapter
@@ -2214,6 +2119,18 @@ document.addEventListener(
                     ]
                     :
                     null;
+
+
+            const previousButton =
+                document.getElementById(
+                    "previousChapterButton"
+                );
+
+
+            const nextButton =
+                document.getElementById(
+                    "nextChapterButton"
+                );
 
 
             if(
@@ -2250,7 +2167,33 @@ document.addEventListener(
             }
 
 
+            /*
+             * زر الصوت الآن مجرد واجهة.
+             * سنربطه بملفات الدكتور عادل نصحي لاحقًا.
+             */
+
+            const audioButton =
+                document.getElementById(
+                    "audioBibleButton"
+                );
+
+
+            if(audioButton){
+
+                audioButton.onclick =
+                    function(){
+
+                        alert(
+                            "الكتاب المقدس المسموع سيتم تفعيله في المرحلة القادمة."
+                        );
+
+                    };
+
+            }
+
+
             status.textContent =
+
                 getArabicBookName(
                     book
                 ) +
@@ -2267,109 +2210,17 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           تغيير السفر
-        ================================================= */
-
         bookSelect.addEventListener(
             "change",
-            function(){
-
-                buildChapters();
-
-            }
+            buildChapters
         );
 
-
-        /* =================================================
-           تغيير الأصحاح
-        ================================================= */
 
         chapterSelect.addEventListener(
             "change",
-            function(){
-
-                renderChapter();
-
-            }
+            renderChapter
         );
 
-
-        /* =================================================
-           لوحة المفاتيح
-        ================================================= */
-
-        document.addEventListener(
-            "keydown",
-            function(event){
-
-                const tag =
-                    document.activeElement
-                    ?.tagName;
-
-
-                if(
-                    tag === "INPUT" ||
-                    tag === "TEXTAREA" ||
-                    tag === "SELECT"
-                ){
-
-                    return;
-                }
-
-
-                if(
-                    event.key ===
-                    "ArrowRight"
-                ){
-
-                    const button =
-                        document.getElementById(
-                            "previousChapterButton"
-                        );
-
-
-                    if(
-                        button &&
-                        !button.disabled
-                    ){
-
-                        button.click();
-
-                    }
-
-                }
-
-
-                if(
-                    event.key ===
-                    "ArrowLeft"
-                ){
-
-                    const button =
-                        document.getElementById(
-                            "nextChapterButton"
-                        );
-
-
-                    if(
-                        button &&
-                        !button.disabled
-                    ){
-
-                        button.click();
-
-                    }
-
-                }
-
-            }
-        );
-
-
-        /* =================================================
-           تشغيل
-        ================================================= */
 
         await loadBible();
 
@@ -2378,7 +2229,7 @@ document.addEventListener(
 
 
 /* =====================================================
-   اللغة
+   LANGUAGE
 ===================================================== */
 
 const translations = {
@@ -2459,4 +2310,5 @@ setLanguage(
 </script>
 
 </body>
+
 </html>
