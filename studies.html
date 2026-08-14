@@ -23,7 +23,7 @@
     --white:#f8fbff;
     --muted:#b7c7d6;
 
-    --border:rgba(212,175,55,.35);
+    --border:rgba(212,175,55,.38);
 
     --shadow:
         0 22px 55px rgba(0,0,0,.52);
@@ -52,13 +52,13 @@ body{
 
     background:
         radial-gradient(
-            circle at 50% 5%,
-            rgba(20,82,126,.75),
+            circle at 50% 0%,
+            rgba(20,82,126,.72),
             transparent 42%
         ),
         radial-gradient(
-            circle at 15% 80%,
-            rgba(13,56,93,.35),
+            circle at 10% 80%,
+            rgba(13,56,93,.30),
             transparent 38%
         ),
         linear-gradient(
@@ -68,6 +68,7 @@ body{
             #020911
         );
 }
+
 
 /* =====================================================
    HEADER
@@ -93,18 +94,21 @@ body{
         );
 
     box-shadow:
-        0 10px 35px rgba(0,0,0,.55);
+        0 10px 35px rgba(0,0,0,.55),
+        inset 0 -1px 0 rgba(255,255,255,.04);
 }
+
 
 .topbar{
 
     max-width:1450px;
-    min-height:90px;
+
+    min-height:92px;
 
     margin:auto;
 
     padding:
-        10px 25px;
+        9px 22px;
 
     display:flex;
 
@@ -115,54 +119,22 @@ body{
     gap:20px;
 }
 
-/* RIGHT SIDE */
 
-.brand{
+/* =====================================================
+   RIGHT SIDE
+===================================================== */
+
+.header-right{
 
     display:flex;
 
     align-items:center;
 
-    gap:13px;
+    gap:14px;
 }
 
-.brand-logo{
 
-    width:68px;
-    height:68px;
-
-    object-fit:contain;
-
-    filter:
-        drop-shadow(
-            0 7px 8px rgba(0,0,0,.85)
-        );
-}
-
-.brand-name{
-
-    font-size:22px;
-
-    font-weight:900;
-
-    white-space:nowrap;
-
-    background:
-        linear-gradient(
-            180deg,
-            #fff6bf,
-            var(--gold-light) 35%,
-            var(--gold) 70%,
-            var(--gold-dark)
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-
-    color:transparent;
-}
-
-/* LEFT SIDE */
+/* HOME */
 
 .home-button{
 
@@ -170,22 +142,24 @@ body{
 
     align-items:center;
 
+    justify-content:center;
+
     gap:8px;
 
+    min-width:115px;
+
     padding:
-        9px 15px;
-
-    border:
-        1px solid
-        rgba(212,175,55,.65);
-
-    border-radius:14px;
+        11px 15px;
 
     color:#fff;
 
     text-decoration:none;
 
-    font-weight:900;
+    border:
+        1px solid
+        rgba(212,175,55,.55);
+
+    border-radius:14px;
 
     background:
         linear-gradient(
@@ -195,8 +169,10 @@ body{
         );
 
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.12),
-        0 8px 22px rgba(0,0,0,.45);
+        inset 0 1px 0 rgba(255,255,255,.10),
+        0 7px 18px rgba(0,0,0,.42);
+
+    font-weight:900;
 
     transition:.25s;
 }
@@ -211,18 +187,126 @@ body{
 
     box-shadow:
         0 10px 25px rgba(0,0,0,.55),
-        0 0 15px rgba(212,175,55,.15);
+        0 0 18px rgba(212,175,55,.14);
 }
 
 .home-icon{
 
-    font-size:23px;
+    font-size:22px;
 }
 
-.home-text{
 
-    font-size:15px;
+/* LOGO */
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
 }
+
+.brand-logo{
+
+    width:66px;
+    height:66px;
+
+    object-fit:contain;
+
+    filter:
+        drop-shadow(
+            0 7px 8px rgba(0,0,0,.85)
+        );
+
+    animation:
+        logoFloat 5s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+
+    0%,100%{
+        transform:
+            translateY(0)
+            rotateY(0deg);
+    }
+
+    50%{
+        transform:
+            translateY(-4px)
+            rotateY(8deg);
+    }
+}
+
+.brand-name{
+
+    font-size:21px;
+
+    font-weight:900;
+
+    white-space:nowrap;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff6bf 0%,
+            var(--gold-light) 30%,
+            var(--gold) 65%,
+            var(--gold-dark) 100%
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    text-shadow:
+        0 3px 5px rgba(0,0,0,.9);
+}
+
+
+/* =====================================================
+   LEFT SIDE — SECTION BUTTON
+===================================================== */
+
+.section-button{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+        11px 16px;
+
+    color:#fff;
+
+    border:
+        1px solid
+        rgba(212,175,55,.55);
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #16476d,
+            #061a2d
+        );
+
+    font-weight:900;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.10),
+        0 7px 18px rgba(0,0,0,.42);
+}
+
+.section-icon{
+
+    font-size:21px;
+}
+
 
 /* =====================================================
    MAIN
@@ -238,6 +322,7 @@ main{
         55px 22px 80px;
 }
 
+
 /* =====================================================
    PAGE TITLE
 ===================================================== */
@@ -247,15 +332,14 @@ main{
     text-align:center;
 
     margin:
-        0 auto 45px;
+        0 auto 42px;
 
     max-width:900px;
 }
 
 .page-title h1{
 
-    margin:
-        0 0 14px;
+    margin:0;
 
     font-size:
         clamp(30px,5vw,48px);
@@ -267,7 +351,7 @@ main{
             180deg,
             #fff5b4,
             var(--gold-light) 35%,
-            var(--gold) 70%,
+            var(--gold) 67%,
             var(--gold-dark)
         );
 
@@ -280,22 +364,12 @@ main{
         0 4px 6px rgba(0,0,0,.8);
 }
 
-.page-title p{
-
-    margin:0;
-
-    color:#c8d6e2;
-
-    font-size:18px;
-
-    line-height:2;
-}
 
 /* =====================================================
-   STUDIES GRID
+   STUDY GRID
 ===================================================== */
 
-.studies-grid{
+.study-grid{
 
     display:grid;
 
@@ -309,6 +383,7 @@ main{
     margin:auto;
 }
 
+
 /* =====================================================
    STUDY CARD
 ===================================================== */
@@ -317,7 +392,7 @@ main{
 
     position:relative;
 
-    min-height:210px;
+    min-height:215px;
 
     display:flex;
 
@@ -327,7 +402,7 @@ main{
 
     justify-content:center;
 
-    padding:28px 20px;
+    padding:25px 18px;
 
     text-align:center;
 
@@ -337,9 +412,13 @@ main{
 
     border:
         1px solid
-        rgba(212,175,55,.35);
+        rgba(212,175,55,.38);
 
-    border-radius:24px;
+    border-radius:23px;
+
+    overflow:hidden;
+
+    cursor:pointer;
 
     background:
         linear-gradient(
@@ -352,40 +431,10 @@ main{
         var(--shadow),
         inset 0 1px 0 rgba(255,255,255,.06);
 
-    overflow:hidden;
-
-    cursor:pointer;
-
     transition:
         transform .3s ease,
         border-color .3s ease,
         box-shadow .3s ease;
-}
-
-.study-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:220%;
-    height:220%;
-
-    top:-110%;
-    right:-110%;
-
-    background:
-        linear-gradient(
-            120deg,
-            transparent 44%,
-            rgba(243,214,107,.12) 50%,
-            transparent 56%
-        );
-
-    transform:rotate(8deg);
-
-    transition:
-        transform .8s ease;
 }
 
 .study-card:hover{
@@ -401,35 +450,26 @@ main{
         0 0 30px rgba(212,175,55,.14);
 }
 
-.study-card:hover::before{
+.study-card-icon{
 
-    transform:
-        rotate(8deg)
-        translateX(-30%);
-}
-
-.study-icon{
-
-    position:relative;
-    z-index:2;
-
-    width:86px;
-    height:86px;
+    width:78px;
+    height:78px;
 
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
-    margin-bottom:18px;
+    margin-bottom:17px;
 
-    font-size:45px;
+    font-size:42px;
+
+    border-radius:21px;
 
     border:
         1px solid
         rgba(212,175,55,.65);
-
-    border-radius:23px;
 
     background:
         linear-gradient(
@@ -444,9 +484,6 @@ main{
 }
 
 .study-card h2{
-
-    position:relative;
-    z-index:2;
 
     margin:0;
 
@@ -468,20 +505,22 @@ main{
     color:transparent;
 }
 
+
 /* =====================================================
-   STUDY CONTENT
+   CONTENT AREA
 ===================================================== */
 
 .study-content{
 
     display:none;
 
-    max-width:1050px;
+    max-width:1120px;
 
-    margin:auto;
+    margin:
+        0 auto;
 
     animation:
-        fadeIn .45s ease;
+        fadeIn .35s ease;
 }
 
 .study-content.active{
@@ -493,7 +532,7 @@ main{
 
     from{
         opacity:0;
-        transform:translateY(15px);
+        transform:translateY(12px);
     }
 
     to{
@@ -502,7 +541,10 @@ main{
     }
 }
 
-/* CONTENT HEADER */
+
+/* =====================================================
+   CONTENT HEADER
+===================================================== */
 
 .content-header{
 
@@ -517,7 +559,7 @@ main{
     margin-bottom:25px;
 
     padding:
-        16px 18px;
+        17px 20px;
 
     border:
         1px solid
@@ -528,15 +570,15 @@ main{
     background:
         linear-gradient(
             145deg,
-            rgba(16,62,98,.95),
-            rgba(4,23,39,.98)
+            rgba(16,62,98,.98),
+            rgba(4,23,39,.99)
         );
 
     box-shadow:
-        var(--shadow);
+        0 14px 35px rgba(0,0,0,.42);
 }
 
-.content-title{
+.content-header-title{
 
     display:flex;
 
@@ -544,32 +586,30 @@ main{
 
     gap:12px;
 
+    color:var(--gold-light);
+
     font-size:24px;
 
     font-weight:900;
-
-    color:
-        var(--gold-light);
 }
 
 .back-button{
 
-    border:
-        1px solid
-        rgba(212,175,55,.55);
-
-    border-radius:12px;
+    border:0;
 
     padding:
-        9px 14px;
+        10px 15px;
 
-    color:#fff;
+    border-radius:11px;
+
+    color:#061a2c;
 
     background:
         linear-gradient(
-            145deg,
-            #16476d,
-            #061a2d
+            180deg,
+            #fff1a2,
+            var(--gold),
+            var(--gold-dark)
         );
 
     font-family:inherit;
@@ -577,114 +617,120 @@ main{
     font-weight:900;
 
     cursor:pointer;
-
-    transition:.25s;
 }
 
-.back-button:hover{
-
-    border-color:
-        var(--gold-light);
-
-    transform:
-        translateY(-2px);
-}
 
 /* =====================================================
-   CONTENT SECTIONS
+   ENCYCLOPEDIA
 ===================================================== */
 
-.content-section{
+.encyclopedia{
 
-    margin-bottom:22px;
-
-    padding:
-        25px 24px;
+    padding:25px;
 
     border:
         1px solid
-        rgba(212,175,55,.24);
+        rgba(212,175,55,.35);
 
-    border-radius:20px;
+    border-radius:23px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(10,43,70,.96),
+            rgba(9,43,70,.96),
             rgba(3,19,32,.98)
         );
 
     box-shadow:
-        0 14px 35px rgba(0,0,0,.38);
+        var(--shadow);
 }
 
-.content-section h2{
 
-    margin:
-        0 0 18px;
+/* ALPHABET */
 
-    color:
-        var(--gold-light);
+.alphabet{
 
-    font-size:25px;
+    display:flex;
 
-    font-weight:900;
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:9px;
+
+    margin-bottom:28px;
+
+    padding-bottom:25px;
 
     border-bottom:
         1px solid
         rgba(212,175,55,.18);
-
-    padding-bottom:
-        12px;
 }
 
-.content-section h3{
+.letter-button{
 
-    margin:
-        22px 0 10px;
+    width:45px;
+    height:45px;
 
-    color:
-        #f1d976;
+    border:
+        1px solid
+        rgba(212,175,55,.45);
 
-    font-size:20px;
+    border-radius:11px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            145deg,
+            #123f63,
+            #061a2d
+        );
+
+    font-family:inherit;
+
+    font-size:18px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.22s;
 }
 
-.content-section p{
+.letter-button:hover,
+.letter-button.active{
 
-    margin:
-        0 0 13px;
+    color:#071526;
 
-    color:
-        #d5e0e9;
+    background:
+        linear-gradient(
+            180deg,
+            #fff1a2,
+            var(--gold),
+            var(--gold-dark)
+        );
 
-    font-size:17px;
+    transform:
+        translateY(-2px);
 
-    line-height:2.05;
+    box-shadow:
+        0 6px 15px rgba(0,0,0,.4);
 }
 
-.content-section ul{
 
-    margin:
-        10px 0 15px;
+/* =====================================================
+   LETTER TITLE
+===================================================== */
 
-    padding-right:25px;
+.current-letter{
 
-    color:#d5e0e9;
-}
+    display:none;
 
-.content-section li{
-
-    margin-bottom:9px;
-
-    line-height:1.9;
-}
-
-.reference{
-
-    margin-top:17px;
+    margin-bottom:20px;
 
     padding:
-        13px 16px;
+        13px 17px;
 
     border-right:
         4px solid
@@ -693,86 +739,200 @@ main{
     border-radius:10px;
 
     background:
-        rgba(212,175,55,.07);
-
-    color:
-        #f0dd91;
-
-    font-weight:700;
-
-    line-height:1.9;
-}
-
-.source-box{
-
-    margin-top:15px;
-
-    padding:
-        15px 17px;
-
-    border:
-        1px solid
-        rgba(125,170,205,.22);
-
-    border-radius:12px;
-
-    background:
-        rgba(255,255,255,.035);
-
-    color:#bfcfdb;
-
-    line-height:1.9;
-
-    font-size:15px;
-}
-
-.data-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-    margin-top:15px;
-
-    overflow:hidden;
-
-    border-radius:12px;
-}
-
-.data-table th,
-.data-table td{
-
-    padding:
-        12px 10px;
-
-    border:
-        1px solid
-        rgba(212,175,55,.18);
-
-    text-align:right;
-
-    vertical-align:top;
-
-    line-height:1.8;
-}
-
-.data-table th{
+        rgba(212,175,55,.08);
 
     color:
         var(--gold-light);
 
-    background:
-        rgba(212,175,55,.08);
+    font-size:23px;
+
+    font-weight:900;
 }
 
-.data-table td{
+.current-letter.show{
+
+    display:block;
+}
+
+
+/* =====================================================
+   ENTRIES
+===================================================== */
+
+.entries{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+}
+
+.entry{
+
+    padding:20px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.23);
+
+    border-radius:16px;
+
+    background:
+        rgba(4,25,42,.72);
+
+    transition:.25s;
+
+    cursor:pointer;
+}
+
+.entry:hover{
+
+    border-color:
+        rgba(212,175,55,.65);
+
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(10,49,78,.85);
+}
+
+.entry-title{
 
     color:
-        #d4e0e9;
+        var(--gold-light);
+
+    font-size:21px;
+
+    font-weight:900;
+
+    margin-bottom:8px;
+}
+
+.entry-preview{
+
+    color:
+        #c1d0dd;
+
+    font-size:15px;
+
+    line-height:1.9;
+}
+
+
+/* =====================================================
+   ENTRY DETAIL
+===================================================== */
+
+.entry-detail{
+
+    display:none;
+
+    margin-top:20px;
+
+    padding:28px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.35);
+
+    border-radius:18px;
 
     background:
-        rgba(0,0,0,.12);
+        rgba(2,18,31,.85);
+
+    animation:
+        fadeIn .3s ease;
 }
+
+.entry-detail.active{
+
+    display:block;
+}
+
+.entry-detail h3{
+
+    margin-top:0;
+
+    color:
+        var(--gold-light);
+
+    font-size:28px;
+}
+
+.entry-detail p{
+
+    color:#d5e0e9;
+
+    font-size:18px;
+
+    line-height:2.15;
+}
+
+.reference{
+
+    margin-top:18px;
+
+    padding:15px;
+
+    border-right:
+        3px solid
+        var(--gold);
+
+    background:
+        rgba(212,175,55,.07);
+
+    color:
+        #f1df91;
+
+    line-height:2;
+}
+
+
+/* =====================================================
+   PLACEHOLDER CONTENT
+===================================================== */
+
+.generic-content{
+
+    padding:30px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.32);
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(10,48,77,.95),
+            rgba(3,20,34,.98)
+        );
+
+    box-shadow:
+        var(--shadow);
+}
+
+.generic-content h2{
+
+    color:
+        var(--gold-light);
+
+    margin-top:0;
+}
+
+.generic-content p{
+
+    color:#d5e0e9;
+
+    font-size:18px;
+
+    line-height:2.1;
+}
+
 
 /* =====================================================
    FOOTER
@@ -796,81 +956,41 @@ footer{
         rgba(212,175,55,.16);
 }
 
+
 /* =====================================================
    MOBILE
 ===================================================== */
 
-@media(max-width:850px){
+@media(max-width:900px){
 
-    .topbar{
+    .study-grid{
 
-        min-height:80px;
-
-        padding:
-            8px 12px;
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
-    .brand-logo{
-
-        width:55px;
-        height:55px;
-    }
-
-    .brand-name{
-
-        font-size:15px;
-    }
-
-    .home-text{
-
-        display:none;
-    }
-
-    .home-button{
-
-        padding:9px 11px;
-    }
-
-    .studies-grid{
+    .entries{
 
         grid-template-columns:1fr;
-
-        max-width:520px;
-    }
-
-    .study-card{
-
-        min-height:185px;
-    }
-
-    main{
-
-        padding:
-            40px 14px 60px;
-    }
-
-    .content-section{
-
-        padding:
-            20px 17px;
-    }
-
-    .content-section p{
-
-        font-size:16px;
-    }
-
-    .data-table{
-
-        font-size:14px;
     }
 }
 
-@media(max-width:500px){
 
-    .brand-name{
+@media(max-width:650px){
 
-        font-size:13px;
+    .topbar{
+
+        min-height:78px;
+
+        padding:
+            7px 10px;
+
+        gap:8px;
+    }
+
+    .brand{
+
+        gap:7px;
     }
 
     .brand-logo{
@@ -879,40 +999,71 @@ footer{
         height:48px;
     }
 
-    .content-title{
+    .brand-name{
+
+        font-size:13px;
+    }
+
+    .home-button{
+
+        min-width:auto;
+
+        padding:
+            9px 10px;
+    }
+
+    .home-button .home-text{
+
+        display:none;
+    }
+
+    .section-button{
+
+        padding:
+            9px 11px;
+    }
+
+    main{
+
+        padding:
+            35px 13px 55px;
+    }
+
+    .study-grid{
+
+        grid-template-columns:1fr;
+
+        gap:17px;
+    }
+
+    .study-card{
+
+        min-height:175px;
+    }
+
+    .alphabet{
+
+        gap:6px;
+    }
+
+    .letter-button{
+
+        width:40px;
+        height:40px;
+
+        font-size:16px;
+    }
+
+    .encyclopedia{
+
+        padding:15px;
+    }
+
+    .content-header-title{
 
         font-size:19px;
     }
 
-    .content-header{
-
-        padding:
-            12px;
-    }
-
-    .content-section h2{
-
-        font-size:21px;
-    }
-
-    .content-section h3{
-
-        font-size:18px;
-    }
-
-    .content-section p{
-
-        font-size:15px;
-    }
-
-    .data-table{
-
-        display:block;
-
-        overflow-x:auto;
-
-        white-space:normal;
-    }
 }
 
 </style>
@@ -930,37 +1081,55 @@ footer{
 
     <div class="topbar">
 
-        <!-- LEFT -->
 
-        <a
-            href="index.html"
-            class="home-button"
-        >
+        <!-- يمين -->
 
-            <span class="home-icon">
-                🏠
-            </span>
+        <div class="header-right">
 
-            <span class="home-text">
-                الرئيسية
-            </span>
+            <a
+                href="index.html"
+                class="home-button"
+            >
 
-        </a>
+                <span class="home-icon">
+                    🏠
+                </span>
+
+                <span class="home-text">
+                    الرئيسية
+                </span>
+
+            </a>
 
 
-        <!-- RIGHT -->
+            <div class="brand">
 
-        <div class="brand">
+                <div class="brand-name">
+                    كنيسة رجاء الأمم سيدني
+                </div>
 
-            <div class="brand-name">
-                كنيسة رجاء الأمم سيدني
+                <img
+                    src="assets/logo.png"
+                    class="brand-logo"
+                    alt="كنيسة رجاء الأمم سيدني"
+                >
+
             </div>
 
-            <img
-                src="assets/logo.png"
-                class="brand-logo"
-                alt="كنيسة رجاء الأمم سيدني"
-            >
+        </div>
+
+
+        <!-- يسار -->
+
+        <div class="section-button">
+
+            <span class="section-icon">
+                📚
+            </span>
+
+            <span>
+                الدراسات
+            </span>
 
         </div>
 
@@ -974,42 +1143,37 @@ footer{
 
 
 <!-- =====================================================
-     PAGE TITLE
+     TITLE
 ===================================================== -->
 
-<section
-    class="page-title"
-    id="studiesHome"
->
+<section class="page-title">
 
     <h1>
         الدراسات الكتابية
     </h1>
-
-    <p>
-        موسوعة دراسية متخصصة للبحث الكتابي والتاريخي واللاهوتي
-    </p>
 
 </section>
 
 
 
 <!-- =====================================================
-     STUDIES GRID
+     STUDY ICONS
 ===================================================== -->
 
 <section
-    class="studies-grid"
-    id="studiesGrid"
+    id="studyGrid"
+    class="study-grid"
 >
 
+
+    <!-- 1 -->
 
     <div
         class="study-card"
         onclick="openStudy('tabernacle')"
     >
 
-        <div class="study-icon">
+        <div class="study-card-icon">
             ⛺
         </div>
 
@@ -1020,9 +1184,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 2 -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('solomon')"
+    >
+
+        <div class="study-card-icon">
             🏛️
         </div>
 
@@ -1033,9 +1202,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 3 -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('herod')"
+    >
+
+        <div class="study-card-icon">
             🏗️
         </div>
 
@@ -1046,9 +1220,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 4 -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('comparison')"
+    >
+
+        <div class="study-card-icon">
             ⚖️
         </div>
 
@@ -1059,9 +1238,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 5 -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('feasts')"
+    >
+
+        <div class="study-card-icon">
             🕎
         </div>
 
@@ -1072,9 +1256,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 6 — ENCYCLOPEDIA -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('encyclopedia')"
+    >
+
+        <div class="study-card-icon">
             📚
         </div>
 
@@ -1085,9 +1274,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 7 -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('introductions')"
+    >
+
+        <div class="study-card-icon">
             📜
         </div>
 
@@ -1098,9 +1292,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 8 -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('prophecies')"
+    >
+
+        <div class="study-card-icon">
             ✝️
         </div>
 
@@ -1111,9 +1310,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 9 -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('miracles')"
+    >
+
+        <div class="study-card-icon">
             ✨
         </div>
 
@@ -1124,9 +1328,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 10 -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('characters')"
+    >
+
+        <div class="study-card-icon">
             👤
         </div>
 
@@ -1137,9 +1346,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 11 -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('jewish')"
+    >
+
+        <div class="study-card-icon">
             🕍
         </div>
 
@@ -1150,9 +1364,14 @@ footer{
     </div>
 
 
-    <div class="study-card">
+    <!-- 12 -->
 
-        <div class="study-icon">
+    <div
+        class="study-card"
+        onclick="openStudy('rivers')"
+    >
+
+        <div class="study-card-icon">
             🌊
         </div>
 
@@ -1172,25 +1391,15 @@ footer{
 ===================================================== -->
 
 <section
-    class="study-content"
     id="tabernacle"
+    class="study-content"
 >
-
 
     <div class="content-header">
 
-        <div class="content-title">
-
-            <span>
-                ⛺
-            </span>
-
-            <span>
-                خيمة الاجتماع
-            </span>
-
+        <div class="content-header-title">
+            ⛺ خيمة الاجتماع
         </div>
-
 
         <button
             class="back-button"
@@ -1202,810 +1411,219 @@ footer{
     </div>
 
 
-
-    <!-- 1 -->
-
-    <article class="content-section">
+    <div class="generic-content">
 
         <h2>
-            1 — التعريف بخيمة الاجتماع
+            دراسة خيمة الاجتماع
         </h2>
 
         <p>
-            خيمة الاجتماع هي المسكن المقدس الذي أمر الرب موسى أن يصنعه
-            في البرية ليكون علامة لحضوره وسط شعب إسرائيل. لم تكن الخيمة
-            مجرد مكان للعبادة، بل كانت مركز العبادة الإسرائيلية المتنقلة
-            ونقطة التقاء الشعب بنظام الكهنوت والذبائح والحضور الإلهي.
+            سيتم بناء الدراسة التفصيلية هنا بصورة موسوعية،
+            وتشمل تصميم الخيمة، المواد والخامات، المقاسات،
+            الأثاث، الألوان، الرموز، الوظائف الكهنوتية،
+            طريقة البناء، البناؤون، زمن البناء، والنظام
+            اللاهوتي والرمزي للخيمة.
         </p>
 
         <p>
-            ويظهر الهدف الأساسي في العبارة الإلهية:
-            «فيصنعون لي مقدسًا لأسكن في وسطهم».
+            كما سيتم توثيق الدراسة من النصوص الكتابية
+            والمراجع التفسيرية واللاهوتية المعتمدة.
         </p>
 
-        <div class="reference">
-            الشاهد الأساسي: خروج 25: 8–9.
-        </div>
-
-        <div class="source-box">
-            <strong>ملاحظة تفسيرية:</strong>
-            يربط Matthew Henry بين طبيعة الخيمة المتنقلة وحالة إسرائيل
-            في البرية، ويرى فيها أيضًا صورة مرتبطة بفكرة حضور الله وسط شعبه.
-            كما يشير إلى أن النموذج أُعطي لموسى ولم يكن تصميمًا بشريًا مستقلًا.
-        </div>
-
-    </article>
-
-
-
-    <!-- 2 -->
-
-    <article class="content-section">
-
-        <h2>
-            2 — من الذي أمر ببنائها؟
-        </h2>
-
-        <p>
-            بحسب الرواية الكتابية، المصدر المباشر لتصميم الخيمة هو الله نفسه.
-            فقد أُعطي موسى النموذج والتعليمات الخاصة بالمقدس وأدواته أثناء
-            وجوده على الجبل.
-        </p>
-
-        <p>
-            لذلك يؤكد النص:
-            «بحسب جميع ما أنا أريك من مثال المسكن ومثال جميع آنيته هكذا تصنعون».
-        </p>
-
-        <div class="reference">
-            خروج 25: 9؛ خروج 25: 40؛ عبرانيين 8: 5.
-        </div>
-
-        <div class="source-box">
-            Matthew Poole يلفت إلى أن التعليمات لم تقتصر على فكرة عامة،
-            بل شملت تفاصيل تخص التابوت والغطاء والمائدة والمنارة وسائر
-            أجزاء النظام المقدس.
-        </div>
-
-    </article>
-
-
-
-    <!-- 3 -->
-
-    <article class="content-section">
-
-        <h2>
-            3 — زمن البناء والمرحلة التاريخية
-        </h2>
-
-        <p>
-            جاءت أوامر الخيمة في سياق العهد الذي قطعه الله مع إسرائيل
-            بعد الخروج من مصر. وكانت إسرائيل في مرحلة البرية، ولذلك جاءت
-            الخيمة قابلة للنقل من مكان إلى آخر.
-        </p>
-
-        <p>
-            هذا الجانب مهم لفهم طبيعتها: لم تكن منشأة ثابتة مثل الهيكل
-            الذي سيظهر لاحقًا في أورشليم، بل مسكنًا متنقلًا يرافق الجماعة
-            في رحلتها.
-        </p>
-
-        <div class="reference">
-            خروج 25–40؛ عدد 9: 15–23؛ يشوع 18: 1.
-        </div>
-
-    </article>
-
-
-
-    <!-- 4 -->
-
-    <article class="content-section">
-
-        <h2>
-            4 — المواد والخامات
-        </h2>
-
-        <p>
-            يقدم سفر الخروج قائمة دقيقة بالمواد التي طُلب تقديمها من الشعب.
-            ومن أهمها:
-        </p>
-
-        <table class="data-table">
-
-            <thead>
-
-                <tr>
-                    <th>
-                        المادة
-                    </th>
-
-                    <th>
-                        الاستخدام
-                    </th>
-
-                    <th>
-                        الشاهد
-                    </th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>
-                        الذهب
-                    </td>
-
-                    <td>
-                        تغطية وتجهيز عدد من العناصر المقدسة.
-                    </td>
-
-                    <td>
-                        خروج 25: 3، 11، 24
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        الفضة
-                    </td>
-
-                    <td>
-                        القواعد وبعض العناصر الإنشائية.
-                    </td>
-
-                    <td>
-                        خروج 26: 19–32
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        النحاس
-                    </td>
-
-                    <td>
-                        مذبح المحرقة وأدواته وبعض تجهيزات الفناء.
-                    </td>
-
-                    <td>
-                        خروج 27: 1–8
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        خشب السنط
-                    </td>
-
-                    <td>
-                        التابوت والمائدة والمذابح والألواح.
-                    </td>
-
-                    <td>
-                        خروج 25: 10، 23؛ 26: 15؛ 27: 1
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        الكتان الدقيق
-                    </td>
-
-                    <td>
-                        الستائر والأقمشة الداخلية.
-                    </td>
-
-                    <td>
-                        خروج 26: 1
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        شعر الماعز
-                    </td>
-
-                    <td>
-                        غطاء خارجي للخيمة.
-                    </td>
-
-                    <td>
-                        خروج 26: 7
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        جلود الكباش المصبوغة
-                    </td>
-
-                    <td>
-                        غطاء من أغطية الخيمة.
-                    </td>
-
-                    <td>
-                        خروج 26: 14
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-        <div class="reference">
-            المرجع الرئيسي: خروج 25: 1–7؛ خروج 26–27.
-        </div>
-
-    </article>
-
-
-
-    <!-- 5 -->
-
-    <article class="content-section">
-
-        <h2>
-            5 — الهيكل العام والمساحات
-        </h2>
-
-        <p>
-            يتكون نظام خيمة الاجتماع من ثلاثة نطاقات رئيسية في التصور
-            العام للعبادة:
-        </p>
-
-        <ul>
-
-            <li>
-                الفناء الخارجي.
-            </li>
-
-            <li>
-                القدس.
-            </li>
-
-            <li>
-                قدس الأقداس.
-            </li>
-
-        </ul>
-
-        <p>
-            وكان الفناء هو المجال الخارجي الذي يوجد فيه مذبح المحرقة
-            والمرحضة، بينما كان داخل المسكن ينقسم إلى القدس وقدس الأقداس.
-        </p>
-
-        <div class="reference">
-            خروج 26: 33؛ خروج 27: 9–19؛ عبرانيين 9: 1–7.
-        </div>
-
-    </article>
-
-
-
-    <!-- 6 -->
-
-    <article class="content-section">
-
-        <h2>
-            6 — مقاسات الخيمة
-        </h2>
-
-        <p>
-            الكتاب المقدس يستخدم وحدة «الذراع» في قياسات الخيمة وأدواتها.
-            ولذلك يجب الحذر عند تحويل القياسات القديمة إلى السنتيمتر أو المتر،
-            لأن طول الذراع التاريخي ليس محل اتفاق كامل.
-        </p>
-
-        <p>
-            مثال واضح: ستائر المسكن الداخلية كانت عشر ستائر، طول الواحدة
-            ثمان وعشرين ذراعًا وعرضها أربع أذرع.
-        </p>
-
-        <div class="reference">
-            خروج 26: 1–6.
-        </div>
-
-        <div class="source-box">
-            Cambridge Bible يذكر أن الذراع يُقدّر تقريبًا بنحو 18 بوصة في
-            بعض الحسابات، مع الإشارة إلى وجود نقاش تاريخي حول طول الذراع.
-            لذلك سيعرض التطبيق القياسات الأصلية بالذراع أولًا، ثم التحويل
-            التقريبي عند الحاجة، بدل تقديم رقم متري قطعي.
-        </div>
-
-    </article>
-
-
-
-    <!-- 7 -->
-
-    <article class="content-section">
-
-        <h2>
-            7 — التابوت وغطاء التابوت
-        </h2>
-
-        <p>
-            كان التابوت أول العناصر التي تفصل الرواية الكتابية في وصفها،
-            وكان مصنوعًا من خشب السنط ومغشى بالذهب.
-        </p>
-
-        <p>
-            أبعاده المذكورة في خروج 25 هي:
-            طولان ونصف ذراع، وعرض ذراع ونصف، وارتفاع ذراع ونصف.
-        </p>
-
-        <p>
-            وكان فوقه غطاء الكفارة، وفوق الغطاء كروبان من ذهب، ومن هناك
-            أعلن الرب أنه يلتقي بموسى ويتكلم معه.
-        </p>
-
-        <div class="reference">
-            خروج 25: 10–22؛ عدد 7: 89.
-        </div>
-
-        <div class="source-box">
-            يوضح Cambridge Bible أن كلمة «تابوت» هنا تشير إلى صندوق أو
-            صندوق حفظ، وأن النص يربط الموضع بين الكروبين بموضع اللقاء
-            والكلام الإلهي.
-        </div>
-
-    </article>
-
-
-
-    <!-- 8 -->
-
-    <article class="content-section">
-
-        <h2>
-            8 — مائدة خبز الوجوه
-        </h2>
-
-        <p>
-            كانت المائدة من خشب السنط ومغطاة بالذهب، وكانت في القدس وليس
-            في قدس الأقداس.
-        </p>
-
-        <p>
-            وكان عليها خبز الوجوه، وهو مرتبط بنظام العبادة والكهنوت،
-            ويظهر في الكتاب ارتباطه بالأسباط الاثني عشر.
-        </p>
-
-        <div class="reference">
-            خروج 25: 23–30؛ لاويين 24: 5–9.
-        </div>
-
-        <div class="source-box">
-            تشرح مراجع Matthew Henry أن المائدة كانت داخل القدس وأن خبز
-            الوجوه كان يوضع باستمرار أمام الرب.
-        </div>
-
-    </article>
-
-
-
-    <!-- 9 -->
-
-    <article class="content-section">
-
-        <h2>
-            9 — المنارة الذهبية
-        </h2>
-
-        <p>
-            كانت المنارة من ذهب نقي، وصُنعت وفق النموذج الذي أُظهر لموسى.
-            وكان لها ساق وفروع ومجامر وزهور بحسب الوصف التفصيلي في سفر الخروج.
-        </p>
-
-        <p>
-            وكان المطلوب أن تكون المصابيح مضاءة بصورة مستمرة وفق نظام الخدمة
-            الكهنوتية.
-        </p>
-
-        <div class="reference">
-            خروج 25: 31–40؛ خروج 27: 20–21؛ لاويين 24: 1–4.
-        </div>
-
-    </article>
-
-
-
-    <!-- 10 -->
-
-    <article class="content-section">
-
-        <h2>
-            10 — مذبح البخور
-        </h2>
-
-        <p>
-            كان مذبح البخور مصنوعًا من خشب السنط ومغطى بالذهب، وكان موضوعًا
-            أمام الحجاب الذي أمام تابوت الشهادة.
-        </p>
-
-        <p>
-            ارتبطت خدمته بالبخور المقدس الذي كان يصعد أمام الرب.
-        </p>
-
-        <div class="reference">
-            خروج 30: 1–10.
-        </div>
-
-        <p>
-            وفي القراءة المسيحية اللاحقة يظهر البخور مرتبطًا بصورة الصلاة
-            في مواضع متعددة من الكتاب المقدس، مع ضرورة التمييز بين ما يقوله
-            النص صراحة وبين التطبيقات الرمزية اللاحقة.
-        </p>
-
-    </article>
-
-
-
-    <!-- 11 -->
-
-    <article class="content-section">
-
-        <h2>
-            11 — الحجاب وقدس الأقداس
-        </h2>
-
-        <p>
-            كان الحجاب يفصل القدس عن قدس الأقداس، ولم يكن الدخول إلى القسم
-            الداخلي متاحًا بصورة يومية لكل أحد.
-        </p>
-
-        <p>
-            يشرح العهد الجديد أهمية هذا التقسيم في رسالتي العبرانيين
-            باعتباره جزءًا من نظام العبادة القديم الذي يشرح طبيعة الاقتراب
-            من الله في العهد القديم.
-        </p>
-
-        <div class="reference">
-            خروج 26: 31–35؛ لاويين 16؛ عبرانيين 9: 1–8.
-        </div>
-
-    </article>
-
-
-
-    <!-- 12 -->
-
-    <article class="content-section">
-
-        <h2>
-            12 — مذبح المحرقة والمرحضة
-        </h2>
-
-        <h3>
-            مذبح المحرقة
-        </h3>
-
-        <p>
-            كان المذبح في الفناء، وكان مصنوعًا من خشب السنط ومغشى بالنحاس.
-            وكان مركزًا رئيسيًا للذبائح التي يقدمها الكهنة.
-        </p>
-
-        <div class="reference">
-            خروج 27: 1–8.
-        </div>
-
-        <h3>
-            المرحضة
-        </h3>
-
-        <p>
-            جاءت المرحضة بعد ذلك في ترتيب تجهيزات العبادة، وكان الكهنة
-            يغسلون أيديهم وأرجلهم عند الدخول إلى خيمة الاجتماع أو الاقتراب
-            من المذبح للخدمة.
-        </p>
-
-        <div class="reference">
-            خروج 30: 17–21.
-        </div>
-
-    </article>
-
-
-
-    <!-- 13 -->
-
-    <article class="content-section">
-
-        <h2>
-            13 — بصلئيل وأهوليآب: من بنى الخيمة؟
-        </h2>
-
-        <p>
-            لم تُنسب صناعة الخيمة إلى موسى باعتباره الصانع المباشر لكل
-            تفاصيلها. فقد عيّن الرب بصلئيل بن أوري بن حور من سبط يهوذا،
-            وأهوليآب بن أخيسامخ من سبط دان، مع آخرين موهوبين للحرفة.
-        </p>
-
-        <p>
-            وتصف النصوص بصلئيل بأنه امتلأ بروح الله في الحكمة والفهم
-            والمعرفة وكل صنعة.
-        </p>
-
-        <div class="reference">
-            خروج 31: 1–11؛ خروج 35: 30–35؛ خروج 36: 1–2.
-        </div>
-
-    </article>
-
-
-
-    <!-- 14 -->
-
-    <article class="content-section">
-
-        <h2>
-            14 — الخيمة والحضور الإلهي
-        </h2>
-
-        <p>
-            الهدف المعلن للخيمة هو أن يسكن الله في وسط شعبه.
-            وفي نهاية سفر الخروج يظهر السحاب يغطي خيمة الاجتماع،
-            ويمتلئ المسكن من مجد الرب.
-        </p>
-
-        <p>
-            وهنا تظهر العلاقة بين البناء المقدس والحضور الإلهي:
-            الخيمة ليست إلهًا ولا تحصر الله في مكان، بل هي العلامة
-            التي اختارها الله لحضوره وسط الجماعة في إطار العهد.
-        </p>
-
-        <div class="reference">
-            خروج 25: 8؛ خروج 40: 34–38.
-        </div>
-
-    </article>
-
-
-
-    <!-- 15 -->
-
-    <article class="content-section">
-
-        <h2>
-            15 — خيمة الاجتماع والمسيح
-        </h2>
-
-        <p>
-            لا ينبغي أن نخلط بين التفسير التاريخي الأصلي للنص وبين القراءة
-            المسيانية للعهد الجديد. لكن العهد الجديد نفسه يقدم علاقة مباشرة
-            بين نظام المسكن القديم وعمل المسيح.
-        </p>
-
-        <p>
-            تقول رسالة العبرانيين إن المسيح جاء رئيس كهنة للخيرات العتيدة
-            «بالمسكن الأعظم والأكمل غير المصنوع بيد».
-        </p>
-
-        <p>
-            ولذلك يمكن دراسة الخيمة في ضوء العهد الجديد من خلال موضوعات:
-            الكهنوت، الذبيحة، الدم، الحجاب، الدخول إلى حضرة الله،
-            والمسكن الحقيقي.
-        </p>
-
-        <div class="reference">
-            عبرانيين 8: 1–6؛ عبرانيين 9: 1–15؛ عبرانيين 10: 19–22.
-        </div>
-
-        <div class="source-box">
-            في تفسير Matthew Henry للعبرانيين 9 يظهر الربط بين الخيمة
-            القديمة وبين الحقائق التي يشرحها العهد الجديد عن المسيح
-            والكهنوت والاقتراب من الله. ويجب في التطبيق العلمي التمييز
-            بين النص التاريخي في الخروج وبين القراءة النموذجية التي يقدمها
-            العهد الجديد.
-        </div>
-
-    </article>
-
-
-
-    <!-- 16 -->
-
-    <article class="content-section">
-
-        <h2>
-            16 — الدلالة اللاهوتية الكبرى
-        </h2>
-
-        <p>
-            يمكن تلخيص المحاور اللاهوتية التي تسمح لنا الخيمة بدراستها
-            في مجموعة من المفاهيم الأساسية:
-        </p>
-
-        <ul>
-
-            <li>
-                الله يريد أن يسكن وسط شعبه.
-            </li>
-
-            <li>
-                القداسة ليست فكرة مجردة بل لها نظام عبادة وحدود واضحة.
-            </li>
-
-            <li>
-                الاقتراب من الله في العهد القديم مرتبط بالكهنوت والذبيحة.
-            </li>
-
-            <li>
-                الدم والكفارة يحتلان موقعًا محوريًا في نظام الذبائح.
-            </li>
-
-            <li>
-                الخيمة مرتبطة بحالة إسرائيل كجماعة في رحلة وليست أمة مستقرة
-                في مركز حضري ثابت.
-            </li>
-
-            <li>
-                العهد الجديد يعيد قراءة عناصر المسكن في ضوء المسيح وعمله.
-            </li>
-
-        </ul>
-
-        <div class="reference">
-            خروج 25: 8؛ لاويين 17: 11؛ عبرانيين 9–10.
-        </div>
-
-    </article>
-
-
-
-    <!-- 17 -->
-
-    <article class="content-section">
-
-        <h2>
-            17 — أهم المراجع التفسيرية التي سنبني عليها الدراسة
-        </h2>
-
-        <p>
-            هذه الدراسة ستتوسع لاحقًا إلى مقارنة منظمة بين شروح عربية
-            وإنجليزية، مع الفصل بين تفسير النص، والخلفية التاريخية،
-            والاستنتاج اللاهوتي.
-        </p>
-
-        <ul>
-
-            <li>
-                Matthew Henry — Commentary on the Whole Bible.
-            </li>
-
-            <li>
-                Matthew Poole — Annotations upon the Holy Bible.
-            </li>
-
-            <li>
-                Cambridge Bible for Schools and Colleges.
-            </li>
-
-            <li>
-                تفاسير عربية ولاهوتية سيتم إدخالها في المرحلة الموسوعية
-                مع توثيق موضع المعلومة.
-            </li>
-
-        </ul>
-
-        <div class="source-box">
-
-            <strong>
-                قاعدة التوثيق في الموسوعة:
-            </strong>
-
-            لن تُعرض الآراء التفسيرية على أنها نصوص كتابية.
-            كل معلومة ستصنف مستقبلًا ضمن:
-            نص كتابي، تاريخ، خلفية ثقافية، تفسير، أو استنتاج لاهوتي.
-
-        </div>
-
-    </article>
-
-
-
-    <!-- 18 -->
-
-    <article class="content-section">
-
-        <h2>
-            18 — خريطة الدراسة الموسوعية الكاملة
-        </h2>
-
-        <p>
-            هذه ليست نهاية دراسة خيمة الاجتماع، بل هي الهيكل الأساسي
-            الذي سنبني عليه المحتوى المتقدم.
-        </p>
-
-        <ul>
-
-            <li>
-                الخيمة وموقعها الجغرافي.
-            </li>
-
-            <li>
-                مخطط الأبعاد والمساحات.
-            </li>
-
-            <li>
-                كل ستارة على حدة.
-            </li>
-
-            <li>
-                كل لوح وقاعدة وحلقة وعارضة.
-            </li>
-
-            <li>
-                التابوت وغطاء الكفارة والكروبيم.
-            </li>
-
-            <li>
-                المائدة وأدواتها وخبز الوجوه.
-            </li>
-
-            <li>
-                المنارة وتفاصيلها.
-            </li>
-
-            <li>
-                مذبح البخور.
-            </li>
-
-            <li>
-                مذبح المحرقة.
-            </li>
-
-            <li>
-                المرحضة.
-            </li>
-
-            <li>
-                الحجاب والستائر والأبواب.
-            </li>
-
-            <li>
-                الكهنة واللاويون.
-            </li>
-
-            <li>
-                الذبائح والخدمة اليومية.
-            </li>
-
-            <li>
-                يوم الكفارة وعلاقته بقدس الأقداس.
-            </li>
-
-            <li>
-                انتقال الخيمة في البرية.
-            </li>
-
-            <li>
-                الخيمة في شيلوه.
-            </li>
-
-            <li>
-                الانتقال من الخيمة إلى هيكل سليمان.
-            </li>
-
-            <li>
-                قراءة الخيمة في العهد الجديد.
-            </li>
-
-        </ul>
-
-        <div class="reference">
-            هذه المحاور ستكون الأساس للنسخة الموسوعية المتقدمة
-            دون تغيير كيان صفحة الدراسات الكتابية.
-        </div>
-
-    </article>
-
+    </div>
 
 </section>
+
+
+
+<!-- =====================================================
+     ENCYCLOPEDIA
+===================================================== -->
+
+<section
+    id="encyclopedia"
+    class="study-content"
+>
+
+    <div class="content-header">
+
+        <div class="content-header-title">
+            📚 الموسوعة الكتابية
+        </div>
+
+        <button
+            class="back-button"
+            onclick="backToStudies()"
+        >
+            ← الدراسات
+        </button>
+
+    </div>
+
+
+    <div class="encyclopedia">
+
+
+        <!-- الأبجدية -->
+
+        <div
+            id="alphabet"
+            class="alphabet"
+        ></div>
+
+
+        <!-- عنوان الحرف -->
+
+        <div
+            id="currentLetter"
+            class="current-letter"
+        ></div>
+
+
+        <!-- المداخل -->
+
+        <div
+            id="entries"
+            class="entries"
+        ></div>
+
+
+        <!-- تفاصيل المدخل -->
+
+        <div
+            id="entryDetail"
+            class="entry-detail"
+        ></div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     OTHER STUDIES
+===================================================== -->
+
+<section id="solomon" class="study-content">
+    <div class="content-header">
+        <div class="content-header-title">🏛️ هيكل سليمان</div>
+        <button class="back-button" onclick="backToStudies()">← الدراسات</button>
+    </div>
+    <div class="generic-content">
+        <h2>هيكل سليمان</h2>
+        <p>سيتم إدراج الدراسة الموسوعية الكاملة لهيكل سليمان هنا.</p>
+    </div>
+</section>
+
+
+<section id="herod" class="study-content">
+    <div class="content-header">
+        <div class="content-header-title">🏗️ هيكل هيرودس</div>
+        <button class="back-button" onclick="backToStudies()">← الدراسات</button>
+    </div>
+    <div class="generic-content">
+        <h2>هيكل هيرودس</h2>
+        <p>سيتم إدراج الدراسة الموسوعية الكاملة لهيكل هيرودس هنا.</p>
+    </div>
+</section>
+
+
+<section id="comparison" class="study-content">
+    <div class="content-header">
+        <div class="content-header-title">⚖️ مقارنة خيمة الاجتماع والهياكل</div>
+        <button class="back-button" onclick="backToStudies()">← الدراسات</button>
+    </div>
+    <div class="generic-content">
+        <h2>مقارنة خيمة الاجتماع والهياكل</h2>
+        <p>سيتم بناء المقارنة التفصيلية هنا.</p>
+    </div>
+</section>
+
+
+<section id="feasts" class="study-content">
+    <div class="content-header">
+        <div class="content-header-title">🕎 مواسم وأعياد الكتاب المقدس</div>
+        <button class="back-button" onclick="backToStudies()">← الدراسات</button>
+    </div>
+    <div class="generic-content">
+        <h2>مواسم وأعياد الكتاب المقدس</h2>
+        <p>سيتم إدراج الدراسة التفصيلية للمواسم والأعياد هنا.</p>
+    </div>
+</section>
+
+
+<section id="introductions" class="study-content">
+    <div class="content-header">
+        <div class="content-header-title">📜 مقدمة أسفار الكتاب المقدس</div>
+        <button class="back-button" onclick="backToStudies()">← الدراسات</button>
+    </div>
+    <div class="generic-content">
+        <h2>مقدمة أسفار الكتاب المقدس</h2>
+        <p>سيتم إدراج مقدمات الأسفار ودراساتها هنا.</p>
+    </div>
+</section>
+
+
+<section id="prophecies" class="study-content">
+    <div class="content-header">
+        <div class="content-header-title">✝️ المسيح في نبوات الكتاب</div>
+        <button class="back-button" onclick="backToStudies()">← الدراسات</button>
+    </div>
+    <div class="generic-content">
+        <h2>المسيح في نبوات الكتاب</h2>
+        <p>سيتم إدراج الدراسة هنا.</p>
+    </div>
+</section>
+
+
+<section id="miracles" class="study-content">
+    <div class="content-header">
+        <div class="content-header-title">✨ معجزات المسيح</div>
+        <button class="back-button" onclick="backToStudies()">← الدراسات</button>
+    </div>
+    <div class="generic-content">
+        <h2>معجزات المسيح</h2>
+        <p>سيتم إدراج الدراسة التفصيلية هنا.</p>
+    </div>
+</section>
+
+
+<section id="characters" class="study-content">
+    <div class="content-header">
+        <div class="content-header-title">👤 شخصيات الكتاب المقدس</div>
+        <button class="back-button" onclick="backToStudies()">← الدراسات</button>
+    </div>
+    <div class="generic-content">
+        <h2>شخصيات الكتاب المقدس</h2>
+        <p>سيتم إدراج دراسات الشخصيات الكتابية هنا.</p>
+    </div>
+</section>
+
+
+<section id="jewish" class="study-content">
+    <div class="content-header">
+        <div class="content-header-title">🕍 أمثلة المسيح والخلفية اليهودية</div>
+        <button class="back-button" onclick="backToStudies()">← الدراسات</button>
+    </div>
+    <div class="generic-content">
+        <h2>أمثلة المسيح والخلفية اليهودية</h2>
+        <p>سيتم إدراج الدراسة التفصيلية للأمثال والخلفية اليهودية هنا.</p>
+    </div>
+</section>
+
+
+<section id="rivers" class="study-content">
+    <div class="content-header">
+        <div class="content-header-title">🌊 الأنهار في الكتاب المقدس</div>
+        <button class="back-button" onclick="backToStudies()">← الدراسات</button>
+    </div>
+    <div class="generic-content">
+        <h2>الأنهار في الكتاب المقدس</h2>
+        <p>سيتم إدراج الدراسة الموسوعية للأنهار هنا.</p>
+    </div>
+</section>
+
 
 </main>
 
@@ -2022,61 +1640,560 @@ footer{
 <script>
 
 /* =====================================================
-   STUDY NAVIGATION
+   OPEN / CLOSE STUDY
 ===================================================== */
 
 function openStudy(id){
 
-    document.getElementById(
-        "studiesHome"
-    ).style.display = "none";
+    document
+        .getElementById("studyGrid")
+        .style.display = "none";
 
-    document.getElementById(
-        "studiesGrid"
-    ).style.display = "none";
+    document
+        .querySelector(".page-title")
+        .style.display = "none";
 
-    const study =
+
+    document
+        .querySelectorAll(".study-content")
+        .forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+
+    const selected =
         document.getElementById(id);
 
-    if(!study){
-        return;
+    if(selected){
+
+        selected.classList.add("active");
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
     }
 
-    study.classList.add("active");
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
 }
 
+
+/* =====================================================
+   BACK TO STUDIES
+===================================================== */
 
 function backToStudies(){
 
-    const active =
-        document.querySelector(
-            ".study-content.active"
-        );
+    document
+        .querySelectorAll(".study-content")
+        .forEach(section => {
 
-    if(active){
-        active.classList.remove(
-            "active"
-        );
-    }
+            section.classList.remove("active");
 
-    document.getElementById(
-        "studiesHome"
-    ).style.display = "block";
+        });
 
-    document.getElementById(
-        "studiesGrid"
-    ).style.display = "grid";
+
+    document
+        .getElementById("studyGrid")
+        .style.display = "grid";
+
+    document
+        .querySelector(".page-title")
+        .style.display = "block";
+
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
+
 }
+
+
+/* =====================================================
+   BIBLE ENCYCLOPEDIA
+===================================================== */
+
+const arabicAlphabet = [
+
+    "ا",
+    "ب",
+    "ت",
+    "ث",
+    "ج",
+    "ح",
+    "خ",
+    "د",
+    "ذ",
+    "ر",
+    "ز",
+    "س",
+    "ش",
+    "ص",
+    "ض",
+    "ط",
+    "ظ",
+    "ع",
+    "غ",
+    "ف",
+    "ق",
+    "ك",
+    "ل",
+    "م",
+    "ن",
+    "ه",
+    "و",
+    "ي"
+
+];
+
+
+/*
+ * قاعدة البيانات الأولية للموسوعة.
+ *
+ * سيتم توسيع هذه القاعدة بالمحتوى
+ * الكامل للموسوعة دون تغيير نظام العرض.
+ */
+
+const encyclopediaData = {
+
+    "ا":[
+
+        {
+            title:"آدم",
+
+            preview:
+                "أول إنسان بحسب الرواية الكتابية.",
+
+            content:
+                "آدم هو أول إنسان خلقه الله بحسب سفر التكوين، ووُضع في جنة عدن، وأصبح أبًا للجنس البشري بحسب السرد الكتابي.",
+
+            reference:
+                "التكوين 1–3"
+        },
+
+        {
+            title:"إبراهيم",
+
+            preview:
+                "أحد الآباء الآباء، ودُعي أبو المؤمنين.",
+
+            content:
+                "إبراهيم هو أحد أهم شخصيات العهد القديم. دعاه الله من أرضه ووطنه، وأقام معه عهدًا، ووعده بنسل وأرض وبركة.",
+
+            reference:
+                "التكوين 12–25"
+        }
+
+    ],
+
+    "ب":[
+
+        {
+            title:"بابل",
+
+            preview:
+                "مدينة وكيان مهمان في التاريخ الكتابي.",
+
+            content:
+                "بابل من أبرز المدن المذكورة في الكتاب المقدس، وترتبط في سفر التكوين بقصة برج بابل، ثم أصبحت لاحقًا مركزًا لإمبراطورية عظيمة.",
+
+            reference:
+                "التكوين 10–11؛ دانيال"
+        }
+
+    ],
+
+    "ت":[
+
+        {
+            title:"تابوت العهد",
+
+            preview:
+                "الصندوق المقدس الذي ارتبط بحضور الله وسط شعب إسرائيل.",
+
+            content:
+                "تابوت العهد كان من أهم أدوات العبادة في خيمة الاجتماع، وصُنع من خشب السنط وغُشي بالذهب، ووُضع في قدس الأقداس.",
+
+            reference:
+                "الخروج 25:10–22؛ عبرانيين 9:4"
+        }
+
+    ],
+
+    "ج":[
+
+        {
+            title:"جبل سيناء",
+
+            preview:
+                "المكان المرتبط بإعطاء الشريعة لموسى.",
+
+            content:
+                "ارتبط جبل سيناء بإعلان الله لشعب إسرائيل وإعطاء موسى الوصايا والشريعة.",
+
+            reference:
+                "الخروج 19–20"
+        }
+
+    ],
+
+    "ح":[
+
+        {
+            title:"حبرون",
+
+            preview:
+                "مدينة ذات أهمية كبيرة في تاريخ الآباء وإسرائيل.",
+
+            content:
+                "حبرون من المدن المهمة في الكتاب المقدس، وارتبطت بإبراهيم والآباء وبدايات ملك داود.",
+
+            reference:
+                "التكوين 23؛ 2 صموئيل 5:3–5"
+        }
+
+    ],
+
+    "خ":[
+
+        {
+            title:"خيمة الاجتماع",
+
+            preview:
+                "المسكن المقدس الذي أقامه بنو إسرائيل في البرية.",
+
+            content:
+                "خيمة الاجتماع كانت مركز العبادة والحضور الإلهي في حياة إسرائيل أثناء فترة البرية وما بعدها.",
+
+            reference:
+                "الخروج 25–40"
+        }
+
+    ],
+
+    "د":[
+
+        {
+            title:"داود",
+
+            preview:
+                "ملك إسرائيل وشخصية محورية في التاريخ الكتابي.",
+
+            content:
+                "داود كان ملكًا على إسرائيل، ويرتبط اسمه بالمزامير وبالعهد الملكي وبالنسب الذي منه جاء المسيح بحسب الجسد.",
+
+            reference:
+                "1 صموئيل 16؛ 2 صموئيل 7"
+        }
+
+    ],
+
+    "س":[
+
+        {
+            title:"سليمان",
+
+            preview:
+                "ملك إسرائيل وباني الهيكل الأول.",
+
+            content:
+                "سليمان ابن داود، تولى الملك بعد أبيه، واشتهر بالحكمة وبناء الهيكل في أورشليم.",
+
+            reference:
+                "1 ملوك 3–8"
+        }
+
+    ],
+
+    "ص":[
+
+        {
+            title:"صهيون",
+
+            preview:
+                "اسم ارتبط بأورشليم وباللاهوت الكتابي.",
+
+            content:
+                "صهيون اسم ذو دلالة جغرافية ولاهوتية في الكتاب المقدس، وارتبط بمدينة أورشليم وملك الله وشعبه.",
+
+            reference:
+                "2 صموئيل 5:7؛ مزامير عديدة"
+        }
+
+    ],
+
+    "ع":[
+
+        {
+            title:"العهد",
+
+            preview:
+                "مفهوم محوري في العلاقة بين الله والإنسان في الكتاب المقدس.",
+
+            content:
+                "العهد مفهوم أساسي في الكتاب المقدس، ويظهر في عهود متعددة مثل عهد نوح وإبراهيم وموسى وداود والعهد الجديد.",
+
+            reference:
+                "التكوين 9؛ 15؛ الخروج 24؛ إرميا 31؛ لوقا 22"
+        }
+
+    ],
+
+    "م":[
+
+        {
+            title:"موسى",
+
+            preview:
+                "النبي والقائد الذي أخرج إسرائيل من مصر.",
+
+            content:
+                "موسى شخصية مركزية في العهد القديم، استخدمه الله لإخراج إسرائيل من مصر وتسليم الشريعة وإقامة نظام العبادة.",
+
+            reference:
+                "الخروج 1–40"
+        }
+
+    ],
+
+    "ي":[
+
+        {
+            title:"يسوع المسيح",
+
+            preview:
+                "المسيح محور الإعلان الخلاصي في العهد الجديد.",
+
+            content:
+                "يسوع المسيح هو محور رسالة الأناجيل والعهد الجديد، ويقدم الكتاب المقدس شخصه وعمله الخلاصي وموته وقيامته.",
+
+            reference:
+                "متى 1؛ مرقس 1؛ لوقا 1؛ يوحنا 1"
+        }
+
+    ]
+
+};
+
+
+/* =====================================================
+   BUILD ALPHABET
+===================================================== */
+
+const alphabetContainer =
+    document.getElementById("alphabet");
+
+
+arabicAlphabet.forEach(letter => {
+
+    const button =
+        document.createElement("button");
+
+    button.className =
+        "letter-button";
+
+    button.textContent =
+        letter;
+
+    button.type =
+        "button";
+
+    button.addEventListener(
+        "click",
+        () => showLetter(letter,button)
+    );
+
+    alphabetContainer.appendChild(button);
+
+});
+
+
+/* =====================================================
+   SHOW LETTER
+===================================================== */
+
+function showLetter(letter,button){
+
+    document
+        .querySelectorAll(".letter-button")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+    button.classList.add("active");
+
+
+    const currentLetter =
+        document.getElementById("currentLetter");
+
+    const entries =
+        document.getElementById("entries");
+
+    const detail =
+        document.getElementById("entryDetail");
+
+
+    currentLetter.textContent =
+        "مداخل حرف " + letter;
+
+    currentLetter.classList.add("show");
+
+
+    detail.classList.remove("active");
+
+    detail.innerHTML = "";
+
+
+    const data =
+        encyclopediaData[letter] || [];
+
+
+    entries.innerHTML = "";
+
+
+    if(!data.length){
+
+        entries.innerHTML = `
+
+            <div class="entry">
+
+                <div class="entry-title">
+                    لا توجد مداخل مضافة بعد
+                </div>
+
+                <div class="entry-preview">
+                    سيتم إدراج محتوى هذا الحرف
+                    ضمن قاعدة بيانات الموسوعة.
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    data.forEach((item,index) => {
+
+        const article =
+            document.createElement("article");
+
+        article.className =
+            "entry";
+
+        article.innerHTML = `
+
+            <div class="entry-title">
+                ${escapeHTML(item.title)}
+            </div>
+
+            <div class="entry-preview">
+                ${escapeHTML(item.preview)}
+            </div>
+
+        `;
+
+
+        article.addEventListener(
+            "click",
+            () => showEntry(item)
+        );
+
+
+        entries.appendChild(article);
+
+    });
+
+}
+
+
+/* =====================================================
+   SHOW ENTRY
+===================================================== */
+
+function showEntry(item){
+
+    const detail =
+        document.getElementById("entryDetail");
+
+
+    detail.innerHTML = `
+
+        <h3>
+            ${escapeHTML(item.title)}
+        </h3>
+
+        <p>
+            ${escapeHTML(item.content)}
+        </p>
+
+        <div class="reference">
+
+            <strong>
+                المراجع الكتابية:
+            </strong>
+
+            <br>
+
+            ${escapeHTML(item.reference)}
+
+        </div>
+
+    `;
+
+
+    detail.classList.add("active");
+
+
+    detail.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+}
+
+
+/* =====================================================
+   SECURITY
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =====================================================
+   DEFAULT
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        /*
+         * لا نفتح أي دراسة تلقائيًا.
+         * تظهر الأيقونات الـ12 عند دخول الصفحة.
+         */
+
+    }
+);
 
 </script>
 
