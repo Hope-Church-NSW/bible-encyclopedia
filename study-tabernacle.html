@@ -1,1431 +1,664 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>خيمة الاجتماع | موسوعة الكتاب المقدس</title>
 
 <style>
-
-/* =========================================================
-   ROOT
-========================================================= */
-
 :root{
-    --blue-dark:#04111f;
-    --blue:#0b2943;
-    --blue-light:#12446d;
-
+    --bg:#06111d;
+    --bg2:#0b2032;
+    --card:#0d2a40;
+    --card2:#123b56;
     --gold:#d4af37;
-    --gold-light:#f3dc79;
-
-    --white:#f7f9fc;
-    --text:#d7e0e8;
-    --muted:#9fb0bf;
-
-    --border:rgba(212,175,55,.28);
+    --gold-light:#f2d675;
+    --white:#f4f7fa;
+    --muted:#aebdca;
+    --border:rgba(212,175,55,.30);
 }
-
-/* =========================================================
-   RESET
-========================================================= */
 
 *{
     box-sizing:border-box;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
 body{
-
     margin:0;
-
     min-height:100vh;
-
     background:
-        radial-gradient(
-            circle at 50% -10%,
-            #174b78 0%,
-            transparent 43%
-        ),
-        linear-gradient(
-            145deg,
-            var(--blue-dark),
-            #061a2c 55%,
-            #020a12
-        );
-
+        radial-gradient(circle at top,#17496b 0%,transparent 38%),
+        linear-gradient(145deg,var(--bg),#02070c);
     color:var(--white);
-
-    font-family:
-        "Noto Naskh Arabic",
-        "Amiri",
-        Tahoma,
-        Arial,
-        sans-serif;
-
-    line-height:1.8;
+    font-family:"Noto Naskh Arabic","Amiri",Tahoma,Arial,sans-serif;
+    line-height:1.9;
 }
-
-/* =========================================================
-   HEADER
-========================================================= */
 
 header{
-
     position:sticky;
-
     top:0;
-
-    z-index:1000;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(7,30,50,.98),
-            rgba(3,15,27,.98)
-        );
-
-    border-bottom:
-        1px solid rgba(212,175,55,.4);
-
-    box-shadow:
-        0 8px 30px rgba(0,0,0,.55);
+    z-index:20;
+    background:rgba(3,13,23,.96);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
 }
 
 .header-inner{
-
-    max-width:1350px;
-
-    min-height:88px;
-
+    max-width:1150px;
     margin:auto;
-
-    padding:10px 22px;
-
+    min-height:72px;
+    padding:8px 18px;
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
-    gap:20px;
+    gap:15px;
 }
-
-/* =========================================================
-   HOME
-========================================================= */
-
-.home-btn{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    padding:10px 17px;
-
-    color:white;
-
-    text-decoration:none;
-
-    border:
-        1px solid rgba(212,175,55,.65);
-
-    border-radius:11px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #173b5c,
-            #071a2d
-        );
-
-    font-weight:800;
-
-    transition:.3s;
-}
-
-.home-btn:hover{
-
-    transform:translateY(-2px);
-
-    border-color:var(--gold-light);
-
-    box-shadow:
-        0 6px 18px rgba(0,0,0,.4);
-}
-
-/* =========================================================
-   BRAND
-========================================================= */
 
 .brand{
-
     display:flex;
-
     align-items:center;
-
-    gap:13px;
+    gap:12px;
 }
 
 .logo{
-
-    width:65px;
-
-    height:65px;
-
+    width:52px;
+    height:52px;
     object-fit:contain;
-
-    filter:
-        drop-shadow(
-            0 4px 7px rgba(0,0,0,.7)
-        );
 }
 
 .brand-name{
-
     color:var(--gold-light);
-
-    font-size:20px;
-
-    font-weight:900;
+    font-weight:700;
+    font-size:16px;
 }
 
-/* =========================================================
-   MAIN
-========================================================= */
+.home-btn{
+    color:var(--white);
+    text-decoration:none;
+    border:1px solid var(--gold);
+    border-radius:10px;
+    padding:7px 15px;
+    transition:.2s;
+}
+
+.home-btn:hover{
+    background:var(--gold);
+    color:#111;
+}
 
 .container{
-
-    width:min(
-        1200px,
-        calc(100% - 30px)
-    );
-
+    width:min(1120px,calc(100% - 24px));
     margin:auto;
-
-    padding:40px 0 70px;
+    padding:28px 0 60px;
 }
-
-/* =========================================================
-   BREADCRUMB
-========================================================= */
-
-.breadcrumb{
-
-    margin-bottom:22px;
-
-    color:var(--muted);
-
-    font-size:14px;
-}
-
-.breadcrumb a{
-
-    color:var(--gold-light);
-
-    text-decoration:none;
-}
-
-.breadcrumb span{
-
-    margin:0 7px;
-
-    color:#627789;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
 
 .hero{
-
     text-align:center;
-
-    padding:35px 20px 38px;
-
-    margin-bottom:35px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:24px;
-
+    padding:32px 20px;
+    margin-bottom:25px;
+    border:1px solid var(--border);
+    border-radius:22px;
     background:
-        linear-gradient(
-            145deg,
-            rgba(16,53,82,.9),
-            rgba(5,22,38,.9)
-        );
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.42);
+        linear-gradient(145deg,rgba(18,64,92,.95),rgba(5,22,36,.97));
+    box-shadow:0 15px 45px rgba(0,0,0,.25);
 }
 
 .hero-icon{
-
-    width:90px;
-
-    height:90px;
-
-    margin:0 auto 17px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:25px;
-
-    font-size:46px;
-
-    border:
-        1px solid rgba(212,175,55,.7);
-
-    background:
-        linear-gradient(
-            145deg,
-            #1b4c72,
-            #071b2e
-        );
-
-    box-shadow:
-        0 0 28px rgba(212,175,55,.13);
+    font-size:60px;
+    line-height:1.2;
 }
 
 .hero h1{
-
-    margin:0;
-
     color:var(--gold-light);
-
-    font-size:40px;
-
-    font-weight:900;
+    margin:8px 0;
+    font-size:34px;
 }
 
 .hero p{
-
     max-width:850px;
-
-    margin:12px auto 0;
-
-    color:var(--text);
-
+    margin:0 auto;
+    color:var(--muted);
     font-size:17px;
 }
 
-/* =========================================================
-   INTRODUCTION
-========================================================= */
-
 .introduction{
-
-    margin-bottom:35px;
-
-    padding:25px 28px;
-
-    border-right:
-        4px solid var(--gold);
-
-    border-radius:17px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(15,48,76,.88),
-            rgba(5,22,37,.92)
-        );
-
-    border:
-        1px solid rgba(212,175,55,.22);
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.32);
+    background:linear-gradient(145deg,rgba(12,42,65,.96),rgba(5,21,34,.98));
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:25px;
 }
 
 .introduction h2{
-
-    margin:0 0 12px;
-
     color:var(--gold-light);
-
-    font-size:24px;
+    margin-top:0;
+    border-right:4px solid var(--gold);
+    padding-right:12px;
 }
 
 .introduction p{
-
-    margin:0;
-
-    color:var(--text);
-
-    line-height:2;
+    color:#dbe5ec;
+    margin-bottom:0;
 }
 
-/* =========================================================
-   SECTION HEADER
-========================================================= */
-
-.section-header{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin:40px 0 20px;
-
-    padding-right:14px;
-
-    border-right:
-        4px solid var(--gold);
-}
-
-.section-header h2{
-
-    margin:0;
-
+.section-title{
     color:var(--gold-light);
-
-    font-size:27px;
+    text-align:center;
+    margin:25px 0 18px;
+    font-size:25px;
 }
 
-.section-header span{
-
-    color:var(--muted);
-
-    font-size:14px;
-}
-
-/* =========================================================
-   STUDY GRID
-========================================================= */
-
-.study-grid{
-
+.studies-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(250px,1fr)
-        );
-
-    gap:18px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
 }
-
-/* =========================================================
-   STUDY CARD
-========================================================= */
 
 .study-card{
-
-    position:relative;
-
     display:block;
-
-    min-height:185px;
-
-    padding:23px;
-
-    color:white;
-
+    position:relative;
+    min-height:165px;
+    padding:24px 20px;
     text-decoration:none;
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    border-radius:19px;
-
+    color:var(--white);
     background:
-        linear-gradient(
-            145deg,
-            rgba(17,54,84,.96),
-            rgba(5,22,37,.98)
-        );
-
-    box-shadow:
-        0 10px 24px rgba(0,0,0,.38);
-
-    overflow:hidden;
-
+        linear-gradient(145deg,rgba(15,57,83,.96),rgba(6,26,42,.98));
+    border:1px solid var(--border);
+    border-radius:17px;
     transition:
-        transform .3s,
-        border-color .3s,
-        box-shadow .3s;
-}
-
-.study-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:180px;
-
-    height:180px;
-
-    left:-110px;
-
-    bottom:-120px;
-
-    border-radius:50%;
-
-    background:
-        rgba(212,175,55,.06);
-
-    transition:.4s;
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+    overflow:hidden;
 }
 
 .study-card:hover{
-
-    transform:
-        translateY(-6px);
-
-    border-color:
-        rgba(212,175,55,.65);
-
-    box-shadow:
-        0 18px 35px rgba(0,0,0,.55),
-        0 0 22px rgba(212,175,55,.08);
-}
-
-.study-card:hover::after{
-
-    transform:
-        scale(1.5);
-}
-
-.card-number{
-
-    position:absolute;
-
-    top:13px;
-
-    left:16px;
-
-    color:
-        rgba(212,175,55,.45);
-
-    font-size:13px;
-
-    font-weight:900;
+    transform:translateY(-3px);
+    border-color:var(--gold);
+    box-shadow:0 12px 30px rgba(0,0,0,.28);
 }
 
 .card-icon{
-
-    width:60px;
-
-    height:60px;
-
-    margin-bottom:15px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:16px;
-
-    font-size:29px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #1a4669,
-            #071a2c
-        );
-
-    border:
-        1px solid rgba(212,175,55,.55);
-
-    box-shadow:
-        inset 0 1px 2px rgba(255,255,255,.1);
+    font-size:40px;
+    line-height:1.2;
+    margin-bottom:9px;
 }
 
 .study-card h3{
-
-    margin:0 0 8px;
-
+    margin:0;
     color:var(--gold-light);
-
-    font-size:20px;
+    font-size:21px;
 }
 
 .study-card p{
-
-    margin:0;
-
-    color:#b9c7d2;
-
-    font-size:14px;
-
-    line-height:1.75;
+    color:var(--muted);
+    margin:7px 0 0;
+    font-size:15px;
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
+.card-number{
+    position:absolute;
+    top:12px;
+    left:15px;
+    color:rgba(242,214,117,.65);
+    font-size:13px;
+    font-weight:bold;
+}
 
 footer{
-
-    max-width:1200px;
-
-    margin:auto;
-
-    padding:25px 15px 40px;
-
     text-align:center;
-
-    color:#8193a5;
-
-    border-top:
-        1px solid rgba(212,175,55,.15);
+    color:#8293a2;
+    border-top:1px solid rgba(212,175,55,.15);
+    padding:25px 15px;
+    margin-top:20px;
 }
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media(max-width:700px){
 
     .header-inner{
-
-        min-height:76px;
-
-        padding:8px 13px;
+        min-height:64px;
+        padding:7px 12px;
     }
 
     .logo{
-
-        width:54px;
-
-        height:54px;
+        width:44px;
+        height:44px;
     }
 
     .brand-name{
-
-        font-size:15px;
-    }
-
-    .home-btn{
-
-        padding:8px 11px;
-
         font-size:13px;
     }
 
+    .home-btn{
+        font-size:13px;
+        padding:6px 10px;
+    }
+
     .container{
-
-        width:
-            calc(100% - 20px);
-
-        padding-top:25px;
+        width:min(100% - 16px,1120px);
+        padding-top:18px;
     }
 
     .hero{
+        padding:25px 15px;
+    }
 
-        padding:
-            28px 15px 30px;
+    .hero-icon{
+        font-size:50px;
     }
 
     .hero h1{
-
-        font-size:31px;
+        font-size:28px;
     }
 
     .hero p{
-
         font-size:15px;
     }
 
-    .study-grid{
-
+    .studies-grid{
         grid-template-columns:1fr;
+        gap:12px;
     }
 
-    .section-header h2{
-
-        font-size:22px;
+    .study-card{
+        min-height:145px;
+        padding:21px 17px;
     }
 
+    .card-icon{
+        font-size:36px;
+    }
+
+    .study-card h3{
+        font-size:19px;
+    }
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
 <header>
+    <div class="header-inner">
 
-<div class="header-inner">
+        <a href="studies.html" class="home-btn">
+            ← الدراسات
+        </a>
 
-    <a
-        href="studies.html"
-        class="home-btn"
-    >
-        ← الدراسات
-    </a>
-
-
-    <div class="brand">
-
-        <div class="brand-name">
-            كنيسة رجاء الأمم سيدني
+        <div class="brand">
+            <span class="brand-name">كنيسة رجاء الأمم سيدني</span>
+            <img
+                src="assets/logo.png"
+                class="logo"
+                alt="كنيسة رجاء الأمم سيدني"
+            >
         </div>
 
-        <img
-            src="assets/logo.png"
-            class="logo"
-            alt="شعار كنيسة رجاء الأمم سيدني"
-        >
-
     </div>
-
-</div>
-
 </header>
-
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
 
 <main class="container">
 
+    <section class="hero">
+        <div class="hero-icon">⛺</div>
 
-<!-- BREADCRUMB -->
+        <h1>خيمة الاجتماع</h1>
 
-<div class="breadcrumb">
+        <p>
+            دراسة كتابية ولاهوتية متكاملة في خيمة الاجتماع،
+            بنائها ومكوناتها وخدمتها ورموزها وعلاقتها بالمسيح
+            والكنيسة والعهد الجديد.
+        </p>
+    </section>
 
-    <a href="index.html">
-        الرئيسية
-    </a>
+    <section class="introduction">
 
-    <span>›</span>
+        <h2>مقدمة مبسطة عن خيمة الاجتماع</h2>
 
-    <a href="studies.html">
-        الدراسات
-    </a>
+        <p>
+            خيمة الاجتماع كانت المسكن الذي أقامه بنو إسرائيل
+            بحسب النموذج الذي أراه الرب لموسى على الجبل.
+            وكانت مركز العبادة وحضور الله وسط شعبه أثناء رحلة
+            البرية، بما اشتملت عليه من الدار الخارجية والقدس
+            وقدس الأقداس وأدوات الخدمة والكهنوت والذبائح.
+        </p>
 
-    <span>›</span>
+    </section>
 
-    خيمة الاجتماع
+    <h2 class="section-title">دراسة خيمة الاجتماع</h2>
 
-</div>
+    <section class="studies-grid">
 
+        <a href="study-tabernacle-overview.html" class="study-card">
+            <span class="card-number">01</span>
 
-<!-- =========================================================
-     HERO
-========================================================= -->
+            <div class="card-icon">⛺</div>
 
-<section class="hero">
+            <h3>خيمة الاجتماع — نظرة عامة</h3>
 
-    <div class="hero-icon">
-        ⛺
-    </div>
+            <p>
+                الرؤية وأصل الفكرة ومكانها وزمنها وهدفها
+                في إعلان حضور الله وسط شعبه.
+            </p>
+        </a>
 
-    <h1>
-        خيمة الاجتماع
-    </h1>
 
-    <p>
-        دراسة موسوعية متكاملة لخيمة الاجتماع من أصلها وزمن
-        بنائها إلى تفاصيلها المعمارية والطقسية والكهنوتية،
-        ثم دلالاتها اللاهوتية وعلاقتها بالمسيح والعهد الجديد.
-    </p>
+        <a href="study-tabernacle-origin.html" class="study-card">
+            <span class="card-number">02</span>
 
-</section>
+            <div class="card-icon">📜</div>
 
+            <h3>أصل خيمة الاجتماع وزمن بنائها</h3>
 
-<!-- =========================================================
-     SIMPLE INTRODUCTION
-========================================================= -->
+            <p>
+                دراسة تاريخية وكتابية متعمقة في أصل الخيمة
+                وزمن بنائها والسياق الذي ظهرت فيه.
+            </p>
+        </a>
 
-<section class="introduction">
 
-    <h2>
-        ⛺ مقدمة مبسطة عن خيمة الاجتماع
-    </h2>
+        <a href="study-tabernacle-dimensions.html" class="study-card">
+            <span class="card-number">03</span>
 
-    <p>
+            <div class="card-icon">📐</div>
 
-        خيمة الاجتماع هي المسكن المقدس الذي أمر الله موسى
-        أن يصنعه لكي يكون موضع حضوره وسط شعب إسرائيل أثناء
-        رحلتهم في البرية.
+            <h3>المقاسات والمساحات</h3>
 
-        وكانت الخيمة منظومة متكاملة من السور والفناء والمقدس
-        وقدس الأقداس، وفيها مجموعة من الأدوات المقدسة التي
-        ارتبطت بالعبادة والكهنوت والذبائح وحضور الله.
+            <p>
+                المقاسات والأبعاد والمساحات وترتيب مكونات
+                خيمة الاجتماع.
+            </p>
+        </a>
 
-        وستتناول هذه الدراسة كل جزء بصورة مستقلة، مع ربط
-        المعلومات بالنصوص الكتابية والسياق التاريخي واللاهوتي.
 
-    </p>
+        <a href="study-tabernacle-materials.html" class="study-card">
+            <span class="card-number">04</span>
 
-</section>
+            <div class="card-icon">🪵</div>
 
+            <h3>المواد والخامات</h3>
 
-<!-- =========================================================
-     STUDIES
-========================================================= -->
+            <p>
+                دراسة المواد والخامات المستخدمة في الخيمة
+                ووظائفها ودلالاتها الكتابية والرمزية.
+            </p>
+        </a>
 
-<div class="section-header">
 
-    <h2>
-        📚 أقسام دراسة خيمة الاجتماع
-    </h2>
+        <a href="study-tabernacle-courtyard.html" class="study-card">
+            <span class="card-number">05</span>
 
-    <span>
-        23 دراسة مستقلة
-    </span>
+            <div class="card-icon">🏕️</div>
 
-</div>
+            <h3>الدار الخارجية والسور</h3>
 
+            <p>
+                تصميم الدار الخارجية والسور وأبعادهما
+                وموقعهما في ترتيب الخيمة.
+            </p>
+        </a>
 
-<div class="study-grid">
 
+        <a href="study-tabernacle-entrance.html" class="study-card">
+            <span class="card-number">06</span>
 
-<!-- 01 -->
+            <div class="card-icon">🚪</div>
 
-<a
-    href="study-tabernacle-overview.html"
-    class="study-card"
->
+            <h3>الباب والمدخل</h3>
 
-    <span class="card-number">
-        01
-    </span>
+            <p>
+                باب الخيمة ومدخل الدار ودلالتهما في نظام
+                الاقتراب إلى محضر الله.
+            </p>
+        </a>
 
-    <div class="card-icon">
-        ⛺
-    </div>
 
-    <h3>
-        خيمة الاجتماع — نظرة عامة
-    </h3>
+        <a href="study-tabernacle-burnt-offering-altar.html" class="study-card">
+            <span class="card-number">07</span>
 
-    <p>
-        التعريف بالخيمة وأقسامها ووظيفتها ومكانتها في العبادة.
-    </p>
+            <div class="card-icon">🔥</div>
 
-</a>
+            <h3>مذبح المحرقة</h3>
 
+            <p>
+                بناء المذبح ووظيفته والذبائح والدم والكفارة
+                ودلالته في ضوء عمل المسيح.
+            </p>
+        </a>
 
-<!-- 02 -->
 
-<a
-    href="study-tabernacle-origin.html"
-    class="study-card"
->
+        <a href="study-tabernacle-laver.html" class="study-card">
+            <span class="card-number">08</span>
 
-    <span class="card-number">
-        02
-    </span>
+            <div class="card-icon">🧼</div>
 
-    <div class="card-icon">
-        📜
-    </div>
+            <h3>مرحضة النحاس</h3>
 
-    <h3>
-        أصل خيمة الاجتماع وزمن بنائها
-    </h3>
+            <p>
+                دراسة المرحضة وموقعها ووظيفتها ودلالتها
+                في خدمة الكهنة.
+            </p>
+        </a>
 
-    <p>
-        الخلفية التاريخية والكتابية والزمنية لنشأة الخيمة وبنائها.
-    </p>
 
-</a>
+        <a href="study-tabernacle-holy-place.html" class="study-card">
+            <span class="card-number">09</span>
 
+            <div class="card-icon">🏛️</div>
 
-<!-- 03 -->
+            <h3>القدس</h3>
 
-<a
-    href="study-tabernacle-dimensions.html"
-    class="study-card"
->
+            <p>
+                دراسة القدس ومكوناته وترتيبه والخدمة التي
+                كانت تتم فيه.
+            </p>
+        </a>
 
-    <span class="card-number">
-        03
-    </span>
 
-    <div class="card-icon">
-        📐
-    </div>
+        <a href="study-tabernacle-showbread.html" class="study-card">
+            <span class="card-number">10</span>
 
-    <h3>
-        المقاسات والمساحات
-    </h3>
+            <div class="card-icon">🍞</div>
 
-    <p>
-        دراسة أبعاد الخيمة وأقسامها ومساحاتها وعلاقاتها الهندسية.
-    </p>
+            <h3>مائدة خبز الوجوه</h3>
 
-</a>
+            <p>
+                المائدة والخبز ووظيفتهما ودلالاتهما
+                في العبادة والكتاب المقدس.
+            </p>
+        </a>
 
 
-<!-- 04 -->
+        <a href="study-tabernacle-lampstand.html" class="study-card">
+            <span class="card-number">11</span>
 
-<a
-    href="study-tabernacle-materials.html"
-    class="study-card"
->
+            <div class="card-icon">🕯️</div>
 
-    <span class="card-number">
-        04
-    </span>
+            <h3>المنارة الذهبية</h3>
 
-    <div class="card-icon">
-        🪵
-    </div>
+            <p>
+                تصميم المنارة وخدمتها ورمزيتها ودلالتها
+                الكتابية.
+            </p>
+        </a>
 
-    <h3> المواد والخامات
-    </h3>
 
-    <p>
-        الذهب والفضة والنحاس وخشب السنط والأقمشة والجلود
-        والأحجار والزيوت والأطياب.
-    </p>
+        <a href="study-tabernacle-incense-altar.html" class="study-card">
+            <span class="card-number">12</span>
 
-</a>
+            <div class="card-icon">🌿</div>
 
+            <h3>مذبح البخور</h3>
 
-<!-- 05 -->
+            <p>
+                مذبح البخور وخدمته وتركيبة البخور
+                ودلالاته في العبادة.
+            </p>
+        </a>
 
-<a
-    href="study-tabernacle-courtyard.html"
-    class="study-card"
->
 
-    <span class="card-number">
-        05
-    </span>
+        <a href="study-tabernacle-holy-of-holies.html" class="study-card">
+            <span class="card-number">13</span>
 
-    <div class="card-icon">
-        🏕️
-    </div>
+            <div class="card-icon">🕊️</div>
 
-    <h3>
-        الدار الخارجية والسور
-    </h3>
+            <h3>قدس الأقداس</h3>
 
-    <p>
-        دراسة الفناء والسور وأعمدته وستائره وترتيبه.
-    </p>
+            <p>
+                أقدس موضع في الخيمة وحضرة الله داخله
+                وعلاقته بنظام العهد.
+            </p>
+        </a>
 
-</a>
 
+        <a href="study-tabernacle-ark.html" class="study-card">
+            <span class="card-number">14</span>
 
-<!-- 06 -->
+            <div class="card-icon">📦</div>
 
-<a
-    href="study-tabernacle-entrance.html"
-    class="study-card"
->
+            <h3>تابوت العهد</h3>
 
-    <span class="card-number">
-        06
-    </span>
+            <p>
+                تابوت العهد ومكوناته ومكانه ورسالته
+                في تاريخ الخلاص.
+            </p>
+        </a>
 
-    <div class="card-icon">
-        🚪
-    </div>
 
-    <h3>
-        الباب والمدخل
-    </h3>
+        <a href="study-tabernacle-mercy-seat.html" class="study-card">
+            <span class="card-number">15</span>
 
-    <p>
-        دراسة مدخل الخيمة وموقعه وبنيته ووظيفته في نظام العبادة.
-    </p>
+            <div class="card-icon">⚖️</div>
 
-</a>
+            <h3>غطاء التابوت والكاروبيم</h3>
 
+            <p>
+                غطاء التابوت والكاروبيم ومفهوم الحضور
+                والرحمة في قدس الأقداس.
+            </p>
+        </a>
 
-<!-- 07 -->
 
-<a
-    href="study-tabernacle-burnt-offering.html"
-    class="study-card"
->
+        <a href="study-tabernacle-priests.html" class="study-card">
+            <span class="card-number">16</span>
 
-    <span class="card-number">
-        07
-    </span>
+            <div class="card-icon">👑</div>
 
-    <div class="card-icon">
-        🔥
-    </div>
+            <h3>الكهنة ورئيس الكهنة</h3>
 
-    <h3>
-        مذبح المحرقة
-    </h3>
+            <p>
+                الكهنوت وخدمة الكهنة ورئيس الكهنة
+                في نظام خيمة الاجتماع.
+            </p>
+        </a>
 
-    <p>
-        البناء والوظيفة والذبائح المرتبطة بالمذبح ودلالته الكتابية.
-    </p>
 
-</a>
+        <a href="study-tabernacle-priestly-garments.html" class="study-card">
+            <span class="card-number">17</span>
 
+            <div class="card-icon">👕</div>
 
-<!-- 08 -->
+            <h3>الثياب الكهنوتية</h3>
 
-<a
-    href="study-tabernacle-laver.html"
-    class="study-card"
->
+            <p>
+                الثياب الكهنوتية ومكوناتها ووظيفتها
+                ورموزها الكتابية.
+            </p>
+        </a>
 
-    <span class="card-number">
-        08
-    </span>
 
-    <div class="card-icon">
-        🧼
-    </div>
+        <a href="study-tabernacle-sacrifices.html" class="study-card">
+            <span class="card-number">18</span>
 
-    <h3>
-        مرحضة النحاس
-    </h3>
+            <div class="card-icon">🩸</div>
 
-    <p>
-        موقع المرحضة ووظيفتها واستخدامها في خدمة الكهنة.
-    </p>
+            <h3>الذبائح والدم والكفارة</h3>
 
-</a>
+            <p>
+                الذبائح والدم والتكفير وعلاقتها بنظام
+                العبادة في العهد القديم.
+            </p>
+        </a>
 
 
-<!-- 09 -->
+        <a href="study-tabernacle-cloud-glory.html" class="study-card">
+            <span class="card-number">19</span>
 
-<a
-    href="study-tabernacle-holy-place.html"
-    class="study-card"
->
+            <div class="card-icon">☁️</div>
 
-    <span class="card-number">
-        09
-    </span>
+            <h3>السحابة ومجد الرب</h3>
 
-    <div class="card-icon">
-        🏛️
-    </div>
+            <p>
+                السحابة ومجد الرب وعلامة حضور الله
+                وقيادته للشعب.
+            </p>
+        </a>
 
-    <h3>
-        القدس
-    </h3>
 
-    <p>
-        القسم الأول من المسكن وأثاثه ونظام الخدمة داخله.
-    </p>
+        <a href="study-tabernacle-wilderness-journey.html" class="study-card">
+            <span class="card-number">20</span>
 
-</a>
+            <div class="card-icon">🧭</div>
 
+            <h3>خيمة الاجتماع في البرية والترحال</h3>
 
-<!-- 10 -->
+            <p>
+                الخيمة أثناء ترحال إسرائيل وتنقلها
+                وترتيب الشعب حولها.
+            </p>
+        </a>
 
-<a
-    href="study-tabernacle-bread.html"
-    class="study-card"
->
 
-    <span class="card-number">
-        10
-    </span>
+        <a href="study-tabernacle-symbols.html" class="study-card">
+            <span class="card-number">21</span>
 
-    <div class="card-icon">
-        🍞
-    </div>
+            <div class="card-icon">✡️</div>
 
-    <h3>
-        مائدة خبز الوجوه
-    </h3>
+            <h3>الرموز والمعاني اللاهوتية</h3>
 
-    <p>
-        المائدة والخبز ووظيفتهما في العبادة.
-    </p>
+            <p>
+                دراسة الرموز والمعاني اللاهوتية في
+                عناصر خيمة الاجتماع.
+            </p>
+        </a>
 
-</a>
 
+        <a href="study-tabernacle-christ.html" class="study-card">
+            <span class="card-number">22</span>
 
-<!-- 11 -->
+            <div class="card-icon">✝️</div>
 
-<a
-    href="study-tabernacle-menorah.html"
-    class="study-card"
->
+            <h3>خيمة الاجتماع والمسيح</h3>
 
-    <span class="card-number">
-        11
-    </span>
+            <p>
+                قراءة خيمة الاجتماع في ضوء شخص المسيح
+                وعمل الخلاص.
+            </p>
+        </a>
 
-    <div class="card-icon">
-        🕯️
-    </div>
 
-    <h3>
-        المنارة الذهبية
-    </h3>
+        <a href="study-tabernacle-new-testament.html" class="study-card">
+            <span class="card-number">23</span>
 
-    <p>
-        تصميم المنارة ووظيفتها وزيتها ومكانها داخل القدس.
-    </p>
+            <div class="card-icon">📖</div>
 
-</a>
+            <h3>خيمة الاجتماع في العهد الجديد</h3>
 
+            <p>
+                حضور الخيمة ومفاهيمها في أسفار العهد
+                الجديد وخصوصًا الرسالة إلى العبرانيين.
+            </p>
+        </a>
 
-<!-- 12 -->
-
-<a
-    href="study-tabernacle-incense.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        12
-    </span>
-
-    <div class="card-icon">
-        🌿
-    </div>
-
-    <h3>
-        مذبح البخور
-    </h3>
-
-    <p>
-        مذبح البخور وخدمته وتركيب البخور وسياقه الكتابي.
-    </p>
-
-</a>
-
-
-<!-- 13 -->
-
-<a
-    href="study-tabernacle-holy-of-holies.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        13
-    </span>
-
-    <div class="card-icon">
-        🕊️
-    </div>
-
-    <h3>
-        قدس الأقداس
-    </h3>
-
-    <p>
-        أقدس أقسام المسكن وموقعه ووظيفته وعلاقته بحضور الله.
-    </p>
-
-</a>
-
-
-<!-- 14 -->
-
-<a
-    href="study-tabernacle-ark.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        14
-    </span>
-
-    <div class="card-icon">
-        📦
-    </div>
-
-    <h3>
-        تابوت العهد
-    </h3>
-
-    <p>
-        بنية التابوت ومحتوياته وموقعه ودوره في تاريخ إسرائيل.
-    </p>
-
-</a>
-
-
-<!-- 15 -->
-
-<a
-    href="study-tabernacle-mercy-seat.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        15
-    </span>
-
-    <div class="card-icon">
-        ⚖️
-    </div>
-
-    <h3>
-        غطاء التابوت والكاروبيم
-    </h3>
-
-    <p>
-        الغطاء والكاروبيم وحضور الله فوق التابوت.
-    </p>
-
-</a>
-
-
-<!-- 16 -->
-
-<a
-    href="study-tabernacle-priests.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        16
-    </span>
-
-    <div class="card-icon">
-        👑
-    </div>
-
-    <h3>
-        الكهنة ورئيس الكهنة
-    </h3>
-
-    <p>
-        الكهنوت والوظائف والخدمة وشروط الاقتراب إلى المقدس.
-    </p>
-
-</a>
-
-
-<!-- 17 -->
-
-<a
-    href="study-tabernacle-garments.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        17
-    </span>
-
-    <div class="card-icon">
-        👕
-    </div>
-
-    <h3>
-        الثياب الكهنوتية
-    </h3>
-
-    <p>
-        تفاصيل الملابس الكهنوتية ومعانيها ووظيفتها.
-    </p>
-
-</a>
-
-
-<!-- 18 -->
-
-<a
-    href="study-tabernacle-sacrifices.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        18
-    </span>
-
-    <div class="card-icon">
-        🩸
-    </div>
-
-    <h3>
-        الذبائح والدم والكفارة
-    </h3>
-
-    <p>
-        نظام الذبائح وعلاقة الدم بالكفارة والتطهير.
-    </p>
-
-</a>
-
-
-<!-- 19 -->
-
-<a
-    href="study-tabernacle-glory.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        19
-    </span>
-
-    <div class="card-icon">
-        ☁️
-    </div>
-
-    <h3>
-        السحابة ومجد الرب
-    </h3>
-
-    <p>
-        حضور الله والسحابة ومجد الرب فوق المسكن.
-    </p>
-
-</a>
-
-
-<!-- 20 -->
-
-<a
-    href="study-tabernacle-journey.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        20
-    </span>
-
-    <div class="card-icon">
-        🧭
-    </div>
-
-    <h3>
-        خيمة الاجتماع في البرية والترحال
-    </h3>
-
-    <p>
-        رفع الخيمة ونقلها ونزولها ومسار الشعب في البرية.
-    </p>
-
-</a>
-
-
-<!-- 21 -->
-
-<a
-    href="study-tabernacle-symbolism.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        21
-    </span>
-
-    <div class="card-icon">
-        ✡️
-    </div>
-
-    <h3>
-        الرموز والمعاني اللاهوتية
-    </h3>
-
-    <p>
-        دراسة الرموز والمعاني اللاهوتية مع التفريق بين النص
-        والتفسير.
-    </p>
-
-</a>
-
-
-<!-- 22 -->
-
-<a
-    href="study-tabernacle-christ.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        22
-    </span>
-
-    <div class="card-icon">
-        ✝️
-    </div>
-
-    <h3>
-        خيمة الاجتماع والمسيح
-    </h3>
-
-    <p>
-        دراسة العلاقة بين الخيمة وشخص المسيح وعمله في ضوء
-        الشهادة الكتابية.
-    </p>
-
-</a>
-
-
-<!-- 23 -->
-
-<a
-    href="study-tabernacle-new-testament.html"
-    class="study-card"
->
-
-    <span class="card-number">
-        23
-    </span>
-
-    <div class="card-icon">
-        📖
-    </div>
-
-    <h3>
-        خيمة الاجتماع في العهد الجديد
-    </h3>
-
-    <p>
-        حضور مفهوم المسكن والخيمة في أسفار العهد الجديد
-        والرسالة إلى العبرانيين بصورة خاصة.
-    </p>
-
-</a>
-
-
-</div>
-
+    </section>
 
 </main>
 
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
 <footer>
-
     كنيسة رجاء الأمم سيدني
-
     <br>
-
     موسوعة الكتاب المقدس
-
 </footer>
 
-
 </body>
-
 </html>
