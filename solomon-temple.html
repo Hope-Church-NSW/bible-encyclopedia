@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>هيكل سليمان | موسوعة الكتاب المقدس</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Tahoma", "Arial", sans-serif;
+            background: #f5f7fb;
+            color: #1d2939;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .header {
+            background: linear-gradient(135deg, #092c5c, #0d4d8c);
+            color: white;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .temple-symbol {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #d4af37, #f5d76e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            color: #092c5c;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-title h1 {
+            font-size: 21px;
+            margin-bottom: 4px;
+        }
+
+        .header-title p {
+            font-size: 12px;
+            opacity: 0.85;
+        }
+
+        .home-btn {
+            border: 1px solid rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.12);
+            color: white;
+            padding: 9px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .home-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* =========================
+           INTRO
+        ========================== */
+
+        .intro {
+            max-width: 1100px;
+            margin: 25px auto 15px;
+            padding: 0 18px;
+        }
+
+        .intro-card {
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 4px 18px rgba(16,24,40,0.08);
+            border-right: 5px solid #d4af37;
+        }
+
+        .intro-card h2 {
+            color: #092c5c;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .intro-card p {
+            line-height: 1.9;
+            font-size: 14px;
+            color: #475467;
+        }
+
+        /* =========================
+           SECTION TITLE
+        ========================== */
+
+        .section-title {
+            max-width: 1100px;
+            margin: 28px auto 15px;
+            padding: 0 18px;
+        }
+
+        .section-title h2 {
+            color: #092c5c;
+            font-size: 19px;
+        }
+
+        .section-title p {
+            margin-top: 5px;
+            color: #667085;
+            font-size: 13px;
+        }
+
+        /* =========================
+           ICONS GRID
+        ========================== */
+
+        .icons-grid {
+            max-width: 1100px;
+            margin: 0 auto 40px;
+            padding: 0 18px;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .study-card {
+            background: white;
+            border-radius: 17px;
+            padding: 20px 15px;
+            min-height: 165px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            cursor: pointer;
+
+            border: 1px solid #eaecf0;
+            box-shadow: 0 3px 12px rgba(16,24,40,0.06);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 22px rgba(16,24,40,0.12);
+            border-color: #d4af37;
+        }
+
+        .study-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+
+            background: linear-gradient(135deg, #092c5c, #1465a5);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #f5d76e;
+            font-size: 30px;
+
+            margin-bottom: 12px;
+
+            box-shadow: 0 5px 12px rgba(9,44,92,0.22);
+        }
+
+        .study-number {
+            font-size: 11px;
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .study-card h3 {
+            font-size: 15px;
+            color: #092c5c;
+            margin-bottom: 7px;
+        }
+
+        .study-card p {
+            font-size: 11px;
+            line-height: 1.6;
+            color: #667085;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .footer {
+            text-align: center;
+            padding: 25px 15px;
+            background: #092c5c;
+            color: white;
+            font-size: 12px;
+        }
+
+        .footer strong {
+            color: #f5d76e;
+        }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 850px) {
+            .icons-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 14px;
+            }
+
+            .header-title h1 {
+                font-size: 17px;
+            }
+
+            .header-title p {
+                font-size: 10px;
+            }
+
+            .temple-symbol {
+                width: 42px;
+                height: 42px;
+                font-size: 21px;
+            }
+
+            .home-btn {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+
+            .icons-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .study-card {
+                min-height: 150px;
+                padding: 15px 10px;
+            }
+
+            .study-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 25px;
+            }
+
+            .study-card h3 {
+                font-size: 13px;
+            }
+
+            .study-card p {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .icons-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="header-right">
+
+            <div class="temple-symbol">
+                🏛️
+            </div>
+
+            <div class="header-title">
+                <h1>هيكل سليمان</h1>
+                <p>دراسة كتابية وتاريخية ولاهوتية</p>
+            </div>
+
+        </div>
+
+        <button class="home-btn" onclick="goHome()">
+            الرئيسية
+        </button>
+
+    </header>
+
+
+    <!-- =========================
+         INTRODUCTION
+    ========================== -->
+
+    <section class="intro">
+
+        <div class="intro-card">
+
+            <h2>هيكل سليمان</h2>
+
+            <p>
+                دراسة متكاملة عن الهيكل الذي بناه الملك سليمان في أورشليم،
+                تشمل خلفيته التاريخية، تصميمه، أثاثه، خدمته، تدشينه،
+                سقوطه، ومعانيه اللاهوتية وعلاقته بالمسيح والعهد الجديد.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         STUDY ICONS
+    ========================== -->
+
+    <section class="section-title">
+
+        <h2>أقسام الدراسة</h2>
+
+        <p>
+            اختر الموضوع الذي تريد دراسته
+        </p>
+
+    </section>
+
+
+    <main class="icons-grid">
+
+
+        <!-- 01 -->
+
+        <div class="study-card"
+             onclick="openStudy('introduction')">
+
+            <div class="study-icon">📖</div>
+
+            <div class="study-number">01</div>
+
+            <h3>مقدمة شاملة</h3>
+
+            <p>
+                ماهية الهيكل وهدفه ومكانته في تاريخ إسرائيل
+            </p>
+
+        </div>
+
+
+        <!-- 02 -->
+
+        <div class="study-card"
+             onclick="openStudy('history')">
+
+            <div class="study-icon">📜</div>
+
+            <div class="study-number">02</div>
+
+            <h3>الخلفية التاريخية</h3>
+
+            <p>
+                داود وسليمان والاستعداد لبناء الهيكل
+            </p>
+
+        </div>
+
+
+        <!-- 03 -->
+
+        <div class="study-card"
+             onclick="openStudy('construction')">
+
+            <div class="study-icon">🧱</div>
+
+            <div class="study-number">03</div>
+
+            <h3>بناء الهيكل</h3>
+
+            <p>
+                المواد والعمال والحرفيون ومدة البناء
+            </p>
+
+        </div>
+
+
+        <!-- 04 -->
+
+        <div class="study-card"
+             onclick="openStudy('architecture')">
+
+            <div class="study-icon">📐</div>
+
+            <div class="study-number">04</div>
+
+            <h3>هندسة وتصميم الهيكل</h3>
+
+            <p>
+                الأبعاد والتقسيم الداخلي والتصميم المعماري
+            </p>
+
+        </div>
+
+
+        <!-- 05 -->
+
+        <div class="study-card"
+             onclick="openStudy('furniture')">
+
+            <div class="study-icon">🕎</div>
+
+            <div class="study-number">05</div>
+
+            <h3>أثاث الهيكل</h3>
+
+            <p>
+                التابوت والمذابح والمنائر والأواني المقدسة
+            </p>
+
+        </div>
+
+
+        <!-- 06 -->
+
+        <div class="study-card"
+             onclick="openStudy('holy-of-holies')">
+
+            <div class="study-icon">✨</div>
+
+            <div class="study-number">06</div>
+
+            <h3>قدس الأقداس</h3>
+
+            <p>
+                التابوت والكروبيم والحضور الإلهي
+            </p>
+
+        </div>
+
+
+        <!-- 07 -->
+
+        <div class="study-card"
+             onclick="openStudy('dedication')">
+
+            <div class="study-icon">🔥</div>
+
+            <div class="study-number">07</div>
+
+            <h3>تدشين الهيكل</h3>
+
+            <p>
+                نقل التابوت ومجد الرب وصلوات سليمان
+            </p>
+
+        </div>
+
+
+        <!-- 08 -->
+
+        <div class="study-card"
+             onclick="openStudy('solomon-prayer')">
+
+            <div class="study-icon">🙏</div>
+
+            <div class="study-number">08</div>
+
+            <h3>صلاة سليمان</h3>
+
+            <p>
+                دراسة لاهوتية عميقة لصلاة تدشين الهيكل
+            </p>
+
+        </div>
+
+
+        <!-- 09 -->
+
+        <div class="study-card"
+             onclick="openStudy('christ')">
+
+            <div class="study-icon">✝️</div>
+
+            <div class="study-number">09</div>
+
+            <h3>هيكل سليمان والمسيح</h3>
+
+            <p>
+                الرموز والنبوات وتحقيقها في المسيح
+            </p>
+
+        </div>
+
+
+        <!-- 10 -->
+
+        <div class="study-card"
+             onclick="openStudy('new-testament')">
+
+            <div class="study-icon">📚</div>
+
+            <div class="study-number">10</div>
+
+            <h3>الهيكل في العهد الجديد</h3>
+
+            <p>
+                المسيح والهيكل والكنيسة والمؤمن
+            </p>
+
+        </div>
+
+
+        <!-- 11 -->
+
+        <div class="study-card"
+             onclick="openStudy('destruction')">
+
+            <div class="study-icon">🏚️</div>
+
+            <div class="study-number">11</div>
+
+            <h3>سقوط هيكل سليمان</h3>
+
+            <p>
+                السقوط والدمار والسبي البابلي
+            </p>
+
+        </div>
+
+
+        <!-- 12 -->
+
+        <div class="study-card"
+             onclick="openStudy('comparisons')">
+
+            <div class="study-icon">⚖️</div>
+
+            <div class="study-number">12</div>
+
+            <h3>الدراسات المقارنة</h3>
+
+            <p>
+                الخيمة والهيكل الثاني وهيكل هيرودس
+            </p>
+
+        </div>
+
+
+        <!-- 13 -->
+
+        <div class="study-card"
+             onclick="openStudy('maps')">
+
+            <div class="study-icon">🗺️</div>
+
+            <div class="study-number">13</div>
+
+            <h3>الخرائط والمخططات</h3>
+
+            <p>
+                مخططات الهيكل وموقعه وتوزيع أجزائه
+            </p>
+
+        </div>
+
+
+        <!-- 14 -->
+
+        <div class="study-card"
+             onclick="openStudy('bible-references')">
+
+            <div class="study-icon">🔎</div>
+
+            <div class="study-number">14</div>
+
+            <h3>الآيات المرتبطة</h3>
+
+            <p>
+                جميع النصوص الكتابية المرتبطة بالهيكل
+            </p>
+
+        </div>
+
+
+        <!-- 15 -->
+
+        <div class="study-card"
+             onclick="openStudy('research')">
+
+            <div class="study-icon">📑</div>
+
+            <div class="study-number">15</div>
+
+            <h3>المراجع والمصادر</h3>
+
+            <p>
+                المصادر الكتابية والتاريخية واللاهوتية
+            </p>
+
+        </div>
+
+
+        <!-- 16 -->
+
+        <div class="study-card"
+             onclick="openStudy('deep-study')">
+
+            <div class="study-icon">🧠</div>
+
+            <div class="study-number">16</div>
+
+            <h3>الدراسة العميقة</h3>
+
+            <p>
+                الربط بين الهيكل وخطة الفداء وحضور الله
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <strong>موسوعة الكتاب المقدس</strong>
+
+        <br>
+
+        دراسة وبحث في كلمة الله
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        function openStudy(section) {
+
+            /*
+             * سيتم ربط كل قسم لاحقًا
+             * بصفحة الدراسة الخاصة به.
+             *
+             * مثال:
+             * solomon-temple-introduction.html
+             * solomon-temple-history.html
+             * solomon-temple-architecture.html
+             */
+
+            const pages = {
+
+                "introduction":
+                    "solomon-temple-introduction.html",
+
+                "history":
+                    "solomon-temple-history.html",
+
+                "construction":
+                    "solomon-temple-construction.html",
+
+                "architecture":
+                    "solomon-temple-architecture.html",
+
+                "furniture":
+                    "solomon-temple-furniture.html",
+
+                "holy-of-holies":
+                    "solomon-temple-holy-of-holies.html",
+
+                "dedication":
+                    "solomon-temple-dedication.html",
+
+                "solomon-prayer":
+                    "solomon-temple-prayer.html",
+
+                "christ":
+                    "solomon-temple-christ.html",
+
+                "new-testament":
+                    "solomon-temple-new-testament.html",
+
+                "destruction":
+                    "solomon-temple-destruction.html",
+
+                "comparisons":
+                    "solomon-temple-comparisons.html",
+
+                "maps":
+                    "solomon-temple-maps.html",
+
+                "bible-references":
+                    "solomon-temple-bible-references.html",
+
+                "research":
+                    "solomon-temple-research.html",
+
+                "deep-study":
+                    "solomon-temple-deep-study.html"
+            };
+
+
+            if (pages[section]) {
+
+                window.location.href = pages[section];
+
+            } else {
+
+                console.warn(
+                    "لم يتم العثور على صفحة الدراسة:",
+                    section
+                );
+
+            }
+
+        }
+
+
+        function goHome() {
+
+            window.location.href = "index.html";
+
+        }
+
+    </script>
+
+</body>
+</html>
