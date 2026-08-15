@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
 
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,26 +10,27 @@
 <style>
 
 :root{
-    --blue-dark:#020b16;
-    --blue:#071c30;
-    --blue2:#0b2943;
-    --blue3:#123f64;
+    --blue:#061a2d;
+    --blue2:#0b2742;
+    --blue3:#123b61;
+    --blue4:#174d7c;
 
     --gold:#d4af37;
-    --gold-light:#f6df82;
-    --gold-dark:#8d6815;
+    --gold2:#f4d76b;
+    --gold3:#fff0a6;
 
-    --white:#f8fafc;
-    --text:#e7edf4;
-    --muted:#aab9c8;
+    --white:#ffffff;
+    --text:#e9eef5;
+    --muted:#aebdca;
 
+    --glass:rgba(8,30,50,.88);
     --line:rgba(212,175,55,.28);
 
     --shadow:
-        0 25px 60px rgba(0,0,0,.55);
+        0 20px 60px rgba(0,0,0,.45);
 
     --gold-shadow:
-        0 0 30px rgba(212,175,55,.13);
+        0 0 25px rgba(212,175,55,.22);
 }
 
 *{
@@ -42,11 +43,8 @@ html{
 
 body{
     margin:0;
-    min-height:100vh;
 
     font-family:
-        "Noto Naskh Arabic",
-        "Amiri",
         "Segoe UI",
         Tahoma,
         Arial,
@@ -56,91 +54,61 @@ body{
 
     background:
         radial-gradient(
-            circle at 50% -10%,
-            #174a75 0%,
-            transparent 38%
-        ),
-        radial-gradient(
-            circle at 10% 40%,
-            rgba(212,175,55,.08),
-            transparent 30%
-        ),
-        linear-gradient(
-            145deg,
-            #010811,
-            #061a2d 50%,
-            #020913
+            circle at 50% 0%,
+            #174d7c 0%,
+            #0b2742 28%,
+            #061a2d 65%,
+            #030d18 100%
         );
 
     line-height:1.9;
 }
 
-/* =========================================================
+/* =====================================================
    HEADER
-========================================================= */
+===================================================== */
 
 header{
-
     position:sticky;
     top:0;
     z-index:1000;
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(3,15,28,.97),
-            rgba(2,10,20,.96)
-        );
+    background:rgba(3,15,27,.94);
 
-    backdrop-filter:blur(15px);
+    backdrop-filter:blur(14px);
 
-    border-bottom:
-        1px solid var(--line);
+    border-bottom:1px solid var(--line);
 
-    box-shadow:
-        0 10px 35px rgba(0,0,0,.45);
+    box-shadow:0 5px 25px rgba(0,0,0,.25);
 }
 
-.header-inner{
-
-    width:min(
-        1250px,
-        calc(100% - 30px)
-    );
-
-    min-height:86px;
+.topbar{
+    max-width:1200px;
+    min-height:82px;
 
     margin:auto;
+    padding:10px 20px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:20px;
 }
 
 .brand{
-
     display:flex;
-
     align-items:center;
-
-    gap:15px;
+    gap:13px;
 }
 
-.logo{
-
-    width:62px;
-    height:62px;
+.brand-logo{
+    width:58px;
+    height:58px;
 
     object-fit:contain;
 
     filter:
-        drop-shadow(
-            0 8px 15px rgba(0,0,0,.7)
-        );
+        drop-shadow(0 0 8px rgba(212,175,55,.25));
 
     animation:
         logoFloat 4s ease-in-out infinite;
@@ -149,95 +117,74 @@ header{
 @keyframes logoFloat{
 
     0%,100%{
-        transform:
-            translateY(0)
-            rotateY(0deg);
+        transform:translateY(0) rotate(0deg);
     }
 
     50%{
-        transform:
-            translateY(-5px)
-            rotateY(8deg);
+        transform:translateY(-5px) rotate(1deg);
     }
+
 }
 
-.brand-title{
-
-    color:var(--gold-light);
-
-    font-size:20px;
-
-    font-weight:900;
-
-    text-shadow:
-        0 2px 8px rgba(0,0,0,.6);
+.brand-name{
+    color:var(--gold2);
+    font-size:18px;
+    font-weight:700;
 }
 
-.back-btn{
-
-    display:inline-flex;
-
+.home-btn{
+    display:flex;
     align-items:center;
-
     gap:8px;
-
-    padding:10px 17px;
-
-    color:white;
 
     text-decoration:none;
 
-    border:
-        1px solid rgba(212,175,55,.65);
+    color:white;
 
-    border-radius:12px;
+    padding:9px 16px;
+
+    border-radius:11px;
+
+    border:1px solid var(--line);
 
     background:
         linear-gradient(
             145deg,
-            #173e60,
-            #071a2d
+            rgba(18,59,97,.95),
+            rgba(6,26,45,.95)
         );
 
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.35);
-
     transition:.3s;
-}
-
-.back-btn:hover{
-
-    transform:
-        translateY(-3px);
-
-    border-color:
-        var(--gold-light);
 
     box-shadow:
-        0 12px 30px rgba(0,0,0,.5),
-        var(--gold-shadow);
+        0 5px 18px rgba(0,0,0,.25);
 }
 
-/* =========================================================
+.home-btn:hover{
+    transform:translateY(-2px);
+
+    border-color:var(--gold);
+
+    box-shadow:
+        0 8px 25px rgba(212,175,55,.18);
+}
+
+/* =====================================================
    MAIN
-========================================================= */
+===================================================== */
 
 main{
-
-    width:min(
-        1200px,
-        calc(100% - 30px)
-    );
+    max-width:1150px;
 
     margin:auto;
 
     padding:
-        45px 0 80px;
+        35px 18px 70px;
 }
 
-/* =========================================================
+/* =====================================================
    HERO
-========================================================= */
+===================================================== */
 
 .hero{
 
@@ -245,39 +192,25 @@ main{
 
     overflow:hidden;
 
-    padding:
-        55px 35px;
-
-    margin-bottom:30px;
-
     text-align:center;
 
-    border:
-        1px solid var(--line);
+    padding:
+        50px 28px 45px;
 
     border-radius:28px;
 
-    background:
+    border:1px solid var(--line);
 
+    background:
         radial-gradient(
             circle at 50% 0%,
-            rgba(212,175,55,.13),
-            transparent 35%
-        ),
-
-        linear-gradient(
-            145deg,
-            rgba(18,63,100,.96),
-            rgba(3,17,30,.98)
+            rgba(23,77,124,.75),
+            rgba(6,26,45,.96) 65%
         );
 
-    box-shadow:
-        var(--shadow),
-        inset 0 1px 0 rgba(255,255,255,.08);
+    box-shadow:var(--shadow);
 
-    transform:
-        perspective(1200px)
-        rotateX(1deg);
+    margin-bottom:25px;
 }
 
 .hero::before{
@@ -286,78 +219,80 @@ main{
 
     position:absolute;
 
-    width:300px;
-    height:300px;
+    width:260px;
+    height:260px;
+
+    top:-120px;
+    right:-80px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(212,175,55,.16),
+            rgba(212,175,55,.18),
             transparent 70%
         );
 
-    top:-170px;
-    left:50%;
-
-    transform:
-        translateX(-50%);
+    pointer-events:none;
 }
 
-.hero-icon{
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    bottom:-120px;
+    left:-80px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(23,77,124,.35),
+            transparent 70%
+        );
+
+    pointer-events:none;
+}
+
+.hero-logo{
 
     position:relative;
 
-    width:105px;
-    height:105px;
+    width:125px;
+    height:125px;
 
-    margin:
-        0 auto 20px;
+    object-fit:contain;
 
-    display:flex;
+    margin-bottom:15px;
 
-    align-items:center;
+    filter:
+        drop-shadow(0 0 18px rgba(212,175,55,.35));
 
-    justify-content:center;
-
-    font-size:52px;
-
-    border-radius:28px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #1b4d77,
-            #071b2e
-        );
-
-    border:
-        1px solid rgba(212,175,55,.7);
-
-    box-shadow:
-
-        inset 0 1px 3px rgba(255,255,255,.15),
-
-        0 20px 35px rgba(0,0,0,.45),
-
-        0 0 35px rgba(212,175,55,.10);
-
-    transform:
-        perspective(700px)
-        rotateX(5deg)
-        rotateY(-5deg);
-
-    transition:.4s;
+    animation:
+        heroLogo 5s ease-in-out infinite;
 }
 
-.hero:hover .hero-icon{
+@keyframes heroLogo{
 
-    transform:
-        perspective(700px)
-        rotateX(0deg)
-        rotateY(0deg)
-        translateY(-7px);
+    0%,100%{
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+    50%{
+        transform:
+            translateY(-9px)
+            scale(1.025);
+    }
+
 }
 
 .hero h1{
@@ -366,183 +301,257 @@ main{
 
     margin:0 0 12px;
 
+    color:var(--gold2);
+
     font-size:
-        clamp(30px,5vw,48px);
+        clamp(29px,5vw,42px);
 
-    font-weight:900;
-
-    color:var(--gold-light);
+    line-height:1.35;
 
     text-shadow:
-        0 3px 15px rgba(0,0,0,.7);
+        0 2px 18px rgba(0,0,0,.35);
 }
 
-.hero p{
+.hero-subtitle{
 
     position:relative;
 
-    max-width:850px;
-
     margin:auto;
 
-    color:#d8e2ec;
+    max-width:850px;
+
+    color:#dce6ef;
 
     font-size:18px;
-
-    line-height:2;
 }
 
-/* =========================================================
+.pastor{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:
+        8px 20px;
+
+    border-radius:30px;
+
+    color:var(--gold3);
+
+    border:1px solid var(--line);
+
+    background:
+        rgba(212,175,55,.08);
+
+    box-shadow:var(--gold-shadow);
+
+    font-size:17px;
+
+    font-weight:700;
+}
+
+/* =====================================================
    SECTION
-========================================================= */
+===================================================== */
 
 .section{
 
-    margin-bottom:28px;
-
-    padding:30px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(10,38,63,.94),
+            rgba(5,24,41,.96)
+        );
 
     border:
         1px solid var(--line);
 
-    border-radius:23px;
+    border-radius:22px;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(13,43,69,.94),
-            rgba(4,19,33,.97)
-        );
+    padding:
+        30px 28px;
+
+    margin-bottom:22px;
 
     box-shadow:
-        0 15px 40px rgba(0,0,0,.35);
-
-    transition:.3s;
+        0 12px 35px rgba(0,0,0,.25);
 }
 
-.section:hover{
+.section h2{
 
-    border-color:
-        rgba(212,175,55,.48);
+    margin-top:0;
 
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.45),
-        var(--gold-shadow);
-}
-
-.section-title{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin:
-        0 0 22px;
-
-    color:var(--gold-light);
+    color:var(--gold2);
 
     font-size:27px;
 
-    font-weight:900;
-
     border-bottom:
-        1px solid rgba(212,175,55,.20);
+        1px solid var(--line);
 
-    padding-bottom:14px;
-}
-
-.section-title span{
-
-    width:48px;
-    height:48px;
-
-    flex:none;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:14px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #1b4b72,
-            #071a2c
-        );
-
-    border:
-        1px solid rgba(212,175,55,.55);
-
-    box-shadow:
-        inset 0 1px 2px rgba(255,255,255,.1),
-        0 8px 18px rgba(0,0,0,.35);
+    padding-bottom:10px;
 }
 
 .section p{
 
-    color:#dbe4ed;
+    color:#e1e9ef;
 
     font-size:17px;
 
-    line-height:2;
+    margin-bottom:15px;
 }
 
-/* =========================================================
-   APP DESCRIPTION
-========================================================= */
+/* =====================================================
+   INFO CARDS
+===================================================== */
 
-.highlight{
+.info-grid{
 
-    padding:22px;
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:18px;
 
     margin-top:20px;
+}
 
-    border-right:
-        4px solid var(--gold);
+.info-card{
 
-    border-radius:13px;
+    position:relative;
+
+    overflow:hidden;
+
+    padding:23px;
+
+    border-radius:18px;
+
+    border:1px solid
+        rgba(212,175,55,.20);
 
     background:
         linear-gradient(
-            90deg,
-            rgba(212,175,55,.04),
-            rgba(212,175,55,.11)
+            145deg,
+            #0d3455,
+            #071d31
         );
 
-    color:#e9dfbb;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+
+    transition:
+        transform .3s,
+        border-color .3s,
+        box-shadow .3s;
 }
 
-/* =========================================================
-   SOCIAL CARDS
-========================================================= */
+.info-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-55px;
+    right:-55px;
+
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(212,175,55,.14),
+            transparent 70%
+        );
+}
+
+.info-card:hover{
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(212,175,55,.55);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.38),
+        0 0 20px rgba(212,175,55,.08);
+}
+
+.info-icon{
+
+    width:55px;
+    height:55px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    font-size:27px;
+
+    margin-bottom:12px;
+
+    color:var(--gold2);
+
+    background:
+        linear-gradient(
+            145deg,
+            #174d7c,
+            #0a2945
+        );
+
+    border:
+        1px solid var(--line);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 8px 20px rgba(0,0,0,.25);
+}
+
+.info-card h3{
+
+    color:var(--gold2);
+
+    margin:
+        0 0 7px;
+
+    font-size:20px;
+}
+
+.info-card p{
+
+    margin:0;
+
+    color:#cbd7e1;
+
+    font-size:15px;
+}
+
+/* =====================================================
+   SOCIAL
+===================================================== */
 
 .social-grid{
 
     display:grid;
 
     grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(210px,1fr)
-        );
+        repeat(4,1fr);
 
-    gap:20px;
+    gap:16px;
 
-    margin-top:20px;
+    margin-top:22px;
 }
 
 .social-card{
 
     position:relative;
 
-    min-height:180px;
-
-    padding:25px 20px;
+    min-height:150px;
 
     display:flex;
 
@@ -554,36 +563,33 @@ main{
 
     text-align:center;
 
+    padding:18px;
+
     text-decoration:none;
 
     color:white;
 
-    overflow:hidden;
+    border-radius:20px;
 
     border:
-        1px solid rgba(255,255,255,.09);
-
-    border-radius:22px;
+        1px solid rgba(212,175,55,.22);
 
     background:
         linear-gradient(
             145deg,
-            rgba(18,57,88,.98),
-            rgba(4,19,32,.98)
+            #123b61,
+            #071d31
         );
 
     box-shadow:
-        0 15px 30px rgba(0,0,0,.45);
+        0 12px 30px rgba(0,0,0,.3);
 
-    transform:
-        perspective(900px)
-        rotateX(0deg)
-        rotateY(0deg);
+    overflow:hidden;
 
     transition:
-        transform .4s,
-        border-color .4s,
-        box-shadow .4s;
+        transform .35s,
+        box-shadow .35s,
+        border-color .35s;
 }
 
 .social-card::before{
@@ -592,116 +598,249 @@ main{
 
     position:absolute;
 
-    width:160px;
-    height:160px;
+    width:150px;
+    height:150px;
+
+    top:-90px;
+    left:-70px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(212,175,55,.12),
+            rgba(212,175,55,.20),
             transparent 70%
         );
-
-    top:-90px;
-    right:-70px;
 }
 
 .social-card:hover{
 
     transform:
-        perspective(900px)
-        rotateX(4deg)
-        rotateY(-4deg)
-        translateY(-8px);
+        translateY(-8px)
+        rotateX(2deg);
 
-    border-color:
-        rgba(212,175,55,.75);
+    border-color:var(--gold);
 
     box-shadow:
-
-        0 25px 45px rgba(0,0,0,.55),
-
-        0 0 30px rgba(212,175,55,.12);
+        0 20px 40px rgba(0,0,0,.45),
+        0 0 22px rgba(212,175,55,.12);
 }
 
 .social-icon{
 
-    width:76px;
-    height:76px;
+    width:66px;
+    height:66px;
 
-    margin-bottom:15px;
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:19px;
+
+    font-size:32px;
+
+    margin-bottom:10px;
+
+    color:var(--gold2);
+
+    background:
+        linear-gradient(
+            145deg,
+            #174d7c,
+            #08243d
+        );
+
+    border:
+        1px solid var(--line);
+
+    box-shadow:
+        inset 0 2px 4px rgba(255,255,255,.08),
+        0 10px 25px rgba(0,0,0,.3);
+}
+
+.social-card strong{
+
+    color:var(--gold2);
+
+    font-size:17px;
+}
+
+.social-card span{
+
+    color:#b8c6d2;
+
+    font-size:13px;
+}
+
+/* =====================================================
+   ADDRESS
+===================================================== */
+
+.address-box{
 
     display:flex;
 
     align-items:center;
 
-    justify-content:center;
+    gap:18px;
 
-    border-radius:22px;
+    margin-top:18px;
 
-    font-size:34px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #1d4e77,
-            #071a2c
-        );
-
-    border:
-        1px solid rgba(212,175,55,.6);
-
-    box-shadow:
-
-        inset 0 1px 2px rgba(255,255,255,.12),
-
-        0 12px 22px rgba(0,0,0,.4);
-}
-
-.social-card h3{
-
-    margin:0 0 5px;
-
-    color:var(--gold-light);
-
-    font-size:20px;
-}
-
-.social-card p{
-
-    margin:0;
-
-    color:var(--muted);
-
-    font-size:14px;
-}
-
-/* =========================================================
-   ADDRESS
-========================================================= */
-
-.address-card{
-
-    padding:25px;
+    padding:22px;
 
     border-radius:18px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(20,62,96,.8),
-            rgba(5,22,37,.9)
+            rgba(18,59,97,.8),
+            rgba(7,29,48,.95)
         );
 
-    border:
-        1px solid rgba(212,175,55,.28);
-
-    text-align:center;
+    border:1px solid var(--line);
 }
 
-.address{
+.address-icon{
+
+    flex-shrink:0;
+
+    width:58px;
+    height:58px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    font-size:28px;
+
+    color:var(--gold2);
+
+    background:#0b2944;
+
+    border:1px solid var(--line);
+}
+
+.address-text{
+
+    direction:ltr;
+
+    text-align:left;
+
+    font-size:19px;
+
+    font-weight:600;
+
+    color:#f0f4f8;
+}
+
+/* =====================================================
+   SCHEDULE
+===================================================== */
+
+.schedule{
+
+    display:grid;
+
+    gap:13px;
+
+    margin-top:20px;
+}
+
+.schedule-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:17px 18px;
+
+    border-radius:15px;
+
+    background:#071f34;
+
+    border:
+        1px solid rgba(212,175,55,.16);
+
+    transition:.25s;
+}
+
+.schedule-item:hover{
+
+    border-color:
+        rgba(212,175,55,.45);
+
+    transform:
+        translateX(-4px);
+}
+
+.schedule-icon{
+
+    width:48px;
+    height:48px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+
+    color:var(--gold2);
+
+    background:#0d3455;
+
+    border:1px solid var(--line);
+
+    font-size:22px;
+}
+
+.schedule-content strong{
+
+    display:block;
+
+    color:var(--gold2);
+
+    font-size:17px;
+}
+
+.schedule-content span{
+
+    color:#cbd7e1;
+
+    font-size:15px;
+}
+
+/* =====================================================
+   WEBSITE
+===================================================== */
+
+.website-box{
+
+    text-align:center;
+
+    padding:28px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(212,175,55,.08),
+            rgba(18,59,97,.25)
+        );
+
+    border:1px solid var(--line);
+}
+
+.website-btn{
 
     display:inline-flex;
 
@@ -709,136 +848,72 @@ main{
 
     gap:10px;
 
-    color:var(--gold-light);
+    margin-top:15px;
 
-    font-size:22px;
+    padding:
+        13px 25px;
 
-    font-weight:900;
-}
+    border-radius:12px;
 
-/* =========================================================
-   MEETINGS
-========================================================= */
+    text-decoration:none;
 
-.meetings{
+    color:#071a2b;
 
-    display:grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(240px,1fr)
-        );
-
-    gap:18px;
-}
-
-.meeting{
-
-    position:relative;
-
-    padding:23px;
-
-    border-radius:18px;
+    font-weight:800;
 
     background:
         linear-gradient(
             145deg,
-            #123c60,
-            #061a2c
+            var(--gold2),
+            var(--gold)
         );
 
-    border:
-        1px solid rgba(212,175,55,.24);
-
     box-shadow:
-        0 10px 25px rgba(0,0,0,.35);
+        0 10px 25px rgba(212,175,55,.2);
 
     transition:.3s;
 }
 
-.meeting:hover{
+.website-btn:hover{
 
     transform:
-        translateY(-5px);
-
-    border-color:
-        rgba(212,175,55,.65);
+        translateY(-3px);
 
     box-shadow:
-        0 18px 30px rgba(0,0,0,.5);
+        0 15px 30px rgba(212,175,55,.28);
 }
 
-.meeting-day{
-
-    color:var(--gold-light);
-
-    font-size:21px;
-
-    font-weight:900;
-
-    margin-bottom:7px;
-}
-
-.meeting-time{
-
-    color:white;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    margin-bottom:8px;
-}
-
-.meeting-desc{
-
-    color:var(--muted);
-
-    font-size:15px;
-}
-
-/* =========================================================
+/* =====================================================
    CTA
-========================================================= */
+===================================================== */
 
 .cta{
 
     text-align:center;
 
-    padding:40px 25px;
+    padding:
+        40px 25px;
 
     border-radius:25px;
 
-    background:
+    border:1px solid var(--line);
 
+    background:
         radial-gradient(
             circle at center,
-            rgba(212,175,55,.12),
-            transparent 55%
-        ),
-
-        linear-gradient(
-            145deg,
-            #123b60,
-            #041628
+            rgba(23,77,124,.65),
+            rgba(6,26,45,.98)
         );
 
-    border:
-        1px solid rgba(212,175,55,.45);
-
-    box-shadow:
-        var(--shadow);
+    box-shadow:var(--shadow);
 }
 
 .cta h2{
 
+    color:var(--gold2);
+
     margin:
-        0 0 15px;
-
-    color:var(--gold-light);
-
-    font-size:30px;
+        0 0 12px;
 }
 
 .cta p{
@@ -846,156 +921,143 @@ main{
     max-width:800px;
 
     margin:
-        0 auto 25px;
+        0 auto 22px;
 
-    color:#dce5ed;
+    color:#d7e1e9;
 
     font-size:17px;
 }
 
-.cta-button{
+.cta-btn{
 
-    display:inline-flex;
+    display:inline-block;
 
-    align-items:center;
+    text-decoration:none;
 
-    justify-content:center;
+    color:#071a2b;
 
-    gap:8px;
+    font-weight:800;
 
     padding:
-        13px 25px;
+        13px 28px;
 
-    color:#07111d;
+    border-radius:12px;
 
     background:
         linear-gradient(
             145deg,
-            #f6df82,
-            #c59d2d
+            var(--gold2),
+            var(--gold)
         );
-
-    border-radius:12px;
-
-    text-decoration:none;
-
-    font-weight:900;
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.4);
 
     transition:.3s;
 }
 
-.cta-button:hover{
+.cta-btn:hover{
 
     transform:
-        translateY(-4px);
+        translateY(-3px);
 
     box-shadow:
-        0 15px 30px rgba(0,0,0,.55),
-        0 0 25px rgba(212,175,55,.25);
+        0 12px 30px rgba(212,175,55,.25);
 }
 
-/* =========================================================
+/* =====================================================
    FOOTER
-========================================================= */
+===================================================== */
 
 footer{
 
-    padding:
-        30px 15px;
-
     text-align:center;
 
-    color:#8497a9;
+    padding:
+        35px 15px;
+
+    color:var(--muted);
 
     border-top:
-        1px solid rgba(212,175,55,.18);
+        1px solid var(--line);
+
+    background:
+        rgba(3,14,24,.55);
 }
 
-.footer-gold{
+.footer-name{
 
-    color:var(--gold-light);
+    color:var(--gold2);
 
-    font-weight:bold;
+    font-weight:700;
+
+    margin-bottom:5px;
 }
 
-/* =========================================================
+/* =====================================================
    MOBILE
-========================================================= */
+===================================================== */
 
-@media(max-width:700px){
+@media(max-width:850px){
 
-    .header-inner{
+    .social-grid{
 
-        min-height:76px;
-
-        width:
-            calc(100% - 20px);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
-    .logo{
+}
 
-        width:52px;
-        height:52px;
+@media(max-width:650px){
+
+    .topbar{
+
+        padding:
+            9px 12px;
     }
 
-    .brand-title{
+    .brand-name{
 
         font-size:14px;
     }
 
-    .back-btn{
+    .brand-logo{
+
+        width:48px;
+        height:48px;
+    }
+
+    .home-btn{
 
         padding:
             8px 11px;
 
-        font-size:13px;
-    }
-
-    main{
-
-        width:
-            calc(100% - 20px);
-
-        padding-top:25px;
+        font-size:14px;
     }
 
     .hero{
 
         padding:
-            35px 18px;
+            38px 20px 35px;
     }
 
-    .hero-icon{
+    .hero-logo{
 
-        width:82px;
-        height:82px;
-
-        font-size:40px;
+        width:100px;
+        height:100px;
     }
 
-    .hero h1{
-
-        font-size:31px;
-    }
-
-    .hero p{
+    .hero-subtitle{
 
         font-size:16px;
     }
 
     .section{
 
-        padding:22px 17px;
-
-        border-radius:19px;
+        padding:
+            23px 17px;
     }
 
-    .section-title{
+    .section h2{
 
-        font-size:22px;
+        font-size:23px;
     }
 
     .section p{
@@ -1003,311 +1065,406 @@ footer{
         font-size:16px;
     }
 
-    .social-grid{
-
-        grid-template-columns:
-            1fr 1fr;
-
-        gap:12px;
-    }
-
-    .social-card{
-
-        min-height:155px;
-
-        padding:
-            18px 10px;
-    }
-
-    .social-icon{
-
-        width:58px;
-        height:58px;
-
-        border-radius:17px;
-
-        font-size:27px;
-    }
-
-    .social-card h3{
-
-        font-size:17px;
-    }
-
-    .social-card p{
-
-        font-size:12px;
-    }
-
-    .meetings{
+    .info-grid{
 
         grid-template-columns:1fr;
     }
 
-    .address{
+    .social-grid{
 
-        font-size:17px;
+        grid-template-columns:1fr 1fr;
+
+        gap:10px;
+    }
+
+    .social-card{
+
+        min-height:135px;
+    }
+
+    .social-icon{
+
+        width:55px;
+        height:55px;
+
+        font-size:27px;
+    }
+
+    .address-box{
+
+        align-items:flex-start;
+    }
+
+    .address-text{
+
+        font-size:16px;
+    }
+
+    .schedule-item{
+
+        align-items:flex-start;
+    }
+
+}
+
+@media(max-width:430px){
+
+    .social-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .brand-name{
+
+        display:none;
     }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
 
-<div class="header-inner">
+<div class="topbar">
+
+<a href="studies.html" class="home-btn">
+    <span>📚</span>
+    <span>الدراسات الكتابية</span>
+</a>
 
 <div class="brand">
 
-<img
-    src="assets/logo.png"
-    class="logo"
-    alt="شعار كنيسة رجاء الأمم سيدني"
->
-
-<div class="brand-title">
+<div class="brand-name">
     كنيسة رجاء الأمم سيدني
 </div>
 
-</div>
-
-
-<a
-    href="index.html"
-    class="back-btn"
+<img
+    src="assets/logo.png"
+    class="brand-logo"
+    alt="شعار كنيسة رجاء الأمم سيدني"
 >
-    ← الرئيسية
-</a>
+
+</div>
 
 </div>
 
 </header>
 
 
-
 <main>
 
 
-<!-- ======================================================
+<!-- =====================================================
      HERO
-======================================================= -->
+===================================================== -->
 
 <section class="hero">
 
-<div class="hero-icon">
-    ⛪
-</div>
+<img
+    src="assets/logo.png"
+    class="hero-logo"
+    alt="شعار كنيسة رجاء الأمم سيدني"
+>
 
 <h1>
-    كنيسة رجاء الأمم سيدني
+كنيسة رجاء الأمم سيدني
 </h1>
 
-<p>
-    عائلة تعبد الله بالروح والحق، وتشتاق أن ترى كلمة الله
-    تتحول إلى حياة، وأن يكون كل شخص جزءًا فعالًا في جسد المسيح.
-</p>
+<div class="hero-subtitle">
 
-</section>
-
-
-
-<!-- ======================================================
-     ABOUT
-======================================================= -->
-
-<section class="section">
-
-<h2 class="section-title">
-    <span>📖</span>
-    نبذة عن تطبيق موسوعة الكتاب المقدس
-</h2>
-
-<p>
-    موسوعة الكتاب المقدس هو تطبيق كتابي متكامل صادر عن
-    كنيسة رجاء الأمم سيدني، يهدف إلى تقديم كلمة الله بصورة
-    عميقة وسهلة الاستخدام.
-</p>
-
-<p>
-    يجمع التطبيق بين نص الكتاب المقدس، والدراسات والتفاسير
-    والمراجع الكتابية، لمساعدة القارئ على فهم الكتاب المقدس
-    بصورة أعمق.
-</p>
-
-<p>
-    نسعى من خلاله إلى تشجيع المؤمنين والباحثين على دراسة
-    كلمة الله والنمو في المعرفة والإيمان، لتكون سببًا للبركة
-    والاستنارة في حياتهم.
-</p>
-
-<div class="highlight">
-
-<strong>
-    إن كنت تبحث عن عائلة تعبد بالروح والحق لتكون فيها عضوًا فعالًا،
-    فنحن نبحث عنك أيضًا.
-</strong>
+مرحبًا بك في صفحة الكنيسة داخل موسوعة الكتاب المقدس
 
 <br>
 
-انضم إلينا، وستجد قلوبنا ممتلئة بالإيمان والمحبة لك.
+كنيسة تعلن كلمة الله، وتخدم الإنسان، وتسعى أن يكون كل مؤمن
+عضوًا فعالًا في جسد المسيح.
+
+</div>
+
+<div class="pastor">
+ق / أشرف كامل — راعي الكنيسة
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section class="section">
+
+<h2>
+⛪ نبذة عن تطبيق موسوعة الكتاب المقدس
+</h2>
+
+<p>
+موسوعة الكتاب المقدس هو تطبيق كتابي متكامل صادر عن
+كنيسة رجاء الأمم سيدني، يهدف إلى تقديم كلمة الله
+بصورة عميقة وسهلة الاستخدام.
+</p>
+
+<p>
+يجمع التطبيق بين نص الكتاب المقدس، والدراسات والتفاسير
+والمراجع الكتابية، لمساعدة القارئ على فهم الكتاب المقدس
+بصورة أعمق.
+</p>
+
+<p>
+نسعى من خلاله إلى تشجيع المؤمنين والباحثين على دراسة
+كلمة الله والنمو في المعرفة والإيمان، لتكون سببًا للبركة
+والاستنارة في حياتهم.
+</p>
+
+<div class="info-grid">
+
+<div class="info-card">
+
+<div class="info-icon">
+📖
+</div>
+
+<h3>
+كلمة الله
+</h3>
+
+<p>
+نضع الكتاب المقدس في مركز الدراسة والبحث،
+مع توفير أدوات تساعد على فهم النص بصورة أعمق.
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<div class="info-icon">
+🔎
+</div>
+
+<h3>
+الدراسة والبحث
+</h3>
+
+<p>
+دراسات كتابية وموسوعية تساعد الطالب والباحث
+وكل من لديه شغف بكلمة الله.
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<div class="info-icon">
+❤️
+</div>
+
+<h3>
+الإيمان والمحبة
+</h3>
+
+<p>
+هدفنا أن تتحول المعرفة الكتابية إلى حياة إيمان
+ومحبة ونمو في المسيح.
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<div class="info-icon">
+🤝
+</div>
+
+<h3>
+عائلة الكنيسة
+</h3>
+
+<p>
+إن كنت تبحث عن عائلة تعبد بالروح والحق لتكون
+فيها عضوًا فعالًا، فنحن نبحث عنك أيضًا.
+</p>
+
+</div>
 
 </div>
 
 </section>
 
 
-
-<!-- ======================================================
-     SOCIAL
-======================================================= -->
+<!-- =====================================================
+     SOCIAL MEDIA
+===================================================== -->
 
 <section class="section">
 
-<h2 class="section-title">
-    <span>🌐</span>
-    تابعنا وتواصل معنا
+<h2>
+🌐 تواصل معنا
 </h2>
+
+<p>
+تابع أخبار الكنيسة وبرامجها وتعاليمها عبر منصاتنا الرسمية.
+</p>
+
 
 <div class="social-grid">
 
 
 <a
+    class="social-card"
     href="https://www.youtube.com/@HCNSW"
     target="_blank"
-    class="social-card"
+    rel="noopener"
 >
 
 <div class="social-icon">
-    ▶
+▶
 </div>
 
-<h3>
-    YouTube
-</h3>
+<strong>
+YouTube
+</strong>
 
-<p>
-    تابع اجتماعاتنا وبرامجنا
-</p>
+<span>
+قناة الكنيسة الرسمية
+</span>
 
 </a>
 
 
-
 <a
+    class="social-card"
     href="https://www.facebook.com/hopechurchNSW"
     target="_blank"
-    class="social-card"
+    rel="noopener"
 >
 
 <div class="social-icon">
-    f
+f
 </div>
 
-<h3>
-    Facebook
-</h3>
+<strong>
+Facebook
+</strong>
 
-<p>
-    تابع أخبار الكنيسة وخدمتنا
-</p>
+<span>
+صفحة الكنيسة الرسمية
+</span>
 
 </a>
 
 
-
 <a
+    class="social-card"
     href="https://www.tiktok.com/@hopechurch.nsw"
     target="_blank"
-    class="social-card"
+    rel="noopener"
 >
 
 <div class="social-icon">
-    ♪
+♪ 
 </div>
 
-<h3>
-    TikTok
-</h3>
+<strong>
+TikTok
+</strong>
 
-<p>
-    محتوى روحي وإعلامي قصير
-</p>
+<span>
+تابعنا على تيك توك
+</span>
 
 </a>
-
 
 
 <a
+    class="social-card"
     href="https://www.alkerazatv.com/"
     target="_blank"
-    class="social-card"
+    rel="noopener"
 >
 
 <div class="social-icon">
-    📺
+📺
 </div>
 
-<h3>
-    قناة الكرازة
-</h3>
+<strong>
+قناة الكرازة
+</strong>
 
-<p>
-    تابع برنامج عمق جديد
-</p>
+<span>
+البث والبرامج المسيحية
+</span>
 
 </a>
 
 
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CHURCH WEBSITE
+===================================================== -->
+
+<section class="section">
+
+<div class="website-box">
+
+<h2>
+🌍 الموقع الإلكتروني للكنيسة
+</h2>
+
+<p>
+يمكنك زيارة الموقع الإلكتروني الرسمي للكنيسة
+والتعرف على خدماتها وبرامجها وأنشطتها.
+</p>
 
 <a
     href="https://hope-church-nsw-rmwpk10e.durable.site/"
     target="_blank"
-    class="social-card"
+    rel="noopener"
+    class="website-btn"
 >
 
-<div class="social-icon">
-    🌐
-</div>
-
-<h3>
-    الموقع الرسمي
-</h3>
-
-<p>
-    اكتشف المزيد عن الكنيسة
-</p>
+🌐 زيارة موقع الكنيسة
 
 </a>
 
-
 </div>
 
 </section>
 
 
-
-<!-- ======================================================
+<!-- =====================================================
      ADDRESS
-======================================================= -->
+===================================================== -->
 
 <section class="section">
 
-<h2 class="section-title">
-    <span>📍</span>
-    عنوان الكنيسة
+<h2>
+📍 عنوان الكنيسة
 </h2>
 
-<div class="address-card">
+<div class="address-box">
 
-<div class="address">
-    📍
-    704 The Horsley Dr Smithfield
+<div class="address-icon">
+📍
+</div>
+
+<div class="address-text">
+704 The Horsley Dr, Smithfield
 </div>
 
 </div>
@@ -1315,89 +1472,98 @@ footer{
 </section>
 
 
-
-<!-- ======================================================
+<!-- =====================================================
      MEETINGS
-======================================================= -->
+===================================================== -->
 
 <section class="section">
 
-<h2 class="section-title">
-    <span>🗓️</span>
-    مواعيد اجتماعات الكنيسة
+<h2>
+🗓️ مواعيد اجتماعات الكنيسة
 </h2>
 
-<div class="meetings">
+<div class="schedule">
 
 
-<div class="meeting">
+<div class="schedule-item">
 
-<div class="meeting-day">
-    الأحد
+<div class="schedule-icon">
+☀️
 </div>
 
-<div class="meeting-time">
-    10:00 صباحًا
-</div>
+<div class="schedule-content">
 
-<div class="meeting-desc">
-    اجتماع العبادة العام
-    <br>
-    عربي وإنجليزي
-</div>
+<strong>
+الأحد — 10:00 صباحًا
+</strong>
 
-</div>
+<span>
+اجتماع العبادة العام — عربي وإنجليزي
+</span>
 
-
-
-<div class="meeting">
-
-<div class="meeting-day">
-    الأربعاء
-</div>
-
-<div class="meeting-time">
-    7:00 مساءً
-</div>
-
-<div class="meeting-desc">
-    برنامج عمق جديد
 </div>
 
 </div>
 
 
+<div class="schedule-item">
 
-<div class="meeting">
-
-<div class="meeting-day">
-    الخميس
+<div class="schedule-icon">
+📖
 </div>
 
-<div class="meeting-time">
-    11:00 صباحًا
+<div class="schedule-content">
+
+<strong>
+الأربعاء — 7:00 مساءً
+</strong>
+
+<span>
+برنامج «عمق جديد»
+</span>
+
 </div>
 
-<div class="meeting-desc">
-    اجتماع السيدات
+</div>
+
+
+<div class="schedule-item">
+
+<div class="schedule-icon">
+🌷
+</div>
+
+<div class="schedule-content">
+
+<strong>
+الخميس — 11:00 صباحًا
+</strong>
+
+<span>
+اجتماع السيدات
+</span>
+
 </div>
 
 </div>
 
 
+<div class="schedule-item">
 
-<div class="meeting">
-
-<div class="meeting-day">
-    الجمعة
+<div class="schedule-icon">
+🙏
 </div>
 
-<div class="meeting-time">
-    7:00 مساءً
-</div>
+<div class="schedule-content">
 
-<div class="meeting-desc">
-    اجتماع الصلاة ودراسة الكتاب المقدس
+<strong>
+الجمعة — 7:00 مساءً
+</strong>
+
+<span>
+اجتماع الصلاة ودراسة الكتاب المقدس
+</span>
+
 </div>
 
 </div>
@@ -1408,29 +1574,35 @@ footer{
 </section>
 
 
-
-<!-- ======================================================
+<!-- =====================================================
      CTA
-======================================================= -->
+===================================================== -->
 
 <section class="cta">
 
 <h2>
-    ننتظرك معنا
+نبحث عنك أيضًا ❤️
 </h2>
 
 <p>
-    إن كنت تبحث عن عائلة تعبد الله بالروح والحق،
-    وتنمو في كلمة الله، وتشارك بصورة فعالة في حياة الكنيسة،
-    فنحن نرحب بك بكل محبة.
+
+إن كنت تبحث عن عائلة تعبد بالروح والحق،
+لتكون فيها عضوًا فعالًا، فنحن نبحث عنك أيضًا.
+
+تعال وكن جزءًا من عائلة تؤمن بكلمة الله،
+وتنمو معًا في الإيمان والمحبة والخدمة.
+
 </p>
 
 <a
     href="https://hope-church-nsw-rmwpk10e.durable.site/"
     target="_blank"
-    class="cta-button"
+    rel="noopener"
+    class="cta-btn"
 >
-    🌐 زيارة الموقع الرسمي
+
+اكتشف المزيد عن الكنيسة
+
 </a>
 
 </section>
@@ -1439,16 +1611,21 @@ footer{
 </main>
 
 
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
-<div>
-    كنيسة رجاء الأمم سيدني
+<div class="footer-name">
+كنيسة رجاء الأمم سيدني
 </div>
 
-<div class="footer-gold">
-    موسوعة الكتاب المقدس
-</div>
+موسوعة الكتاب المقدس
+
+<br>
+
+ق / أشرف كامل — راعي الكنيسة
 
 </footer>
 
