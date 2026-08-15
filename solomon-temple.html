@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>هيكل سليمان | موسوعة الكتاب المقدس</title>
+    <title>هيكل سليمان | كنيسة رجاء الأمم سيدني</title>
 
     <style>
         * {
@@ -13,268 +13,540 @@
             padding: 0;
         }
 
+        :root {
+            --navy: #082b55;
+            --blue: #0d4d86;
+            --blue-light: #1769a8;
+            --gold: #d4af37;
+            --gold-light: #f2d675;
+            --white: #ffffff;
+            --bg: #f4f7fb;
+            --text: #26364a;
+            --muted: #667085;
+            --border: #e4e9f0;
+        }
+
         body {
-            font-family: "Tahoma", "Arial", sans-serif;
-            background: #f5f7fb;
-            color: #1d2939;
+            font-family: Tahoma, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
         }
 
-        /* =========================
+        /* =========================================
            HEADER
-        ========================== */
+        ========================================== */
 
-        .header {
-            background: linear-gradient(135deg, #092c5c, #0d4d8c);
-            color: white;
-            padding: 18px 20px;
+        .top-header {
+            height: 78px;
+            background: linear-gradient(
+                135deg,
+                var(--navy),
+                var(--blue)
+            );
+
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+
+            padding: 0 22px;
+
+            color: white;
+
+            box-shadow:
+                0 4px 18px rgba(0,0,0,0.18);
+
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .header-right {
+        /* اليسار: اللوجو واسم الكنيسة */
+
+        .church-brand {
             display: flex;
             align-items: center;
             gap: 12px;
+
+            direction: ltr;
         }
 
-        .temple-symbol {
-            width: 48px;
-            height: 48px;
+        .church-logo {
+            width: 52px;
+            height: 52px;
+
+            object-fit: contain;
+
+            background: rgba(255,255,255,0.08);
+
+            border-radius: 12px;
+
+            padding: 4px;
+        }
+
+        .church-name {
+            direction: rtl;
+            text-align: left;
+        }
+
+        .church-name h1 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .church-name p {
+            margin-top: 4px;
+            font-size: 10px;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* اليمين: الهيكل والرجوع */
+
+        .temple-header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .temple-icon-header {
+            width: 50px;
+            height: 50px;
+
             border-radius: 14px;
-            background: linear-gradient(135deg, #d4af37, #f5d76e);
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 25px;
-            color: #092c5c;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--gold),
+                    var(--gold-light)
+                );
+
+            color: var(--navy);
+
+            font-size: 27px;
+
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.2);
         }
 
-        .header-title h1 {
-            font-size: 21px;
-            margin-bottom: 4px;
-        }
+        .back-btn {
+            border: 1px solid rgba(255,255,255,0.3);
 
-        .header-title p {
-            font-size: 12px;
-            opacity: 0.85;
-        }
+            background:
+                rgba(255,255,255,0.10);
 
-        .home-btn {
-            border: 1px solid rgba(255,255,255,0.35);
-            background: rgba(255,255,255,0.12);
             color: white;
-            padding: 9px 14px;
-            border-radius: 10px;
+
+            border-radius: 11px;
+
+            padding: 10px 13px;
+
             cursor: pointer;
-            font-size: 13px;
+
+            font-family: inherit;
+            font-size: 12px;
+
+            transition: 0.2s;
         }
 
-        .home-btn:hover {
-            background: rgba(255,255,255,0.2);
+        .back-btn:hover {
+            background: rgba(255,255,255,0.20);
         }
 
-        /* =========================
-           INTRO
-        ========================== */
+        /* =========================================
+           PAGE TITLE
+        ========================================== */
 
-        .intro {
-            max-width: 1100px;
-            margin: 25px auto 15px;
+        .page-title {
+            max-width: 1150px;
+
+            margin: 25px auto 18px;
+
             padding: 0 18px;
+
+            text-align: center;
         }
 
-        .intro-card {
-            background: white;
-            border-radius: 18px;
-            padding: 24px;
-            box-shadow: 0 4px 18px rgba(16,24,40,0.08);
-            border-right: 5px solid #d4af37;
+        .page-title h2 {
+            color: var(--navy);
+
+            font-size: 23px;
+
+            margin-bottom: 7px;
         }
 
-        .intro-card h2 {
-            color: #092c5c;
-            margin-bottom: 10px;
-            font-size: 20px;
+        .gold-line {
+            width: 70px;
+            height: 3px;
+
+            margin: 0 auto 10px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--gold),
+                    var(--gold-light)
+                );
         }
 
-        .intro-card p {
-            line-height: 1.9;
-            font-size: 14px;
-            color: #475467;
-        }
+        .page-title p {
+            color: var(--muted);
 
-        /* =========================
-           SECTION TITLE
-        ========================== */
-
-        .section-title {
-            max-width: 1100px;
-            margin: 28px auto 15px;
-            padding: 0 18px;
-        }
-
-        .section-title h2 {
-            color: #092c5c;
-            font-size: 19px;
-        }
-
-        .section-title p {
-            margin-top: 5px;
-            color: #667085;
             font-size: 13px;
+
+            line-height: 1.8;
         }
 
-        /* =========================
+        /* =========================================
            ICONS GRID
-        ========================== */
+        ========================================== */
+
+        #studiesView {
+            display: block;
+        }
 
         .icons-grid {
-            max-width: 1100px;
-            margin: 0 auto 40px;
+            max-width: 1150px;
+
+            margin: 0 auto 45px;
+
             padding: 0 18px;
 
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 17px;
         }
 
         .study-card {
-            background: white;
-            border-radius: 17px;
-            padding: 20px 15px;
-            min-height: 165px;
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            min-height: 174px;
+
+            padding: 20px 14px;
 
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
+
             justify-content: center;
 
             text-align: center;
+
             cursor: pointer;
 
-            border: 1px solid #eaecf0;
-            box-shadow: 0 3px 12px rgba(16,24,40,0.06);
+            box-shadow:
+                0 4px 14px rgba(16,24,40,0.06);
 
             transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease,
-                border-color 0.2s ease;
+                transform .22s ease,
+                box-shadow .22s ease,
+                border-color .22s ease;
         }
 
         .study-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 22px rgba(16,24,40,0.12);
-            border-color: #d4af37;
+
+            border-color: var(--gold);
+
+            box-shadow:
+                0 9px 24px rgba(16,24,40,0.12);
         }
 
         .study-icon {
-            width: 65px;
-            height: 65px;
+            width: 64px;
+            height: 64px;
+
             border-radius: 18px;
 
-            background: linear-gradient(135deg, #092c5c, #1465a5);
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--blue-light)
+                );
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
-            color: #f5d76e;
-            font-size: 30px;
+            color: var(--gold-light);
 
-            margin-bottom: 12px;
+            font-size: 29px;
 
-            box-shadow: 0 5px 12px rgba(9,44,92,0.22);
+            margin-bottom: 10px;
+
+            box-shadow:
+                0 5px 13px rgba(8,43,85,0.23);
         }
 
         .study-number {
-            font-size: 11px;
-            color: #d4af37;
+            color: var(--gold);
+
+            font-size: 10px;
+
             font-weight: bold;
+
             margin-bottom: 5px;
         }
 
         .study-card h3 {
+            color: var(--navy);
+
             font-size: 15px;
-            color: #092c5c;
+
             margin-bottom: 7px;
         }
 
         .study-card p {
-            font-size: 11px;
-            line-height: 1.6;
-            color: #667085;
+            color: var(--muted);
+
+            font-size: 10.5px;
+
+            line-height: 1.65;
         }
 
-        /* =========================
-           FOOTER
-        ========================== */
+        /* =========================================
+           STUDY VIEW
+        ========================================== */
 
-        .footer {
-            text-align: center;
-            padding: 25px 15px;
-            background: #092c5c;
+        #studyView {
+            display: none;
+
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            padding: 22px 18px 50px;
+        }
+
+        .study-container {
+            background: white;
+
+            border-radius: 20px;
+
+            border: 1px solid var(--border);
+
+            box-shadow:
+                0 5px 20px rgba(16,24,40,0.07);
+
+            overflow: hidden;
+        }
+
+        .study-header {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--blue)
+                );
+
             color: white;
+
+            padding: 25px 25px 22px;
+
+            border-bottom:
+                4px solid var(--gold);
+        }
+
+        .study-header-top {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+        .study-header-icon {
+            width: 58px;
+            height: 58px;
+
+            flex-shrink: 0;
+
+            border-radius: 16px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--gold),
+                    var(--gold-light)
+                );
+
+            color: var(--navy);
+
+            font-size: 28px;
+        }
+
+        .study-header h2 {
+            font-size: 20px;
+
+            margin-bottom: 6px;
+        }
+
+        .study-header p {
+            font-size: 11px;
+
+            color:
+                rgba(255,255,255,0.78);
+
+            line-height: 1.7;
+        }
+
+        .study-content {
+            padding: 27px;
+
+            line-height: 2;
+
+            font-size: 14px;
+        }
+
+        .study-content h3 {
+            color: var(--navy);
+
+            font-size: 18px;
+
+            margin:
+                22px 0 10px;
+
+            padding-right: 11px;
+
+            border-right:
+                4px solid var(--gold);
+        }
+
+        .study-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .study-content p {
+            color: #475467;
+
+            margin-bottom: 12px;
+        }
+
+        .reference-box {
+            margin-top: 20px;
+
+            background: #f7f9fc;
+
+            border-right:
+                4px solid var(--gold);
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            color: #475467;
+
             font-size: 12px;
+
+            line-height: 1.9;
         }
 
-        .footer strong {
-            color: #f5d76e;
+        /* =========================================
+           FOOTER
+        ========================================== */
+
+        footer {
+            background: var(--navy);
+
+            color: white;
+
+            text-align: center;
+
+            padding: 22px 15px;
+
+            font-size: 11px;
         }
 
-        /* =========================
+        footer strong {
+            color: var(--gold-light);
+        }
+
+        /* =========================================
            MOBILE
-        ========================== */
+        ========================================== */
 
-        @media (max-width: 850px) {
+        @media (max-width: 900px) {
+
             .icons-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns:
+                    repeat(3, 1fr);
             }
         }
 
-        @media (max-width: 600px) {
-            .header {
-                padding: 14px;
+        @media (max-width: 650px) {
+
+            .top-header {
+                height: 70px;
+
+                padding: 0 12px;
             }
 
-            .header-title h1 {
-                font-size: 17px;
+            .church-logo {
+                width: 43px;
+                height: 43px;
             }
 
-            .header-title p {
+            .church-name h1 {
+                font-size: 13px;
+            }
+
+            .church-name p {
+                display: none;
+            }
+
+            .temple-icon-header {
+                width: 43px;
+                height: 43px;
+
+                font-size: 23px;
+            }
+
+            .back-btn {
+                padding: 8px 9px;
+
                 font-size: 10px;
             }
 
-            .temple-symbol {
-                width: 42px;
-                height: 42px;
-                font-size: 21px;
-            }
-
-            .home-btn {
-                padding: 8px 10px;
-                font-size: 11px;
-            }
-
             .icons-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
+
                 gap: 12px;
+
+                padding: 0 12px;
             }
 
             .study-card {
-                min-height: 150px;
-                padding: 15px 10px;
+                min-height: 155px;
             }
 
             .study-icon {
                 width: 55px;
                 height: 55px;
+
                 font-size: 25px;
             }
 
@@ -283,13 +555,33 @@
             }
 
             .study-card p {
-                font-size: 10px;
+                font-size: 9.5px;
+            }
+
+            .page-title h2 {
+                font-size: 20px;
+            }
+
+            #studyView {
+                padding:
+                    15px 12px 35px;
+            }
+
+            .study-content {
+                padding: 20px;
+
+                font-size: 13px;
             }
         }
 
-        @media (max-width: 360px) {
+        @media (max-width: 380px) {
+
+            .church-name {
+                display: none;
+            }
+
             .icons-grid {
-                grid-template-columns: 1fr 1fr;
+                gap: 9px;
             }
         }
     </style>
@@ -297,66 +589,87 @@
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+<!-- ==================================================
+     HEADER
+=================================================== -->
 
-    <header class="header">
+<header class="top-header">
 
-        <div class="header-right">
+    <!-- اليسار: لوجو الكنيسة واسمها -->
 
-            <div class="temple-symbol">
-                🏛️
-            </div>
+    <div class="church-brand">
 
-            <div class="header-title">
-                <h1>هيكل سليمان</h1>
-                <p>دراسة كتابية وتاريخية ولاهوتية</p>
-            </div>
+        <!--
+            ضع ملف لوجو الكنيسة باسم:
+            logo.png
 
-        </div>
+            في نفس مجلد هذا الملف.
+        -->
 
-        <button class="home-btn" onclick="goHome()">
-            الرئيسية
-        </button>
+        <img
+            src="logo.png"
+            alt="لوجو كنيسة رجاء الأمم سيدني"
+            class="church-logo"
+        >
 
-    </header>
+        <div class="church-name">
 
-
-    <!-- =========================
-         INTRODUCTION
-    ========================== -->
-
-    <section class="intro">
-
-        <div class="intro-card">
-
-            <h2>هيكل سليمان</h2>
+            <h1>
+                كنيسة رجاء الأمم سيدني
+            </h1>
 
             <p>
-                دراسة متكاملة عن الهيكل الذي بناه الملك سليمان في أورشليم،
-                تشمل خلفيته التاريخية، تصميمه، أثاثه، خدمته، تدشينه،
-                سقوطه، ومعانيه اللاهوتية وعلاقته بالمسيح والعهد الجديد.
+                موسوعة الكتاب المقدس
             </p>
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- =========================
-         STUDY ICONS
-    ========================== -->
+    <!-- اليمين: زر الرجوع + أيقونة الهيكل -->
 
-    <section class="section-title">
+    <div class="temple-header-controls">
 
-        <h2>أقسام الدراسة</h2>
+        <button
+            class="back-btn"
+            onclick="showStudies()"
+        >
+            ↩ هيكل سليمان
+        </button>
+
+        <div
+            class="temple-icon-header"
+            title="هيكل سليمان"
+        >
+            🏛️
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ==================================================
+     VIEW 1
+     ICONS / STUDIES
+=================================================== -->
+
+<section id="studiesView">
+
+    <div class="page-title">
+
+        <h2>
+            هيكل سليمان
+        </h2>
+
+        <div class="gold-line"></div>
 
         <p>
-            اختر الموضوع الذي تريد دراسته
+            دراسة كتابية وتاريخية ولاهوتية متكاملة
         </p>
 
-    </section>
+    </div>
 
 
     <main class="icons-grid">
@@ -364,14 +677,22 @@
 
         <!-- 01 -->
 
-        <div class="study-card"
-             onclick="openStudy('introduction')">
+        <div
+            class="study-card"
+            onclick="openStudy('introduction')"
+        >
 
-            <div class="study-icon">📖</div>
+            <div class="study-icon">
+                📖
+            </div>
 
-            <div class="study-number">01</div>
+            <div class="study-number">
+                01
+            </div>
 
-            <h3>مقدمة شاملة</h3>
+            <h3>
+                مقدمة شاملة
+            </h3>
 
             <p>
                 ماهية الهيكل وهدفه ومكانته في تاريخ إسرائيل
@@ -382,14 +703,22 @@
 
         <!-- 02 -->
 
-        <div class="study-card"
-             onclick="openStudy('history')">
+        <div
+            class="study-card"
+            onclick="openStudy('history')"
+        >
 
-            <div class="study-icon">📜</div>
+            <div class="study-icon">
+                📜
+            </div>
 
-            <div class="study-number">02</div>
+            <div class="study-number">
+                02
+            </div>
 
-            <h3>الخلفية التاريخية</h3>
+            <h3>
+                الخلفية التاريخية
+            </h3>
 
             <p>
                 داود وسليمان والاستعداد لبناء الهيكل
@@ -400,14 +729,22 @@
 
         <!-- 03 -->
 
-        <div class="study-card"
-             onclick="openStudy('construction')">
+        <div
+            class="study-card"
+            onclick="openStudy('construction')"
+        >
 
-            <div class="study-icon">🧱</div>
+            <div class="study-icon">
+                🧱
+            </div>
 
-            <div class="study-number">03</div>
+            <div class="study-number">
+                03
+            </div>
 
-            <h3>بناء الهيكل</h3>
+            <h3>
+                بناء الهيكل
+            </h3>
 
             <p>
                 المواد والعمال والحرفيون ومدة البناء
@@ -418,14 +755,22 @@
 
         <!-- 04 -->
 
-        <div class="study-card"
-             onclick="openStudy('architecture')">
+        <div
+            class="study-card"
+            onclick="openStudy('architecture')"
+        >
 
-            <div class="study-icon">📐</div>
+            <div class="study-icon">
+                📐
+            </div>
 
-            <div class="study-number">04</div>
+            <div class="study-number">
+                04
+            </div>
 
-            <h3>هندسة وتصميم الهيكل</h3>
+            <h3>
+                هندسة وتصميم الهيكل
+            </h3>
 
             <p>
                 الأبعاد والتقسيم الداخلي والتصميم المعماري
@@ -436,14 +781,22 @@
 
         <!-- 05 -->
 
-        <div class="study-card"
-             onclick="openStudy('furniture')">
+        <div
+            class="study-card"
+            onclick="openStudy('furniture')"
+        >
 
-            <div class="study-icon">🕎</div>
+            <div class="study-icon">
+                🕎
+            </div>
 
-            <div class="study-number">05</div>
+            <div class="study-number">
+                05
+            </div>
 
-            <h3>أثاث الهيكل</h3>
+            <h3>
+                أثاث الهيكل
+            </h3>
 
             <p>
                 التابوت والمذابح والمنائر والأواني المقدسة
@@ -454,14 +807,22 @@
 
         <!-- 06 -->
 
-        <div class="study-card"
-             onclick="openStudy('holy-of-holies')">
+        <div
+            class="study-card"
+            onclick="openStudy('holy-of-holies')"
+        >
 
-            <div class="study-icon">✨</div>
+            <div class="study-icon">
+                ✨
+            </div>
 
-            <div class="study-number">06</div>
+            <div class="study-number">
+                06
+            </div>
 
-            <h3>قدس الأقداس</h3>
+            <h3>
+                قدس الأقداس
+            </h3>
 
             <p>
                 التابوت والكروبيم والحضور الإلهي
@@ -472,17 +833,25 @@
 
         <!-- 07 -->
 
-        <div class="study-card"
-             onclick="openStudy('dedication')">
+        <div
+            class="study-card"
+            onclick="openStudy('dedication')"
+        >
 
-            <div class="study-icon">🔥</div>
+            <div class="study-icon">
+                🔥
+            </div>
 
-            <div class="study-number">07</div>
+            <div class="study-number">
+                07
+            </div>
 
-            <h3>تدشين الهيكل</h3>
+            <h3>
+                تدشين الهيكل
+            </h3>
 
             <p>
-                نقل التابوت ومجد الرب وصلوات سليمان
+                نقل التابوت ومجد الرب وتكريس الهيكل
             </p>
 
         </div>
@@ -490,14 +859,22 @@
 
         <!-- 08 -->
 
-        <div class="study-card"
-             onclick="openStudy('solomon-prayer')">
+        <div
+            class="study-card"
+            onclick="openStudy('prayer')"
+        >
 
-            <div class="study-icon">🙏</div>
+            <div class="study-icon">
+                🙏
+            </div>
 
-            <div class="study-number">08</div>
+            <div class="study-number">
+                08
+            </div>
 
-            <h3>صلاة سليمان</h3>
+            <h3>
+                صلاة سليمان
+            </h3>
 
             <p>
                 دراسة لاهوتية عميقة لصلاة تدشين الهيكل
@@ -508,17 +885,25 @@
 
         <!-- 09 -->
 
-        <div class="study-card"
-             onclick="openStudy('christ')">
+        <div
+            class="study-card"
+            onclick="openStudy('christ')"
+        >
 
-            <div class="study-icon">✝️</div>
+            <div class="study-icon">
+                ✝️
+            </div>
 
-            <div class="study-number">09</div>
+            <div class="study-number">
+                09
+            </div>
 
-            <h3>هيكل سليمان والمسيح</h3>
+            <h3>
+                هيكل سليمان والمسيح
+            </h3>
 
             <p>
-                الرموز والنبوات وتحقيقها في المسيح
+                الهيكل ورموزه وتحقيقها في المسيح
             </p>
 
         </div>
@@ -526,14 +911,22 @@
 
         <!-- 10 -->
 
-        <div class="study-card"
-             onclick="openStudy('new-testament')">
+        <div
+            class="study-card"
+            onclick="openStudy('new-testament')"
+        >
 
-            <div class="study-icon">📚</div>
+            <div class="study-icon">
+                📚
+            </div>
 
-            <div class="study-number">10</div>
+            <div class="study-number">
+                10
+            </div>
 
-            <h3>الهيكل في العهد الجديد</h3>
+            <h3>
+                الهيكل في العهد الجديد
+            </h3>
 
             <p>
                 المسيح والهيكل والكنيسة والمؤمن
@@ -544,14 +937,22 @@
 
         <!-- 11 -->
 
-        <div class="study-card"
-             onclick="openStudy('destruction')">
+        <div
+            class="study-card"
+            onclick="openStudy('destruction')"
+        >
 
-            <div class="study-icon">🏚️</div>
+            <div class="study-icon">
+                🏚️
+            </div>
 
-            <div class="study-number">11</div>
+            <div class="study-number">
+                11
+            </div>
 
-            <h3>سقوط هيكل سليمان</h3>
+            <h3>
+                سقوط هيكل سليمان
+            </h3>
 
             <p>
                 السقوط والدمار والسبي البابلي
@@ -562,14 +963,22 @@
 
         <!-- 12 -->
 
-        <div class="study-card"
-             onclick="openStudy('comparisons')">
+        <div
+            class="study-card"
+            onclick="openStudy('comparison')"
+        >
 
-            <div class="study-icon">⚖️</div>
+            <div class="study-icon">
+                ⚖️
+            </div>
 
-            <div class="study-number">12</div>
+            <div class="study-number">
+                12
+            </div>
 
-            <h3>الدراسات المقارنة</h3>
+            <h3>
+                الدراسات المقارنة
+            </h3>
 
             <p>
                 الخيمة والهيكل الثاني وهيكل هيرودس
@@ -580,17 +989,25 @@
 
         <!-- 13 -->
 
-        <div class="study-card"
-             onclick="openStudy('maps')">
+        <div
+            class="study-card"
+            onclick="openStudy('maps')"
+        >
 
-            <div class="study-icon">🗺️</div>
+            <div class="study-icon">
+                🗺️
+            </div>
 
-            <div class="study-number">13</div>
+            <div class="study-number">
+                13
+            </div>
 
-            <h3>الخرائط والمخططات</h3>
+            <h3>
+                الخرائط والمخططات
+            </h3>
 
             <p>
-                مخططات الهيكل وموقعه وتوزيع أجزائه
+                موقع الهيكل ومخططاته وتوزيع أجزائه
             </p>
 
         </div>
@@ -598,17 +1015,25 @@
 
         <!-- 14 -->
 
-        <div class="study-card"
-             onclick="openStudy('bible-references')">
+        <div
+            class="study-card"
+            onclick="openStudy('references')"
+        >
 
-            <div class="study-icon">🔎</div>
+            <div class="study-icon">
+                🔎
+            </div>
 
-            <div class="study-number">14</div>
+            <div class="study-number">
+                14
+            </div>
 
-            <h3>الآيات المرتبطة</h3>
+            <h3>
+                الآيات المرتبطة
+            </h3>
 
             <p>
-                جميع النصوص الكتابية المرتبطة بالهيكل
+                النصوص الكتابية المرتبطة بهيكل سليمان
             </p>
 
         </div>
@@ -616,14 +1041,22 @@
 
         <!-- 15 -->
 
-        <div class="study-card"
-             onclick="openStudy('research')">
+        <div
+            class="study-card"
+            onclick="openStudy('sources')"
+        >
 
-            <div class="study-icon">📑</div>
+            <div class="study-icon">
+                📑
+            </div>
 
-            <div class="study-number">15</div>
+            <div class="study-number">
+                15
+            </div>
 
-            <h3>المراجع والمصادر</h3>
+            <h3>
+                المراجع والمصادر
+            </h3>
 
             <p>
                 المصادر الكتابية والتاريخية واللاهوتية
@@ -634,132 +1067,653 @@
 
         <!-- 16 -->
 
-        <div class="study-card"
-             onclick="openStudy('deep-study')">
+        <div
+            class="study-card"
+            onclick="openStudy('deep-study')"
+        >
 
-            <div class="study-icon">🧠</div>
+            <div class="study-icon">
+                🧠
+            </div>
 
-            <div class="study-number">16</div>
+            <div class="study-number">
+                16
+            </div>
 
-            <h3>الدراسة العميقة</h3>
+            <h3>
+                الدراسة العميقة
+            </h3>
 
             <p>
-                الربط بين الهيكل وخطة الفداء وحضور الله
+                الهيكل وحضور الله وخطة الفداء
             </p>
 
         </div>
 
     </main>
 
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer class="footer">
-
-        <strong>موسوعة الكتاب المقدس</strong>
-
-        <br>
-
-        دراسة وبحث في كلمة الله
-
-    </footer>
+</section>
 
 
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
+<!-- ==================================================
+     VIEW 2
+     STUDY CONTENT
+=================================================== -->
 
-    <script>
+<section id="studyView">
 
-        function openStudy(section) {
+    <div class="study-container">
 
-            /*
-             * سيتم ربط كل قسم لاحقًا
-             * بصفحة الدراسة الخاصة به.
-             *
-             * مثال:
-             * solomon-temple-introduction.html
-             * solomon-temple-history.html
-             * solomon-temple-architecture.html
-             */
+        <div class="study-header">
 
-            const pages = {
+            <div class="study-header-top">
 
-                "introduction":
-                    "solomon-temple-introduction.html",
+                <div
+                    class="study-header-icon"
+                    id="studyIcon"
+                >
+                    🏛️
+                </div>
 
-                "history":
-                    "solomon-temple-history.html",
+                <div>
 
-                "construction":
-                    "solomon-temple-construction.html",
+                    <h2 id="studyTitle">
+                        هيكل سليمان
+                    </h2>
 
-                "architecture":
-                    "solomon-temple-architecture.html",
+                    <p id="studySubtitle">
+                        دراسة كتابية وتاريخية ولاهوتية
+                    </p>
 
-                "furniture":
-                    "solomon-temple-furniture.html",
+                </div>
 
-                "holy-of-holies":
-                    "solomon-temple-holy-of-holies.html",
+            </div>
 
-                "dedication":
-                    "solomon-temple-dedication.html",
-
-                "solomon-prayer":
-                    "solomon-temple-prayer.html",
-
-                "christ":
-                    "solomon-temple-christ.html",
-
-                "new-testament":
-                    "solomon-temple-new-testament.html",
-
-                "destruction":
-                    "solomon-temple-destruction.html",
-
-                "comparisons":
-                    "solomon-temple-comparisons.html",
-
-                "maps":
-                    "solomon-temple-maps.html",
-
-                "bible-references":
-                    "solomon-temple-bible-references.html",
-
-                "research":
-                    "solomon-temple-research.html",
-
-                "deep-study":
-                    "solomon-temple-deep-study.html"
-            };
+        </div>
 
 
-            if (pages[section]) {
+        <article
+            class="study-content"
+            id="studyContent"
+        >
 
-                window.location.href = pages[section];
+            <!-- يتم تحميل محتوى الدراسة هنا -->
 
-            } else {
+        </article>
 
-                console.warn(
-                    "لم يتم العثور على صفحة الدراسة:",
-                    section
-                );
+    </div>
 
-            }
+</section>
 
+
+<!-- ==================================================
+     FOOTER
+=================================================== -->
+
+<footer>
+
+    <strong>
+        كنيسة رجاء الأمم سيدني
+    </strong>
+
+    <br><br>
+
+    موسوعة الكتاب المقدس — دراسات وبحوث في كلمة الله
+
+</footer>
+
+
+<script>
+
+    /* =================================================
+       بيانات الدراسات
+    ================================================= */
+
+    const studies = {
+
+        introduction: {
+
+            title: "مقدمة شاملة",
+            subtitle: "ما هو هيكل سليمان؟",
+            icon: "📖",
+
+            content: `
+                <h3>هيكل سليمان</h3>
+
+                <p>
+                    كان هيكل سليمان في أورشليم أول هيكل دائم
+                    أُقيم لعبادة الرب في تاريخ إسرائيل، وقد جاء
+                    بناءه في مرحلة مهمة من تاريخ المملكة الموحدة.
+                </p>
+
+                <h3>هدف الهيكل</h3>
+
+                <p>
+                    لم يكن الهيكل مجرد مبنى ديني، بل كان مرتبطًا
+                    بحضور الله وسط شعبه، وبالعبادة والذبائح
+                    والكهنوت والاقتراب إلى الله بحسب ترتيب العهد.
+                </p>
+
+                <div class="reference-box">
+                    <strong>الشواهد الأساسية:</strong><br>
+                    1 ملوك 5–8<br>
+                    2 أخبار الأيام 2–7
+                </div>
+            `
+        },
+
+
+        history: {
+
+            title: "الخلفية التاريخية",
+            subtitle: "داود وسليمان والاستعداد لبناء الهيكل",
+            icon: "📜",
+
+            content: `
+                <h3>داود والهيكل</h3>
+
+                <p>
+                    ارتبط مشروع بناء الهيكل برغبة داود في أن يكون
+                    للرب موضع ثابت للعبادة، إلا أن مهمة البناء
+                    أُسندت إلى سليمان.
+                </p>
+
+                <h3>دور سليمان</h3>
+
+                <p>
+                    تولى سليمان تنفيذ المشروع، واستفاد من المواد
+                    والخبرات التي أُعدت في عهد داود، وأقام البناء
+                    في أورشليم.
+                </p>
+
+                <div class="reference-box">
+                    الشواهد: 2 صموئيل 7؛ 1 أخبار 22؛
+                    1 ملوك 5.
+                </div>
+            `
+        },
+
+
+        construction: {
+
+            title: "بناء الهيكل",
+            subtitle: "المواد والعمال والحرفيون",
+            icon: "🧱",
+
+            content: `
+                <h3>مواد البناء</h3>
+
+                <p>
+                    استخدم في بناء الهيكل الحجر والخشب والذهب
+                    ومواد أخرى ثمينة، مع عناية خاصة بالتفاصيل
+                    الداخلية والزخرفة.
+                </p>
+
+                <h3>الحرفيون</h3>
+
+                <p>
+                    شارك في المشروع حرفيون ذوو خبرة، كما ارتبط
+                    البناء بعلاقة سليمان بحيرام ملك صور.
+                </p>
+
+                <div class="reference-box">
+                    الشواهد: 1 ملوك 5–6؛
+                    2 أخبار الأيام 2–3.
+                </div>
+            `
+        },
+
+
+        architecture: {
+
+            title: "هندسة وتصميم الهيكل",
+            subtitle: "الأبعاد والتقسيم الداخلي",
+            icon: "📐",
+
+            content: `
+                <h3>التقسيم الداخلي</h3>
+
+                <p>
+                    اتخذ الهيكل ترتيبًا واضحًا يميز بين أجزائه
+                    ومساحاته المقدسة، مع وجود القدس وقدس الأقداس.
+                </p>
+
+                <h3>قدس الأقداس</h3>
+
+                <p>
+                    كان قدس الأقداس القسم الداخلي الأقدس، ووُضع
+                    فيه تابوت العهد.
+                </p>
+
+                <div class="reference-box">
+                    الشاهد الأساسي: 1 ملوك 6.
+                </div>
+            `
+        },
+
+
+        furniture: {
+
+            title: "أثاث الهيكل",
+            subtitle: "الأدوات والأواني المقدسة",
+            icon: "🕎",
+
+            content: `
+                <h3>أثاث الهيكل</h3>
+
+                <p>
+                    اشتمل الهيكل على عدد كبير من الأدوات والأواني
+                    المستخدمة في العبادة، ومنها مذبح النحاس
+                    وبحر النحاس والمنائر والمذابح والأواني المقدسة.
+                </p>
+
+                <div class="reference-box">
+                    الشواهد: 1 ملوك 7؛
+                    2 أخبار الأيام 4.
+                </div>
+            `
+        },
+
+
+        "holy-of-holies": {
+
+            title: "قدس الأقداس",
+            subtitle: "تابوت العهد والكروبيم والحضور الإلهي",
+            icon: "✨",
+
+            content: `
+                <h3>قدس الأقداس</h3>
+
+                <p>
+                    كان قدس الأقداس أقدس موضع في الهيكل، ووضع فيه
+                    تابوت عهد الرب تحت أجنحة الكروبيم.
+                </p>
+
+                <h3>الحضور الإلهي</h3>
+
+                <p>
+                    ارتبط قدس الأقداس بصورة خاصة بحضور الله ومجده،
+                    مع التأكيد الكتابي أن السماء وسماء السماوات
+                    لا تسعه.
+                </p>
+
+                <div class="reference-box">
+                    الشواهد: 1 ملوك 6؛ 1 ملوك 8:27.
+                </div>
+            `
+        },
+
+
+        dedication: {
+
+            title: "تدشين الهيكل",
+            subtitle: "نقل التابوت ومجد الرب",
+            icon: "🔥",
+
+            content: `
+                <h3>تدشين الهيكل</h3>
+
+                <p>
+                    بلغ بناء الهيكل ذروته في يوم التدشين عندما
+                    نُقل تابوت عهد الرب إلى موضعه، واجتمع الشعب
+                    أمام الرب.
+                </p>
+
+                <h3>مجد الرب</h3>
+
+                <p>
+                    امتلأ بيت الرب بالسحابة، ولم يستطع الكهنة
+                    الوقوف للخدمة بسبب المجد الإلهي.
+                </p>
+
+                <div class="reference-box">
+                    الشاهد الأساسي: 1 ملوك 8.
+                </div>
+            `
+        },
+
+
+        prayer: {
+
+            title: "صلاة سليمان",
+            subtitle: "الصلاة عند تدشين الهيكل",
+            icon: "🙏",
+
+            content: `
+                <h3>صلاة سليمان</h3>
+
+                <p>
+                    تكشف صلاة سليمان أن الهيكل لم يكن محاولة
+                    لحصر الله في مكان، بل موضعًا يرتبط باسم الرب
+                    وبصلاة الشعب أمامه.
+                </p>
+
+                <h3>لاهوت الصلاة</h3>
+
+                <p>
+                    تتناول الصلاة التوبة والغفران والعدل والصلاة
+                    في أوقات الضيق، كما تتضمن طلبًا خاصًا باستجابة
+                    الله لمن يتجه بالصلاة نحو هذا المكان.
+                </p>
+
+                <div class="reference-box">
+                    الشاهد الأساسي: 1 ملوك 8:22–53.
+                </div>
+            `
+        },
+
+
+        christ: {
+
+            title: "هيكل سليمان والمسيح",
+            subtitle: "الهيكل في ضوء الإعلان الكامل في المسيح",
+            icon: "✝️",
+
+            content: `
+                <h3>الهيكل والمسيح</h3>
+
+                <p>
+                    يفتح العهد الجديد أمام القارئ فهمًا أعمق
+                    لموضوع الهيكل، خصوصًا في إعلان المسيح عن
+                    جسده باعتباره الهيكل.
+                </p>
+
+                <h3>من الرمز إلى التحقيق</h3>
+
+                <p>
+                    ينبغي دراسة العلاقة بين الهيكل وحضور الله
+                    والكهنوت والذبيحة والاقتراب إلى الله في ضوء
+                    عمل المسيح الكامل.
+                </p>
+
+                <div class="reference-box">
+                    الشواهد: يوحنا 2:19–21؛
+                    عبرانيين 9.
+                </div>
+            `
+        },
+
+
+        "new-testament": {
+
+            title: "الهيكل في العهد الجديد",
+            subtitle: "المسيح والهيكل والكنيسة والمؤمن",
+            icon: "📚",
+
+            content: `
+                <h3>المسيح والهيكل</h3>
+
+                <p>
+                    يحتل الهيكل مكانة مهمة في الأناجيل، خصوصًا
+                    في تعليم المسيح وخدمته في أورشليم.
+                </p>
+
+                <h3>الكنيسة والمؤمن</h3>
+
+                <p>
+                    يستخدم العهد الجديد لغة الهيكل أيضًا في وصف
+                    جماعة المؤمنين والمؤمن باعتبارهما مرتبطين
+                    بسكنى الله بالروح.
+                </p>
+
+                <div class="reference-box">
+                    الشواهد: يوحنا 2؛
+                    1 كورنثوس 3:16؛ 6:19.
+                </div>
+            `
+        },
+
+
+        destruction: {
+
+            title: "سقوط هيكل سليمان",
+            subtitle: "الخراب والسبي البابلي",
+            icon: "🏚️",
+
+            content: `
+                <h3>السقوط</h3>
+
+                <p>
+                    ارتبط سقوط أورشليم والهيكل بالدينونة التي
+                    أعلنتها الأنبياء على يهوذا بسبب استمرار العصيان
+                    والوثنية وعدم الرجوع إلى الرب.
+                </p>
+
+                <h3>السبي البابلي</h3>
+
+                <p>
+                    انتهى عصر الهيكل الأول بتدمير أورشليم
+                    وأخذ أواني بيت الرب إلى بابل.
+                </p>
+
+                <div class="reference-box">
+                    الشواهد: 2 ملوك 24–25؛
+                    2 أخبار الأيام 36.
+                </div>
+            `
+        },
+
+
+        comparison: {
+
+            title: "الدراسات المقارنة",
+            subtitle: "الخيمة والهيكل والهيكل الثاني",
+            icon: "⚖️",
+
+            content: `
+                <h3>خيمة الاجتماع وهيكل سليمان</h3>
+
+                <p>
+                    توجد استمرارية واضحة في كثير من عناصر العبادة
+                    بين الخيمة والهيكل، مع انتقال العبادة إلى مبنى
+                    ثابت في أورشليم.
+                </p>
+
+                <h3>الهيكل الثاني وهيكل هيرودس</h3>
+
+                <p>
+                    ستتضمن هذه الدراسة مقارنة تاريخية ومعمارية
+                    ولاهوتية بين الهيكل الأول وما جاء بعده.
+                </p>
+            `
+        },
+
+
+        maps: {
+
+            title: "الخرائط والمخططات",
+            subtitle: "موقع الهيكل وتخطيطه",
+            icon: "🗺️",
+
+            content: `
+                <h3>مخطط الهيكل</h3>
+
+                <p>
+                    سيضم هذا القسم المخططات التوضيحية للهيكل،
+                    ومواقع أجزائه، وعلاقته بمدينة أورشليم وجبل
+                    الهيكل.
+                </p>
+
+                <h3>الدراسة البصرية</h3>
+
+                <p>
+                    سيتم ربط كل جزء من المخطط بالدراسة الكتابية
+                    الخاصة به.
+                </p>
+            `
+        },
+
+
+        references: {
+
+            title: "الآيات المرتبطة",
+            subtitle: "النصوص الكتابية الخاصة بهيكل سليمان",
+            icon: "🔎",
+
+            content: `
+                <h3>النصوص الأساسية</h3>
+
+                <p>
+                    أهم النصوص المباشرة توجد في 1 ملوك 5–8
+                    و2 أخبار الأيام 2–7.
+                </p>
+
+                <h3>ربط الآية بالدراسة</h3>
+
+                <p>
+                    سيتم في النسخة البحثية ربط كل آية بالعنصر
+                    المعماري أو الطقس أو المفهوم اللاهوتي الذي
+                    تتحدث عنه.
+                </p>
+            `
+        },
+
+
+        sources: {
+
+            title: "المراجع والمصادر",
+            subtitle: "مصادر الدراسة والبحث",
+            icon: "📑",
+
+            content: `
+                <h3>المصادر الكتابية</h3>
+
+                <p>
+                    النص الكتابي هو المصدر الأساسي لكل دراسة
+                    متعلقة بهيكل سليمان.
+                </p>
+
+                <h3>المصادر البحثية</h3>
+
+                <p>
+                    سيتم لاحقًا تنظيم المصادر التاريخية والأثرية
+                    والمعمارية واللاهوتية، مع ربط كل معلومة
+                    بمصدرها.
+                </p>
+            `
+        },
+
+
+        "deep-study": {
+
+            title: "الدراسة العميقة",
+            subtitle: "الهيكل وحضور الله وخطة الفداء",
+            icon: "🧠",
+
+            content: `
+                <h3>المعنى اللاهوتي للهيكل</h3>
+
+                <p>
+                    تتجاوز دراسة الهيكل وصف المبنى إلى دراسة
+                    موضوعات الحضور الإلهي والقداسة والكهنوت
+                    والذبيحة والاقتراب إلى الله.
+                </p>
+
+                <h3>من الهيكل إلى الإعلان الكامل</h3>
+
+                <p>
+                    ستجمع هذه الدراسة الخيوط الكتابية المتعلقة
+                    بالهيكل وتربطها بالتطور التدريجي للإعلان
+                    الكتابي وصولًا إلى العهد الجديد.
+                </p>
+
+                <div class="reference-box">
+                    دراسة موسوعية مترابطة:
+                    الهيكل → الحضور → الكهنوت → الذبيحة →
+                    المسيح → العهد الجديد.
+                </div>
+            `
+        }
+
+    };
+
+
+    /* =================================================
+       فتح الدراسة
+    ================================================= */
+
+    function openStudy(studyKey) {
+
+        const study = studies[studyKey];
+
+        if (!study) {
+            console.error(
+                "الدراسة غير موجودة:",
+                studyKey
+            );
+
+            return;
         }
 
 
-        function goHome() {
+        document.getElementById("studiesView").style.display =
+            "none";
 
-            window.location.href = "index.html";
+
+        document.getElementById("studyView").style.display =
+            "block";
+
+
+        document.getElementById("studyIcon").textContent =
+            study.icon;
+
+
+        document.getElementById("studyTitle").textContent =
+            study.title;
+
+
+        document.getElementById("studySubtitle").textContent =
+            study.subtitle;
+
+
+        document.getElementById("studyContent").innerHTML =
+            study.content;
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =================================================
+       العودة إلى أيقونات هيكل سليمان
+    ================================================= */
+
+    function showStudies() {
+
+        document.getElementById("studyView").style.display =
+            "none";
+
+
+        document.getElementById("studiesView").style.display =
+            "block";
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =================================================
+       دعم زر المتصفح Back
+    ================================================= */
+
+    window.addEventListener(
+        "popstate",
+        function () {
+
+            showStudies();
 
         }
+    );
 
-    </script>
+</script>
 
 </body>
 </html>
