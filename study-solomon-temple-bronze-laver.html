@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>المرحضة النحاسية | هيكل سليمان | موسوعة الكتاب المقدس</title>
+
+<style>
+:root{
+    --blue:#061a2d;
+    --blue2:#0b2742;
+    --blue3:#123b61;
+    --gold:#d4af37;
+    --gold2:#f4d76b;
+    --gold3:#fff0a6;
+    --white:#fff;
+    --text:#e9eef5;
+    --muted:#aebdca;
+    --line:rgba(212,175,55,.28);
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+    margin:0;
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+    color:var(--text);
+    line-height:1.95;
+    background:
+    radial-gradient(circle at 50% 0%,#174d7c 0%,#0b2742 30%,#061a2d 68%,#030d18 100%);
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(3,15,27,.95);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    box-shadow:0 5px 25px rgba(0,0,0,.3);
+}
+
+.topbar{
+    max-width:1200px;
+    min-height:78px;
+    margin:auto;
+    padding:10px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:52px;
+    height:52px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 10px rgba(212,175,55,.35));
+    animation:floatLogo 4s ease-in-out infinite;
+}
+
+@keyframes floatLogo{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-5px)}
+}
+
+.brand-title{
+    color:var(--gold2);
+    font-weight:700;
+    font-size:17px;
+}
+
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 15px;
+    text-decoration:none;
+    color:white;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:linear-gradient(145deg,#174d7c,#071d31);
+    box-shadow:0 7px 20px rgba(0,0,0,.3);
+    transition:.3s;
+}
+
+.back-btn:hover{
+    transform:translateY(-2px);
+    border-color:var(--gold);
+    box-shadow:0 10px 25px rgba(212,175,55,.18);
+}
+
+main{
+    max-width:1150px;
+    margin:auto;
+    padding:30px 18px 70px;
+}
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    padding:48px 25px 42px;
+    border:1px solid var(--line);
+    border-radius:28px;
+    background:
+    radial-gradient(circle at 50% 0%,rgba(23,77,124,.75),rgba(6,26,45,.97) 68%);
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+    margin-bottom:24px;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:320px;
+    height:320px;
+    top:-180px;
+    right:-100px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(212,175,55,.16),transparent 70%);
+}
+
+.hero-icon{
+    position:relative;
+    font-size:72px;
+    margin-bottom:5px;
+    filter:drop-shadow(0 8px 18px rgba(0,0,0,.45));
+}
+
+.hero h1{
+    position:relative;
+    margin:0 0 10px;
+    color:var(--gold2);
+    font-size:clamp(28px,5vw,42px);
+    text-shadow:0 3px 20px rgba(0,0,0,.4);
+}
+
+.hero p{
+    position:relative;
+    max-width:900px;
+    margin:auto;
+    color:#dce6ef;
+    font-size:17px;
+}
+
+.section{
+    padding:28px;
+    margin-bottom:22px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:linear-gradient(145deg,rgba(10,38,63,.95),rgba(5,24,41,.97));
+    box-shadow:0 12px 35px rgba(0,0,0,.28);
+}
+
+.section h2{
+    margin-top:0;
+    color:var(--gold2);
+    font-size:27px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:10px;
+}
+
+.section h3{
+    color:var(--gold3);
+    margin-top:25px;
+}
+
+.reference{
+    border-right:4px solid var(--gold);
+    padding:12px 18px;
+    margin:18px 0;
+    background:rgba(212,175,55,.07);
+    border-radius:10px;
+}
+
+.reference strong{
+    color:var(--gold2);
+}
+
+.scripture{
+    color:#fff0a6;
+    font-weight:700;
+}
+
+.fact-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-top:20px;
+}
+
+.fact{
+    padding:20px;
+    border:1px solid rgba(212,175,55,.22);
+    border-radius:16px;
+    background:linear-gradient(145deg,#123b61,#071d31);
+}
+
+.fact strong{
+    display:block;
+    color:var(--gold2);
+    margin-bottom:5px;
+    font-size:18px;
+}
+
+.timeline{
+    border-right:3px solid var(--gold);
+    padding-right:20px;
+}
+
+.timeline-item{
+    margin-bottom:24px;
+    position:relative;
+}
+
+.timeline-item::before{
+    content:"";
+    position:absolute;
+    right:-28px;
+    top:9px;
+    width:13px;
+    height:13px;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 12px rgba(212,175,55,.5);
+}
+
+.conclusion{
+    border:1px solid rgba(212,175,55,.4);
+    background:
+    linear-gradient(
+        145deg,
+        rgba(212,175,55,.12),
+        rgba(6,26,45,.9)
+    );
+}
+
+footer{
+    text-align:center;
+    padding:30px 15px;
+    color:var(--muted);
+    border-top:1px solid var(--line);
+    background:rgba(3,14,24,.6);
+}
+
+.footer-title{
+    color:var(--gold2);
+    font-weight:700;
+}
+
+@media(max-width:700px){
+    .fact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .section{
+        padding:22px 16px;
+    }
+
+    .hero{
+        padding:38px 18px;
+    }
+
+    .hero-icon{
+        font-size:60px;
+    }
+
+    .brand-title{
+        font-size:14px;
+    }
+
+    .logo{
+        width:45px;
+        height:45px;
+    }
+
+    .back-btn{
+        font-size:13px;
+        padding:8px 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="topbar">
+
+<a href="study-solomon-temple.html" class="back-btn">
+    🏛️
+    هيكل سليمان
+</a>
+
+<div class="brand">
+    <div class="brand-title">موسوعة الكتاب المقدس</div>
+
+    <img
+        src="assets/logo.png"
+        class="logo"
+        alt="شعار كنيسة رجاء الأمم سيدني"
+    >
+</div>
+
+</div>
+</header>
+
+<main>
+
+<section class="hero">
+
+<div class="hero-icon">💧</div>
+
+<h1>المرحضة النحاسية</h1>
+
+<p>
+دراسة موسوعية متعمقة للمرحضة النحاسية في هيكل سليمان،
+وظيفتها الطقسية، علاقتها بالكهنة والذبائح، موقعها في نظام العبادة،
+ومقارنتها بمرحضة خيمة الاجتماع، مع قراءة كتابية ويهودية ولاهوتية.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>💧 أولًا: ما المقصود بالمرحضة النحاسية؟</h2>
+
+<p>
+من المهم منذ البداية التمييز بين <strong>المرحضة</strong> وبين ما تسميه
+النصوص الكتابية <strong>«البحر» أو «البحر النحاسي»</strong>.
+ففي هيكل سليمان لم تكن هناك مرحضة واحدة تقوم بكل وظائف مرحضة
+خيمة الاجتماع، بل نجد منظومة أكثر اتساعًا: عشرة مغاسل أو مراجل
+نحاسية لغسل ما يرتبط بالذبائح، وبحرًا نحاسيًا مخصصًا لغسل الكهنة.
+</p>
+
+<div class="reference">
+<strong>الشاهد الأساسي:</strong>
+<span class="scripture">1 ملوك 7:38-39؛ 2 أخبار 4:6</span>
+</div>
+
+<p>
+يقول سفر أخبار الأيام بوضوح إن الأواني العشرة كانت لغسل ما يخص
+المحرقة، بينما كان البحر للكهنة للاغتسال.
+وهذا التفريق أساسي لفهم وظيفة الماء في عبادة الهيكل.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>📖 ثانيًا: الأساس الكتابي</h2>
+
+<h3>1. البحر النحاسي</h3>
+
+<p>
+صُنع البحر من النحاس المصبوب، وكان دائريًا، قطره عشرة أذرع،
+وارتفاعه خمس أذرع، ومحيطه ثلاثين ذراعًا بحسب الوصف الكتابي.
+وكان سمكه «شبرًا»، وحافته كحافة كأس مثل زهر السوسن.
+</p>
+
+<div class="reference">
+<strong>المراجع:</strong>
+<span class="scripture">1 ملوك 7:23-26؛ 2 أخبار 4:2-5</span>
+</div>
+
+<h3>2. الاثنا عشر ثورًا</h3>
+
+<p>
+وُضع البحر على اثني عشر ثورًا: ثلاثة متجهة إلى الشمال،
+وثلاثة إلى الغرب، وثلاثة إلى الجنوب، وثلاثة إلى الشرق.
+وكانت مؤخرات الثيران إلى الداخل، بينما يحمل ظهرها البحر.
+</p>
+
+<div class="reference">
+<strong>المراجع:</strong>
+<span class="scripture">1 ملوك 7:25؛ 2 أخبار 4:4</span>
+</div>
+
+<h3>3. عشرة مغاسل نحاسية</h3>
+
+<p>
+صنع سليمان أيضًا عشرة مغاسل، ووضع خمسة منها عن اليمين
+وخمسة عن اليسار. وكان الغرض منها غسل الأشياء المتعلقة
+بذبائح المحرقة.
+</p>
+
+<div class="reference">
+<strong>المراجع:</strong>
+<span class="scripture">1 ملوك 7:38-39؛ 2 أخبار 4:6</span>
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>📐 ثالثًا: المقاسات والبنية</h2>
+
+<div class="fact-grid">
+
+<div class="fact">
+<strong>القطر</strong>
+عشرة أذرع من حافة إلى حافة.
+<br>
+<span class="scripture">1 ملوك 7:23</span>
+</div>
+
+<div class="fact">
+<strong>الارتفاع</strong>
+خمس أذرع.
+<br>
+<span class="scripture">1 ملوك 7:23</span>
+</div>
+
+<div class="fact">
+<strong>المحيط</strong>
+ثلاثون ذراعًا بحسب النص.
+<br>
+<span class="scripture">1 ملوك 7:23</span>
+</div>
+
+<div class="fact">
+<strong>السُّمك</strong>
+شبر.
+<br>
+<span class="scripture">1 ملوك 7:26</span>
+</div>
+
+<div class="fact">
+<strong>عدد الثيران</strong>
+اثنا عشر ثورًا.
+<br>
+<span class="scripture">1 ملوك 7:25</span>
+</div>
+
+<div class="fact">
+<strong>السعة</strong>
+يذكر 1 ملوك 7:26 ألفي بث، بينما يذكر
+2 أخبار 4:5 ثلاثة آلاف بث.
+</div>
+
+</div>
+
+<p>
+يجب تسجيل اختلاف الرقمين بأمانة وعدم إخفائه. وقد ناقش المفسرون
+والباحثون هل يشير أحد الرقمين إلى السعة المعتادة والآخر إلى
+القدرة القصوى، لكن النصين نفسيهما ينبغي إبقاؤهما كما هما عند
+عرض البيانات.
+</p>
+
+<div class="reference">
+<strong>المراجع:</strong>
+<span class="scripture">1 ملوك 7:26؛ 2 أخبار 4:5</span>
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>🧱 رابعًا: مادة المرحضة ودلالة النحاس</h2>
+
+<p>
+كان النحاس أو البرونز من المواد الأساسية في أدوات فناء العبادة.
+وفي الكتاب المقدس يرتبط النحاس بصورة متكررة بأدوات المذبح
+والأشياء التي تتصل بالخدمة الخارجية.
+</p>
+
+<p>
+وفي حالة البحر النحاسي، لا ينبغي أن نقفز مباشرة إلى القول إن
+«النحاس يرمز حتمًا إلى الدينونة» في كل موضع. هذه قراءة رمزية
+شائعة في بعض التقاليد التفسيرية، لكنها ليست تصريحًا مباشرًا
+من نص 1 ملوك 7.
+</p>
+
+<div class="reference">
+<strong>نصوص للمقارنة:</strong>
+<span class="scripture">
+خروج 30:18-21؛ خروج 38:8؛ 1 ملوك 7:23-26؛
+2 أخبار 4:2-6
+</span>
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>🧼 خامسًا: لماذا كان الماء ضروريًا للخدمة؟</h2>
+
+<p>
+كان غسل الكهنة جزءًا من الاستعداد للخدمة المقدسة في خيمة الاجتماع.
+ويأمر النص هارون وبنيه بغسل أيديهم وأرجلهم قبل دخولهم إلى خيمة
+الاجتماع وقبل اقترابهم من المذبح للخدمة.
+</p>
+
+<div class="reference">
+<strong>المرجع:</strong>
+<span class="scripture">خروج 30:18-21</span>
+</div>
+
+<p>
+وهنا يظهر المبدأ الكتابي المهم: الاقتراب من المقدس لم يكن أمرًا
+عاديًا، بل كان مرتبطًا بالطهارة والاستعداد والخدمة وفق ما عيّنه
+الله.
+</p>
+
+<p>
+وتوضح الموسوعة اليهودية أن غسل اليدين والرجلين كان مرتبطًا
+بالخدمة الكهنوتية، وأن البحر في هيكل سليمان أخذ وظيفة المرحضة
+الخاصة بالكهنة، بينما استُخدمت الأحواض الأخرى فيما يتعلق
+بالذبائح.
+</p>
+
+<div class="reference">
+<strong>مرجع يهودي:</strong>
+Jewish Encyclopedia، مادة <em>Laver</em>.
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>🏛️ سادسًا: الفرق بين مرحضة الخيمة وبحر هيكل سليمان</h2>
+
+<div class="fact-grid">
+
+<div class="fact">
+<strong>خيمة الاجتماع</strong>
+مرحضة واحدة، أمر الله موسى بصنعها، وكان هارون وبنوه يغسلون
+أيديهم وأرجلهم منها.
+<br>
+<span class="scripture">خروج 30:18-21</span>
+</div>
+
+<div class="fact">
+<strong>هيكل سليمان</strong>
+بحر نحاسي كبير لغسل الكهنة، بالإضافة إلى عشرة مغاسل لغسل
+ما يرتبط بالذبائح.
+<br>
+<span class="scripture">2 أخبار 4:6</span>
+</div>
+
+</div>
+
+<p>
+إذن، لم يكن سليمان ينسخ نظام الخيمة بصورة حرفية؛ بل وسّع
+منظومة الأدوات بما يتناسب مع ضخامة الهيكل وكثرة الخدمة.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>👑 سابعًا: من كان يستخدم البحر؟</h2>
+
+<p>
+بحسب 2 أخبار 4:6، كان البحر للكهنة للاغتسال.
+وهذا يتفق مع المبدأ الذي نجده في شريعة موسى، حيث ترتبط
+الغسلات الكهنوتية بالاقتراب من الخدمة المقدسة.
+</p>
+
+<div class="reference">
+<strong>المراجع:</strong>
+<span class="scripture">
+خروج 30:19-21؛ لاويين 8:6؛ 1 ملوك 7:25-26؛
+2 أخبار 4:6
+</span>
+</div>
+
+<p>
+أما المغاسل العشرة فكانت مخصصة لغسل ما يتعلق بالذبائح.
+وهذا التفريق يوضح أن الماء لم يكن عنصرًا زخرفيًا في الهيكل،
+بل كان جزءًا عمليًا من نظام العبادة.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>🕎 ثامنًا: قراءة يهودية للغسل والطهارة</h2>
+
+<p>
+في الفكر اليهودي الكتابي والرباني، لا يعني الغسل مجرد تنظيف
+جسدي عادي، بل يرتبط في سياقات معينة بالانتقال من حالة عدم
+الطهارة إلى حالة الطهارة المطلوبة للمشاركة في العبادة.
+</p>
+
+<p>
+وتذكر الموسوعة اليهودية أن غسل اليدين والرجلين كان من متطلبات
+الخدمة الكهنوتية، وأن المرحضة كانت مرتبطة مباشرة بالاقتراب
+من المقدس والمذبح.
+</p>
+
+<div class="reference">
+<strong>مرجع:</strong>
+Jewish Encyclopedia، مادتا <em>Laver</em> و<em>Ablution</em>.
+</div>
+
+<p>
+لكن يجب التفريق بين <strong>غسل اليدين والرجلين للكهنة</strong>
+وبين <strong>الاغتسال الكامل بالماء</strong> الذي يظهر في حالات
+أخرى من أحكام الطهارة في الشريعة.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>✝️ تاسعًا: البعد اللاهوتي — من الماء الخارجي إلى الطهارة الداخلية</h2>
+
+<p>
+العهد الجديد لا يقول إن البحر النحاسي كان «نبوة مباشرة» عن
+المعمودية، ولذلك ينبغي التعامل مع الربط اللاهوتي بحذر.
+لكن الكتاب المقدس يستخدم الماء في مواضع متعددة كلغة للطهارة
+والتجديد والحياة.
+</p>
+
+<div class="reference">
+<strong>نصوص العهد الجديد:</strong>
+<span class="scripture">
+يوحنا 3:5؛ أفسس 5:26؛ تيطس 3:5؛ عبرانيين 10:22
+</span>
+</div>
+
+<p>
+ومن هنا يمكن بناء قراءة لاهوتية مسيحية ترى في نظام الغسل في
+العبادة القديمة خلفية تساعد على فهم أهمية الطهارة والاقتراب
+من الله، دون الادعاء بأن كل تفصيل معماري يحمل رمزًا مسيانيًا
+مباشرًا.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>📚 عاشرًا: قراءة تفسيـرية مقارنة</h2>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<strong>القراءة التاريخية:</strong>
+البحر والمغاسل جزء من البنية العملية للعبادة في الهيكل،
+وخاصة خدمة الكهنة والذبائح.
+</div>
+
+<div class="timeline-item">
+<strong>القراءة الطقسية:</strong>
+الماء يمثل شرطًا من شروط الاستعداد الطقسي للخدمة المقدسة
+بحسب الشريعة.
+</div>
+
+<div class="timeline-item">
+<strong>القراءة الرمزية:</strong>
+يمكن النظر إلى الماء باعتباره صورة للطهارة، لكن ينبغي عدم
+تحويل كل تفصيل إلى رمز عقائدي قطعي دون نص صريح.
+</div>
+
+<div class="timeline-item">
+<strong>القراءة المسيحية:</strong>
+يمكن الربط بين مفهوم التطهير في العبادة القديمة وتعاليم
+العهد الجديد عن التطهير والتقديس، مع الحفاظ على الفرق
+بين الرمز والتفسير النصي المباشر.
+</div>
+
+<div class="timeline-item">
+<strong>القراءة اليهودية:</strong>
+الغسل جزء من منظومة أوسع للطهارة والاقتراب من المقدس،
+وليس مجرد عملية نظافة جسدية.
+</div>
+
+<div class="timeline-item">
+<strong>القراءة الموسوعية:</strong>
+ينبغي دراسة البحر والمغاسل معًا لأن الكتاب نفسه يفرق بين
+وظيفة البحر للكهنة ووظيفة المغاسل المرتبطة بالذبائح.
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>🔎 حادي عشر: ملاحظة مهمة حول «المرحضة النحاسية»</h2>
+
+<p>
+التسمية المستخدمة في التطبيق هي <strong>«المرحضة النحاسية»</strong>
+لأنها أوضح للمستخدم من الناحية الدراسية، لكن عند دراسة هيكل
+سليمان يجب تسجيل الاسم الكتابي بدقة: <strong>«البحر» أو «البحر
+النحاسي»</strong>.
+</p>
+
+<p>
+كما أن «المغاسل العشرة» ليست هي نفسها «البحر». هذه نقطة مهمة
+حتى لا تختلط دراسة هذا العنصر مع الأحواض الأخرى التي صنعها
+سليمان.
+</p>
+
+<div class="reference">
+<strong>النصوص الحاسمة:</strong>
+<span class="scripture">
+1 ملوك 7:23-39؛ 2 أخبار 4:2-6
+</span>
+</div>
+
+</section>
+
+
+<section class="section conclusion">
+
+<h2>✨ الخلاصة اللاهوتية</h2>
+
+<p>
+المرحضة في منظومة الهيكل تكشف أن العبادة الكتابية لم تكن مجرد
+اقتراب مكاني من الهيكل، بل اقترابًا منظمًا تحكمه القداسة
+والطهارة والخدمة التي عيّنها الله.
+</p>
+
+<p>
+وفي هيكل سليمان يتضح هذا المبدأ بصورة أكثر اتساعًا: 
+<strong>البحر للكهنة، والمغاسل للذبائح.</strong>
+وهكذا أصبح الماء جزءًا من البنية العملية التي تربط بين
+الإنسان والخدمة والمذبح والقداسة.
+</p>
+
+<p>
+ومن المنظور المسيحي، تساعد هذه الخلفية على فهم اللغة الكتابية
+عن التطهير والتقديس، بينما يظل مركز العهد الجديد هو عمل المسيح
+لا الطقس المائي في حد ذاته.
+</p>
+
+</section>
+
+</main>
+
+
+<footer>
+
+<div class="footer-title">
+كنيسة رجاء الأمم سيدني
+</div>
+
+موسوعة الكتاب المقدس
+
+</footer>
+
+</body>
+</html>
