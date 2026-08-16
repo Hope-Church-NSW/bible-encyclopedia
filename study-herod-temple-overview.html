@@ -2,13 +2,35 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>هيكل هيرودس — نظرة عامة | موسوعة الكتاب المقدس</title>
+<title>هيرودس الكبير وهيكل هيرودس | موسوعة الكتاب المقدس</title>
 
 <style>
+
+:root{
+    --blue:#061a2d;
+    --blue2:#0b2742;
+    --blue3:#123b61;
+    --blue4:#174d7c;
+
+    --gold:#d4af37;
+    --gold2:#f4d76b;
+    --gold3:#fff0a6;
+
+    --white:#ffffff;
+    --text:#e9eef5;
+    --muted:#aebdca;
+
+    --line:rgba(212,175,55,.28);
+
+    --shadow:
+        0 20px 60px rgba(0,0,0,.45);
+
+    --gold-shadow:
+        0 0 25px rgba(212,175,55,.20);
+}
 
 *{
     box-sizing:border-box;
@@ -20,542 +42,732 @@ html{
 
 body{
     margin:0;
-    font-family:Tahoma,Arial,sans-serif;
+
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    color:var(--text);
 
     background:
         radial-gradient(
-            circle at top,
-            #17496b 0%,
-            #061522 45%,
-            #020911 100%
+            circle at 50% 0%,
+            #174d7c 0%,
+            #0b2742 28%,
+            #061a2d 65%,
+            #030d18 100%
         );
 
-    color:#f5f5f5;
-    line-height:1.95;
+    line-height:1.9;
 }
 
-
-/* =====================================
-   HEADER
-===================================== */
+/* ================= HEADER ================= */
 
 header{
-    background:rgba(3,15,26,.97);
-    border-bottom:1px solid #c9a227;
-    padding:10px 18px;
-
     position:sticky;
     top:0;
     z-index:1000;
 
-    backdrop-filter:blur(8px);
+    background:rgba(3,15,27,.95);
+
+    backdrop-filter:blur(14px);
+
+    border-bottom:1px solid var(--line);
+
+    box-shadow:0 5px 25px rgba(0,0,0,.3);
 }
 
-.header-inner{
-    width:min(1100px,calc(100% - 10px));
+.topbar{
+    max-width:1200px;
+    min-height:82px;
+
     margin:auto;
+    padding:10px 20px;
 
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:15px;
+    gap:20px;
 }
-
-
-/* اللوجو واسم الكنيسة */
 
 .brand{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:13px;
 }
 
-.logo{
-    width:48px;
-    height:48px;
+.brand-logo{
+    width:58px;
+    height:58px;
+
     object-fit:contain;
+
+    filter:
+        drop-shadow(0 0 10px rgba(212,175,55,.3));
+
+    animation:logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-5px);
+    }
+
 }
 
 .brand-name{
-    color:#e4c45a;
-    font-size:13px;
-    font-weight:bold;
+    color:var(--gold2);
+
+    font-size:18px;
+
+    font-weight:700;
 }
 
+.back-btn{
 
-/* زر الرجوع */
+    display:flex;
 
-.back{
-    display:inline-block;
+    align-items:center;
+
+    gap:8px;
+
+    padding:9px 16px;
+
+    border-radius:11px;
+
+    color:white;
 
     text-decoration:none;
-    color:#fff;
+
+    border:1px solid var(--line);
 
     background:
         linear-gradient(
             145deg,
-            #123b5a,
-            #071b2c
+            rgba(18,59,97,.95),
+            rgba(6,26,45,.95)
         );
 
-    border:1px solid rgba(212,175,55,.65);
-
-    padding:7px 14px;
-    border-radius:9px;
-
-    font-size:12px;
-
-    transition:.25s;
+    transition:.3s;
 }
 
-.back:hover{
-    background:#c9a227;
-    color:#061522;
+.back-btn:hover{
+
     transform:translateY(-2px);
+
+    border-color:var(--gold);
+
+    box-shadow:
+        0 8px 25px rgba(212,175,55,.18);
 }
 
+/* ================= MAIN ================= */
 
-/* =====================================
-   CONTAINER
-===================================== */
+main{
 
-.container{
-    width:min(1100px,calc(100% - 24px));
+    max-width:1150px;
+
     margin:auto;
 
-    padding:24px 0 60px;
+    padding:
+        35px 18px 70px;
 }
 
-
-/* =====================================
-   HERO
-===================================== */
+/* ================= HERO ================= */
 
 .hero{
-    background:
-        linear-gradient(
-            145deg,
-            #103d5d,
-            #061a2b
-        );
 
-    border:1px solid rgba(212,175,55,.35);
-    border-radius:18px;
+    position:relative;
 
-    padding:35px 25px;
+    overflow:hidden;
 
     text-align:center;
 
-    margin-bottom:18px;
+    padding:
+        55px 25px 48px;
 
-    box-shadow:
-        0 8px 30px rgba(0,0,0,.20);
-}
+    border-radius:28px;
 
-.hero-icon{
-    font-size:60px;
-    line-height:1;
-    margin-bottom:12px;
-}
+    border:1px solid var(--line);
 
-.hero h1{
-    margin:0 0 8px;
-
-    color:#f0d36a;
-    font-size:32px;
-}
-
-.hero-subtitle{
-    max-width:850px;
-    margin:auto;
-
-    color:#b9c6d1;
-    font-size:13px;
-}
-
-
-/* =====================================
-   SECTIONS
-===================================== */
-
-.section{
     background:
-        linear-gradient(
-            145deg,
-            rgba(16,59,91,.96),
-            rgba(7,27,44,.98)
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(23,77,124,.8),
+            rgba(6,26,45,.97) 70%
         );
 
-    border:1px solid rgba(212,175,55,.25);
-    border-radius:15px;
+    box-shadow:var(--shadow);
 
-    padding:24px;
-    margin-bottom:16px;
-
-    box-shadow:
-        0 6px 22px rgba(0,0,0,.17);
+    margin-bottom:25px;
 }
 
-.section h2{
-    margin:0 0 16px;
+.hero::before{
 
-    padding-right:12px;
-
-    border-right:3px solid #c9a227;
-
-    color:#f0d36a;
-    font-size:22px;
-}
-
-.section h3{
-    color:#e4c45a;
-    font-size:18px;
-    margin-top:22px;
-}
-
-.section p{
-    color:#d8e0e6;
-    font-size:14px;
-    margin:9px 0;
-}
-
-
-/* =====================================
-   KEY POINT
-===================================== */
-
-.key-point{
-    background:
-        linear-gradient(
-            145deg,
-            rgba(201,162,39,.14),
-            rgba(201,162,39,.04)
-        );
-
-    border:1px solid rgba(212,175,55,.55);
-    border-radius:11px;
-
-    padding:17px;
-    margin:18px 0;
-
-    color:#f1e2a7;
-    font-size:14px;
-}
-
-.key-point strong{
-    color:#f0d36a;
-}
-
-
-/* =====================================
-   SCRIPTURE
-===================================== */
-
-.scripture{
-    background:rgba(0,0,0,.17);
-
-    border-right:3px solid #c9a227;
-
-    border-radius:9px;
-
-    padding:14px 17px;
-
-    margin:18px 0;
-
-    color:#e8d98f;
-
-    font-size:13px;
-}
-
-.scripture strong{
-    color:#f0d36a;
-}
-
-
-/* =====================================
-   COMPARISON CARDS
-===================================== */
-
-.compare-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-
-    gap:14px;
-    margin-top:18px;
-}
-
-.compare-card{
-    background:rgba(2,16,27,.45);
-
-    border:1px solid rgba(212,175,55,.20);
-
-    border-radius:11px;
-
-    padding:18px;
-}
-
-.compare-card h3{
-    margin-top:0;
-    color:#f0d36a;
-    font-size:17px;
-}
-
-.compare-card p{
-    font-size:13px;
-}
-
-
-/* =====================================
-   TIMELINE
-===================================== */
-
-.timeline{
-    border-right:2px solid #c9a227;
-
-    margin:20px 8px;
-
-    padding-right:20px;
-}
-
-.timeline-item{
-    position:relative;
-    margin-bottom:24px;
-}
-
-.timeline-item::before{
     content:"";
 
     position:absolute;
 
-    right:-27px;
-    top:8px;
+    width:300px;
+    height:300px;
 
-    width:11px;
-    height:11px;
-
-    background:#c9a227;
+    top:-160px;
+    right:-90px;
 
     border-radius:50%;
 
+    background:
+        radial-gradient(
+            circle,
+            rgba(212,175,55,.18),
+            transparent 70%
+        );
+}
+
+.hero-icon{
+
+    position:relative;
+
+    width:110px;
+    height:110px;
+
+    margin:
+        0 auto 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:30px;
+
+    font-size:58px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #174d7c,
+            #071d31
+        );
+
+    border:1px solid var(--line);
+
     box-shadow:
-        0 0 0 4px rgba(201,162,39,.12);
+        inset 0 2px 4px rgba(255,255,255,.08),
+        0 18px 40px rgba(0,0,0,.4),
+        0 0 30px rgba(212,175,55,.12);
+
+    animation:
+        iconFloat 5s ease-in-out infinite;
+}
+
+@keyframes iconFloat{
+
+    0%,100%{
+        transform:translateY(0) rotateY(0deg);
+    }
+
+    50%{
+        transform:translateY(-8px) rotateY(6deg);
+    }
+
+}
+
+.hero h1{
+
+    position:relative;
+
+    margin:0 0 10px;
+
+    color:var(--gold2);
+
+    font-size:
+        clamp(30px,5vw,44px);
+
+    line-height:1.35;
+}
+
+.hero-subtitle{
+
+    position:relative;
+
+    max-width:850px;
+
+    margin:auto;
+
+    color:#dce6ef;
+
+    font-size:18px;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(10,38,63,.95),
+            rgba(5,24,41,.97)
+        );
+
+    border:1px solid var(--line);
+
+    border-radius:22px;
+
+    padding:
+        30px 28px;
+
+    margin-bottom:22px;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.25);
+}
+
+.section h2{
+
+    margin-top:0;
+
+    color:var(--gold2);
+
+    font-size:27px;
+
+    border-bottom:
+        1px solid var(--line);
+
+    padding-bottom:10px;
+}
+
+.section h3{
+
+    color:var(--gold2);
+
+    font-size:21px;
+
+    margin-top:28px;
+}
+
+.section p{
+
+    color:#e1e9ef;
+
+    font-size:17px;
+}
+
+/* ================= TIMELINE ================= */
+
+.timeline{
+
+    display:grid;
+
+    gap:15px;
+
+    margin-top:22px;
+}
+
+.timeline-item{
+
+    position:relative;
+
+    padding:
+        20px 22px;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0d3455,
+            #071d31
+        );
+
+    border:
+        1px solid rgba(212,175,55,.18);
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.22);
+
+    transition:.3s;
+}
+
+.timeline-item:hover{
+
+    transform:translateY(-4px);
+
+    border-color:
+        rgba(212,175,55,.5);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.35);
+}
+
+.timeline-year{
+
+    display:inline-block;
+
+    color:#071a2b;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--gold2),
+            var(--gold)
+        );
+
+    padding:
+        5px 12px;
+
+    border-radius:20px;
+
+    font-weight:800;
+
+    margin-bottom:8px;
 }
 
 .timeline-item h3{
-    margin:0 0 5px;
-    color:#f0d36a;
+
+    margin:
+        0 0 6px;
+
+    color:var(--gold2);
 }
 
+.timeline-item p{
 
-/* =====================================
-   TABLE
-===================================== */
+    margin:0;
 
-.table-wrapper{
-    overflow-x:auto;
-    margin-top:18px;
+    color:#ccd8e2;
+
+    font-size:16px;
 }
 
-table{
-    width:100%;
-    min-width:650px;
+/* ================= CARDS ================= */
 
-    border-collapse:collapse;
+.cards{
 
-    font-size:13px;
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:18px;
+
+    margin-top:20px;
 }
 
-th{
-    background:rgba(201,162,39,.18);
+.card{
 
-    color:#f0d36a;
+    padding:23px;
 
-    padding:12px;
-
-    border:
-        1px solid
-        rgba(212,175,55,.25);
-}
-
-td{
-    padding:11px;
-
-    color:#d8e0e6;
-
-    border:
-        1px solid
-        rgba(212,175,55,.18);
+    border-radius:18px;
 
     background:
-        rgba(3,18,30,.30);
+        linear-gradient(
+            145deg,
+            #0d3455,
+            #071d31
+        );
+
+    border:
+        1px solid rgba(212,175,55,.20);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+
+    transition:.3s;
 }
 
+.card:hover{
 
-/* =====================================
-   REFERENCES
-===================================== */
+    transform:translateY(-5px);
 
-.references{
-    background:rgba(2,15,25,.35);
-
-    border:1px solid rgba(212,175,55,.22);
-
-    border-radius:11px;
-
-    padding:18px;
+    border-color:
+        rgba(212,175,55,.55);
 }
 
-.references ul{
+.card-icon{
+
+    width:56px;
+    height:56px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    font-size:28px;
+
+    margin-bottom:12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #174d7c,
+            #08243d
+        );
+
+    border:1px solid var(--line);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.3);
+}
+
+.card h3{
+
+    margin:
+        0 0 8px;
+
+    color:var(--gold2);
+}
+
+.card p{
+
     margin:0;
-    padding-right:22px;
 
-    color:#d8e0e6;
+    color:#cbd7e1;
+
+    font-size:15px;
 }
 
-.references li{
-    margin:7px 0;
+/* ================= SCRIPTURE ================= */
+
+.scripture{
+
+    margin-top:20px;
+
+    padding:
+        24px;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(212,175,55,.10),
+            rgba(18,59,97,.35)
+        );
+
+    border:
+        1px solid var(--line);
+
+    box-shadow:var(--gold-shadow);
+
+    text-align:center;
 }
 
+.scripture-text{
 
-/* =====================================
-   FOOTER
-===================================== */
+    color:#fff0a6;
 
-footer{
+    font-size:20px;
+
+    font-weight:700;
+
+    line-height:2;
+}
+
+.scripture-ref{
+
+    display:block;
+
+    margin-top:10px;
+
+    color:#cbd7e1;
+
+    font-size:15px;
+}
+
+/* ================= NAVIGATION ================= */
+
+.navigation{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-top:25px;
+}
+
+.nav-btn{
+
+    flex:1;
+
     text-align:center;
 
-    color:#8293a3;
+    text-decoration:none;
 
-    padding:25px;
+    padding:
+        13px 18px;
 
-    border-top:
-        1px solid
-        rgba(212,175,55,.15);
+    border-radius:13px;
 
-    font-size:11px;
+    color:#071a2b;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--gold2),
+            var(--gold)
+        );
+
+    transition:.3s;
+
+    box-shadow:
+        0 10px 25px rgba(212,175,55,.18);
 }
 
+.nav-btn:hover{
 
-/* =====================================
-   MOBILE
-===================================== */
+    transform:translateY(-3px);
 
-@media(max-width:750px){
+    box-shadow:
+        0 15px 30px rgba(212,175,55,.28);
+}
 
-    .compare-grid{
+/* ================= FOOTER ================= */
+
+footer{
+
+    text-align:center;
+
+    padding:
+        35px 15px;
+
+    color:var(--muted);
+
+    border-top:
+        1px solid var(--line);
+
+    background:
+        rgba(3,14,24,.55);
+}
+
+.footer-title{
+
+    color:var(--gold2);
+
+    font-weight:700;
+
+    margin-bottom:5px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px){
+
+    .cards{
+
         grid-template-columns:1fr;
     }
 
-}
+    .navigation{
 
-
-@media(max-width:650px){
-
-    .logo{
-        width:43px;
-        height:43px;
-    }
-
-    .brand-name{
-        font-size:11px;
-    }
-
-    .back{
-        font-size:10px;
-        padding:6px 9px;
-    }
-
-    .container{
-        width:calc(100% - 14px);
-        padding-top:15px;
+        flex-direction:column;
     }
 
     .hero{
-        padding:28px 15px;
-    }
 
-    .hero-icon{
-        font-size:50px;
-    }
-
-    .hero h1{
-        font-size:26px;
-    }
-
-    .hero-subtitle{
-        font-size:12px;
+        padding:
+            40px 18px;
     }
 
     .section{
-        padding:18px;
+
+        padding:
+            23px 17px;
     }
 
     .section h2{
-        font-size:19px;
+
+        font-size:23px;
     }
 
     .section p{
-        font-size:13px;
+
+        font-size:16px;
+    }
+
+    .brand-name{
+
+        font-size:14px;
+    }
+
+}
+
+@media(max-width:430px){
+
+    .brand-name{
+
+        display:none;
+    }
+
+    .hero-icon{
+
+        width:90px;
+        height:90px;
+
+        font-size:48px;
     }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<!-- =====================================
-     HEADER
-===================================== -->
-
 <header>
 
-<div class="header-inner">
-
-
-<!-- الرجوع إلى هيكل هيرودس -->
+<div class="topbar">
 
 <a
-    class="back"
-    href="study-herod-temple.html"
+    href="studies.html"
+    class="back-btn"
 >
-🏗️ هيكل هيرودس
+    <span>📚</span>
+    <span>الدراسات الكتابية</span>
 </a>
 
 
-<!-- اللوجو واسم الكنيسة -->
-
 <div class="brand">
+
+<div class="brand-name">
+كنيسة رجاء الأمم سيدني
+</div>
 
 <img
     src="assets/logo.png"
-    class="logo"
-    alt="كنيسة رجاء الأمم سيدني"
+    class="brand-logo"
+    alt="شعار كنيسة رجاء الأمم سيدني"
 >
 
-<span class="brand-name">
-كنيسة رجاء الأمم سيدني
-</span>
-
 </div>
-
 
 </div>
 
 </header>
 
 
+<main>
 
-<main class="container">
 
-
-<!-- =====================================
-     HERO
-===================================== -->
+<!-- ================= HERO ================= -->
 
 <section class="hero">
 
@@ -564,94 +776,84 @@ footer{
 </div>
 
 <h1>
-هيكل هيرودس — نظرة عامة
+هيرودس الكبير وهيكل هيرودس
 </h1>
 
-<p class="hero-subtitle">
+<div class="hero-subtitle">
 
-مدخل تأسيسي متقدم لدراسة الهيكل الذي كان قائمًا
-في أورشليم في زمن المسيح، وخلفيته التاريخية،
-ومشروع هيرودس الكبير، وبنيته، وأهميته في أحداث
-العهد الجديد، وعلاقته بالإعلان الكتابي عن حضور الله.
-
-</p>
-
-</section>
-
-
-
-<!-- =====================================
-     1 — ما هو هيكل هيرودس؟
-===================================== -->
-
-<section class="section">
-
-<h2>
-1. ما هو هيكل هيرودس؟
-</h2>
-
-<p>
-
-يُقصد بهيكل هيرودس المشروع الكبير لإعادة بناء
-وتوسيع مجمع الهيكل في أورشليم الذي بدأه
-هيرودس الكبير في أواخر القرن الأول قبل الميلاد.
-
-</p>
-
-<p>
-
-لم يكن هيرودس ينشئ موقع العبادة من الصفر؛
-فالهيكل الذي بدأ مشروعه كان مرتبطًا بالهيكل
-الثاني الذي بُني بعد السبي البابلي، ثم خضع
-لتوسعات وإعادة بناء ضخمة جعلت مجمع الهيكل
-في عصر المسيح واحدًا من أبرز المعالم في أورشليم.
-
-</p>
-
-<div class="key-point">
-
-<strong>الفكرة الأساسية:</strong>
-
-هيكل هيرودس يمثل المرحلة المتأخرة والموسعة
-من تاريخ الهيكل في أورشليم، وهو الهيكل الذي
-دخل إليه المسيح وعلّم فيه، وشهد أحداثًا محورية
-في الأناجيل.
+دراسة تاريخية وكتابية ولاهوتية عن هيرودس الكبير،
+ومشروعه لإعادة بناء الهيكل في أورشليم،
+والهيكل كما عرفه المسيح ورسله.
 
 </div>
 
 </section>
 
 
-
-<!-- =====================================
-     2 — الخلفية التاريخية
-===================================== -->
+<!-- ================= INTRO ================= -->
 
 <section class="section">
 
 <h2>
-2. الخلفية التاريخية للهيكل
+👑 أولًا: من هو هيرودس الكبير؟
 </h2>
 
 <p>
 
-لفهم هيكل هيرودس يجب أولًا وضعه داخل التسلسل
-التاريخي للهيكل في الكتاب المقدس.
+هيرودس الكبير هو الملك الذي ارتبط اسمه بأعظم مشروع معماري
+لإعادة بناء الهيكل في أورشليم خلال العصر الثاني للهيكل.
+
+كان هيرودس حاكمًا على اليهودية تحت النفوذ الروماني،
+وقد جمع في شخصيته بين الطموح السياسي والقدرة الإدارية
+والبراعة المعمارية، لكنه كان أيضًا حاكمًا شديد القسوة
+ومثيرًا للجدل.
 
 </p>
+
+<p>
+
+لم يكن هيرودس من نسل ملوك يهوذا، بل كان من أصول أدومية،
+ووصل إلى السلطة في سياق سياسي معقد ارتبط بروما
+والتحولات التي شهدتها المنطقة في القرن الأول قبل الميلاد.
+
+</p>
+
+<p>
+
+ولهذا فإن فهم شخصية هيرودس ضروري لفهم البيئة السياسية
+والدينية التي وُلد فيها المسيح وخدم فيها.
+
+</p>
+
+</section>
+
+
+<!-- ================= HISTORY ================= -->
+
+<section class="section">
+
+<h2>
+📜 ثانيًا: هيرودس الكبير والسياق التاريخي
+</h2>
 
 <div class="timeline">
 
 
 <div class="timeline-item">
 
+<div class="timeline-year">
+نحو 73 ق.م
+</div>
+
 <h3>
-خيمة الاجتماع
+ميلاد هيرودس
 </h3>
 
 <p>
-المسكن المتنقل الذي ارتبط بشعب إسرائيل
-في البرية.
+
+وُلد هيرودس في سياق الأسرة الحاكمة الأدومية
+التي أصبحت مرتبطة بالنظام السياسي في اليهودية.
+
 </p>
 
 </div>
@@ -659,12 +861,19 @@ footer{
 
 <div class="timeline-item">
 
+<div class="timeline-year">
+37 ق.م
+</div>
+
 <h3>
-هيكل سليمان
+تثبيت هيرودس ملكًا
 </h3>
 
 <p>
-الهيكل الأول في أورشليم، الذي بُني في عهد سليمان.
+
+تمكن هيرودس من تثبيت سلطته على أورشليم واليهودية
+بدعم روماني، وأصبح ملكًا على المنطقة.
+
 </p>
 
 </div>
@@ -672,12 +881,19 @@ footer{
 
 <div class="timeline-item">
 
+<div class="timeline-year">
+نحو 20/19 ق.م
+</div>
+
 <h3>
-الهيكل الثاني
+بداية مشروع إعادة بناء الهيكل
 </h3>
 
 <p>
-أُعيد بناء الهيكل بعد العودة من السبي البابلي.
+
+بدأ هيرودس مشروعًا ضخمًا لتوسيع وإعادة بناء مجمع الهيكل،
+وهو المشروع الذي استمر العمل فيه على مراحل لسنوات طويلة.
+
 </p>
 
 </div>
@@ -685,26 +901,20 @@ footer{
 
 <div class="timeline-item">
 
-<h3>
-توسعات هيرودس
-</h3>
-
-<p>
-أعيد تنظيم وتوسيع مجمع الهيكل بصورة هائلة.
-</p>
-
+<div class="timeline-year">
+4 ق.م تقريبًا
 </div>
 
-
-<div class="timeline-item">
-
 <h3>
-خراب الهيكل
+وفاة هيرودس الكبير
 </h3>
 
 <p>
-انتهى وجود الهيكل في صورته تلك مع خراب أورشليم
-على يد الرومان في القرن الأول الميلادي.
+
+توفي هيرودس في أواخر عهده،
+لكن أعمال الهيكل لم تتوقف عند وفاته،
+بل استمرت أجزاء منها خلال العقود التالية.
+
 </p>
 
 </div>
@@ -715,707 +925,438 @@ footer{
 </section>
 
 
-
-<!-- =====================================
-     3 — هيرودس الكبير
-===================================== -->
+<!-- ================= TEMPLE ================= -->
 
 <section class="section">
 
 <h2>
-3. لماذا اهتم هيرودس ببناء الهيكل؟
+🏛️ ثالثًا: لماذا أعاد هيرودس بناء الهيكل؟
 </h2>
 
 <p>
 
-كان هيرودس الكبير حاكمًا ذا طموح سياسي
-ومشروعات عمرانية واسعة.
+يجب التمييز بين «بناء هيكل جديد بالكامل» وبين
+مشروع هيرودس الذي كان إعادة بناء وتوسيعًا هائلًا
+لمجمع الهيكل القائم.
 
 </p>
+
+<div class="cards">
+
+
+<div class="card">
+
+<div class="card-icon">
+🏛️
+</div>
+
+<h3>
+الدافع السياسي
+</h3>
 
 <p>
 
-وكان مشروع الهيكل جزءًا من مشروع أكبر لإعادة
-تشكيل أورشليم وإظهار قوتها ومكانتها.
+كان هيرودس بحاجة إلى تثبيت شرعيته أمام شعب يهودي
+ينظر إليه بحذر بسبب أصوله الأدومية وعلاقته بروما.
+
+وكان مشروع الهيكل وسيلة لإظهار قدرته على رعاية
+المؤسسة الدينية المركزية في الأمة.
 
 </p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+👑
+</div>
+
+<h3>
+الدافع الملكي
+</h3>
 
 <p>
 
-وفي الوقت نفسه، كان للهيكل أهمية دينية وقومية
-عميقة بالنسبة لليهود، ولذلك كان تجميله وتوسيعه
-مشروعًا ذا أثر سياسي وديني واجتماعي كبير.
+كان هيرودس معروفًا بالمشروعات المعمارية الضخمة،
+وقد جعل من البناء وسيلة لإظهار القوة والثراء
+والتنظيم السياسي.
 
 </p>
 
-<div class="key-point">
+</div>
 
-لا ينبغي أن نخلط بين <strong>دوافع هيرودس السياسية</strong>
-وبين <strong>المعنى اللاهوتي للهيكل</strong> في الكتاب المقدس.
-فالكتاب يقدم تاريخ الهيكل ضمن قصة أوسع من نوايا
-الحكام ومشروعاتهم السياسية.
+
+<div class="card">
+
+<div class="card-icon">
+✡️
+</div>
+
+<h3>
+الدافع الديني والوطني
+</h3>
+
+<p>
+
+ارتبط الهيكل بهوية الشعب اليهودي وعبادته،
+ولذلك كان تطويره مشروعًا ذا وزن ديني ووطني كبير.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🏗️
+</div>
+
+<h3>
+الدافع العمراني
+</h3>
+
+<p>
+
+لم يكن المشروع مجرد تحسين للقدس،
+بل كان إعادة تشكيل واسعة لمنطقة الهيكل
+والمصاطب والمنشآت المحيطة بها.
+
+</p>
+
+</div>
+
 
 </div>
 
 </section>
 
 
-
-<!-- =====================================
-     4 — الهيكل في زمن المسيح
-===================================== -->
+<!-- ================= TEMPLE STRUCTURE ================= -->
 
 <section class="section">
 
 <h2>
-4. الهيكل الذي عرفه المسيح
+🏗️ رابعًا: ماذا ميّز هيكل هيرودس؟
 </h2>
 
 <p>
 
-عندما نقرأ الأناجيل عن دخول المسيح إلى الهيكل،
-فإننا نتحدث عن مجمع الهيكل في عصر هيرودس.
+كان مشروع هيرودس واسع النطاق للغاية،
+واستخدمت فيه تقنيات بناء متقدمة بالنسبة لعصره.
+
+وقد أصبح مجمع الهيكل في أورشليم أحد أعظم
+المجمعات الدينية والمعمارية في العالم القديم.
+
+</p>
+
+<div class="cards">
+
+
+<div class="card">
+
+<div class="card-icon">
+🧱
+</div>
+
+<h3>
+الأحجار الضخمة
+</h3>
+
+<p>
+
+اشتهر البناء باستخدام كتل حجرية ضخمة،
+ولا تزال بعض أحجار الأساسات والجدران
+موضوعًا مهمًا في الدراسات الأثرية.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🚪
+</div>
+
+<h3>
+البوابات والمداخل
+</h3>
+
+<p>
+
+اشتمل مجمع الهيكل على مداخل وطرق ومناطق
+متعددة لخدمة الحجاج والعبادة.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+👥
+</div>
+
+<h3>
+الساحات
+</h3>
+
+<p>
+
+كان مجمع الهيكل يتكون من مناطق وساحات ذات
+وظائف مختلفة، وكانت حركة الناس منظمة بحسب
+طبيعة المكان والوظيفة الدينية.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🔥
+</div>
+
+<h3>
+مكان العبادة والذبائح
+</h3>
+
+<p>
+
+ظل الهيكل مركز العبادة والذبائح اليهودية،
+وفيه خدم الكهنة بحسب النظام المرتبط بالعبادة
+في الهيكل.
+
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ================= JESUS ================= -->
+
+<section class="section">
+
+<h2>
+✝️ خامسًا: هيكل هيرودس في حياة المسيح
+</h2>
+
+<p>
+
+هذه النقطة هي الأهم بالنسبة لدراسة العهد الجديد.
+
+فالهيكل الذي نقرأ عنه في الأناجيل في زمن خدمة المسيح
+كان هو مجمع الهيكل الذي بدأ هيرودس مشروع تطويره.
 
 </p>
 
 <p>
 
-وهذا يجعل دراسة هيكل هيرودس ضرورية لفهم عدد
-كبير من أحداث العهد الجديد.
+ظهر الهيكل في أحداث كثيرة من حياة المسيح:
+في طفولته، وفي الأعياد، وفي تعليمه،
+وفي أحداث الأسبوع الأخير قبل الصليب.
+
+</p>
+
+<p>
+
+كما استخدم المسيح الهيكل في إعلان حقائق روحية ولاهوتية
+عميقة، ولم يكن حضوره فيه مجرد حضور ديني أو اجتماعي.
+
+</p>
+
+
+<div class="scripture">
+
+<div class="scripture-text">
+
+«أَلَيْسَ مَكْتُوبًا: بَيْتِي بَيْتَ صَلاَةٍ يُدْعَى لِجَمِيعِ الأُمَمِ؟
+وَأَنْتُمْ جَعَلْتُمُوهُ مَغَارَةَ لُصُوصٍ»
+
+</div>
+
+<span class="scripture-ref">
+مرقس 11:17
+</span>
+
+</div>
+
+</section>
+
+
+<!-- ================= TEMPLE AND CHRIST ================= -->
+
+<section class="section">
+
+<h2>
+🔥 سادسًا: المسيح والهيكل — التحول اللاهوتي
+</h2>
+
+<p>
+
+من أعظم أبعاد دراسة هيكل هيرودس أن العهد الجديد
+لا يقدم الهيكل باعتباره النهاية النهائية لحضور الله
+بين البشر.
+
+بل يقودنا إلى شخص المسيح نفسه.
+
+</p>
+
+<p>
+
+عندما تحدث المسيح عن جسده مستخدمًا لغة الهيكل،
+كان يفتح أمام التلاميذ فهمًا جديدًا لطبيعة حضور الله.
 
 </p>
 
 <div class="scripture">
 
-<strong>يوحنا 2:14</strong>
+<div class="scripture-text">
 
-«ووجد في الهيكل الذين كانوا يبيعون بقرًا وغنمًا
-وحمامًا، والصيارفة جلوسًا».
+«انْقُضُوا هذَا الْهَيْكَلَ، وَفِي ثَلاَثَةِ أَيَّامٍ أُقِيمُهُ»
+
+</div>
+
+<span class="scripture-ref">
+يوحنا 2:19
+</span>
 
 </div>
 
 <p>
 
-كما كان الهيكل مكانًا للتعليم والصلاة ومناقشة
-الأسفار والشريعة، ولذلك احتل موقعًا مركزيًا
-في حياة أورشليم الدينية.
+ثم يوضح الإنجيل أن المسيح كان يتكلم عن هيكل جسده.
+وهنا ينتقل مركز الدراسة من المبنى إلى الشخص،
+ومن المكان إلى حضور الله في المسيح.
 
 </p>
 
 </section>
 
 
-
-<!-- =====================================
-     5 — أقسام مجمع الهيكل
-===================================== -->
+<!-- ================= DESTRUCTION ================= -->
 
 <section class="section">
 
 <h2>
-5. كيف كان مجمع الهيكل منظمًا؟
+⚔️ سابعًا: نهاية هيكل هيرودس
 </h2>
 
 <p>
 
-كان مجمع الهيكل واسعًا جدًا، ولم يكن عبارة عن
-غرفة واحدة، بل مجموعة من الأفنية والأقسام
-والبنايات والمساحات التي ارتبطت بوظائف مختلفة.
+على الرغم من ضخامة المشروع الذي بدأه هيرودس،
+فإن الهيكل لم يستمر إلى الأبد.
+
+في القرن الأول الميلادي اندلع التمرد اليهودي ضد روما،
+وانتهى الأمر بتدمير أورشليم والهيكل سنة 70م
+على يد القوات الرومانية بقيادة تيطس.
 
 </p>
 
-<div class="table-wrapper">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>
-القسم
-</th>
-
-<th>
-الطابع العام
-</th>
-
-<th>
-الأهمية
-</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td>
-دار الأمم
-</td>
-
-<td>
-منطقة واسعة حول المنطقة المقدسة
-</td>
-
-<td>
-المجال الخارجي لمجمع الهيكل
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-دار النساء
-</td>
-
-<td>
-قسم داخلي من مجمع الهيكل
-</td>
-
-<td>
-ارتبط بحياة العبادة والوصول إلى المناطق الداخلية
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-دار إسرائيل
-</td>
-
-<td>
-منطقة مرتبطة بالرجال الإسرائيليين
-</td>
-
-<td>
-جزء من نظام التدرج في الاقتراب من المقدس
-</td>
-
-<tr>
-
-<td>
-دار الكهنة
-</td>
-
-<td>
-منطقة الخدمة الكهنوتية
-</td>
-
-<td>
-ارتبطت بالمذبح والخدمة
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-القدس
-</td>
-
-<td>
-الموضع المقدس داخل المبنى
-</td>
-
-<td>
-الخدمة والأدوات المقدسة
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-قدس الأقداس
-</td>
-
-<td>
-أقدس موضع في البناء
-</td>
-
-<td>
-الجزء الداخلي الأقدس من الهيكل
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================
-     6 — التدرج في القداسة
-===================================== -->
-
-<section class="section">
-
-<h2>
-6. فكرة التدرج في الاقتراب
-</h2>
-
 <p>
 
-من السمات المهمة في دراسة الهيكل وجود تدرج
-واضح في الانتقال من المناطق الخارجية إلى
-المناطق الداخلية الأكثر قداسة.
-
-</p>
-
-<div class="compare-grid">
-
-
-<div class="compare-card">
-
-<h3>
-المناطق الخارجية
-</h3>
-
-<p>
-مجال أوسع للحركة والوصول إلى مجمع الهيكل.
-</p>
-
-</div>
-
-
-<div class="compare-card">
-
-<h3>
-المناطق الداخلية
-</h3>
-
-<p>
-مناطق أكثر ارتباطًا بالخدمة والعبادة اليهودية.
-</p>
-
-</div>
-
-
-<div class="compare-card">
-
-<h3>
-المقدس
-</h3>
-
-<p>
-الوصول إلى المنطقة الداخلية المرتبطة بالقداسة
-والخدمة الكهنوتية.
-</p>
-
-</div>
-
-
-</div>
-
-<div class="key-point">
-
-هذا التدرج يساعدنا على فهم أهمية موضوع
-<strong>القداسة والاقتراب من حضور الله</strong>
-في نظام الهيكل والعبادة الكتابية.
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================
-     7 — المسيح وتطهير الهيكل
-===================================== -->
-
-<section class="section">
-
-<h2>
-7. المسيح وتطهير الهيكل
-</h2>
-
-<p>
-
-من أشهر الأحداث المرتبطة بهيكل هيرودس دخول
-المسيح إلى الهيكل ومواجهته الممارسات التجارية
-التي كانت تتم في داخله.
+وهذا الحدث يمثل نقطة فاصلة في التاريخ اليهودي،
+كما يمثل خلفية مهمة لفهم أقوال المسيح عن خراب الهيكل.
 
 </p>
 
 <div class="scripture">
 
-<strong>مرقس 11:15–17</strong>
+<div class="scripture-text">
 
-دخل يسوع إلى الهيكل وبدأ يخرج الذين كانوا
-يبيعون ويشترون، معلنًا أن بيت الله يجب أن يكون
-بيت صلاة لجميع الأمم.
+«لاَ يُتْرَكُ هُنَا حَجَرٌ عَلَى حَجَرٍ لاَ يُنْقَضُ»
 
 </div>
 
-<p>
+<span class="scripture-ref">
+متى 24:2
+</span>
 
-وهذا الحدث يكشف أن المسيح لم يكن يتعامل مع
-الهيكل باعتباره مبنى عاديًا، بل باعتباره مرتبطًا
-باسم الله والعبادة والغاية التي أقيم من أجلها.
-
-</p>
+</div>
 
 </section>
 
 
-
-<!-- =====================================
-     8 — تعليم المسيح في الهيكل
-===================================== -->
+<!-- ================= CONCLUSION ================= -->
 
 <section class="section">
 
 <h2>
-8. الهيكل كمكان لتعليم المسيح
+📚 الخلاصة
 </h2>
 
 <p>
 
-ظهر الهيكل في الأناجيل باعتباره أحد الأماكن
-المهمة التي علّم فيها المسيح.
+هيرودس الكبير لم يكن مجرد حاكم بنى مبنى ضخمًا،
+بل كان شخصية محورية في البيئة السياسية والدينية
+التي ظهر فيها المسيح.
 
 </p>
 
-<div class="scripture">
+<p>
 
-<strong>يوحنا 7:14</strong>
+ومشروع الهيكل الذي حمل اسمه أصبح جزءًا أساسيًا
+من المشهد الكتابي في زمن المسيح.
 
-«ولما كان العيد قد انتصف، صعد يسوع إلى الهيكل
-وكان يعلّم».
-
-</div>
+</p>
 
 <p>
 
-كما شهد الهيكل نقاشات وتعاليم عديدة تتعلق
-بهوية المسيح والناموس والعبادة والقيامة
-وملكوت الله.
+لكن الرسالة اللاهوتية للعهد الجديد تتجاوز روعة البناء
+إلى حقيقة أعظم: المسيح هو مركز حضور الله،
+وفيه يتحول مفهوم الهيكل من مكان إلى علاقة وحضور
+وفداء.
 
 </p>
 
 </section>
 
 
+<!-- ================= NAVIGATION ================= -->
 
-<!-- =====================================
-     9 — الهيكل والمسيح
-===================================== -->
+<div class="navigation">
 
-<section class="section">
+<a
+    href="studies.html"
+    class="nav-btn"
+>
+📚 العودة إلى الدراسات
+</a>
 
-<h2>
-9. من هيكل حجري إلى المسيح
-</h2>
-
-<p>
-
-يقدم العهد الجديد تطورًا مهمًا جدًا في مفهوم
-الهيكل عندما يتحدث المسيح عن جسده باعتباره
-الهيكل.
-
-</p>
-
-<div class="scripture">
-
-<strong>يوحنا 2:19–21</strong>
-
-«انقضوا هذا الهيكل، وفي ثلاثة أيام أقيمه».
-
-وكان يتكلم عن هيكل جسده.
+<a
+    href="study-solomon-temple.html"
+    class="nav-btn"
+>
+🏛️ دراسة هيكل سليمان
+</a>
 
 </div>
-
-<div class="key-point">
-
-<strong>النقلة اللاهوتية:</strong>
-
-الموضوع لم يعد محصورًا في بناء مادي، بل أصبح
-مرتبطًا بشخص المسيح نفسه، وبموته وقيامته.
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================
-     10 — حجاب الهيكل
-===================================== -->
-
-<section class="section">
-
-<h2>
-10. حجاب الهيكل والأحداث الأخيرة
-</h2>
-
-<p>
-
-من أكثر الأحداث اللاهوتية أهمية في قصة الهيكل
-ما حدث عند موت المسيح.
-
-</p>
-
-<div class="scripture">
-
-<strong>متى 27:51</strong>
-
-«وإذا حجاب الهيكل قد انشق إلى اثنين من فوق
-إلى أسفل».
-
-</div>
-
-<p>
-
-وهذه الصورة مرتبطة ارتباطًا عميقًا بموضوع
-الوصول إلى الله والقداسة والحضور الإلهي،
-وهو موضوع سنعود إليه بتفصيل أكبر في دراسة
-مستقلة.
-
-</p>
-
-</section>
-
-
-
-<!-- =====================================
-     11 — خراب الهيكل
-===================================== -->
-
-<section class="section">
-
-<h2>
-11. خراب الهيكل
-</h2>
-
-<p>
-
-تنبأ المسيح عن خراب الهيكل، وهو أمر أصبح
-من الأحداث المركزية في تاريخ أورشليم في
-القرن الأول الميلادي.
-
-</p>
-
-<div class="scripture">
-
-<strong>متى 24:2</strong>
-
-«أما تنظرون جميع هذه؟ الحق أقول لكم إنه لا يترك
-هاهنا حجر على حجر لا ينقض».
-
-</div>
-
-<p>
-
-وترتبط هذه النبوة بالأحداث التي أدت إلى خراب
-أورشليم والهيكل في سنة 70م.
-
-</p>
-
-</section>
-
-
-
-<!-- =====================================
-     12 — مكانة الهيكل في العهد الجديد
-===================================== -->
-
-<section class="section">
-
-<h2>
-12. لماذا يجب أن ندرس هيكل هيرودس؟
-</h2>
-
-<p>
-
-دراسة هيكل هيرودس ليست مجرد دراسة أثرية أو
-تاريخية، بل تساعد على فهم البيئة التي ظهر فيها
-المسيح وخدم فيها الرسل والكنيسة الأولى.
-
-</p>
-
-<div class="compare-grid">
-
-
-<div class="compare-card">
-
-<h3>
-تاريخيًا
-</h3>
-
-<p>
-يساعدنا على فهم أورشليم في زمن المسيح.
-</p>
-
-</div>
-
-
-<div class="compare-card">
-
-<h3>
-كتابيًا
-</h3>
-
-<p>
-يفسر عددًا كبيرًا من الأحداث والعبارات في الأناجيل.
-</p>
-
-</div>
-
-
-<div class="compare-card">
-
-<h3>
-لاهوتيًا
-</h3>
-
-<p>
-يساعد على تتبع تطور موضوع حضور الله والهيكل
-حتى المسيح والعهد الجديد.
-</p>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================
-     13 — الخلاصة
-===================================== -->
-
-<section class="section">
-
-<h2>
-13. الخلاصة العامة
-</h2>
-
-<p>
-
-هيكل هيرودس هو آخر مرحلة كبرى في تاريخ الهيكل
-الذي نقرأ عنه في الكتاب المقدس قبل خراب
-أورشليم في القرن الأول.
-
-</p>
-
-<p>
-
-وكان في الوقت نفسه:
-
-</p>
-
-<div class="key-point">
-
-مركزًا للعبادة — ومكانًا للذبائح — ومركزًا
-للكهنوت — ومكانًا لتعليم المسيح — ومسرحًا
-لأحداث محورية في الأناجيل — ونقطة مهمة في
-الإعلان الكتابي عن الهيكل وحضور الله.
-
-</div>
-
-<p>
-
-ولهذا فإن دراسة هيكل هيرودس ستفتح أمامنا
-مجموعة واسعة من الدراسات المتخصصة:
-الأفنية، والقدس، وقدس الأقداس، والمذبح،
-والكهنوت، والأعياد، والمسيح في الهيكل،
-وحجاب الهيكل، وخراب الهيكل، والمعاني
-اللاهوتية.
-
-</p>
-
-</section>
-
-
-
-<!-- =====================================
-     المراجع
-===================================== -->
-
-<section class="section">
-
-<h2>
-المراجع الكتابية الأساسية
-</h2>
-
-<div class="references">
-
-<ul>
-
-<li>
-1 ملوك 6–8 — خلفية الهيكل وتدشينه.
-</li>
-
-<li>
-عزرا 3–6 — إعادة بناء الهيكل بعد السبي.
-</li>
-
-<li>
-يوحنا 2 — المسيح والهيكل وتطهيره.
-</li>
-
-<li>
-يوحنا 7 — تعليم المسيح في الهيكل.
-</li>
-
-<li>
-متى 21 — دخول المسيح إلى الهيكل وتطهيره.
-</li>
-
-<li>
-متى 23–24 — تعليم المسيح والحديث عن الهيكل.
-</li>
-
-<li>
-متى 27:51 — انشقاق حجاب الهيكل.
-</li>
-
-<li>
-مرقس 11–13 — الهيكل وتعاليم المسيح ونبوته عن الخراب.
-</li>
-
-<li>
-لوقا 2:22–49 — الهيكل في أحداث طفولة المسيح.
-</li>
-
-<li>
-أعمال الرسل — الهيكل في حياة الكنيسة الأولى.
-</li>
-
-</ul>
-
-</div>
-
-</section>
 
 
 </main>
 
 
-
-<!-- =====================================
-     FOOTER
-===================================== -->
-
 <footer>
 
+<div class="footer-title">
 كنيسة رجاء الأمم سيدني
+</div>
+
+موسوعة الكتاب المقدس
 
 <br>
 
-موسوعة الكتاب المقدس
+دراسة هيرودس الكبير وهيكل هيرودس
 
 </footer>
 
