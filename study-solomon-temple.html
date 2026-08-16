@@ -9,69 +9,67 @@
 
 <style>
 
+:root{
+    --blue:#061a2d;
+    --blue2:#0b2742;
+    --blue3:#123b61;
+    --gold:#d4af37;
+    --gold2:#f4d76b;
+    --gold3:#fff0a6;
+    --white:#fff;
+    --text:#e9eef5;
+    --muted:#aebdca;
+    --line:rgba(212,175,55,.28);
+}
+
 *{
     box-sizing:border-box;
 }
 
-html,
-body{
-    margin:0;
-    padding:0;
-    min-height:100%;
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    font-family:Tahoma,Arial,sans-serif;
+    margin:0;
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+    color:var(--text);
+    line-height:1.9;
 
     background:
-        radial-gradient(
-            circle at top,
-            #17496b 0%,
-            #061522 45%,
-            #020911 100%
-        );
-
-    color:#f5f5f5;
-    line-height:1.9;
+    radial-gradient(
+        circle at 50% 0%,
+        #174d7c 0%,
+        #0b2742 30%,
+        #061a2d 68%,
+        #030d18 100%
+    );
 }
 
 /* ================= HEADER ================= */
 
 header{
-    background:rgba(3,15,26,.97);
-    border-bottom:1px solid #c9a227;
-    padding:12px 18px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    background:rgba(3,15,27,.95);
+    backdrop-filter:blur(14px);
+
+    border-bottom:1px solid var(--line);
+    box-shadow:0 5px 25px rgba(0,0,0,.3);
 }
 
-.header-inner{
-    max-width:1100px;
+.topbar{
+    max-width:1200px;
+    min-height:78px;
     margin:auto;
+    padding:10px 18px;
 
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     gap:15px;
-}
-
-.back{
-    text-decoration:none;
-    color:#fff;
-
-    border:1px solid #c9a227;
-
-    padding:7px 15px;
-    border-radius:10px;
-
-    font-size:12px;
-    background:#061522;
-
-    transition:.25s;
-}
-
-.back:hover{
-    background:#c9a227;
-    color:#061522;
 }
 
 .brand{
@@ -84,179 +82,341 @@ header{
     width:52px;
     height:52px;
     object-fit:contain;
+
+    filter:
+    drop-shadow(0 0 10px rgba(212,175,55,.35));
+
+    animation:floatLogo 4s ease-in-out infinite;
 }
 
-.brand-name{
-    color:#e4c45a;
-    font-weight:bold;
-    font-size:13px;
+@keyframes floatLogo{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-5px);
+    }
 }
 
-/* ================= CONTAINER ================= */
+.brand-title{
+    color:var(--gold2);
+    font-weight:700;
+    font-size:17px;
+}
 
-.container{
-    width:min(
-        1100px,
-        calc(100% - 24px)
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:9px 15px;
+
+    text-decoration:none;
+
+    color:white;
+
+    border:1px solid var(--line);
+    border-radius:12px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #174d7c,
+        #071d31
     );
 
+    box-shadow:
+    0 7px 20px rgba(0,0,0,.3);
+
+    transition:.3s;
+}
+
+.back-btn:hover{
+    transform:translateY(-2px);
+
+    border-color:var(--gold);
+
+    box-shadow:
+    0 10px 25px rgba(212,175,55,.18);
+}
+
+/* ================= MAIN ================= */
+
+main{
+    max-width:1150px;
     margin:auto;
-    padding:18px 0 60px;
+    padding:30px 18px 70px;
 }
 
 /* ================= HERO ================= */
 
 .hero{
+    position:relative;
+    overflow:hidden;
+
     text-align:center;
 
+    padding:48px 25px 42px;
+
+    border:1px solid var(--line);
+    border-radius:28px;
+
     background:
-        linear-gradient(
-            145deg,
-            #103d5d,
-            #061a2b
-        );
+    radial-gradient(
+        circle at 50% 0%,
+        rgba(23,77,124,.75),
+        rgba(6,26,45,.97) 68%
+    );
 
-    border:1px solid rgba(212,175,55,.3);
-    border-radius:14px;
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.45);
 
-    padding:35px 20px;
-    margin-bottom:15px;
+    margin-bottom:24px;
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    top:-170px;
+    right:-100px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(212,175,55,.16),
+        transparent 70%
+    );
 }
 
 .hero-icon{
-    font-size:48px;
-    line-height:1;
-    margin-bottom:10px;
+    position:relative;
+
+    font-size:72px;
+
+    margin-bottom:5px;
+
+    filter:
+    drop-shadow(0 8px 18px rgba(0,0,0,.45));
+
+    animation:
+    templeFloat 5s ease-in-out infinite;
 }
 
-h1{
-    color:#f0d36a;
-    font-size:28px;
-    margin:5px 0;
+@keyframes templeFloat{
+    0%,100%{
+        transform:translateY(0) scale(1);
+    }
+
+    50%{
+        transform:translateY(-7px) scale(1.03);
+    }
+}
+
+.hero h1{
+    position:relative;
+
+    margin:0 0 10px;
+
+    color:var(--gold2);
+
+    font-size:
+    clamp(28px,5vw,42px);
+
+    text-shadow:
+    0 3px 20px rgba(0,0,0,.4);
 }
 
 .hero p{
-    color:#b9c6d1;
-    font-size:13px;
+    position:relative;
 
-    margin:8px auto 0;
     max-width:850px;
+    margin:auto;
+
+    color:#dce6ef;
+
+    font-size:17px;
 }
 
 /* ================= STUDIES ================= */
 
-.studies{
+.section{
+    padding:28px;
+
+    margin-bottom:22px;
+
+    border:
+    1px solid var(--line);
+
+    border-radius:22px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(10,38,63,.95),
+        rgba(5,24,41,.97)
+    );
+
+    box-shadow:
+    0 12px 35px rgba(0,0,0,.28);
+}
+
+.section h2{
+    margin-top:0;
+
+    color:var(--gold2);
+
+    font-size:27px;
+
+    border-bottom:
+    1px solid var(--line);
+
+    padding-bottom:10px;
+}
+
+.study-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:15px;
+
+    margin-top:22px;
 }
 
 .study-card{
+    position:relative;
+
+    min-height:105px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    min-height:61px;
+    text-align:center;
 
-    padding:10px;
+    padding:18px;
 
     text-decoration:none;
 
-    color:#fff;
+    color:white;
 
-    text-align:center;
-
-    font-size:12px;
-    font-weight:bold;
-
-    line-height:1.6;
-
-    background:
-        linear-gradient(
-            145deg,
-            #103b5b,
-            #071b2c
-        );
+    font-size:16px;
+    font-weight:700;
 
     border:
-        1px solid
-        rgba(212,175,55,.28);
+    1px solid rgba(212,175,55,.22);
 
-    border-radius:10px;
+    border-radius:18px;
 
-    transition:.25s;
+    background:
+    linear-gradient(
+        145deg,
+        #123b61,
+        #071d31
+    );
 
-    cursor:pointer;
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.28);
+
+    transition:
+    transform .3s,
+    box-shadow .3s,
+    border-color .3s;
 }
 
 .study-card:hover{
+    transform:
+    translateY(-6px);
 
-    transform:translateY(-3px);
-
-    border-color:#d4af37;
+    border-color:
+    var(--gold);
 
     box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.3);
+    0 17px 35px rgba(0,0,0,.42),
+    0 0 20px rgba(212,175,55,.12);
+}
+
+.study-card .icon{
+    display:block;
+
+    font-size:34px;
+
+    margin-bottom:5px;
+
+    filter:
+    drop-shadow(0 5px 8px rgba(0,0,0,.35));
 }
 
 /* ================= FOOTER ================= */
 
 footer{
-
     text-align:center;
 
-    color:#8293a3;
+    padding:30px 15px;
 
-    padding:25px;
+    color:var(--muted);
 
-    border-top:
-        1px solid
-        rgba(212,175,55,.15);
+    border-top:1px solid var(--line);
 
-    font-size:11px;
+    background:rgba(3,14,24,.6);
+}
+
+.footer-title{
+    color:var(--gold2);
+    font-weight:700;
 }
 
 /* ================= MOBILE ================= */
 
-@media(max-width:800px){
+@media(max-width:850px){
 
-    .studies{
-        grid-template-columns:repeat(2,1fr);
+    .study-grid{
+        grid-template-columns:
+        repeat(2,1fr);
     }
 
 }
 
-@media(max-width:500px){
+@media(max-width:600px){
 
-    .container{
-        width:calc(100% - 14px);
-        padding-top:12px;
-    }
-
-    .studies{
-        grid-template-columns:repeat(2,1fr);
-        gap:8px;
-    }
-
-    .study-card{
-        min-height:68px;
-        font-size:11px;
-    }
-
-    .brand-name{
-        font-size:11px;
+    .brand-title{
+        font-size:14px;
     }
 
     .logo{
-        width:43px;
-        height:43px;
+        width:45px;
+        height:45px;
     }
 
-    h1{
-        font-size:25px;
+    .back-btn{
+        font-size:13px;
+        padding:8px 10px;
+    }
+
+    .hero{
+        padding:38px 18px;
+    }
+
+    .hero-icon{
+        font-size:60px;
+    }
+
+    .section{
+        padding:22px 16px;
+    }
+
+    .study-grid{
+        grid-template-columns:1fr;
     }
 
 }
@@ -264,31 +424,30 @@ footer{
 </style>
 </head>
 
-
 <body>
-
 
 <header>
 
-<div class="header-inner">
+<div class="topbar">
 
 <a
-    class="back"
     href="studies.html"
+    class="back-btn"
 >
-    ← الدراسات
+    📚
+    الدراسات الكتابية
 </a>
 
 <div class="brand">
 
-<span class="brand-name">
-    كنيسة رجاء الأمم سيدني
-</span>
+<div class="brand-title">
+    موسوعة الكتاب المقدس
+</div>
 
 <img
     src="assets/logo.png"
     class="logo"
-    alt="كنيسة رجاء الأمم سيدني"
+    alt="شعار كنيسة رجاء الأمم سيدني"
 >
 
 </div>
@@ -298,8 +457,7 @@ footer{
 </header>
 
 
-<main class="container">
-
+<main>
 
 <section class="hero">
 
@@ -308,383 +466,336 @@ footer{
 </div>
 
 <h1>
-    هيكل سليمان
+هيكل سليمان
 </h1>
 
 <p>
-دراسة متكاملة في هيكل سليمان، من تاريخ بنائه
-وأقسامه وأدواته ورموزه اللاهوتية إلى هدمه
-وعلاقته بالهيكل في العهد الجديد.
+دراسة موسوعية متكاملة حول هيكل سليمان،
+تاريخه وبناؤه وأقسامه وخدمته ورموزه
+الكتابية واللاهوتية.
 </p>
 
 </section>
 
 
-<section class="studies">
+<section class="section">
 
+<h2>
+🏛️ دراسات هيكل سليمان
+</h2>
 
-<!-- ==================================================
-     1
-================================================== -->
+<div class="study-grid">
+
 
 <a
-    class="study-card"
     href="study-solomon-temple-overview.html"
+    class="study-card"
 >
-    🏛️ هيكل سليمان — نظرة عامة
+    <div>
+        <span class="icon">🏛️</span>
+        نظرة عامة
+    </div>
 </a>
 
-
-<!-- ==================================================
-     2
-================================================== -->
 
 <a
+    href="study-solomon-temple-history.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('history');return false;"
 >
-    📜 تاريخ بناء الهيكل
+    <div>
+        <span class="icon">📜</span>
+        تاريخ بناء الهيكل
+    </div>
 </a>
 
-
-<!-- ==================================================
-     3
-================================================== -->
 
 <a
+    href="study-solomon-temple-location.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('location');return false;"
 >
-    📍 موقع الهيكل في أورشليم
+    <div>
+        <span class="icon">📍</span>
+        موقع الهيكل في أورشليم
+    </div>
 </a>
 
-
-<!-- ==================================================
-     4
-================================================== -->
 
 <a
+    href="study-solomon-temple-dimensions.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('dimensions');return false;"
 >
-    📐 المقاسات والأبعاد
+    <div>
+        <span class="icon">📐</span>
+        المقاسات والأبعاد
+    </div>
 </a>
 
-
-<!-- ==================================================
-     5
-================================================== -->
 
 <a
+    href="study-solomon-temple-david-solomon.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('preparation');return false;"
 >
-    🪵 إعداد داود وسليمان للبناء
+    <div>
+        <span class="icon">🪵</span>
+        إعداد داود وسليمان للبناء
+    </div>
 </a>
 
-
-<!-- ==================================================
-     6
-================================================== -->
 
 <a
+    href="study-solomon-temple-porch.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('porch');return false;"
 >
-    🚪 الرواق والمدخل
+    <div>
+        <span class="icon">🚪</span>
+        الرواق والمدخل
+    </div>
 </a>
 
-
-<!-- ==================================================
-     7
-================================================== -->
 
 <a
+    href="study-solomon-temple-holy-place.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('holyplace');return false;"
 >
-    🏛️ القدس
+    <div>
+        <span class="icon">🏛️</span>
+        القدس
+    </div>
 </a>
 
-
-<!-- ==================================================
-     8
-================================================== -->
 
 <a
+    href="study-solomon-temple-holy-of-holies.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('holyofholies');return false;"
 >
-    🕊️ قدس الأقداس
+    <div>
+        <span class="icon">🕊️</span>
+        قدس الأقداس
+    </div>
 </a>
 
-
-<!-- ==================================================
-     9
-================================================== -->
 
 <a
+    href="study-solomon-temple-ark.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('ark');return false;"
 >
-    📦 تابوت العهد
+    <div>
+        <span class="icon">📦</span>
+        تابوت العهد
+    </div>
 </a>
 
-
-<!-- ==================================================
-     10
-================================================== -->
 
 <a
+    href="study-solomon-temple-cherubim.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('cherubim');return false;"
 >
-    ⚖️ الكاروبيم
+    <div>
+        <span class="icon">⚖️</span>
+        الكاروبيم
+    </div>
 </a>
 
-
-<!-- ==================================================
-     11
-================================================== -->
 
 <a
+    href="study-solomon-temple-lampstands.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('lampstands');return false;"
 >
-    🕯️ المنائر الذهبية
+    <div>
+        <span class="icon">🕯️</span>
+        المنائر الذهبية
+    </div>
 </a>
 
-
-<!-- ==================================================
-     12
-================================================== -->
 
 <a
+    href="study-solomon-temple-showbread.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('tables');return false;"
 >
-    🍞 موائد خبز الوجوه
+    <div>
+        <span class="icon">🍞</span>
+        موائد خبز الوجوه
+    </div>
 </a>
 
-
-<!-- ==================================================
-     13
-================================================== -->
 
 <a
+    href="study-solomon-temple-incense-altar.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('incense');return false;"
 >
-    🌿 مذبح البخور
+    <div>
+        <span class="icon">🌿</span>
+        مذبح البخور
+    </div>
 </a>
 
-
-<!-- ==================================================
-     14
-================================================== -->
 
 <a
+    href="study-solomon-temple-burnt-altar.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('altar');return false;"
 >
-    🔥 مذبح المحرقة
+    <div>
+        <span class="icon">🔥</span>
+        مذبح المحرقة
+    </div>
 </a>
 
-
-<!-- ==================================================
-     15
-================================================== -->
 
 <a
+    href="study-solomon-temple-bronze-sea.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('sea');return false;"
 >
-    💧 بحر النحاس
+    <div>
+        <span class="icon">💧</span>
+        بحر النحاس
+    </div>
 </a>
 
-
-<!-- ==================================================
-     16
-================================================== -->
 
 <a
+    href="study-solomon-temple-jachin-boaz.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('columns');return false;"
 >
-    🏛️ ياكين وبوعز
+    <div>
+        <span class="icon">🏛️</span>
+        ياكين وبوعز
+    </div>
 </a>
 
-
-<!-- ==================================================
-     17
-================================================== -->
 
 <a
+    href="study-solomon-temple-doors.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('doors');return false;"
 >
-    🚪 أبواب الهيكل
+    <div>
+        <span class="icon">🚪</span>
+        أبواب الهيكل
+    </div>
 </a>
 
-
-<!-- ==================================================
-     18
-================================================== -->
 
 <a
+    href="study-solomon-temple-rooms.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('rooms');return false;"
 >
-    🏠 الغرف والمخازن
+    <div>
+        <span class="icon">🏠</span>
+        الغرف والمخازن
+    </div>
 </a>
 
-
-<!-- ==================================================
-     19
-================================================== -->
 
 <a
+    href="study-solomon-temple-gold.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('decoration');return false;"
 >
-    ✨ الذهب والزخارف
+    <div>
+        <span class="icon">✨</span>
+        الذهب والزخارف
+    </div>
 </a>
 
-
-<!-- ==================================================
-     20
-================================================== -->
 
 <a
+    href="study-solomon-temple-priests.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('priests');return false;"
 >
-    👑 الكهنة واللاويون
+    <div>
+        <span class="icon">👑</span>
+        الكهنة واللاويون
+    </div>
 </a>
 
-
-<!-- ==================================================
-     21
-================================================== -->
 
 <a
+    href="study-solomon-temple-dedication.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('dedication');return false;"
 >
-    🔥 تدشين الهيكل
+    <div>
+        <span class="icon">🔥</span>
+        تدشين الهيكل
+    </div>
 </a>
 
-
-<!-- ==================================================
-     22
-================================================== -->
 
 <a
+    href="study-solomon-temple-glory.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('glory');return false;"
 >
-    ☁️ مجد الرب
+    <div>
+        <span class="icon">☁️</span>
+        مجد الرب
+    </div>
 </a>
 
-
-<!-- ==================================================
-     23
-================================================== -->
 
 <a
+    href="study-solomon-temple-destruction.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('destruction');return false;"
 >
-    ⚔️ سقوط الهيكل والسبي
+    <div>
+        <span class="icon">⚔️</span>
+        سقوط الهيكل والسبي
+    </div>
 </a>
 
-
-<!-- ==================================================
-     24
-================================================== -->
 
 <a
+    href="study-solomon-temple-theology.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('symbolism');return false;"
 >
-    ✡️ الرموز والمعاني اللاهوتية
+    <div>
+        <span class="icon">✡️</span>
+        الرموز والمعاني اللاهوتية
+    </div>
 </a>
 
-
-<!-- ==================================================
-     25
-================================================== -->
 
 <a
+    href="study-solomon-temple-christ.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('christ');return false;"
 >
-    ✝️ المسيح والهيكل
+    <div>
+        <span class="icon">✝️</span>
+        المسيح والهيكل
+    </div>
 </a>
 
-
-<!-- ==================================================
-     26
-================================================== -->
 
 <a
+    href="study-solomon-temple-new-testament.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('newtestament');return false;"
 >
-    📖 الهيكل في العهد الجديد
+    <div>
+        <span class="icon">📖</span>
+        الهيكل في العهد الجديد
+    </div>
 </a>
 
-
-<!-- ==================================================
-     27
-================================================== -->
 
 <a
+    href="study-solomon-temple-tabernacle-comparison.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('comparison');return false;"
 >
-    🔎 مقارنة الخيمة بالهيكل
+    <div>
+        <span class="icon">🔎</span>
+        مقارنة الخيمة بالهيكل
+    </div>
 </a>
 
-
-<!-- ==================================================
-     28
-================================================== -->
 
 <a
+    href="study-solomon-temple-theological-message.html"
     class="study-card"
-    href="#"
-    onclick="openStudy('templemessage');return false;"
 >
-    📚 رسالة الهيكل اللاهوتية
+    <div>
+        <span class="icon">📚</span>
+        رسالة الهيكل اللاهوتية
+    </div>
 </a>
 
+
+</div>
 
 </section>
 
@@ -693,584 +804,14 @@ footer{
 
 <footer>
 
-كنيسة رجاء الأمم سيدني
-
-<br>
+<div class="footer-title">
+    كنيسة رجاء الأمم سيدني
+</div>
 
 موسوعة الكتاب المقدس
 
 </footer>
 
-
-<script>
-
-/* ==================================================
-   الدراسات الداخلية الموجودة حاليًا
-   تم الحفاظ عليها للأيقونات الأخرى.
-   النظرة العامة أصبحت ملفًا مستقلًا.
-================================================== */
-
-const studies = {
-
-history:{
-icon:"📜",
-title:"تاريخ بناء الهيكل",
-content:`
-<h3>بداية المشروع</h3>
-
-<p>
-أراد داود أن يبني بيتًا للرب، لكن الرب أعلن أن
-ابنه سليمان هو الذي سيبني البيت.
-</p>
-
-<p>
-بدأ سليمان بناء الهيكل في السنة الرابعة من ملكه،
-واستمر العمل فيه سبع سنوات.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 ملوك 6:1، 37–38.
-</p>
-`
-},
-
-location:{
-icon:"📍",
-title:"موقع الهيكل في أورشليم",
-content:`
-<h3>جبل المريا</h3>
-
-<p>
-ارتبط موقع الهيكل بجبل المريا في أورشليم،
-وهو المكان الذي أقام فيه داود مذبحًا للرب
-في أرض أرونة اليبوسي.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-2 أخبار الأيام 3:1،
-2 صموئيل 24:18–25.
-</p>
-`
-},
-
-dimensions:{
-icon:"📐",
-title:"المقاسات والأبعاد",
-content:`
-<h3>أبعاد البيت</h3>
-
-<p>
-يقدم سفر الملوك الأول وصفًا دقيقًا لأبعاد الهيكل
-وأقسامه الداخلية، وخاصة القدس وقدس الأقداس والرواق.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 ملوك 6:2–20.
-</p>
-`
-},
-
-preparation:{
-icon:"🪵",
-title:"إعداد داود وسليمان للبناء",
-content:`
-<h3>الاستعداد للبناء</h3>
-
-<p>
-جمع داود كميات كبيرة من الذهب والفضة والنحاس
-والخشب والحجارة استعدادًا لبناء بيت الرب.
-</p>
-
-<p>
-ثم قام سليمان بتنظيم العمال والاستعانة بصناع
-مهرة لإتمام العمل.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 أخبار الأيام 22،
-1 ملوك 5.
-</p>
-`
-},
-
-porch:{
-icon:"🚪",
-title:"الرواق والمدخل",
-content:`
-<h3>الرواق</h3>
-
-<p>
-كان الرواق في مقدمة بيت الرب، ومن خلاله يتم
-الدخول إلى الجزء الداخلي من الهيكل.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-1 ملوك 6:3.
-</p>
-`
-},
-
-holyplace:{
-icon:"🏛️",
-title:"القدس",
-content:`
-<h3>القدس</h3>
-
-<p>
-كان القدس القسم الرئيسي من البيت بين الرواق
-وقدس الأقداس، ووضعت فيه أدوات الخدمة المقدسة.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 ملوك 6:17،
-1 ملوك 7:48–49.
-</p>
-`
-},
-
-holyofholies:{
-icon:"🕊️",
-title:"قدس الأقداس",
-content:`
-<h3>أقدس موضع</h3>
-
-<p>
-كان قدس الأقداس القسم الداخلي الأقدس،
-ووضع فيه تابوت عهد الرب.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 ملوك 6:16–20،
-1 ملوك 8:6–11.
-</p>
-`
-},
-
-ark:{
-icon:"📦",
-title:"تابوت العهد",
-content:`
-<h3>تابوت العهد</h3>
-
-<p>
-نقل الكهنة تابوت العهد إلى قدس الأقداس
-عند تدشين الهيكل ووضعوه تحت جناحي الكروبين.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-1 ملوك 8:1–9.
-</p>
-`
-},
-
-cherubim:{
-icon:"⚖️",
-title:"الكاروبيم",
-content:`
-<h3>الكاروبيم في الهيكل</h3>
-
-<p>
-صنع سليمان كروبين عظيمين من خشب الزيتون
-وغشاهما بالذهب، ووضعهما في قدس الأقداس.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-1 ملوك 6:23–28.
-</p>
-`
-},
-
-lampstands:{
-icon:"🕯️",
-title:"المنائر الذهبية",
-content:`
-<h3>المنائر</h3>
-
-<p>
-صنعت منائر ذهبية متعددة لخدمة بيت الرب،
-ووضعت في القدس.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 ملوك 7:48–49،
-2 أخبار الأيام 4:7.
-</p>
-`
-},
-
-tables:{
-icon:"🍞",
-title:"موائد خبز الوجوه",
-content:`
-<h3>الموائد</h3>
-
-<p>
-أعدت موائد لخدمة بيت الرب ووضع عليها خبز
-الوجوه بحسب نظام العبادة.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 ملوك 7:48،
-2 أخبار الأيام 4:8.
-</p>
-`
-},
-
-incense:{
-icon:"🌿",
-title:"مذبح البخور",
-content:`
-<h3>مذبح البخور</h3>
-
-<p>
-كان مذبح البخور من الأدوات المقدسة في خدمة الهيكل
-وصنع من الخشب وغطي بالذهب.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 ملوك 6:20–22،
-1 ملوك 7:48.
-</p>
-`
-},
-
-altar:{
-icon:"🔥",
-title:"مذبح المحرقة",
-content:`
-<h3>المذبح النحاسي</h3>
-
-<p>
-كان مذبح المحرقة مركزًا رئيسيًا للذبائح،
-وصنع من النحاس وكان في موضع الخدمة أمام البيت.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-2 أخبار الأيام 4:1،
-1 ملوك 8:22.
-</p>
-`
-},
-
-sea:{
-icon:"💧",
-title:"بحر النحاس",
-content:`
-<h3>البحر النحاسي</h3>
-
-<p>
-كان بحر النحاس منشأة ضخمة من النحاس مرتبطة
-بخدمة الكهنة والغسل الطقسي.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-1 ملوك 7:23–26.
-</p>
-`
-},
-
-columns:{
-icon:"🏛️",
-title:"ياكين وبوعز",
-content:`
-<h3>العمودان</h3>
-
-<p>
-أقيم عمودان عظيمان أمام رواق الهيكل،
-وسمي أحدهما ياكين والآخر بوعز.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-1 ملوك 7:15–22.
-</p>
-`
-},
-
-doors:{
-icon:"🚪",
-title:"أبواب الهيكل",
-content:`
-<h3>الأبواب</h3>
-
-<p>
-كانت للهيكل أبواب خشبية مزينة بالنقوش والزخارف
-وتؤدي إلى الأقسام الداخلية.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-1 ملوك 6:31–35.
-</p>
-`
-},
-
-rooms:{
-icon:"🏠",
-title:"الغرف والمخازن",
-content:`
-<h3>الغرف الجانبية</h3>
-
-<p>
-أقيمت غرف جانبية حول البيت واستخدمت في خدمة
-الهيكل وحفظ ما يرتبط بالخدمة.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-1 ملوك 6:5–10.
-</p>
-`
-},
-
-decoration:{
-icon:"✨",
-title:"الذهب والزخارف",
-content:`
-<h3>زخارف الهيكل</h3>
-
-<p>
-غطي داخل الهيكل بالذهب وزينت الجدران بصور
-الكروبيم والنخيل والأزهار المفتحة.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-1 ملوك 6:18–35.
-</p>
-`
-},
-
-priests:{
-icon:"👑",
-title:"الكهنة واللاويون",
-content:`
-<h3>خدمة الهيكل</h3>
-
-<p>
-قام الكهنة واللاويون بالخدمة والذبائح والتسبيح
-والأعمال المرتبطة ببيت الرب.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 أخبار الأيام 23–26.
-</p>
-`
-},
-
-dedication:{
-icon:"🔥",
-title:"تدشين الهيكل",
-content:`
-<h3>تدشين بيت الرب</h3>
-
-<p>
-كان تدشين الهيكل حدثًا عظيمًا في عهد سليمان،
-ونقل تابوت العهد إلى قدس الأقداس وقدم سليمان
-صلاة التدشين.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 ملوك 8،
-2 أخبار الأيام 5–7.
-</p>
-`
-},
-
-glory:{
-icon:"☁️",
-title:"مجد الرب",
-content:`
-<h3>السحابة ومجد الرب</h3>
-
-<p>
-ملأ السحاب بيت الرب عند تدشينه حتى لم يستطع
-الكهنة الوقوف للخدمة بسبب مجد الرب.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-1 ملوك 8:10–11.
-</p>
-`
-},
-
-destruction:{
-icon:"⚔️",
-title:"سقوط الهيكل والسبي",
-content:`
-<h3>هدم الهيكل</h3>
-
-<p>
-دمر البابليون هيكل سليمان وأحرقوا بيت الرب
-وأخذوا أدواته إلى بابل.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-2 ملوك 25:8–17.
-</p>
-`
-},
-
-symbolism:{
-icon:"✡️",
-title:"الرموز والمعاني اللاهوتية",
-content:`
-<h3>معنى الهيكل</h3>
-
-<p>
-كان الهيكل مرتبطًا بحضور الله والعبادة والقداسة،
-ويشكل جزءًا محوريًا في موضوع سكنى الله وسط شعبه.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 ملوك 8:27–30،
-خروج 25:8.
-</p>
-`
-},
-
-christ:{
-icon:"✝️",
-title:"المسيح والهيكل",
-content:`
-<h3>المسيح وتحقيق معنى الهيكل</h3>
-
-<p>
-قدم العهد الجديد المسيح في علاقة مباشرة بموضوع
-الهيكل، وأعلن أن جسده هو الهيكل.
-</p>
-
-<p>
-<strong>الشاهد:</strong>
-يوحنا 2:19–21.
-</p>
-`
-},
-
-newtestament:{
-icon:"📖",
-title:"الهيكل في العهد الجديد",
-content:`
-<h3>مفهوم الهيكل</h3>
-
-<p>
-يتوسع مفهوم الهيكل في العهد الجديد ليشمل شعب
-الله ومسكن الروح القدس في المؤمنين.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-1 كورنثوس 3:16،
-1 بطرس 2:5.
-</p>
-`
-},
-
-comparison:{
-icon:"🔎",
-title:"مقارنة الخيمة بالهيكل",
-content:`
-<h3>خيمة الاجتماع وهيكل سليمان</h3>
-
-<p>
-يشترك الهيكل مع خيمة الاجتماع في القدس وقدس
-الأقداس والتابوت والمذبح والخدمة الكهنوتية.
-</p>
-
-<p>
-لكن الخيمة كانت قابلة للنقل، بينما أصبح الهيكل
-بيتًا ثابتًا في أورشليم.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-خروج 25–40،
-1 ملوك 6–8.
-</p>
-`
-},
-
-templemessage:{
-icon:"📚",
-title:"رسالة الهيكل اللاهوتية",
-content:`
-<h3>من الحضور إلى الشركة</h3>
-
-<p>
-موضوع الهيكل في الكتاب المقدس لا يتوقف عند
-البناء المادي، بل يرتبط بحضور الله والقداسة
-والعبادة والشركة معه.
-</p>
-
-<p>
-ويبلغ الموضوع ذروته في العهد الجديد في المسيح
-وشعب الله ومسكن الروح القدس.
-</p>
-
-<p>
-<strong>الشواهد:</strong>
-يوحنا 1:14،
-1 كورنثوس 3:16،
-رؤيا 21:22.
-</p>
-`
-}
-
-};
-
-
-/* ==================================================
-   فتح الدراسة الداخلية
-================================================== */
-
-function openStudy(id){
-
-    const study=studies[id];
-
-    if(!study){
-        return;
-    }
-
-    document.getElementById(
-        "mainPage"
-    );
-
-    /*
-       هذه النسخة تستخدم صفحات مستقلة للنظرة العامة.
-       أما الدراسات الأخرى فتبقى داخل الصفحة الحالية.
-    */
-
-}
-
-
-/* ==================================================
-   ملاحظة:
-   لا توجد دراسة overview هنا عمدًا.
-   لأنها أصبحت ملفًا مستقلًا:
-   study-solomon-temple-overview.html
-================================================== */
-
-</script>
-
-
 </body>
+
 </html>
