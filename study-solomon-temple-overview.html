@@ -1,552 +1,217 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>هيكل سليمان — نظرة عامة | موسوعة الكتاب المقدس</title>
 
 <style>
-
 :root{
-    --blue:#0b2742;
-    --blue2:#123b61;
-    --blue3:#174d7c;
+    --blue:#061a2b;
+    --blue2:#0b2d49;
     --gold:#d4af37;
     --gold2:#f0d77a;
-    --cream:#f7f3e7;
-    --text:#e9eef5;
-    --muted:#aebdca;
-    --line:rgba(212,175,55,.25);
-    --panel:rgba(9,29,48,.96);
-    --shadow:0 12px 35px rgba(0,0,0,.30);
+    --text:#eef5fb;
+    --muted:#b8c7d4;
+    --line:rgba(212,175,55,.22);
 }
 
-*{
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
+*{box-sizing:border-box}
 
 body{
     margin:0;
+    font-family:Arial,"Tahoma",sans-serif;
     background:
-        radial-gradient(
-            circle at top,
-            #153e63 0,
-            #0b2742 35%,
-            #061727 100%
-        );
+        radial-gradient(circle at top,rgba(18,68,108,.45),transparent 45%),
+        linear-gradient(145deg,#03101c,#08243a 55%,#041522);
     color:var(--text);
-    font-family:
-        "Segoe UI",
-        Tahoma,
-        Arial,
-        sans-serif;
-    line-height:2;
+    line-height:1.9;
 }
 
-/* ================= HEADER ================= */
-
 header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-
-    background:rgba(5,22,37,.96);
-
-    backdrop-filter:blur(12px);
-
     border-bottom:1px solid var(--line);
+    background:rgba(3,14,24,.92);
 }
 
 .topbar{
-    max-width:1200px;
+    max-width:1100px;
     margin:auto;
-    min-height:82px;
-    padding:10px 20px;
-
+    min-height:78px;
+    padding:10px 18px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:20px;
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:13px;
+    gap:12px;
 }
 
-.brand-logo{
-    width:58px;
-    height:58px;
+.logo{
+    width:52px;
+    height:52px;
     object-fit:contain;
 }
 
-.brand-name{
-    font-size:18px;
+.brand-title{
+    color:var(--gold2);
+    font-size:17px;
     font-weight:700;
+}
+
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 14px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    color:var(--text);
+    text-decoration:none;
+    background:rgba(11,45,73,.7);
+}
+
+.back-btn:hover{
+    border-color:var(--gold);
     color:var(--gold2);
 }
 
-/* ================= SOLOMON TEMPLE BUTTON ================= */
-
-.studies-btn{
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    text-decoration:none;
-    color:white;
-
-    padding:9px 15px;
-    border-radius:10px;
-
-    border:1px solid var(--line);
-
-    background:rgba(18,59,97,.75);
-
-    transition:.25s;
-}
-
-.studies-btn:hover{
-    background:var(--blue3);
-    border-color:var(--gold);
-    transform:translateY(-1px);
-}
-
-/* ================= MAIN ================= */
-
 main{
-    max-width:1120px;
+    max-width:1050px;
     margin:auto;
-    padding:35px 18px 70px;
+    padding:35px 18px 60px;
 }
-
-/* ================= HERO ================= */
 
 .hero{
-    background:
-        linear-gradient(
-            135deg,
-            rgba(18,59,97,.96),
-            rgba(7,28,46,.96)
-        );
-
+    text-align:center;
+    padding:42px 22px;
+    margin-bottom:25px;
     border:1px solid var(--line);
     border-radius:22px;
-
-    padding:35px 28px;
-
-    box-shadow:var(--shadow);
-
-    margin-bottom:25px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18,59,97,.75),
+            rgba(5,24,41,.9)
+        );
 }
 
 .hero-icon{
-    font-size:54px;
-    margin-bottom:8px;
+    font-size:58px;
 }
 
-h1{
-    margin:0 0 10px;
-
+.hero h1{
+    margin:8px 0;
     color:var(--gold2);
-
-    font-size:36px;
-
-    line-height:1.4;
+    font-size:34px;
 }
 
 .hero p{
-    margin:0;
-
-    color:#dce6ef;
-
-    font-size:18px;
+    max-width:850px;
+    margin:10px auto 0;
+    color:var(--muted);
 }
-
-.study-note{
-    margin-top:20px;
-
-    padding:15px 18px;
-
-    border-right:4px solid var(--gold);
-
-    background:rgba(212,175,55,.08);
-
-    border-radius:8px;
-
-    color:#e8e1c9;
-}
-
-/* ================= NAVIGATION ================= */
-
-.contents{
-    background:var(--panel);
-
-    border:1px solid var(--line);
-
-    border-radius:18px;
-
-    padding:22px;
-
-    margin-bottom:25px;
-}
-
-.contents h2{
-    margin-top:0;
-
-    color:var(--gold2);
-}
-
-.contents-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:10px;
-}
-
-.contents a{
-    display:block;
-
-    text-decoration:none;
-
-    color:#dce8f1;
-
-    background:#0d3455;
-
-    border:1px solid
-        rgba(212,175,55,.15);
-
-    padding:10px 12px;
-
-    border-radius:9px;
-
-    transition:.2s;
-}
-
-.contents a:hover{
-    background:#174d7c;
-
-    border-color:var(--gold);
-
-    color:white;
-}
-
-/* ================= SECTIONS ================= */
 
 .section{
-    background:var(--panel);
-
+    margin-top:22px;
+    padding:27px;
     border:1px solid var(--line);
-
-    border-radius:18px;
-
-    padding:28px;
-
-    margin-bottom:22px;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.16);
+    border-radius:19px;
+    background:rgba(3,17,29,.72);
 }
 
 .section h2{
-    color:var(--gold2);
-
     margin-top:0;
-
-    font-size:27px;
-
-    border-bottom:
-        1px solid var(--line);
-
-    padding-bottom:10px;
+    color:var(--gold2);
+    font-size:24px;
 }
 
 .section h3{
-    color:#f1df91;
-
-    font-size:21px;
-
-    margin-top:28px;
-}
-
-.section p{
-    color:#e1e9ef;
-
-    font-size:17px;
-}
-
-.section ul{
-    padding-right:25px;
-}
-
-.section li{
-    margin-bottom:7px;
-}
-
-.reference{
-    margin-top:18px;
-
-    padding:14px 17px;
-
-    background:#071e31;
-
-    border-right:4px solid var(--gold);
-
-    border-radius:8px;
-
-    color:#d8e3ec;
-}
-
-.reference strong{
     color:var(--gold2);
 }
 
-/* ================= FACT CARDS ================= */
-
-.cards{
+.fact-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:15px;
-
-    margin-top:20px;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
 }
 
-.card{
-    background:#0b2944;
-
-    border:1px solid
-        rgba(212,175,55,.18);
-
-    border-radius:13px;
-
-    padding:18px;
+.fact{
+    padding:19px;
+    border:1px solid var(--line);
+    border-radius:15px;
+    background:rgba(11,45,73,.45);
 }
 
-.card-icon{
+.fact-icon{
     font-size:30px;
-
+    display:block;
     margin-bottom:5px;
 }
 
-.card h3{
-    margin:0 0 7px;
+.scripture{
+    margin:20px 0;
+    padding:19px;
+    border-right:4px solid var(--gold);
+    border-radius:10px;
+    background:rgba(212,175,55,.07);
+}
 
+.reference{
+    display:block;
+    margin-top:8px;
     color:var(--gold2);
+    font-weight:bold;
 }
 
-.card p{
-    margin:0;
-
-    font-size:15px;
-
-    color:#c9d5df;
-}
-
-/* ================= TIMELINE ================= */
-
-.timeline{
-    border-right:3px solid var(--gold);
-
-    margin:20px 5px;
-
-    padding-right:25px;
-}
-
-.timeline-item{
-    position:relative;
-
-    margin-bottom:25px;
-}
-
-.timeline-item::before{
-    content:"";
-
-    position:absolute;
-
-    right:-35px;
-
-    top:10px;
-
-    width:14px;
-    height:14px;
-
-    background:var(--gold);
-
-    border-radius:50%;
-
-    box-shadow:
-        0 0 0 5px
-        rgba(212,175,55,.12);
-}
-
-/* ================= SOURCES ================= */
-
-.source-box{
-    background:#071d2f;
-
-    border:1px solid
-        rgba(212,175,55,.20);
-
-    border-radius:12px;
-
-    padding:20px;
-
-    margin-top:15px;
-}
-
-.source-box h3{
-    margin-top:0;
-}
-
-.source-list{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:10px;
-}
-
-.source{
-    padding:12px;
-
-    border-radius:8px;
-
-    background:#0c2b46;
-
-    border:1px solid
-        rgba(255,255,255,.05);
-}
-
-.source strong{
-    color:var(--gold2);
-}
-
-/* ================= METHODOLOGY ================= */
-
-.method{
+.highlight{
+    border:1px solid var(--gold);
     background:
         linear-gradient(
-            135deg,
+            145deg,
             rgba(212,175,55,.10),
-            rgba(18,59,97,.20)
+            rgba(5,24,41,.9)
         );
-
-    border:1px solid var(--line);
-
-    border-radius:15px;
-
-    padding:20px;
 }
-
-.method strong{
-    color:var(--gold2);
-}
-
-/* ================= BACK BUTTON ================= */
-
-.back{
-    text-align:center;
-
-    margin-top:35px;
-}
-
-.back a{
-    display:inline-block;
-
-    text-decoration:none;
-
-    color:white;
-
-    background:#123b61;
-
-    border:1px solid var(--line);
-
-    padding:12px 25px;
-
-    border-radius:10px;
-}
-
-.back a:hover{
-    background:#174d7c;
-
-    border-color:var(--gold);
-}
-
-/* ================= FOOTER ================= */
 
 footer{
     text-align:center;
-
     padding:30px 15px;
-
     color:var(--muted);
-
     border-top:1px solid var(--line);
+    background:rgba(3,14,24,.6);
 }
 
-/* ================= MOBILE ================= */
+.footer-title{
+    color:var(--gold2);
+    font-weight:700;
+}
 
-@media(max-width:800px){
-
-    .contents-grid{
+@media(max-width:700px){
+    .fact-grid{
         grid-template-columns:1fr;
-    }
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .source-list{
-        grid-template-columns:1fr;
-    }
-
-    h1{
-        font-size:29px;
-    }
-
-    .hero{
-        padding:25px 20px;
     }
 
     .section{
-        padding:21px 17px;
+        padding:21px 16px;
     }
 
-    .section p{
-        font-size:16px;
+    .hero h1{
+        font-size:29px;
     }
 
-    .brand-name{
-        font-size:15px;
+    .brand-title{
+        font-size:14px;
     }
 
-    .brand-logo{
-        width:50px;
-        height:50px;
+    .logo{
+        width:45px;
+        height:45px;
     }
-
-    .topbar{
-        padding:9px 12px;
-    }
-
 }
-
 </style>
-
 </head>
 
 <body>
@@ -555,24 +220,19 @@ footer{
 
 <div class="topbar">
 
-<!-- العودة إلى قسم هيكل سليمان -->
-<a href="study-solomon-temple.html" class="studies-btn">
-
-    <span>🏛️</span>
-
-    <span>هيكل سليمان</span>
-
+<a href="study-solomon-temple.html" class="back-btn">
+    ← هيكل سليمان
 </a>
 
 <div class="brand">
 
-<div class="brand-name">
-    كنيسة رجاء الأمم سيدني
+<div class="brand-title">
+    موسوعة الكتاب المقدس
 </div>
 
 <img
     src="assets/logo.png"
-    class="brand-logo"
+    class="logo"
     alt="شعار كنيسة رجاء الأمم سيدني"
 >
 
@@ -582,766 +242,227 @@ footer{
 
 </header>
 
+
 <main>
 
 <section class="hero">
 
-<div class="hero-icon">
-🏛️
-</div>
+<div class="hero-icon">🏛️</div>
 
-<h1>
-هيكل سليمان — نظرة عامة
-</h1>
+<h1>هيكل سليمان — نظرة عامة</h1>
 
 <p>
-دراسة تأسيسية متكاملة في الهيكل الذي بناه سليمان في أورشليم،
-من خلفيته التاريخية وعلاقته بداود والعهد مع إسرائيل،
-إلى تصميمه وأقسامه وأدواته وتدشينه وسقوطه،
-ثم قراءة لاهوتية لعلاقته بحضور الله والعبادة،
-وبالهيكل في العهد الجديد وشخص المسيح.
+دراسة تأسيسية شاملة لفهم هيكل سليمان من حيث نشأته،
+هدفه، موقعه، بنائه، خدمته، مكانته في تاريخ إسرائيل،
+وموقعه في الإعلان الكتابي.
 </p>
 
-<div class="study-note">
+</section>
 
-<strong>منهج الدراسة:</strong>
 
-هذه الصفحة هي المدخل الرئيسي إلى دراسة هيكل سليمان.
-ومن هنا يستطيع الباحث الانتقال إلى الدراسات التفصيلية
-لكل قسم وعنصر وأداة ورمز، ثم العودة إلى الدراسات الكتابية
-لاختيار موضوع آخر.
+<section class="section">
+
+<h2>📖 أولًا: ما هو هيكل سليمان؟</h2>
+
+<p>
+هيكل سليمان هو البيت الذي بناه الملك سليمان للرب في أورشليم،
+ليكون مركزًا ثابتًا للعبادة وتقديم الذبائح وخدمة الكهنوت،
+وموضعًا ارتبط باسم الرب وسط شعب إسرائيل.
+</p>
+
+<p>
+لم يكن الهيكل مجرد مبنى ديني؛ فقد أصبح عنصرًا محوريًا في
+تاريخ العهد، وفي فهم إسرائيل لحضور الله والعبادة والقداسة.
+</p>
+
+<div class="scripture">
+
+<strong>النص الكتابي:</strong>
+
+<br><br>
+
+«وأنا أبني بيتًا لاسم الرب إلهي، كما تكلم الرب مع داود أبي.»
+
+<span class="reference">
+1 ملوك 5:5
+</span>
 
 </div>
 
 </section>
 
 
-<section class="contents">
+<section class="section">
 
-<h2>
-📚 محاور الدراسة
-</h2>
+<h2>📜 ثانيًا: لماذا بُني الهيكل؟</h2>
 
-<div class="contents-grid">
+<p>
+بدأت فكرة بناء بيت ثابت للرب في قلب داود. أراد داود أن يبني
+بيتًا للرب، لكن الرب أعلن أن ابنه هو الذي سيقوم بالبناء.
+</p>
 
-<a href="#background">
-1. الخلفية التاريخية
-</a>
+<p>
+وهكذا أصبح بناء الهيكل جزءًا من انتقال المملكة إلى مرحلة
+الاستقرار، وإقامة مركز عبادة دائم في أورشليم.
+</p>
 
-<a href="#david">
-2. داود ومشروع الهيكل
-</a>
+<div class="scripture">
 
-<a href="#solomon">
-3. سليمان والبناء
-</a>
+«هو يبني بيتًا لاسمي، وهو يكون لي ابنًا وأنا له أبًا.»
 
-<a href="#location">
-4. موقع الهيكل
-</a>
-
-<a href="#structure">
-5. البنية المعمارية
-</a>
-
-<a href="#holy">
-6. القدس وقدس الأقداس
-</a>
-
-<a href="#ark">
-7. تابوت العهد
-</a>
-
-<a href="#symbols">
-8. الزخارف والرموز
-</a>
-
-<a href="#worship">
-9. العبادة والكهنوت
-</a>
-
-<a href="#dedication">
-10. التدشين
-</a>
-
-<a href="#glory">
-11. مجد الرب
-</a>
-
-<a href="#covenant">
-12. العهد والطاعة
-</a>
-
-<a href="#fall">
-13. سقوط الهيكل
-</a>
-
-<a href="#theology">
-14. الرسالة اللاهوتية
-</a>
-
-<a href="#christ">
-15. المسيح والهيكل
-</a>
-
-<a href="#newtestament">
-16. الهيكل في العهد الجديد
-</a>
-
-<a href="#tabernacle">
-17. الخيمة والهيكل
-</a>
-
-<a href="#jewish">
-18. المصادر اليهودية
-</a>
-
-<a href="#commentators">
-19. المراجع التفسيرية
-</a>
-
-<a href="#method">
-20. منهجية القراءة
-</a>
+<span class="reference">
+2 صموئيل 7:13–14
+</span>
 
 </div>
 
 </section>
 
 
-<section class="section" id="background">
+<section class="section">
 
-<h2>
-1. الخلفية التاريخية: لماذا ظهر الهيكل؟
-</h2>
+<h2>👑 ثالثًا: سليمان وبناء الهيكل</h2>
 
 <p>
-لم يظهر هيكل سليمان في فراغ تاريخي أو ديني.
-فقد سبقه نظام خيمة الاجتماع، التي كانت مركز العبادة
-وحضور الرب وسط إسرائيل أثناء الرحلة في البرية وبعد دخول أرض الموعد.
+كان سليمان هو الملك الذي نفذ مشروع بناء الهيكل. وقد استفاد
+من فترة السلام والاستقرار ومن الموارد البشرية والمادية
+التي وفرتها المملكة.
 </p>
 
 <p>
-ومع انتقال إسرائيل من مرحلة الخيمة المتنقلة إلى المملكة الموحدة،
-أصبحت أورشليم مركزًا سياسيًا ودينيًا مهمًا.
-وقد أراد داود أن يجعل موضع تابوت العهد مرتبطًا ببيت ثابت للرب.
+شارك في المشروع حرفيون ومواد من مناطق مختلفة، وكان حيرام
+ملك صور شريكًا مهمًا في توفير خشب الأرز والعمال المهرة.
 </p>
 
-<p>
-لكن الهيكل في الفكر الكتابي ليس مجرد مبنى.
-إنه جزء من منظومة تشمل العهد، والملك، والكهنوت، والذبائح،
-والقداسة، والصلاة، وحضور الله وسط شعبه.
-</p>
+<div class="scripture">
 
-<div class="reference">
+«وأرسل حيرام إلى سليمان يقول: قد سمعت ما أرسلت به إليّ.
+أنا أفعل كل مسرتك في خشب الأرز وخشب السرو.»
 
-<strong>الشواهد الأساسية:</strong>
-
-خروج 25:8؛ تثنية 12:5-14؛
-2 صموئيل 7؛ 1 ملوك 5–8؛
-2 أخبار الأيام 2–7.
+<span class="reference">
+1 ملوك 5:8
+</span>
 
 </div>
 
 </section>
 
 
-<section class="section" id="david">
+<section class="section">
 
-<h2>
-2. داود ومشروع بناء الهيكل
-</h2>
+<h2>🏔️ رابعًا: موقع الهيكل</h2>
 
 <p>
-كان داود يريد أن يبني بيتًا للرب، لأن الملك رأى التناقض
-بين سكنه في بيت من أرز وبين وجود تابوت الله في خيمة.
+أقيم الهيكل في أورشليم على جبل الموريا، وهو الموقع الذي ارتبط
+في التقليد الكتابي بالمكان الذي اشترى فيه داود البيدر وأقام
+فيه مذبحًا للرب.
 </p>
 
-<p>
-لكن الرب أعلن أن سليمان هو الذي سيبني البيت.
-وهنا نرى تداخلًا بين الرغبة البشرية الصالحة وبين توقيت الله
-وقصده في التاريخ الخلاصي.
-</p>
+<div class="scripture">
 
-<p>
-لم يتوقف داود عند عدم إتمامه للمشروع بنفسه،
-بل قام بإعداد المواد والأموال والتنظيمات اللازمة،
-وأعطى سليمان النموذج والتوجيهات المتعلقة بالبناء والخدمة.
-</p>
+«فابتدأ سليمان يبني بيت الرب في أورشليم في جبل المريا،
+حيث تراءى لداود أبيه.»
 
-<h3>
-المبدأ اللاهوتي
-</h3>
-
-<p>
-القصة تعلم أن المشاركة في عمل الله لا تعني بالضرورة
-أن الإنسان سيرى بنفسه كل ثمرة للعمل الذي بدأه.
-قد يهيئ جيل الطريق، ويكمل جيل آخر البناء.
-</p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-2 صموئيل 7:1-17؛
-1 ملوك 5:3-5؛
-1 أخبار الأيام 22:5-19؛
-1 أخبار الأيام 28:11-21؛
-1 أخبار الأيام 29:1-9.
+<span class="reference">
+2 أخبار الأيام 3:1
+</span>
 
 </div>
 
 </section>
 
 
-<section class="section" id="solomon">
+<section class="section">
 
-<h2>
-3. سليمان والبناء
-</h2>
+<h2>📐 خامسًا: أبعاد الهيكل</h2>
 
-<p>
-بدأ سليمان تنفيذ المشروع بالتعاون مع حيرام ملك صور.
-وتظهر الرواية الكتابية ضخامة المشروع من خلال تنظيم العمال
-واستخراج الحجارة وقطع خشب الأرز والسرو واستخدام الحرفيين المتخصصين.
-</p>
+<div class="fact-grid">
 
-<div class="timeline">
-
-<div class="timeline-item">
-
-<h3>
-الإعداد
-</h3>
-
-<p>
-تنظيم الموارد والعمال والمواد اللازمة للبناء.
-</p>
-
+<div class="fact">
+<span class="fact-icon">↔️</span>
+<strong>الطول</strong>
+<p>ستون ذراعًا.</p>
 </div>
 
-<div class="timeline-item">
-
-<h3>
-البناء
-</h3>
-
-<p>
-بناء البيت وأقسامه وفق التصميم والمقاييس المذكورة في النص.
-</p>
-
+<div class="fact">
+<span class="fact-icon">↕️</span>
+<strong>العرض</strong>
+<p>عشرون ذراعًا.</p>
 </div>
 
-<div class="timeline-item">
-
-<h3>
-التجهيز
-</h3>
-
-<p>
-إعداد الأدوات والزخارف والأثاث المقدس وخدمة الكهنة واللاويين.
-</p>
-
+<div class="fact">
+<span class="fact-icon">⬆️</span>
+<strong>الارتفاع</strong>
+<p>ثلاثون ذراعًا بحسب وصف 1 ملوك 6.</p>
 </div>
 
-<div class="timeline-item">
-
-<h3>
-التدشين
-</h3>
-
+<div class="fact">
+<span class="fact-icon">🏛️</span>
+<strong>التقسيم الداخلي</strong>
 <p>
-إحضار تابوت العهد وتقديم الذبائح وصلاة سليمان
-وحلول مجد الرب.
+الرواق، والهيكل الرئيسي، والدبير أو قدس الأقداس،
+مع الغرف والملحقات المحيطة بالبناء.
 </p>
-
 </div>
 
 </div>
 
-<div class="reference">
+<div class="scripture">
 
-<strong>الشواهد:</strong>
+«وكان البيت الذي بناه الملك سليمان للرب ستون ذراعًا طولًا،
+وعشرون ذراعًا عرضًا، وثلاثون ذراعًا ارتفاعًا.»
 
-1 ملوك 5:1-18؛ 6:1-38؛ 7:1-51؛
-2 أخبار الأيام 2:1-18؛ 3:1-17؛ 4:1-22.
+<span class="reference">
+1 ملوك 6:2
+</span>
 
 </div>
 
 </section>
 
 
-<section class="section" id="location">
+<section class="section">
 
-<h2>
-4. موقع الهيكل في أورشليم
-</h2>
+<h2>✨ سادسًا: المواد المستخدمة</h2>
 
 <p>
-يربط سفر أخبار الأيام موضع بناء الهيكل بأرض الموريا،
-كما يربط الموضع بقصة بيدر أرونة اليبوسي الذي اشتراه داود.
+استخدم في بناء الهيكل الحجر المهيأ وخشب الأرز وخشب السرو
+وخشب الزيتون، كما غطيت أجزاء عديدة من البناء والأثاث
+بالذهب.
 </p>
 
+<div class="fact-grid">
+
+<div class="fact">
+<span class="fact-icon">🪨</span>
+<strong>الحجارة</strong>
 <p>
-وهذا الارتباط مهم لأن موقع الهيكل لم يكن مجرد اختيار معماري،
-بل ارتبط بذاكرة تاريخية ولاهوتية امتدت من قصة إبراهيم
-إلى داود ثم إلى سليمان.
+حجارة مهيأة للبناء، وكان إعدادها يتم خارج موقع البناء.
 </p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-2 أخبار الأيام 3:1؛
-1 أخبار الأيام 21:18-30؛
-2 صموئيل 24:18-25.
-
 </div>
 
-</section>
-
-
-<section class="section" id="structure">
-
-<h2>
-5. البنية المعمارية العامة
-</h2>
-
+<div class="fact">
+<span class="fact-icon">🌲</span>
+<strong>خشب الأرز</strong>
 <p>
-تصف الأسفار التاريخية هيكلًا ذا تنظيم داخلي وخارجي دقيق.
-والدراسة التفصيلية للعناصر المعمارية ستتناول لاحقًا كل عنصر
-بصورة مستقلة، لكن الصورة العامة تشمل:
+استخدم في الجدران والعناصر الداخلية والزخرفة.
 </p>
-
-<div class="cards">
-
-<div class="card">
-
-<div class="card-icon">
-🚪
 </div>
 
-<h3>
-الرواق
-</h3>
-
+<div class="fact">
+<span class="fact-icon">🌿</span>
+<strong>خشب الزيتون</strong>
 <p>
-الواجهة والمدخل الأمامي للبيت.
+استخدم في أبواب الدبير وبعض العناصر المقدسة.
 </p>
-
 </div>
 
-
-<div class="card">
-
-<div class="card-icon">
-🕯️
-</div>
-
-<h3>
-القدس
-</h3>
-
+<div class="fact">
+<span class="fact-icon">🥇</span>
+<strong>الذهب</strong>
 <p>
-القسم الداخلي المخصص للخدمة المقدسة.
+استخدم في تغطية أجزاء من الهيكل والأثاث والزخارف.
 </p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">
-🕊️
-</div>
-
-<h3>
-قدس الأقداس
-</h3>
-
-<p>
-أقدس أقسام البيت، وفيه تابوت العهد والكاروبيم.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">
-🔥
-</div>
-
-<h3>
-مذبح المحرقة
-</h3>
-
-<p>
-المذبح الرئيسي للذبائح.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">
-💧
-</div>
-
-<h3>
-بحر النحاس
-</h3>
-
-<p>
-وعاء كبير مرتبط بخدمة الكهنة.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">
-🏠
-</div>
-
-<h3>
-الغرف والمخازن
-</h3>
-
-<p>
-مساحات مرتبطة بالخدمة وتنظيم الأدوات والعاملين.
-</p>
-
-</div>
-
-</div>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-1 ملوك 6–7؛
-2 أخبار الأيام 3–4.
-
-</div>
-
-</section>
-
-
-<section class="section" id="holy">
-
-<h2>
-6. القدس وقدس الأقداس
-</h2>
-
-<h3>
-القدس
-</h3>
-
-<p>
-كان القدس القسم الداخلي الذي تتم فيه أعمال الخدمة اليومية،
-ومن عناصره المنائر الذهبية وموائد خبز الوجوه ومذبح البخور.
-</p>
-
-<h3>
-قدس الأقداس
-</h3>
-
-<p>
-كان قدس الأقداس أقدس منطقة في البناء.
-ووضع فيه تابوت العهد، وأقيمت فيه صور الكاروبيم الضخمة.
-</p>
-
-<p>
-وتظهر صلاة سليمان بوضوح أن حضور الله لا يعني حصر الله
-في مبنى، إذ يقول إن السماوات وسماء السماوات لا تسعه.
-</p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-1 ملوك 6:16-28؛ 8:6-13؛ 8:27؛
-2 أخبار الأيام 5:7-14؛ 6:18.
-
-</div>
-
-</section>
-
-
-<section class="section" id="ark">
-
-<h2>
-7. تابوت العهد
-</h2>
-
-<p>
-كان تابوت العهد مركزًا أساسيًا في هوية العبادة الإسرائيلية،
-وارتبط باللوحين وبكرسي الرحمة وبالكاروبيم.
-</p>
-
-<p>
-وعند نقل التابوت إلى الهيكل في عهد سليمان،
-ارتبط رمز حضور الله بالبيت الثابت في أورشليم.
-لكن صلاة سليمان تمنع اختزال حضور الله في المكان:
-فالسماء وسماء السماوات لا تسعه.
-</p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-1 ملوك 8:1-21؛ 8:27؛
-2 أخبار الأيام 5:2-10؛ 6:18-21.
-
-</div>
-
-</section>
-
-
-<section class="section" id="symbols">
-
-<h2>
-8. الذهب والزخارف والكاروبيم
-</h2>
-
-<p>
-تتضمن أوصاف الهيكل الذهب والخشب المنقوش والنخيل والزهور
-والكاروبيم، وهي لغة بصرية غنية ينبغي دراستها في ضوء
-النص الكتابي وسياق الشرق الأدنى القديم.
-</p>
-
-<p>
-ينبغي التفريق بين ما يصرح به النص وبين المعاني الرمزية
-التي استنتجها المفسرون والتقاليد اللاحقة.
-</p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-1 ملوك 6:18-35؛ 7:29-36؛
-2 أخبار الأيام 3:5-14؛ 4:2-5.
-
-</div>
-
-</section>
-
-
-<section class="section" id="worship">
-
-<h2>
-9. العبادة والكهنوت واللاويون
-</h2>
-
-<p>
-كان الهيكل مركزًا لمنظومة منظمة من الكهنة واللاويين
-والذبائح والتسابيح والخدمة اليومية والأعياد.
-</p>
-
-<p>
-وقد أصبح تنظيم الخدمة أكثر وضوحًا في عهد داود وسليمان،
-مع توزيع الكهنة واللاويين على أعمال محددة.
-</p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-1 أخبار الأيام 23–26؛
-2 أخبار الأيام 8:14-15.
-
-</div>
-
-</section>
-
-
-<section class="section" id="dedication">
-
-<h2>
-10. تدشين الهيكل
-</h2>
-
-<p>
-بلغ مشروع بناء الهيكل ذروته في التدشين.
-فقد نُقل تابوت العهد إلى موضعه،
-وقُدمت الذبائح، وصلى سليمان أمام الشعب.
-</p>
-
-<p>
-وكان التدشين أكثر من افتتاح مبنى؛
-لقد كان إعلانًا عن مركز العبادة في أورشليم
-وعن علاقة الشعب بالله والعهد والطاعة.
-</p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-1 ملوك 8؛
-2 أخبار الأيام 5–7.
-
-</div>
-
-</section>
-
-
-<section class="section" id="glory">
-
-<h2>
-11. مجد الرب وحضور الله
-</h2>
-
-<p>
-عندما وضع الكهنة تابوت العهد في مكانه،
-امتلأ البيت بسحابة مجد الرب،
-حتى لم يستطيعوا الوقوف للخدمة.
-</p>
-
-<p>
-وهذا المشهد يربط الهيكل بمفهوم حضور الله،
-مع التأكيد اللاهوتي الذي أعلنه سليمان:
-أن الله لا يمكن حصره في مبنى.
-</p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-1 ملوك 8:10-13؛
-2 أخبار الأيام 5:13-14؛ 6:18.
-
-</div>
-
-</section>
-
-
-<section class="section" id="covenant">
-
-<h2>
-12. العهد والطاعة
-</h2>
-
-<p>
-لم يكن وجود الهيكل ضمانًا آليًا لاستمرار البركة.
-فالكتاب يربط استمرار البركة بالطاعة والعلاقة الصحيحة مع الله.
-</p>
-
-<p>
-ولهذا جاءت رسالة الأنبياء لاحقًا لتعلن أن العبادة الخارجية
-لا يمكن أن تعوض عن القلب الخاضع لله.
-</p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-1 ملوك 9:1-9؛
-إرميا 7:1-14؛
-ميخا 6:6-8.
-
-</div>
-
-</section>
-
-
-<section class="section" id="fall">
-
-<h2>
-13. سقوط الهيكل والسبي
-</h2>
-
-<p>
-لم يستمر الهيكل إلى الأبد.
-فقد سقطت أورشليم أمام البابليين،
-وأُحرق الهيكل ونُقلت أدواته إلى بابل.
-</p>
-
-<p>
-وكان سقوط الهيكل حدثًا لاهوتيًا وتاريخيًا بالغ الخطورة،
-لأنه كشف أن وجود المبنى وحده لا يضمن حماية الشعب من نتائج العصيان.
-</p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-2 ملوك 25:8-17؛
-2 أخبار الأيام 36:17-19؛
-إرميا 52:12-23.
-
-</div>
-
-</section>
-
-
-<section class="section" id="theology">
-
-<h2>
-14. الرسالة اللاهوتية للهيكل
-</h2>
-
-<p>
-يجمع الهيكل بين عدة محاور لاهوتية:
-القداسة، والحضور، والعبادة، والذبيحة،
-والعهد، والكهنوت، والصلاة.
-</p>
-
-<p>
-ومن الخطأ اختزال الهيكل في معناه المعماري.
-فالكتاب يستخدمه ضمن قصة أوسع عن علاقة الله بشعبه.
-</p>
-
-<div class="cards">
-
-<div class="card">
-
-<div class="card-icon">
-✨
-</div>
-
-<h3>
-الحضور
-</h3>
-
-<p>
-علامة على حضور الله وسط شعبه.
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="card-icon">
-🔥
-</div>
-
-<h3>
-القداسة
-</h3>
-
-<p>
-تمييز المقدس عن العادي والدعوة إلى حياة مقدسة.
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="card-icon">
-🙏
-</div>
-
-<h3>
-الصلاة
-</h3>
-
-<p>
-الهيكل مرتبط بصلاة الشعب وطلب الرحمة والغفران.
-</p>
-
 </div>
 
 </div>
@@ -1349,140 +470,47 @@ footer{
 </section>
 
 
-<section class="section" id="christ">
+<section class="section">
 
-<h2>
-15. المسيح والهيكل
-</h2>
+<h2>🕯️ سابعًا: التقسيم الداخلي</h2>
 
 <p>
-يأخذ موضوع الهيكل بُعدًا جديدًا في العهد الجديد،
-خصوصًا في تعليم المسيح عن جسده والهيكل.
+تميز الهيكل بتقسيم واضح للمكان المقدس. وكان هذا التقسيم
+يعكس درجات القداسة وطبيعة الخدمة التي تتم في كل موضع.
 </p>
 
+<div class="fact-grid">
+
+<div class="fact">
+<span class="fact-icon">🏛️</span>
+<strong>الرواق</strong>
 <p>
-وفي إنجيل يوحنا يرتبط حديث المسيح عن الهيكل
-بجسده، مما يفتح بابًا مهمًا لفهم انتقال التركيز
-من البناء المادي إلى شخص المسيح.
+المدخل الأمامي للهيكل.
 </p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-يوحنا 2:19-21؛
-متى 12:6.
-
 </div>
 
-</section>
-
-
-<section class="section" id="newtestament">
-
-<h2>
-16. الهيكل في العهد الجديد
-</h2>
-
+<div class="fact">
+<span class="fact-icon">🕯️</span>
+<strong>القدس</strong>
 <p>
-يظهر الهيكل في الأناجيل وسفر الأعمال والرسائل
-ضمن مرحلة انتقالية في تاريخ الخلاص.
+المجال الرئيسي للخدمة الكهنوتية والأثاث المقدس.
 </p>
-
-<p>
-وتبلغ الصورة ذروتها في الإعلان عن شعب الله
-كهيكل للروح القدس، وفي الرؤية الأخيرة التي تعلن:
-«لم أر فيها هيكلًا، لأن الرب الله القادر على كل شيء
-هو والخروف هيكلها».
-</p>
-
-<div class="reference">
-
-<strong>الشواهد:</strong>
-
-1 كورنثوس 3:16-17؛
-6:19؛
-أفسس 2:21-22؛
-رؤيا 21:22.
-
 </div>
 
-</section>
-
-
-<section class="section" id="tabernacle">
-
-<h2>
-17. الخيمة والهيكل
-</h2>
-
+<div class="fact">
+<span class="fact-icon">🕊️</span>
+<strong>قدس الأقداس</strong>
 <p>
-هيكل سليمان لم يلغِ قصة الخيمة،
-بل جاء في امتداد تاريخي ولاهوتي لها.
+أقدس موضع في البناء، حيث وضع تابوت عهد الرب.
 </p>
-
-<p>
-وتوجد استمرارية واضحة في بعض عناصر العبادة،
-مع انتقال مركز العبادة من خيمة متنقلة إلى بيت ثابت في أورشليم.
-</p>
-
-<div class="reference">
-
-<strong>للدراسة المقارنة:</strong>
-
-خروج 25–40؛
-1 ملوك 6–8؛
-عبرانيين 8–10.
-
 </div>
 
-</section>
-
-
-<section class="section" id="jewish">
-
-<h2>
-18. المصادر اليهودية
-</h2>
-
+<div class="fact">
+<span class="fact-icon">📦</span>
+<strong>تابوت العهد</strong>
 <p>
-تساعد المصادر اليهودية اللاحقة على دراسة تطور فهم الهيكل
-وتقاليده، لكن يجب التمييز بين النص الكتابي الأصلي
-وبين التقاليد التي ظهرت في عصور لاحقة.
+ارتبط بأقدس موضع وبعلامة العهد وحضور الرب وسط شعبه.
 </p>
-
-<div class="source-box">
-
-<h3>
-مصادر للدراسة
-</h3>
-
-<div class="source-list">
-
-<div class="source">
-
-<strong>
-الكتاب المقدس
-</strong>
-
-<br>
-
-المصدر الأساسي للدراسة.
-
-</div>
-
-<div class="source">
-
-<strong>
-التقاليد اليهودية
-</strong>
-
-<br>
-
-تُستخدم للمقارنة التاريخية والتفسيرية.
-
-</div>
-
 </div>
 
 </div>
@@ -1490,102 +518,165 @@ footer{
 </section>
 
 
-<section class="section" id="commentators">
+<section class="section">
 
-<h2>
-19. المراجع التفسيرية
-</h2>
+<h2>🔥 ثامنًا: تدشين الهيكل</h2>
 
 <p>
-يمكن توسيع الدراسة بالرجوع إلى التفاسير والدراسات
-التاريخية والأثرية المتخصصة في العهد القديم والهيكل.
+بعد اكتمال البناء، جاء الحدث الأهم: إدخال تابوت عهد الرب
+إلى قدس الأقداس، ثم امتلأ البيت بالسحاب، في مشهد ارتبط
+بمجد الرب وحضوره.
 </p>
 
-<div class="source-box">
+<div class="scripture">
 
-<h3>
-منهج استخدام المراجع
-</h3>
+«وكان لما خرج الكهنة من القدس أن السحاب ملأ بيت الرب،
+ولم يستطع الكهنة أن يقفوا للخدمة بسبب السحاب،
+لأن مجد الرب ملأ بيت الرب.»
 
-<p>
-يجب التمييز بين النص الكتابي، والتفسير،
-والاستنتاج التاريخي، والرأي اللاهوتي،
-حتى يستطيع الباحث معرفة درجة كل معلومة.
-</p>
+<span class="reference">
+1 ملوك 8:10–11
+</span>
 
 </div>
 
 </section>
 
 
-<section class="section" id="method">
+<section class="section">
 
-<h2>
-20. منهجية القراءة
-</h2>
-
-<div class="method">
+<h2>🙏 تاسعًا: صلاة سليمان والهيكل</h2>
 
 <p>
-
-<strong>
-نقرأ هيكل سليمان على أربعة مستويات:
-</strong>
-
+أظهر سليمان في صلاته أن الهيكل ليس مكانًا يستطيع أن يحصر
+الله فيه، فالسماوات نفسها لا تسعه. لكنه كان موضعًا مميزًا
+للصلاة وطلب الرحمة وغفران الخطايا.
 </p>
 
-<ul>
+<div class="scripture">
 
-<li>
-المستوى التاريخي: متى وكيف وأين بُني؟
-</li>
+«هوذا السماوات وسماء السماوات لا تسعك، فكم بالأقل هذا البيت
+الذي بنيت!»
 
-<li>
-المستوى المعماري: كيف كان تصميمه وأقسامه وأدواته؟
-</li>
-
-<li>
-المستوى اللاهوتي: ماذا أعلن عن القداسة والحضور والعبادة؟
-</li>
-
-<li>
-المستوى الكتابي الخلاصي: كيف يرتبط بالخيمة والمسيح والهيكل في العهد الجديد؟
-</li>
-
-</ul>
+<span class="reference">
+1 ملوك 8:27
+</span>
 
 </div>
 
 </section>
 
 
-<div class="back">
+<section class="section">
 
-<a href="study-solomon-temple.html">
+<h2>⚠️ عاشرًا: الهيكل لم يكن ضمانًا للبركة</h2>
 
-🏛️ العودة إلى هيكل سليمان
+<p>
+وجود الهيكل في أورشليم لم يكن تصريحًا للشعب بالاستمرار في
+الخطية. فقد أكد الأنبياء أن وجود المكان المقدس لا يغني عن
+الطاعة والعهد والعدل.
+</p>
 
-</a>
+<p>
+وهذا الجانب مهم جدًا لفهم سقوط أورشليم والهيكل لاحقًا؛
+فالمبنى المقدس لا يحل محل العلاقة الصحيحة مع الله.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>🔥 الحادي عشر: سقوط الهيكل</h2>
+
+<p>
+استمر هيكل سليمان حتى سقوط أورشليم في يد البابليين، حيث
+دُمر الهيكل وأُحرقت أدواته ونُقلت ممتلكاته إلى بابل.
+</p>
+
+<div class="scripture">
+
+«وأحرقوا بيت الله وهدموا سور أورشليم وأحرقوا جميع قصورها
+بالنار وأهلكوا جميع آنيتها الثمينة.»
+
+<span class="reference">
+2 أخبار الأيام 36:19
+</span>
 
 </div>
+
+</section>
+
+
+<section class="section highlight">
+
+<h2>✝️ الثاني عشر: الهيكل في ضوء المسيح</h2>
+
+<p>
+يأخذ مفهوم الهيكل في العهد الجديد بُعدًا أعمق. فالهيكل كان
+مكانًا يرتبط بحضور الله، لكن المسيح أعلن عن جسده باعتباره
+الهيكل، وبذلك ينتقل مركز الإعلان عن حضور الله إلى شخص المسيح.
+</p>
+
+<div class="scripture">
+
+«انقضوا هذا الهيكل وفي ثلاثة أيام أقيمه.»
+
+<span class="reference">
+يوحنا 2:19–21
+</span>
+
+</div>
+
+<p>
+ثم يعلن العهد الجديد أن المؤمنين أنفسهم صاروا هيكلًا للروح
+القدس، وهو تطور لاهوتي مهم في فهم حضور الله.
+</p>
+
+<div class="scripture">
+
+«أما تعلمون أنكم هيكل الله، وروح الله يسكن فيكم؟»
+
+<span class="reference">
+1 كورنثوس 3:16
+</span>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>📚 الخلاصة</h2>
+
+<p>
+هيكل سليمان يجمع بين التاريخ والعبادة والعمارة واللاهوت.
+بدأ كمشروع مرتبط بوعد الله لداود، وبناه سليمان في أورشليم،
+وأصبح مركز العبادة في إسرائيل، ثم دُشن وسط إعلان مجد الرب،
+وأخيرًا تعرض للدمار بسبب سقوط أورشليم.
+</p>
+
+<p>
+وفي القراءة المسيحية للكتاب، لا يتوقف معنى الهيكل عند البناء
+المادي، بل يتجه الإعلان نحو المسيح باعتباره تحقيقًا لحضور
+الله، ثم نحو شعب الله كهيكل للروح القدس.
+</p>
+
+</section>
 
 </main>
 
 
 <footer>
 
+<div class="footer-title">
 موسوعة الكتاب المقدس
-
-<br>
-
-هيكل سليمان — دراسة تأسيسية
-
-<br>
+</div>
 
 كنيسة رجاء الأمم سيدني
 
 </footer>
 
 </body>
-
 </html>
