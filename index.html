@@ -2,285 +2,971 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>موسوعة الكتاب المقدس | كنيسة رجاء الأمم سيدني</title>
+
+<style>
+:root{
+    --blue-950:#03101d;
+    --blue-900:#061a2c;
+    --blue-800:#082943;
+    --blue-700:#0d385d;
+    --blue-600:#14527e;
+
+    --gold:#d4af37;
+    --gold-light:#f4dc79;
+    --gold-dark:#806018;
+
+    --white:#f8fbff;
+    --muted:#b7c7d6;
+
+    --border:rgba(212,175,55,.34);
+    --shadow:0 22px 55px rgba(0,0,0,.52);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+
+    color:var(--white);
+
+    font-family:
+        "Noto Naskh Arabic",
+        "Amiri",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 5%,
+            rgba(20,82,126,.75),
+            transparent 42%
+        ),
+        radial-gradient(
+            circle at 15% 80%,
+            rgba(13,56,93,.35),
+            transparent 38%
+        ),
+        linear-gradient(
+            145deg,
+            var(--blue-950),
+            var(--blue-900) 48%,
+            #020911
+        );
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.top-frame{
+    position:relative;
+    z-index:100;
+
+    width:100%;
+
+    border-bottom:
+        1px solid
+        rgba(212,175,55,.30);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(8,41,67,.98),
+            rgba(3,16,29,.98)
+        );
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.55),
+        inset 0 -1px 0 rgba(255,255,255,.04);
+}
+
+.topbar{
+    max-width:1450px;
+    min-height:100px;
+
+    margin:auto;
+    padding:10px 25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
+}
+
+/* =====================================================
+   BRAND — RIGHT
+===================================================== */
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+.brand-logo{
+    width:78px;
+    height:78px;
 
-    <meta
-        name="theme-color"
-        content="#061a2d"
-    >
+    object-fit:contain;
+
+    filter:
+        drop-shadow(0 7px 8px rgba(0,0,0,.85));
+
+    animation:
+        logoFloat 5s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+
+    0%,100%{
+        transform:
+            translateY(0)
+            rotateY(0deg);
+    }
+
+    50%{
+        transform:
+            translateY(-4px)
+            rotateY(8deg);
+    }
+}
 
-    <title>موسوعة الكتاب المقدس | Hope Of Nation Church NSW</title>
+.brand-name{
+    font-size:24px;
+    font-weight:900;
+    white-space:nowrap;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff6bf 0%,
+            var(--gold-light) 30%,
+            var(--gold) 65%,
+            var(--gold-dark) 100%
+        );
 
-    <style>
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
 
-        *{
-            box-sizing:border-box;
-        }
+    text-shadow:
+        0 3px 5px rgba(0,0,0,.9);
+}
 
-        html,
-        body{
-            margin:0;
-            padding:0;
-            min-height:100%;
-        }
+/* =====================================================
+   LANGUAGE — LEFT
+===================================================== */
 
-        body{
-            font-family:
-                "Segoe UI",
-                Tahoma,
-                Arial,
-                sans-serif;
+.language-box{
+    display:flex;
+    align-items:center;
+    gap:7px;
 
-            background:
-                radial-gradient(
-                    circle at 50% 0%,
-                    #174d7c 0%,
-                    #0b2742 32%,
-                    #061a2d 70%,
-                    #030d18 100%
-                );
+    padding:7px;
 
-            color:#ffffff;
+    border:
+        1px solid
+        rgba(212,175,55,.65);
 
-            min-height:100vh;
+    border-radius:15px;
 
-            display:flex;
-            align-items:center;
-            justify-content:center;
+    background:
+        linear-gradient(
+            145deg,
+            #16476d,
+            #061a2d
+        );
 
-            padding:20px;
-        }
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12),
+        0 8px 22px rgba(0,0,0,.48);
+}
 
-        .page{
-            width:100%;
-            max-width:650px;
+.language-button{
+    min-width:48px;
 
-            text-align:center;
+    border:0;
+    border-radius:9px;
 
-            padding:45px 25px;
+    padding:9px 12px;
 
-            border:
-                1px solid
-                rgba(212,175,55,.30);
+    color:#fff;
+    background:transparent;
 
-            border-radius:28px;
+    font-weight:900;
+    font-size:14px;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(10,38,63,.96),
-                    rgba(5,24,41,.98)
-                );
+    cursor:pointer;
 
-            box-shadow:
-                0 25px 70px rgba(0,0,0,.45);
-        }
+    transition:.25s;
+}
 
-        .logo{
-            width:90px;
-            height:90px;
+.language-button.active,
+.language-button:hover{
+    color:#071526;
 
-            object-fit:contain;
+    background:
+        linear-gradient(
+            180deg,
+            #fff1a2,
+            var(--gold),
+            var(--gold-dark)
+        );
 
-            margin-bottom:15px;
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.35);
+}
 
-            filter:
-                drop-shadow(
-                    0 0 18px
-                    rgba(212,175,55,.35)
-                );
-        }
+/* =====================================================
+   MAIN
+===================================================== */
 
-        .church{
-            color:#f4d76b;
+main{
+    max-width:1250px;
 
-            font-size:18px;
+    margin:auto;
 
-            font-weight:700;
+    padding:
+        70px 25px 85px;
+}
 
-            margin-bottom:8px;
-        }
+/* =====================================================
+   WELCOME
+===================================================== */
 
-        h1{
-            margin:0 0 12px;
+.welcome{
+    max-width:900px;
 
-            color:#f4d76b;
+    margin:
+        0 auto 58px;
 
-            font-size:
-                clamp(28px,6vw,42px);
-        }
+    text-align:center;
+}
 
-        .subtitle{
-            margin:0 auto 30px;
+.welcome-logo{
+    width:92px;
+    height:92px;
 
-            max-width:500px;
+    object-fit:contain;
 
-            color:#dce6ef;
+    margin-bottom:18px;
 
-            font-size:16px;
+    filter:
+        drop-shadow(0 8px 10px rgba(0,0,0,.75));
+}
 
-            line-height:1.9;
-        }
+.welcome h1{
+    margin:
+        0 0 22px;
 
-        .enter{
-            display:inline-flex;
+    font-size:
+        clamp(30px,5vw,48px);
 
-            align-items:center;
-            justify-content:center;
+    font-weight:900;
 
-            gap:10px;
+    background:
+        linear-gradient(
+            180deg,
+            #fff5b4,
+            var(--gold-light) 35%,
+            var(--gold) 67%,
+            var(--gold-dark)
+        );
 
-            min-width:220px;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
 
-            padding:14px 25px;
+    text-shadow:
+        0 4px 6px rgba(0,0,0,.8);
+}
 
-            border:
-                1px solid
-                rgba(212,175,55,.55);
+.welcome-message{
+    margin:0;
 
-            border-radius:14px;
+    color:#d8e2eb;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #174d7c,
-                    #071d31
-                );
+    font-size:
+        clamp(18px,2.2vw,23px);
 
-            color:#ffffff;
+    line-height:2.15;
 
-            text-decoration:none;
+    text-shadow:
+        0 2px 3px rgba(0,0,0,.65);
+}
 
-            font-size:17px;
+/* =====================================================
+   MAIN THREE SECTIONS
+===================================================== */
 
-            font-weight:700;
+.main-grid{
 
-            box-shadow:
-                0 10px 28px
-                rgba(0,0,0,.30);
+    display:grid;
 
-            transition:
-                transform .25s ease,
-                border-color .25s ease,
-                box-shadow .25s ease;
-        }
+    grid-template-columns:
+        repeat(3,1fr);
 
-        .enter:hover{
-            transform:translateY(-3px);
+    gap:28px;
 
-            border-color:#f4d76b;
+    max-width:1050px;
 
-            box-shadow:
-                0 14px 35px
-                rgba(212,175,55,.18);
-        }
+    margin:auto;
+}
 
-        .info{
-            margin-top:25px;
+/* =====================================================
+   MAIN CARD
+===================================================== */
 
-            color:#aebdca;
+.main-card{
 
-            font-size:13px;
+    position:relative;
 
-            line-height:1.8;
-        }
+    min-height:245px;
 
-        footer{
-            margin-top:30px;
+    display:flex;
 
-            padding-top:20px;
+    flex-direction:column;
 
-            border-top:
-                1px solid
-                rgba(212,175,55,.18);
+    align-items:center;
 
-            color:#aebdca;
+    justify-content:center;
 
-            font-size:12px;
-        }
+    padding:30px 20px;
 
-        @media(max-width:600px){
+    color:#fff;
 
-            body{
-                padding:15px;
-            }
+    text-decoration:none;
 
-            .page{
-                padding:35px 18px;
-            }
+    text-align:center;
 
-            .logo{
-                width:75px;
-                height:75px;
-            }
+    border:
+        1px solid
+        rgba(212,175,55,.38);
 
-            .church{
-                font-size:15px;
-            }
+    border-radius:24px;
 
-            .subtitle{
-                font-size:15px;
-            }
+    overflow:hidden;
 
-            .enter{
-                width:100%;
-                max-width:300px;
-            }
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16,62,98,.98),
+            rgba(4,23,39,.99)
+        );
 
-        }
+    box-shadow:
+        var(--shadow),
+        inset 0 1px 0 rgba(255,255,255,.06);
 
-    </style>
+    transition:
+        transform .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
 
+.main-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:240%;
+    height:240%;
+
+    top:-120%;
+    right:-120%;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 43%,
+            rgba(243,214,107,.14) 50%,
+            transparent 57%
+        );
+
+    transform:
+        rotate(8deg)
+        translateX(0);
+
+    transition:
+        transform .9s ease;
+}
+
+.main-card:hover{
+
+    transform:
+        translateY(-10px)
+        scale(1.015);
+
+    border-color:
+        rgba(243,214,107,.9);
+
+    box-shadow:
+        0 28px 60px rgba(0,0,0,.68),
+        0 0 30px rgba(212,175,55,.14);
+}
+
+.main-card:hover::before{
+
+    transform:
+        rotate(8deg)
+        translateX(-35%);
+}
+
+.main-icon{
+
+    position:relative;
+    z-index:2;
+
+    width:92px;
+    height:92px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:20px;
+
+    font-size:48px;
+
+    border-radius:25px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.7);
+
+    background:
+        linear-gradient(
+            145deg,
+            #1b5b89,
+            #071b2e
+        );
+
+    box-shadow:
+        inset 0 2px 3px rgba(255,255,255,.13),
+        0 10px 24px rgba(0,0,0,.55);
+}
+
+.main-card h2{
+
+    position:relative;
+    z-index:2;
+
+    margin:0 0 9px;
+
+    font-size:25px;
+    font-weight:900;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff4ad,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.main-card p{
+
+    position:relative;
+    z-index:2;
+
+    margin:0;
+
+    color:
+        #b9c9d8;
+
+    font-size:15px;
+    line-height:1.8;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        25px 20px 35px;
+
+    text-align:center;
+
+    color:#8195a8;
+
+    border-top:
+        1px solid
+        rgba(212,175,55,.16);
+}
+
+/* =====================================================
+   ENGLISH
+===================================================== */
+
+body.english{
+    direction:ltr;
+}
+
+body.english .brand{
+    flex-direction:row;
+}
+
+body.english .welcome{
+    direction:ltr;
+}
+
+body.english .main-card{
+    direction:ltr;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:850px){
+
+    .topbar{
+        min-height:85px;
+        padding:8px 14px;
+    }
+
+    .brand-logo{
+        width:62px;
+        height:62px;
+    }
+
+    .brand-name{
+        font-size:17px;
+    }
+
+    .language-button{
+        min-width:42px;
+        padding:8px 9px;
+    }
+
+    main{
+        padding:
+            45px 15px 60px;
+    }
+
+    .main-grid{
+        grid-template-columns:1fr;
+        max-width:500px;
+    }
+
+    .main-card{
+        min-height:205px;
+    }
+}
+
+@media(max-width:500px){
+
+    .topbar{
+        gap:8px;
+    }
+
+    .brand{
+        gap:7px;
+    }
+
+    .brand-name{
+        font-size:14px;
+    }
+
+    .brand-logo{
+        width:52px;
+        height:52px;
+    }
+
+    .language-box{
+        padding:4px;
+    }
+
+    .language-button{
+        min-width:38px;
+        padding:7px 8px;
+        font-size:12px;
+    }
+
+    .welcome h1{
+        font-size:29px;
+    }
+
+    .welcome-message{
+        font-size:17px;
+        line-height:2;
+    }
+}
+</style>
 </head>
+
 
 <body>
 
-    <main class="page">
+<header class="top-frame">
+
+    <div class="topbar">
+
+        <!-- أعلى يسار: اختيار اللغة -->
+
+        <div class="language-box">
+
+            <button
+                class="language-button active"
+                id="arabicButton"
+                onclick="setLanguage('ar')"
+            >
+                عربي
+            </button>
+
+            <button
+                class="language-button"
+                id="englishButton"
+                onclick="setLanguage('en')"
+            >
+                EN
+            </button>
+
+        </div>
+
+
+        <!-- أعلى يمين: الكنيسة واللوجو -->
+
+        <div class="brand">
+
+            <div class="brand-name">
+                <span id="churchName">
+                    كنيسة رجاء الأمم سيدني
+                </span>
+            </div>
+
+            <img
+                src="assets/logo.png"
+                class="brand-logo"
+                alt="كنيسة رجاء الأمم سيدني"
+            >
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <!-- رسالة الترحيب -->
+
+    <section class="welcome">
 
         <img
             src="assets/logo.png"
-            class="logo"
-            alt="Hope Of Nation Church NSW"
+            class="welcome-logo"
+            alt="موسوعة الكتاب المقدس"
         >
 
-        <div class="church">
-            Hope Of Nation Church NSW
-        </div>
-
-        <h1>
+        <h1 id="welcomeTitle">
             موسوعة الكتاب المقدس
         </h1>
 
-        <p class="subtitle">
-            موسوعة كتابية للدراسة والبحث،
-            تجمع الكتاب المقدس والدراسات المتخصصة
-            والموضوعات الكتابية في مكان واحد.
+        <p
+            class="welcome-message"
+            id="welcomeMessage"
+        >
+            أهلاً بكم في موسوعة الكتاب المقدس، حيث نضع بين أيديكم كنزاً غنياً من المعرفة والدراسة الكتابية، يساعدكم على اكتشاف أعماق كلمة الله والنمو في الإيمان والمعرفة.
         </p>
+
+    </section>
+
+
+    <!-- الأقسام الثلاثة فقط -->
+
+    <section class="main-grid">
+
+        <!-- الكتاب المقدس -->
+
+        <a
+            href="bible.html"
+            class="main-card"
+        >
+
+            <div class="main-icon">
+                📖
+            </div>
+
+            <h2 id="bibleTitle">
+                الكتاب المقدس
+            </h2>
+
+            <p id="bibleDescription">
+                قراءة الكتاب المقدس ودراسة أسفاره وأصحاحاته وآياته
+            </p>
+
+        </a>
+
+
+        <!-- الدراسات الكتابية -->
 
         <a
             href="studies.html"
-            class="enter"
+            class="main-card"
         >
-            📚 الدخول إلى الدراسات
+
+            <div class="main-icon">
+                📚
+            </div>
+
+            <h2 id="studiesTitle">
+                الدراسات الكتابية
+            </h2>
+
+            <p id="studiesDescription">
+                دراسات كتابية ولاهوتية وتاريخية وموسوعة متخصصة
+            </p>
+
         </a>
 
-        <div class="info">
-            دراسة • بحث • معرفة • كلمة الله
-        </div>
 
-        <footer>
-            موسوعة الكتاب المقدس
-            <br>
-            © Hope Of Nation Church NSW
-        </footer>
+        <!-- الكنيسة -->
 
-    </main>
+        <a
+            href="church.html"
+            class="main-card"
+        >
+
+            <div class="main-icon">
+                ⛪
+            </div>
+
+            <h2 id="churchTitle">
+                الكنيسة
+            </h2>
+
+            <p id="churchDescription">
+                كنيسة رجاء الأمم سيدني
+            </p>
+
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <span id="footerText">
+        كنيسة رجاء الأمم سيدني — موسوعة الكتاب المقدس
+    </span>
+
+</footer>
+
+
+<script>
+
+const translations = {
+
+    ar: {
+
+        dir:"rtl",
+
+        churchName:
+            "كنيسة رجاء الأمم سيدني",
+
+        welcomeTitle:
+            "موسوعة الكتاب المقدس",
+
+        welcomeMessage:
+            "أهلاً بكم في موسوعة الكتاب المقدس، حيث نضع بين أيديكم كنزاً غنياً من المعرفة والدراسة الكتابية، يساعدكم على اكتشاف أعماق كلمة الله والنمو في الإيمان والمعرفة.",
+
+        bibleTitle:
+            "الكتاب المقدس",
+
+        bibleDescription:
+            "قراءة الكتاب المقدس ودراسة أسفاره وأصحاحاته وآياته",
+
+        studiesTitle:
+            "الدراسات الكتابية",
+
+        studiesDescription:
+            "دراسات كتابية ولاهوتية وتاريخية وموسوعة متخصصة",
+
+        churchTitle:
+            "الكنيسة",
+
+        churchDescription:
+            "كنيسة رجاء الأمم سيدني",
+
+        footerText:
+            "كنيسة رجاء الأمم سيدني — موسوعة الكتاب المقدس"
+    },
+
+    en: {
+
+        dir:"ltr",
+
+        churchName:
+            "Hope Of Nation Church NSW",
+
+        welcomeTitle:
+            "Bible Encyclopedia",
+
+        welcomeMessage:
+            "Welcome to the Bible Encyclopedia, where we place in your hands a rich treasure of biblical knowledge and study, helping you discover the depths of God's Word and grow in faith and knowledge.",
+
+        bibleTitle:
+            "Holy Bible",
+
+        bibleDescription:
+            "Read and study the books, chapters, and verses of the Bible",
+
+        studiesTitle:
+            "Bible Studies",
+
+        studiesDescription:
+            "Biblical, theological, historical studies and a specialized encyclopedia",
+
+        churchTitle:
+            "Church",
+
+        churchDescription:
+            "Hope Of Nation Church NSW",
+
+        footerText:
+            "Hope Of Nation Church NSW — Bible Encyclopedia"
+    }
+
+};
+
+
+function setLanguage(language){
+
+    const t =
+        translations[language];
+
+    document.documentElement.lang =
+        language;
+
+    document.documentElement.dir =
+        t.dir;
+
+    document.body.classList.toggle(
+        "english",
+        language === "en"
+    );
+
+
+    document.getElementById(
+        "churchName"
+    ).textContent =
+        t.churchName;
+
+
+    document.getElementById(
+        "welcomeTitle"
+    ).textContent =
+        t.welcomeTitle;
+
+
+    document.getElementById(
+        "welcomeMessage"
+    ).textContent =
+        t.welcomeMessage;
+
+
+    document.getElementById(
+        "bibleTitle"
+    ).textContent =
+        t.bibleTitle;
+
+
+    document.getElementById(
+        "bibleDescription"
+    ).textContent =
+        t.bibleDescription;
+
+
+    document.getElementById(
+        "studiesTitle"
+    ).textContent =
+        t.studiesTitle;
+
+
+    document.getElementById(
+        "studiesDescription"
+    ).textContent =
+        t.studiesDescription;
+
+
+    document.getElementById(
+        "churchTitle"
+    ).textContent =
+        t.churchTitle;
+
+
+    document.getElementById(
+        "churchDescription"
+    ).textContent =
+        t.churchDescription;
+
+
+    document.getElementById(
+        "footerText"
+    ).textContent =
+        t.footerText;
+
+
+    document.getElementById(
+        "arabicButton"
+    ).classList.toggle(
+        "active",
+        language === "ar"
+    );
+
+
+    document.getElementById(
+        "englishButton"
+    ).classList.toggle(
+        "active",
+        language === "en"
+    );
+
+
+    localStorage.setItem(
+        "bibleAppLanguage",
+        language
+    );
+}
+
+
+const savedLanguage =
+    localStorage.getItem(
+        "bibleAppLanguage"
+    ) || "ar";
+
+
+setLanguage(savedLanguage);
+
+</script>
 
 </body>
-
 </html>
