@@ -1,14 +1,21 @@
+# دراسة أبواب الهيكل ومداخله — هيكل هيرودس
+
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>هيكل هيرودس | موسوعة الكتاب المقدس</title>
+  <title>أبواب الهيكل ومداخله | هيكل هيرودس | موسوعة الكتاب المقدس</title>
 
   <style>
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -17,6 +24,7 @@
       background: linear-gradient(180deg, #061b3a 0%, #0b2d5c 100%);
       color: #ffffff;
       min-height: 100vh;
+      line-height: 1.9;
     }
 
     header {
@@ -77,108 +85,180 @@
     main {
       max-width: 1100px;
       margin: auto;
-      padding: 25px 16px 60px;
+      padding: 28px 16px 70px;
     }
 
     .page-title {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
     .page-title .icon {
-      font-size: 48px;
-      margin-bottom: 5px;
+      font-size: 52px;
+      margin-bottom: 6px;
     }
 
     h1 {
       margin: 0;
       color: #d4af37;
-      font-size: 30px;
+      font-size: 31px;
     }
 
-    .intro {
-      text-align: center;
+    .subtitle {
+      margin: 8px auto 0;
       color: #dbe8f7;
-      max-width: 800px;
-      margin: 10px auto 0;
-      line-height: 1.9;
+      max-width: 850px;
+      font-size: 16px;
     }
 
-    .studies-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 18px;
-      margin-top: 30px;
-    }
-
-    .study-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      min-height: 95px;
-      padding: 18px;
-      text-decoration: none;
-      color: #ffffff;
-
-      background: rgba(255, 255, 255, 0.055);
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      border-radius: 15px;
-
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        border-color 0.2s ease;
-    }
-
-    .study-card:hover {
-      transform: translateY(-3px);
-      background: rgba(212, 175, 55, 0.10);
-      border-color: #d4af37;
-    }
-
-    .study-card:active {
-      transform: scale(0.98);
-    }
-
-    .study-icon {
-      width: 55px;
-      min-width: 55px;
-      height: 55px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
+    .notice {
+      margin: 25px auto;
+      padding: 18px 20px;
+      max-width: 950px;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      border-right: 5px solid #d4af37;
       border-radius: 12px;
-      background: rgba(3, 18, 40, 0.75);
-      border: 1px solid rgba(212, 175, 55, 0.35);
-
-      font-size: 29px;
+      color: #f3f7fc;
     }
 
-    .study-name {
-      font-size: 17px;
-      font-weight: bold;
-      line-height: 1.6;
+    .toc {
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(212,175,55,0.30);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 28px;
     }
 
-    .section-label {
-      margin-top: 40px;
-      margin-bottom: 12px;
-      padding-right: 10px;
-
+    .toc h2 {
+      margin-top: 0;
       color: #d4af37;
-      font-size: 19px;
-      font-weight: bold;
+      font-size: 21px;
+    }
 
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 9px;
+    }
+
+    .toc a {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 9px 12px;
+      background: rgba(3,18,40,0.55);
+      border-radius: 8px;
+      border: 1px solid rgba(212,175,55,0.18);
+    }
+
+    .toc a:hover {
+      border-color: #d4af37;
+      color: #d4af37;
+    }
+
+    .section {
+      margin-top: 28px;
+      padding: 24px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(212,175,55,0.25);
+      border-radius: 16px;
+    }
+
+    .section h2 {
+      color: #d4af37;
+      margin-top: 0;
+      font-size: 24px;
       border-right: 4px solid #d4af37;
+      padding-right: 12px;
+    }
+
+    .section h3 {
+      color: #e8c85c;
+      font-size: 19px;
+      margin-top: 25px;
+    }
+
+    .section p {
+      margin: 10px 0;
+    }
+
+    .verse {
+      margin: 17px 0;
+      padding: 15px 18px;
+      background: rgba(3,18,40,0.70);
+      border-right: 4px solid #d4af37;
+      border-radius: 10px;
+      color: #f5f7fa;
+    }
+
+    .reference {
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .data-table th,
+    .data-table td {
+      border: 1px solid rgba(212,175,55,0.28);
+      padding: 12px;
+      vertical-align: top;
+      text-align: right;
+    }
+
+    .data-table th {
+      background: rgba(212,175,55,0.13);
+      color: #d4af37;
+    }
+
+    .data-table td {
+      background: rgba(3,18,40,0.35);
+    }
+
+    .source {
+      margin: 12px 0;
+      padding: 13px 16px;
+      background: rgba(3,18,40,0.55);
+      border-radius: 9px;
+      border-right: 3px solid rgba(212,175,55,0.65);
+    }
+
+    .source strong {
+      color: #d4af37;
+    }
+
+    .important {
+      padding: 17px;
+      margin: 18px 0;
+      background: rgba(7,87,168,0.22);
+      border: 1px solid rgba(90,170,255,0.25);
+      border-radius: 10px;
+    }
+
+    .warning {
+      padding: 17px;
+      margin: 18px 0;
+      background: rgba(120,70,20,0.20);
+      border: 1px solid rgba(212,175,55,0.30);
+      border-radius: 10px;
+    }
+
+    .conclusion {
+      border: 2px solid rgba(212,175,55,0.45);
+      background: rgba(212,175,55,0.08);
     }
 
     footer {
       text-align: center;
-      padding: 25px 15px;
+      padding: 28px 15px;
       color: #b9c8da;
-      border-top: 1px solid rgba(212, 175, 55, 0.25);
+      border-top: 1px solid rgba(212,175,55,0.25);
       font-size: 13px;
     }
 
@@ -210,12 +290,16 @@
         font-size: 25px;
       }
 
-      .studies-grid {
-        grid-template-columns: 1fr;
+      .section {
+        padding: 17px;
       }
 
-      .study-name {
-        font-size: 16px;
+      .section h2 {
+        font-size: 21px;
+      }
+
+      .data-table {
+        font-size: 13px;
       }
     }
   </style>
@@ -248,9 +332,9 @@
 
   <a
     class="back-btn"
-    href="studies.html"
+    href="study-herod-temple.html"
   >
-    ↩ الدراسات
+    ↩ هيكل هيرودس
   </a>
 
 </header>
@@ -260,362 +344,1017 @@
 
   <div class="page-title">
 
-    <div class="icon">
-      🏗️
-    </div>
+    <div class="icon">🚪</div>
 
     <h1>
-      هيكل هيرودس
+      أبواب الهيكل ومداخله
     </h1>
 
-    <p class="intro">
-      دراسة تاريخية ومعمارية وكتابية متكاملة لهيكل هيرودس،
-      وموقعه، وبنائه، ووظيفته، وعلاقته بأحداث العهد الجديد.
+    <p class="subtitle">
+      دراسة تاريخية وكتابية وأثرية متعمقة لأبواب مجمع هيكل هيرودس،
+      ووظائفها، ومواقعها، ومسارات الدخول والخروج، وشهادات يوسيفوس
+      والمشناة والمصادر اليهودية، مع مقارنة النصوص الكتابية بالمصادر
+      التاريخية والأثرية والتفاسير.
     </p>
 
   </div>
 
 
-  <!-- =========================================
-       الدراسات الأساسية
-  ========================================== -->
+  <div class="notice">
 
-  <div class="section-label">
-    الدراسات الأساسية
-  </div>
-
-  <div class="studies-grid">
-
-
-    <!-- هيرودس الكبير -->
-
-    <a
-      class="study-card"
-      href="herod_the_great.html"
-    >
-
-      <div class="study-icon">
-        👑
-      </div>
-
-      <div class="study-name">
-        هيرودس الكبير
-      </div>
-
-    </a>
-
-
-    <!-- تاريخ بناء الهيكل -->
-
-    <a
-      class="study-card"
-      href="study-herod-temple-history.html"
-    >
-
-      <div class="study-icon">
-        📜
-      </div>
-
-      <div class="study-name">
-        تاريخ بناء الهيكل
-      </div>
-
-    </a>
-
-
-    <!-- موقع جبل الهيكل -->
-
-    <a
-      class="study-card"
-      href="study-herod-temple-mount-location.html"
-    >
-
-      <div class="study-icon">
-        📍
-      </div>
-
-      <div class="study-name">
-        موقع جبل الهيكل
-      </div>
-
-    </a>
-
-
-    <!-- الهيكل — مخطط وأبعاد -->
-
-    <a
-      class="study-card"
-      href="study-herod-temple-herod-project.html"
-    >
-
-      <div class="study-icon">
-        🏛️
-      </div>
-
-      <div class="study-name">
-        الهيكل — مخطط وأبعاد
-      </div>
-
-    </a>
+    <strong>منهج الدراسة:</strong>
+    هذه الدراسة تميز بين ما يذكره النص الكتابي صراحة،
+    وما تسجله المصادر اليهودية والتاريخية،
+    وما يستنتجه الباحثون من الشواهد الأثرية والمعمارية.
+    ولا تُعامل إعادة البناء الحديثة للهيكل باعتبارها نصًا تاريخيًا مستقلًا.
 
   </div>
 
 
-  <!-- =========================================
-       الدراسات المتخصصة
-  ========================================== -->
+  <div class="toc">
 
-  <div class="section-label">
-    الدراسات المتخصصة
+    <h2>محتويات الدراسة</h2>
+
+    <div class="toc-grid">
+
+      <a href="#introduction">1. مقدمة ومنهج الدراسة</a>
+
+      <a href="#terminology">2. مصطلحات الأبواب والمداخل</a>
+
+      <a href="#temple-mount">3. الأبواب وعلاقة الهيكل بجبل الهيكل</a>
+
+      <a href="#southern">4. المداخل الجنوبية</a>
+
+      <a href="#hulda">5. أبواب خلدة</a>
+
+      <a href="#western">6. المداخل الغربية</a>
+
+      <a href="#eastern">7. المداخل الشرقية</a>
+
+      <a href="#northern">8. المداخل الشمالية</a>
+
+      <a href="#golden">9. الباب الشرقي والباب الجميل</a>
+
+      <a href="#inner">10. أبواب الحرم الداخلي</a>
+
+      <a href="#women">11. باب النساء ووظيفته</a>
+
+      <a href="#nica">12. باب نيكانور</a>
+
+      <a href="#beautiful">13. الباب الجميل في أعمال الرسل</a>
+
+      <a href="#access">14. حركة الدخول والخروج</a>
+
+      <a href="#security">15. التنظيم والحراسة</a>
+
+      <a href="#josephus">16. شهادة يوسيفوس</a>
+
+      <a href="#mishnah">17. شهادة المشناة</a>
+
+      <a href="#archaeology">18. الشواهد الأثرية</a>
+
+      <a href="#newtestament">19. الأبواب في العهد الجديد</a>
+
+      <a href="#theology">20. القراءة اللاهوتية</a>
+
+      <a href="#commentaries">21. التفاسير والمراجع</a>
+
+      <a href="#sources">22. قائمة المصادر</a>
+
+    </div>
+
   </div>
 
-  <div class="studies-grid">
 
+  <section class="section" id="introduction">
 
-    <!-- ساحات الهيكل والأسوار -->
+    <h2>1. مقدمة ومنهج الدراسة</h2>
 
-    <a
-      class="study-card"
-      href="study-herod-temple-courts-walls.html"
-    >
+    <p>
+      لم تكن أبواب هيكل هيرودس مجرد فتحات في الجدار،
+      بل كانت جزءًا من نظام معماري وديني وأمني معقد ينظم
+      الانتقال من المجال العام إلى المجال المقدس بدرجات متتابعة.
+    </p>
 
-      <div class="study-icon">
-        🧱
-      </div>
+    <p>
+      ويجب التفريق بين ثلاثة مستويات عند دراسة أبواب الهيكل:
+      النصوص الكتابية، والمصادر اليهودية القديمة، والشواهد
+      التاريخية والأثرية.
+    </p>
 
-      <div class="study-name">
-        ساحات الهيكل والأسوار
-      </div>
+    <div class="important">
 
-    </a>
+      <strong>قاعدة منهجية مهمة:</strong>
 
+      <p>
+        الكتاب المقدس لا يقدم مخططًا هندسيًا كاملًا لهيكل هيرودس،
+        ولذلك لا يجوز استخراج جميع تفاصيل البناء منه وحده.
+        أما تفاصيل الأبواب وأسماء بعضها ووظائفها فتظهر بصورة أكبر
+        في يوسيفوس والمشناة، ثم تساعد المكتشفات الأثرية في تحديد
+        مواقع بعض المداخل ومقارنتها بالنصوص.
+      </p>
 
-    <!-- أبواب الهيكل ومداخله -->
+    </div>
 
-    <a
-      class="study-card"
-      href="study-herod-temple.html"
-    >
+  </section>
 
-      <div class="study-icon">
-        🚪
-      </div>
 
-      <div class="study-name">
-        أبواب الهيكل ومداخله
-      </div>
+  <section class="section" id="terminology">
 
-    </a>
+    <h2>2. مصطلحات الأبواب والمداخل</h2>
 
+    <p>
+      تستخدم المصادر ألفاظًا متعددة للحديث عن الأبواب والمداخل.
+      ومن المهم ألا نخلط بين الباب بوصفه فتحة معمارية،
+      والبوابة بوصفها منشأة ضخمة، والمدخل بوصفه نقطة عبور.
+    </p>
 
-    <!-- الحرم الداخلي -->
+    <table class="data-table">
 
-    <a
-      class="study-card"
-      href="study-herod-temple.html"
-    >
+      <tr>
+        <th>المصطلح</th>
+        <th>المعنى العام</th>
+        <th>الأهمية</th>
+      </tr>
 
-      <div class="study-icon">
-        🕎
-      </div>
+      <tr>
+        <td>שער — Sha'ar</td>
+        <td>باب أو بوابة</td>
+        <td>مصطلح أساسي في الأدب العبري والمشناة.</td>
+      </tr>
 
-      <div class="study-name">
-        الحرم الداخلي والقدس وقدس الأقداس
-      </div>
+      <tr>
+        <td>אולם — Ulam</td>
+        <td>رواق أو مدخل معماري أمام البناء</td>
+        <td>يرتبط في وصف الهيكل بمنطقة المدخل.</td>
+      </tr>
 
-    </a>
+      <tr>
+        <td>חיל — Chel</td>
+        <td>منطقة أو حاجز قبل المجال الداخلي</td>
+        <td>يمثل انتقالًا إضافيًا نحو المجال الأكثر قداسة.</td>
+      </tr>
 
+      <tr>
+        <td>עזרה — Azarah</td>
+        <td>الساحة الداخلية/منطقة الحرم</td>
+        <td>كان الوصول إليها منظمًا وفق الجنس والطهارة والوظيفة.</td>
+      </tr>
 
-    <!-- المذبح والذبائح -->
+    </table>
 
-    <a
-      class="study-card"
-      href="study-herod-temple.html"
-    >
+    <div class="source">
+      <strong>مرجع:</strong>
+      Mishnah Middot؛ Mishnah Kelim 1:8-9؛
+      Josephus, Jewish War, Book V.
+    </div>
 
-      <div class="study-icon">
-        🔥
-      </div>
+  </section>
 
-      <div class="study-name">
-        المذبح والذبائح في عصر هيرودس
-      </div>
 
-    </a>
+  <section class="section" id="temple-mount">
 
+    <h2>3. الأبواب وعلاقة الهيكل بجبل الهيكل</h2>
 
-    <!-- الكهنوت -->
+    <p>
+      مشروع هيرودس لم يكن مجرد إعادة بناء للمقدس نفسه،
+      بل كان مشروعًا هائلًا لتوسيع وتسوية جبل الهيكل وإنشاء
+      مجمع معماري واسع تحيط به الأسوار والأروقة.
+    </p>
 
-    <a
-      class="study-card"
-      href="study-herod-temple.html"
-    >
+    <p>
+      لذلك يجب أن نميز بين أبواب تؤدي من المدينة والمناطق المحيطة
+      إلى منصة جبل الهيكل، وبين الأبواب التي تنقل الداخل من ساحات
+      المجمع إلى مناطق أكثر قداسة.
+    </p>
 
-      <div class="study-icon">
-        👨‍⚖️
-      </div>
+    <div class="verse">
+      <strong>الشاهد الكتابي:</strong><br>
+      يوحنا 2:20 — «في ست وأربعين سنة بُني هذا الهيكل...»
+    </div>
 
-      <div class="study-name">
-        الكهنوت ورؤساء الكهنة
-      </div>
+    <p>
+      الرقم المذكور في إنجيل يوحنا يتعلق بزمن مشروع البناء كما
+      فهمه اليهود في الحوار، ولا ينبغي استخدامه وحده لإثبات أن
+      كل عناصر المجمع اكتملت في تلك الفترة.
+    </p>
 
-    </a>
+    <div class="source">
+      <strong>المصادر:</strong>
+      John 2:20؛ Josephus, Antiquities 15.11؛
+      Josephus, Jewish War 5.5.
+    </div>
 
+  </section>
 
-    <!-- الشعب والأمم -->
 
-    <a
-      class="study-card"
-      href="study-herod-temple.html"
-    >
+  <section class="section" id="southern">
 
-      <div class="study-icon">
-        🧑‍🤝‍🧑
-      </div>
+    <h2>4. المداخل الجنوبية</h2>
 
-      <div class="study-name">
-        الشعب والأمم في الهيكل
-      </div>
+    <p>
+      كانت الجهة الجنوبية من جبل الهيكل ذات أهمية كبيرة،
+      خصوصًا بسبب الأروقة والمنشآت التي سمحت بتدفق أعداد كبيرة
+      من الحجاج إلى المجمع.
+    </p>
 
-    </a>
+    <p>
+      وتُعد المنطقة الجنوبية اليوم من أهم المناطق التي يمكن من
+      خلالها دراسة بقايا مداخل هيرودية محفوظة أو مواضعها الأثرية.
+    </p>
 
+    <h3>الأهمية المعمارية</h3>
 
-    <!-- خزينة الهيكل -->
+    <p>
+      لم تكن المداخل مجرد أبواب منفردة، بل كانت مرتبطة بممرات
+      وأروقة ودرجات تسمح بتنظيم الحركة.
+      ولهذا فإن دراسة الباب يجب أن تشمل:
+    </p>
 
-    <a
-      class="study-card"
-      href="study-herod-temple.html"
-    >
+    <ul>
+      <li>موقعه بالنسبة إلى السور.</li>
+      <li>عدد الفتحات.</li>
+      <li>اتجاه الحركة.</li>
+      <li>الدرجات المؤدية إليه.</li>
+      <li>الممرات الداخلية.</li>
+      <li>علاقته بساحات الهيكل.</li>
+    </ul>
 
-      <div class="study-icon">
-        💰
-      </div>
+    <div class="source">
+      <strong>مرجع:</strong>
+      Josephus, Jewish War 5.5؛
+      Mishnah Middot 1-2؛
+      الدراسات الأثرية للجهة الجنوبية من جبل الهيكل.
+    </div>
 
-      <div class="study-name">
-        خزينة الهيكل والاقتصاد المرتبط به
-      </div>
+  </section>
 
-    </a>
 
+  <section class="section" id="hulda">
 
-    <!-- المسيح وهيكل هيرودس -->
+    <h2>5. أبواب خلدة</h2>
 
-    <a
-      class="study-card"
-      href="study-herod-temple-overview.html"
-    >
+    <p>
+      من أشهر المداخل المرتبطة بالجهة الجنوبية أبواب خلدة
+      (Huldah Gates)، وهي تسمية ارتبطت في المصادر اليهودية
+      بالمنطقة الجنوبية من جبل الهيكل.
+    </p>
 
-      <div class="study-icon">
-        ✝️
-      </div>
+    <p>
+      تكمن أهميتها في أن الحركة من الخارج إلى داخل المجمع
+      لم تكن انتقالًا مباشرًا إلى الحرم الداخلي، بل كانت تتم
+      من خلال منظومة من الممرات والدرجات والأروقة.
+    </p>
 
-      <div class="study-name">
-        المسيح وهيكل هيرودس
-      </div>
+    <div class="important">
 
-    </a>
+      <strong>ملاحظة تاريخية:</strong>
 
+      <p>
+        البقايا الموجودة اليوم لا تعني أن كل باب ظاهر حاليًا
+        احتفظ بشكله الهيرودي الكامل. ما نراه هو نتيجة طبقات
+        تاريخية متراكمة وإعادة استخدام للموقع عبر القرون.
+      </p>
 
-    <!-- أحداث المسيح -->
+    </div>
 
-    <a
-      class="study-card"
-      href="study-herod-temple-overview.html"
-    >
+    <div class="source">
+      <strong>المراجع:</strong>
+      Mishnah Middot 1:3؛
+      Josephus, Jewish War 5.5؛
+      الدراسات الأثرية للـ Southern Wall.
+    </div>
 
-      <div class="study-icon">
-        📖
-      </div>
+  </section>
 
-      <div class="study-name">
-        أحداث المسيح في الهيكل
-      </div>
 
-    </a>
+  <section class="section" id="western">
 
+    <h2>6. المداخل الغربية</h2>
 
-    <!-- العبادة في العهد الجديد -->
+    <p>
+      كان الجانب الغربي من جبل الهيكل قريبًا من منطقة المدينة
+      القديمة، ولذلك ارتبط بعدد من مسارات الوصول إلى المجمع.
+    </p>
 
-    <a
-      class="study-card"
-      href="study-herod-temple-overview.html"
-    >
+    <p>
+      ومن أشهر العناصر التي تساعد الباحث الحديث على فهم هذا
+      النظام: الجسور والممرات والدرجات التي كانت تربط مستوى
+      المدينة بمنصة الهيكل.
+    </p>
 
-      <div class="study-icon">
-        🕊️
-      </div>
+    <h3>الوظيفة الأساسية</h3>
 
-      <div class="study-name">
-        الهيكل والعبادة في العهد الجديد
-      </div>
+    <p>
+      لم تكن الوظيفة الأساسية لكل مدخل واحدة. فبعض المداخل
+      كانت تخدم حركة عامة، وبعضها يؤدي إلى أجزاء معينة من
+      المجمع، وبعضها كان مرتبطًا بمناطق داخلية أو بخدمات محددة.
+    </p>
 
-    </a>
+    <div class="source">
+      <strong>مرجع:</strong>
+      Josephus, Jewish War 5.5؛
+      Mishnah Middot 2:1-3.
+    </div>
 
+  </section>
 
-    <!-- هدم الهيكل -->
 
-    <a
-      class="study-card"
-      href="study-herod-temple-history.html"
-    >
+  <section class="section" id="eastern">
 
-      <div class="study-icon">
-        💥
-      </div>
+    <h2>7. المداخل الشرقية</h2>
 
-      <div class="study-name">
-        هدم الهيكل سنة 70م
-      </div>
+    <p>
+      للجهة الشرقية أهمية خاصة في تقليد الهيكل اليهودي،
+      سواء من الناحية المعمارية أو الرمزية.
+    </p>
 
-    </a>
+    <p>
+      ويرتبط الجانب الشرقي في النصوص الكتابية بمشهد الخروج
+      من الهيكل وعودة المجد، كما تظهر للباب الشرقي أهمية
+      خاصة في سفر حزقيال.
+    </p>
 
+    <div class="verse">
+      <strong>حزقيال 43:1-4:</strong>
+      يرتبط دخول مجد إله إسرائيل بالجهة الشرقية في رؤية حزقيال.
+    </div>
 
-    <!-- المصادر -->
+    <p>
+      لكن ينبغي عدم إسقاط وصف رؤية حزقيال مباشرة على كل تفصيل
+      معماري في هيكل هيرودس دون تمييز بين الرؤية النبوية
+      والتاريخ المعماري للمجمع الثاني.
+    </p>
 
-    <a
-      class="study-card"
-      href="study-herod-temple-history.html"
-    >
+    <div class="source">
+      <strong>المراجع:</strong>
+      Ezekiel 43:1-4؛
+      Ezekiel 46:1-3؛
+      Mishnah Middot؛
+      Josephus, Jewish War.
+    </div>
 
-      <div class="study-icon">
-        🏺
-      </div>
+  </section>
 
-      <div class="study-name">
-        المصادر التاريخية والأثرية
-      </div>
 
-    </a>
+  <section class="section" id="northern">
 
+    <h2>8. المداخل الشمالية</h2>
 
-    <!-- المعنى اللاهوتي -->
+    <p>
+      كانت الجهة الشمالية أقل بروزًا في بعض الروايات الشعبية
+      الحديثة، لكنها جزء من النظام المحيط بمنصة الهيكل.
+    </p>
 
-    <a
-      class="study-card"
-      href="study-herod-temple-overview.html"
-    >
+    <p>
+      وتساعد المقارنة بين يوسيفوس والمشناة والنتائج الأثرية
+      على فهم أن جبل الهيكل لم يكن مبنى ذا واجهة واحدة،
+      بل مجمعًا ذا حدود ومداخل متعددة.
+    </p>
 
-      <div class="study-icon">
-        ✨
-      </div>
+    <div class="warning">
+      <strong>تنبيه:</strong>
+      يجب الحذر من الرسومات الحديثة التي تعطي أحيانًا انطباعًا
+      بأن كل الأبواب كانت متطابقة في الحجم والوظيفة.
+      المصادر القديمة لا تبرر هذا التبسيط.
+    </div>
 
-      <div class="study-name">
-        المعنى اللاهوتي لهيكل هيرودس
-      </div>
+  </section>
 
-    </a>
 
-  </div>
+  <section class="section" id="golden">
+
+    <h2>9. الباب الشرقي والباب الجميل</h2>
+
+    <p>
+      يظهر في سفر أعمال الرسل باب معروف باسم «الباب الجميل»
+      في سياق شفاء الرجل الأعرج.
+    </p>
+
+    <div class="verse">
+      <strong>أعمال 3:2:</strong><br>
+      «وكان رجل أعرج من بطن أمه يُحمل، كانوا يضعونه كل يوم عند
+      باب الهيكل الذي يقال له الجميل...»
+    </div>
+
+    <p>
+      ويجب عدم مساواة «الباب الجميل» بصورة آلية مع كل استخدام
+      حديث لعبارة «الباب الذهبي» أو «الباب الشرقي».
+    </p>
+
+    <p>
+      فالمصطلح في النص اليوناني هو
+      <strong>ὡραία</strong>
+      بمعنى «الجميل/الحسن»، بينما تحديد موقعه الدقيق
+      ما زال موضع دراسة بين الباحثين.
+    </p>
+
+    <div class="source">
+      <strong>مرجع أساسي:</strong>
+      Acts 3:2, 3:10.
+    </div>
+
+  </section>
+
+
+  <section class="section" id="inner">
+
+    <h2>10. أبواب الحرم الداخلي</h2>
+
+    <p>
+      كلما اقترب الإنسان من مركز العبادة أصبحت الحركة أكثر
+      تنظيمًا، وازدادت القيود المرتبطة بالطهارة والوظيفة.
+    </p>
+
+    <p>
+      وتصف المشناة سلسلة من المناطق والأبواب التي تفصل
+      بين المجالات المختلفة داخل مجمع الهيكل.
+    </p>
+
+    <table class="data-table">
+
+      <tr>
+        <th>المجال</th>
+        <th>طبيعة الوصول</th>
+        <th>المبدأ المنظم</th>
+      </tr>
+
+      <tr>
+        <td>جبل الهيكل</td>
+        <td>وصول أوسع</td>
+        <td>نظام عام للعبور والحراسة</td>
+      </tr>
+
+      <tr>
+        <td>الحيل</td>
+        <td>منطقة انتقال</td>
+        <td>زيادة درجة القداسة</td>
+      </tr>
+
+      <tr>
+        <td>ساحة النساء</td>
+        <td>وصول منظم</td>
+        <td>تنظيم العبادة والحركة</td>
+      </tr>
+
+      <tr>
+        <td>ساحات إسرائيل والكهنة</td>
+        <td>وصول أكثر تقييدًا</td>
+        <td>الجنس والطهارة والوظيفة الكهنوتية</td>
+      </tr>
+
+    </table>
+
+    <div class="source">
+      <strong>مرجع:</strong>
+      Mishnah Middot 2؛
+      Mishnah Kelim 1:8-9.
+    </div>
+
+  </section>
+
+
+  <section class="section" id="women">
+
+    <h2>11. باب النساء ووظيفته</h2>
+
+    <p>
+      تسمية «ساحة النساء» لا تعني بالضرورة أنها كانت مساحة
+      لا يدخلها الرجال، بل ترتبط بتقسيم الحركة داخل المجمع
+      وبالحدود التي رسمها النظام الديني للعبادة.
+    </p>
+
+    <p>
+      وتظهر هذه المنطقة في وصف المشناة ضمن تسلسل الحركة
+      داخل الهيكل، ولذلك ينبغي فهمها ضمن بنية متدرجة من
+      القداسة والوصول.
+    </p>
+
+    <div class="source">
+      <strong>مرجع:</strong>
+      Mishnah Middot 2؛
+      Mishnah Shekalim 6.
+    </div>
+
+  </section>
+
+
+  <section class="section" id="nica">
+
+    <h2>12. باب نيكانور</h2>
+
+    <p>
+      من أهم الأبواب الداخلية في تقليد الهيكل باب نيكانور،
+      وهو يرتبط بالانتقال بين ساحة النساء والساحات الداخلية.
+    </p>
+
+    <p>
+      وتذكر المصادر اليهودية تفاصيل خاصة تتعلق بهذا الباب،
+      ومنها ارتباطه بمستوى أعلى من التنظيم المعماري والطقسي.
+    </p>
+
+    <div class="important">
+
+      <strong>أهمية باب نيكانور:</strong>
+
+      <p>
+        دراسة الباب تكشف أن أبواب الهيكل لم تكن مجرد عناصر
+        جمالية، بل كانت علامات تحدد مراحل الانتقال داخل
+        المجال المقدس.
+      </p>
+
+    </div>
+
+    <div class="source">
+      <strong>المراجع:</strong>
+      Mishnah Middot 2:3-6؛
+      Mishnah Yoma؛
+      Mishnah Shekalim.
+    </div>
+
+  </section>
+
+
+  <section class="section" id="beautiful">
+
+    <h2>13. الباب الجميل في أعمال الرسل</h2>
+
+    <p>
+      يقدم أعمال الرسل صورة مهمة للحياة اليومية حول أبواب
+      الهيكل؛ فالمتسول كان يُحمل إلى موضع عبور معروف
+      ليستفيد من حركة المصلين.
+    </p>
+
+    <div class="verse">
+      <strong>أعمال 3:10:</strong><br>
+      كان الناس يعرفون الرجل لأنه كان يجلس عند باب الهيكل.
+    </div>
+
+    <p>
+      وهذا يوضح أن أبواب الهيكل كانت نقاطًا ذات كثافة بشرية
+      عالية، وأنها كانت جزءًا من الحياة الاجتماعية والاقتصادية
+      وليس فقط من الطقس الديني.
+    </p>
+
+    <div class="source">
+      <strong>المراجع:</strong>
+      Acts 3:1-10؛ Acts 5:12؛
+      Josephus, Jewish War.
+    </div>
+
+  </section>
+
+
+  <section class="section" id="access">
+
+    <h2>14. حركة الدخول والخروج</h2>
+
+    <p>
+      يمكن تصور الحركة داخل مجمع الهيكل بوصفها انتقالًا
+      متدرجًا من المجال العام إلى المجال المقدس.
+    </p>
+
+    <table class="data-table">
+
+      <tr>
+        <th>المرحلة</th>
+        <th>الانتقال</th>
+        <th>المعنى الوظيفي</th>
+      </tr>
+
+      <tr>
+        <td>1</td>
+        <td>المدينة → جبل الهيكل</td>
+        <td>الوصول إلى المجمع</td>
+      </tr>
+
+      <tr>
+        <td>2</td>
+        <td>جبل الهيكل → المناطق الداخلية</td>
+        <td>تنظيم الحركة والقداسة</td>
+      </tr>
+
+      <tr>
+        <td>3</td>
+        <td>ساحة النساء → المناطق الداخلية</td>
+        <td>انتقال أكثر تقييدًا</td>
+      </tr>
+
+      <tr>
+        <td>4</td>
+        <td>ساحات إسرائيل والكهنة</td>
+        <td>الوظائف الطقسية</td>
+      </tr>
+
+      <tr>
+        <td>5</td>
+        <td>المقدس → قدس الأقداس</td>
+        <td>أعلى درجات القداسة</td>
+      </tr>
+
+    </table>
+
+    <p>
+      هذه البنية تجعل الباب عنصرًا لاهوتيًا وطقسيًا بالإضافة
+      إلى وظيفته الهندسية.
+    </p>
+
+  </section>
+
+
+  <section class="section" id="security">
+
+    <h2>15. التنظيم والحراسة</h2>
+
+    <p>
+      كانت ضخامة المجمع وكثافة الحجاج تقتضي وجود نظام حراسة
+      وتنظيم لحركة الدخول.
+    </p>
+
+    <p>
+      وتقدم المشناة مادة مهمة حول حراسة الهيكل وتقسيم
+      الحراس والأماكن التي كانوا يقيمون فيها.
+    </p>
+
+    <div class="source">
+      <strong>المراجع:</strong>
+      Mishnah Middot 1:1؛
+      Mishnah Tamid 1:1-2.
+    </div>
+
+  </section>
+
+
+  <section class="section" id="josephus">
+
+    <h2>16. شهادة يوسيفوس</h2>
+
+    <p>
+      يوسيفوس فلافيوس هو من أهم المصادر التاريخية لدراسة
+      مجمع الهيكل في القرن الأول الميلادي.
+    </p>
+
+    <p>
+      في «الحرب اليهودية» يقدم وصفًا للمجمع، وأبعاده العامة،
+      والأروقة والأسوار والواجهات والمداخل.
+    </p>
+
+    <div class="source">
+
+      <strong>المصدر الأساسي:</strong>
+
+      Josephus,
+      <em>The Jewish War</em>,
+      Book V, especially chapters 4–5.
+
+    </div>
+
+    <p>
+      كما يقدم في «الآثار اليهودية» خلفية تاريخية عن مشروع
+      هيرودس وأعمال البناء في أورشليم.
+    </p>
+
+    <div class="source">
+
+      <strong>المصدر:</strong>
+
+      Josephus,
+      <em>Antiquities of the Jews</em>,
+      Book XV, chapter 11.
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="mishnah">
+
+    <h2>17. شهادة المشناة</h2>
+
+    <p>
+      تُعد رسالة <strong>Middot</strong> من أهم المصادر اليهودية
+      لدراسة شكل الهيكل وأبوابه وساحاته، لأنها تقدم وصفًا
+      تنظيميًا للمناطق والأبواب والمسافات.
+    </p>
+
+    <p>
+      كما ينبغي الاستفادة من Mishnah Tamid وShekalim وKelim
+      لفهم جوانب الحراسة والعبادة والطهارة والخدمات المالية
+      المرتبطة بالمجمع.
+    </p>
+
+    <div class="source">
+      <strong>المراجع اليهودية الأساسية:</strong>
+      Mishnah Middot 1–5؛
+      Mishnah Tamid 1–7؛
+      Mishnah Shekalim؛
+      Mishnah Kelim 1:8-9؛
+      Mishnah Yoma.
+    </div>
+
+  </section>
+
+
+  <section class="section" id="archaeology">
+
+    <h2>18. الشواهد الأثرية</h2>
+
+    <p>
+      كشفت الحفريات والدراسات الأثرية في المنطقة الجنوبية
+      والغربية من جبل الهيكل عن عناصر معمارية مهمة تساعد
+      في اختبار النصوص القديمة.
+    </p>
+
+    <p>
+      من أهم أنواع الأدلة:
+    </p>
+
+    <ul>
+      <li>الدرجات الحجرية.</li>
+      <li>بقايا المداخل.</li>
+      <li>الأحجار الضخمة من الأسوار.</li>
+      <li>النقوش الحجرية.</li>
+      <li>عناصر زخرفية معمارية.</li>
+      <li>الممرات والأروقة.</li>
+      <li>الأنفاق والممرات أسفل منطقة الهيكل.</li>
+    </ul>
+
+    <div class="warning">
+
+      <strong>قاعدة علمية:</strong>
+
+      <p>
+        الدليل الأثري يثبت وجود عنصر معماري أو يحدد موقعه
+        بدرجات متفاوتة من الاحتمال، لكنه لا يثبت تلقائيًا
+        كل تفسير ديني أو تاريخي أُعطي لهذا العنصر.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="newtestament">
+
+    <h2>19. الأبواب في العهد الجديد</h2>
+
+    <p>
+      يمثل الهيكل في العهد الجديد مركزًا للحياة الدينية
+      والاجتماعية في أورشليم، وتظهر الأبواب في عدد من المشاهد.
+    </p>
+
+    <table class="data-table">
+
+      <tr>
+        <th>النص</th>
+        <th>المشهد</th>
+        <th>الأهمية</th>
+      </tr>
+
+      <tr>
+        <td>يوحنا 2:13-22</td>
+        <td>تطهير الهيكل</td>
+        <td>الهيكل كمركز للعبادة والسلطة الدينية.</td>
+      </tr>
+
+      <tr>
+        <td>أعمال 3:1-10</td>
+        <td>شفاء الأعرج</td>
+        <td>الباب كنقطة تجمع وحركة.</td>
+      </tr>
+
+      <tr>
+        <td>أعمال 5:12</td>
+        <td>اجتماع المؤمنين في الهيكل</td>
+        <td>استمرار حضور التلاميذ في المجال العام للهيكل.</td>
+      </tr>
+
+      <tr>
+        <td>أعمال 21:26-30</td>
+        <td>بولس في الهيكل</td>
+        <td>وجود حركة منظمة وقيود مرتبطة بالمناطق الداخلية.</td>
+      </tr>
+
+    </table>
+
+  </section>
+
+
+  <section class="section" id="theology">
+
+    <h2>20. القراءة اللاهوتية لأبواب الهيكل</h2>
+
+    <p>
+      لا ينبغي أن نحول كل باب تاريخي إلى رمز نبوي لم يذكره
+      النص الكتابي صراحة. لكن يمكن دراسة مفهوم «الدخول»
+      في الكتاب المقدس ضمن الإطار اللاهوتي العام.
+    </p>
+
+    <h3>الدخول إلى حضرة الله</h3>
+
+    <p>
+      كان نظام الهيكل يعلن عمليًا أن الاقتراب من المقدس
+      ليس أمرًا عشوائيًا، بل تحكمه القداسة والطهارة والوساطة.
+    </p>
+
+    <div class="verse">
+      مزمور 24:3-4 يتحدث عن سؤال:
+      «من يصعد إلى جبل الرب؟ ومن يقوم في موضع قدسه؟»
+    </div>
+
+    <h3>المسيح والاقتراب من الله</h3>
+
+    <p>
+      في العهد الجديد ينتقل التركيز اللاهوتي من نظام المكان
+      وحده إلى شخص المسيح وعمله الخلاصي.
+    </p>
+
+    <div class="verse">
+      يوحنا 10:9:
+      «أنا هو الباب. إن دخل بي أحد فيخلص...»
+    </div>
+
+    <p>
+      هذا النص لا يعني أن المسيح هو «باب هيكل هيرودس» بالمعنى
+      التاريخي، وإنما يقدم صورة لاهوتية مستقلة عن الدخول
+      إلى الخلاص والحياة.
+    </p>
+
+    <h3>الاقتراب بثقة</h3>
+
+    <div class="verse">
+      عبرانيين 10:19-22 يربط عمل المسيح بإمكانية الدخول
+      إلى المقدسات بثقة.
+    </div>
+
+    <p>
+      لذلك يمكن أن تظهر قيمة دراسة أبواب الهيكل في أنها
+      تساعد على فهم الخلفية التي جاء فيها إعلان العهد الجديد
+      عن الاقتراب من الله.
+    </p>
+
+  </section>
+
+
+  <section class="section" id="commentaries">
+
+    <h2>21. التفاسير والمراجع التفسيرية</h2>
+
+    <p>
+      لفهم نصوص العهد الجديد المرتبطة بالهيكل وأبوابه،
+      ينبغي الجمع بين التفسير الكتابي والخلفية اليهودية
+      والتاريخ الروماني والآثار.
+    </p>
+
+    <div class="source">
+      <strong>1. William Barclay — The Daily Study Bible</strong><br>
+      مفيد للخلفية الاجتماعية والتاريخية لنصوص الأناجيل وأعمال الرسل.
+    </div>
+
+    <div class="source">
+      <strong>2. Craig S. Keener — The IVP Bible Background Commentary: New Testament</strong><br>
+      مهم لفهم الخلفية اليهودية والاجتماعية والتاريخية لنصوص العهد الجديد.
+    </div>
+
+    <div class="source">
+      <strong>3. R. T. France — The Gospel of Matthew</strong><br>
+      مفيد بصورة خاصة في دراسة نصوص الهيكل في إنجيل متى.
+    </div>
+
+    <div class="source">
+      <strong>4. D. A. Carson — The Gospel According to John</strong><br>
+      مهم لفهم يوحنا 2 وسياق الهيكل في إنجيل يوحنا.
+    </div>
+
+    <div class="source">
+      <strong>5. F. F. Bruce — The Book of the Acts</strong><br>
+      مفيد في دراسة أعمال الرسل، بما في ذلك أعمال 3 والهيكل.
+    </div>
+
+    <div class="source">
+      <strong>6. Ben Witherington III — The Acts of the Apostles</strong><br>
+      يقدم خلفية اجتماعية وتاريخية تساعد في قراءة أحداث الهيكل في أعمال الرسل.
+    </div>
+
+    <div class="important">
+
+      <strong>تنبيه منهجي:</strong>
+
+      <p>
+        التفاسير ليست مصدرًا مستقلًا لإثبات التفاصيل المعمارية.
+        لذلك تُستخدم هنا لتفسير النصوص الكتابية،
+        بينما تُرجع التفاصيل التاريخية والمعمارية إلى
+        يوسيفوس والمصادر اليهودية والدراسات الأثرية.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="section" id="sources">
+
+    <h2>22. قائمة المصادر والمراجع</h2>
+
+    <div class="source">
+      <strong>الكتاب المقدس:</strong><br>
+      حزقيال 43؛ حزقيال 46؛ مزمور 24؛
+      متى 21؛ مرقس 11؛ لوقا 19؛ يوحنا 2؛ يوحنا 10؛
+      أعمال 3؛ أعمال 5؛ أعمال 21؛ عبرانيين 9–10.
+    </div>
+
+    <div class="source">
+      <strong>Josephus:</strong><br>
+      Josephus, <em>The Jewish War</em>, Book V,
+      especially sections describing Jerusalem and the Temple.
+    </div>
+
+    <div class="source">
+      <strong>Josephus:</strong><br>
+      Josephus, <em>Antiquities of the Jews</em>,
+      Book XV, especially chapter 11.
+    </div>
+
+    <div class="source">
+      <strong>المصادر اليهودية:</strong><br>
+      Mishnah Middot؛ Mishnah Tamid؛ Mishnah Shekalim؛
+      Mishnah Kelim؛ Mishnah Yoma.
+    </div>
+
+    <div class="source">
+      <strong>مصادر الخلفية الكتابية:</strong><br>
+      Craig S. Keener, <em>IVP Bible Background Commentary: New Testament</em>.
+    </div>
+
+    <div class="source">
+      <strong>مراجع الأناجيل:</strong><br>
+      R. T. France, <em>The Gospel of Matthew</em>؛
+      D. A. Carson, <em>The Gospel According to John</em>.
+    </div>
+
+    <div class="source">
+      <strong>مرجع أعمال الرسل:</strong><br>
+      F. F. Bruce, <em>The Book of the Acts</em>؛
+      Ben Witherington III, <em>The Acts of the Apostles</em>.
+    </div>
+
+    <div class="source">
+      <strong>مرجع الخلفية التاريخية:</strong><br>
+      الدراسات الحديثة لمدينة أورشليم ومجمع الهيكل في العصر الثاني
+      والقرن الأول الميلادي، مع مقارنة النتائج الأثرية
+      بالنصوص القديمة.
+    </div>
+
+  </section>
+
+
+  <section class="section conclusion">
+
+    <h2>الخلاصة</h2>
+
+    <p>
+      تكشف دراسة أبواب هيكل هيرودس أن المجمع لم يكن مبنى بسيطًا
+      ذا مدخل واحد، بل منظومة ضخمة من الأسوار والأروقة
+      والساحات والمداخل التي نظمت حركة آلاف الحجاج.
+    </p>
+
+    <p>
+      وتساعد المشناة على فهم النظام الداخلي، بينما يقدم
+      يوسيفوس وصفًا تاريخيًا ومعماريًا بالغ الأهمية،
+      وتكشف الآثار عن أجزاء من هذا النظام لا تزال قابلة للدراسة.
+    </p>
+
+    <p>
+      أما العهد الجديد فيضع الهيكل داخل أحداث خدمة المسيح
+      والرسل، ويظهر الباب في بعض المواضع كنقطة عبور ومجال
+      للحركة والتجمع، بينما يقدم العهد الجديد لاحقًا
+      لاهوتًا أعمق حول الاقتراب من الله في المسيح.
+    </p>
+
+    <div class="important">
+
+      <strong>الخلاصة المنهجية النهائية:</strong>
+
+      <p>
+        ما يثبته الكتاب المقدس يُعرض باعتباره نصًا كتابيًا،
+        وما تقوله المشناة ويوسيفوس يُعرض باعتباره شهادة
+        تاريخية يهودية قديمة، وما تكشفه الآثار يُعرض باعتباره
+        دليلًا أثريًا، وما يستنتجه الباحثون يُذكر باعتباره
+        تفسيرًا أو إعادة بناء وليس حقيقة نصية مطلقة.
+      </p>
+
+    </div>
+
+  </section>
 
 </main>
 
 
 <footer>
-
   موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
-
 </footer>
 
 
 </body>
 </html>
+```
