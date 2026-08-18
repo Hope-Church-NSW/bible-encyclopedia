@@ -9,7 +9,6 @@
 <meta
 name="viewport"
 content="width=device-width, initial-scale=1.0"
-
 >
 
 <title>
@@ -17,6 +16,10 @@ content="width=device-width, initial-scale=1.0"
 </title>
 
 <style>
+
+/* =========================================================
+   الإعدادات العامة
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -28,7 +31,11 @@ html{
 
 body{
   margin:0;
-  font-family:Tahoma,Arial,sans-serif;
+
+  font-family:
+    Tahoma,
+    Arial,
+    sans-serif;
 
   background:
     linear-gradient(
@@ -38,13 +45,21 @@ body{
     );
 
   color:#ffffff;
+
   min-height:100vh;
 }
+
+
+/* =========================================================
+   الهيدر
+========================================================= */
 
 header{
 
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
   padding:12px 18px;
@@ -56,31 +71,40 @@ header{
     2px solid #d4af37;
 
   position:sticky;
+
   top:0;
 
   z-index:1000;
 }
 
+
 .brand{
 
   display:flex;
+
   align-items:center;
+
   gap:12px;
 }
+
 
 .brand img{
 
   width:55px;
+
   height:55px;
 
   object-fit:contain;
 }
 
+
 .brand-text{
 
   display:flex;
+
   flex-direction:column;
 }
+
 
 .brand-title{
 
@@ -91,6 +115,7 @@ header{
   font-weight:bold;
 }
 
+
 .church-name{
 
   color:#ffffff;
@@ -98,11 +123,13 @@ header{
   font-size:13px;
 }
 
+
 .back-btn{
 
   display:inline-flex;
 
   align-items:center;
+
   justify-content:center;
 
   text-decoration:none;
@@ -129,12 +156,18 @@ header{
     transform .2s ease;
 }
 
+
 .back-btn:hover{
 
   background:#0b6dcc;
 
   transform:translateY(-1px);
 }
+
+
+/* =========================================================
+   المحتوى الرئيسي
+========================================================= */
 
 main{
 
@@ -146,6 +179,7 @@ main{
     25px 16px 60px;
 }
 
+
 .page-title{
 
   text-align:center;
@@ -153,12 +187,14 @@ main{
   margin-bottom:28px;
 }
 
+
 .page-title .icon{
 
   font-size:48px;
 
   margin-bottom:5px;
 }
+
 
 h1{
 
@@ -168,6 +204,7 @@ h1{
 
   font-size:30px;
 }
+
 
 .intro{
 
@@ -183,11 +220,16 @@ h1{
   line-height:1.9;
 }
 
+
+/* =========================================================
+   عناوين الأقسام
+========================================================= */
+
 .section-label{
 
   margin-top:40px;
 
-  margin-bottom:12px;
+  margin-bottom:14px;
 
   padding-right:10px;
 
@@ -201,32 +243,48 @@ h1{
     4px solid #d4af37;
 }
 
+
+/* =========================================================
+   شبكة الدراسات
+   تم تثبيت الأعمدة والارتفاعات
+========================================================= */
+
 .studies-grid{
 
   display:grid;
 
   grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(250px,1fr)
-    );
+    repeat(4, minmax(0, 1fr));
 
   gap:18px;
 
   margin-top:20px;
+
+  align-items:stretch;
 }
+
+
+/* =========================================================
+   بطاقات الدراسات
+========================================================= */
 
 .study-card{
 
   display:flex;
 
+  flex-direction:column;
+
   align-items:center;
 
-  gap:14px;
+  justify-content:center;
 
-  min-height:95px;
+  text-align:center;
 
-  padding:18px;
+  min-height:155px;
+
+  height:155px;
+
+  padding:16px 12px;
 
   text-decoration:none;
 
@@ -244,27 +302,41 @@ h1{
   transition:
     transform .2s ease,
     background .2s ease,
-    border-color .2s ease;
+    border-color .2s ease,
+    box-shadow .2s ease;
 }
+
 
 .study-card:hover{
 
   transform:
-    translateY(-3px);
+    translateY(-4px);
 
   background:
     rgba(212,175,55,.10);
 
   border-color:#d4af37;
+
+  box-shadow:
+    0 8px 20px
+    rgba(0,0,0,.25);
 }
+
+
+/* =========================================================
+   الأيقونة
+   حجم موحد ومكان موحد داخل كل بطاقة
+========================================================= */
 
 .study-icon{
 
-  width:55px;
+  width:64px;
 
-  min-width:55px;
+  height:64px;
 
-  height:55px;
+  min-width:64px;
+
+  min-height:64px;
 
   display:flex;
 
@@ -272,26 +344,54 @@ h1{
 
   justify-content:center;
 
-  border-radius:12px;
+  border-radius:14px;
 
   background:
     rgba(3,18,40,.75);
 
   border:
     1px solid
-    rgba(212,175,55,.35);
+    rgba(212,175,55,.45);
 
-  font-size:29px;
+  font-size:31px;
+
+  line-height:1;
+
+  margin-bottom:12px;
+
+  flex-shrink:0;
 }
+
+
+/* =========================================================
+   اسم الدراسة
+========================================================= */
 
 .study-name{
 
-  font-size:17px;
+  width:100%;
+
+  min-height:48px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:16px;
 
   font-weight:bold;
 
-  line-height:1.6;
+  line-height:1.5;
+
+  text-align:center;
 }
+
+
+/* =========================================================
+   الفوتر
+========================================================= */
 
 footer{
 
@@ -308,27 +408,53 @@ footer{
   font-size:13px;
 }
 
+
+/* =========================================================
+   الشاشات المتوسطة
+========================================================= */
+
+@media(max-width:900px){
+
+  .studies-grid{
+
+    grid-template-columns:
+      repeat(3, minmax(0,1fr));
+  }
+
+}
+
+
+/* =========================================================
+   الهاتف
+========================================================= */
+
 @media(max-width:650px){
 
   header{
+
     padding:10px;
   }
+
 
   .brand img{
 
     width:45px;
+
     height:45px;
   }
+
 
   .brand-title{
 
     font-size:16px;
   }
 
+
   .church-name{
 
     font-size:11px;
   }
+
 
   .back-btn{
 
@@ -338,14 +464,75 @@ footer{
       7px 9px;
   }
 
+
   h1{
 
     font-size:25px;
   }
 
+
+  .studies-grid{
+
+    grid-template-columns:
+      repeat(2, minmax(0,1fr));
+
+    gap:12px;
+  }
+
+
+  .study-card{
+
+    height:150px;
+
+    min-height:150px;
+
+    padding:12px 8px;
+  }
+
+
+  .study-icon{
+
+    width:58px;
+
+    height:58px;
+
+    min-width:58px;
+
+    min-height:58px;
+
+    font-size:28px;
+
+    margin-bottom:9px;
+  }
+
+
+  .study-name{
+
+    font-size:14px;
+
+    line-height:1.45;
+  }
+
+}
+
+
+/* =========================================================
+   الهواتف الصغيرة جدًا
+========================================================= */
+
+@media(max-width:400px){
+
   .studies-grid{
 
     grid-template-columns:1fr;
+  }
+
+
+  .study-card{
+
+    height:145px;
+
+    min-height:145px;
   }
 
 }
@@ -354,408 +541,397 @@ footer{
 
 </head>
 
+
 <body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
 <header>
 
   <div class="brand">
 
-```
-<img
-  src="assets/logo.png"
-  alt="شعار الكنيسة"
->
+    <img
+      src="assets/logo.png"
+      alt="شعار الكنيسة"
+    >
 
-<div class="brand-text">
+    <div class="brand-text">
 
-  <div class="brand-title">
-    موسوعة الكتاب المقدس
-  </div>
+      <div class="brand-title">
+        موسوعة الكتاب المقدس
+      </div>
 
-  <div class="church-name">
-    كنيسة رجاء الأمم سيدني
-  </div>
+      <div class="church-name">
+        كنيسة رجاء الأمم سيدني
+      </div>
 
-</div>
-```
+    </div>
 
   </div>
 
-<a
-class="back-btn"
-href="studies.html"
-aria-label="العودة إلى الدراسات"
 
->
+  <a
+    class="back-btn"
+    href="studies.html"
+    aria-label="العودة إلى الدراسات"
+  >
 
-```
-↩ الدراسات
-```
+    ↩ الدراسات
 
   </a>
 
 </header>
 
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main>
+
+
+  <!-- =======================================================
+       عنوان الصفحة
+  ======================================================== -->
 
   <div class="page-title">
 
-```
-<div class="icon">
-  🏗️
-</div>
+    <div class="icon">
+      🏗️
+    </div>
 
-<h1>
-  هيكل هيرودس
-</h1>
+    <h1>
+      هيكل هيرودس
+    </h1>
 
-<p class="intro">
-  دراسة تاريخية ومعمارية وكتابية متكاملة لهيكل هيرودس،
-  وموقعه، وبنائه، ووظيفته، وعلاقته بأحداث العهد الجديد.
-</p>
-```
+    <p class="intro">
+
+      دراسة تاريخية ومعمارية وكتابية متكاملة لهيكل هيرودس،
+      وموقعه، وبنائه، ووظيفته، وعلاقته بأحداث العهد الجديد.
+
+    </p>
 
   </div>
 
-  <!-- =========================================
+
+  <!-- =======================================================
        الدراسات الأساسية
-  ========================================== -->
+  ======================================================== -->
 
   <div class="section-label">
     الدراسات الأساسية
   </div>
 
+
   <div class="studies-grid">
 
-```
-<!-- هيرودس الكبير -->
 
-<a
-  class="study-card"
-  href="herod_the_great.html"
->
+    <a
+      class="study-card"
+      href="herod_the_great.html"
+    >
 
-  <div class="study-icon">
-    👑
-  </div>
+      <div class="study-icon">
+        👑
+      </div>
 
-  <div class="study-name">
-    هيرودس الكبير
-  </div>
+      <div class="study-name">
+        هيرودس الكبير
+      </div>
 
-</a>
+    </a>
 
 
-<!-- تاريخ بناء الهيكل -->
+    <a
+      class="study-card"
+      href="study-herod-temple-history.html"
+    >
 
-<a
-  class="study-card"
-  href="study-herod-temple-history.html"
->
+      <div class="study-icon">
+        📜
+      </div>
 
-  <div class="study-icon">
-    📜
-  </div>
+      <div class="study-name">
+        تاريخ بناء الهيكل
+      </div>
 
-  <div class="study-name">
-    تاريخ بناء الهيكل
-  </div>
-
-</a>
+    </a>
 
 
-<!-- موقع جبل الهيكل -->
+    <a
+      class="study-card"
+      href="study-herod-temple-mount-location.html"
+    >
 
-<a
-  class="study-card"
-  href="study-herod-temple-mount-location.html"
->
+      <div class="study-icon">
+        📍
+      </div>
 
-  <div class="study-icon">
-    📍
-  </div>
+      <div class="study-name">
+        موقع جبل الهيكل
+      </div>
 
-  <div class="study-name">
-    موقع جبل الهيكل
-  </div>
-
-</a>
+    </a>
 
 
-<!-- مخطط وأبعاد -->
+    <a
+      class="study-card"
+      href="study-herod-temple-herod-project.html"
+    >
 
-<a
-  class="study-card"
-  href="study-herod-temple-herod-project.html"
->
+      <div class="study-icon">
+        🏛️
+      </div>
 
-  <div class="study-icon">
-    🏛️
-  </div>
+      <div class="study-name">
+        الهيكل — مخطط وأبعاد
+      </div>
 
-  <div class="study-name">
-    الهيكل — مخطط وأبعاد
-  </div>
+    </a>
 
-</a>
-```
 
   </div>
 
-  <!-- =========================================
+
+  <!-- =======================================================
        الدراسات المتخصصة
-  ========================================== -->
+  ======================================================== -->
 
   <div class="section-label">
     الدراسات المتخصصة
   </div>
 
+
   <div class="studies-grid">
 
-```
-<!-- ساحات الهيكل والأسوار -->
 
-<a
-  class="study-card"
-  href="study-herod-temple-courts-walls.html"
->
+    <a
+      class="study-card"
+      href="study-herod-temple-courts-walls.html"
+    >
 
-  <div class="study-icon">
-    🧱
+      <div class="study-icon">
+        🧱
+      </div>
+
+      <div class="study-name">
+        ساحات الهيكل والأسوار
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple-doors.html"
+    >
+
+      <div class="study-icon">
+        🚪
+      </div>
+
+      <div class="study-name">
+        أبواب الهيكل ومداخله
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple.html"
+    >
+
+      <div class="study-icon">
+        🕎
+      </div>
+
+      <div class="study-name">
+        الحرم الداخلي والقدس وقدس الأقداس
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple.html"
+    >
+
+      <div class="study-icon">
+        🔥
+      </div>
+
+      <div class="study-name">
+        المذبح والذبائح في عصر هيرودس
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple.html"
+    >
+
+      <div class="study-icon">
+        👨‍⚖️
+      </div>
+
+      <div class="study-name">
+        الكهنوت ورؤساء الكهنة
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple.html"
+    >
+
+      <div class="study-icon">
+        🧑‍🤝‍🧑
+      </div>
+
+      <div class="study-name">
+        الشعب والأمم في الهيكل
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple.html"
+    >
+
+      <div class="study-icon">
+        💰
+      </div>
+
+      <div class="study-name">
+        خزينة الهيكل والاقتصاد المرتبط به
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple-overview.html"
+    >
+
+      <div class="study-icon">
+        ✝️
+      </div>
+
+      <div class="study-name">
+        المسيح وهيكل هيرودس
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple-overview.html"
+    >
+
+      <div class="study-icon">
+        📖
+      </div>
+
+      <div class="study-name">
+        أحداث المسيح في الهيكل
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple-overview.html"
+    >
+
+      <div class="study-icon">
+        🕊️
+      </div>
+
+      <div class="study-name">
+        الهيكل والعبادة في العهد الجديد
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple-history.html"
+    >
+
+      <div class="study-icon">
+        💥
+      </div>
+
+      <div class="study-name">
+        هدم الهيكل سنة 70م
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple-history.html"
+    >
+
+      <div class="study-icon">
+        🏺
+      </div>
+
+      <div class="study-name">
+        المصادر التاريخية والأثرية
+      </div>
+
+    </a>
+
+
+    <a
+      class="study-card"
+      href="study-herod-temple-overview.html"
+    >
+
+      <div class="study-icon">
+        ✨
+      </div>
+
+      <div class="study-name">
+        المعنى اللاهوتي لهيكل هيرودس
+      </div>
+
+    </a>
+
+
   </div>
 
-  <div class="study-name">
-    ساحات الهيكل والأسوار
-  </div>
-
-</a>
-
-
-<!-- أبواب الهيكل -->
-
-<a
-  class="study-card"
-  href="study-herod-temple-doors.html"
->
-
-  <div class="study-icon">
-    🚪
-  </div>
-
-  <div class="study-name">
-    أبواب الهيكل ومداخله
-  </div>
-
-</a>
-
-
-<!-- الحرم الداخلي -->
-
-<a
-  class="study-card"
-  href="study-herod-temple.html"
->
-
-  <div class="study-icon">
-    🕎
-  </div>
-
-  <div class="study-name">
-    الحرم الداخلي والقدس وقدس الأقداس
-  </div>
-
-</a>
-
-
-<!-- المذبح -->
-
-<a
-  class="study-card"
-  href="study-herod-temple.html"
->
-
-  <div class="study-icon">
-    🔥
-  </div>
-
-  <div class="study-name">
-    المذبح والذبائح في عصر هيرودس
-  </div>
-
-</a>
-
-
-<!-- الكهنوت -->
-
-<a
-  class="study-card"
-  href="study-herod-temple.html"
->
-
-  <div class="study-icon">
-    👨‍⚖️
-  </div>
-
-  <div class="study-name">
-    الكهنوت ورؤساء الكهنة
-  </div>
-
-</a>
-
-
-<!-- الشعب والأمم -->
-
-<a
-  class="study-card"
-  href="study-herod-temple.html"
->
-
-  <div class="study-icon">
-    🧑‍🤝‍🧑
-  </div>
-
-  <div class="study-name">
-    الشعب والأمم في الهيكل
-  </div>
-
-</a>
-
-
-<!-- خزينة الهيكل -->
-
-<a
-  class="study-card"
-  href="study-herod-temple.html"
->
-
-  <div class="study-icon">
-    💰
-  </div>
-
-  <div class="study-name">
-    خزينة الهيكل والاقتصاد المرتبط به
-  </div>
-
-</a>
-
-
-<!-- المسيح وهيكل هيرودس -->
-
-<a
-  class="study-card"
-  href="study-herod-temple-overview.html"
->
-
-  <div class="study-icon">
-    ✝️
-  </div>
-
-  <div class="study-name">
-    المسيح وهيكل هيرودس
-  </div>
-
-</a>
-
-
-<!-- أحداث المسيح -->
-
-<a
-  class="study-card"
-  href="study-herod-temple-overview.html"
->
-
-  <div class="study-icon">
-    📖
-  </div>
-
-  <div class="study-name">
-    أحداث المسيح في الهيكل
-  </div>
-
-</a>
-
-
-<!-- العبادة -->
-
-<a
-  class="study-card"
-  href="study-herod-temple-overview.html"
->
-
-  <div class="study-icon">
-    🕊️
-  </div>
-
-  <div class="study-name">
-    الهيكل والعبادة في العهد الجديد
-  </div>
-
-</a>
-
-
-<!-- هدم الهيكل -->
-
-<a
-  class="study-card"
-  href="study-herod-temple-history.html"
->
-
-  <div class="study-icon">
-    💥
-  </div>
-
-  <div class="study-name">
-    هدم الهيكل سنة 70م
-  </div>
-
-</a>
-
-
-<!-- المصادر -->
-
-<a
-  class="study-card"
-  href="study-herod-temple-history.html"
->
-
-  <div class="study-icon">
-    🏺
-  </div>
-
-  <div class="study-name">
-    المصادر التاريخية والأثرية
-  </div>
-
-</a>
-
-
-<!-- المعنى اللاهوتي -->
-
-<a
-  class="study-card"
-  href="study-herod-temple-overview.html"
->
-
-  <div class="study-icon">
-    ✨
-  </div>
-
-  <div class="study-name">
-    المعنى اللاهوتي لهيكل هيرودس
-  </div>
-
-</a>
-```
-
-  </div>
 
 </main>
 
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
 <footer>
 
-موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
+  موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
 
 </footer>
+
 
 </body>
 
