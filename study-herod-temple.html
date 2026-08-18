@@ -10,7 +10,8 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>هيكل هيرودس — الدراسات المتخصصة | موسوعة الكتاب المقدس</title>
+<title>هيكل هيرودس | موسوعة الكتاب المقدس</title>
+
 
 <style>
 
@@ -18,40 +19,55 @@
     box-sizing:border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+html,
+body{
+    margin:0;
+    padding:0;
+    min-height:100%;
 }
 
 body{
 
-    margin:0;
-
     font-family:
-        Arial,
         Tahoma,
-        "Segoe UI",
+        Arial,
         sans-serif;
 
     background:
-        linear-gradient(
-            135deg,
-            #061936,
-            #0b3d91
+        radial-gradient(
+            circle at top,
+            #17496b 0%,
+            #061522 45%,
+            #020911 100%
         );
 
-    color:#ffffff;
+    color:#f5f5f5;
 
-    min-height:100vh;
+    line-height:1.9;
 }
 
 
-/* =========================
+/* =====================================
    HEADER
-========================= */
+===================================== */
 
 header{
 
-    padding:16px 24px;
+    background:
+        rgba(3,15,26,.97);
+
+    border-bottom:
+        1px solid #c9a227;
+
+    padding:
+        12px 18px;
+}
+
+.header-inner{
+
+    max-width:1100px;
+
+    margin:auto;
 
     display:flex;
 
@@ -59,23 +75,66 @@ header{
 
     justify-content:space-between;
 
-    background:
-        rgba(0,0,0,.28);
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.14);
-
-    box-shadow:
-        0 5px 20px
-        rgba(0,0,0,.15);
-
+    gap:15px;
 }
 
 
-/* =========================
+/* =====================================
+   BACK BUTTON
+===================================== */
+
+.back{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    border:
+        1px solid #c9a227;
+
+    background:
+        linear-gradient(
+            145deg,
+            #123b5a,
+            #071b2c
+        );
+
+    padding:
+        8px 16px;
+
+    border-radius:10px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    transition:.25s;
+}
+
+.back:hover{
+
+    background:#c9a227;
+
+    color:#061522;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 7px 20px
+        rgba(212,175,55,.2);
+}
+
+
+/* =====================================
    BRAND
-========================= */
+===================================== */
 
 .brand{
 
@@ -84,11 +143,9 @@ header{
     align-items:center;
 
     gap:12px;
-
 }
 
-
-.brand img{
+.logo{
 
     width:52px;
 
@@ -96,453 +153,274 @@ header{
 
     object-fit:contain;
 
+    filter:
+        drop-shadow(
+            0 0 10px
+            rgba(212,175,55,.3)
+        );
 }
-
 
 .brand-name{
 
-    color:#f1d27a;
-
-    font-size:20px;
+    color:#e4c45a;
 
     font-weight:bold;
 
+    font-size:13px;
 }
 
 
-/* =========================
-   BACK BUTTON
-========================= */
+/* =====================================
+   MAIN
+===================================== */
 
-.back{
+.container{
 
-    display:inline-flex;
+    width:
+        min(
+            1100px,
+            calc(100% - 24px)
+        );
+
+    margin:auto;
+
+    padding:
+        30px 0 60px;
+}
+
+
+/* =====================================
+   HERO
+===================================== */
+
+.hero{
+
+    text-align:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #103d5d,
+            #061a2b
+        );
+
+    border:
+        1px solid
+        rgba(212,175,55,.3);
+
+    border-radius:20px;
+
+    padding:
+        35px 20px;
+
+    margin-bottom:25px;
+
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,.18);
+}
+
+.hero-icon{
+
+    font-size:65px;
+
+    line-height:1;
+
+    margin-bottom:10px;
+}
+
+h1{
+
+    color:#f0d36a;
+
+    font-size:34px;
+
+    margin:
+        5px 0 8px;
+}
+
+.hero p{
+
+    color:#b9c6d1;
+
+    font-size:15px;
+
+    max-width:850px;
+
+    margin:
+        8px auto 0;
+}
+
+
+/* =====================================
+   STUDIES GRID
+===================================== */
+
+.studies{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+}
+
+.study-card{
+
+    display:flex;
 
     align-items:center;
 
     justify-content:center;
 
-    gap:8px;
+    min-height:78px;
+
+    padding:13px;
 
     text-decoration:none;
 
-    color:#ffffff;
-
-    background:
-        linear-gradient(
-            135deg,
-            #174d7c,
-            #0a2748
-        );
-
-    border:
-        1px solid
-        #d4af37;
-
-    padding:10px 18px;
-
-    border-radius:10px;
-
-    font-weight:bold;
-
-    box-shadow:
-        0 5px 15px
-        rgba(0,0,0,.20);
-
-    transition:.25s ease;
-
-}
-
-
-.back:hover{
-
-    transform:
-        translateY(-2px);
-
-    background:
-        linear-gradient(
-            135deg,
-            #205f94,
-            #0b3157
-        );
-
-    border-color:#f1d27a;
-
-}
-
-
-/* =========================
-   CONTAINER
-========================= */
-
-.container{
-
-    max-width:1200px;
-
-    margin:auto;
-
-    padding:
-        30px
-        20px
-        55px;
-
-}
-
-
-/* =========================
-   TITLE
-========================= */
-
-.title{
+    color:#fff;
 
     text-align:center;
 
-    margin-bottom:35px;
+    font-size:13px;
 
-}
+    font-weight:bold;
 
-
-.title h1{
-
-    margin:
-        0
-        0
-        10px;
-
-    font-size:
-        clamp(
-            27px,
-            5vw,
-            36px
-        );
-
-    color:#f1d27a;
-
-}
-
-
-.title p{
-
-    margin:0;
-
-    color:#dbe7ff;
-
-    font-size:17px;
-
-}
-
-
-/* =========================
-   GRID
-========================= */
-
-.grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(
-                230px,
-                1fr
-            )
-        );
-
-    gap:18px;
-
-}
-
-
-/* =========================
-   CARD
-========================= */
-
-.card{
-
-    display:block;
-
-    text-decoration:none;
-
-    color:#ffffff;
+    line-height:1.6;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.10),
-            rgba(255,255,255,.055)
+            #103b5b,
+            #071b2c
         );
 
     border:
         1px solid
-        rgba(255,255,255,.16);
+        rgba(212,175,55,.28);
 
-    border-radius:18px;
+    border-radius:13px;
 
-    padding:
-        22px
-        18px;
-
-    min-height:165px;
-
-    transition:.25s ease;
-
-    box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.18);
-
+    transition:
+        transform .25s,
+        border-color .25s,
+        box-shadow .25s;
 }
 
-
-.card:hover{
+.study-card:hover{
 
     transform:
-        translateY(-5px);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.16),
-            rgba(255,255,255,.09)
-        );
-
-    border-color:#d6b85c;
-
-    box-shadow:
-        0 14px 30px
-        rgba(0,0,0,.25);
-
-}
-
-
-/* =========================
-   AVAILABLE
-========================= */
-
-.card.available{
+        translateY(-4px);
 
     border-color:
-        rgba(212,175,55,.35);
-
-}
-
-
-/* =========================
-   COMING SOON
-========================= */
-
-.card.coming-soon{
-
-    cursor:default;
-
-    opacity:.78;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.065),
-            rgba(255,255,255,.035)
-        );
-
-}
-
-
-.card.coming-soon:hover{
-
-    transform:none;
-
-    border-color:
-        rgba(255,255,255,.16);
+        #d4af37;
 
     box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.18);
+        0 10px 25px
+        rgba(0,0,0,.3),
 
+        0 0 15px
+        rgba(212,175,55,.08);
 }
 
 
-/* =========================
-   ICON
-========================= */
-
-.icon{
-
-    font-size:42px;
-
-    margin-bottom:12px;
-
-}
-
-
-/* =========================
-   CARD TITLE
-========================= */
-
-.card h2{
-
-    margin:
-        0
-        0
-        10px;
-
-    font-size:20px;
-
-    color:#f1d27a;
-
-}
-
-
-/* =========================
-   CARD TEXT
-========================= */
-
-.card p{
-
-    margin:0;
-
-    line-height:1.75;
-
-    color:#e6edff;
-
-    font-size:14px;
-
-}
-
-
-.status{
-
-    display:inline-block;
-
-    margin-top:14px;
-
-    padding:
-        4px
-        10px;
-
-    border-radius:20px;
-
-    font-size:11px;
-
-    color:#dbe7ff;
-
-    background:
-        rgba(255,255,255,.08);
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-}
-
-
-/* =========================
+/* =====================================
    FOOTER
-========================= */
+===================================== */
 
 footer{
 
     text-align:center;
 
+    color:#8293a3;
+
     padding:25px;
-
-    color:#cbd7ee;
-
-    font-size:13px;
 
     border-top:
         1px solid
-        rgba(255,255,255,.10);
+        rgba(212,175,55,.15);
 
-    background:
-        rgba(0,0,0,.16);
+    font-size:11px;
+}
+
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media(max-width:850px){
+
+    .studies{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
 
 }
 
 
-/* =========================
+/* =====================================
    MOBILE
-========================= */
+===================================== */
 
-@media(max-width:700px){
-
-    header{
-
-        padding:
-            14px
-            15px;
-
-    }
-
-
-    .brand-name{
-
-        font-size:15px;
-
-    }
-
-
-    .brand img{
-
-        width:45px;
-
-        height:45px;
-
-    }
-
-
-    .back{
-
-        font-size:13px;
-
-        padding:
-            8px
-            11px;
-
-    }
-
+@media(max-width:500px){
 
     .container{
 
+        width:
+            calc(100% - 14px);
+
+        padding-top:15px;
+    }
+
+    .studies{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:8px;
+    }
+
+    .study-card{
+
+        min-height:72px;
+
+        font-size:11px;
+
+        padding:9px;
+    }
+
+    .logo{
+
+        width:43px;
+
+        height:43px;
+    }
+
+    .brand-name{
+
+        font-size:11px;
+    }
+
+    .back{
+
+        font-size:10px;
+
         padding:
-            25px
-            15px
-            45px;
-
+            7px 10px;
     }
 
+    h1{
 
-    .title{
-
-        margin-bottom:28px;
-
+        font-size:27px;
     }
 
+    .hero{
 
-    .title h1{
-
-        font-size:26px;
-
-    }
-
-
-    .title p{
-
-        font-size:15px;
-
-    }
-
-
-    .grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .card{
-
-        min-height:145px;
-
+        padding:
+            28px 15px;
     }
 
 }
@@ -555,572 +433,216 @@ footer{
 <body>
 
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
 
-
-    <!-- زر الرجوع إلى الدراسات -->
-
-    <a
-        class="back"
-        href="studies.html"
-    >
-        📚
-        الدراسات
-    </a>
+<div class="header-inner">
 
 
-    <!-- شعار واسم الموسوعة -->
+<!-- =====================================
+     الرجوع إلى الدراسات
+===================================== -->
 
-    <div class="brand">
+<a
+    class="back"
+    href="studies.html"
+>
+    📚 الدراسات
+</a>
 
-        <div class="brand-name">
-            موسوعة الكتاب المقدس
-        </div>
 
-        <img
-            src="assets/logo.png"
-            alt="Hope Of Nation Church NSW"
-        >
+<div class="brand">
 
-    </div>
+<span class="brand-name">
+كنيسة رجاء الأمم سيدني
+</span>
 
+<img
+    src="assets/logo.png"
+    class="logo"
+    alt="كنيسة رجاء الأمم سيدني"
+>
+
+</div>
+
+
+</div>
 
 </header>
 
 
-
-<!-- =========================
-     MAIN
-========================= -->
-
 <main class="container">
 
 
-    <div class="title">
+<!-- =====================================
+     عنوان القسم
+===================================== -->
 
-        <h1>
-            🏗️ هيكل هيرودس
-        </h1>
+<section class="hero">
 
-        <p>
-            الدراسات المتخصصة في هيكل هيرودس الكبير
-        </p>
+<div class="hero-icon">
+🏗️
+</div>
 
-    </div>
+<h1>
+هيكل هيرودس
+</h1>
 
+<p>
+دراسة متكاملة للهيكل الذي ارتبط بأورشليم
+في زمن المسيح، من خلفيته التاريخية ومراحل
+بنائه وتوسعته إلى أقسامه وأفنيته وخدمته
+وموقعه في أحداث العهد الجديد.
+</p>
 
+</section>
 
-    <section class="grid">
 
+<!-- =====================================
+     قائمة هيكل هيرودس
+===================================== -->
 
-        <!-- =====================
-             01
-        ====================== -->
+<section class="studies">
 
-        <a
-            class="card available"
-            href="study-herod-temple-herod-project.html"
-        >
 
-            <div class="icon">
-                👑
-            </div>
+<a
+    class="study-card"
+    href="herod_the_great.html"
+>
+    👑 هيرودس الكبير
+</a>
 
-            <h2>
-                هيرودس الكبير
-            </h2>
 
-            <p>
-                شخصية هيرودس الكبير ودوره السياسي
-                والديني ومشروعه العمراني وعلاقته
-                بالهيكل.
-            </p>
+<a
+    class="study-card"
+    href="study-herod-temple-overview.html"
+>
+    🏗️ هيكل هيرودس — نظرة عامة
+</a>
 
-        </a>
 
+<a
+    class="study-card"
+    href="study-herod-temple-history.html"
+>
+    📜 تاريخ الهيكل ومراحل بنائه
+</a>
 
 
-        <!-- =====================
-             02
-        ====================== -->
+<a
+    class="study-card"
+    href="study-herod-temple-herod-project.html"
+>
+    🏛️ مشروع هيرودس وبناء الهيكل
+</a>
 
-        <a
-            class="card available"
-            href="study-herod-temple-history.html"
-        >
 
-            <div class="icon">
-                🏗️
-            </div>
+<!-- =====================================
+     إصلاح رابط موقع الهيكل
+     الملف الصحيح:
+     study-herod-temple-mount-location.html
+===================================== -->
 
-            <h2>
-                تاريخ بناء الهيكل
-            </h2>
+<a
+    class="study-card"
+    href="study-herod-temple-mount-location.html"
+>
+    📍 موقع الهيكل وجبل الهيكل
+</a>
 
-            <p>
-                مشروع هيرودس لإعادة بناء وتوسيع
-                الهيكل ومراحله التاريخية والزمنية.
-            </p>
 
-        </a>
+<a
+    class="study-card"
+    href="study-herod-temple-mount-location.html"
+>
+    ⛰️ جبل الهيكل
+</a>
 
 
+<a
+    class="study-card"
+    href="study-herod-temple.html"
+>
+    🏛️ مجمع هيكل هيرودس
+</a>
 
-        <!-- =====================
-             03 - FIXED 404
-        ====================== -->
 
-        <a
-            class="card available"
-            href="study-herod-temple-location-mount.html"
-        >
+<a
+    class="study-card"
+    href="study-herod-temple-history.html"
+>
+    ⏳ مراحل البناء والتطور
+</a>
 
-            <div class="icon">
-                📍
-            </div>
 
-            <h2>
-                موقع جبل الهيكل
-            </h2>
+<a
+    class="study-card"
+    href="study-herod-temple-mount-location.html"
+>
+    🗺️ الموقع الجغرافي
+</a>
 
-            <p>
-                دراسة موقع جبل الهيكل وعلاقته
-                بأورشليم والقدس والتاريخ الكتابي
-                والجغرافي.
-            </p>
 
-        </a>
+<a
+    class="study-card"
+    href="study-herod-temple-overview.html"
+>
+    ✨ الهيكل في زمن المسيح
+</a>
 
 
+<a
+    class="study-card"
+    href="study-herod-temple-herod-project.html"
+>
+    👑 العمارة والمشروع الملكي
+</a>
 
-        <!-- =====================
-             04
-        ====================== -->
 
-        <div class="card coming-soon">
+<a
+    class="study-card"
+    href="study-herod-temple-history.html"
+>
+    📖 تاريخ البناء
+</a>
 
-            <div class="icon">
-                🏛️
-            </div>
 
-            <h2>
-                عمارة الهيكل ومخططه
-            </h2>
+<a
+    class="study-card"
+    href="study-herod-temple-mount-location.html"
+>
+    📍 أورشليم وجبل الهيكل
+</a>
 
-            <p>
-                دراسة التصميم المعماري للهيكل
-                ومكوناته ومراحله الهندسية.
-            </p>
 
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
+<a
+    class="study-card"
+    href="study-herod-temple-overview.html"
+>
+    ✝️ الهيكل في أيام المسيح
+</a>
 
-        </div>
 
+<a
+    class="study-card"
+    href="study-herod-temple-history.html"
+>
+    📜 نهاية الهيكل وخرابه
+</a>
 
 
-        <!-- =====================
-             05
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                🏛️
-            </div>
-
-            <h2>
-                أفنية الهيكل وأروقته
-            </h2>
-
-            <p>
-                الأفنية والأروقة وتنظيم الحركة
-                داخل مجمع الهيكل.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             06
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                🔥
-            </div>
-
-            <h2>
-                العبادة والذبائح في الهيكل
-            </h2>
-
-            <p>
-                نظام العبادة والذبائح والصلاة
-                والخدمة اليومية في عصر الهيكل.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             07
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                👨‍⚖️
-            </div>
-
-            <h2>
-                الكهنوت وخدمة الهيكل
-            </h2>
-
-            <p>
-                الكهنة واللاويون وتنظيم الخدمة
-                وعلاقتها بالحياة الدينية.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             08
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                🕎
-            </div>
-
-            <h2>
-                الهيكل والحياة اليهودية
-            </h2>
-
-            <p>
-                الهيكل في الحياة اليهودية والأعياد
-                والحج والهوية الدينية.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             09
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                ✝️
-            </div>
-
-            <h2>
-                المسيح وهيكل هيرودس
-            </h2>
-
-            <p>
-                حضور المسيح في الهيكل وتعليمه
-                وأحداث خدمته المرتبطة به.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             10
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                📜
-            </div>
-
-            <h2>
-                الهيكل الثاني وهيكل هيرودس
-            </h2>
-
-            <p>
-                تطور الهيكل الثاني ومشروع هيرودس
-                لإعادة البناء والتوسعة.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             11
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                💥
-            </div>
-
-            <h2>
-                هدم الهيكل سنة 70م
-            </h2>
-
-            <p>
-                سقوط أورشليم وهدم الهيكل على يد
-                الرومان والأحداث التي قادت إلى ذلك.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             12
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                ✨
-            </div>
-
-            <h2>
-                المعنى اللاهوتي للهيكل
-            </h2>
-
-            <p>
-                مكانة الهيكل في إعلان الله والعبادة
-                والحضور الإلهي.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             13
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                🧱
-            </div>
-
-            <h2>
-                أحجار الهيكل وتقنيات البناء
-            </h2>
-
-            <p>
-                أحجار البناء والمواد وتقنيات العمل
-                الهندسية في مشروع هيرودس.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             14
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                🏺
-            </div>
-
-            <h2>
-                أدوات وخدمات الهيكل
-            </h2>
-
-            <p>
-                الأدوات المقدسة ووظائفها في نظام
-                العبادة خلال القرن الأول.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             15
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                👥
-            </div>
-
-            <h2>
-                الهيكل والجماعات الدينية
-            </h2>
-
-            <p>
-                الكهنة والصدوقيون والفريسيون
-                والجماعات المرتبطة بحياة الهيكل.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             16
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                🛡️
-            </div>
-
-            <h2>
-                الهيكل والسياسة الرومانية
-            </h2>
-
-            <p>
-                علاقة الهيكل بالسلطة الرومانية
-                والملوك والحكام في القرن الأول.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             17
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                🕊️
-            </div>
-
-            <h2>
-                حضور الله والهيكل
-            </h2>
-
-            <p>
-                مفهوم حضور الله في الهيكل وعلاقته
-                بالتقليد الكتابي واليهودي.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-
-        <!-- =====================
-             18
-        ====================== -->
-
-        <div class="card coming-soon">
-
-            <div class="icon">
-                ✝️
-            </div>
-
-            <h2>
-                هيكل هيرودس والعهد الجديد
-            </h2>
-
-            <p>
-                الهيكل في الأناجيل وسفر الأعمال
-                والرسالة اللاهوتية في العهد الجديد.
-            </p>
-
-            <span class="status">
-                الدراسة قيد الإنشاء
-            </span>
-
-        </div>
-
-
-    </section>
+</section>
 
 
 </main>
 
 
-
-<!-- =========================
-     FOOTER
-========================= -->
-
 <footer>
 
-    <strong>
-        كنيسة رجاء الأمم سيدني
-    </strong>
+كنيسة رجاء الأمم سيدني
 
-    <br>
+<br>
 
-    موسوعة الكتاب المقدس
+موسوعة الكتاب المقدس
 
 </footer>
 
