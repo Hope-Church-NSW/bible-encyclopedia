@@ -45,6 +45,8 @@ body{
 
 /* =========================================================
    الهيدر
+   زر الرجوع يمينًا دائمًا
+   اللوجو يسارًا دائمًا
 ========================================================= */
 
 header{
@@ -63,33 +65,43 @@ header{
   position:sticky;
   top:0;
   z-index:1000;
+
+  direction:ltr;
 }
 
 .brand{
   display:flex;
   align-items:center;
   gap:12px;
+
+  direction:ltr;
 }
 
 .brand img{
   width:55px;
   height:55px;
+
   object-fit:contain;
 }
 
 .brand-text{
   display:flex;
   flex-direction:column;
+
+  text-align:left;
+  direction:rtl;
 }
 
 .brand-title{
   color:#d4af37;
+
   font-size:20px;
   font-weight:bold;
 }
 
 .church-name{
   color:#ffffff;
+
   font-size:13px;
 }
 
@@ -97,6 +109,8 @@ header{
   display:inline-flex;
   align-items:center;
   justify-content:center;
+
+  order:2;
 
   text-decoration:none;
 
@@ -113,6 +127,8 @@ header{
   font-weight:bold;
   white-space:nowrap;
 
+  cursor:pointer;
+
   transition:
     background .2s ease,
     transform .2s ease;
@@ -120,7 +136,9 @@ header{
 
 .back-btn:hover{
   background:#0b6dcc;
-  transform:translateY(-1px);
+
+  transform:
+    translateY(-1px);
 }
 
 
@@ -130,6 +148,7 @@ header{
 
 main{
   max-width:1100px;
+
   margin:auto;
 
   padding:
@@ -143,6 +162,7 @@ main{
 
 .page-header{
   text-align:center;
+
   margin-bottom:35px;
 }
 
@@ -221,6 +241,7 @@ h1{
 .section-title{
   display:flex;
   align-items:center;
+
   gap:10px;
 
   margin:
@@ -241,6 +262,7 @@ h1{
 .mini-icon{
   width:40px;
   height:40px;
+
   min-width:40px;
 
   display:flex;
@@ -294,7 +316,7 @@ p:last-child{
   color:#d4af37;
 }
 
- 
+
 /* =========================================================
    بطاقات الأبواب
 ========================================================= */
@@ -321,6 +343,22 @@ p:last-child{
     rgba(212,175,55,.28);
 
   border-radius:13px;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    background .2s ease;
+}
+
+.door-card:hover{
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(212,175,55,.65);
+
+  background:
+    rgba(212,175,55,.07);
 }
 
 .door-card h3{
@@ -356,13 +394,17 @@ p:last-child{
 
 .table-wrapper{
   width:100%;
+
   overflow-x:auto;
 
   margin-top:16px;
+
+  border-radius:10px;
 }
 
 .info-table{
   width:100%;
+
   min-width:700px;
 
   border-collapse:collapse;
@@ -380,6 +422,7 @@ p:last-child{
     rgba(212,175,55,.25);
 
   text-align:right;
+
   vertical-align:top;
 }
 
@@ -524,10 +567,15 @@ footer{
 
 }
 
+
 @media(max-width:650px){
 
   header{
-    padding:10px;
+    padding:10px 9px;
+  }
+
+  .brand{
+    gap:8px;
   }
 
   .brand img{
@@ -545,7 +593,9 @@ footer{
 
   .back-btn{
     font-size:12px;
-    padding:7px 9px;
+
+    padding:
+      7px 9px;
   }
 
   main{
@@ -562,7 +612,8 @@ footer{
   }
 
   .study-section{
-    padding:18px 15px;
+    padding:
+      18px 15px;
   }
 
   .section-title{
@@ -572,24 +623,64 @@ footer{
   .page-icon{
     width:70px;
     height:70px;
+
     font-size:36px;
   }
 
 }
 
-@media(max-width:400px){
+
+@media(max-width:480px){
+
+  header{
+    padding:
+      9px 7px;
+  }
+
+  .brand{
+    gap:6px;
+  }
+
+  .brand img{
+    width:40px;
+    height:40px;
+  }
 
   .brand-title{
-    font-size:14px;
+    font-size:13px;
   }
 
   .church-name{
-    font-size:10px;
+    font-size:9px;
   }
 
   .back-btn{
-    font-size:11px;
-    padding:6px 8px;
+    font-size:10px;
+
+    padding:
+      6px 7px;
+
+    border-width:1px;
+  }
+
+}
+
+
+@media(max-width:360px){
+
+  .brand-title{
+    font-size:12px;
+  }
+
+  .church-name{
+    font-size:8px;
+  }
+
+  .back-btn{
+    font-size:9px;
+
+    padding:
+      5px 6px;
   }
 
 }
@@ -604,6 +695,10 @@ footer{
 
 <!-- =========================================================
      HEADER
+     مهم:
+     direction:ltr يجعل:
+     اللوجو والبراند = يسار
+     زر الرجوع = يمين
 ========================================================= -->
 
 <header>
@@ -734,7 +829,7 @@ footer{
     <p>
 
       تصف المشناه خمسة أبواب لجبل الهيكل: بابَي حُلدة
-      في الجنوب، وباب كيفونوس في الغرب، وباب تادي في
+      في الجنوب، وباب كيفونوس في الغرب، وباب תادي في
       الشمال، والباب الشرقي. وتصف هذه الأبواب باعتبارها
       مداخل إلى منطقة جبل الهيكل، وليس باعتبارها أبواب
       المبنى الداخلي نفسه.
@@ -788,7 +883,7 @@ footer{
       <div class="door-card">
 
         <h3>
-          باب تادي
+          باب תادي
         </h3>
 
         <span class="location">
@@ -797,7 +892,7 @@ footer{
 
         <p>
 
-          تذكر المشناه باب تادي في الجهة الشمالية،
+          تذكر المشناه باب תادي في الجهة الشمالية،
           وتقول إنه لم يكن مستخدمًا للعبور.
 
         </p>
