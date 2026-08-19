@@ -13,19 +13,20 @@
    RESET
 ========================================================= */
 
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-html {
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
+html{
+    margin:0;
+    padding:0;
+    scroll-behavior:smooth;
 }
 
-body {
-    margin: 0;
-    padding: 0;
+body{
+    margin:0;
+    padding:0;
+    min-height:100vh;
 
     font-family:
         Tahoma,
@@ -36,179 +37,160 @@ body {
         linear-gradient(
             180deg,
             #061b3a 0%,
-            #0b2d5c 55%,
-            #061b3a 100%
+            #0a2852 45%,
+            #0b2d5c 100%
         );
 
-    color: #ffffff;
-    min-height: 100vh;
-
-    direction: rtl;
-    text-align: right;
-
-    line-height: 1.9;
+    color:#ffffff;
+    line-height:1.9;
 }
 
 
 /* =========================================================
    HEADER
-   مهم:
-   نستخدم flex-direction: row-reverse
-   لأن الصفحة RTL.
-
-   النتيجة:
-   - زر الرجوع = يمين الشاشة
-   - اللوجو = يسار الشاشة
+   اللوجو يسار
+   زر الرجوع يمين
 ========================================================= */
 
-.site-header {
+.site-header{
 
-    width: 100%;
+    width:100%;
 
-    display: flex;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
 
-    flex-direction: row-reverse;
+    direction:ltr;
 
-    align-items: center;
+    padding:10px 18px;
 
-    justify-content: space-between;
+    background:#031228;
 
-    gap: 15px;
+    border-bottom:2px solid #d4af37;
 
-    padding: 10px 18px;
-
-    background: rgba(3, 18, 40, 0.98);
-
-    border-bottom: 2px solid #d4af37;
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 1000;
-}
-
-
-/* =========================================================
-   زر الرجوع
-   دائمًا في يمين الهيدر
-========================================================= */
-
-.back-link {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    min-height: 44px;
-
-    padding: 8px 15px;
-
-    background: #0757a8;
-
-    border: 2px solid #d4af37;
-
-    border-radius: 10px;
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    white-space: nowrap;
-
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease;
-}
-
-.back-link:hover {
-
-    background: #0b6dcc;
-
-    transform: translateY(-1px);
-}
-
-.back-link:active {
-
-    transform: translateY(0);
+    position:sticky;
+    top:0;
+    z-index:9999;
 }
 
 
 /* =========================================================
    BRAND
-   دائمًا في يسار الهيدر
 ========================================================= */
 
-.brand {
+.brand{
 
-    display: flex;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
 
-    flex-direction: row;
+    direction:ltr;
 
-    align-items: center;
+    gap:12px;
 
-    gap: 10px;
-
-    flex-shrink: 1;
-
-    min-width: 0;
+    min-width:0;
 }
 
-.brand-logo {
+.brand-logo{
 
-    width: 52px;
-    height: 52px;
+    width:52px;
+    height:52px;
 
-    object-fit: contain;
+    object-fit:contain;
 
-    flex-shrink: 0;
+    display:block;
+
+    flex-shrink:0;
 }
 
-.brand-text {
+.brand-info{
 
-    display: flex;
+    direction:rtl;
 
-    flex-direction: column;
+    text-align:right;
 
-    align-items: flex-start;
+    display:flex;
+    flex-direction:column;
 
-    direction: rtl;
+    justify-content:center;
 
-    text-align: right;
-
-    min-width: 0;
+    min-width:0;
 }
 
-.brand-title {
+.brand-title{
 
-    color: #d4af37;
+    margin:0;
 
-    font-size: 19px;
+    color:#d4af37;
 
-    font-weight: bold;
+    font-size:19px;
+    font-weight:bold;
 
-    line-height: 1.4;
-
-    white-space: nowrap;
+    line-height:1.4;
 }
 
-.brand-church {
+.brand-church{
 
-    color: #ffffff;
+    margin:2px 0 0;
 
-    font-size: 12px;
+    color:#ffffff;
 
-    line-height: 1.5;
+    font-size:12px;
 
-    white-space: nowrap;
+    line-height:1.4;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   دائمًا في اليمين
+========================================================= */
+
+.back-button{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    direction:rtl;
+
+    flex-shrink:0;
+
+    min-height:42px;
+
+    padding:7px 14px;
+
+    background:#0757a8;
+
+    color:#ffffff;
+
+    text-decoration:none;
+
+    border:2px solid #d4af37;
+
+    border-radius:10px;
+
+    font-size:14px;
+    font-weight:bold;
+
+    white-space:nowrap;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.back-button:hover{
+
+    background:#0b6dcc;
+
+    transform:translateY(-1px);
+}
+
+.back-button:active{
+
+    transform:translateY(0);
 }
 
 
@@ -216,220 +198,210 @@ body {
    MAIN
 ========================================================= */
 
-main {
+main{
 
-    width: 100%;
+    width:100%;
+    max-width:1100px;
 
-    max-width: 1100px;
+    margin:0 auto;
 
-    margin: 0 auto;
-
-    padding: 30px 16px 60px;
+    padding:35px 18px 60px;
 }
 
 
 /* =========================================================
-   عنوان الدراسة
+   PAGE INTRO
 ========================================================= */
 
-.study-header {
+.page-intro{
 
-    text-align: center;
+    text-align:center;
 
-    margin-bottom: 30px;
+    margin:0 0 32px;
 }
 
-.study-icon {
+.page-icon{
 
-    width: 82px;
-    height: 82px;
+    width:82px;
+    height:82px;
 
-    margin: 0 auto 14px;
+    margin:0 auto 14px;
 
-    display: flex;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    align-items: center;
+    background:rgba(3,18,40,.78);
 
-    justify-content: center;
+    border:2px solid rgba(212,175,55,.55);
 
-    background: rgba(3, 18, 40, 0.75);
+    border-radius:18px;
 
-    border: 2px solid rgba(212, 175, 55, 0.55);
-
-    border-radius: 18px;
-
-    font-size: 42px;
+    font-size:42px;
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,0.25);
+        0 8px 25px rgba(0,0,0,.28);
 }
 
-.study-header h1 {
+.page-title{
 
-    margin: 0;
+    margin:0;
 
-    color: #d4af37;
+    color:#d4af37;
 
-    font-size: 31px;
+    font-size:31px;
+    font-weight:bold;
 
-    line-height: 1.5;
+    line-height:1.5;
 }
 
-.study-subtitle {
+.page-subtitle{
 
-    max-width: 850px;
+    max-width:850px;
 
-    margin: 10px auto 0;
+    margin:10px auto 0;
 
-    color: #dbe8f7;
+    color:#dbe8f7;
 
-    font-size: 16px;
+    font-size:16px;
 
-    line-height: 1.9;
+    line-height:1.9;
 }
 
 
 /* =========================================================
-   SECTIONS
+   STUDY SECTIONS
 ========================================================= */
 
-.study-section {
+.study-section{
 
-    margin-bottom: 20px;
+    margin:0 0 22px;
 
-    padding: 23px;
+    padding:24px;
 
-    background: rgba(255,255,255,0.055);
+    background:rgba(255,255,255,.055);
 
-    border: 1px solid rgba(212,175,55,0.28);
+    border:1px solid rgba(212,175,55,.30);
 
-    border-radius: 16px;
+    border-radius:16px;
 
     box-shadow:
-        0 6px 20px rgba(0,0,0,0.12);
+        0 6px 20px rgba(0,0,0,.14);
 }
 
-.section-heading {
+.section-heading{
 
-    display: flex;
+    display:flex;
+    align-items:center;
 
-    align-items: center;
+    gap:10px;
 
-    gap: 10px;
+    margin:0 0 17px;
+    padding:0 0 11px;
 
-    margin: 0 0 16px;
+    color:#d4af37;
 
-    padding-bottom: 10px;
-
-    color: #d4af37;
-
-    font-size: 21px;
-
-    font-weight: bold;
-
-    line-height: 1.6;
+    font-size:21px;
+    font-weight:bold;
 
     border-bottom:
-        1px solid rgba(212,175,55,0.25);
+        1px solid rgba(212,175,55,.28);
 }
 
-.section-icon {
+.section-icon{
 
-    width: 40px;
-    height: 40px;
+    width:40px;
+    height:40px;
 
-    min-width: 40px;
+    min-width:40px;
 
-    display: flex;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    align-items: center;
+    background:rgba(3,18,40,.78);
 
-    justify-content: center;
+    border:1px solid rgba(212,175,55,.35);
 
-    background: rgba(3,18,40,0.75);
+    border-radius:10px;
 
-    border:
-        1px solid rgba(212,175,55,0.35);
-
-    border-radius: 10px;
-
-    font-size: 21px;
+    font-size:21px;
 }
 
-.study-section p {
+.study-section p{
 
-    margin: 0 0 13px;
+    margin:0 0 13px;
 
-    color: #edf4fc;
+    color:#edf4fc;
 
-    font-size: 15px;
+    font-size:15px;
 
-    line-height: 1.95;
+    line-height:1.95;
 }
 
-.study-section p:last-child {
+.study-section p:last-child{
 
-    margin-bottom: 0;
+    margin-bottom:0;
 }
 
 
 /* =========================================================
-   GRID
+   TWO CARDS
 ========================================================= */
 
-.area-grid {
+.area-grid{
 
-    display: grid;
+    display:grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+        repeat(2,minmax(0,1fr));
 
-    gap: 16px;
+    gap:16px;
 
-    margin-top: 15px;
+    margin-top:18px;
 }
 
-.area-card {
+.area-card{
 
-    padding: 20px;
+    padding:20px;
 
-    background: rgba(3,18,40,0.48);
+    background:rgba(3,18,40,.50);
 
-    border:
-        1px solid rgba(212,175,55,0.28);
+    border:1px solid rgba(212,175,55,.28);
 
-    border-radius: 13px;
+    border-radius:13px;
 }
 
-.area-card h3 {
+.area-card h3{
 
-    margin: 0 0 6px;
+    margin:0 0 7px;
 
-    color: #d4af37;
+    color:#d4af37;
 
-    font-size: 19px;
+    font-size:19px;
 }
 
-.area-card .label {
+.area-label{
 
-    display: block;
+    display:block;
 
-    margin-bottom: 9px;
+    margin:0 0 10px;
 
-    color: #9fc7ef;
+    color:#9fc7ef;
 
-    font-size: 13px;
-
-    font-weight: bold;
+    font-size:13px;
+    font-weight:bold;
 }
 
-.area-card p {
+.area-card p{
 
-    margin: 0;
+    margin:0;
 
-    font-size: 14px;
+    color:#edf4fc;
 
-    line-height: 1.9;
+    font-size:14px;
+
+    line-height:1.9;
 }
 
 
@@ -437,25 +409,25 @@ main {
    LIST
 ========================================================= */
 
-.study-list {
+.study-list{
 
-    margin: 12px 0 0;
+    margin:12px 0 0;
 
-    padding-right: 24px;
+    padding-right:24px;
 
-    color: #edf4fc;
+    color:#edf4fc;
 }
 
-.study-list li {
+.study-list li{
 
-    margin-bottom: 9px;
+    margin-bottom:9px;
 
-    line-height: 1.9;
+    line-height:1.9;
 }
 
-.study-list li::marker {
+.study-list li::marker{
 
-    color: #d4af37;
+    color:#d4af37;
 }
 
 
@@ -463,88 +435,89 @@ main {
    TABLE
 ========================================================= */
 
-.table-container {
+.table-container{
 
-    width: 100%;
+    width:100%;
 
-    overflow-x: auto;
+    overflow-x:auto;
 
-    margin-top: 16px;
+    margin-top:17px;
 
-    border-radius: 10px;
+    border-radius:10px;
 }
 
-.study-table {
+.study-table{
 
-    width: 100%;
+    width:100%;
 
-    min-width: 650px;
+    min-width:680px;
 
-    border-collapse: collapse;
+    border-collapse:collapse;
 
-    background: rgba(3,18,40,0.45);
+    background:rgba(3,18,40,.48);
 }
 
 .study-table th,
-.study-table td {
+.study-table td{
 
-    padding: 12px 14px;
+    padding:12px 14px;
 
-    border:
-        1px solid rgba(212,175,55,0.25);
+    border:1px solid rgba(212,175,55,.25);
 
-    text-align: right;
+    text-align:right;
 
-    vertical-align: top;
+    vertical-align:top;
 }
 
-.study-table th {
+.study-table th{
 
-    color: #d4af37;
+    color:#d4af37;
 
-    background: rgba(3,18,40,0.80);
+    background:rgba(3,18,40,.82);
 
-    font-weight: bold;
+    font-weight:bold;
 }
 
-.study-table td {
+.study-table td{
 
-    color: #edf4fc;
+    color:#edf4fc;
+
+    line-height:1.8;
 }
 
 
 /* =========================================================
-   VERSE
+   VERSE BOX
 ========================================================= */
 
-.verse {
+.verse{
 
-    margin: 16px 0 0;
+    margin:17px 0 0;
 
-    padding: 15px 18px;
+    padding:15px 18px;
 
-    background: rgba(3,18,40,0.58);
+    background:rgba(3,18,40,.62);
 
-    border-right: 4px solid #d4af37;
+    border-right:4px solid #d4af37;
 
-    border-radius: 10px;
+    border-radius:10px;
 
-    color: #f0f6fc;
+    color:#f0f6fc;
 
-    font-size: 15px;
+    font-size:15px;
 
-    line-height: 2;
+    line-height:2.05;
 }
 
-.verse-reference {
+.verse-reference{
 
-    display: block;
+    display:block;
 
-    margin-top: 7px;
+    margin-top:7px;
 
-    color: #d4af37;
+    color:#d4af37;
 
-    font-weight: bold;
+    font-weight:bold;
 }
 
 
@@ -552,26 +525,28 @@ main {
    NOTE
 ========================================================= */
 
-.note {
+.note{
 
-    margin-top: 17px;
+    margin-top:17px;
 
-    padding: 15px 18px;
+    padding:15px 18px;
 
-    background: rgba(212,175,55,0.08);
+    background:rgba(212,175,55,.08);
 
-    border-right: 4px solid #d4af37;
+    border-right:4px solid #d4af37;
 
-    border-radius: 10px;
+    border-radius:10px;
 
-    color: #edf4fc;
+    color:#edf4fc;
 
-    line-height: 1.9;
+    font-size:14px;
+
+    line-height:1.95;
 }
 
-.note strong {
+.note strong{
 
-    color: #d4af37;
+    color:#d4af37;
 }
 
 
@@ -579,48 +554,47 @@ main {
    CONCLUSION
 ========================================================= */
 
-.conclusion {
+.conclusion{
 
-    margin-top: 25px;
+    margin-top:28px;
 
-    padding: 24px;
+    padding:25px;
 
     background:
         linear-gradient(
             135deg,
-            rgba(212,175,55,0.10),
-            rgba(255,255,255,0.045)
+            rgba(212,175,55,.11),
+            rgba(255,255,255,.045)
         );
 
-    border:
-        1px solid rgba(212,175,55,0.40);
+    border:1px solid rgba(212,175,55,.40);
 
-    border-radius: 16px;
+    border-radius:16px;
 }
 
-.conclusion h2 {
+.conclusion h2{
 
-    margin: 0 0 12px;
+    margin:0 0 13px;
 
-    color: #d4af37;
+    color:#d4af37;
 
-    font-size: 22px;
+    font-size:22px;
 }
 
-.conclusion p {
+.conclusion p{
 
-    margin: 0 0 13px;
+    margin:0 0 13px;
 
-    color: #edf4fc;
+    color:#edf4fc;
 
-    font-size: 15px;
+    font-size:15px;
 
-    line-height: 1.95;
+    line-height:2;
 }
 
-.conclusion p:last-child {
+.conclusion p:last-child{
 
-    margin-bottom: 0;
+    margin-bottom:0;
 }
 
 
@@ -628,18 +602,20 @@ main {
    FOOTER
 ========================================================= */
 
-.site-footer {
+.site-footer{
 
-    padding: 24px 15px;
+    width:100%;
 
-    text-align: center;
+    padding:24px 15px;
 
-    color: #b9c8da;
+    text-align:center;
+
+    color:#b9c8da;
+
+    font-size:13px;
 
     border-top:
-        1px solid rgba(212,175,55,0.25);
-
-    font-size: 13px;
+        1px solid rgba(212,175,55,.25);
 }
 
 
@@ -647,11 +623,11 @@ main {
    TABLET
 ========================================================= */
 
-@media (max-width: 800px) {
+@media (max-width:800px){
 
-    .area-grid {
+    .area-grid{
 
-        grid-template-columns: 1fr;
+        grid-template-columns:1fr;
     }
 
 }
@@ -661,114 +637,121 @@ main {
    MOBILE
 ========================================================= */
 
-@media (max-width: 650px) {
+@media (max-width:650px){
 
-    .site-header {
+    .site-header{
 
-        padding: 9px 10px;
-
-        gap: 8px;
+        padding:9px 10px;
     }
 
-    .brand {
+    .brand{
 
-        gap: 7px;
+        gap:8px;
     }
 
-    .brand-logo {
+    .brand-logo{
 
-        width: 44px;
-        height: 44px;
+        width:44px;
+        height:44px;
     }
 
-    .brand-title {
+    .brand-title{
 
-        font-size: 15px;
+        font-size:15px;
     }
 
-    .brand-church {
+    .brand-church{
 
-        font-size: 10px;
+        font-size:10px;
     }
 
-    .back-link {
+    .back-button{
 
-        min-height: 40px;
+        min-height:38px;
 
-        padding: 6px 9px;
+        padding:6px 9px;
 
-        font-size: 11px;
+        font-size:11px;
     }
 
-    main {
+    main{
 
         padding:
-            22px 12px 45px;
+            24px 12px 45px;
     }
 
-    .study-icon {
+    .page-icon{
 
-        width: 70px;
-        height: 70px;
+        width:70px;
+        height:70px;
 
-        font-size: 35px;
+        font-size:35px;
     }
 
-    .study-header h1 {
+    .page-title{
 
-        font-size: 25px;
+        font-size:25px;
     }
 
-    .study-subtitle {
+    .page-subtitle{
 
-        font-size: 14px;
+        font-size:14px;
     }
 
-    .study-section {
+    .study-section{
 
-        padding: 18px 15px;
+        padding:18px 15px;
     }
 
-    .section-heading {
+    .section-heading{
 
-        font-size: 18px;
+        font-size:18px;
     }
 
-    .study-section p {
+    .section-icon{
 
-        font-size: 14px;
+        width:36px;
+        height:36px;
+
+        min-width:36px;
+
+        font-size:19px;
+    }
+
+    .study-section p{
+
+        font-size:14px;
+    }
+
+    .conclusion{
+
+        padding:19px 16px;
     }
 
 }
 
 
 /* =========================================================
-   SMALL MOBILE
+   VERY SMALL SCREENS
 ========================================================= */
 
-@media (max-width: 400px) {
+@media (max-width:400px){
 
-    .brand-logo {
+    .brand-title{
 
-        width: 40px;
-        height: 40px;
+        font-size:13px;
     }
 
-    .brand-title {
+    .brand-church{
 
-        font-size: 13px;
+        font-size:9px;
     }
 
-    .brand-church {
+    .back-button{
 
-        font-size: 9px;
-    }
+        padding:5px 7px;
 
-    .back-link {
-
-        padding: 5px 7px;
-
-        font-size: 10px;
+        font-size:10px;
     }
 
 }
@@ -782,27 +765,13 @@ main {
 
 <!-- =========================================================
      HEADER
-     RTL الصفحة لا يؤثر هنا:
-     row-reverse = زر الرجوع يمين / اللوجو يسار
 ========================================================= -->
 
 <header class="site-header">
 
-    <!-- =====================================================
-         زر الرجوع — يمين
-    ====================================================== -->
-
-    <a
-        class="back-link"
-        href="study-herod-temple.html"
-        aria-label="العودة إلى دراسة هيكل هيرودس"
-    >
-        ↩ هيكل هيرودس
-    </a>
-
 
     <!-- =====================================================
-         اللوجو والهوية — يسار
+         LEFT SIDE — LOGO
     ====================================================== -->
 
     <div class="brand">
@@ -810,10 +779,10 @@ main {
         <img
             class="brand-logo"
             src="assets/logo.png"
-            alt="شعار موسوعة الكتاب المقدس"
+            alt="شعار كنيسة رجاء الأمم"
         >
 
-        <div class="brand-text">
+        <div class="brand-info">
 
             <div class="brand-title">
                 موسوعة الكتاب المقدس
@@ -827,107 +796,140 @@ main {
 
     </div>
 
+
+    <!-- =====================================================
+         RIGHT SIDE — BACK
+    ====================================================== -->
+
+    <a
+        class="back-button"
+        href="./study-herod-temple.html"
+        aria-label="العودة إلى دراسة هيكل هيرودس"
+    >
+        ↩ هيكل هيرودس
+    </a>
+
 </header>
 
 
+
 <!-- =========================================================
-     MAIN
+     MAIN CONTENT
 ========================================================= -->
 
 <main>
 
 
     <!-- =====================================================
-         عنوان الصفحة
+         PAGE TITLE
     ====================================================== -->
 
-    <section class="study-header">
+    <div class="page-intro">
 
-        <div class="study-icon">
+        <div class="page-icon">
             🕎
         </div>
 
-        <h1>
+        <h1 class="page-title">
             القدس وقدس الأقداس
         </h1>
 
-        <p class="study-subtitle">
-            دراسة كتابية وتاريخية ومعمارية للجزء الداخلي
-            من هيكل هيرودس، مع التمييز بين القدس وقدس
-            الأقداس ووظيفة كل منهما وحدود الدخول إليهما
-            وعلاقتهما بالعبادة والكهنوت في القرن الأول.
+        <p class="page-subtitle">
+
+            دراسة كتابية وتاريخية ومعمارية للقسم الداخلي
+            من هيكل هيرودس، مع توضيح موقع القدس وقدس
+            الأقداس، ووظيفتهما، ونظام الدخول إليهما،
+            وعلاقتهما بالكهنوت والعبادة ورسالة المسيح.
+
         </p>
 
-    </section>
+    </div>
+
 
 
     <!-- =====================================================
-         1
+         SECTION 1
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">🏛️</span>
+            <span class="section-icon">
+                🏛️
+            </span>
 
             أولًا: أين يقع القدس وقدس الأقداس؟
 
         </h2>
 
         <p>
-            كان مبنى الهيكل نفسه يقع في قلب المنطقة الداخلية
-            من مجمع الهيكل. ولا ينبغي الخلط بين "الهيكل"
-            بمعناه الواسع الذي قد يشير إلى مجمع جبل الهيكل
-            كله، وبين مبنى الهيكل المقدس الذي كان يضم القدس
-            وقدس الأقداس.
+
+            كان مبنى الهيكل المقدس هو القلب الداخلي
+            للمجمع، ويجب التمييز بين مبنى الهيكل نفسه
+            وبين ساحات مجمع جبل الهيكل الواسعة.
+
         </p>
 
         <p>
-            وكان الدخول إلى المناطق الداخلية يتم بصورة
-            تدريجية، بحيث تقل مساحة الوصول كلما اقترب الشخص
-            من الموضع الأقدس. وكان هذا التدرج مرتبطًا بنظام
-            العبادة والكهنوت والقداسة.
+
+            وكان مبنى الهيكل مقسمًا إلى قسمين رئيسيين:
+            القدس، ثم قدس الأقداس في الجزء الداخلي الأكثر
+            قداسة.
+
         </p>
 
         <div class="note">
+
             <strong>نقطة أساسية:</strong>
-            القدس وقدس الأقداس ليسا ساحات عامة داخل مجمع
-            الهيكل، بل هما القسمان الرئيسيان من مبنى الهيكل
-            المقدس نفسه.
+
+            القدس وقدس الأقداس ليسا ساحات عامة من ساحات
+            جبل الهيكل، بل هما القسمان الداخليان الرئيسيان
+            من مبنى الهيكل المقدس.
+
         </div>
 
     </section>
 
 
+
     <!-- =====================================================
-         2
+         SECTION 2
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">🕎</span>
+            <span class="section-icon">
+                🕎
+            </span>
 
             ثانيًا: القدس وقدس الأقداس
 
         </h2>
 
+
         <div class="area-grid">
 
+
             <div class="area-card">
 
-                <h3>القدس</h3>
+                <h3>
+                    القدس
+                </h3>
 
-                <span class="label">
-                    القسم المقدس الأول
+                <span class="area-label">
+                    المكان المقدس للخدمة الكهنوتية
                 </span>
 
                 <p>
-                    كان القدس هو القسم الأول من المبنى المقدس
-                    بعد المدخل، وكان مخصصًا للخدمة الكهنوتية
-                    المرتبطة بالعبادة اليومية.
+
+                    كان القدس هو القسم الأول من المبنى
+                    المقدس، وكانت فيه عناصر الخدمة اليومية
+                    للكهنة، ومنها المنارة ومائدة خبز الوجوه
+                    ومذبح البخور.
+
                 </p>
 
             </div>
@@ -935,45 +937,53 @@ main {
 
             <div class="area-card">
 
-                <h3>قدس الأقداس</h3>
+                <h3>
+                    قدس الأقداس
+                </h3>
 
-                <span class="label">
-                    أقدس موضع في المبنى
+                <span class="area-label">
+                    أقدس موضع في مبنى الهيكل
                 </span>
 
                 <p>
+
                     كان قدس الأقداس هو القسم الداخلي الأقدس،
-                    وكان الوصول إليه مقيدًا بصورة شديدة،
-                    ويرتبط بصورة خاصة بخدمة رئيس الكهنة
-                    في يوم الكفارة.
+                    وكان الوصول إليه مقيدًا للغاية، ويرتبط
+                    بخدمة رئيس الكهنة في يوم الكفارة.
+
                 </p>
 
             </div>
+
 
         </div>
 
     </section>
 
 
+
     <!-- =====================================================
-         3
+         SECTION 3
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">📐</span>
+            <span class="section-icon">
+                📐
+            </span>
 
             ثالثًا: البناء الداخلي للهيكل
 
         </h2>
 
         <p>
-            حافظ هيكل هيرودس في بنيته الأساسية على التقسيم
-            المعروف من الهيكل الثاني: قسم مقدس للخدمة،
-            ثم قدس الأقداس في الداخل، مع فصل واضح بين
-            القسمين.
+
+            حافظ مبنى الهيكل في عصر هيرودس على التقسيم
+            الداخلي الأساسي للهيكل الثاني، مع وجود القدس
+            وقدس الأقداس في قلب المبنى.
+
         </p>
 
         <div class="table-container">
@@ -983,9 +993,19 @@ main {
                 <thead>
 
                     <tr>
-                        <th>القسم</th>
-                        <th>الوظيفة</th>
-                        <th>طبيعة الدخول</th>
+
+                        <th>
+                            القسم
+                        </th>
+
+                        <th>
+                            الوظيفة
+                        </th>
+
+                        <th>
+                            الدخول
+                        </th>
+
                     </tr>
 
                 </thead>
@@ -994,11 +1014,12 @@ main {
 
                     <tr>
 
-                        <td>القدس</td>
+                        <td>
+                            القدس
+                        </td>
 
                         <td>
-                            الخدمة الكهنوتية اليومية والطقوس
-                            المرتبطة بالعبادة.
+                            الخدمة الكهنوتية والعبادة اليومية.
                         </td>
 
                         <td>
@@ -1009,14 +1030,16 @@ main {
 
                     <tr>
 
-                        <td>قدس الأقداس</td>
-
                         <td>
-                            أقدس موضع في الهيكل.
+                            قدس الأقداس
                         </td>
 
                         <td>
-                            دخول شديد التقييد، ويرتبط بخدمة
+                            أقدس موضع في المبنى.
+                        </td>
+
+                        <td>
+                            دخول شديد التقييد، مرتبط بخدمة
                             رئيس الكهنة في يوم الكفارة.
                         </td>
 
@@ -1031,34 +1054,34 @@ main {
     </section>
 
 
+
     <!-- =====================================================
-         4
+         SECTION 4
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">🕯️</span>
+            <span class="section-icon">
+                🕯️
+            </span>
 
             رابعًا: الخدمة داخل القدس
 
         </h2>
 
         <p>
-            ارتبط القدس بعدد من عناصر العبادة اليومية التي
-            كانت تتم بواسطة الكهنة، ومن أبرزها مذبح البخور
-            والمنارة الذهبية ومائدة خبز الوجوه.
+
+            ارتبط القدس بالخدمة اليومية للكهنة، وكانت فيه
+            عناصر رئيسية من العبادة المقدسة.
+
         </p>
 
         <ul class="study-list">
 
             <li>
-                مذبح البخور أمام الحجاب الفاصل عن قدس الأقداس.
-            </li>
-
-            <li>
-                المنارة الذهبية المرتبطة بخدمة الإضاءة.
+                المنارة الذهبية.
             </li>
 
             <li>
@@ -1066,16 +1089,20 @@ main {
             </li>
 
             <li>
-                خدمة الكهنة بحسب نظام العبادة.
+                مذبح البخور أمام الحجاب.
+            </li>
+
+            <li>
+                الخدمة الكهنوتية اليومية.
             </li>
 
         </ul>
 
         <div class="verse">
 
-            "وَأَمَّا الْمَسْكَنُ الأَوَّلُ فَكَانَ فِيهِ
+            «وَأَمَّا الْمَسْكَنُ الأَوَّلُ فَكَانَ فِيهِ
             الْمَنَارَةُ وَالْمَائِدَةُ وَخُبْزُ التَّقْدِمَةِ،
-            الَّذِي يُقَالُ لَهُ الْقُدْسُ."
+            الَّذِي يُقَالُ لَهُ الْقُدْسُ.»
 
             <span class="verse-reference">
                 عبرانيين 9:2
@@ -1086,36 +1113,44 @@ main {
     </section>
 
 
+
     <!-- =====================================================
-         5
+         SECTION 5
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">🔥</span>
+            <span class="section-icon">
+                🔥
+            </span>
 
-            خامسًا: مذبح البخور وعلاقته بقدس الأقداس
+            خامسًا: مذبح البخور
 
         </h2>
 
         <p>
-            كان مذبح البخور في القدس أمام الحجاب الذي يفصل
-            القدس عن قدس الأقداس. ولذلك كان قريبًا جدًا من
-            أقدس منطقة في الهيكل، لكنه كان مرتبطًا بالقدس
-            وليس داخل قدس الأقداس.
+
+            كان مذبح البخور في القدس أمام الحجاب الفاصل
+            عن قدس الأقداس، ولذلك كان قريبًا جدًا من
+            الموضع الأقدس، دون أن يكون داخل قدس الأقداس
+            نفسه بحسب وصف ترتيب المبنى.
+
         </p>
 
         <p>
-            ويرتبط البخور في الكتاب المقدس بالصلاة والعبادة،
-            ويظهر ذلك في سياق خدمة زكريا الكاهن في الهيكل.
+
+            وترتبط خدمة البخور بالصلاة والعبادة، وهو ما
+            يظهر بوضوح في قصة زكريا الكاهن.
+
         </p>
 
         <div class="verse">
 
-            "فَفِي صَلاةِ زَكَرِيَّا أَقْبَلَ جُمْهُورُ الشَّعْبِ
-            كُلُّهُ خَارِجًا يُصَلِّي وَقْتَ الْبَخُورِ."
+            «فَفِي صَلاةِ زَكَرِيَّا أَقْبَلَ جُمْهُورُ
+            الشَّعْبِ كُلُّهُ خَارِجًا يُصَلِّي وَقْتَ
+            الْبَخُورِ.»
 
             <span class="verse-reference">
                 لوقا 1:10
@@ -1126,36 +1161,43 @@ main {
     </section>
 
 
+
     <!-- =====================================================
-         6
+         SECTION 6
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">🚪</span>
+            <span class="section-icon">
+                🚪
+            </span>
 
             سادسًا: الحجاب الفاصل
 
         </h2>
 
         <p>
-            كان هناك حجاب يفصل بين القدس وقدس الأقداس.
-            وكان هذا الحجاب جزءًا من نظام القداسة الذي
-            يحدد الانتقال من المكان المقدس إلى الموضع الأقدس.
+
+            كان الحجاب يفصل بين القدس وقدس الأقداس،
+            ويمثل الحد الفاصل بين القسم المقدس والقسم
+            الأقدس في نظام العبادة.
+
         </p>
 
         <p>
-            وفي أحداث صلب المسيح يذكر العهد الجديد انشقاق
-            حجاب الهيكل، وهي إشارة ذات أهمية لاهوتية كبيرة
-            في تفسير عمل المسيح.
+
+            ويرتبط الحجاب بصورة خاصة بخدمة رئيس الكهنة
+            في يوم الكفارة، عندما كان الدخول إلى قدس
+            الأقداس يتم وفق الشروط المحددة في الشريعة.
+
         </p>
 
         <div class="verse">
 
-            "وَإِذَا حِجَابُ الْهَيْكَلِ قَدِ انْشَقَّ إِلَى
-            اثْنَيْنِ مِنْ فَوْقُ إِلَى أَسْفَلُ."
+            «وَإِذَا حِجَابُ الْهَيْكَلِ قَدِ انْشَقَّ
+            إِلَى اثْنَيْنِ مِنْ فَوْقُ إِلَى أَسْفَلُ.»
 
             <span class="verse-reference">
                 متى 27:51
@@ -1165,47 +1207,54 @@ main {
 
         <div class="note">
 
-            <strong>ملاحظة تفسيرية:</strong>
-            انشقاق الحجاب حدث يقدمه العهد الجديد ضمن معنى
-            موت المسيح، ولذلك ينبغي ألا يُختزل إلى مجرد
-            حادث معماري.
+            <strong>المعنى اللاهوتي:</strong>
+
+            يقدم العهد الجديد انشقاق الحجاب باعتباره جزءًا
+            من أحداث موت المسيح، وليس مجرد تغيير معماري
+            داخل الهيكل.
 
         </div>
 
     </section>
 
 
+
     <!-- =====================================================
-         7
+         SECTION 7
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">👑</span>
+            <span class="section-icon">
+                👑
+            </span>
 
             سابعًا: من كان يدخل قدس الأقداس؟
 
         </h2>
 
         <p>
-            لم يكن قدس الأقداس مكانًا متاحًا للكهنة بصورة
-            يومية أو لعامة الشعب. وكان الدخول إليه مرتبطًا
-            بخدمة رئيس الكهنة في يوم الكفارة.
+
+            لم يكن قدس الأقداس مكانًا مفتوحًا لعامة الشعب،
+            ولم يكن الدخول إليه خدمة يومية للكهنة.
+
         </p>
 
         <p>
-            ويصف سفر اللاويين دخول رئيس الكهنة إلى قدس
-            الأقداس لتقديم الكفارة، ويضع شروطًا محددة لهذه
-            الخدمة.
+
+            كان الدخول مرتبطًا بصورة خاصة بخدمة رئيس
+            الكهنة في يوم الكفارة، وفق الأحكام الواردة
+            في سفر اللاويين.
+
         </p>
 
         <div class="verse">
 
-            "وَلاَ يَدْخُلْ كُلَّ وَقْتٍ إِلَى الْقُدْسِ
+            «وَلاَ يَدْخُلْ كُلَّ وَقْتٍ إِلَى الْقُدْسِ
             دَاخِلَ الْحِجَابِ أَمَامَ الْغِطَاءِ الَّذِي
-            عَلَى التَّابُوتِ، لِئَلاَّ يَمُوتَ."
+            عَلَى التَّابُوتِ، لِئَلاَّ يَمُوتَ.»
 
             <span class="verse-reference">
                 لاويين 16:2
@@ -1216,67 +1265,86 @@ main {
     </section>
 
 
+
     <!-- =====================================================
-         8
+         SECTION 8
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">📦</span>
+            <span class="section-icon">
+                📦
+            </span>
 
-            ثامنًا: تابوت العهد في هيكل هيرودس
+            ثامنًا: هل كان تابوت العهد موجودًا في هيكل هيرودس؟
 
         </h2>
 
         <p>
-            لا يوجد دليل تاريخي موثوق يثبت أن تابوت العهد
-            كان موجودًا داخل قدس أقداس هيكل هيرودس.
+
+            يجب التعامل مع هذه النقطة بدقة تاريخية.
+
         </p>
 
         <p>
-            ولذلك لا ينبغي تقديم صورة أو إعادة بناء للتابوت
-            داخل قدس أقداس هيكل هيرودس باعتبارها حقيقة
-            تاريخية ثابتة.
+
+            لا يوجد دليل تاريخي موثوق يثبت أن تابوت العهد
+            كان موجودًا داخل قدس أقداس هيكل هيرودس.
+
+        </p>
+
+        <p>
+
+            ولذلك لا ينبغي أن تعرض موسوعة الكتاب المقدس
+            تابوت العهد داخل قدس أقداس هيكل هيرودس على أنه
+            حقيقة تاريخية ثابتة.
+
         </p>
 
         <div class="note">
 
-            <strong>تصحيح مهم للموسوعة:</strong>
+            <strong>قاعدة للموسوعة:</strong>
 
-            تابوت العهد يرتبط بالهيكل الأول، ولا يوجد دليل
-            تاريخي موثوق يثبت وجوده داخل قدس أقداس هيكل
-            هيرودس.
+            يجب التفريق بين ما يثبته النص أو التاريخ،
+            وما هو تقليد أو إعادة بناء افتراضية.
 
         </div>
 
     </section>
 
 
+
     <!-- =====================================================
-         9
+         SECTION 9
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">🏛️</span>
+            <span class="section-icon">
+                🕎
+            </span>
 
             تاسعًا: قدس الأقداس في عصر الهيكل الثاني
 
         </h2>
 
         <p>
-            بقي مفهوم قدس الأقداس حاضرًا في بنية الهيكل
-            ووظيفته خلال عصر الهيكل الثاني، مع اختلاف
-            بعض التفاصيل عن هيكل سليمان.
+
+            بقي مفهوم قدس الأقداس حاضرًا في نظام الهيكل
+            الثاني، مع اختلافات تاريخية عن هيكل سليمان.
+
         </p>
 
         <p>
+
             وفي عصر هيرودس كان قدس الأقداس يمثل أعمق نقطة
-            في مبنى الهيكل، وكان الوصول إليه شديد التقييد.
+            في مبنى الهيكل، وكانت إمكانية الوصول إليه
+            محدودة للغاية.
+
         </p>
 
         <div class="table-container">
@@ -1287,9 +1355,17 @@ main {
 
                     <tr>
 
-                        <th>العنصر</th>
-                        <th>هيكل سليمان</th>
-                        <th>هيكل هيرودس</th>
+                        <th>
+                            العنصر
+                        </th>
+
+                        <th>
+                            هيكل سليمان
+                        </th>
+
+                        <th>
+                            هيكل هيرودس
+                        </th>
 
                     </tr>
 
@@ -1299,21 +1375,25 @@ main {
 
                     <tr>
 
-                        <td>القدس</td>
-
                         <td>
-                            جزء من التقسيم الداخلي للهيكل.
+                            القدس
                         </td>
 
                         <td>
-                            جزء من التقسيم الداخلي للهيكل.
+                            قسم أساسي من المبنى المقدس.
+                        </td>
+
+                        <td>
+                            قسم أساسي من المبنى المقدس.
                         </td>
 
                     </tr>
 
                     <tr>
 
-                        <td>قدس الأقداس</td>
+                        <td>
+                            قدس الأقداس
+                        </td>
 
                         <td>
                             أقدس موضع في الهيكل.
@@ -1327,30 +1407,32 @@ main {
 
                     <tr>
 
-                        <td>تابوت العهد</td>
-
                         <td>
-                            كان موجودًا في قدس الأقداس
-                            في فترة الهيكل الأول.
+                            تابوت العهد
                         </td>
 
                         <td>
-                            لا يوجد دليل تاريخي موثوق
-                            على وجوده.
+                            كان مرتبطًا بقدس أقداس الهيكل الأول.
+                        </td>
+
+                        <td>
+                            لا يوجد دليل تاريخي موثوق على وجوده.
                         </td>
 
                     </tr>
 
                     <tr>
 
-                        <td>الدخول</td>
-
                         <td>
-                            مقيد بنظام الكهنوت والقداسة.
+                            الدخول
                         </td>
 
                         <td>
-                            شديد التقييد، وخاصة في يوم الكفارة.
+                            مقيد بنظام القداسة والكهنوت.
+                        </td>
+
+                        <td>
+                            شديد التقييد ويرتبط بخدمة يوم الكفارة.
                         </td>
 
                     </tr>
@@ -1364,42 +1446,45 @@ main {
     </section>
 
 
+
     <!-- =====================================================
-         10
+         SECTION 10
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">✝️</span>
+            <span class="section-icon">
+                ✝️
+            </span>
 
             عاشرًا: المسيح والقدس وقدس الأقداس
 
         </h2>
 
         <p>
+
             كان الهيكل في زمن المسيح مركزًا رئيسيًا للعبادة
-            اليهودية في أورشليم، وارتبطت به أحداث متعددة
-            في حياة المسيح.
+            اليهودية في أورشليم، وارتبطت به أحداث كثيرة
+            في حياة المسيح وخدمته.
+
         </p>
 
         <p>
-            لكن العهد الجديد يذهب أبعد من مجرد وصف المكان،
-            إذ يربط عمل المسيح بمفهوم الاقتراب إلى الله
-            والدخول إلى حضرته.
-        </p>
 
-        <p>
-            ويشرح سفر العبرانيين أن المسيح دخل إلى المقدس
-            الحقيقي، رابطًا ذلك بعمل الفداء الكامل.
+            ويستخدم العهد الجديد لغة الهيكل والكهنوت
+            والقدس والذبيحة لشرح عمل المسيح الفدائي
+            والكهنوتي.
+
         </p>
 
         <div class="verse">
 
-            "وَأَمَّا الْمَسِيحُ، وَهُوَ قَدْ جَاءَ رَئِيسَ
+            «وَأَمَّا الْمَسِيحُ، وَهُوَ قَدْ جَاءَ رَئِيسَ
             كَهَنَةٍ لِلْخَيْرَاتِ الْعَتِيدَةِ، فَبِالْمَسْكَنِ
-            الأَعْظَمِ وَالأَكْمَلِ، غَيْرِ الْمَصْنُوعِ بِيَدٍ."
+            الأَعْظَمِ وَالأَكْمَلِ، غَيْرِ الْمَصْنُوعِ بِيَدٍ،
+            أَيْ الَّذِي لَيْسَ مِنْ هَذِهِ الْخَلِيقَةِ.»
 
             <span class="verse-reference">
                 عبرانيين 9:11
@@ -1410,36 +1495,42 @@ main {
     </section>
 
 
+
     <!-- =====================================================
-         11
+         SECTION 11
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">🕊️</span>
+            <span class="section-icon">
+                🕊️
+            </span>
 
             الحادي عشر: من الرمز إلى تحقيق المسيح
 
         </h2>
 
         <p>
-            لا ينبغي تفسير كل قطعة معمارية في الهيكل باعتبارها
-            رمزًا نبويًا مستقلًا. لكن العهد الجديد يستخدم لغة
-            الهيكل والكهنوت والقدس والذبيحة لفهم عمل المسيح.
+
+            لا ينبغي تحويل كل تفصيل معماري في الهيكل إلى
+            رمز نبوي مستقل دون سند كتابي.
+
         </p>
 
         <p>
-            ومن أهم الأفكار اللاهوتية أن الوصول إلى الله لم يعد
-            قائمًا على تكرار الدخول إلى موضع أرضي، بل على عمل
-            المسيح الكهنوتي والفدائي.
+
+            لكن العهد الجديد نفسه يستخدم لغة القدس
+            والكهنوت والذبيحة والدخول إلى الأقداس لشرح
+            عمل المسيح.
+
         </p>
 
         <div class="verse">
 
-            "فَإِذْ لَنَا أَيُّهَا الإِخْوَةُ ثِقَةٌ بِالدُّخُولِ
-            إِلَى الأَقْدَاسِ بِدَمِ يَسُوعَ."
+            «فَإِذْ لَنَا أَيُّهَا الإِخْوَةُ ثِقَةٌ
+            بِالدُّخُولِ إِلَى الأَقْدَاسِ بِدَمِ يَسُوعَ.»
 
             <span class="verse-reference">
                 عبرانيين 10:19
@@ -1450,102 +1541,113 @@ main {
     </section>
 
 
+
     <!-- =====================================================
-         12
+         SECTION 12
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">📖</span>
+            <span class="section-icon">
+                📖
+            </span>
 
             الثاني عشر: القدس وقدس الأقداس في رسالة العبرانيين
 
         </h2>
 
         <p>
-            يقدم سفر العبرانيين مقارنة لاهوتية بين خدمة العهد
-            القديم وخدمة المسيح، ويستخدم عناصر المسكن والهيكل
-            والخدمة الكهنوتية لشرح كمال عمل المسيح.
+
+            يستخدم سفر العبرانيين نظام المسكن والهيكل
+            والخدمة الكهنوتية كخلفية لشرح الفرق بين
+            الخدمة الأرضية وعمل المسيح الكامل.
+
         </p>
 
         <p>
-            ولذلك فإن دراسة القدس وقدس الأقداس تساعد على فهم
-            الخلفية التي يستخدمها الكاتب لشرح الكهنوت والكفارة
-            والدخول إلى حضرة الله.
+
+            ولذلك فإن فهم الوظيفة التاريخية للقدس وقدس
+            الأقداس يساعد في فهم المصطلحات اللاهوتية
+            المستخدمة في الرسالة.
+
         </p>
 
         <div class="note">
 
             <strong>قاعدة تفسيرية:</strong>
 
-            يجب أولًا فهم الوظيفة التاريخية والعبادية للقدس
-            وقدس الأقداس، ثم الانتقال إلى تفسير استخدامها
-            اللاهوتي في العهد الجديد.
+            نفهم أولًا التاريخ والبنية والوظيفة، ثم ننتقل
+            إلى الدلالة اللاهوتية التي يقدمها العهد الجديد.
 
         </div>
 
     </section>
 
 
+
     <!-- =====================================================
-         13
+         SECTION 13
     ====================================================== -->
 
     <section class="study-section">
 
         <h2 class="section-heading">
 
-            <span class="section-icon">📚</span>
+            <span class="section-icon">
+                📚
+            </span>
 
             الثالث عشر: المصادر الأساسية للدراسة
 
         </h2>
 
         <p>
-            لفهم القدس وقدس الأقداس في عصر هيكل هيرودس،
-            ينبغي الجمع بين المصادر الكتابية والتاريخية
-            واليهودية والأثرية، مع الفصل بين النص الصريح
-            وإعادة البناء العلمية.
+
+            دراسة القدس وقدس الأقداس تحتاج إلى الجمع بين
+            النصوص الكتابية والمصادر التاريخية واليهودية
+            والدراسات الأثرية، مع التمييز بين الحقيقة
+            الموثقة وإعادة البناء العلمية.
+
         </p>
 
         <ul class="study-list">
 
             <li>
-                سفر اللاويين، ولا سيما الإصحاح 16.
+                سفر اللاويين، وخاصة الإصحاح 16.
             </li>
 
             <li>
-                سفر الخروج في وصف المسكن وتقسيماته.
+                سفر الخروج ووصف المسكن.
             </li>
 
             <li>
-                سفر الملوك الأول في وصف هيكل سليمان.
+                سفر الملوك الأول ووصف هيكل سليمان.
             </li>
 
             <li>
-                سفر أخبار الأيام في تفاصيل الهيكل والعبادة.
+                سفر أخبار الأيام وتفاصيل العبادة.
             </li>
 
             <li>
-                الأناجيل الأربعة في أحداث المسيح المرتبطة بالهيكل.
+                الأناجيل الأربعة وأحداث المسيح المرتبطة بالهيكل.
             </li>
 
             <li>
-                سفر أعمال الرسل في أحداث الكنيسة الأولى المرتبطة بالهيكل.
+                سفر أعمال الرسل.
             </li>
 
             <li>
-                سفر العبرانيين في تفسير العلاقة بين الخدمة الكهنوتية وعمل المسيح.
+                سفر العبرانيين.
             </li>
 
             <li>
-                المصادر اليهودية القديمة المتعلقة بوصف الهيكل وأقسامه.
+                المصادر اليهودية القديمة المتعلقة بالهيكل.
             </li>
 
             <li>
-                يوسيفوس والدراسات الأثرية الحديثة لمجمع جبل الهيكل.
+                يوسيفوس والدراسات الأثرية الحديثة.
             </li>
 
         </ul>
@@ -1553,8 +1655,9 @@ main {
     </section>
 
 
+
     <!-- =====================================================
-         الخلاصة
+         CONCLUSION
     ====================================================== -->
 
     <section class="conclusion">
@@ -1564,35 +1667,44 @@ main {
         </h2>
 
         <p>
-            كان القدس وقدس الأقداس قلب مبنى الهيكل المقدس،
-            وليس مجرد قسمين من ساحات جبل الهيكل. وكان القدس
-            مخصصًا للخدمة الكهنوتية، بينما كان قدس الأقداس
-            أقدس موضع في المبنى وكانت إمكانية الوصول إليه
-            شديدة التقييد.
+
+            كان القدس وقدس الأقداس قلب مبنى الهيكل المقدس.
+            وكان القدس مرتبطًا بالخدمة الكهنوتية اليومية،
+            بينما كان قدس الأقداس أقدس موضع في المبنى
+            وأكثره تقييدًا من حيث الدخول.
+
         </p>
 
         <p>
-            وفي دراسة هيكل هيرودس تحديدًا، يجب الانتباه إلى
-            الفرق بين هيكل سليمان وهيكل العصر الثاني، ومن
-            أهم النقاط أن وجود تابوت العهد داخل قدس أقداس
-            هيكل هيرودس غير مثبت تاريخيًا.
+
+            وفي دراسة هيكل هيرودس يجب التمييز بوضوح بين
+            ما نعرفه عن هيكل سليمان وما نعرفه عن هيكل
+            العصر الثاني، وخاصة فيما يتعلق بتابوت العهد.
+
         </p>
 
         <p>
-            أما في العهد الجديد، فقد أصبحت لغة القدس والدخول
-            إلى حضرة الله جزءًا أساسيًا من تفسير عمل المسيح
+
+            أما العهد الجديد فيستخدم لغة الهيكل والكهنوت
+            والقدس والدخول إلى الأقداس لشرح عمل المسيح
             الكهنوتي والفدائي، ولا سيما في رسالة العبرانيين.
+
         </p>
 
         <p>
-            وهكذا فإن فهم البنية التاريخية للهيكل أولًا يجعل
-            القراءة اللاهوتية للنص أكثر دقة، ويمنع الخلط بين
-            التاريخ والآثار والتقليد والتفسير المسيحي.
+
+            ولذلك فإن الدراسة التاريخية الدقيقة للهيكل
+            هي الأساس الصحيح للانتقال إلى القراءة
+            اللاهوتية، مع عدم الخلط بين التاريخ والتقليد
+            والتفسير.
+
         </p>
 
     </section>
 
+
 </main>
+
 
 
 <!-- =========================================================
