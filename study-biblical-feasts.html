@@ -2,1168 +2,700 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>مواسم وأعياد الرب | موسوعة الكتاب المقدس</title>
-
-<style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-
-/* =========================================================
-   ROOT
-========================================================= */
-
-:root {
-
-    --page-bg: #061f33;
-
-    --header-bg: #031421;
-
-    --card-bg: #071f32;
-
-    --card-hover: #0b3049;
-
-    --gold: #d4af37;
-
-    --gold-light: #efd36a;
-
-    --white: #ffffff;
-
-    --text: #dceaf4;
-
-    --muted: #9db3c4;
-}
-
-
-/* =========================================================
-   BODY
-========================================================= */
-
-body {
-
-    font-family:
-        Tahoma,
-        Arial,
-        sans-serif;
-
-    background:
-        var(--page-bg);
-
-    color:
-        var(--white);
-
-    min-height:
-        100vh;
-
-    line-height:
-        1.8;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header {
-
-    width: 100%;
-
-    min-height: 76px;
-
-    background:
-        var(--header-bg);
-
-    border-bottom:
-        1px solid var(--gold);
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    padding:
-        9px 24px;
-
-    position:
-        sticky;
-
-    top:
-        0;
-
-    z-index:
-        1000;
-
-    box-shadow:
-        0 4px 15px rgba(0,0,0,.28);
-
-    /*
-       تثبيت أماكن الهيدر:
-       اليسار = اللوجو
-       اليمين = الرجوع
-    */
-
-    direction:
-        ltr;
-}
-
-
-/* =========================================================
-   HEADER LEFT
-========================================================= */
-
-.header-brand {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        10px;
-
-    direction:
-        ltr;
-
-    flex-shrink:
-        0;
-}
-
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.church-logo {
-
-    width:
-        48px;
-
-    height:
-        48px;
-
-    object-fit:
-        contain;
-
-    display:
-        block;
-
-    flex-shrink:
-        0;
-}
-
-
-/* =========================================================
-   HEADER TITLE
-========================================================= */
-
-.header-title {
-
-    color:
-        var(--gold);
-
-    font-size:
-        14px;
-
-    font-weight:
-        bold;
-
-    white-space:
-        nowrap;
-
-    direction:
-        rtl;
-}
-
-
-/* =========================================================
-   HEADER RIGHT
-========================================================= */
-
-.header-navigation {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    direction:
-        rtl;
-}
-
-
-/* =========================================================
-   BACK BUTTON
-========================================================= */
-
-.back-button {
-
-    display:
-        inline-flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    min-width:
-        125px;
-
-    min-height:
-        42px;
-
-    padding:
-        7px 15px;
-
-    background:
-        #09283d;
-
-    color:
-        var(--gold);
-
-    border:
-        2px solid var(--gold);
-
-    border-radius:
-        9px;
-
-    text-decoration:
-        none;
-
-    font-size:
-        13px;
-
-    font-weight:
-        bold;
-
-    transition:
-        .2s ease;
-}
-
-
-.back-button:hover {
-
-    background:
-        #103a55;
-
-    color:
-        var(--gold-light);
-
-    transform:
-        translateY(-1px);
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-main {
-
-    width:
-        min(1250px, 94%);
-
-    margin:
-        25px auto 45px;
-}
-
-
-/* =========================================================
-   PAGE INTRO
-========================================================= */
-
-.page-intro {
-
-    background:
-        #0b2f4d;
-
-    border:
-        1px solid rgba(212,175,55,.40);
-
-    border-radius:
-        17px;
-
-    padding:
-        27px 30px;
-
-    text-align:
-        center;
-
-    margin-bottom:
-        22px;
-
-    box-shadow:
-        0 8px 22px rgba(0,0,0,.16);
-}
-
-
-/* =========================================================
-   PAGE ICON
-========================================================= */
-
-.page-icon {
-
-    font-size:
-        43px;
-
-    line-height:
-        1;
-
-    margin-bottom:
-        8px;
-}
-
-
-/* =========================================================
-   PAGE TITLE
-========================================================= */
-
-.page-intro h1 {
-
-    color:
-        var(--gold);
-
-    font-size:
-        clamp(25px, 4vw, 34px);
-
-    margin-bottom:
-        8px;
-}
-
-
-/* =========================================================
-   PAGE DESCRIPTION
-========================================================= */
-
-.page-intro p {
-
-    color:
-        var(--text);
-
-    font-size:
-        13px;
-
-    line-height:
-        2;
-
-    max-width:
-        950px;
-
-    margin:
-        auto;
-}
-
-
-/* =========================================================
-   FEAST GRID
-=========================================================
-
-   التصميم المطلوب:
-
-   الصف الأول:
-   [1] [2] [3]
-
-   الصف الثاني:
-   [4] [5] [6]
-
-   الصف الثالث:
-   [7] [8]
-
-========================================================= */
-
-.feasts-grid {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap:
-        18px;
-
-    width:
-        100%;
-}
-
-
-/* =========================================================
-   FEAST CARD
-========================================================= */
-
-.feast-card {
-
-    min-height:
-        235px;
-
-    background:
-        var(--card-bg);
-
-    border:
-        1px solid rgba(212,175,55,.38);
-
-    border-radius:
-        16px;
-
-    padding:
-        24px 20px;
-
-    text-decoration:
-        none;
-
-    color:
-        var(--white);
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    text-align:
-        center;
-
-    box-shadow:
-        0 7px 18px rgba(0,0,0,.18);
-
-    transition:
-        transform .2s ease,
-        background .2s ease,
-        border-color .2s ease,
-        box-shadow .2s ease;
-}
-
-
-.feast-card:hover {
-
-    background:
-        var(--card-hover);
-
-    border-color:
-        var(--gold);
-
-    transform:
-        translateY(-4px);
-
-    box-shadow:
-        0 11px 25px rgba(0,0,0,.27);
-}
-
-
-/* =========================================================
-   ICON
-========================================================= */
-
-.feast-icon {
-
-    width:
-        76px;
-
-    height:
-        76px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    font-size:
-        48px;
-
-    margin-bottom:
-        12px;
-
-    border:
-        1px solid rgba(212,175,55,.28);
-
-    border-radius:
-        50%;
-
-    background:
-        rgba(212,175,55,.05);
-}
-
-
-/* =========================================================
-   CARD TITLE
-========================================================= */
-
-.feast-card h2 {
-
-    color:
-        var(--gold);
-
-    font-size:
-        19px;
-
-    line-height:
-        1.6;
-
-    margin-bottom:
-        8px;
-}
-
-
-/* =========================================================
-   CARD DESCRIPTION
-========================================================= */
-
-.feast-card p {
-
-    color:
-        var(--text);
-
-    font-size:
-        12px;
-
-    line-height:
-        1.9;
-
-    max-width:
-        330px;
-}
-
-
-/* =========================================================
-   STRUCTURE NOTE
-========================================================= */
-
-.structure-note {
-
-    margin-top:
-        20px;
-
-    background:
-        #092638;
-
-    border-right:
-        3px solid var(--gold);
-
-    border-radius:
-        10px;
-
-    padding:
-        15px 18px;
-
-    color:
-        var(--text);
-
-    font-size:
-        12px;
-
-    line-height:
-        2;
-}
-
-
-.structure-note strong {
-
-    color:
-        var(--gold);
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer {
-
-    text-align:
-        center;
-
-    color:
-        var(--muted);
-
-    font-size:
-        10px;
-
-    padding:
-        20px;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-    main {
-
-        width:
-            94%;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>مواسم وأعياد الرب | موسوعة الكتاب المقدس</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-
-    .feasts-grid {
-
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+    html {
+      scroll-behavior: smooth;
     }
 
-
-    .feast-card {
-
-        min-height:
-            220px;
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background:
+        linear-gradient(
+          180deg,
+          #061d31 0%,
+          #082b46 45%,
+          #0a3555 100%
+        );
+      color: #ffffff;
+      min-height: 100vh;
+      line-height: 2;
     }
 
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
+    /* ================================
+       HEADER
+    ================================= */
 
     header {
+      width: 100%;
+      min-height: 82px;
 
-        min-height:
-            64px;
+      background: #031522;
 
-        padding:
-            7px 10px;
+      border-bottom: 2px solid #c9a227;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 10px 28px;
+
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.35);
     }
 
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      direction: ltr;
+    }
 
     .church-logo {
+      width: 55px;
+      height: 55px;
 
-        width:
-            39px;
+      object-fit: contain;
+      display: block;
 
-        height:
-            39px;
+      flex-shrink: 0;
     }
 
+    .encyclopedia-title {
+      color: #d8b63f;
 
-    .header-title {
+      font-size: 18px;
+      font-weight: bold;
 
-        font-size:
-            11px;
+      white-space: nowrap;
     }
 
-
-    .back-button {
-
-        min-width:
-            auto;
-
-        min-height:
-            36px;
-
-        padding:
-            6px 10px;
-
-        font-size:
-            10px;
+    .header-right {
+      display: flex;
+      align-items: center;
     }
 
+    .back-btn {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      min-width: 205px;
+
+      padding: 10px 18px;
+
+      background: #082c45;
+
+      color: #d8b63f;
+
+      border: 2px solid #c9a227;
+
+      border-radius: 10px;
+
+      text-decoration: none;
+
+      font-size: 17px;
+      font-weight: bold;
+
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: #10415f;
+      border-color: #e2c45b;
+
+      transform: translateY(-2px);
+    }
+
+    /* ================================
+       MAIN
+    ================================= */
 
     main {
-
-        width:
-            94%;
-
-        margin-top:
-            16px;
+      width: min(1100px, 94%);
+      margin: 35px auto 60px;
     }
 
+    /* ================================
+       PAGE INTRO
+    ================================= */
 
     .page-intro {
+      background:
+        linear-gradient(
+          145deg,
+          #103c60,
+          #0b2e4a
+        );
 
-        padding:
-            23px 15px;
+      border: 1px solid rgba(201, 162, 39, 0.65);
+
+      border-radius: 20px;
+
+      padding: 38px 30px;
+
+      margin-bottom: 30px;
+
+      text-align: center;
+
+      box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.28);
     }
 
+    .page-icon {
+      font-size: 52px;
+      margin-bottom: 10px;
+    }
 
     .page-intro h1 {
+      color: #d8b63f;
 
-        font-size:
-            23px;
+      font-size: clamp(31px, 5vw, 45px);
+
+      line-height: 1.5;
+
+      margin-bottom: 12px;
     }
-
 
     .page-intro p {
+      max-width: 900px;
 
-        font-size:
-            11px;
+      margin: auto;
+
+      color: #e7f1f8;
+
+      font-size: 19px;
+
+      line-height: 2.05;
     }
 
+    /* ================================
+       STUDIES GRID
+    ================================= */
 
-    .feasts-grid {
+    .studies-grid {
+      display: grid;
 
-        grid-template-columns:
-            1fr;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
-        gap:
-            14px;
+      gap: 22px;
     }
 
+    .study-card {
+      display: flex;
 
-    .feast-card {
+      flex-direction: column;
 
-        min-height:
-            190px;
+      align-items: center;
 
-        padding:
-            22px 17px;
+      justify-content: center;
+
+      min-height: 220px;
+
+      padding: 28px 22px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #092943,
+          #061d30
+        );
+
+      border: 1px solid rgba(201, 162, 39, 0.55);
+
+      border-radius: 18px;
+
+      text-decoration: none;
+
+      color: #ffffff;
+
+      text-align: center;
+
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.24);
+
+      transition:
+        transform 0.22s ease,
+        background 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
     }
 
+    .study-card:hover {
+      transform: translateY(-5px);
 
-    .feast-icon {
+      background:
+        linear-gradient(
+          145deg,
+          #10415f,
+          #082b46
+        );
 
-        width:
-            68px;
+      border-color: #e0c354;
 
-        height:
-            68px;
-
-        font-size:
-            42px;
+      box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.35);
     }
 
+    .study-icon {
+      width: 88px;
+      height: 88px;
 
-    .feast-card h2 {
+      display: flex;
 
-        font-size:
-            17px;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 17px;
+
+      background: rgba(201, 162, 39, 0.08);
+
+      border: 1px solid rgba(201, 162, 39, 0.35);
+
+      border-radius: 50%;
+
+      font-size: 48px;
+
+      box-shadow:
+        inset 0 0 20px rgba(201, 162, 39, 0.05);
     }
 
+    .study-title {
+      color: #d8b63f;
 
-    .feast-card p {
+      font-size: 24px;
 
-        font-size:
-            11px;
+      font-weight: bold;
+
+      line-height: 1.6;
+
+      margin-bottom: 8px;
     }
 
-}
+    .study-description {
+      color: #dceaf4;
 
+      font-size: 17px;
 
-/* =========================================================
-   VERY SMALL MOBILE
-========================================================= */
+      line-height: 1.9;
 
-@media (max-width: 400px) {
-
-    .header-title {
-
-        font-size:
-            9px;
+      max-width: 420px;
     }
 
+    /* ================================
+       SPECIAL FEAST CARDS
+    ================================= */
 
-    .church-logo {
+    .study-card.featured {
+      border-color:
+        rgba(216, 182, 63, 0.75);
 
-        width:
-            35px;
-
-        height:
-            35px;
+      background:
+        linear-gradient(
+          145deg,
+          #103b5c,
+          #08283f
+        );
     }
 
+    /* ================================
+       FOOTER
+    ================================= */
 
-    .back-button {
+    footer {
+      text-align: center;
 
-        font-size:
-            9px;
+      color: #b9cedd;
 
-        padding:
-            5px 8px;
+      font-size: 14px;
+
+      padding: 25px 15px 35px;
+
+      border-top:
+        1px solid rgba(201, 162, 39, 0.25);
     }
 
-}
+    /* ================================
+       MOBILE
+    ================================= */
 
-</style>
+    @media (max-width: 760px) {
 
+      header {
+        min-height: 72px;
+
+        padding: 8px 11px;
+      }
+
+      .church-logo {
+        width: 43px;
+        height: 43px;
+      }
+
+      .encyclopedia-title {
+        font-size: 13px;
+      }
+
+      .back-btn {
+        min-width: auto;
+
+        padding: 8px 10px;
+
+        font-size: 12px;
+      }
+
+      main {
+        width: 94%;
+
+        margin-top: 18px;
+      }
+
+      .page-intro {
+        padding: 27px 18px;
+      }
+
+      .page-icon {
+        font-size: 45px;
+      }
+
+      .page-intro h1 {
+        font-size: 30px;
+      }
+
+      .page-intro p {
+        font-size: 17px;
+      }
+
+      .studies-grid {
+        grid-template-columns: 1fr;
+
+        gap: 17px;
+      }
+
+      .study-card {
+        min-height: 195px;
+
+        padding: 24px 18px;
+      }
+
+      .study-icon {
+        width: 74px;
+        height: 74px;
+
+        font-size: 40px;
+      }
+
+      .study-title {
+        font-size: 21px;
+      }
+
+      .study-description {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
+  <!-- ==================================================
+       HEADER
+       اليسار: الشعار + موسوعة الكتاب المقدس
+       اليمين: الرجوع إلى صفحة الدراسات
+  ================================================== -->
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
+  <header>
 
-<header>
+    <div class="header-left">
 
+      <img
+        src="assets/logo.png"
+        alt="شعار كنيسة رجاء الأمم سيدني"
+        class="church-logo"
+      >
 
-    <!-- اليسار: اللوجو + موسوعة الكتاب المقدس -->
-
-    <div class="header-brand">
-
-        <img
-            src="assets/logo.png"
-            alt="شعار كنيسة رجاء الأمم سيدني"
-            class="church-logo"
-        >
-
-        <div class="header-title">
-            موسوعة الكتاب المقدس
-        </div>
+      <div class="encyclopedia-title">
+        موسوعة الكتاب المقدس
+      </div>
 
     </div>
 
+    <div class="header-right">
 
-    <!-- اليمين: الرجوع -->
+      <a
+        href="studies.html"
+        class="back-btn"
+      >
+        ← الدراسات
+      </a>
 
-    <nav class="header-navigation">
+    </div>
 
-        <a
-            href="studies.html"
-            class="back-button"
-        >
-            ← الدراسات
-        </a>
-
-    </nav>
-
-</header>
+  </header>
 
 
+  <!-- ==================================================
+       MAIN
+  ================================================== -->
 
-<!-- =========================================================
-     MAIN
-========================================================= -->
+  <main>
 
-<main>
-
-
-    <!-- =====================================================
+    <!-- ==================================================
          INTRO
-    ====================================================== -->
+    ================================================== -->
 
     <section class="page-intro">
 
-        <div
-            class="page-icon"
-            aria-hidden="true"
-        >
-            🕎
+      <div class="page-icon">
+        🕎
+      </div>
+
+      <h1>
+        مواسم وأعياد الرب
+      </h1>
+
+      <p>
+        دراسة متكاملة لمواسم وأعياد الرب في الكتاب المقدس،
+        وخلفيتها التاريخية والطقسية ومعانيها اللاهوتية،
+        وعلاقتها بعمل الله في الخلاص وإتمامها في المسيح.
+      </p>
+
+    </section>
+
+
+    <!-- ==================================================
+         FEASTS GRID
+    ================================================== -->
+
+    <section class="studies-grid">
+
+
+      <!-- ================================================
+           1 — الفصح
+      ================================================= -->
+
+      <a
+        href="study-biblical-feasts-passover.html"
+        class="study-card"
+      >
+
+        <div class="study-icon">
+          🐑
         </div>
 
+        <div class="study-title">
+          عيد الفصح
+        </div>
 
-        <h1>
-            مواسم وأعياد الرب
-        </h1>
+        <div class="study-description">
+          الذبيحة والدم والخلاص والخروج من العبودية
+        </div>
 
+      </a>
 
-        <p>
-            دراسة كتابية منظمة لمواسم وأعياد الرب،
-            تبدأ بالنظرة العامة إلى التقويم والمواعيد
-            وتاريخ الأعياد في إسرائيل، ثم تنتقل إلى دراسة
-            كل عيد بصورة مستقلة من العهد القديم إلى العهد الجديد،
-            ورموزه وإعلاناته في المسيح.
-        </p>
 
-    </section>
+      <!-- ================================================
+           2 — عيد الفطير
+           الرابط الصحيح للملف الجديد
+      ================================================= -->
 
+      <a
+        href="./study-biblical-feasts-unleavened-bread.html"
+        class="study-card featured"
+      >
 
+        <div class="study-icon">
+          🍞
+        </div>
 
-    <!-- =====================================================
-         FEASTS
-         
-         3 × 3 × 2
+        <div class="study-title">
+          عيد الفطير
+        </div>
 
-         الصف الأول:
-         1 نظرة عامة
-         2 الفصح
-         3 الفطير
+        <div class="study-description">
+          الخروج من العبودية — إزالة الخمير — حياة جديدة مع الله
+        </div>
 
-         الصف الثاني:
-         4 الباكورة
-         5 الأسابيع
-         6 الأبواق
+      </a>
 
-         الصف الثالث:
-         7 الكفارة
-         8 المظال
-    ====================================================== -->
 
-    <section class="feasts-grid">
+      <!-- ================================================
+           3 — عيد الباكورة
+      ================================================= -->
 
+      <a
+        href="study-biblical-feasts-firstfruits.html"
+        class="study-card"
+      >
 
-        <!-- =================================================
-             1
-        ================================================== -->
+        <div class="study-icon">
+          🌾
+        </div>
 
-        <a
-            href="study-biblical-feasts-overview.html"
-            class="feast-card"
-        >
+        <div class="study-title">
+          عيد الباكورة
+        </div>
 
-            <span class="feast-icon">
-                📖
-            </span>
+        <div class="study-description">
+          أول الحصاد والرجاء في القيامة والحصاد الكامل
+        </div>
 
-            <h2>
-                نظرة عامة على مواسم وأعياد الرب
-            </h2>
+      </a>
 
-            <p>
-                التقويم والمواعيد الكتابية،
-                تاريخ الأعياد في إسرائيل،
-                ودورها في العبادة والإعلان الكتابي.
-            </p>
 
-        </a>
+      <!-- ================================================
+           4 — عيد الأسابيع
+      ================================================= -->
 
+      <a
+        href="study-biblical-feasts-weeks.html"
+        class="study-card"
+      >
 
+        <div class="study-icon">
+          🔥
+        </div>
 
-        <!-- =================================================
-             2
-        ================================================== -->
+        <div class="study-title">
+          عيد الأسابيع
+        </div>
 
-        <a
-            href="study-biblical-feasts-passover-overview.html"
-            class="feast-card"
-        >
+        <div class="study-description">
+          الحصاد والشكر والعهد وعطية الروح القدس
+        </div>
 
-            <span class="feast-icon">
-                🌿
-            </span>
+      </a>
 
-            <h2>
-                عيد الفصح
-            </h2>
 
-            <p>
-                الفصح والخروج من مصر،
-                الممارسات والأحداث التاريخية،
-                ورمزه وإتمامه في المسيح.
-            </p>
+      <!-- ================================================
+           5 — عيد الأبواق
+      ================================================= -->
 
-        </a>
+      <a
+        href="study-biblical-feasts-trumpets.html"
+        class="study-card"
+      >
 
+        <div class="study-icon">
+          📯
+        </div>
 
+        <div class="study-title">
+          عيد الأبواق
+        </div>
 
-        <!-- =================================================
-             3
-        ================================================== -->
+        <div class="study-description">
+          الإعلان والنداء والتذكار والاستعداد أمام الله
+        </div>
 
-        <a
-            href="study-unleavened-bread.html"
-            class="feast-card"
-        >
+      </a>
 
-            <span class="feast-icon">
-                🍞
-            </span>
 
-            <h2>
-                عيد الفطير
-            </h2>
+      <!-- ================================================
+           6 — يوم الكفارة
+      ================================================= -->
 
-            <p>
-                الفطير وإزالة الخمير،
-                وممارسات العيد وعلاقته بالفصح
-                ومعانيه الكتابية.
-            </p>
+      <a
+        href="study-biblical-feasts-day-of-atonement.html"
+        class="study-card"
+      >
 
-        </a>
+        <div class="study-icon">
+          ✝️
+        </div>
 
+        <div class="study-title">
+          يوم الكفارة
+        </div>
 
+        <div class="study-description">
+          الكفارة والتطهير ودخول رئيس الكهنة إلى قدس الأقداس
+        </div>
 
-        <!-- =================================================
-             4
-        ================================================== -->
+      </a>
 
-        <a
-            href="study-firstfruits.html"
-            class="feast-card"
-        >
 
-            <span class="feast-icon">
-                🌾
-            </span>
+      <!-- ================================================
+           7 — عيد المظال
+      ================================================= -->
 
-            <h2>
-                عيد الباكورة
-            </h2>
+      <a
+        href="study-biblical-feasts-tabernacles.html"
+        class="study-card"
+      >
 
-            <p>
-                أول الحصاد وتقدمة الباكورة،
-                وتوقيتها ورمزها وإعلانها
-                في العهد الجديد.
-            </p>
+        <div class="study-icon">
+          ⛺
+        </div>
 
-        </a>
+        <div class="study-title">
+          عيد المظال
+        </div>
 
+        <div class="study-description">
+          السكن مع الله والفرح والحصاد ورجاء الملكوت
+        </div>
 
+      </a>
 
-        <!-- =================================================
-             5
-        ================================================== -->
 
-        <a
-            href="study-weeks.html"
-            class="feast-card"
-        >
+      <!-- ================================================
+           8 — السبت
+      ================================================= -->
 
-            <span class="feast-icon">
-                🔥
-            </span>
+      <a
+        href="study-biblical-feasts-sabbath.html"
+        class="study-card"
+      >
 
-            <h2>
-                عيد الأسابيع والخمسين
-            </h2>
+        <div class="study-icon">
+          🕊️
+        </div>
 
-            <p>
-                العد من الباكورة،
-                الحصاد والتقدمة،
-                وحلول الروح القدس في العهد الجديد.
-            </p>
+        <div class="study-title">
+          السبت
+        </div>
 
-        </a>
+        <div class="study-description">
+          الراحة والتقديس والعهد وعلاقة الإنسان بالله
+        </div>
 
-
-
-        <!-- =================================================
-             6
-        ================================================== -->
-
-        <a
-            href="study-trumpets.html"
-            class="feast-card"
-        >
-
-            <span class="feast-icon">
-                📯
-            </span>
-
-            <h2>
-                عيد الأبواق
-            </h2>
-
-            <p>
-                الشهر السابع،
-                يوم التذكار وصوت الأبواق،
-                والاجتماع المقدس.
-            </p>
-
-        </a>
-
-
-
-        <!-- =================================================
-             7
-        ================================================== -->
-
-        <a
-            href="study-day-of-atonement.html"
-            class="feast-card"
-        >
-
-            <span class="feast-icon">
-                ⚖️
-            </span>
-
-            <h2>
-                يوم الكفارة
-            </h2>
-
-            <p>
-                رئيس الكهنة،
-                قدس الأقداس والدم والذبائح،
-                والكفارة وإتمامها في المسيح.
-            </p>
-
-        </a>
-
-
-
-        <!-- =================================================
-             8
-        ================================================== -->
-
-        <a
-            href="study-tabernacles-feast.html"
-            class="feast-card"
-        >
-
-            <span class="feast-icon">
-                ⛺
-            </span>
-
-            <h2>
-                عيد المظال
-            </h2>
-
-            <p>
-                المظال والسكن والحصاد والفرح،
-                وحضور الله ورموز العيد
-                في الإعلان الكتابي.
-            </p>
-
-        </a>
+      </a>
 
 
     </section>
 
+  </main>
 
 
-    <!-- =====================================================
-         STRUCTURE
-    ====================================================== -->
+  <!-- ==================================================
+       FOOTER
+  ================================================== -->
 
-    <div class="structure-note">
-
-        <strong>
-            التسلسل المعتمد للدراسة:
-        </strong>
-
-        الدراسات ← مواسم وأعياد الرب ← العيد ← الدراسة التفصيلية.
-
-        يظل اللوجو واسم «موسوعة الكتاب المقدس» في الجهة اليسرى،
-        وزر الرجوع إلى المستوى السابق في الجهة اليمنى.
-
-    </div>
-
-
-</main>
-
-
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<footer>
+  <footer>
 
     © موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
 
-</footer>
+  </footer>
 
 
 </body>
