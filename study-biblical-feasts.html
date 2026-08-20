@@ -1,704 +1,717 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta charset="UTF-8">
 
-    <title>مواسم وأعياد الرب | موسوعة الكتاب المقدس</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
+<title>مواسم وأعياد الرب | موسوعة الكتاب المقدس</title>
 
-        /* =====================================================
-           GLOBAL RESET
-        ===================================================== */
+<style>
 
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+/* =========================================================
+   RESET
+========================================================= */
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        /* =====================================================
-           ROOT
-        ===================================================== */
 
-        :root {
-            --blue-main: #0b4f9c;
-            --blue-dark: #083b75;
-            --blue-card: #0a4383;
-            --blue-hover: #0d559c;
-            --blue-button: #0d63b5;
+/* =========================================================
+   BODY
+========================================================= */
 
-            --gold: #d4af37;
+body {
 
-            --white: #ffffff;
-            --text-light: #eaf3ff;
-            --text-soft: #e3efff;
-            --text-muted: #c5d9ee;
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
 
-            --shadow-header:
-                0 4px 15px rgba(0, 0, 0, 0.25);
+    background:
+        #061f33;
 
-            --shadow-card:
-                0 7px 18px rgba(0, 0, 0, 0.18);
+    color:
+        #ffffff;
 
-            --shadow-hero:
-                0 10px 25px rgba(0, 0, 0, 0.20);
-        }
+    min-height:
+        100vh;
 
+    line-height:
+        1.9;
+}
 
-        /* =====================================================
-           BODY
-        ===================================================== */
 
-        body {
-            font-family:
-                Tahoma,
-                Arial,
-                sans-serif;
+/* =========================================================
+   HEADER
+   مطابق لنظام صفحات الدراسات مثل هيكل سليمان
+========================================================= */
 
-            background:
-                var(--blue-main);
+header {
 
-            color:
-                var(--white);
+    width: 100%;
 
-            min-height:
-                100vh;
+    min-height: 64px;
 
-            line-height:
-                1.8;
+    background:
+        #031421;
 
-            -webkit-font-smoothing:
-                antialiased;
-        }
+    border-bottom:
+        1px solid #d4af37;
 
+    display:
+        flex;
 
-        /* =====================================================
-           HEADER
-           
-           المستوى الحالي:
-           الدراسات
-               ↓
-           مواسم وأعياد الرب
+    align-items:
+        center;
 
-           يسار:
-           [اللوجو] موسوعة الدراسات
+    justify-content:
+        space-between;
 
-           يمين:
-           ← الدراسات
-        ===================================================== */
+    padding:
+        8px 22px;
 
-        .site-header {
+    position:
+        sticky;
 
-            width: 100%;
+    top:
+        0;
 
-            min-height: 82px;
+    z-index:
+        1000;
+}
 
-            background:
-                var(--blue-dark);
 
-            border-bottom:
-                2px solid var(--gold);
+/* =========================================================
+   LEFT SIDE
+   اللوجو + موسوعة الكتاب المقدس
+========================================================= */
 
-            display: flex;
+.header-left {
 
-            align-items: center;
+    display:
+        flex;
 
-            justify-content: space-between;
+    align-items:
+        center;
 
-            padding:
-                10px 22px;
+    gap:
+        9px;
 
-            position: sticky;
+    direction:
+        ltr;
+}
 
-            top: 0;
 
-            z-index: 1000;
+/* =========================================================
+   LOGO
+========================================================= */
 
-            box-shadow:
-                var(--shadow-header);
-        }
+.logo {
 
+    width:
+        42px;
 
-        /* =====================================================
-           HEADER BRAND
-           اليسار
-        ===================================================== */
+    height:
+        42px;
 
-        .header-brand {
+    object-fit:
+        contain;
 
-            display: flex;
+    display:
+        block;
 
-            align-items: center;
+    flex-shrink:
+        0;
+}
 
-            gap: 12px;
 
-            direction: ltr;
+/* =========================================================
+   TITLE
+========================================================= */
 
-            flex-shrink: 0;
+.header-title {
 
-            min-width: 0;
-        }
+    color:
+        #d4af37;
 
+    font-size:
+        13px;
 
-        /* =====================================================
-           LOGO
-        ===================================================== */
+    font-weight:
+        bold;
 
-        .church-logo {
+    white-space:
+        nowrap;
 
-            width: 54px;
+    direction:
+        rtl;
+}
 
-            height: 54px;
 
-            object-fit: contain;
+/* =========================================================
+   RIGHT SIDE
+   زر الرجوع
+========================================================= */
 
-            display: block;
+.header-right {
 
-            flex-shrink: 0;
-        }
+    display:
+        flex;
 
+    align-items:
+        center;
+}
 
-        /* =====================================================
-           HEADER TITLE
-           
-           هذا ليس اسم القسم الحالي.
-           هو اسم المستوى الأب:
-           موسوعة الدراسات
-        ===================================================== */
 
-        .header-title {
+/* =========================================================
+   BACK BUTTON
+========================================================= */
 
-            color:
-                var(--gold);
+.back-button {
 
-            font-size:
-                18px;
+    display:
+        inline-flex;
 
-            font-weight:
-                700;
+    align-items:
+        center;
 
-            white-space:
-                nowrap;
+    justify-content:
+        center;
 
-            direction:
-                rtl;
-        }
+    min-width:
+        92px;
 
+    min-height:
+        34px;
 
-        /* =====================================================
-           HEADER NAVIGATION
-           اليمين
-        ===================================================== */
+    padding:
+        5px 11px;
 
-        .header-navigation {
+    background:
+        #09283d;
 
-            display: flex;
+    color:
+        #ffffff;
 
-            align-items: center;
+    border:
+        1px solid rgba(212,175,55,.45);
 
-            flex-shrink: 0;
-        }
+    border-radius:
+        8px;
 
+    text-decoration:
+        none;
 
-        /* =====================================================
-           BACK BUTTON
-        ===================================================== */
+    font-size:
+        11px;
 
-        .back-button {
+    font-weight:
+        bold;
 
-            display: inline-flex;
+    transition:
+        .2s ease;
+}
 
-            align-items: center;
 
-            justify-content: center;
+.back-button:hover {
 
-            min-width: 125px;
+    background:
+        #103a55;
 
-            min-height: 46px;
+    border-color:
+        #d4af37;
 
-            padding:
-                9px 18px;
+    transform:
+        translateY(-1px);
+}
 
-            background:
-                var(--blue-button);
 
-            color:
-                var(--white);
+/* =========================================================
+   PAGE CONTAINER
+   نفس أسلوب صفحات الدراسات في الصورة
+========================================================= */
 
-            border:
-                2px solid var(--gold);
+main {
 
-            border-radius:
-                12px;
+    width:
+        min(660px, 92%);
 
-            text-decoration:
-                none;
+    margin:
+        24px auto 45px;
+}
 
-            font-size:
-                15px;
 
-            font-weight:
-                700;
+/* =========================================================
+   PAGE INTRO
+========================================================= */
 
-            line-height:
-                1.3;
+.page-intro {
 
-            transition:
-                background-color 0.2s ease,
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-        }
+    background:
+        #0b2f4d;
 
+    border:
+        1px solid rgba(212,175,55,.35);
 
-        .back-button:hover {
+    border-radius:
+        15px;
 
-            background:
-                #1475cf;
+    padding:
+        30px 25px;
 
-            transform:
-                translateY(-1px);
+    text-align:
+        center;
 
-            box-shadow:
-                0 5px 12px rgba(0, 0, 0, 0.18);
-        }
+    margin-bottom:
+        17px;
+}
 
 
-        .back-button:active {
+/* =========================================================
+   MAIN ICON
+========================================================= */
 
-            transform:
-                translateY(0);
-        }
+.page-icon {
 
+    font-size:
+        40px;
 
-        /* =====================================================
-           MAIN
-        ===================================================== */
+    line-height:
+        1;
 
-        main {
+    margin-bottom:
+        10px;
+}
 
-            width:
-                min(1100px, 94%);
 
-            margin:
-                30px auto 50px;
-        }
+/* =========================================================
+   PAGE TITLE
+========================================================= */
 
+.page-intro h1 {
 
-        /* =====================================================
-           HERO
-        ===================================================== */
+    color:
+        #d4af37;
 
-        .hero {
+    font-size:
+        25px;
 
-            background:
-                var(--blue-card);
+    margin-bottom:
+        8px;
 
-            border:
-                1px solid rgba(212, 175, 55, 0.7);
+    line-height:
+        1.5;
+}
 
-            border-radius:
-                20px;
 
-            padding:
-                30px 22px;
+/* =========================================================
+   PAGE DESCRIPTION
+========================================================= */
 
-            text-align:
-                center;
+.page-intro p {
 
-            margin-bottom:
-                24px;
+    color:
+        #dbe9f5;
 
-            box-shadow:
-                var(--shadow-hero);
-        }
+    font-size:
+        12px;
 
+    line-height:
+        2;
 
-        .hero-icon {
+    max-width:
+        590px;
 
-            font-size:
-                48px;
+    margin:
+        0 auto;
+}
 
-            line-height:
-                1;
 
-            margin-bottom:
-                12px;
-        }
+/* =========================================================
+   STUDY CARD
+   نفس البطاقات الطويلة في صفحة هيكل سليمان
+========================================================= */
 
+.study-card {
 
-        .hero h1 {
+    display:
+        block;
 
-            color:
-                var(--gold);
+    width:
+        100%;
 
-            font-size:
-                clamp(26px, 5vw, 38px);
+    background:
+        #031b2c;
 
-            line-height:
-                1.4;
+    border:
+        1px solid rgba(212,175,55,.30);
 
-            margin-bottom:
-                10px;
-        }
+    border-radius:
+        14px;
 
+    margin-bottom:
+        14px;
 
-        .hero p {
+    padding:
+        19px 18px;
 
-            color:
-                var(--text-light);
+    text-decoration:
+        none;
 
-            font-size:
-                16px;
+    color:
+        #ffffff;
 
-            max-width:
-                850px;
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
 
-            margin:
-                0 auto;
-        }
 
+.study-card:hover {
 
-        /* =====================================================
-           FEAST GRID
-        ===================================================== */
+    background:
+        #06263c;
 
-        .feasts-grid {
+    border-color:
+        rgba(212,175,55,.75);
 
-            display:
-                grid;
+    transform:
+        translateY(-1px);
+}
 
-            grid-template-columns:
-                repeat(2, minmax(0, 1fr));
 
-            gap:
-                18px;
-        }
+/* =========================================================
+   CARD HEADER
+========================================================= */
 
+.study-card-header {
 
-        /* =====================================================
-           FEAST CARD
-        ===================================================== */
+    display:
+        flex;
 
-        .feast-card {
+    align-items:
+        center;
 
-            display:
-                block;
+    gap:
+        9px;
 
-            text-decoration:
-                none;
+    margin-bottom:
+        10px;
+}
 
-            color:
-                var(--white);
 
-            background:
-                var(--blue-card);
+/* =========================================================
+   CARD ICON
+========================================================= */
 
-            border:
-                1px solid rgba(212, 175, 55, 0.55);
+.study-icon {
 
-            border-radius:
-                17px;
+    font-size:
+        21px;
 
-            padding:
-                22px 19px;
+    line-height:
+        1;
 
-            min-height:
-                160px;
+    flex-shrink:
+        0;
+}
 
-            box-shadow:
-                var(--shadow-card);
 
-            transition:
-                transform 0.2s ease,
-                background-color 0.2s ease,
-                border-color 0.2s ease,
-                box-shadow 0.2s ease;
-        }
+/* =========================================================
+   CARD TITLE
+========================================================= */
 
+.study-card h2 {
 
-        .feast-card:hover {
+    color:
+        #ffffff;
 
-            transform:
-                translateY(-3px);
+    font-size:
+        15px;
 
-            background:
-                var(--blue-hover);
+    font-weight:
+        bold;
 
-            border-color:
-                var(--gold);
+    line-height:
+        1.6;
+}
 
-            box-shadow:
-                0 10px 22px rgba(0, 0, 0, 0.22);
-        }
 
+/* =========================================================
+   CARD DESCRIPTION
+========================================================= */
 
-        .feast-card:active {
+.study-card p {
 
-            transform:
-                translateY(-1px);
-        }
+    color:
+        #d9e6ef;
 
+    font-size:
+        11px;
 
-        .feast-icon {
+    line-height:
+        2;
 
-            display:
-                block;
+    margin-top:
+        5px;
+}
 
-            font-size:
-                36px;
 
-            line-height:
-                1;
+/* =========================================================
+   BIBLE VERSE BOX
+========================================================= */
 
-            margin-bottom:
-                10px;
-        }
+.verse-box {
 
+    margin-top:
+        13px;
 
-        .feast-card h2 {
+    padding:
+        13px 15px;
 
-            color:
-                var(--gold);
+    background:
+        #11242e;
 
-            font-size:
-                20px;
+    border-right:
+        3px solid #d4af37;
 
-            line-height:
-                1.5;
+    border-radius:
+        8px;
 
-            margin-bottom:
-                7px;
-        }
+    color:
+        #ffffff;
 
+    font-size:
+        11px;
 
-        .feast-card p {
+    line-height:
+        2;
+}
 
-            color:
-                var(--text-soft);
 
-            font-size:
-                14px;
+.verse-box strong {
 
-            line-height:
-                1.8;
-        }
+    display:
+        block;
 
+    color:
+        #d4af37;
 
-        /* =====================================================
-           STRUCTURE NOTE
-        ===================================================== */
+    margin-bottom:
+        5px;
+}
 
-        .structure-note {
 
-            margin-top:
-                22px;
+.verse-reference {
 
-            padding:
-                17px 18px;
+    display:
+        block;
 
-            background:
-                var(--blue-dark);
+    color:
+        #d4af37;
 
-            border-right:
-                4px solid var(--gold);
+    font-weight:
+        bold;
 
-            border-radius:
-                12px;
+    margin-top:
+        5px;
+}
 
-            color:
-                #e2efff;
 
-            font-size:
-                14px;
+/* =========================================================
+   STRUCTURE NOTE
+========================================================= */
 
-            line-height:
-                2;
-        }
+.structure-note {
 
+    background:
+        #092638;
 
-        .structure-note strong {
+    border-right:
+        3px solid #d4af37;
 
-            color:
-                var(--gold);
-        }
+    border-radius:
+        9px;
 
+    padding:
+        14px 16px;
 
-        /* =====================================================
-           FOOTER
-        ===================================================== */
+    color:
+        #dceaf4;
 
-        footer {
+    font-size:
+        11px;
 
-            text-align:
-                center;
+    line-height:
+        2;
 
-            color:
-                var(--text-muted);
+    margin-top:
+        18px;
+}
 
-            font-size:
-                12px;
 
-            padding:
-                20px;
-        }
+.structure-note strong {
 
+    color:
+        #d4af37;
+}
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
 
-        @media (max-width: 700px) {
+/* =========================================================
+   FOOTER
+========================================================= */
 
-            .site-header {
+footer {
 
-                min-height:
-                    76px;
+    text-align:
+        center;
 
-                padding:
-                    9px 12px;
-            }
+    color:
+        #8faabd;
 
+    font-size:
+        10px;
 
-            .church-logo {
+    padding:
+        20px;
+}
 
-                width:
-                    43px;
 
-                height:
-                    43px;
-            }
+/* =========================================================
+   MOBILE
+========================================================= */
 
+@media (max-width: 700px) {
 
-            .header-title {
+    header {
 
-                font-size:
-                    13px;
-            }
+        min-height:
+            60px;
 
+        padding:
+            7px 10px;
+    }
 
-            .back-button {
 
-                min-width:
-                    auto;
+    .logo {
 
-                min-height:
-                    40px;
+        width:
+            38px;
 
-                padding:
-                    8px 11px;
+        height:
+            38px;
+    }
 
-                font-size:
-                    12px;
-            }
 
+    .header-title {
 
-            main {
+        font-size:
+            11px;
+    }
 
-                width:
-                    94%;
 
-                margin-top:
-                    18px;
-            }
+    .back-button {
 
+        min-width:
+            auto;
 
-            .hero {
+        font-size:
+            10px;
 
-                padding:
-                    24px 17px;
-            }
+        padding:
+            5px 8px;
+    }
 
 
-            .hero h1 {
+    main {
 
-                font-size:
-                    27px;
-            }
+        width:
+            94%;
 
+        margin-top:
+            16px;
+    }
 
-            .hero p {
 
-                font-size:
-                    14px;
-            }
+    .page-intro {
 
+        padding:
+            24px 17px;
+    }
 
-            .feasts-grid {
 
-                grid-template-columns:
-                    1fr;
-            }
+    .page-intro h1 {
 
+        font-size:
+            22px;
+    }
 
-            .feast-card {
 
-                min-height:
-                    auto;
-            }
+    .page-intro p {
 
-        }
+        font-size:
+            11px;
+    }
 
 
-        /* =====================================================
-           VERY SMALL SCREENS
-        ===================================================== */
+    .study-card {
 
-        @media (max-width: 420px) {
+        padding:
+            17px 15px;
+    }
 
-            .site-header {
 
-                padding:
-                    8px 9px;
-            }
+    .study-card h2 {
 
+        font-size:
+            14px;
+    }
 
-            .header-brand {
+}
 
-                gap:
-                    8px;
-            }
 
+/* =========================================================
+   VERY SMALL SCREENS
+========================================================= */
 
-            .church-logo {
+@media (max-width: 400px) {
 
-                width:
-                    38px;
+    .header-title {
 
-                height:
-                    38px;
-            }
+        font-size:
+            10px;
+    }
 
 
-            .header-title {
+    .logo {
 
-                font-size:
-                    11px;
-            }
+        width:
+            35px;
 
+        height:
+            35px;
+    }
 
-            .back-button {
 
-                padding:
-                    7px 9px;
+    .back-button {
 
-                font-size:
-                    11px;
-            }
+        font-size:
+            9px;
 
-        }
+        padding:
+            4px 7px;
+    }
 
-    </style>
+}
+
+</style>
 
 </head>
 
@@ -706,416 +719,518 @@
 <body>
 
 
+<!-- =========================================================
+     HEADER
+
+     المستوى:
+
+     الدراسات
+        ↓
+     مواسم وأعياد الرب
+
+     اليسار:
+     [اللوجو] موسوعة الكتاب المقدس
+
+     اليمين:
+     ← الدراسات
+========================================================= -->
+
+<header>
+
+
     <!-- =====================================================
-         HEADER
-         
-         المستوى الثاني:
-         
-         الدراسات
-             ↓
-         مواسم وأعياد الرب
-         
-         اليسار:
-         [لوجو] موسوعة الدراسات
-         
-         اليمين:
-         ← الدراسات
+         LEFT
     ====================================================== -->
 
-    <header class="site-header">
+    <div class="header-left">
+
+        <img
+            src="assets/logo.png"
+            alt="شعار كنيسة رجاء الأمم سيدني"
+            class="logo"
+        >
+
+        <div class="header-title">
+            موسوعة الكتاب المقدس
+        </div>
+
+    </div>
 
 
-        <!-- =================================================
-             LEFT:
-             LOGO + موسوعة الدراسات
-        ================================================== -->
+    <!-- =====================================================
+         RIGHT
+    ====================================================== -->
 
-        <div class="header-brand">
+    <div class="header-right">
 
-            <img
-                src="assets/logo.png"
-                alt="شعار كنيسة رجاء الأمم سيدني"
-                class="church-logo"
-            >
+        <a
+            href="studies.html"
+            class="back-button"
+        >
+            ← الدراسات
+        </a>
 
-            <div class="header-title">
-                موسوعة الدراسات
-            </div>
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+    <!-- =====================================================
+         INTRODUCTION
+====================================================== -->
+
+    <section class="page-intro">
+
+        <div
+            class="page-icon"
+            aria-hidden="true"
+        >
+            🕎
+        </div>
+
+
+        <h1>
+            مواسم وأعياد الرب
+        </h1>
+
+
+        <p>
+            دراسة كتابية منظمة لمواسم وأعياد الرب،
+            من حيث مواعيدها وتقويمها وممارساتها في العهد القديم،
+            وأحداثها عبر تاريخ إسرائيل، ثم علاقتها بالعهد الجديد
+            ورموزها وإعلاناتها في المسيح.
+        </p>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         1
+         نظرة عامة
+====================================================== -->
+
+    <a
+        href="study-biblical-feasts-overview.html"
+        class="study-card"
+    >
+
+        <div class="study-card-header">
+
+            <span class="study-icon">
+                📖
+            </span>
+
+            <h2>
+                نظرة عامة على مواسم وأعياد الرب
+            </h2>
 
         </div>
 
 
-        <!-- =================================================
-             RIGHT:
-             BACK TO STUDIES
-        ================================================== -->
+        <p>
+            مدخل شامل إلى منظومة المواسم والأعياد،
+            وتقويمها، وموقعها في العبادة الإسرائيلية،
+            ودورها في تاريخ الخلاص والإعلان الكتابي.
+        </p>
 
-        <nav
-            class="header-navigation"
-            aria-label="التنقل"
-        >
 
-            <a
-                href="studies.html"
-                class="back-button"
-                aria-label="العودة إلى الدراسات"
-            >
-                ← الدراسات
-            </a>
-
-        </nav>
-
-    </header>
-
-
-
-    <!-- =====================================================
-         MAIN CONTENT
-    ===================================================== -->
-
-    <main>
-
-
-        <!-- =================================================
-             PAGE INTRODUCTION
-        ================================================== -->
-
-        <section class="hero">
-
-            <div
-                class="hero-icon"
-                aria-hidden="true"
-            >
-                🕎
-            </div>
-
-
-            <h1>
-                مواسم وأعياد الرب
-            </h1>
-
-
-            <p>
-                دراسة كتابية منظمة لمواسم وأعياد الرب،
-                تبدأ بنظرة عامة على التقويم والمواعيد وتاريخ الأعياد
-                في إسرائيل، ثم تنتقل إلى دراسة كل عيد بصورة مستقلة
-                من العهد القديم إلى العهد الجديد ورموزه في المسيح.
-            </p>
-
-        </section>
-
-
-
-        <!-- =================================================
-             FEASTS
-        ================================================== -->
-
-        <section
-            class="feasts-grid"
-            aria-label="أعياد ومواسم الرب"
-        >
-
-
-            <!-- =============================================
-                 نظرة عامة
-            ============================================== -->
-
-            <a
-                href="study-biblical-feasts-overview.html"
-                class="feast-card"
-            >
-
-                <span
-                    class="feast-icon"
-                    aria-hidden="true"
-                >
-                    🕎
-                </span>
-
-
-                <h2>
-                    نظرة عامة على مواسم وأعياد الرب
-                </h2>
-
-
-                <p>
-                    التقويم والمواعيد الكتابية، تاريخ الأعياد في إسرائيل،
-                    ارتباطها بالعبادة والهيكل، ودورة المواسم والحصاد،
-                    مع مدخل لفهم المنظومة الكاملة للأعياد.
-                </p>
-
-            </a>
-
-
-
-            <!-- =============================================
-                 عيد الفصح
-            ============================================== -->
-
-            <a
-                href="study-biblical-feasts-passover-overview.html"
-                class="feast-card"
-            >
-
-                <span
-                    class="feast-icon"
-                    aria-hidden="true"
-                >
-                    🌱
-                </span>
-
-
-                <h2>
-                    عيد الفصح
-                </h2>
-
-
-                <p>
-                    موعد العيد وممارساته، خروف الفصح والدم والخلاص،
-                    أهم أحداثه في العهد القديم والجديد،
-                    ورمزه وإتمامه في المسيح.
-                </p>
-
-            </a>
-
-
-
-            <!-- =============================================
-                 عيد الفطير
-            ============================================== -->
-
-            <a
-                href="study-unleavened-bread.html"
-                class="feast-card"
-            >
-
-                <span
-                    class="feast-icon"
-                    aria-hidden="true"
-                >
-                    🍞
-                </span>
-
-
-                <h2>
-                    عيد الفطير
-                </h2>
-
-
-                <p>
-                    موعد العيد، إزالة الخمير، الممارسات الكتابية،
-                    أهم الأحداث، والرموز التي يكشفها الكتاب المقدس.
-                </p>
-
-            </a>
-
-
-
-            <!-- =============================================
-                 عيد الباكورة
-            ============================================== -->
-
-            <a
-                href="study-firstfruits.html"
-                class="feast-card"
-            >
-
-                <span
-                    class="feast-icon"
-                    aria-hidden="true"
-                >
-                    🌾
-                </span>
-
-
-                <h2>
-                    عيد الباكورة
-                </h2>
-
-
-                <p>
-                    تقدمة الباكورة وأول الحصاد،
-                    معناها في العهد القديم،
-                    ورمزها وإعلانها في العهد الجديد.
-                </p>
-
-            </a>
-
-
-
-            <!-- =============================================
-                 عيد الأسابيع والخمسين
-            ============================================== -->
-
-            <a
-                href="study-weeks.html"
-                class="feast-card"
-            >
-
-                <span
-                    class="feast-icon"
-                    aria-hidden="true"
-                >
-                    🔥
-                </span>
-
-
-                <h2>
-                    عيد الأسابيع والخمسين
-                </h2>
-
-
-                <p>
-                    العد من الباكورة، الحصاد، التقدمة،
-                    عيد الخمسين، وأحداث العهد الجديد
-                    المرتبطة بحلول الروح القدس.
-                </p>
-
-            </a>
-
-
-
-            <!-- =============================================
-                 عيد الأبواق
-            ============================================== -->
-
-            <a
-                href="study-trumpets.html"
-                class="feast-card"
-            >
-
-                <span
-                    class="feast-icon"
-                    aria-hidden="true"
-                >
-                    📯
-                </span>
-
-
-                <h2>
-                    عيد الأبواق
-                </h2>
-
-
-                <p>
-                    الشهر السابع، يوم التذكار، الأبواق،
-                    الممارسات الكتابية، والرموز والإشارات
-                    المرتبطة بالعيد.
-                </p>
-
-            </a>
-
-
-
-            <!-- =============================================
-                 يوم الكفارة
-            ============================================== -->
-
-            <a
-                href="study-day-of-atonement.html"
-                class="feast-card"
-            >
-
-                <span
-                    class="feast-icon"
-                    aria-hidden="true"
-                >
-                    ⚖️
-                </span>
-
-
-                <h2>
-                    يوم الكفارة
-                </h2>
-
-
-                <p>
-                    رئيس الكهنة، قدس الأقداس، الذبائح والدم،
-                    التيس المرسل، الكفارة، ورمزها وإتمامها
-                    في عمل المسيح.
-                </p>
-
-            </a>
-
-
-
-            <!-- =============================================
-                 عيد المظال
-            ============================================== -->
-
-            <a
-                href="study-tabernacles-feast.html"
-                class="feast-card"
-            >
-
-                <span
-                    class="feast-icon"
-                    aria-hidden="true"
-                >
-                    ⛺
-                </span>
-
-
-                <h2>
-                    عيد المظال
-                </h2>
-
-
-                <p>
-                    المظال والسكن في البرية، الحصاد والفرح،
-                    حضور الله، ممارسات العيد،
-                    ورموزه وإتمامها في الإعلان الكتابي.
-                </p>
-
-            </a>
-
-        </section>
-
-
-
-        <!-- =================================================
-             STUDY STRUCTURE
-        ================================================== -->
-
-        <div class="structure-note">
+        <div class="verse-box">
 
             <strong>
-                الهيكل المعتمد لدراسة كل عيد:
+                الأساس الكتابي
             </strong>
 
-            التقويم والموعد
-            →
-            الممارسات في العهد القديم
-            →
-            أهم الأحداث في العهد القديم
-            →
-            الرمز والمعنى
-            →
-            إتمامه في المسيح
-            →
-            أهم أحداث العهد الجديد
-            →
-            العلاقة بين العهدين
-            →
-            المعنى اللاهوتي والروحي
-            →
-            أهم المواضع الكتابية.
+            «هذه مواسم الرب، أعياد مقدسة، التي تنادون بها في أوقاتها»
+
+            <span class="verse-reference">
+                لاويين 23
+            </span>
 
         </div>
 
-    </main>
+    </a>
 
 
 
     <!-- =====================================================
-         FOOTER
-    ====================================================== -->
+         2
+         عيد الفصح
+         
+         هذا الرابط يفتح مستوى مستقل
+         لعيد الفصح
+====================================================== -->
 
-    <footer>
+    <a
+        href="study-biblical-feasts-passover-overview.html"
+        class="study-card"
+    >
 
-        © موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
+        <div class="study-card-header">
 
-    </footer>
+            <span class="study-icon">
+                🌿
+            </span>
+
+            <h2>
+                عيد الفصح
+            </h2>
+
+        </div>
+
+
+        <p>
+            دراسة عيد الفصح من تأسيسه في خروج إسرائيل من مصر،
+            إلى ممارساته في العهد القديم، وأحداثه عبر تاريخ إسرائيل،
+            ثم إتمام رموزه في المسيح والعهد الجديد.
+        </p>
+
+
+        <div class="verse-box">
+
+            <strong>
+                الأساس الكتابي
+            </strong>
+
+            «ويكون لكم هذا اليوم تذكارًا، فتعيدونه عيدًا للرب»
+
+            <span class="verse-reference">
+                خروج 12: 14
+            </span>
+
+        </div>
+
+    </a>
+
+
+
+    <!-- =====================================================
+         3
+         عيد الفطير
+====================================================== -->
+
+    <a
+        href="study-unleavened-bread.html"
+        class="study-card"
+    >
+
+        <div class="study-card-header">
+
+            <span class="study-icon">
+                🍞
+            </span>
+
+            <h2>
+                عيد الفطير
+            </h2>
+
+        </div>
+
+
+        <p>
+            دراسة الفطير وإزالة الخمير، ومدته وممارساته،
+            وعلاقته بالفصح، ودلالاته الكتابية واللاهوتية.
+        </p>
+
+
+        <div class="verse-box">
+
+            <strong>
+                الأساس الكتابي
+            </strong>
+
+            «سبعة أيام تأكل فطيرًا»
+
+            <span class="verse-reference">
+                خروج 13: 6
+            </span>
+
+        </div>
+
+    </a>
+
+
+
+    <!-- =====================================================
+         4
+         عيد الباكورة
+====================================================== -->
+
+    <a
+        href="study-firstfruits.html"
+        class="study-card"
+    >
+
+        <div class="study-card-header">
+
+            <span class="study-icon">
+                🌾
+            </span>
+
+            <h2>
+                عيد الباكورة
+            </h2>
+
+        </div>
+
+
+        <p>
+            دراسة تقدمة أول الحصاد، وتوقيتها،
+            وممارساتها، ومعناها في منظومة الأعياد
+            وعلاقتها بإعلان القيامة.
+        </p>
+
+
+        <div class="verse-box">
+
+            <strong>
+                الأساس الكتابي
+            </strong>
+
+            «متى أتيتم إلى الأرض التي أنا أعطيكم وحصدتم حصيدها»
+
+            <span class="verse-reference">
+                لاويين 23: 10
+            </span>
+
+        </div>
+
+    </a>
+
+
+
+    <!-- =====================================================
+         5
+         عيد الأسابيع والخمسين
+====================================================== -->
+
+    <a
+        href="study-weeks.html"
+        class="study-card"
+    >
+
+        <div class="study-card-header">
+
+            <span class="study-icon">
+                🔥
+            </span>
+
+            <h2>
+                عيد الأسابيع والخمسين
+            </h2>
+
+        </div>
+
+
+        <p>
+            العد من الباكورة، الحصاد، التقدمة،
+            وعيد الخمسين، ثم ارتباطه بأحداث العهد الجديد
+            وحلول الروح القدس.
+        </p>
+
+
+        <div class="verse-box">
+
+            <strong>
+                الأساس الكتابي
+            </strong>
+
+            «وتعيدون عيد أسابيع للرب إلهكم»
+
+            <span class="verse-reference">
+                تثنية 16: 10
+            </span>
+
+        </div>
+
+    </a>
+
+
+
+    <!-- =====================================================
+         6
+         عيد الأبواق
+====================================================== -->
+
+    <a
+        href="study-trumpets.html"
+        class="study-card"
+    >
+
+        <div class="study-card-header">
+
+            <span class="study-icon">
+                📯
+            </span>
+
+            <h2>
+                عيد الأبواق
+            </h2>
+
+        </div>
+
+
+        <p>
+            الشهر السابع، يوم التذكار، صوت الأبواق،
+            والاجتماع المقدس، والمعاني المرتبطة بهذا الموسم.
+        </p>
+
+
+        <div class="verse-box">
+
+            <strong>
+                الأساس الكتابي
+            </strong>
+
+            «يكون لكم سبت تذكار هتاف بوق، محفل مقدس»
+
+            <span class="verse-reference">
+                لاويين 23: 24
+            </span>
+
+        </div>
+
+    </a>
+
+
+
+    <!-- =====================================================
+         7
+         يوم الكفارة
+====================================================== -->
+
+    <a
+        href="study-day-of-atonement.html"
+        class="study-card"
+    >
+
+        <div class="study-card-header">
+
+            <span class="study-icon">
+                ⚖️
+            </span>
+
+            <h2>
+                يوم الكفارة
+            </h2>
+
+        </div>
+
+
+        <p>
+            رئيس الكهنة، قدس الأقداس، الذبائح والدم،
+            والتيس المرسل، ومعنى الكفارة في الشريعة
+            وعلاقتها بعمل المسيح.
+        </p>
+
+
+        <div class="verse-box">
+
+            <strong>
+                الأساس الكتابي
+            </strong>
+
+            «لأن في هذا اليوم يكفر عنكم لتطهيركم»
+
+            <span class="verse-reference">
+                لاويين 16: 30
+            </span>
+
+        </div>
+
+    </a>
+
+
+
+    <!-- =====================================================
+         8
+         عيد المظال
+====================================================== -->
+
+    <a
+        href="study-tabernacles-feast.html"
+        class="study-card"
+    >
+
+        <div class="study-card-header">
+
+            <span class="study-icon">
+                ⛺
+            </span>
+
+            <h2>
+                عيد المظال
+            </h2>
+
+        </div>
+
+
+        <p>
+            المظال والسكن في البرية، الحصاد والفرح،
+            حضور الله، وممارسات العيد،
+            ومعانيه ورموزه في الإعلان الكتابي.
+        </p>
+
+
+        <div class="verse-box">
+
+            <strong>
+                الأساس الكتابي
+            </strong>
+
+            «وفي اليوم الخامس عشر من الشهر السابع يكون لكم محفل مقدس»
+
+            <span class="verse-reference">
+                لاويين 23: 34
+            </span>
+
+        </div>
+
+    </a>
+
+
+
+    <!-- =====================================================
+         STRUCTURE
+====================================================== -->
+
+    <div class="structure-note">
+
+        <strong>
+            الهيكل المعتمد:
+        </strong>
+
+        كل عيد أو موسم هو مستوى مستقل داخل موسوعة الدراسات.
+        عند اختيار عيد الفصح مثلًا ينتقل المستخدم إلى صفحة عيد الفصح،
+        ومن داخلها يختار الدراسة المطلوبة.
+        وتظل أزرار الرجوع محافظة على التسلسل:
+
+        الدراسات ← مواسم وأعياد الرب ← عيد الفصح ← الدراسة.
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    © موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
+
+</footer>
 
 
 </body>
