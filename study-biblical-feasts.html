@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>مواسم وأعياد الرب | موسوعة الكتاب المقدس</title>
+  <title>نظرة عامة على مواسم وأعياد الرب | موسوعة الكتاب المقدس</title>
 
   <style>
     * {
@@ -14,11 +14,24 @@
     }
 
     body {
-      font-family: Tahoma, Arial, sans-serif;
-      background: #0b4f9c;
+      font-family:
+        "Noto Naskh Arabic",
+        "Amiri",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+      background:
+        linear-gradient(
+          145deg,
+          #0b4f9c,
+          #083b75 55%,
+          #062d5c
+        );
+
       color: #ffffff;
       min-height: 100vh;
-      line-height: 1.9;
+      line-height: 2;
     }
 
     /* =========================
@@ -28,22 +41,32 @@
     header {
       width: 100%;
       min-height: 82px;
-      background: #083b75;
-      border-bottom: 2px solid #d4af37;
+
+      background:
+        linear-gradient(
+          180deg,
+          #083b75,
+          #062d59
+        );
+
+      border-bottom: 1px solid rgba(212, 175, 55, 0.7);
+
+      box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.35);
 
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      padding: 12px 22px;
+      padding: 10px 28px;
 
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
     }
 
     /* =========================
-       زر الرجوع - أعلى اليمين
+       زر الرجوع - اليمين
     ========================== */
 
     .header-right {
@@ -56,58 +79,79 @@
       align-items: center;
       justify-content: center;
 
-      min-width: 120px;
-
-      padding: 9px 18px;
+      padding: 11px 18px;
 
       color: #ffffff;
-      background: #0d63b5;
+      text-decoration: none;
 
-      border: 2px solid #d4af37;
       border-radius: 12px;
 
-      text-decoration: none;
+      border: 1px solid rgba(212, 175, 55, 0.8);
+
+      background:
+        linear-gradient(
+          145deg,
+          #185080,
+          #071f39
+        );
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 5px 15px rgba(0,0,0,0.35);
 
       font-size: 15px;
       font-weight: bold;
 
-      transition: 0.2s ease;
+      transition: 0.25s ease;
     }
 
     .back-btn:hover {
-      background: #1475cf;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+
+      border-color: #f4dc78;
+
+      box-shadow:
+        0 8px 20px rgba(0,0,0,0.45);
     }
 
     /* =========================
        اللوجو + اسم الدراسة
-       أعلى اليسار
+       اليسار
     ========================== */
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+
+      gap: 14px;
 
       direction: ltr;
     }
 
     .church-logo {
-      width: 52px;
-      height: 52px;
+      width: 64px;
+      height: 64px;
 
       object-fit: contain;
 
       display: block;
+
+      filter:
+        drop-shadow(
+          0 4px 7px rgba(0,0,0,0.75)
+        );
     }
 
     .study-title {
-      color: #d4af37;
+      color: #f4dc78;
 
-      font-size: 18px;
-      font-weight: bold;
+      font-size: 20px;
+      font-weight: 900;
 
       white-space: nowrap;
+
+      text-shadow:
+        0 2px 3px rgba(0,0,0,0.7);
     }
 
     /* =========================
@@ -115,44 +159,56 @@
     ========================== */
 
     main {
-      width: min(1100px, 94%);
-      margin: 28px auto 50px;
+      max-width: 1100px;
+
+      margin: auto;
+
+      padding: 42px 24px 70px;
     }
 
     /* =========================
-       INTRO
+       PAGE TITLE
     ========================== */
 
-    .hero {
-      background: #0a4383;
-
-      border: 1px solid rgba(212, 175, 55, 0.75);
-      border-radius: 20px;
-
-      padding: 30px 22px;
-
-      margin-bottom: 24px;
-
+    .page-title {
       text-align: center;
 
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+      background:
+        linear-gradient(
+          145deg,
+          #0d5aa8,
+          #083b75
+        );
+
+      border:
+        1px solid rgba(212,175,55,0.65);
+
+      border-radius: 20px;
+
+      padding: 30px 24px;
+
+      margin-bottom: 22px;
+
+      box-shadow:
+        0 10px 28px rgba(0,0,0,0.25);
     }
 
-    .hero-icon {
+    .page-icon {
       font-size: 48px;
-      margin-bottom: 8px;
-    }
-
-    .hero h1 {
-      color: #d4af37;
-
-      font-size: clamp(25px, 5vw, 38px);
 
       margin-bottom: 8px;
     }
 
-    .hero p {
-      color: #eaf3ff;
+    .page-title h1 {
+      color: #f4dc78;
+
+      font-size: clamp(26px, 5vw, 38px);
+
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: #e5f1ff;
 
       font-size: 16px;
 
@@ -162,95 +218,136 @@
     }
 
     /* =========================
-       FEASTS
+       STUDY SECTIONS
     ========================== */
 
-    .feasts-grid {
+    .study-section {
+      background:
+        linear-gradient(
+          145deg,
+          #0d5aa8,
+          #083b75
+        );
+
+      border:
+        1px solid rgba(212,175,55,0.5);
+
+      border-radius: 17px;
+
+      padding: 24px 22px;
+
+      margin-bottom: 18px;
+
+      box-shadow:
+        0 7px 18px rgba(0,0,0,0.2);
+    }
+
+    .study-section h2 {
+      color: #f4dc78;
+
+      font-size: 22px;
+
+      margin-bottom: 13px;
+
+      padding-bottom: 8px;
+
+      border-bottom:
+        1px solid rgba(212,175,55,0.35);
+    }
+
+    .study-section h3 {
+      color: #f4dc78;
+
+      font-size: 17px;
+
+      margin: 17px 0 7px;
+    }
+
+    .study-section p {
+      color: #e5f1ff;
+
+      font-size: 15px;
+
+      margin-bottom: 10px;
+    }
+
+    .study-section ul {
+      padding-right: 25px;
+
+      color: #e5f1ff;
+
+      font-size: 15px;
+    }
+
+    .study-section li {
+      margin-bottom: 7px;
+    }
+
+    /* =========================
+       REFERENCES
+    ========================== */
+
+    .reference {
+      background: #062f5c;
+
+      border-right:
+        4px solid #d4af37;
+
+      border-radius: 10px;
+
+      padding: 13px 16px;
+
+      margin-top: 13px;
+
+      color: #dcecff;
+
+      font-size: 14px;
+    }
+
+    .reference strong {
+      color: #f4dc78;
+    }
+
+    /* =========================
+       FEAST ORDER
+    ========================== */
+
+    .feast-order {
       display: grid;
 
       grid-template-columns:
         repeat(2, minmax(0, 1fr));
 
-      gap: 18px;
+      gap: 12px;
+
+      margin-top: 15px;
     }
 
-    .feast-card {
-      display: block;
+    .feast-item {
+      background: #062f5c;
 
-      text-decoration: none;
-
-      color: #ffffff;
-
-      background: #0a4383;
-
-      border: 1px solid rgba(212, 175, 55, 0.55);
-
-      border-radius: 17px;
-
-      padding: 22px 18px;
-
-      min-height: 155px;
-
-      transition: 0.2s ease;
-
-      box-shadow:
-        0 7px 18px rgba(0, 0, 0, 0.18);
-    }
-
-    .feast-card:hover {
-      transform: translateY(-3px);
-
-      border-color: #d4af37;
-
-      background: #0c4d94;
-    }
-
-    .feast-icon {
-      display: block;
-
-      font-size: 34px;
-
-      margin-bottom: 7px;
-    }
-
-    .feast-card h2 {
-      color: #d4af37;
-
-      font-size: 20px;
-
-      margin-bottom: 6px;
-    }
-
-    .feast-card p {
-      color: #e2efff;
-
-      font-size: 14px;
-
-      line-height: 1.8;
-    }
-
-    /* =========================
-       NOTE
-    ========================== */
-
-    .section-note {
-      margin-top: 22px;
-
-      background: #083b75;
-
-      border-right: 4px solid #d4af37;
+      border:
+        1px solid rgba(212,175,55,0.45);
 
       border-radius: 12px;
 
-      padding: 16px 18px;
+      padding: 14px;
 
-      color: #e2efff;
-
-      font-size: 14px;
+      color: #ffffff;
     }
 
-    .section-note strong {
-      color: #d4af37;
+    .feast-item strong {
+      display: block;
+
+      color: #f4dc78;
+
+      margin-bottom: 4px;
+    }
+
+    .feast-item span {
+      color: #dcecff;
+
+      font-size: 13px;
     }
 
     /* =========================
@@ -275,41 +372,42 @@
 
       header {
         min-height: 76px;
-        padding: 10px 12px;
+
+        padding: 9px 14px;
       }
 
       .church-logo {
-        width: 42px;
-        height: 42px;
+        width: 52px;
+        height: 52px;
       }
 
       .study-title {
-        font-size: 13px;
+        font-size: 14px;
       }
 
       .back-btn {
-        min-width: 95px;
-
-        padding: 8px 11px;
+        padding: 9px 12px;
 
         font-size: 12px;
       }
 
       main {
-        width: 94%;
-        margin-top: 18px;
+        padding:
+          25px 14px 50px;
       }
 
-      .feasts-grid {
+      .page-title {
+        padding:
+          24px 17px;
+      }
+
+      .study-section {
+        padding:
+          19px 16px;
+      }
+
+      .feast-order {
         grid-template-columns: 1fr;
-      }
-
-      .feast-card {
-        min-height: auto;
-      }
-
-      .hero {
-        padding: 24px 17px;
       }
     }
   </style>
@@ -317,36 +415,36 @@
 
 <body>
 
-  <!-- =====================================
+  <!-- =========================
        HEADER
-  ====================================== -->
+  ========================== -->
 
   <header>
 
-    <!-- أعلى اليمين -->
+    <!-- اليمين: الرجوع -->
+
     <div class="header-right">
 
       <a
-        href="studies.html"
+        href="study-biblical-feasts.htm"
         class="back-btn"
       >
-        ← الدراسات
+        ← مواسم وأعياد الرب
       </a>
 
     </div>
 
 
-    <!-- أعلى اليسار -->
+    <!-- اليسار: اللوجو + اسم الدراسة -->
+
     <div class="header-left">
 
-      <!-- اللوجو الفعلي -->
       <img
-        src="./logo.png"
-        alt="شعار الكنيسة"
+        src="assets/logo.png"
         class="church-logo"
+        alt="كنيسة رجاء الأمم سيدني"
       >
 
-      <!-- اسم الدراسة -->
       <div class="study-title">
         مواسم وأعياد الرب
       </div>
@@ -356,234 +454,442 @@
   </header>
 
 
-  <!-- =====================================
+  <!-- =========================
        MAIN
-  ====================================== -->
+  ========================== -->
 
   <main>
 
-    <!-- مقدمة القسم -->
 
-    <section class="hero">
+    <!-- =========================
+         TITLE
+    ========================== -->
 
-      <div class="hero-icon">
+    <section class="page-title">
+
+      <div class="page-icon">
         🕎
       </div>
 
       <h1>
-        مواسم وأعياد الرب
+        نظرة عامة على مواسم وأعياد الرب
       </h1>
 
       <p>
-        دراسة كتابية متكاملة لمواسم وأعياد الرب،
-        من تأسيسها وممارساتها في العهد القديم،
-        إلى رموزها وإعلانها في الكتاب المقدس وإتمامها في المسيح.
+        مدخل شامل إلى المواسم والأعياد التي أعلنها الرب لشعبه،
+        وخلفيتها الكتابية والتاريخية، ومواعيدها وممارساتها،
+        ودورها في العبادة والإعلان الكتابي.
       </p>
 
     </section>
 
 
-    <!-- =====================================
-         الأيقونات
-    ====================================== -->
+    <!-- =========================
+         1
+    ========================== -->
 
-    <section class="feasts-grid">
+    <section class="study-section">
 
+      <h2>
+        1. معنى مواسم وأعياد الرب
+      </h2>
 
-      <!-- 1 -->
+      <p>
+        يقدّم الكتاب المقدس مواسم وأعياد الرب باعتبارها
+        مواعيد مقدسة أعلنها الله لشعبه، وجعلها جزءًا من
+        نظام العبادة وتذكّر أعماله الخلاصية وتوجيه حياة الشعب
+        في إطار العهد.
+      </p>
 
-      <a
-        href="study-biblical-feasts-overview.htm"
-        class="feast-card"
-      >
+      <p>
+        لم تكن الأعياد مجرد مناسبات اجتماعية أو احتفالات
+        موسمية، بل كانت مرتبطة بالعبادة والذاكرة الجماعية
+        وعلاقة إسرائيل بالرب، وبالهيكل والذبائح والكهنوت
+        في مراحل تاريخية لاحقة.
+      </p>
 
-        <span class="feast-icon">🕎</span>
-
-        <h2>
-          نظرة عامة على مواسم وأعياد الرب
-        </h2>
-
-        <p>
-          تأسيس المواسم والأعياد، التقويم والمواعيد،
-          تاريخها في إسرائيل، علاقتها بالعبادة والهيكل،
-          وأهميتها في الإعلان الكتابي.
-        </p>
-
-      </a>
-
-
-      <!-- 2 -->
-
-      <a
-        href="study-passover.htm"
-        class="feast-card"
-      >
-
-        <span class="feast-icon">🌱</span>
-
-        <h2>
-          عيد الفصح
-        </h2>
-
-        <p>
-          الفصح، خروف الفصح، الدم والخلاص،
-          ممارسات العيد وأحداثه ورمزه وإتمامه في المسيح.
-        </p>
-
-      </a>
-
-
-      <!-- 3 -->
-
-      <a
-        href="study-unleavened-bread.htm"
-        class="feast-card"
-      >
-
-        <span class="feast-icon">🍞</span>
-
-        <h2>
-          عيد الفطير
-        </h2>
-
-        <p>
-          الفطير وإزالة الخمير، مدة العيد،
-          الممارسات الكتابية ورموزه وعلاقته بالفصح.
-        </p>
-
-      </a>
-
-
-      <!-- 4 -->
-
-      <a
-        href="study-firstfruits.htm"
-        class="feast-card"
-      >
-
-        <span class="feast-icon">🌾</span>
-
-        <h2>
-          عيد الباكورة
-        </h2>
-
-        <p>
-          تقدمة الباكورة، أول الحصاد،
-          معناها ورمزها وعلاقتها بقيامة المسيح.
-        </p>
-
-      </a>
-
-
-      <!-- 5 -->
-
-      <a
-        href="study-weeks.htm"
-        class="feast-card"
-      >
-
-        <span class="feast-icon">🔥</span>
-
-        <h2>
-          عيد الأسابيع والخمسين
-        </h2>
-
-        <p>
-          عيد الحصاد، الخمسون يومًا،
-          الممارسات الكتابية ورموزه وعلاقته بحلول الروح القدس.
-        </p>
-
-      </a>
-
-
-      <!-- 6 -->
-
-      <a
-        href="study-trumpets.htm"
-        class="feast-card"
-      >
-
-        <span class="feast-icon">📯</span>
-
-        <h2>
-          عيد الأبواق
-        </h2>
-
-        <p>
-          الشهر السابع، الأبواق، التذكار،
-          الممارسات والرموز والإشارات الكتابية المرتبطة بالعيد.
-        </p>
-
-      </a>
-
-
-      <!-- 7 -->
-
-      <a
-        href="study-day-of-atonement.htm"
-        class="feast-card"
-      >
-
-        <span class="feast-icon">⚖️</span>
-
-        <h2>
-          يوم الكفارة
-        </h2>
-
-        <p>
-          رئيس الكهنة، قدس الأقداس، الذبائح والدم،
-          التيس المرسل، ورمز الكفارة وإتمامها في المسيح.
-        </p>
-
-      </a>
-
-
-      <!-- 8 -->
-
-      <a
-        href="study-tabernacles-feast.htm"
-        class="feast-card"
-      >
-
-        <span class="feast-icon">⛺</span>
-
-        <h2>
-          عيد المظال
-        </h2>
-
-        <p>
-          المظال والسكن في البرية،
-          الحصاد والفرح، حضور الله ورمزية العيد وإتمامه.
-        </p>
-
-      </a>
+      <div class="reference">
+        <strong>النص الأساسي:</strong>
+        لاويين 23: 1–2
+      </div>
 
     </section>
 
 
-    <!-- =====================================
-         منهج الدراسة
-    ====================================== -->
+    <!-- =========================
+         2
+    ========================== -->
 
-    <div class="section-note">
+    <section class="study-section">
 
-      <strong>منهج دراسة كل عيد:</strong>
+      <h2>
+        2. التقويم والمواعيد الكتابية
+      </h2>
 
-      كل عيد أو موسم يفتح في صفحة مستقلة واحدة،
-      وتكون الدراسة مرتبة بحسب الهيكل الثابت:
-      نظرة عامة، التقويم والموعد، الممارسات في العهد القديم،
-      أهم الأحداث في العهد القديم، الرمز وإتمامه في المسيح،
-      أهم أحداث العهد الجديد، العلاقة بين العهدين،
-      المعنى الروحي واللاهوتي، وأهم المواضع الكتابية.
+      <p>
+        ربط الكتاب المقدس مواسم الأعياد بأيام وأشهر محددة،
+        ولذلك فإن فهم العيد يتطلب أولًا فهم موقعه في التقويم
+        الكتابي وترتيبه ضمن السنة.
+      </p>
 
-    </div>
+      <p>
+        تبدأ مجموعة الأعياد في الشهر الأول مع الفصح وما يرتبط
+        به من عيد الفطير والباكورة، ثم يأتي عيد الأسابيع،
+        وبعد ذلك مجموعة أعياد الشهر السابع.
+      </p>
+
+      <div class="feast-order">
+
+        <div class="feast-item">
+          <strong>الشهر الأول</strong>
+          <span>
+            الفصح وعيد الفطير والباكورة
+          </span>
+        </div>
+
+        <div class="feast-item">
+          <strong>بين الحصادين</strong>
+          <span>
+            عيد الأسابيع والخمسين
+          </span>
+        </div>
+
+        <div class="feast-item">
+          <strong>الشهر السابع</strong>
+          <span>
+            الأبواق ويوم الكفارة والمظال
+          </span>
+        </div>
+
+        <div class="feast-item">
+          <strong>دورة السنة</strong>
+          <span>
+            المواسم مرتبطة بالعبادة والحصاد والذاكرة الخلاصية
+          </span>
+        </div>
+
+      </div>
+
+      <div class="reference">
+        <strong>المراجع الأساسية:</strong>
+        خروج 12؛ خروج 23: 14–17؛ خروج 34: 18–24؛
+        لاويين 23؛ عدد 28–29؛ تثنية 16.
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         3
+    ========================== -->
+
+    <section class="study-section">
+
+      <h2>
+        3. مواسم وأعياد الرب في تاريخ إسرائيل
+      </h2>
+
+      <p>
+        ارتبطت الأعياد بتاريخ إسرائيل منذ الخروج من مصر،
+        ثم أصبحت جزءًا من حياة العبادة الجماعية، ولا سيما
+        عندما ارتبطت العبادة بالمكان الذي اختاره الرب.
+      </p>
+
+      <p>
+        وتظهر في الأسفار التاريخية مراحل مختلفة من ممارسة
+        الأعياد، بما في ذلك فترات الإصلاح الديني التي أعادت
+        توجيه الشعب إلى الالتزام بالشريعة والعبادة في الهيكل.
+      </p>
+
+      <h3>
+        أمثلة تاريخية مهمة
+      </h3>
+
+      <ul>
+
+        <li>
+          الفصح الأول في أرض مصر وخروج إسرائيل.
+        </li>
+
+        <li>
+          إقامة الفصح في مراحل مختلفة من تاريخ إسرائيل.
+        </li>
+
+        <li>
+          الاحتفال بالفصح في أيام إصلاحات حزقيا.
+        </li>
+
+        <li>
+          الاحتفال بالفصح في أيام يوشيا.
+        </li>
+
+        <li>
+          عودة العبادة والأعياد بعد السبي.
+        </li>
+
+      </ul>
+
+      <div class="reference">
+        <strong>مراجع مختارة:</strong>
+        2 أخبار 30؛ 2 ملوك 23؛ 2 أخبار 35؛
+        عزرا 3؛ نحميا 8.
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         4
+    ========================== -->
+
+    <section class="study-section">
+
+      <h2>
+        4. الأعياد والعبادة والهيكل
+      </h2>
+
+      <p>
+        ارتبطت الأعياد في مراحل مهمة من تاريخ إسرائيل
+        بالذبائح والكهنوت والخدمة المقدسة، وكان بعضها يتطلب
+        حضور الشعب أمام الرب في المكان الذي يختاره.
+      </p>
+
+      <p>
+        لذلك لا يمكن دراسة الأعياد بمعزل عن منظومة العبادة
+        في خيمة الاجتماع ثم الهيكل، وعن الذبائح والتقدمات
+        وأدوار الكهنة واللاويين.
+      </p>
+
+      <h3>
+        العناصر المرتبطة بالعبادة
+      </h3>
+
+      <ul>
+
+        <li>
+          الذبائح والتقدمات.
+        </li>
+
+        <li>
+          الكهنة واللاويون.
+        </li>
+
+        <li>
+          الاجتماع أمام الرب.
+        </li>
+
+        <li>
+          الترنيم والتسبيح.
+        </li>
+
+        <li>
+          الفرح والشكر.
+        </li>
+
+        <li>
+          الذاكرة الجماعية لأعمال الله.
+        </li>
+
+      </ul>
+
+      <div class="reference">
+        <strong>مراجع:</strong>
+        لاويين 23؛ عدد 28–29؛ تثنية 16؛
+        2 أخبار 30؛ 2 أخبار 35.
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         5
+    ========================== -->
+
+    <section class="study-section">
+
+      <h2>
+        5. الأعياد والمواسم الزراعية
+      </h2>
+
+      <p>
+        يرتبط جزء من ترتيب الأعياد بدورة الحصاد في أرض إسرائيل،
+        ويظهر هذا بصورة خاصة في الباكورة وعيد الأسابيع وعيد المظال.
+      </p>
+
+      <p>
+        يجمع النظام الكتابي بين الذاكرة التاريخية لأعمال الله
+        وبين دورة الحياة الزراعية، فيتحول الحصاد إلى مناسبة
+        للشكر والاعتراف بأن الأرض والثمر عطية من الله.
+      </p>
+
+    </section>
+
+
+    <!-- =========================
+         6
+    ========================== -->
+
+    <section class="study-section">
+
+      <h2>
+        6. الهدف الروحي واللاهوتي العام
+      </h2>
+
+      <p>
+        تكشف المواسم والأعياد عن محاور أساسية في الإعلان
+        الكتابي: قداسة الله، العهد، الخلاص، الذاكرة،
+        العبادة، الشكر، الحصاد، والكفارة.
+      </p>
+
+      <p>
+        ومع تقدم الإعلان الكتابي تظهر علاقة متزايدة بين
+        هذه الرموز وبين عمل الله الخلاصي، الأمر الذي يجعل
+        دراسة كل عيد على حدة ضرورية لفهم رموزه وعلاقته
+        بالمسيح والعهد الجديد.
+      </p>
+
+    </section>
+
+
+    <!-- =========================
+         7
+    ========================== -->
+
+    <section class="study-section">
+
+      <h2>
+        7. ترتيب مواسم وأعياد الرب
+      </h2>
+
+      <div class="feast-order">
+
+        <div class="feast-item">
+          <strong>1 — عيد الفصح</strong>
+          <span>الشهر الأول</span>
+        </div>
+
+        <div class="feast-item">
+          <strong>2 — عيد الفطير</strong>
+          <span>الشهر الأول</span>
+        </div>
+
+        <div class="feast-item">
+          <strong>3 — عيد الباكورة</strong>
+          <span>بداية الحصاد</span>
+        </div>
+
+        <div class="feast-item">
+          <strong>4 — عيد الأسابيع والخمسين</strong>
+          <span>نهاية العد من الباكورة</span>
+        </div>
+
+        <div class="feast-item">
+          <strong>5 — عيد الأبواق</strong>
+          <span>الشهر السابع</span>
+        </div>
+
+        <div class="feast-item">
+          <strong>6 — يوم الكفارة</strong>
+          <span>الشهر السابع</span>
+        </div>
+
+        <div class="feast-item">
+          <strong>7 — عيد المظال</strong>
+          <span>الشهر السابع</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         8
+    ========================== -->
+
+    <section class="study-section">
+
+      <h2>
+        8. منهج دراسة كل عيد في الموسوعة
+      </h2>
+
+      <p>
+        بعد هذه النظرة العامة، تتم دراسة كل عيد في صفحة مستقلة
+        وفق هيكل موحد، حتى يمكن تتبع العيد من تأسيسه إلى رمزه
+        وإعلانه وإتمامه.
+      </p>
+
+      <ul>
+
+        <li>
+          نظرة عامة على العيد.
+        </li>
+
+        <li>
+          التقويم والموعد.
+        </li>
+
+        <li>
+          ممارسات العيد في العهد القديم.
+        </li>
+
+        <li>
+          أهم الأحداث المرتبطة بالعيد في العهد القديم.
+        </li>
+
+        <li>
+          الرمز وإتمامه في المسيح.
+        </li>
+
+        <li>
+          أهم أحداث العيد في العهد الجديد.
+        </li>
+
+        <li>
+          العلاقة بين العهدين.
+        </li>
+
+        <li>
+          المعنى الروحي واللاهوتي.
+        </li>
+
+        <li>
+          أهم المواضع الكتابية.
+        </li>
+
+      </ul>
+
+    </section>
+
+
+    <!-- =========================
+         الخلاصة
+    ========================== -->
+
+    <section class="study-section">
+
+      <h2>
+        خلاصة النظرة العامة
+      </h2>
+
+      <p>
+        تشكل مواسم وأعياد الرب منظومة متكاملة داخل الإعلان
+        الكتابي، تجمع بين التاريخ والعبادة والتقويم والذبائح
+        والحصاد والذاكرة والعهد.
+      </p>
+
+      <p>
+        ومن خلال دراسة كل عيد بصورة مستقلة يمكن تتبع المعنى
+        الذي أعطاه الكتاب له في العهد القديم، ثم دراسة رموزه
+        وعلاقته بعمل المسيح وما يظهر في العهد الجديد، مع
+        الحفاظ على التمييز بين النص الكتابي والتفسير التاريخي
+        والاستنتاج اللاهوتي.
+      </p>
+
+    </section>
 
   </main>
 
-
-  <!-- =====================================
-       FOOTER
-  ====================================== -->
 
   <footer>
     © موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
