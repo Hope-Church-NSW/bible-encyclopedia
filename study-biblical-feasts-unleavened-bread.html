@@ -2,9 +2,7 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>مواسم وأعياد الرب | موسوعة الكتاب المقدس</title>
@@ -21,39 +19,36 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 
 /* =========================================================
-   COLORS
+   ROOT COLORS
 ========================================================= */
 
 :root {
 
-    --bg:
-        #061f33;
+    --bg: #061f33;
 
-    --header:
-        #031421;
+    --header: #031421;
 
-    --card:
-        #031b2c;
+    --card: #031b2c;
 
-    --card-hover:
-        #082b43;
+    --card-hover: #082b43;
 
-    --gold:
-        #d4af37;
+    --gold: #d4af37;
 
-    --gold-soft:
-        rgba(212, 175, 55, 0.45);
+    --gold-light: #f0d66a;
 
-    --white:
-        #ffffff;
+    --gold-soft: rgba(212, 175, 55, 0.35);
 
-    --text:
-        #dceaf4;
+    --white: #ffffff;
 
-    --muted:
-        #9eb4c5;
+    --text: #dceaf4;
+
+    --muted: #9eb4c5;
 }
 
 
@@ -69,7 +64,12 @@ body {
         sans-serif;
 
     background:
-        var(--bg);
+        linear-gradient(
+            180deg,
+            #061f33 0%,
+            #072842 55%,
+            #061f33 100%
+        );
 
     color:
         var(--white);
@@ -79,11 +79,19 @@ body {
 
     line-height:
         1.9;
+
+    overflow-x:
+        hidden;
 }
 
 
 /* =========================================================
    HEADER
+   اليسار:
+   اللوجو + موسوعة الكتاب المقدس
+
+   اليمين:
+   زر الرجوع إلى الدراسات
 ========================================================= */
 
 header {
@@ -98,7 +106,7 @@ header {
         var(--header);
 
     border-bottom:
-        1px solid var(--gold);
+        2px solid var(--gold);
 
     position:
         sticky;
@@ -108,12 +116,6 @@ header {
 
     z-index:
         1000;
-
-    box-shadow:
-        0 4px 15px rgba(0,0,0,.28);
-
-    direction:
-        ltr;
 
     display:
         flex;
@@ -126,12 +128,17 @@ header {
 
     padding:
         9px 24px;
+
+    direction:
+        ltr;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.30);
 }
 
 
 /* =========================================================
-   LEFT SIDE
-   LOGO + TITLE
+   HEADER BRAND
 ========================================================= */
 
 .header-brand {
@@ -143,7 +150,7 @@ header {
         center;
 
     gap:
-        10px;
+        11px;
 
     direction:
         ltr;
@@ -154,16 +161,16 @@ header {
 
 
 /* =========================================================
-   CHURCH LOGO
+   LOGO
 ========================================================= */
 
 .church-logo {
 
     width:
-        48px;
+        50px;
 
     height:
-        48px;
+        50px;
 
     object-fit:
         contain;
@@ -186,7 +193,7 @@ header {
         var(--gold);
 
     font-size:
-        14px;
+        15px;
 
     font-weight:
         bold;
@@ -200,8 +207,7 @@ header {
 
 
 /* =========================================================
-   RIGHT SIDE
-   BACK BUTTON
+   HEADER NAVIGATION
 ========================================================= */
 
 .header-navigation {
@@ -236,13 +242,13 @@ header {
         center;
 
     min-width:
-        125px;
+        130px;
 
     min-height:
         42px;
 
     padding:
-        7px 15px;
+        7px 16px;
 
     background:
         #09283d;
@@ -268,13 +274,11 @@ header {
     line-height:
         1.4;
 
-    box-shadow:
-        inset 0 0 0 1px rgba(212,175,55,.12);
-
     transition:
         background .2s ease,
         transform .2s ease,
-        box-shadow .2s ease;
+        box-shadow .2s ease,
+        color .2s ease;
 }
 
 
@@ -284,13 +288,13 @@ header {
         #103a55;
 
     color:
-        #f0d66a;
+        var(--gold-light);
 
     transform:
         translateY(-1px);
 
     box-shadow:
-        0 4px 12px rgba(0,0,0,.25);
+        0 5px 14px rgba(0,0,0,.28);
 }
 
 
@@ -301,61 +305,65 @@ header {
 main {
 
     width:
-        min(1050px, 94%);
+        min(1120px, 94%);
 
     margin:
-        28px auto 50px;
+        30px auto 55px;
 }
 
 
 /* =========================================================
-   INTRO
+   PAGE INTRO
 ========================================================= */
 
 .page-intro {
 
     background:
-        #0b2f4d;
+        linear-gradient(
+            145deg,
+            #0b3150,
+            #092840
+        );
 
     border:
         1px solid var(--gold-soft);
 
     border-radius:
-        17px;
+        18px;
 
     padding:
-        30px 30px;
+        32px 30px;
 
     text-align:
         center;
 
     margin-bottom:
-        18px;
+        26px;
 
     box-shadow:
-        0 8px 22px rgba(0,0,0,.16);
+        0 10px 28px rgba(0,0,0,.20);
 }
 
 
 /* =========================================================
-   INTRO ICON
+   PAGE ICON
 ========================================================= */
 
 .page-icon {
 
     font-size:
-        46px;
+        48px;
 
     line-height:
         1;
 
     margin-bottom:
-        11px;
+        12px;
 }
 
 
 /* =========================================================
-   INTRO TITLE
+   PAGE TITLE
 ========================================================= */
 
 .page-intro h1 {
@@ -364,18 +372,18 @@ main {
         var(--gold);
 
     font-size:
-        clamp(25px, 4vw, 34px);
+        clamp(27px, 4vw, 38px);
 
     line-height:
         1.5;
 
     margin-bottom:
-        9px;
+        10px;
 }
 
 
 /* =========================================================
-   INTRO TEXT
+   PAGE DESCRIPTION
 ========================================================= */
 
 .page-intro p {
@@ -384,7 +392,7 @@ main {
         var(--text);
 
     font-size:
-        14px;
+        15px;
 
     line-height:
         2;
@@ -398,19 +406,32 @@ main {
 
 
 /* =========================================================
-   STUDIES LIST
+   STUDIES GRID
+   الترتيب المطلوب:
+
+   الصف الأول:
+   3 أيقونات
+
+   الصف الثاني:
+   3 أيقونات
+
+   الصف الثالث:
+   أيقونتان
 ========================================================= */
 
-.studies-list {
+.studies-grid {
 
     display:
-        flex;
+        grid;
 
-    flex-direction:
-        column;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
     gap:
-        15px;
+        18px;
+
+    width:
+        100%;
 }
 
 
@@ -420,23 +441,39 @@ main {
 
 .study-card {
 
+    position:
+        relative;
+
     display:
-        block;
+        flex;
 
-    width:
-        100%;
+    flex-direction:
+        column;
 
-    background:
-        var(--card);
+    align-items:
+        center;
 
-    border:
-        1px solid rgba(212,175,55,.30);
+    justify-content:
+        flex-start;
 
-    border-radius:
-        15px;
+    min-height:
+        215px;
 
     padding:
-        20px 22px;
+        24px 20px 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #031b2c,
+            #06253b
+        );
+
+    border:
+        1px solid rgba(212,175,55,.32);
+
+    border-radius:
+        16px;
 
     text-decoration:
         none;
@@ -444,50 +481,55 @@ main {
     color:
         var(--white);
 
+    text-align:
+        center;
+
     box-shadow:
-        0 5px 16px rgba(0,0,0,.14);
+        0 7px 20px rgba(0,0,0,.16);
 
     transition:
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease,
-        box-shadow .2s ease;
-}
-
-
-.study-card:hover {
-
-    background:
-        var(--card-hover);
-
-    border-color:
-        rgba(212,175,55,.80);
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.22);
+        transform .22s ease,
+        background .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease;
 }
 
 
 /* =========================================================
-   CARD HEADER
+   CARD HOVER
 ========================================================= */
 
-.card-header {
+.study-card:hover {
 
-    display:
-        flex;
+    background:
+        linear-gradient(
+            145deg,
+            #082b43,
+            #0b3551
+        );
 
-    align-items:
-        center;
+    border-color:
+        rgba(212,175,55,.82);
 
-    gap:
-        11px;
+    transform:
+        translateY(-4px);
 
-    margin-bottom:
-        7px;
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.28);
+}
+
+
+/* =========================================================
+   CARD FOCUS
+========================================================= */
+
+.study-card:focus-visible {
+
+    outline:
+        3px solid rgba(240,214,106,.75);
+
+    outline-offset:
+        3px;
 }
 
 
@@ -498,10 +540,10 @@ main {
 .card-icon {
 
     width:
-        40px;
+        70px;
 
     height:
-        40px;
+        70px;
 
     display:
         flex;
@@ -512,11 +554,40 @@ main {
     justify-content:
         center;
 
+    margin-bottom:
+        12px;
+
     font-size:
-        25px;
+        42px;
+
+    line-height:
+        1;
+
+    background:
+        rgba(212,175,55,.07);
+
+    border:
+        1px solid rgba(212,175,55,.22);
+
+    border-radius:
+        50%;
 
     flex-shrink:
         0;
+
+    transition:
+        transform .22s ease,
+        background .22s ease;
+}
+
+
+.study-card:hover .card-icon {
+
+    transform:
+        scale(1.07);
+
+    background:
+        rgba(212,175,55,.13);
 }
 
 
@@ -530,10 +601,13 @@ main {
         var(--gold);
 
     font-size:
-        18px;
+        19px;
 
     line-height:
         1.6;
+
+    margin-bottom:
+        8px;
 }
 
 
@@ -550,21 +624,24 @@ main {
         13px;
 
     line-height:
-        2;
+        1.9;
 
-    padding-right:
-        51px;
+    max-width:
+        290px;
+
+    margin:
+        0 auto;
 }
 
 
 /* =========================================================
-   STRUCTURE BOX
+   STRUCTURE NOTE
 ========================================================= */
 
 .structure-note {
 
     margin-top:
-        18px;
+        22px;
 
     background:
         #092638;
@@ -586,6 +663,9 @@ main {
 
     line-height:
         2;
+
+    text-align:
+        right;
 }
 
 
@@ -609,10 +689,13 @@ footer {
         var(--muted);
 
     font-size:
-        10px;
+        11px;
 
     padding:
-        22px;
+        24px 15px 30px;
+
+    border-top:
+        1px solid rgba(212,175,55,.18);
 }
 
 
@@ -620,7 +703,7 @@ footer {
    TABLET
 ========================================================= */
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
 
     main {
 
@@ -628,28 +711,24 @@ footer {
             94%;
 
         margin-top:
-            20px;
+            22px;
     }
 
 
-    .page-intro {
+    .studies-grid {
 
-        padding:
-            25px 20px;
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap:
+            15px;
     }
 
 
-    .study-card h2 {
+    .study-card {
 
-        font-size:
-            16px;
-    }
-
-
-    .study-card p {
-
-        font-size:
-            12px;
+        min-height:
+            205px;
     }
 
 }
@@ -711,16 +790,22 @@ footer {
 
         margin-top:
             16px;
+
+        margin-bottom:
+            40px;
     }
 
 
     .page-intro {
 
         padding:
-            23px 15px;
+            24px 16px;
 
         border-radius:
-            14px;
+            15px;
+
+        margin-bottom:
+            18px;
     }
 
 
@@ -734,34 +819,61 @@ footer {
     .page-intro h1 {
 
         font-size:
-            23px;
+            24px;
     }
 
 
     .page-intro p {
 
         font-size:
-            11px;
+            12px;
+
+        line-height:
+            1.9;
+    }
+
+
+    /*
+       على الهاتف نحافظ على أيقونتين
+       في كل صف لسهولة القراءة.
+    */
+
+    .studies-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap:
+            12px;
     }
 
 
     .study-card {
 
+        min-height:
+            190px;
+
         padding:
-            17px 15px;
+            18px 10px 16px;
+
+        border-radius:
+            14px;
     }
 
 
     .card-icon {
 
         width:
-            35px;
+            56px;
 
         height:
-            35px;
+            56px;
 
         font-size:
-            22px;
+            32px;
+
+        margin-bottom:
+            9px;
     }
 
 
@@ -769,16 +881,29 @@ footer {
 
         font-size:
             14px;
+
+        line-height:
+            1.55;
     }
 
 
     .study-card p {
 
         font-size:
-            11px;
+            10.5px;
 
-        padding-right:
-            46px;
+        line-height:
+            1.8;
+    }
+
+
+    .structure-note {
+
+        font-size:
+            10px;
+
+        padding:
+            12px 14px;
     }
 
 }
@@ -823,6 +948,50 @@ footer {
             5px 8px;
     }
 
+
+    .studies-grid {
+
+        gap:
+            9px;
+    }
+
+
+    .study-card {
+
+        min-height:
+            175px;
+
+        padding:
+            15px 8px;
+    }
+
+
+    .card-icon {
+
+        width:
+            50px;
+
+        height:
+            50px;
+
+        font-size:
+            28px;
+    }
+
+
+    .study-card h2 {
+
+        font-size:
+            12.5px;
+    }
+
+
+    .study-card p {
+
+        font-size:
+            9.5px;
+    }
+
 }
 
 </style>
@@ -840,6 +1009,11 @@ footer {
 <header>
 
 
+    <!-- =====================================================
+         LEFT
+         اللوجو + موسوعة الكتاب المقدس
+    ====================================================== -->
+
     <div class="header-brand">
 
         <img
@@ -854,6 +1028,11 @@ footer {
 
     </div>
 
+
+    <!-- =====================================================
+         RIGHT
+         الرجوع إلى الدراسات
+    ====================================================== -->
 
     <nav
         class="header-navigation"
@@ -900,11 +1079,10 @@ footer {
 
 
         <p>
-            دراسة كتابية منظمة لمواسم وأعياد الرب،
-            تبدأ بالنظرة العامة إلى التقويم والمواعيد
-            وتاريخ الأعياد في إسرائيل، ثم تنتقل إلى دراسة
-            كل عيد بصورة مستقلة من العهد القديم إلى العهد الجديد،
-            ورموزه وإعلاناته في المسيح.
+            دراسة كتابية منظمة لمواسم وأعياد الرب، تبدأ بالتقويم
+            والمواعيد الكتابية، ثم تنتقل إلى دراسة كل عيد بصورة
+            مستقلة من العهد القديم إلى العهد الجديد، مع دراسة
+            خلفيته التاريخية واليهودية ورموزه وإعلاناته في المسيح.
         </p>
 
     </section>
@@ -912,10 +1090,18 @@ footer {
 
 
     <!-- =====================================================
-         STUDIES
+         STUDIES GRID
+
+         الترتيب على سطح المكتب:
+         3
+         3
+         2
     ====================================================== -->
 
-    <section class="studies-list">
+    <section
+        class="studies-grid"
+        aria-label="دراسات مواسم وأعياد الرب"
+    >
 
 
         <!-- =================================================
@@ -927,23 +1113,21 @@ footer {
             class="study-card"
         >
 
-            <div class="card-header">
+            <span
+                class="card-icon"
+                aria-hidden="true"
+            >
+                📖
+            </span>
 
-                <span class="card-icon">
-                    📖
-                </span>
-
-                <h2>
-                    نظرة عامة على مواسم وأعياد الرب
-                </h2>
-
-            </div>
-
+            <h2>
+                نظرة عامة على مواسم وأعياد الرب
+            </h2>
 
             <p>
                 التقويم والمواعيد الكتابية، المواسم والحصاد،
-                تاريخ الأعياد في إسرائيل، وعلاقتها بالعبادة
-                والهيكل والإعلان الكتابي.
+                وتاريخ الأعياد وعلاقتها بالعبادة والهيكل
+                والإعلان الكتابي.
             </p>
 
         </a>
@@ -959,23 +1143,20 @@ footer {
             class="study-card"
         >
 
-            <div class="card-header">
+            <span
+                class="card-icon"
+                aria-hidden="true"
+            >
+                🌿
+            </span>
 
-                <span class="card-icon">
-                    🌿
-                </span>
-
-                <h2>
-                    عيد الفصح
-                </h2>
-
-            </div>
-
+            <h2>
+                عيد الفصح
+            </h2>
 
             <p>
-                الفصح من خروج إسرائيل من مصر إلى إتمام رمزه
-                في المسيح، مع دراسة التقويم والممارسات والأحداث
-                التاريخية والرمزية والعهد الجديد.
+                من خروج إسرائيل من مصر إلى إتمام معنى الفصح
+                في المسيح، مع دراسة الممارسات والتاريخ والرمزية.
             </p>
 
         </a>
@@ -984,9 +1165,8 @@ footer {
 
         <!-- =================================================
              3 — UNLEAVENED BREAD
-             
-             تم إصلاح الرابط هنا فقط
-             ليطابق اسم الملف الجديد الذي أنشأته.
+
+             الرابط الصحيح للملف الذي أنشأه المستخدم
         ================================================== -->
 
         <a
@@ -994,22 +1174,20 @@ footer {
             class="study-card"
         >
 
-            <div class="card-header">
+            <span
+                class="card-icon"
+                aria-hidden="true"
+            >
+                🍞
+            </span>
 
-                <span class="card-icon">
-                    🍞
-                </span>
-
-                <h2>
-                    عيد الفطير
-                </h2>
-
-            </div>
-
+            <h2>
+                عيد الفطير
+            </h2>
 
             <p>
-                إزالة الخمير، مدة العيد، ممارساته،
-                علاقته بالفصح، ومعانيه ورموزه الكتابية.
+                إزالة الخمير، مدة العيد، علاقته بالفصح،
+                الممارسات الكتابية، ورمزه في العهد الجديد.
             </p>
 
         </a>
@@ -1025,22 +1203,20 @@ footer {
             class="study-card"
         >
 
-            <div class="card-header">
+            <span
+                class="card-icon"
+                aria-hidden="true"
+            >
+                🌾
+            </span>
 
-                <span class="card-icon">
-                    🌾
-                </span>
-
-                <h2>
-                    عيد الباكورة
-                </h2>
-
-            </div>
-
+            <h2>
+                عيد الباكورة
+            </h2>
 
             <p>
                 أول الحصاد وتقدمة الباكورة، توقيتها،
-                معناها في العهد القديم، وإعلانها في العهد الجديد.
+                معناها في العهد القديم وإعلانها في العهد الجديد.
             </p>
 
         </a>
@@ -1056,22 +1232,20 @@ footer {
             class="study-card"
         >
 
-            <div class="card-header">
+            <span
+                class="card-icon"
+                aria-hidden="true"
+            >
+                🔥
+            </span>
 
-                <span class="card-icon">
-                    🔥
-                </span>
-
-                <h2>
-                    عيد الأسابيع والخمسين
-                </h2>
-
-            </div>
-
+            <h2>
+                عيد الأسابيع والخمسين
+            </h2>
 
             <p>
                 العد من الباكورة، الحصاد، التقدمة،
-                عيد الخمسين، وأحداث العهد الجديد المرتبطة به.
+                عيد الخمسين وأحداث العهد الجديد المرتبطة به.
             </p>
 
         </a>
@@ -1087,22 +1261,20 @@ footer {
             class="study-card"
         >
 
-            <div class="card-header">
+            <span
+                class="card-icon"
+                aria-hidden="true"
+            >
+                📯
+            </span>
 
-                <span class="card-icon">
-                    📯
-                </span>
-
-                <h2>
-                    عيد الأبواق
-                </h2>
-
-            </div>
-
+            <h2>
+                عيد الأبواق
+            </h2>
 
             <p>
                 الشهر السابع، يوم التذكار، الأبواق،
-                الاجتماع المقدس، والمعاني الكتابية للعيد.
+                الاجتماع المقدس والمعاني الكتابية للعيد.
             </p>
 
         </a>
@@ -1118,22 +1290,20 @@ footer {
             class="study-card"
         >
 
-            <div class="card-header">
+            <span
+                class="card-icon"
+                aria-hidden="true"
+            >
+                ⚖️
+            </span>
 
-                <span class="card-icon">
-                    ⚖️
-                </span>
-
-                <h2>
-                    يوم الكفارة
-                </h2>
-
-            </div>
-
+            <h2>
+                يوم الكفارة
+            </h2>
 
             <p>
                 رئيس الكهنة، قدس الأقداس، الدم والذبائح،
-                التيس المرسل، والكفارة وإتمامها في عمل المسيح.
+                التيس المرسل والكفارة وإتمامها في المسيح.
             </p>
 
         </a>
@@ -1149,22 +1319,20 @@ footer {
             class="study-card"
         >
 
-            <div class="card-header">
+            <span
+                class="card-icon"
+                aria-hidden="true"
+            >
+                ⛺
+            </span>
 
-                <span class="card-icon">
-                    ⛺
-                </span>
-
-                <h2>
-                    عيد المظال
-                </h2>
-
-            </div>
-
+            <h2>
+                عيد المظال
+            </h2>
 
             <p>
-                المظال والسكن، الحصاد والفرح،
-                حضور الله، ممارسات العيد ورموزه في الإعلان الكتابي.
+                المظال والسكن، الحصاد والفرح، حضور الله،
+                وممارسات العيد ورموزه في الإعلان الكتابي.
             </p>
 
         </a>
@@ -1175,20 +1343,26 @@ footer {
 
 
     <!-- =====================================================
-         STRUCTURE
+         STRUCTURE NOTE
     ====================================================== -->
 
     <div class="structure-note">
 
         <strong>
-            التسلسل المعتمد للدراسة:
+            التسلسل المعتمد:
         </strong>
 
         الدراسات ← مواسم وأعياد الرب ← العيد ← الدراسة التفصيلية.
 
-        ويظل اللوجو واسم موسوعة الكتاب المقدس ثابتين في الجهة اليسرى،
-        بينما يتغير زر الرجوع في الجهة اليمنى بحسب المستوى الذي
-        يوجد فيه الباحث.
+        <br>
+
+        <strong>
+            عدد الدراسات:
+        </strong>
+
+        8 دراسات رئيسية، مرتبة بصريًا على سطح المكتب
+        في ثلاثة صفوف:
+        <strong>3 + 3 + 2</strong>.
 
     </div>
 
