@@ -1,1971 +1,1677 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>عيد الفصح — دراسة عامة | موسوعة الكتاب المقدس</title>
+<title>عيد الفصح | مواسم وأعياد الرب | موسوعة الكتاب المقدس</title>
 
-  <style>
-    :root {
-      --blue-dark: #062f63;
-      --blue-main: #0b5cad;
-      --blue-light: #1674c8;
-      --gold: #d4af37;
-      --gold-light: #f0d66d;
-      --white: #ffffff;
-      --text: #eaf4ff;
-      --muted: #c8dcf2;
-      --card: rgba(4, 42, 88, 0.88);
-      --border: rgba(212, 175, 55, 0.55);
-      --shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
-    }
+<style>
+:root{
+    --blue:#0757a5;
+    --blue-dark:#032f63;
+    --blue-deep:#021f43;
+    --blue-light:#0d72c9;
+    --gold:#d6ad35;
+    --gold-light:#f2d878;
+    --white:#ffffff;
+    --text:#edf6ff;
+    --muted:#c8dbee;
+    --card:rgba(3,38,78,.90);
+    --border:rgba(214,173,53,.48);
+    --shadow:0 10px 30px rgba(0,0,0,.25);
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+*{
+    box-sizing:border-box;
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+html{
+    scroll-behavior:smooth;
+}
 
-    body {
-      font-family:
+body{
+    margin:0;
+    font-family:
         Tahoma,
         Arial,
         "Segoe UI",
         sans-serif;
 
-      background:
+    background:
         linear-gradient(
-          180deg,
-          #0b5cad 0%,
-          #084b91 45%,
-          #06386f 100%
+            180deg,
+            #075eae 0%,
+            #064d93 35%,
+            #043b75 70%,
+            #032d5b 100%
         );
 
-      color: var(--white);
-      min-height: 100vh;
-      line-height: 1.95;
-    }
+    color:var(--white);
+    line-height:2;
+}
 
-    /* =====================================================
-       HEADER
-    ===================================================== */
+/* =========================
+   HEADER
+========================= */
 
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+header{
+    position:sticky;
+    top:0;
+    z-index:9999;
 
-      width: 100%;
+    min-height:82px;
 
-      min-height: 82px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    padding:10px 20px;
 
-      padding: 10px 22px;
+    background:
+        rgba(2,35,72,.97);
 
-      background:
-        rgba(4, 43, 87, 0.97);
+    border-bottom:2px solid var(--gold);
 
-      border-bottom:
-        2px solid var(--gold);
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.30);
+}
 
-      box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.25);
-    }
+/* يمين */
+.header-right{
+    display:flex;
+    align-items:center;
+}
 
-    /*
-      يمين الصفحة:
-      زر الرجوع
-    */
+.back-button{
+    display:flex;
+    align-items:center;
+    gap:8px;
 
-    .header-right {
-      display: flex;
-      align-items: center;
-    }
+    text-decoration:none;
 
-    .back-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    color:white;
 
-      min-height: 46px;
+    background:#075cad;
 
-      padding: 8px 18px;
+    border:2px solid var(--gold);
 
-      background: var(--blue-main);
+    border-radius:11px;
 
-      color: var(--white);
+    padding:7px 17px;
 
-      border:
-        2px solid var(--gold);
+    font-weight:bold;
+    font-size:14px;
 
-      border-radius: 12px;
+    transition:.2s;
+}
 
-      text-decoration: none;
+.back-button:hover{
+    background:#0c73c9;
+    transform:translateY(-1px);
+}
 
-      font-size: 15px;
-      font-weight: bold;
+/* يسار */
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
 
-      transition:
-        background 0.2s ease,
-        transform 0.2s ease;
-    }
+    direction:ltr;
+}
 
-    .back-button:hover {
-      background: var(--blue-light);
-      transform: translateY(-1px);
-    }
+/*
+   يتم وضع اللوجو الحقيقي هنا.
+   لا يوجد alt ظاهر على الصفحة.
+*/
+.logo{
+    width:58px;
+    height:58px;
 
-    /*
-      يسار الصفحة:
-      اللوجو + اسم الدراسة
-    */
+    object-fit:contain;
 
-    .header-left {
-      display: flex;
-      align-items: center;
+    display:block;
 
-      gap: 12px;
+    flex-shrink:0;
+}
 
-      direction: ltr;
+.study-title{
+    direction:rtl;
 
-      min-width: 0;
-    }
+    color:var(--gold-light);
 
-    /*
-      مهم:
-      لا نستخدم نصًا بديلًا ظاهرًا باسم "شعار".
-      إذا لم يوجد الملف الأول نحاول مسارًا ثانيًا.
-    */
+    font-size:18px;
+    font-weight:bold;
 
-    .church-logo {
-      width: 58px;
-      height: 58px;
+    white-space:nowrap;
+}
 
-      object-fit: contain;
+/* =========================
+   MAIN
+========================= */
 
-      display: block;
+main{
+    width:min(1100px,94%);
 
-      flex: 0 0 58px;
+    margin:28px auto 60px;
+}
 
-      border-radius: 50%;
+/* =========================
+   HERO
+========================= */
 
-      background: transparent;
-    }
+.hero{
+    position:relative;
 
-    .header-title {
-      direction: rtl;
+    overflow:hidden;
 
-      color: var(--gold-light);
+    text-align:center;
 
-      font-size: 18px;
-      font-weight: bold;
+    padding:42px 28px;
 
-      white-space: nowrap;
+    margin-bottom:22px;
 
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    border:1px solid var(--border);
 
-    /* =====================================================
-       MAIN
-    ===================================================== */
+    border-radius:22px;
 
-    main {
-      width: min(1100px, 94%);
-
-      margin:
-        28px auto
-        60px;
-    }
-
-    /* =====================================================
-       HERO
-    ===================================================== */
-
-    .hero {
-      position: relative;
-
-      overflow: hidden;
-
-      padding:
-        38px 28px;
-
-      margin-bottom: 22px;
-
-      text-align: center;
-
-      background:
+    background:
         linear-gradient(
-          145deg,
-          rgba(17, 108, 193, 0.96),
-          rgba(4, 52, 103, 0.98)
+            145deg,
+            rgba(9,111,196,.96),
+            rgba(2,47,94,.98)
         );
 
-      border:
+    box-shadow:var(--shadow);
+}
+
+.hero:after{
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    left:-140px;
+    top:-170px;
+
+    border-radius:50%;
+
+    background:
+        rgba(214,173,53,.07);
+}
+
+.hero-icon{
+    position:relative;
+    z-index:1;
+
+    font-size:52px;
+
+    margin-bottom:4px;
+}
+
+.hero h1{
+    position:relative;
+    z-index:1;
+
+    margin:0;
+
+    color:var(--gold-light);
+
+    font-size:
+        clamp(29px,5vw,43px);
+}
+
+.hero h2{
+    position:relative;
+    z-index:1;
+
+    margin:4px 0 15px;
+
+    color:white;
+
+    font-size:18px;
+}
+
+.hero p{
+    position:relative;
+    z-index:1;
+
+    max-width:900px;
+
+    margin:auto;
+
+    color:var(--text);
+
+    font-size:16px;
+}
+
+/* =========================
+   CONTENT CARD
+========================= */
+
+.section{
+    background:
+        linear-gradient(
+            145deg,
+            rgba(5,70,137,.97),
+            rgba(2,39,79,.97)
+        );
+
+    border:
         1px solid var(--border);
 
-      border-radius: 22px;
+    border-radius:18px;
 
-      box-shadow: var(--shadow);
-    }
+    padding:27px 26px;
 
-    .hero::before {
-      content: "";
+    margin-bottom:18px;
 
-      position: absolute;
+    box-shadow:
+        0 7px 22px rgba(0,0,0,.18);
+}
 
-      width: 220px;
-      height: 220px;
+.section h2{
+    margin:0 0 15px;
 
-      top: -120px;
-      left: -90px;
+    padding-bottom:9px;
 
-      border-radius: 50%;
+    color:var(--gold-light);
 
-      background:
-        rgba(212, 175, 55, 0.08);
-    }
+    font-size:24px;
 
-    .hero-icon {
-      position: relative;
+    border-bottom:
+        1px solid
+        rgba(214,173,53,.30);
+}
 
-      font-size: 54px;
+.section h3{
+    color:var(--gold-light);
 
-      margin-bottom: 6px;
-    }
+    font-size:18px;
 
-    .hero h1 {
-      position: relative;
+    margin:
+        22px 0 8px;
+}
 
-      color: var(--gold-light);
+.section p{
+    margin:
+        0 0 13px;
 
-      font-size:
-        clamp(28px, 5vw, 42px);
+    color:var(--text);
 
-      margin-bottom: 8px;
-    }
+    font-size:15px;
+}
 
-    .hero-subtitle {
-      position: relative;
+.section ul{
+    margin:
+        8px 0 15px;
 
-      color: #ffffff;
+    padding-right:26px;
 
-      font-size: 18px;
+    color:var(--text);
+}
 
-      font-weight: bold;
+.section li{
+    margin-bottom:7px;
+}
 
-      margin-bottom: 13px;
-    }
+/* =========================
+   SCRIPTURE
+========================= */
 
-    .hero p {
-      position: relative;
+.scripture{
+    margin-top:16px;
 
-      max-width: 900px;
+    padding:14px 17px;
 
-      margin: auto;
+    border-right:4px solid var(--gold);
 
-      color: var(--text);
+    border-radius:9px;
 
-      font-size: 16px;
-    }
+    background:
+        rgba(1,27,57,.78);
 
-    /* =====================================================
-       STUDY CARD
-    ===================================================== */
+    color:var(--muted);
 
-    .study-card {
-      background:
-        linear-gradient(
-          145deg,
-          rgba(8, 78, 149, 0.97),
-          rgba(4, 45, 90, 0.97)
-        );
+    font-size:14px;
+}
 
-      border:
+.scripture strong{
+    color:var(--gold-light);
+}
+
+/* =========================
+   THEOLOGY
+========================= */
+
+.theology{
+    margin:20px 0;
+
+    padding:19px;
+
+    background:
+        rgba(2,32,66,.75);
+
+    border:
+        1px solid
+        rgba(214,173,53,.45);
+
+    border-radius:12px;
+}
+
+.theology h3{
+    margin-top:0;
+}
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:13px;
+
+    margin-top:15px;
+}
+
+.timeline-item{
+    padding:17px;
+
+    background:
+        rgba(1,30,61,.76);
+
+    border:
+        1px solid
+        rgba(214,173,53,.30);
+
+    border-radius:11px;
+}
+
+.timeline-item strong{
+    color:var(--gold-light);
+
+    font-size:13px;
+}
+
+.timeline-item h3{
+    margin:3px 0 5px;
+
+    color:white;
+
+    font-size:17px;
+}
+
+.timeline-item p{
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+/* =========================
+   COMPARISON
+========================= */
+
+.table-wrapper{
+    overflow-x:auto;
+
+    margin-top:15px;
+}
+
+table{
+    width:100%;
+
+    min-width:650px;
+
+    border-collapse:collapse;
+
+    background:
+        rgba(1,29,60,.78);
+}
+
+th,
+td{
+    padding:12px;
+
+    border:
+        1px solid
+        rgba(214,173,53,.25);
+
+    text-align:right;
+
+    vertical-align:top;
+}
+
+th{
+    color:var(--gold-light);
+
+    background:
+        rgba(1,24,49,.88);
+}
+
+td{
+    color:var(--text);
+
+    font-size:14px;
+}
+
+/* =========================
+   APPLICATION
+========================= */
+
+.application{
+    display:grid;
+
+    gap:10px;
+
+    margin-top:15px;
+}
+
+.application div{
+    padding:13px 15px;
+
+    background:
+        rgba(1,29,60,.75);
+
+    border-right:3px solid var(--gold);
+
+    border-radius:8px;
+
+    color:var(--text);
+
+    font-size:14px;
+}
+
+.application strong{
+    color:var(--gold-light);
+}
+
+/* =========================
+   REFERENCES
+========================= */
+
+.references{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:12px;
+
+    margin-top:15px;
+}
+
+.reference{
+    padding:15px;
+
+    background:
+        rgba(1,29,60,.75);
+
+    border:
+        1px solid
+        rgba(214,173,53,.28);
+
+    border-radius:10px;
+}
+
+.reference h3{
+    margin:0 0 5px;
+
+    color:var(--gold-light);
+
+    font-size:16px;
+}
+
+.reference p{
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+/* =========================
+   CONCLUSION
+========================= */
+
+.conclusion{
+    text-align:center;
+
+    padding:30px 22px;
+
+    border:
         1px solid var(--border);
 
-      border-radius: 18px;
+    border-radius:18px;
 
-      padding:
-        27px 25px;
-
-      margin-bottom: 18px;
-
-      box-shadow:
-        0 7px 20px rgba(0, 0, 0, 0.18);
-    }
-
-    .study-card h2 {
-      color: var(--gold-light);
-
-      font-size: 23px;
-
-      padding-bottom: 10px;
-
-      margin-bottom: 15px;
-
-      border-bottom:
-        1px solid
-        rgba(212, 175, 55, 0.32);
-    }
-
-    .study-card h3 {
-      color: var(--gold-light);
-
-      font-size: 18px;
-
-      margin:
-        20px 0 8px;
-    }
-
-    .study-card p {
-      color: var(--text);
-
-      font-size: 15px;
-
-      margin-bottom: 12px;
-
-      text-align: right;
-    }
-
-    .study-card ul {
-      padding-right: 25px;
-
-      color: var(--text);
-
-      font-size: 15px;
-    }
-
-    .study-card li {
-      margin-bottom: 8px;
-    }
-
-    /* =====================================================
-       SCRIPTURE BOX
-    ===================================================== */
-
-    .scripture-box {
-      margin-top: 16px;
-
-      padding:
-        14px 17px;
-
-      background:
-        rgba(2, 31, 63, 0.82);
-
-      border-right:
-        4px solid var(--gold);
-
-      border-radius: 10px;
-
-      color: var(--muted);
-
-      font-size: 14px;
-    }
-
-    .scripture-box strong {
-      color: var(--gold-light);
-    }
-
-    /* =====================================================
-       IMPORTANT THEOLOGY BOX
-    ===================================================== */
-
-    .theology-box {
-      margin:
-        18px 0;
-
-      padding:
-        19px;
-
-      background:
+    background:
         linear-gradient(
-          145deg,
-          rgba(16, 91, 160, 0.85),
-          rgba(2, 42, 82, 0.95)
+            145deg,
+            rgba(7,89,166,.95),
+            rgba(2,43,86,.98)
         );
 
-      border:
-        1px solid
-        rgba(212, 175, 55, 0.58);
+    box-shadow:var(--shadow);
+}
 
-      border-radius: 13px;
+.conclusion h2{
+    color:var(--gold-light);
+
+    margin-top:0;
+}
+
+.conclusion p{
+    max-width:900px;
+
+    margin:0 auto 12px;
+
+    color:var(--text);
+
+    font-size:15px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    text-align:center;
+
+    padding:
+        20px 15px 30px;
+
+    color:#c5d8ed;
+
+    font-size:12px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:720px){
+
+    header{
+        min-height:70px;
+
+        padding:8px 10px;
     }
 
-    .theology-box h3 {
-      margin-top: 0;
-
-      color: var(--gold-light);
+    .logo{
+        width:45px;
+        height:45px;
     }
 
-    .theology-box p {
-      margin-bottom: 0;
+    .study-title{
+        font-size:12px;
     }
 
-    /* =====================================================
-       TIMELINE
-    ===================================================== */
+    .back-button{
+        padding:6px 9px;
 
-    .timeline {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      gap: 13px;
-
-      margin-top: 15px;
+        font-size:11px;
     }
 
-    .timeline-item {
-      padding: 17px;
+    main{
+        width:94%;
 
-      background:
-        rgba(2, 38, 77, 0.82);
-
-      border:
-        1px solid
-        rgba(212, 175, 55, 0.4);
-
-      border-radius: 12px;
+        margin-top:17px;
     }
 
-    .timeline-item strong {
-      color: var(--gold-light);
-
-      font-size: 14px;
+    .hero{
+        padding:29px 17px;
     }
 
-    .timeline-item h3 {
-      color: #ffffff;
-
-      margin:
-        3px 0 5px;
-
-      font-size: 17px;
+    .hero h1{
+        font-size:29px;
     }
 
-    .timeline-item p {
-      color: var(--muted);
-
-      font-size: 13px;
-
-      margin: 0;
+    .hero p{
+        font-size:14px;
     }
 
-    /* =====================================================
-       COMPARISON
-    ===================================================== */
-
-    .comparison {
-      overflow-x: auto;
-
-      margin-top: 15px;
+    .section{
+        padding:21px 16px;
     }
 
-    table {
-      width: 100%;
-
-      min-width: 650px;
-
-      border-collapse: collapse;
-
-      background:
-        rgba(2, 38, 77, 0.78);
-
-      border-radius: 10px;
-
-      overflow: hidden;
+    .section h2{
+        font-size:20px;
     }
 
-    th,
-    td {
-      padding: 12px;
-
-      border:
-        1px solid
-        rgba(212, 175, 55, 0.28);
-
-      text-align: right;
-
-      vertical-align: top;
+    .section p,
+    .section li{
+        font-size:14px;
     }
 
-    th {
-      color: var(--gold-light);
-
-      background:
-        rgba(2, 31, 63, 0.85);
+    .timeline,
+    .references{
+        grid-template-columns:1fr;
     }
-
-    td {
-      color: var(--text);
-
-      font-size: 14px;
-    }
-
-    /* =====================================================
-       APPLICATION
-    ===================================================== */
-
-    .application-list {
-      display: grid;
-
-      gap: 10px;
-
-      margin-top: 14px;
-    }
-
-    .application-item {
-      padding:
-        13px 15px;
-
-      background:
-        rgba(2, 38, 77, 0.82);
-
-      border-right:
-        3px solid var(--gold);
-
-      border-radius: 9px;
-
-      color: var(--text);
-
-      font-size: 14px;
-    }
-
-    .application-item strong {
-      color: var(--gold-light);
-    }
-
-    /* =====================================================
-       REFERENCES
-    ===================================================== */
-
-    .references {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      gap: 12px;
-
-      margin-top: 15px;
-    }
-
-    .reference {
-      padding: 16px;
-
-      background:
-        rgba(2, 38, 77, 0.82);
-
-      border:
-        1px solid
-        rgba(212, 175, 55, 0.35);
-
-      border-radius: 12px;
-    }
-
-    .reference h3 {
-      color: var(--gold-light);
-
-      font-size: 16px;
-
-      margin: 0 0 7px;
-    }
-
-    .reference p {
-      color: var(--muted);
-
-      font-size: 13px;
-
-      margin: 0;
-    }
-
-    /* =====================================================
-       SUMMARY
-    ===================================================== */
-
-    .summary {
-      text-align: center;
-
-      padding:
-        28px 20px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(8, 82, 155, 0.95),
-          rgba(3, 43, 86, 0.98)
-        );
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 18px;
-
-      box-shadow: var(--shadow);
-    }
-
-    .summary h2 {
-      color: var(--gold-light);
-
-      margin-bottom: 12px;
-    }
-
-    .summary p {
-      color: var(--text);
-
-      max-width: 900px;
-
-      margin:
-        0 auto 10px;
-    }
-
-    /* =====================================================
-       FOOTER
-    ===================================================== */
-
-    footer {
-      padding:
-        22px 15px 30px;
-
-      text-align: center;
-
-      color: #c8d9ed;
-
-      font-size: 12px;
-    }
-
-    /* =====================================================
-       MOBILE
-    ===================================================== */
-
-    @media (max-width: 720px) {
-
-      .site-header {
-        min-height: 72px;
-
-        padding:
-          8px 10px;
-      }
-
-      .church-logo {
-        width: 45px;
-        height: 45px;
-
-        flex-basis: 45px;
-      }
-
-      .header-title {
-        font-size: 12px;
-      }
-
-      .back-button {
-        min-height: 40px;
-
-        padding:
-          6px 10px;
-
-        font-size: 11px;
-      }
-
-      main {
-        width: 94%;
-
-        margin-top: 18px;
-      }
-
-      .hero {
-        padding:
-          28px 17px;
-      }
-
-      .hero h1 {
-        font-size: 29px;
-      }
-
-      .hero p {
-        font-size: 14px;
-      }
-
-      .study-card {
-        padding:
-          21px 16px;
-      }
-
-      .study-card h2 {
-        font-size: 20px;
-      }
-
-      .study-card p,
-      .study-card ul {
-        font-size: 14px;
-      }
-
-      .timeline,
-      .references {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <!-- ===================================================
-       HEADER
-       اليمين: الرجوع
-       اليسار: اللوجو + اسم الدراسة
-  ==================================================== -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-  <header class="site-header">
+<header>
 
+    <!-- اليمين: الرجوع -->
     <div class="header-right">
 
-      <a
-        href="study-biblical-feasts.html"
-        class="back-button"
-        aria-label="العودة إلى مواسم وأعياد الرب"
-      >
-        ← مواسم وأعياد الرب
-      </a>
+        <a
+            class="back-button"
+            href="study-biblical-feasts.html"
+        >
+            ← مواسم وأعياد الرب
+        </a>
 
     </div>
 
+
+    <!-- اليسار: اللوجو + اسم الدراسة -->
     <div class="header-left">
 
-      <!--
-        المسار الأساسي للوجو.
-        يجب أن يكون ملف اللوجو الحقيقي موجودًا هنا:
-        assets/logo.png
-      -->
+        <img
+            id="churchLogo"
+            class="logo"
+            alt=""
+        >
 
-      <img
-        src="assets/logo.png"
-        alt="كنيسة رجاء الأمم سيدني"
-        class="church-logo"
-        onerror="
-          if (this.src.indexOf('logo.png') !== -1) {
-            this.src = 'logo.png';
-          }
-        "
-      >
-
-      <div class="header-title">
-        مواسم وأعياد الرب
-      </div>
+        <div class="study-title">
+            مواسم وأعياد الرب
+        </div>
 
     </div>
 
-  </header>
+</header>
 
 
-  <!-- ===================================================
-       CONTENT
-  ==================================================== -->
+<main>
 
-  <main>
+<!-- =====================================================
+     INTRO
+===================================================== -->
 
-    <!-- المقدمة -->
+<section class="hero">
 
-    <section class="hero">
+    <div class="hero-icon">🩸</div>
 
-      <div class="hero-icon">
-        🩸
-      </div>
+    <h1>عيد الفصح</h1>
 
-      <h1>
-        عيد الفصح
-      </h1>
+    <h2>الفصح في الكتاب المقدس — من الخروج إلى المسيح</h2>
 
-      <div class="hero-subtitle">
-        פֶּסַח — Pesaḥ
-      </div>
+    <p>
+        عيد الفصح هو أحد أهم المفاتيح لفهم قصة الخلاص في الكتاب
+        المقدس. يبدأ ظهوره في ليلة الخروج من مصر، حيث أعلن الله
+        لشعبه طريق النجاة من الدينونة والخروج من العبودية، ثم
+        استمر الفصح كتذكار مركزي في حياة إسرائيل، حتى جاء المسيح
+        في سياق عيد الفصح، وأعطى موته معنى عهديًا وخلاصيًا جديدًا.
+    </p>
 
-      <p>
-        دراسة كتابية وتاريخية ولاهوتية متكاملة لعيد الفصح،
-        تبدأ من تأسيسه في ليلة الخروج من مصر، وتتبع تطوره
-        في تاريخ إسرائيل والهيكل، ثم تدرس حضوره في زمن المسيح
-        وارتباطه بالصليب والقيامة، مع قراءة مسيانية وتطبيقية
-        من منظور العهد الجديد.
-      </p>
+</section>
 
-    </section>
 
+<!-- =====================================================
+     1
+===================================================== -->
 
-    <!-- =================================================
-         1 — التعريف
-    ================================================== -->
+<section class="section">
 
-    <section class="study-card">
+<h2>1. ما هو عيد الفصح؟</h2>
 
-      <h2>
-        عيد الفصح: البداية والمعنى
-      </h2>
+<p>
+عيد الفصح هو العيد الذي أسسه الرب لإسرائيل في ليلة خروجهم من
+مصر. لم يكن الغرض منه مجرد الاحتفال بانتهاء فترة العبودية،
+بل كان تذكارًا دائمًا لعمل الله الخلاصي.
+</p>
 
-      <p>
-        الفصح هو أول الأعياد التي أعلن الرب مواعيدها لشعب
-        إسرائيل في إطار الخروج من مصر. وقد جاء تأسيسه في
-        لحظة تاريخية فاصلة: كان إسرائيل يعيش تحت العبودية
-        في مصر، وكانت الضربة الأخيرة على وشك أن تقع، والرب
-        أعلن لشعبه طريقًا للخلاص والحفظ.
-      </p>
+<p>
+أمر الرب موسى أن يكون هذا الشهر بداية الشهور لإسرائيل، وأن يأخذ
+كل بيت شاة صحيحة من الغنم، وأن تُذبح في الوقت المحدد، وأن يوضع
+دمها على القائمتين والعتبة العليا للبيت.
+</p>
 
-      <p>
-        لذلك فإن الفصح في أصله ليس مجرد مناسبة احتفالية،
-        بل هو تذكار لعمل إلهي خلّص شعبًا من العبودية وأدخله
-        في بداية تاريخ جديد. ومنذ ذلك الوقت صار الفصح جزءًا
-        من ذاكرة إسرائيل الدينية، وارتبط بالخروج والعهد
-        والعبادة والهوية الجماعية.
-      </p>
+<p>
+وفي تلك الليلة كانت الضربة الأخيرة على مصر، بينما حفظ الرب
+بيوت بني إسرائيل التي وُضعت عليها علامة الدم بحسب أمره.
+وبعد ذلك خرج الشعب من مصر، ولذلك ارتبط الفصح منذ البداية
+بالخلاص والخروج والحرية.
+</p>
 
-      <div class="scripture-box">
-        <strong>النصوص المؤسسة:</strong>
-        خروج 12: 1–51؛ خروج 13: 1–16؛
-        لاويين 23: 4–5؛ عدد 9: 1–14؛
-        تثنية 16: 1–8.
-      </div>
+<div class="scripture">
+<strong>النصوص الأساسية:</strong>
+خروج 12: 1–51؛ خروج 13: 1–16؛ لاويين 23: 4–5؛
+عدد 9: 1–14؛ تثنية 16: 1–8.
+</div>
 
-    </section>
+</section>
 
 
-    <!-- =================================================
-         2 — الاسم
-    ================================================== -->
+<!-- =====================================================
+     2
+===================================================== -->
 
-    <section class="study-card">
+<section class="section">
 
-      <h2>
-        معنى اسم الفصح
-      </h2>
+<h2>2. لماذا أسس الله الفصح؟</h2>
 
-      <p>
-        الاسم العبري للفصح هو
-        <strong>פֶּסַח — Pesaḥ</strong>.
-        ويشرح سفر الخروج ارتباط الاسم بعبور الرب عن بيوت
-        بني إسرائيل عندما ضرب أبكار مصر.
-      </p>
+<p>
+السبب الأول هو تذكار الخلاص. أراد الرب أن يبقى الخروج من مصر
+حاضرًا في ذاكرة الشعب، حتى لا تصبح قصة الخلاص مجرد حدث قديم
+ينتمي إلى الماضي.
+</p>
 
-      <p>
-        وهذا يضع أمامنا عنصرين متلازمين: الدينونة والخلاص.
-        فالدينونة كانت ستقع على مصر، لكن الرب أعطى شعبه
-        وسيلة محددة للطاعة، وكان الدم علامة على البيت الذي
-        يحفظه الرب.
-      </p>
+<p>
+والسبب الثاني هو تعليم الأجيال. عندما يسأل الابن عن معنى هذه
+الخدمة، يصبح السؤال فرصة لإعلان ما صنعه الله لشعبه.
+</p>
 
-      <div class="scripture-box">
-        <strong>المرجع:</strong>
-        خروج 12: 12–14، 21–27.
-      </div>
+<p>
+والسبب الثالث هو تثبيت هوية إسرائيل. فالشعب لم يعد مجرد مجموعة
+من العبيد الذين خرجوا من مصر، بل أصبح شعبًا خلصه الله ودعاه
+إلى عبادته.
+</p>
 
-    </section>
+<div class="scripture">
+<strong>مراجع:</strong>
+خروج 12: 26–27؛ خروج 13: 8–10؛ تثنية 6: 20–25.
+</div>
 
+</section>
 
-    <!-- =================================================
-         3 — التأسيس
-    ================================================== -->
 
-    <section class="study-card">
+<!-- =====================================================
+     3
+===================================================== -->
 
-      <h2>
-        تأسيس عيد الفصح في مصر
-      </h2>
+<section class="section">
 
-      <p>
-        أمر الرب كل بيت أن يأخذ شاة صحيحة، وأن تُحفظ إلى
-        اليوم الرابع عشر من الشهر، ثم تُذبح وتؤكل في تلك
-        الليلة. وكان على الإسرائيليين أن يضعوا من دم الذبيحة
-        على القائمتين والعتبة العليا للبيت.
-      </p>
+<h2>3. كيف كان الفصح الأول؟</h2>
 
-      <p>
-        وكان يجب أن تؤكل الذبيحة مشوية بالنار مع فطير
-        وأعشاب مرة. وتكشف هذه التفاصيل أن الفصح كان عيدًا
-        مرتبطًا بالفعل بالطعام والبيت والجماعة والرحيل،
-        وليس مجرد احتفال رمزي مجرد.
-      </p>
+<p>
+كان الفصح الأول في مصر مرتبطًا بالاستعداد للرحيل. لم يكن
+الإسرائيليون يحتفلون في ظروف عادية؛ كانوا على وشك ترك مصر
+والدخول في مرحلة جديدة من تاريخهم.
+</p>
 
-      <h3>
-        العناصر الأساسية في الفصح الأول
-      </h3>
+<p>
+اختار كل بيت شاة صحيحة، وحُفظت حتى اليوم المحدد، ثم ذُبحت،
+ووضع الدم على مدخل البيت، وأُكل اللحم مشويًا بالنار مع الفطير
+والأعشاب المرة.
+</p>
 
-      <ul>
+<h3>أهم عناصر الفصح الأول</h3>
 
-        <li>
-          شاة صحيحة بلا عيب.
-        </li>
+<ul>
+<li>الخروف الصحيح.</li>
+<li>تحديد يوم الذبح.</li>
+<li>دم الذبيحة على مدخل البيت.</li>
+<li>أكل اللحم.</li>
+<li>الفطير.</li>
+<li>الأعشاب المرة.</li>
+<li>الاستعداد للرحيل.</li>
+</ul>
 
-        <li>
-          اختيار الذبيحة في اليوم العاشر.
-        </li>
+<div class="scripture">
+<strong>خروج 12: 3–11، 21–28.</strong>
+</div>
 
-        <li>
-          ذبح الذبيحة في اليوم الرابع عشر.
-        </li>
+</section>
 
-        <li>
-          وضع الدم على مدخل البيت.
-        </li>
 
-        <li>
-          أكل اللحم مشويًا بالنار.
-        </li>
+<!-- =====================================================
+     4
+===================================================== -->
 
-        <li>
-          أكل الفطير.
-        </li>
+<section class="section">
 
-        <li>
-          أكل الأعشاب المرة.
-        </li>
+<h2>4. معنى الدم في الفصح</h2>
 
-        <li>
-          الاستعداد للرحيل.
-        </li>
+<p>
+الدم هو العلامة التي أعطاها الله للشعب في تلك الليلة. لم يكن
+المعنى أن الدم يعمل كقوة مستقلة، بل أن الرب نفسه هو الذي أعلن
+أن الدم سيكون علامة على البيوت التي يميزها أثناء الضربة.
+</p>
 
-      </ul>
+<p>
+وهذا يضعنا أمام حقيقة لاهوتية مهمة: الخلاص في الكتاب المقدس
+ينطلق من مبادرة الله، لكن الإنسان مدعو إلى الاستجابة لكلمة
+الله بالإيمان والطاعة.
+</p>
 
-      <div class="scripture-box">
-        <strong>المرجع:</strong>
-        خروج 12: 3–11، 21–28.
-      </div>
+<div class="theology">
 
-    </section>
+<h3>المبدأ اللاهوتي</h3>
 
+<p>
+الفصح يعلن أن الخلاص ليس نتيجة قدرة الإنسان على إنقاذ نفسه،
+بل نتيجة تدبير الله للخلاص واستجابة الإنسان له.
+</p>
 
-    <!-- =================================================
-         4 — الدم
-    ================================================== -->
+</div>
 
-    <section class="study-card">
+<div class="scripture">
+<strong>مراجع:</strong>
+خروج 12: 7، 13، 22–23؛ عبرانيين 11: 28.
+</div>
 
-      <h2>
-        الدم وعلامة الخلاص
-      </h2>
+</section>
 
-      <p>
-        الدم هو أحد أكثر عناصر الفصح وضوحًا. فالرب طلب أن
-        توضع علامة الدم على البيت، ثم أعلن أن هذه العلامة
-        ستكون علامة تمييز أثناء الضربة.
-      </p>
 
-      <p>
-        من المهم هنا عدم اختزال المعنى إلى فكرة سحرية في
-        الدم نفسه. النص يؤكد أن الحفظ كان مرتبطًا بكلمة
-        الرب وطاعة الشعب لها. فالدم كان علامة ضمن تدبير
-        الخلاص الذي أعلنه الله.
-      </p>
+<!-- =====================================================
+     5
+===================================================== -->
 
-      <div class="theology-box">
+<section class="section">
 
-        <h3>
-          المبدأ اللاهوتي
-        </h3>
+<h2>5. الفصح والخروج من مصر</h2>
 
-        <p>
-          الخلاص يبدأ بمبادرة الله، والإنسان يستجيب بالإيمان
-          والطاعة. لذلك يجمع الفصح بين وعد الله ومسؤولية
-          الإنسان في الاستجابة لكلمة الرب.
-        </p>
+<p>
+الفصح والخروج حدثان لا يمكن فصلهما. فالذبيحة جاءت في الليلة
+التي سبقَت الخروج، وبعدها خرج إسرائيل من بيت العبودية.
+</p>
 
-      </div>
+<p>
+ولهذا عندما كان الإسرائيلي يحتفل بالفصح لم يكن يتذكر ذبيحة
+منفصلة عن التاريخ، بل كان يتذكر كيف تدخل الله في التاريخ
+وخلص شعبه وأخرجه من مصر.
+</p>
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        خروج 12: 7، 13، 22–23؛
-        عبرانيين 11: 28.
-      </div>
+<p>
+هذه النقطة تصبح مهمة جدًا عندما نقرأ العهد الجديد، لأن مفهوم
+الخروج نفسه سيأخذ أبعادًا أوسع في فهم عمل المسيح.
+</p>
 
-    </section>
+<div class="scripture">
+<strong>مراجع:</strong>
+خروج 13: 3–10؛ تثنية 16: 1–3.
+</div>
 
+</section>
 
-    <!-- =================================================
-         5 — الخروج
-    ================================================== -->
 
-    <section class="study-card">
+<!-- =====================================================
+     6
+===================================================== -->
 
-      <h2>
-        الفصح والخروج من العبودية
-      </h2>
+<section class="section">
 
-      <p>
-        لا يمكن فصل الفصح عن الخروج. فالحدثان يمثلان وحدة
-        واحدة في الرواية الكتابية: الله يفتقد شعبه، يعلن
-        دينونته على مصر، يحفظ شعبه، ثم يخرجه من بيت العبودية.
-      </p>
+<h2>6. الفصح والفطير</h2>
 
-      <p>
-        ولهذا أمر الرب إسرائيل أن يتذكر هذا اليوم عبر
-        الأجيال. فالفصح كان طريقة لحفظ ذاكرة الخلاص داخل
-        الشعب.
-      </p>
+<p>
+يرتبط الفصح بعيد الفطير ارتباطًا وثيقًا. فالفطير كان يذكّر
+بالسرعة التي خرج بها إسرائيل من مصر، إذ لم يكن لدى الشعب
+الوقت الكافي لانتظار تخمير العجين.
+</p>
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        خروج 13: 3–10؛
-        تثنية 16: 1–3.
-      </div>
+<p>
+ولهذا أصبح إخراج الخمير من البيوت جزءًا من أيام العيد، ثم
+استخدم الرسول بولس هذا المعنى لاحقًا في تطبيق روحي عميق
+على حياة الكنيسة.
+</p>
 
-    </section>
+<div class="scripture">
+<strong>مراجع:</strong>
+خروج 12: 14–20؛ خروج 13: 3–7؛
+لاويين 23: 5–8؛ 1 كورنثوس 5: 6–8.
+</div>
 
+</section>
 
-    <!-- =================================================
-         6 — تعليم الأبناء
-    ================================================== -->
 
-    <section class="study-card">
+<!-- =====================================================
+     7
+===================================================== -->
 
-      <h2>
-        الفصح والذاكرة وتعليم الأجيال
-      </h2>
+<section class="section">
 
-      <p>
-        وضع الرب في قلب الفصح سؤال الأبناء: «ما هذه الخدمة
-        لكم؟». والسؤال كان فرصة لإعادة رواية قصة الخروج
-        وإعلان ما صنعه الرب.
-      </p>
+<h2>7. الفصح في تاريخ إسرائيل</h2>
 
-      <p>
-        وهنا يظهر بُعد تربوي عميق: العبادة ليست فقط ممارسة
-        أمام الله، بل وسيلة لتعليم الجيل التالي قصة عمل الله.
-      </p>
+<p>
+لم يبق الاحتفال بالفصح بنفس القوة طوال تاريخ إسرائيل. ففي
+فترات الانحراف عن الرب تراجعت العبادة، ثم جاءت إصلاحات روحية
+أعادت الشعب إلى كلمة الله وإلى الأعياد.
+</p>
 
-      <div class="theology-box">
+<div class="timeline">
 
-        <h3>
-          مبدأ روحي
-        </h3>
+<div class="timeline-item">
+<strong>الخروج</strong>
+<h3>الفصح الأول</h3>
+<p>تأسيس الفصح في ليلة الخروج من مصر.</p>
+</div>
 
-        <p>
-          الكنيسة والأسرة لا تنقلان مجرد معلومات دينية،
-          بل تنقلان ذاكرة الخلاص وقصة أمانة الله من جيل إلى جيل.
-        </p>
+<div class="timeline-item">
+<strong>البرية</strong>
+<h3>فصح سيناء</h3>
+<p>تنظيم ممارسة الفصح وإقرار أحكام الفصح الثاني.</p>
+</div>
 
-      </div>
+<div class="timeline-item">
+<strong>يشوع</strong>
+<h3>فصح أرض الموعد</h3>
+<p>احتفال إسرائيل بالفصح بعد دخول أرض كنعان.</p>
+</div>
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        خروج 12: 26–27؛
-        خروج 13: 8، 14–16؛
-        تثنية 6: 20–25.
-      </div>
+<div class="timeline-item">
+<strong>حزقيا</strong>
+<h3>فصح الإصلاح</h3>
+<p>إعادة الشعب إلى العبادة والاجتماع في أورشليم.</p>
+</div>
 
-    </section>
+<div class="timeline-item">
+<strong>يوشيا</strong>
+<h3>فصح الإصلاح الكبير</h3>
+<p>تجديد العبادة وإعادة تنظيم الفصح.</p>
+</div>
 
+<div class="timeline-item">
+<strong>ما بعد السبي</strong>
+<h3>فصح العودة</h3>
+<p>عودة الاحتفال بالفصح ضمن الجماعة التي رجعت من السبي.</p>
+</div>
 
-    <!-- =================================================
-         7 — الفصح والفطير
-    ================================================== -->
+</div>
 
-    <section class="study-card">
+<div class="scripture">
+<strong>مراجع:</strong>
+عدد 9؛ يشوع 5: 10–12؛
+2 ملوك 23: 21–23؛
+2 أخبار 30؛ 2 أخبار 35؛ عزرا 6: 19–22.
+</div>
 
-      <h2>
-        الفصح وعيد الفطير
-      </h2>
+</section>
 
-      <p>
-        يرتبط الفصح ارتباطًا وثيقًا بعيد الفطير. فالكتاب
-        يشرح أن خروج إسرائيل كان سريعًا حتى لم يكن العجين
-        قد اختمر، ولذلك صار الفطير جزءًا من تذكار الخروج.
-      </p>
 
-      <p>
-        وفي العهد الجديد أصبح التعبير «عيد الفطير» يستخدم
-        في الإطار الزمني نفسه الذي تقع فيه أحداث الفصح.
-      </p>
+<!-- =====================================================
+     8
+===================================================== -->
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        خروج 12: 14–20؛
-        خروج 13: 3–7؛
-        لاويين 23: 5–8؛
-        لوقا 22: 1.
-      </div>
+<section class="section">
 
-    </section>
+<h2>8. الفصح والهيكل وأورشليم</h2>
 
+<p>
+مع انتقال العبادة المركزية إلى المكان الذي اختاره الرب، أصبح
+الفصح مرتبطًا بأورشليم وبالهيكل وبالحج.
+</p>
 
-    <!-- =================================================
-         8 — التاريخ
-    ================================================== -->
+<p>
+وتساعدنا هذه الخلفية على فهم الأناجيل. فعندما يصل يسوع إلى
+أورشليم في موسم الفصح، تكون المدينة في حالة دينية استثنائية،
+وتكون ذكرى الخروج حاضرة في ذهن الشعب.
+</p>
 
-    <section class="study-card">
+<p>
+لذلك فإن أحداث الأسبوع الأخير من حياة المسيح يجب أن تُقرأ
+ضمن خلفية الفصح والهيكل والحج والذبائح.
+</p>
 
-      <h2>
-        عيد الفصح في تاريخ إسرائيل
-      </h2>
+<div class="scripture">
+<strong>مراجع:</strong>
+تثنية 16: 5–7؛
+2 أخبار 35؛
+يوحنا 2: 13؛ يوحنا 11: 55.
+</div>
 
-      <p>
-        يكشف تاريخ إسرائيل أن الاحتفال بالفصح مرّ بمراحل
-        مختلفة. ففي أوقات الضعف الروحي تراجع الاهتمام
-        بالعبادة، ثم جاءت فترات إصلاح أعادت الشعب إلى
-        كلمة الله والاحتفال بالأعياد.
-      </p>
+</section>
 
-      <div class="timeline">
 
-        <div class="timeline-item">
+<!-- =====================================================
+     9
+===================================================== -->
 
-          <strong>الخروج</strong>
+<section class="section">
 
-          <h3>
-            الفصح الأول
-          </h3>
+<h2>9. الفصح في زمن المسيح</h2>
 
-          <p>
-            تأسيس العيد في ليلة خروج إسرائيل من مصر.
-          </p>
+<p>
+كان الفصح في زمن المسيح من أعظم المواسم الدينية في السنة.
+وكان اليهود يأتون إلى أورشليم، وكانت المدينة والهيكل في مركز
+المشهد.
+</p>
 
-        </div>
+<p>
+وفي هذا السياق دخل المسيح إلى أورشليم، وأصبح الأسبوع الأخير
+من حياته مرتبطًا مباشرة بموسم الفصح.
+</p>
 
-        <div class="timeline-item">
+<p>
+هذه الخلفية التاريخية مهمة لأنها تفسر كثافة الأحداث في تلك
+الأيام، وتساعد على فهم العشاء الأخير والقبض على المسيح
+والصلب والقيامة ضمن إطار الخلاص الفصحي.
+</p>
 
-          <strong>البرية</strong>
+<div class="scripture">
+<strong>مراجع:</strong>
+متى 26؛ مرقس 14؛ لوقا 22؛ يوحنا 12–19.
+</div>
 
-          <h3>
-            فصح سيناء
-          </h3>
+</section>
 
-          <p>
-            تنظيم ممارسة الفصح وظهور تشريع الفصح الثاني.
-          </p>
 
-        </div>
+<!-- =====================================================
+     10
+===================================================== -->
 
-        <div class="timeline-item">
+<section class="section">
 
-          <strong>أرض الموعد</strong>
+<h2>10. العشاء الأخير والفصح</h2>
 
-          <h3>
-            فصح الجلجال
-          </h3>
+<p>
+جاء العشاء الأخير في إطار عيد الفصح، وتظهر روايات الأناجيل
+أن يسوع أعطى العشاء معنى عهديًا جديدًا.
+</p>
 
-          <p>
-            احتفال إسرائيل بالفصح بعد دخول أرض كنعان.
-          </p>
+<p>
+أخذ المسيح الخبز وتكلم عن جسده، ثم أخذ الكأس وتكلم عن دمه
+والعهد. وبذلك لم يعد الحديث عن ذكرى الخروج فقط، بل أصبح
+هناك إعلان عن عمل خلاصي سيُنجز من خلال موت المسيح.
+</p>
 
-        </div>
+<p>
+وهنا تلتقي موضوعات الفصح والذبيحة والدم والعهد في شخص المسيح.
+</p>
 
-        <div class="timeline-item">
+<div class="scripture">
+<strong>مراجع:</strong>
+متى 26: 17–30؛
+مرقس 14: 12–26؛
+لوقا 22: 7–20؛
+1 كورنثوس 11: 23–26.
+</div>
 
-          <strong>حزقيا</strong>
+</section>
 
-          <h3>
-            فصح الإصلاح
-          </h3>
 
-          <p>
-            دعوة الشعب إلى تجديد العبادة والاحتفال بالفصح.
-          </p>
+<!-- =====================================================
+     11
+===================================================== -->
 
-        </div>
+<section class="section">
 
-        <div class="timeline-item">
+<h2>11. المسيح هو فصحنا</h2>
 
-          <strong>يوشيا</strong>
+<p>
+أوضح إعلان رسولي عن العلاقة بين المسيح والفصح نجده في
+رسالة بولس الأولى إلى أهل كورنثوس:
+</p>
 
-          <h3>
-            فصح الإصلاح الكبير
-          </h3>
+<div class="theology">
 
-          <p>
-            إصلاح العبادة وإعادة تنظيم الاحتفال بالفصح.
-          </p>
+<h3>«لأن فصحنا أيضًا المسيح قد ذُبح لأجلنا»</h3>
 
-        </div>
+<p>
+هذا الإعلان يجعل الفصح جزءًا من تفسير موت المسيح، وليس مجرد
+تشبيه وعظي. فبولس يربط مباشرة بين المسيح وبين الفصح ثم ينتقل
+إلى الحديث عن الحياة الجديدة والقداسة.
+</p>
 
-        <div class="timeline-item">
+</div>
 
-          <strong>ما بعد السبي</strong>
+<p>
+وهكذا تصبح قصة الفصح القديمة خلفية لفهم الخلاص في المسيح:
+عبودية، خلاص، ذبيحة، عهد، خروج، ثم حياة جديدة.
+</p>
 
-          <h3>
-            فصح العودة
-          </h3>
+<div class="scripture">
+<strong>النص الأساسي:</strong>
+1 كورنثوس 5: 7–8.
+</div>
 
-          <p>
-            الاحتفال بالفصح في مرحلة إعادة بناء الجماعة.
-          </p>
+</section>
 
-        </div>
 
-      </div>
+<!-- =====================================================
+     12
+===================================================== -->
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        عدد 9؛ يشوع 5: 10–12؛
-        2 ملوك 23: 21–23؛
-        2 أخبار 30؛ 2 أخبار 35؛
-        عزرا 6: 19–22.
-      </div>
+<section class="section">
 
-    </section>
+<h2>12. المسيح وحمل الله</h2>
 
+<p>
+يقدم يوحنا المعمدان يسوع أمام الشعب بإعلان:
+«هوذا حمل الله الذي يرفع خطية العالم».
+</p>
 
-    <!-- =================================================
-         9 — الفصح والهيكل
-    ================================================== -->
+<p>
+وتظهر صورة الحمل في الكتاب المقدس ضمن عالم الذبائح والفداء،
+ثم نجد العهد الجديد يربط موت المسيح بالخلاص والفداء بوضوح.
+</p>
 
-    <section class="study-card">
+<p>
+وعندما نقرأ هذا مع إعلان بولس أن المسيح هو فصحنا، تتضح
+العلاقة بين صورة الحمل وعمل المسيح الخلاصي.
+</p>
 
-      <h2>
-        الفصح والهيكل في أورشليم
-      </h2>
+<div class="scripture">
+<strong>مراجع:</strong>
+يوحنا 1: 29؛ 1 بطرس 1: 18–19؛
+1 كورنثوس 5: 7؛ رؤيا 5.
+</div>
 
-      <p>
-        عندما أصبحت العبادة المركزية مرتبطة بأورشليم والهيكل،
-        أصبح الفصح مرتبطًا أيضًا بالحج إلى المدينة المقدسة.
-        وتوضح التقاليد اليهودية المتعلقة بفترة الهيكل الثاني
-        أن ذبائح الفصح كانت تُقدم في الهيكل ضمن نظام عبادي
-        منظم.
-      </p>
+</section>
 
-      <p>
-        وهذه الخلفية ضرورية لفهم الأناجيل؛ لأن يسوع والتلاميذ
-        كانوا في أورشليم في موسم كان يجذب حشودًا كبيرة من
-        الحجاج.
-      </p>
 
-      <div class="scripture-box">
-        <strong>مراجع كتابية:</strong>
-        تثنية 16: 5–7؛
-        2 أخبار 35؛
-        لوقا 2: 41–50؛
-        يوحنا 2: 13؛
-        يوحنا 11: 55.
-      </div>
+<!-- =====================================================
+     13
+===================================================== -->
 
-    </section>
+<section class="section">
 
+<h2>13. الفصح والصليب</h2>
 
-    <!-- =================================================
-         10 — زمن المسيح
-    ================================================== -->
+<p>
+الصليب هو مركز القراءة المسيحية للفصح. ففي الخروج كان هناك
+شعب يواجه دينونة ويحتاج إلى خلاص، وفي الإنجيل نرى المسيح
+يموت على الصليب معلنًا عمل الفداء.
+</p>
 
-    <section class="study-card">
+<p>
+لا يعني ذلك أن كل تفصيل في قصة الخروج يجب أن يتحول إلى رمز
+مباشر للمسيح. القراءة الصحيحة تبدأ بما يقوله العهد الجديد
+نفسه عن العلاقة بين المسيح والفصح، ثم تبني عليها قراءة
+الكتاب كوحدة واحدة.
+</p>
 
-      <h2>
-        الفصح في زمن المسيح
-      </h2>
+<div class="theology">
 
-      <p>
-        كان عيد الفصح في القرن الأول مناسبة كبرى في الحياة
-        اليهودية. وكانت أورشليم تستقبل الحجاج، وكان الهيكل
-        في مركز الحياة الدينية، وكانت ذكرى الخروج حاضرة
-        بقوة في وعي الشعب.
-      </p>
+<h3>قاعدة تفسيرية مهمة</h3>
 
-      <p>
-        لذلك وقعت أحداث الأسبوع الأخير من حياة المسيح داخل
-        إطار تاريخي مشحون بالمعاني الدينية والوطنية والرجاء
-        بالخلاص.
-      </p>
+<p>
+المعنى المسياني للفصح لا يعتمد على الخيال الرمزي، بل على
+الطريقة التي يستخدم بها كتّاب العهد الجديد موضوع الفصح
+والذبيحة والخروج لفهم عمل المسيح.
+</p>
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        متى 26؛ مرقس 14؛
-        لوقا 22؛ يوحنا 12–19.
-      </div>
+</div>
 
-    </section>
+</section>
 
 
-    <!-- =================================================
-         11 — العشاء الأخير
-    ================================================== -->
+<!-- =====================================================
+     14
+===================================================== -->
 
-    <section class="study-card">
+<section class="section">
 
-      <h2>
-        الفصح والعشاء الأخير
-      </h2>
+<h2>14. الفصح والقيامة</h2>
 
-      <p>
-        تأتي روايات العشاء الأخير في إطار الفصح. ويعطي المسيح
-        للعشاء معنى عهديًا جديدًا، حين يتكلم عن جسده وعن دمه
-        وعن العهد.
-      </p>
+<p>
+لا ينتهي الإنجيل عند الصليب. فالمسيح قام من الأموات، وأعلن
+الرسل أن قيامته هي بداية الرجاء بقيامة المؤمنين.
+</p>
 
-      <p>
-        وهنا يبدأ العهد الجديد في الكشف بصورة أوضح عن العلاقة
-        بين قصة الفصح القديمة وعمل المسيح الخلاصي.
-      </p>
+<p>
+لذلك يمكن رؤية مسار الخلاص في صورة متكاملة: خروج من العبودية،
+ثم فداء، ثم حياة جديدة، ثم رجاء القيامة.
+</p>
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        متى 26: 17–30؛
-        مرقس 14: 12–26؛
-        لوقا 22: 7–20؛
-        1 كورنثوس 11: 23–26.
-      </div>
+<div class="scripture">
+<strong>مراجع:</strong>
+رومية 6: 4–11؛
+1 كورنثوس 15: 20–23.
+</div>
 
-    </section>
+</section>
 
 
-    <!-- =================================================
-         12 — المسيح فصحنا
-    ================================================== -->
+<!-- =====================================================
+     15
+===================================================== -->
 
-    <section class="study-card">
+<section class="section">
 
-      <h2>
-        المسيح وفصحنا
-      </h2>
+<h2>15. الفصح والقداسة</h2>
 
-      <p>
-        يصل الربط المسياني إلى ذروته في إعلان بولس:
-        <strong>«لأن فصحنا أيضًا المسيح قد ذُبح لأجلنا»</strong>.
-      </p>
+<p>
+يأخذ الرسول بولس صورة الفطير والخمير ليشرح ضرورة إزالة
+الفساد من حياة الجماعة المسيحية.
+</p>
 
-      <p>
-        هذا النص لا يترك العلاقة بين الفصح والمسيح مجرد
-        احتمال رمزي؛ فالرسول يضع موت المسيح في إطار لغة
-        الفصح والخلاص، ثم ينتقل مباشرة إلى دعوة الكنيسة
-        لحياة القداسة.
-      </p>
+<p>
+فإذا كان المسيح هو فصحنا، فإن المؤمن لا يستطيع أن يفصل
+الإيمان بالخلاص عن الحياة التي تليق بهذا الخلاص.
+</p>
 
-      <div class="theology-box">
+<div class="application">
 
-        <h3>
-          من الخروج إلى الصليب
-        </h3>
+<div>
+<strong>أولًا:</strong>
+الخلاص يدعو إلى حياة جديدة.
+</div>
 
-        <p>
-          الخروج القديم يعلن خلاص الله لشعبه من العبودية،
-          والعهد الجديد يعلن أن موت المسيح يدخل في تدبير
-          الخلاص الكامل من سلطان الخطية والموت، ولذلك
-          يستخدم بولس صورة الفصح ليشرح حياة الكنيسة الجديدة.
-        </p>
+<div>
+<strong>ثانيًا:</strong>
+الإيمان الحقيقي ينتج طاعة.
+</div>
 
-      </div>
+<div>
+<strong>ثالثًا:</strong>
+الكنيسة مدعوة إلى رفض الفساد والخطية.
+</div>
 
-      <div class="scripture-box">
-        <strong>النص الأساسي:</strong>
-        1 كورنثوس 5: 7–8.
-      </div>
+<div>
+<strong>رابعًا:</strong>
+الحياة الجديدة مرتبطة بالحق والإخلاص.
+</div>
 
-    </section>
+</div>
 
+<div class="scripture">
+<strong>1 كورنثوس 5: 6–8.</strong>
+</div>
 
-    <!-- =================================================
-         13 — حمل الله
-    ================================================== -->
+</section>
 
-    <section class="study-card">
 
-      <h2>
-        المسيح وحمل الله
-      </h2>
+<!-- =====================================================
+     16
+===================================================== -->
 
-      <p>
-        يقدم يوحنا المعمدان يسوع قائلًا:
-        «هوذا حمل الله الذي يرفع خطية العالم».
-      </p>
+<section class="section">
 
-      <p>
-        صورة الحمل في العهد الجديد ترتبط بعالم الذبائح
-        والفداء، وتصبح أكثر عمقًا عندما تُقرأ مع إعلان
-        بولس عن المسيح فصحنا ومع صور الحمل في سفر الرؤيا.
-      </p>
+<h2>16. الفصح وتعليم الأبناء</h2>
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        يوحنا 1: 29، 36؛
-        1 بطرس 1: 18–19؛
-        رؤيا 5: 6–14.
-      </div>
+<p>
+من أجمل أبعاد الفصح أن الله لم يرد أن يبقى الحدث محفوظًا
+في ذاكرة جيل واحد. لذلك وضع سؤال الأبناء داخل بنية العيد.
+</p>
 
-    </section>
+<p>
+وهذا يقدم للكنيسة مبدأ تربويًا مهمًا: يجب أن يعرف الجيل الجديد
+ليس فقط ماذا نؤمن، بل لماذا نؤمن، وكيف عمل الله عبر التاريخ.
+</p>
 
+<div class="scripture">
+<strong>مراجع:</strong>
+خروج 12: 26–27؛
+خروج 13: 8، 14–16.
+</div>
 
-    <!-- =================================================
-         14 — الصليب
-    ================================================== -->
+</section>
 
-    <section class="study-card">
 
-      <h2>
-        الفصح والصليب
-      </h2>
+<!-- =====================================================
+     17
+===================================================== -->
 
-      <p>
-        قراءة الصليب في ضوء الفصح تكشف أن موت المسيح لم يكن
-        حادثًا منفصلًا عن قصة الخلاص في الكتاب المقدس.
-        فالخروج والفصح والذبيحة والعهد تشكل خلفية كتابية
-        واسعة لفهم عمل المسيح.
-      </p>
+<section class="section">
 
-      <p>
-        ويظل الأساس هو ما يعلنه العهد الجديد نفسه، وليس
-        مجرد البحث عن تشابهات رمزية. ولذلك فإن النصوص
-        الرسولية التي تربط المسيح بالفصح هي مركز هذه القراءة.
-      </p>
+<h2>17. الفصح في التقليد اليهودي</h2>
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        1 كورنثوس 5: 7؛
-        1 بطرس 1: 18–19؛
-        عبرانيين 9: 11–15.
-      </div>
+<p>
+ينبغي التمييز بين الفصح كما تصفه أسفار موسى، وبين الممارسات
+التي تطورت في اليهودية اللاحقة، خصوصًا في عصر الهيكل الثاني
+وبعد خراب الهيكل.
+</p>
 
-    </section>
+<p>
+من أهم الأمثلة السِّدر اليهودي المعروف اليوم، والهجادة،
+والأسئلة والأجوبة، وترتيب الطعام والأكواب. بعض هذه العناصر
+لها جذور تاريخية قديمة، لكن لا يجوز إسقاط الصورة الحالية
+للسدر كاملة على ليلة الخروج أو على العشاء الأخير دون تمييز
+تاريخي.
+</p>
 
+<p>
+ولهذا تستخدم الدراسة الكتاب المقدس أولًا، ثم المصادر اليهودية
+والتاريخية لفهم تطور الممارسة.
+</p>
 
-    <!-- =================================================
-         15 — القيامة
-    ================================================== -->
+<div class="scripture">
+<strong>مصادر تاريخية:</strong>
+Mishnah, Pesachim 10؛
+Jewish Encyclopedia: Passover؛
+Jewish Encyclopedia: Seder؛
+Jewish Encyclopedia: Haggadah.
+</div>
 
-    <section class="study-card">
+</section>
 
-      <h2>
-        الفصح والقيامة
-      </h2>
 
-      <p>
-        لا تكتمل رسالة الفصح المسيحية عند الصليب؛ فالقيامة
-        هي إعلان انتصار المسيح وقيامته كـ«باكورة» الراقدين.
-      </p>
+<!-- =====================================================
+     18
+===================================================== -->
 
-      <p>
-        وفي هذا يصبح الخلاص ليس مجرد النجاة من حكم أو عبودية،
-        بل انتقالًا إلى حياة جديدة ورجاء القيامة.
-      </p>
+<section class="section">
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        1 كورنثوس 15: 20–23؛
-        رومية 6: 4–11.
-      </div>
+<h2>18. مقارنة بين الفصح القديم والمسيح</h2>
 
-    </section>
+<div class="table-wrapper">
 
+<table>
 
-    <!-- =================================================
-         16 — الفصح والعهد
-    ================================================== -->
+<thead>
+<tr>
+<th>الموضوع</th>
+<th>الفصح في الخروج</th>
+<th>المسيح في العهد الجديد</th>
+</tr>
+</thead>
 
-    <section class="study-card">
+<tbody>
 
-      <h2>
-        الفصح والعهد
-      </h2>
+<tr>
+<td>العبودية</td>
+<td>مصر</td>
+<td>الخطية والموت</td>
+</tr>
 
-      <p>
-        خرج إسرائيل من مصر ليكون شعبًا للرب، ولذلك ارتبط
-        الخروج بالعهد والهوية والعبادة.
-      </p>
+<tr>
+<td>الخلاص</td>
+<td>الخروج من مصر</td>
+<td>الفداء بالمسيح</td>
+</tr>
 
-      <p>
-        وفي العشاء الأخير يعلن المسيح عن «العهد الجديد»
-        المرتبط بدمه. ومن هنا تظهر استمرارية قوية في موضوع
-        الخلاص والعهد، مع انتقال الإعلان إلى كماله في المسيح.
-      </p>
+<tr>
+<td>الذبيحة</td>
+<td>الخروف الفصحي</td>
+<td>المسيح فصحنا</td>
+</tr>
 
-      <div class="scripture-box">
-        <strong>مراجع:</strong>
-        خروج 24: 3–8؛
-        لوقا 22: 20؛
-        1 كورنثوس 11: 25؛
-        عبرانيين 9: 15.
-      </div>
+<tr>
+<td>الدم</td>
+<td>علامة على البيوت</td>
+<td>دم العهد الجديد</td>
+</tr>
 
-    </section>
+<tr>
+<td>الخروج</td>
+<td>الخروج من مصر</td>
+<td>حياة جديدة في المسيح</td>
+</tr>
 
+<tr>
+<td>التذكار</td>
+<td>تذكر الخروج</td>
+<td>تذكر عمل المسيح</td>
+</tr>
 
-    <!-- =================================================
-         17 — الفصح والقداسة
-    ================================================== -->
+<tr>
+<td>النتيجة</td>
+<td>حرية وعبادة</td>
+<td>قداسة وحياة ورجاء</td>
+</tr>
 
-    <section class="study-card">
+</tbody>
 
-      <h2>
-        الفصح والقداسة وإزالة الخمير
-      </h2>
+</table>
 
-      <p>
-        كان إزالة الخمير جزءًا من ممارسة عيد الفطير المرتبط
-        بالفصح. ويستخدم بولس هذه الصورة في دعوة الكنيسة إلى
-        إزالة الفساد الأخلاقي والعيش في «فطير الإخلاص والحق».
-      </p>
+</div>
 
-      <p>
-        وهنا نرى كيف ينتقل الرسول من ذكرى الفصح إلى الحياة
-        العملية: من الذي خلصه المسيح مدعو إلى أن يعيش حياة
-        متوافقة مع هذا الخلاص.
-      </p>
+</section>
 
-      <div class="theology-box">
 
-        <h3>
-          المعنى التطبيقي
-        </h3>
+<!-- =====================================================
+     19
+===================================================== -->
 
-        <p>
-          الفصح المسيحي لا يدعو المؤمن إلى الاحتفال بحدث
-          تاريخي فقط، بل إلى فحص حياته ورفض ما يناقض حياة
-          القداسة والحق.
-        </p>
+<section class="section">
 
-      </div>
+<h2>19. التطبيق العملي للمؤمن</h2>
 
-      <div class="scripture-box">
-        <strong>النص:</strong>
-        1 كورنثوس 5: 6–8.
-      </div>
+<div class="application">
 
-    </section>
+<div>
+<strong>الخلاص:</strong>
+لا أبني رجائي على قدرتي الشخصية، بل على عمل الله الخلاصي.
+</div>
 
+<div>
+<strong>الطاعة:</strong>
+الإيمان الذي يعلنه الكتاب المقدس ليس معرفة عقلية فقط، بل
+استجابة عملية لكلمة الله.
+</div>
 
-    <!-- =================================================
-         18 — الخلفية اليهودية
-    ================================================== -->
+<div>
+<strong>القداسة:</strong>
+إذا كان المسيح قد افتداني، فحياتي مدعوة لأن تعكس هذا الفداء.
+</div>
 
-    <section class="study-card">
+<div>
+<strong>الذاكرة الروحية:</strong>
+يجب ألا أنسى أعمال الله في حياتي، بل أرويها وأعلّمها للجيل
+التالي.
+</div>
 
-      <h2>
-        الفصح في التقليد اليهودي: التمييز التاريخي
-      </h2>
+<div>
+<strong>الرجاء:</strong>
+الخلاص المسيحي يتجه إلى الحياة والقيامة، وليس فقط إلى
+النجاة من الماضي.
+</div>
 
-      <p>
-        عند دراسة الفصح يجب التمييز بين ما يصفه سفر الخروج
-        وما تطور في التقليد اليهودي اللاحق، خصوصًا في عصر
-        المشناه والتلمود.
-      </p>
+</div>
 
-      <p>
-        فقد تطورت ممارسة «السِّدر» اليهودي بصورته المعروفة
-        في التقليد الرباني، مع الهجادة، ورواية الخروج،
-        وترتيب الأسئلة والأجوبة، والأطعمة الرمزية، والأكواب.
-      </p>
+</section>
 
-      <p>
-        لذلك لا يصح أن ننسب كل تفاصيل السدر اليهودي الحديث
-        مباشرة إلى ليلة الخروج الأولى أو إلى العشاء الأخير.
-        بل يجب دراسة كل ممارسة في سياقها التاريخي.
-      </p>
 
-      <div class="scripture-box">
-        <strong>مراجع يهودية:</strong>
-        Mishnah Pesachim 10؛
-        Jewish Encyclopedia — Passover؛
-        Jewish Encyclopedia — Seder؛
-        Jewish Encyclopedia — Haggadah.
-      </div>
+<!-- =====================================================
+     20
+===================================================== -->
 
-    </section>
+<section class="section">
 
+<h2>20. الخلاصة اللاهوتية</h2>
 
-    <!-- =================================================
-         19 — مقارنة
-    ================================================== -->
+<p>
+عيد الفصح يبدأ في الكتاب المقدس بليلة حاسمة في تاريخ إسرائيل:
+شعب مستعبد، ودينونة قادمة، وذبيحة، ودم، وحفظ، ثم خروج.
+</p>
 
-    <section class="study-card">
+<p>
+ومنذ ذلك الوقت صار الفصح ذاكرة سنوية لعمل الله، وتحوّل إلى
+جزء أساسي من هوية إسرائيل وعبادته.
+</p>
 
-      <h2>
-        من الفصح في مصر إلى الفصح في المسيح
-      </h2>
+<p>
+وفي العهد الجديد نجد المسيح يدخل إلى أورشليم في موسم الفصح،
+ويأتي العشاء الأخير في هذا الإطار، ثم يحدث الصليب والقيامة.
+وبعد ذلك يعلن الرسول بولس بوضوح أن المسيح هو فصحنا.
+</p>
 
-      <div class="comparison">
+<div class="theology">
 
-        <table>
+<h3>المسار الكامل</h3>
 
-          <thead>
-            <tr>
-              <th>العنصر</th>
-              <th>الفصح في الخروج</th>
-              <th>الإعلان في العهد الجديد</th>
-            </tr>
-          </thead>
+<p>
+<strong>
+مصر ← العبودية ← الفصح ← الدم ← الخروج ← العهد
+← المسيح ← الصليب ← القيامة ← الحياة الجديدة
+</strong>
+</p>
 
-          <tbody>
+</div>
 
-            <tr>
-              <td>العبودية</td>
-              <td>عبودية مصر</td>
-              <td>عبودية الخطية والموت</td>
-            </tr>
+<p>
+وبذلك يصبح عيد الفصح أحد أهم المفاتيح الكتابية لفهم وحدة
+قصة الخلاص: الله الذي خلص إسرائيل من بيت العبودية هو نفسه
+الإله الذي أعلن في ملء الزمان خلاصه في المسيح.
+</p>
 
-            <tr>
-              <td>الخلاص</td>
-              <td>الخروج من مصر</td>
-              <td>الخلاص بالمسيح</td>
-            </tr>
+</section>
 
-            <tr>
-              <td>الذبيحة</td>
-              <td>الخروف الفصحي</td>
-              <td>المسيح فصحنا</td>
-            </tr>
 
-            <tr>
-              <td>الدم</td>
-              <td>علامة على البيوت</td>
-              <td>دم المسيح في العهد الجديد</td>
-            </tr>
+<!-- =====================================================
+     REFERENCES
+===================================================== -->
 
-            <tr>
-              <td>الخروج</td>
-              <td>الخروج من مصر</td>
-              <td>حياة جديدة في المسيح</td>
-            </tr>
+<section class="section">
 
-            <tr>
-              <td>التذكار</td>
-              <td>تذكر الخروج</td>
-              <td>تذكر عمل المسيح</td>
-            </tr>
+<h2>المراجع الرئيسية</h2>
 
-            <tr>
-              <td>النتيجة</td>
-              <td>الحرية والعبادة</td>
-              <td>القداسة والحياة الجديدة والرجاء</td>
-            </tr>
+<div class="references">
 
-          </tbody>
+<div class="reference">
+<h3>الكتاب المقدس</h3>
+<p>
+خروج 12–13؛ لاويين 23؛ عدد 9؛ تثنية 16؛ يشوع 5؛
+2 ملوك 23؛ 2 أخبار 30 و35؛ عزرا 6؛
+الأناجيل؛ 1 كورنثوس؛ 1 بطرس؛ العبرانيين؛ الرؤيا.
+</p>
+</div>
 
-        </table>
+<div class="reference">
+<h3>التفاسير الكتابية</h3>
+<p>
+Matthew Henry؛ William MacDonald؛ John MacArthur؛
+R. T. France؛ ومواد New International Commentary،
+مع استخدام كل مصدر في سياقه التفسيري.
+</p>
+</div>
 
-      </div>
+<div class="reference">
+<h3>المراجع العربية</h3>
+<p>
+الأب متى المسكين، والقس منيس عبد النور،
+مع الرجوع الدائم إلى النص الكتابي للتحقق من التفسير.
+</p>
+</div>
 
-    </section>
+<div class="reference">
+<h3>الموسوعات الكتابية</h3>
+<p>
+مداخل Passover وPesach وExodus وFeasts وSacrifice
+والخلفية اليهودية للعبادة في الكتاب المقدس.
+</p>
+</div>
 
+<div class="reference">
+<h3>المراجع اليهودية</h3>
+<p>
+Mishnah Pesachim؛
+Jewish Encyclopedia؛
+مواد Passover وSeder وHaggadah.
+</p>
+</div>
 
-    <!-- =================================================
-         20 — التطبيق
-    ================================================== -->
+<div class="reference">
+<h3>مبدأ التوثيق</h3>
+<p>
+يُقدَّم النص الكتابي باعتباره المصدر الأساسي، ثم تستخدم
+المراجع التفسيرية والتاريخية واليهودية لفهم السياق وتطور
+الممارسة، مع التمييز بين النص الكتابي والتقاليد اللاحقة.
+</p>
+</div>
 
-    <section class="study-card">
+</div>
 
-      <h2>
-        التطبيق الروحي والكنسي
-      </h2>
+</section>
 
-      <div class="application-list">
 
-        <div class="application-item">
-          <strong>الخلاص:</strong>
-          أتذكر أن خلاص الإنسان يبدأ من مبادرة الله وليس من
-          استحقاقه الذاتي.
-        </div>
+<!-- =====================================================
+     FINAL
+===================================================== -->
 
-        <div class="application-item">
-          <strong>الإيمان والطاعة:</strong>
-          كما استجاب إسرائيل لكلمة الرب في ليلة الفصح،
-          الإيمان الحقيقي يستجيب لكلمة الله.
-        </div>
+<section class="conclusion">
 
-        <div class="application-item">
-          <strong>القداسة:</strong>
-          «الخمير» في تعليم بولس يصبح دعوة لفحص الحياة
-          والتخلص من الفساد والخطية.
-        </div>
+<h2>رسالة عيد الفصح</h2>
 
-        <div class="application-item">
-          <strong>الذاكرة:</strong>
-          الكنيسة مدعوة إلى عدم نسيان عمل الله في تاريخ
-          الخلاص وفي حياة المؤمن.
-        </div>
+<p>
+الفصح يعلن أن الله يرى عبودية الإنسان ويتدخل ليخلصه.
+</p>
 
-        <div class="application-item">
-          <strong>التلمذة:</strong>
-          تعليم الأبناء قصة الخلاص مسؤولية روحية وليست
-          مجرد نقل معلومات.
-        </div>
+<p>
+وفي قراءة العهد الجديد يصل هذا الإعلان إلى المسيح،
+الذي يعلن الرسول عنه:
+<strong>«فصحنا أيضًا المسيح قد ذُبح لأجلنا»</strong>.
+</p>
 
-        <div class="application-item">
-          <strong>الرجاء:</strong>
-          الخروج لا ينتهي عند التحرر؛ والإنجيل لا ينتهي
-          عند الغفران، بل يقود إلى حياة جديدة ورجاء القيامة.
-        </div>
+<p>
+لذلك لا تنتهي دراسة الفصح عند الخروج من مصر، بل تقودنا
+إلى فهم أعمق للخلاص والعهد والذبيحة والصليب والقيامة
+والحياة الجديدة.
+</p>
 
-      </div>
+</section>
 
-    </section>
+</main>
 
 
-    <!-- =================================================
-         21 — منهج الدراسة
-    ================================================== -->
+<footer>
+موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
+</footer>
 
-    <section class="study-card">
 
-      <h2>
-        منهج قراءة عيد الفصح
-      </h2>
+<script>
+/*
+=========================================================
+  نظام تحميل اللوجو
+  يبحث عن اللوجو في عدة أماكن محتملة داخل المشروع.
+  إذا لم يوجد، لا يعرض كلمة "شعار".
+=========================================================
+*/
 
-      <p>
-        لكي تبقى الدراسة دقيقة، ينبغي أن نقرأ الفصح من خلال
-        أربعة مستويات مترابطة:
-      </p>
+(function(){
 
-      <div class="references">
+    const logo = document.getElementById("churchLogo");
 
-        <div class="reference">
+    const possibleLogos = [
 
-          <h3>
-            أولًا — النص الكتابي
-          </h3>
-
-          <p>
-            ماذا يقول سفر الخروج والتشريع والأسفار التاريخية
-            والأنبياء والأناجيل والرسائل؟
-          </p>
-
-        </div>
-
-        <div class="reference">
-
-          <h3>
-            ثانيًا — السياق التاريخي
-          </h3>
-
-          <p>
-            كيف كان الفصح يُمارس في إسرائيل وفي فترة الهيكل
-            الثاني؟
-          </p>
-
-        </div>
-
-        <div class="reference">
-
-          <h3>
-            ثالثًا — اللاهوت الكتابي
-          </h3>
-
-          <p>
-            كيف ينتقل موضوع الخروج والفصح والذبيحة والعهد
-            إلى إعلان المسيح؟
-          </p>
-
-        </div>
-
-        <div class="reference">
-
-          <h3>
-            رابعًا — التطبيق
-          </h3>
-
-          <p>
-            ماذا يعني الخلاص والقداسة والذاكرة والتعليم
-            والرجاء بالنسبة للمؤمن والكنيسة اليوم؟
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-         22 — المراجع
-    ================================================== -->
-
-    <section class="study-card">
-
-      <h2>
-        المراجع الأساسية للدراسة
-      </h2>
-
-      <div class="references">
-
-        <div class="reference">
-
-          <h3>
-            الكتاب المقدس
-          </h3>
-
-          <p>
-            خروج 12–13؛ لاويين 23؛ عدد 9؛ تثنية 16؛
-            يشوع 5؛ 2 ملوك 23؛ 2 أخبار 30 و35؛
-            عزرا 6؛ الأناجيل؛ 1 كورنثوس؛ 1 بطرس؛ العبرانيين؛
-            رؤيا يوحنا.
-          </p>
-
-        </div>
-
-        <div class="reference">
-
-          <h3>
-            التفاسير العربية
-          </h3>
-
-          <p>
-            الأب متى المسكين، والقس منيس عبد النور،
-            مع مقارنة التفسير بالنص الكتابي وسياقه.
-          </p>
-
-        </div>
-
-        <div class="reference">
-
-          <h3>
-            William MacDonald
-          </h3>
-
-          <p>
-            Bible Commentary، للمقارنة التفسيرية مع نصوص
-            الأناجيل والرسائل.
-          </p>
-
-        </div>
-
-        <div class="reference">
-
-          <h3>
-            John MacArthur
-          </h3>
-
-          <p>
-            New Testament Commentary، خاصة نصوص العشاء
-            الأخير والصليب والرسائل.
-          </p>
-
-        </div>
-
-        <div class="reference">
-
-          <h3>
-            R. T. France
-          </h3>
-
-          <p>
-            دراسات الأناجيل والخلفية اليهودية والتاريخية
-            لأحداث آلام المسيح.
-          </p>
-
-        </div>
-
-        <div class="reference">
-
-          <h3>
-            New International Commentary
-          </h3>
-
-          <p>
-            للمقارنة التفسيرية والسياق التاريخي والأدبي.
-          </p>
-
-        </div>
-
-        <div class="reference">
-
-          <h3>
-            الموسوعات الكتابية
-          </h3>
-
-          <p>
-            مداخل الفصح، الخروج، الذبائح، الفطير، الهيكل،
-            الأعياد والباكورة.
-          </p>
-
-        </div>
-
-        <div class="reference">
-
-          <h3>
-            المصادر اليهودية
-          </h3>
-
-          <p>
-            Mishnah Pesachim، ومواد Jewish Encyclopedia
-            الخاصة بـ Passover وPesahim وSeder وHaggadah.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-         23 — الخلاصة
-    ================================================== -->
-
-    <section class="summary">
-
-      <h2>
-        الخلاصة اللاهوتية
-      </h2>
-
-      <p>
-        يبدأ عيد الفصح في الكتاب المقدس بليلة الخروج:
-        شعب تحت العبودية، ودينونة قادمة، وذبيحة، ودم،
-        وحفظ، ثم خروج إلى الحرية.
-      </p>
-
-      <p>
-        ومع استمرار تاريخ إسرائيل أصبح الفصح ذاكرة للعهد
-        والعبادة والهوية والرجاء. وفي زمن المسيح جاء الصليب
-        داخل هذا الإطار التاريخي، ثم أعلن العهد الجديد بصورة
-        صريحة أن «فصحنا أيضًا المسيح قد ذُبح لأجلنا».
-      </p>
-
-      <p>
-        لذلك يتحرك المسار الكتابي من
-        <strong>الخروج</strong>
-        إلى
-        <strong>الفداء</strong>
-        إلى
-        <strong>المسيح</strong>
-        إلى
-        <strong>الصليب والقيامة</strong>
-        إلى
-        <strong>الحياة الجديدة</strong>.
-      </p>
-
-    </section>
-
-  </main>
-
-
-  <footer>
-    © موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
-  </footer>
-
-
-  <!-- ===================================================
-       LOGO FALLBACK
-       لا يسمح بظهور كلمة "شعار" إذا فشل المسار الأول.
-  ==================================================== -->
-
-  <script>
-    (function () {
-
-      const logo = document.querySelector(".church-logo");
-
-      if (!logo) return;
-
-      const logoPaths = [
         "assets/logo.png",
+        "assets/logo.webp",
+        "assets/logo.jpg",
+
         "assets/church-logo.png",
+        "assets/church-logo.webp",
+
+        "images/logo.png",
+        "images/logo.webp",
+
+        "images/church-logo.png",
+        "images/church-logo.webp",
+
         "logo.png",
-        "church-logo.png"
-      ];
+        "logo.webp",
+        "logo.jpg",
 
-      let current = 0;
+        "church-logo.png",
+        "church-logo.webp"
 
-      logo.addEventListener("error", function () {
+    ];
 
-        current++;
+    let index = 0;
 
-        if (current < logoPaths.length) {
-          logo.src = logoPaths[current];
+    function loadNextLogo(){
+
+        if(index >= possibleLogos.length){
+
+            /*
+              لا نكتب "شعار" ولا نضع صورة وهمية.
+              نخفي العنصر فقط إذا لم يوجد ملف حقيقي.
+            */
+
+            logo.style.display = "none";
+
+            return;
         }
 
-      });
+        logo.src = possibleLogos[index];
 
-    })();
-  </script>
+        index++;
+    }
+
+    logo.addEventListener(
+        "error",
+        loadNextLogo
+    );
+
+    loadNextLogo();
+
+})();
+</script>
 
 </body>
 </html>
