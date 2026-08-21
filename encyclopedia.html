@@ -1,385 +1,1074 @@
+<!-- اسم الملف: encyclopedia.html -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>الموسوعة الكتابية | كنيسة رجاء الأمم سيدني</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>الموسوعة الكتابية | موسوعة الكتاب المقدس</title>
 
 <style>
-:root{
- --bg:#061321;--bg2:#0b1d31;--card:#0d2138;--gold:#d4af37;
- --gold2:#f2d675;--text:#f5f7fa;--muted:#a9b8c8;--line:#21415f
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-*{box-sizing:border-box}
-body{
- margin:0;background:linear-gradient(145deg,var(--bg),var(--bg2));
- color:var(--text);font-family:Arial,Tahoma,sans-serif;line-height:1.9
+
+html {
+    scroll-behavior: smooth;
 }
-header{
- position:sticky;top:0;z-index:50;background:#071727ee;
- border-bottom:1px solid var(--gold);padding:12px 5%
+
+body {
+
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            180deg,
+            #061f33 0%,
+            #082b46 50%,
+            #061f33 100%
+        );
+
+    color: #ffffff;
+
+    min-height: 100vh;
+
+    line-height: 1.9;
 }
-.head{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 4px 12px #d4af3755)}
-.brand h1{font-size:21px;color:var(--gold2);margin:0}
-.home{
- color:var(--gold2);text-decoration:none;font-weight:900;
- border:1px solid var(--gold);border-radius:12px;padding:10px 18px;
- background:#153657
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+
+    width: 100%;
+
+    min-height: 76px;
+
+    background: #031421;
+
+    border-bottom: 2px solid #d4af37;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 9px 24px;
+
+    direction: ltr;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.30);
 }
-main{max-width:1200px;margin:auto;padding:30px 5%}
-h2,h3{color:var(--gold2)}
-.hero{text-align:center}
-.hero h2{font-size:34px}
-.hero p{color:var(--muted)}
-.search{
- display:flex;gap:10px;margin:25px 0
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.header-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    direction: ltr;
+
+    flex-shrink: 0;
 }
-.search input{
- flex:1;background:#091a2d;color:white;border:1px solid var(--line);
- border-radius:12px;padding:15px;font-size:17px
+
+
+.church-logo {
+
+    width: 50px;
+
+    height: 50px;
+
+    object-fit: contain;
+
+    display: block;
 }
-.search button{
- background:#153657;color:var(--gold2);border:1px solid var(--gold);
- border-radius:12px;padding:0 25px;font-weight:900
+
+
+.header-title {
+
+    color: #d4af37;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+    direction: rtl;
 }
-.categories{
- display:grid;grid-template-columns:repeat(3,1fr);gap:14px
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.header-navigation {
+
+    display: flex;
+
+    align-items: center;
+
+    direction: rtl;
 }
-.category{
- background:var(--card);border:1px solid var(--line);
- border-radius:16px;padding:20px;cursor:pointer
+
+
+.back-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 150px;
+
+    min-height: 42px;
+
+    padding: 7px 16px;
+
+    background: #09283d;
+
+    color: #d4af37;
+
+    border: 2px solid #d4af37;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
 }
-.category:hover{border-color:var(--gold);transform:translateY(-3px)}
-.category h3{margin-top:0}
-.content{
- margin-top:22px;background:#0d2138;border:1px solid var(--line);
- border-radius:18px;padding:25px;display:none
+
+
+.back-button:hover {
+
+    background: #103a55;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 14px rgba(0,0,0,.28);
 }
-.item{
- padding:15px;border-bottom:1px solid var(--line)
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+
+    width:
+        min(1120px, 94%);
+
+    margin:
+        30px auto 55px;
 }
-.item:last-child{border-bottom:0}
-.ref{color:var(--gold2);font-weight:bold}
-.back{
- display:inline-block;background:#153657;border:1px solid var(--gold);
- color:var(--gold2);padding:9px 16px;border-radius:11px;
- cursor:pointer;font-weight:900;margin-bottom:18px
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.page-intro {
+
+    background:
+        linear-gradient(
+            145deg,
+            #0b3150,
+            #092840
+        );
+
+    border:
+        1px solid rgba(212,175,55,.45);
+
+    border-radius: 18px;
+
+    padding: 34px 30px;
+
+    text-align: center;
+
+    margin-bottom: 26px;
+
+    box-shadow:
+        0 10px 28px rgba(0,0,0,.20);
 }
-@media(max-width:700px){
- .categories{grid-template-columns:1fr}
- .search{flex-direction:column}
- .search button{padding:12px}
- .brand h1{font-size:16px}
- .logo{width:58px;height:58px}
+
+
+.page-icon {
+
+    width: 78px;
+
+    height: 78px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin:
+        0 auto 14px;
+
+    background:
+        rgba(212,175,55,.08);
+
+    border:
+        1px solid rgba(212,175,55,.28);
+
+    border-radius: 50%;
+
+    font-size: 46px;
+
+    line-height: 1;
 }
+
+
+.page-intro h1 {
+
+    color: #d4af37;
+
+    font-size:
+        clamp(28px, 4vw, 40px);
+
+    line-height: 1.5;
+
+    margin-bottom: 10px;
+}
+
+
+.page-intro p {
+
+    color: #dceaf4;
+
+    font-size: 15px;
+
+    line-height: 2;
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+
+/* =========================================================
+   ALPHABET SECTION
+========================================================= */
+
+.alphabet-section {
+
+    background:
+        linear-gradient(
+            145deg,
+            #031b2c,
+            #06253b
+        );
+
+    border:
+        1px solid rgba(212,175,55,.30);
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 8px 24px rgba(0,0,0,.18);
+}
+
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 24px;
+}
+
+
+.section-title h2 {
+
+    color: #d4af37;
+
+    font-size:
+        clamp(23px, 3vw, 30px);
+
+    margin-bottom: 6px;
+}
+
+
+.section-title p {
+
+    color: #b8cad8;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   ALPHABET GRID
+========================================================= */
+
+.alphabet-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+
+/* =========================================================
+   LETTER CARD
+========================================================= */
+
+.letter-card {
+
+    min-height: 100px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #092638,
+            #06253b
+        );
+
+    border:
+        1px solid rgba(212,175,55,.32);
+
+    border-radius: 15px;
+
+    color: #d4af37;
+
+    text-decoration: none;
+
+    font-size: 34px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 7px 18px rgba(0,0,0,.16);
+
+    transition:
+        background .22s ease,
+        border-color .22s ease,
+        transform .22s ease,
+        box-shadow .22s ease;
+}
+
+
+.letter-card:hover {
+
+    background:
+        linear-gradient(
+            145deg,
+            #103a55,
+            #0b3150
+        );
+
+    border-color:
+        #d4af37;
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 12px 25px rgba(0,0,0,.28);
+
+    color: #f2d675;
+}
+
+
+.letter-card:active {
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   NOTE
+========================================================= */
+
+.structure-note {
+
+    margin-top: 22px;
+
+    background: #092638;
+
+    border-right:
+        3px solid #d4af37;
+
+    border-radius: 10px;
+
+    padding: 15px 18px;
+
+    color: #dceaf4;
+
+    font-size: 13px;
+
+    line-height: 2;
+}
+
+
+.structure-note strong {
+
+    color: #d4af37;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    text-align: center;
+
+    color: #9eb4c5;
+
+    font-size: 11px;
+
+    padding: 24px 15px 30px;
+
+    border-top:
+        1px solid rgba(212,175,55,.18);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .alphabet-grid {
+
+        grid-template-columns:
+            repeat(5, minmax(0, 1fr));
+
+        gap: 12px;
+    }
+
+
+    .letter-card {
+
+        min-height: 88px;
+
+        font-size: 30px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    header {
+
+        min-height: 64px;
+
+        padding: 7px 10px;
+    }
+
+
+    .church-logo {
+
+        width: 39px;
+
+        height: 39px;
+    }
+
+
+    .header-title {
+
+        font-size: 11px;
+    }
+
+
+    .back-button {
+
+        min-width: auto;
+
+        min-height: 36px;
+
+        padding: 6px 10px;
+
+        font-size: 10px;
+    }
+
+
+    main {
+
+        width: 94%;
+
+        margin-top: 16px;
+    }
+
+
+    .page-intro {
+
+        padding: 25px 16px;
+    }
+
+
+    .page-icon {
+
+        width: 64px;
+
+        height: 64px;
+
+        font-size: 38px;
+    }
+
+
+    .page-intro h1 {
+
+        font-size: 25px;
+    }
+
+
+    .page-intro p {
+
+        font-size: 13px;
+    }
+
+
+    .alphabet-section {
+
+        padding: 20px 14px;
+    }
+
+
+    .section-title h2 {
+
+        font-size: 22px;
+    }
+
+
+    .section-title p {
+
+        font-size: 12px;
+    }
+
+
+    .alphabet-grid {
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
+        gap: 9px;
+    }
+
+
+    .letter-card {
+
+        min-height: 72px;
+
+        border-radius: 12px;
+
+        font-size: 27px;
+    }
+
+
+    .structure-note {
+
+        font-size: 11px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .header-title {
+
+        font-size: 9px;
+    }
+
+
+    .back-button {
+
+        font-size: 9px;
+
+        padding: 5px 8px;
+    }
+
+
+    .alphabet-grid {
+
+        gap: 7px;
+    }
+
+
+    .letter-card {
+
+        min-height: 64px;
+
+        font-size: 24px;
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header>
-<div class="head">
 
-<a class="home" href="index.html">الرئيسية</a>
+    <div class="header-brand">
 
-<div class="brand">
-<div><h1>كنيسة رجاء الأمم سيدني</h1></div>
-<img class="logo" src="assets/logo.png" alt="شعار الكنيسة">
-</div>
+        <img
+            src="assets/logo.png"
+            alt="شعار كنيسة رجاء الأمم سيدني"
+            class="church-logo"
+        >
 
-</div>
+        <div class="header-title">
+            موسوعة الكتاب المقدس
+        </div>
+
+    </div>
+
+
+    <nav
+        class="header-navigation"
+        aria-label="التنقل"
+    >
+
+        <a
+            href="studies.html"
+            class="back-button"
+        >
+            ← الدراسات
+        </a>
+
+    </nav>
+
 </header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
 <main>
 
-<section class="hero">
-<h2>الموسوعة الكتابية</h2>
-<p>مرجع مختصر ومنظم للدراسة والبحث في موضوعات الكتاب المقدس</p>
-</section>
 
-<div class="search">
-<input id="search" placeholder="ابحث في الموسوعة...">
-<button onclick="searchWiki()">بحث</button>
-</div>
+    <!-- =====================================================
+         INTRO
+    ====================================================== -->
 
-<section id="categories" class="categories">
+    <section class="page-intro">
 
-<div class="category" onclick="openCat('people')">
-<h3>👤 الشخصيات الكتابية</h3>
-<p>حياة الشخصيات، نقاط القوة والضعف، الأحداث والدروس.</p>
-</div>
+        <div
+            class="page-icon"
+            aria-hidden="true"
+        >
+            📖
+        </div>
 
-<div class="category" onclick="openCat('places')">
-<h3>🗺️ الأماكن والمدن</h3>
-<p>المدن والمناطق والأنهار والمواقع التاريخية.</p>
-</div>
 
-<div class="category" onclick="openCat('temples')">
-<h3>🏛️ الخيام والهياكل</h3>
-<p>خيمة الاجتماع وهيكل سليمان وهيكل هيرودس والمقارنة بينها.</p>
-</div>
+        <h1>
+            الموسوعة الكتابية
+        </h1>
 
-<div class="category" onclick="openCat('feasts')">
-<h3>📅 الأعياد والمواسم</h3>
-<p>الفصح والفطير والأسابيع والمظال والكفارة وغيرها.</p>
-</div>
 
-<div class="category" onclick="openCat('objects')">
-<h3>⚱️ الأدوات والرموز</h3>
-<p>تابوت العهد والمنارة والمذبح والبخور والملابس الكهنوتية.</p>
-</div>
+        <p>
+            موسوعة موضوعية تجمع المداخل الكتابية والدراسات
+            والشخصيات والأماكن والأدوات والرموز والخلفيات
+            الكتابية واليهودية والمسيحانية في نظام أبجدي
+            يسهل على الباحث الوصول إلى المادة المطلوبة.
+        </p>
 
-<div class="category" onclick="openCat('books')">
-<h3>📖 أسفار الكتاب المقدس</h3>
-<p>مقدمة كل سفر، الكاتب، التاريخ، السياق والرسالة.</p>
-</div>
+    </section>
 
-<div class="category" onclick="openCat('jewish')">
-<h3>✡️ الخلفية اليهودية</h3>
-<p>الهيكل الثاني، العادات، الأعياد، الأدب اليهودي والسياق الرباني.</p>
-</div>
 
-<div class="category" onclick="openCat('christ')">
-<h3>✝️ المسيح في الكتاب المقدس</h3>
-<p>الدراسة المسيحانية والنبوات والرموز التي يفسرها العهد الجديد.</p>
-</div>
 
-<div class="category" onclick="openCat('miracles')">
-<h3>✨ معجزات المسيح</h3>
-<p>المعجزات، خلفيتها الكتابية، علاقتها بالعهد القديم ورسالتها اللاهوتية.</p>
-</div>
+    <!-- =====================================================
+         ALPHABET
+    ====================================================== -->
 
-</section>
+    <section
+        class="alphabet-section"
+        aria-label="الحروف الأبجدية للموسوعة الكتابية"
+    >
 
-<section id="content" class="content"></section>
+
+        <div class="section-title">
+
+            <h2>
+                تصفح الموسوعة حسب الحروف الأبجدية
+            </h2>
+
+            <p>
+                اختر الحرف للوصول إلى جميع المداخل التي تبدأ به.
+            </p>
+
+        </div>
+
+
+
+        <div class="alphabet-grid">
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%A3"
+                aria-label="حرف أ"
+            >
+                أ
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%A8"
+                aria-label="حرف ب"
+            >
+                ب
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%AA"
+                aria-label="حرف ت"
+            >
+                ت
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%AB"
+                aria-label="حرف ث"
+            >
+                ث
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%AC"
+                aria-label="حرف ج"
+            >
+                ج
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%AD"
+                aria-label="حرف ح"
+            >
+                ح
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%AE"
+                aria-label="حرف خ"
+            >
+                خ
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%AF"
+                aria-label="حرف د"
+            >
+                د
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%B0"
+                aria-label="حرف ذ"
+            >
+                ذ
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%B1"
+                aria-label="حرف ر"
+            >
+                ر
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%B2"
+                aria-label="حرف ز"
+            >
+                ز
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%B3"
+                aria-label="حرف س"
+            >
+                س
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%B4"
+                aria-label="حرف ش"
+            >
+                ش
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%B5"
+                aria-label="حرف ص"
+            >
+                ص
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%B6"
+                aria-label="حرف ض"
+            >
+                ض
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%B7"
+                aria-label="حرف ط"
+            >
+                ط
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%B8"
+                aria-label="حرف ظ"
+            >
+                ظ
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%B9"
+                aria-label="حرف ع"
+            >
+                ع
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D8%BA"
+                aria-label="حرف غ"
+            >
+                غ
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D9%81"
+                aria-label="حرف ف"
+            >
+                ف
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D9%82"
+                aria-label="حرف ق"
+            >
+                ق
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D9%83"
+                aria-label="حرف ك"
+            >
+                ك
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D9%84"
+                aria-label="حرف ل"
+            >
+                ل
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D9%85"
+                aria-label="حرف م"
+            >
+                م
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D9%86"
+                aria-label="حرف ن"
+            >
+                ن
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D9%87"
+                aria-label="حرف ه"
+            >
+                ه
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D9%88"
+                aria-label="حرف و"
+            >
+                و
+            </a>
+
+
+            <a
+                class="letter-card"
+                href="encyclopedia-entries.html?letter=%D9%8A"
+                aria-label="حرف ي"
+            >
+                ي
+            </a>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             STRUCTURE NOTE
+        ================================================== -->
+
+        <div class="structure-note">
+
+            <strong>
+                طريقة العمل:
+            </strong>
+
+            الموسوعة الكتابية ← الحرف الأبجدي ← جميع المداخل
+            التي تبدأ بالحرف المختار.
+
+            <br>
+
+            <strong>
+                ملاحظة:
+            </strong>
+
+            هذه الصفحة مسؤولة فقط عن عرض الحروف الأبجدية
+            والتنقل إلى صفحة المداخل، ولا تحتوي على محتوى
+            المداخل نفسها.
+
+        </div>
+
+
+    </section>
+
 
 </main>
 
-<script>
 
-const DATA={
 
-people:[
-["موسى","القائد والنبي الذي ارتبط به خروج إسرائيل وإقامة العهد والمسكن.","خروج 3-40"],
-["هارون","رئيس الكهنة الأول في نظام العبادة الإسرائيلي.","خروج 28-29"],
-["داود","الملك الذي أعد للهيكل ونظم جوانب من العبادة.","1أخبار 22-29"],
-["سليمان","باني الهيكل الأول في أورشليم.","1ملوك 5-8"],
-["إيليا","النبي المرتبط بالصراع مع عبادة البعل.","1ملوك 17-19"],
-["إشعياء","نبي ارتبطت نبوءاته بالمسيا والملك والعبد المتألم.","إشعياء 7؛ 9؛ 53"],
-["بطرس","رسول بارز في الكنيسة الأولى وشاهد قيامة المسيح.","أعمال 1-12"],
-["بولس","رسول الأمم وكاتب عدد كبير من رسائل العهد الجديد.","أعمال 9-28"]
-],
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
-places:[
-["أورشليم","المركز الديني والسياسي لإسرائيل وموقع الهيكل.","2صموئيل 5؛ 1ملوك 8"],
-["بيت لحم","مدينة داود ومدينة ميلاد يسوع بحسب روايات الأناجيل.","ميخا 5:2؛ متى 2:1"],
-["الناصرة","المدينة التي نشأ فيها يسوع.","متى 2:23؛ لوقا 4:16"],
-["الجليل","منطقة رئيسية في خدمة المسيح.","متى 4:12-25"],
-["نهر الأردن","ارتبط بالخروج ودخول الأرض والمعمودية.","يشوع 3؛ متى 3"],
-["النيل","نهر رئيسي في قصة الخروج.","خروج 1-14"],
-["نهر الفرات","من الأنهار المرتبطة بجغرافية الكتاب المقدس.","تكوين 2:14"]
-],
+<footer>
 
-temples:[
-["خيمة الاجتماع","المسكن المقدس المتنقل في البرية ومركز حضور الله وسط إسرائيل.","خروج 25-40"],
-["هيكل سليمان","الهيكل الأول في أورشليم الذي بناه سليمان.","1ملوك 5-8"],
-["الهيكل الثاني","الهيكل الذي ارتبط بمرحلة ما بعد السبي.","عزرا 3-6؛ حجي 2"],
-["هيكل هيرودس","التوسعة الكبرى للهيكل في زمن العهد الجديد.","يوحنا 2:20"],
-["المقارنة بين الخيمة والهياكل","دراسة تطور مفهوم المسكن والعبادة والحضور.","عبرانيين 8-10"]
-],
+    © موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
 
-feasts:[
-["الفصح","ذكرى الخروج من مصر وذبيحة الفصح.","خروج 12؛ لاويين 23"],
-["عيد الفطير","سبعة أيام مرتبطة بذكرى الخروج.","خروج 12:15-20"],
-["الباكورة","تقديم أول حصاد للرب.","لاويين 23:9-14"],
-["عيد الأسابيع","مرتبط بحصاد الحنطة وبالتقويم العبادي.","لاويين 23:15-22"],
-["الأبواق","اليوم الأول من الشهر السابع.","لاويين 23:23-25"],
-["يوم الكفارة","اليوم الأقدس المرتبط بالكفارة عن الخطايا.","لاويين 16؛ 23:26-32"],
-["المظال","ذكرى السكن في الخيام في البرية وموسم القطاف.","لاويين 23:33-43"],
-["التجديد/حنوكا","ذكرى إعادة تدشين الهيكل في العصر الهلنستي.","يوحنا 10:22"],
-["الفوريم","ذكرى نجاة اليهود في قصة أستير.","أستير 9"],
-["رؤوس الشهور","بداية الشهور في التقويم العبري مع عبادات خاصة.","عدد 10:10؛ 28:11"]
-],
+</footer>
 
-objects:[
-["تابوت العهد","رمز مركزي للعهد والحضور الإلهي في خيمة الاجتماع.","خروج 25:10-22"],
-["المنارة","منارة الذهب التي أضاءت القدس.","خروج 25:31-40"],
-["مائدة خبز الوجوه","مائدة الخبز أمام الرب.","خروج 25:23-30"],
-["مذبح البخور","موضع البخور المقدس.","خروج 30:1-10"],
-["مذبح المحرقة","مذبح الذبائح في الفناء.","خروج 27:1-8"],
-["المرحضة","أداة الاغتسال للخدمة الكهنوتية.","خروج 30:17-21"],
-["الحجاب","الفاصل بين القدس وقدس الأقداس.","خروج 26:31-33"]
-],
-
-books:[
-["التكوين","البدايات: الخلق، السقوط، الآباء، والوعود.","تكوين 1-50"],
-["الخروج","الخروج والعهد والمسكن.","خروج 1-40"],
-["اللاويين","القداسة والذبائح والكهنوت.","لاويين 1-27"],
-["العدد","رحلة إسرائيل في البرية وتنظيم الشعب.","عدد 1-36"],
-["التثنية","تجديد العهد والخطاب الأخير لموسى.","تثنية 1-34"],
-["إشعياء","القدوس، الدينونة، الرجاء، والعبد والمسيا.","إشعياء 1-66"],
-["يوحنا","يسوع المسيح الكلمة وابن الله.","يوحنا 1-21"],
-["العبرانيين","المسيح رئيس الكهنة وكمال الذبيحة.","عبرانيين 1-13"]
-],
-
-jewish:[
-["الهيكل الثاني","السياق الديني والسياسي الذي سبق خدمة المسيح.","عزرا؛ نحميا؛ حجي؛ زكريا"],
-["الفرّيسيون","تيار ديني يهودي بارز في القرن الأول.","متى 23"],
-["الصدوقيون","تيار كهنوتي مرتبط بالهيكل.","متى 22:23"],
-["المجامع","مراكز الصلاة والتعليم والقراءة الكتابية.","لوقا 4:16"],
-["الأعياد اليهودية","إطار زمني مهم لفهم أحداث الأناجيل.","يوحنا 2؛ 5؛ 6؛ 7؛ 10"]
-],
-
-christ:[
-["المسيح في الخيمة","تُفهم الخيمة في العهد الجديد ضمن صورة المسكن والحضور والكفارة.","يوحنا 1:14؛ عبرانيين 8-9"],
-["المسيح رئيس الكهنة","المسيح هو رئيس الكهنة الكامل.","عبرانيين 4:14-16"],
-["المسيح والذبيحة","ذبيحة المسيح فريدة وكاملة.","عبرانيين 9:26-28"],
-["المسيح والحجاب","فتح طريق الاقتراب إلى الله.","متى 27:51؛ عبرانيين 10:19-22"]
-],
-
-miracles:[
-["تحويل الماء إلى خمر","أول آية في يوحنا وإعلان مجد المسيح.","يوحنا 2:1-11"],
-["إقامة لعازر","إعلان المسيح كالحياة والقيامة.","يوحنا 11:1-44"],
-["إشباع الخمسة آلاف","معجزة مرتبطة بخطاب خبز الحياة.","يوحنا 6"],
-["تهدئة العاصفة","إعلان سلطان المسيح على البحر والريح.","مرقس 4:35-41"],
-["شفاء الأعمى","المعجزات كعلامات للمسيح ورسالته.","يوحنا 9"]
-]
-
-};
-
-function openCat(cat){
-
-document.getElementById("categories").style.display="none";
-
-const box=document.getElementById("content");
-
-box.style.display="block";
-
-box.innerHTML=`
-
-<button class="back" onclick="back()">← العودة إلى الموسوعة</button>
-
-<h2>${categoryName(cat)}</h2>
-
-${DATA[cat].map(x=>`
-
-<div class="item">
-
-<h3>${x[0]}</h3>
-
-<p>${x[1]}</p>
-
-<div class="ref">الشواهد: ${x[2]}</div>
-
-</div>
-
-`).join("")}
-
-`;
-
-window.scrollTo({top:0,behavior:"smooth"});
-
-}
-
-function categoryName(id){
-
-const names={
-people:"الشخصيات الكتابية",
-places:"الأماكن والمدن والأنهار",
-temples:"الخيام والهياكل",
-feasts:"الأعياد والمواسم",
-objects:"الأدوات والرموز",
-books:"أسفار الكتاب المقدس",
-jewish:"الخلفية اليهودية",
-christ:"المسيح في الكتاب المقدس",
-miracles:"معجزات المسيح"
-};
-
-return names[id];
-
-}
-
-function back(){
-
-document.getElementById("content").style.display="none";
-
-document.getElementById("categories").style.display="grid";
-
-}
-
-function searchWiki(){
-
-const q=document.getElementById("search").value.trim();
-
-if(!q)return;
-
-let results=[];
-
-for(const key in DATA){
-
-for(const item of DATA[key]){
-
-if(
-item[0].includes(q) ||
-item[1].includes(q) ||
-item[2].includes(q)
-){
-
-results.push({
-category:key,
-item:item
-});
-
-}
-
-}
-
-}
-
-document.getElementById("categories").style.display="none";
-
-const box=document.getElementById("content");
-
-box.style.display="block";
-
-box.innerHTML=`
-
-<button class="back" onclick="back()">← العودة إلى الموسوعة</button>
-
-<h2>نتائج البحث</h2>
-
-${
-results.length
-
-?results.map(r=>`
-
-<div class="item">
-
-<h3>${r.item[0]}</h3>
-
-<p>${r.item[1]}</p>
-
-<div class="ref">${r.item[2]}</div>
-
-</div>
-
-`).join("")
-
-:`<p>لا توجد نتائج.</p>`
-}
-
-`;
-
-}
-
-document.getElementById("search").addEventListener(
-"keydown",
-e=>{if(e.key==="Enter")searchWiki()}
-);
-
-</script>
 
 </body>
+
 </html>
