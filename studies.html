@@ -29,8 +29,7 @@
     --white:#f7f9fc;
     --muted:#aebdca;
 
-    --border:
-        rgba(212,175,55,.32);
+    --border:rgba(212,175,55,.32);
 }
 
 
@@ -353,53 +352,55 @@ body{
 
 
 /* =====================================================
-   MASTER STUDIES GRID
-   12 أيقونة
+   STUDY GRID
+   جميع الدراسات في شبكة واحدة
    4 أيقونات في كل صف
-   3 صفوف
 ===================================================== */
 
-.studies-grid{
-
-    width:100%;
+.study-grid{
 
     display:grid;
 
     grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-    grid-template-rows:
-        repeat(3, auto);
+        repeat(4, minmax(0,1fr));
 
     gap:22px;
 
-    align-items:stretch;
+    width:100%;
 }
 
 
 /* =====================================================
-   ICON CARD
+   STUDY CARD
 ===================================================== */
 
 .study-card{
 
     position:relative;
 
-    min-height:175px;
+    min-height:190px;
 
     display:flex;
+
+    flex-direction:column;
 
     align-items:center;
 
     justify-content:center;
 
+    gap:13px;
+
+    padding:20px 12px;
+
     text-decoration:none;
+
+    color:var(--white);
 
     border:
         1px solid
         var(--border);
 
-    border-radius:22px;
+    border-radius:24px;
 
     background:
 
@@ -428,6 +429,10 @@ body{
 }
 
 
+/* =====================================================
+   GOLD TOP LINE
+===================================================== */
+
 .study-card::before{
 
     content:"";
@@ -451,9 +456,13 @@ body{
             transparent
         );
 
-    opacity:.75;
+    opacity:.8;
 }
 
+
+/* =====================================================
+   DECORATIVE GLOW
+===================================================== */
 
 .study-card::after{
 
@@ -461,22 +470,26 @@ body{
 
     position:absolute;
 
-    width:120px;
+    width:130px;
 
-    height:120px;
+    height:130px;
 
     border-radius:50%;
 
     background:
         rgba(212,175,55,.06);
 
-    top:-48px;
+    top:-55px;
 
-    left:-48px;
+    left:-55px;
 
     pointer-events:none;
 }
 
+
+/* =====================================================
+   HOVER
+===================================================== */
 
 .study-card:hover{
 
@@ -506,14 +519,18 @@ body{
 
 
 /* =====================================================
-   ICON
+   ICON IMAGE AREA
 ===================================================== */
 
 .card-icon{
 
-    width:96px;
+    position:relative;
 
-    height:96px;
+    z-index:2;
+
+    width:94px;
+
+    height:94px;
 
     display:flex;
 
@@ -525,7 +542,9 @@ body{
 
     color:var(--gold-light);
 
-    font-size:49px;
+    font-size:50px;
+
+    line-height:1;
 
     background:
 
@@ -537,7 +556,7 @@ body{
 
     border:
         1px solid
-        rgba(212,175,55,.68);
+        rgba(212,175,55,.72);
 
     box-shadow:
 
@@ -573,7 +592,47 @@ body{
 
 
 /* =====================================================
-   منع أي نص داخل البطاقات
+   STUDY NAME
+   اسم الدراسة داخل نفس الأيقونة/البطاقة
+===================================================== */
+
+.study-name{
+
+    position:relative;
+
+    z-index:2;
+
+    width:100%;
+
+    min-height:44px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:
+        6px 8px;
+
+    color:var(--gold-light);
+
+    font-size:18px;
+
+    line-height:1.45;
+
+    font-weight:900;
+
+    text-shadow:
+        0 2px 4px
+        rgba(0,0,0,.8);
+}
+
+
+/* =====================================================
+   HIDE ANY OLD TITLES
 ===================================================== */
 
 .study-card h3,
@@ -585,18 +644,6 @@ body{
 .study-card .book-subtitle{
 
     display:none !important;
-
-    visibility:hidden !important;
-
-    height:0 !important;
-
-    width:0 !important;
-
-    margin:0 !important;
-
-    padding:0 !important;
-
-    overflow:hidden !important;
 }
 
 
@@ -627,26 +674,25 @@ footer{
 
 /* =====================================================
    TABLET
-   يبقى 4 في الصف
 ===================================================== */
 
-@media(max-width:900px){
+@media(max-width:1000px){
 
-    .studies-grid{
+    .study-grid{
 
         grid-template-columns:
-            repeat(4, minmax(0, 1fr));
+            repeat(4,1fr);
 
-        grid-template-rows:
-            repeat(3, auto);
-
-        gap:14px;
+        gap:15px;
     }
 
 
     .study-card{
 
-        min-height:145px;
+        min-height:170px;
+
+        padding:
+            16px 8px;
     }
 
 
@@ -656,16 +702,23 @@ footer{
 
         height:76px;
 
-        font-size:39px;
+        font-size:40px;
 
         border-radius:19px;
+    }
+
+
+    .study-name{
+
+        font-size:15px;
+
+        min-height:40px;
     }
 }
 
 
 /* =====================================================
    MOBILE
-   يبقى 4 في الصف كما طلب المستخدم
 ===================================================== */
 
 @media(max-width:650px){
@@ -739,42 +792,54 @@ footer{
     }
 
 
-    .studies-grid{
+    .study-grid{
 
         grid-template-columns:
-            repeat(4, minmax(0, 1fr));
+            repeat(3,1fr);
 
-        grid-template-rows:
-            repeat(3, auto);
-
-        gap:10px;
+        gap:11px;
     }
 
 
     .study-card{
 
-        min-height:105px;
+        min-height:145px;
 
-        border-radius:16px;
+        padding:
+            12px 6px;
+
+        border-radius:17px;
     }
 
 
     .card-icon{
 
-        width:60px;
+        width:62px;
 
-        height:60px;
+        height:62px;
 
-        font-size:31px;
+        font-size:32px;
 
-        border-radius:15px;
+        border-radius:16px;
+    }
+
+
+    .study-name{
+
+        font-size:12px;
+
+        line-height:1.35;
+
+        min-height:34px;
+
+        padding:
+            3px 2px;
     }
 }
 
 
 /* =====================================================
    SMALL MOBILE
-   4 في الصف
 ===================================================== */
 
 @media(max-width:420px){
@@ -803,35 +868,40 @@ footer{
     }
 
 
-    .studies-grid{
+    .study-grid{
 
         grid-template-columns:
-            repeat(4, minmax(0, 1fr));
+            repeat(2,1fr);
 
-        grid-template-rows:
-            repeat(3, auto);
-
-        gap:7px;
+        gap:10px;
     }
 
 
     .study-card{
 
-        min-height:88px;
+        min-height:145px;
 
-        border-radius:13px;
+        border-radius:16px;
     }
 
 
     .card-icon{
 
-        width:49px;
+        width:60px;
 
-        height:49px;
+        height:60px;
 
-        font-size:25px;
+        font-size:31px;
 
-        border-radius:12px;
+        border-radius:15px;
+    }
+
+
+    .study-name{
+
+        font-size:13px;
+
+        line-height:1.35;
     }
 }
 
@@ -852,7 +922,7 @@ footer{
     <div class="topbar">
 
 
-        <!-- زر الرئيسية -->
+        <!-- زر العودة -->
 
         <a
             href="index.html"
@@ -896,10 +966,6 @@ footer{
 <main class="page">
 
 
-    <!-- =================================================
-         عنوان الصفحة
-    ================================================== -->
-
     <section class="page-title">
 
         <h1>
@@ -915,13 +981,14 @@ footer{
 
     <!-- =================================================
          جميع الأيقونات
-         4 × 3
+         4 في كل صف
     ================================================== -->
 
-    <div class="studies-grid">
+    <div class="study-grid">
 
 
         <!-- 1 -->
+
         <a
             href="study-tabernacle.html"
             class="study-card"
@@ -933,10 +1000,15 @@ footer{
                 ⛺
             </div>
 
+            <div class="study-name">
+                خيمة الاجتماع
+            </div>
+
         </a>
 
 
         <!-- 2 -->
+
         <a
             href="study-solomon-temple.html"
             class="study-card"
@@ -948,10 +1020,15 @@ footer{
                 🏛️
             </div>
 
+            <div class="study-name">
+                هيكل سليمان
+            </div>
+
         </a>
 
 
         <!-- 3 -->
+
         <a
             href="study-herod-temple.html"
             class="study-card"
@@ -963,10 +1040,15 @@ footer{
                 🏗️
             </div>
 
+            <div class="study-name">
+                هيكل هيرودس
+            </div>
+
         </a>
 
 
         <!-- 4 -->
+
         <a
             href="study-temples-comparison.html"
             class="study-card"
@@ -978,10 +1060,15 @@ footer{
                 ⚖️
             </div>
 
+            <div class="study-name">
+                مقارنة خيمة الاجتماع والهياكل
+            </div>
+
         </a>
 
 
         <!-- 5 -->
+
         <a
             href="study-biblical-feasts.html"
             class="study-card"
@@ -993,10 +1080,15 @@ footer{
                 🕎
             </div>
 
+            <div class="study-name">
+                مواسم وأعياد الكتاب المقدس
+            </div>
+
         </a>
 
 
         <!-- 6 -->
+
         <a
             href="encyclopedia.html"
             class="study-card"
@@ -1008,10 +1100,15 @@ footer{
                 📖
             </div>
 
+            <div class="study-name">
+                الموسوعة الكتابية
+            </div>
+
         </a>
 
 
         <!-- 7 -->
+
         <a
             href="study-biblical-books-introductions.html"
             class="study-card"
@@ -1023,10 +1120,15 @@ footer{
                 📜
             </div>
 
+            <div class="study-name">
+                مقدمة أسفار الكتاب المقدس
+            </div>
+
         </a>
 
 
         <!-- 8 -->
+
         <a
             href="study-christ-prophecies.html"
             class="study-card"
@@ -1035,13 +1137,18 @@ footer{
         >
 
             <div class="card-icon">
-                ✝
+                ✝️
+            </div>
+
+            <div class="study-name">
+                المسيح في نبوات الكتاب
             </div>
 
         </a>
 
 
         <!-- 9 -->
+
         <a
             href="study-miracles-christ.html"
             class="study-card"
@@ -1053,10 +1160,15 @@ footer{
                 ✨
             </div>
 
+            <div class="study-name">
+                معجزات المسيح
+            </div>
+
         </a>
 
 
         <!-- 10 -->
+
         <a
             href="study-biblical-characters.html"
             class="study-card"
@@ -1068,10 +1180,15 @@ footer{
                 👤
             </div>
 
+            <div class="study-name">
+                شخصيات الكتاب المقدس
+            </div>
+
         </a>
 
 
         <!-- 11 -->
+
         <a
             href="study-jewish-background.html"
             class="study-card"
@@ -1083,10 +1200,15 @@ footer{
                 🕍
             </div>
 
+            <div class="study-name">
+                الخلفية اليهودية للعهد الجديد
+            </div>
+
         </a>
 
 
         <!-- 12 -->
+
         <a
             href="study-biblical-rivers.html"
             class="study-card"
@@ -1096,6 +1218,10 @@ footer{
 
             <div class="card-icon">
                 🌊
+            </div>
+
+            <div class="study-name">
+                الأنهار في الكتاب المقدس
             </div>
 
         </a>
