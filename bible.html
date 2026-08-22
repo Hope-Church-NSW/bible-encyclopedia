@@ -1,728 +1,784 @@
-# bible.html
-
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>الكتاب المقدس | كنيسة رجاء الأمم سيدني</title>
+<title>الكتاب المقدس | موسوعة الكتاب المقدس</title>
 
 <style>
 :root{
-  --bg:#071526;
-  --bg2:#0a1b2d;
-  --card:#0d2138;
-  --card2:#102a46;
-  --gold:#d4af37;
-  --gold2:#f2d675;
-  --text:#f4f7fb;
-  --muted:#9fb0c3;
-  --line:#1d3b59;
-  --blue:#2d7ff9;
-  --danger:#ffb4b4;
+    --bg:#061321;
+    --bg2:#0a1b2d;
+    --panel:#0d2138;
+    --panel2:#102a46;
+    --panel3:#153657;
+    --gold:#d4af37;
+    --gold2:#f2d675;
+    --white:#f4f7fb;
+    --muted:#9fb0c3;
+    --line:#1d3b59;
+    --blue:#2d7ff9;
+    --danger:#ffb4b4;
 }
 
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 html{
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-  margin:0;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at top right,rgba(45,127,249,.10),transparent 32%),
-    linear-gradient(145deg,#061321,#0b1d31);
-  color:var(--text);
-  font-family:Arial,Tahoma,sans-serif;
+    margin:0;
+    min-height:100vh;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(45,127,249,.12),
+            transparent 34%
+        ),
+        linear-gradient(
+            145deg,
+            var(--bg),
+            var(--bg2)
+        );
+    color:var(--white);
+    font-family:
+        Arial,
+        Tahoma,
+        "Segoe UI",
+        sans-serif;
 }
 
-/* =========================
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  padding:14px 5%;
-  background:rgba(8,23,39,.97);
-  border-bottom:1px solid var(--line);
-  backdrop-filter:blur(12px);
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(6,19,33,.97);
+    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(14px);
 }
 
 .header-inner{
-  max-width:1400px;
-  margin:auto;
-  min-height:72px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
+    width:min(1400px,92%);
+    min-height:78px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
 }
 
-.home-link{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  min-height:46px;
-  padding:10px 18px;
-  border:1px solid var(--gold);
-  border-radius:12px;
-  background:#102a46;
-  color:var(--gold2);
-  text-decoration:none;
-  font-weight:900;
-  font-size:18px;
-  transition:.2s ease;
+/* اليمين */
+.home-button{
+    min-height:48px;
+    padding:10px 18px;
+    border:1px solid var(--gold);
+    border-radius:12px;
+    background:var(--panel2);
+    color:var(--gold2);
+    text-decoration:none;
+    font-size:18px;
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    transition:.2s ease;
 }
 
-.home-link:hover{
-  background:#153657;
-  transform:translateY(-1px);
+.home-button:hover{
+    background:var(--panel3);
+    transform:translateY(-1px);
 }
 
+/* اليسار */
 .brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
+    display:flex;
+    align-items:center;
+    gap:14px;
 }
 
 .logo{
-  width:68px;
-  height:68px;
-  object-fit:contain;
+    width:68px;
+    height:68px;
+    object-fit:contain;
 }
 
 .brand-title{
-  color:var(--gold2);
-  font-size:25px;
-  font-weight:900;
-  text-shadow:0 2px 8px rgba(212,175,55,.30);
+    color:var(--gold2);
+    font-size:25px;
+    font-weight:900;
+    text-shadow:
+        0 2px 8px rgba(212,175,55,.30);
 }
 
-/* =========================
+/* =========================================================
    MAIN
-========================= */
+========================================================= */
 
 main{
-  width:min(1200px,92%);
-  margin:0 auto;
-  padding:24px 0 50px;
+    width:min(1250px,94%);
+    margin:auto;
+    padding:30px 0 60px;
 }
 
 #app{
-  width:100%;
+    width:100%;
 }
 
-/* =========================
-   BIBLE TOP BAR
-========================= */
+/* =========================================================
+   الصفحة الرئيسية للكتاب المقدس
+========================================================= */
 
-.bible-toolbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:18px;
-  padding:4px 0;
+.start-screen{
+    width:100%;
 }
 
-.bible-toolbar-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.start-title{
+    text-align:center;
+    color:var(--gold2);
+    font-size:32px;
+    font-weight:900;
+    margin:0 0 10px;
 }
 
-.bible-tool{
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:var(--card);
-  color:var(--text);
-  min-height:46px;
-  padding:10px 17px;
-  font-size:17px;
-  font-weight:900;
-  cursor:pointer;
-  transition:.2s ease;
+.start-subtitle{
+    text-align:center;
+    color:var(--muted);
+    font-size:16px;
+    margin:0 0 28px;
 }
 
-.bible-tool:hover{
-  border-color:var(--gold);
-  background:var(--card2);
+/*
+   الأيقونتان كبيرتان
+*/
+.main-icons{
+    width:min(950px,100%);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:28px;
 }
 
-.bible-tool.active{
-  border-color:var(--gold);
-  color:var(--gold2);
-  background:#153657;
+.main-icon{
+    min-height:300px;
+    border:1px solid var(--line);
+    border-radius:26px;
+    background:
+        linear-gradient(
+            145deg,
+            var(--panel2),
+            var(--panel)
+        );
+    color:var(--white);
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:35px 25px;
+    transition:.25s ease;
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.20);
 }
 
-/* =========================
-   PANEL
-========================= */
-
-.panel{
-  background:rgba(13,33,56,.96);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 12px 35px rgba(0,0,0,.18);
+.main-icon:hover{
+    transform:translateY(-5px);
+    border-color:var(--gold);
+    background:
+        linear-gradient(
+            145deg,
+            var(--panel3),
+            var(--panel2)
+        );
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.28);
 }
 
-.status{
-  color:var(--muted);
-  text-align:center;
-  padding:18px 5px;
-  font-size:15px;
+.main-icon-symbol{
+    font-size:88px;
+    line-height:1;
+    margin-bottom:25px;
 }
 
-.error{
-  color:var(--danger);
-  background:#351b24;
-  border:1px solid #6b3040;
-  padding:15px;
-  border-radius:12px;
-  line-height:1.8;
+.main-icon-title{
+    color:var(--gold2);
+    font-size:30px;
+    font-weight:900;
 }
 
-/* =========================
-   LEVEL TITLE
-========================= */
-
-.level-heading{
-  text-align:center;
-  color:var(--gold2);
-  margin:2px 0 22px;
-  font-size:28px;
-  font-weight:900;
+.main-icon-description{
+    color:var(--muted);
+    font-size:15px;
+    margin-top:10px;
 }
 
-.level-subtitle{
-  text-align:center;
-  color:var(--muted);
-  margin:-10px 0 22px;
-  font-size:15px;
+/* =========================================================
+   المساحة الداخلية
+========================================================= */
+
+.workspace{
+    width:100%;
+    background:rgba(13,33,56,.96);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:25px;
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.22);
 }
 
-/* =========================
-   TESTAMENT BUTTONS
-========================= */
-
-.testament-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:18px;
+/* زر الرجوع داخل نفس المساحة */
+.inner-topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:24px;
 }
 
-.testament-card{
-  min-height:145px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:
-    linear-gradient(145deg,#102a46,#0d2138);
-  color:var(--text);
-  cursor:pointer;
-  padding:25px;
-  text-align:center;
-  transition:.22s ease;
+.inner-back{
+    border:1px solid var(--gold);
+    border-radius:11px;
+    background:var(--panel2);
+    color:var(--gold2);
+    min-height:44px;
+    padding:9px 16px;
+    font-size:16px;
+    font-weight:900;
+    cursor:pointer;
 }
 
-.testament-card:hover{
-  transform:translateY(-3px);
-  border-color:var(--gold);
-  box-shadow:0 12px 28px rgba(0,0,0,.22);
+.inner-back:hover{
+    background:var(--panel3);
 }
 
-.testament-icon{
-  font-size:42px;
-  margin-bottom:8px;
+.inner-title{
+    color:var(--gold2);
+    font-size:26px;
+    font-weight:900;
+    margin:0;
 }
 
-.testament-name{
-  color:var(--gold2);
-  font-size:24px;
-  font-weight:900;
+/* =========================================================
+   العهدان
+========================================================= */
+
+.testaments{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:24px;
+}
+
+.testament{
+    min-height:190px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:
+        linear-gradient(
+            145deg,
+            var(--panel2),
+            var(--panel)
+        );
+    color:var(--white);
+    cursor:pointer;
+    text-align:center;
+    padding:28px;
+    transition:.22s ease;
+}
+
+.testament:hover{
+    transform:translateY(-4px);
+    border-color:var(--gold);
+    background:var(--panel3);
+}
+
+.testament-symbol{
+    font-size:55px;
+    margin-bottom:12px;
+}
+
+.testament-title{
+    color:var(--gold2);
+    font-size:26px;
+    font-weight:900;
 }
 
 .testament-count{
-  margin-top:8px;
-  color:var(--muted);
-  font-size:15px;
+    color:var(--muted);
+    margin-top:8px;
+    font-size:16px;
 }
 
-/* =========================
-   BOOK GRID
-========================= */
+/* =========================================================
+   الأسفار
+========================================================= */
 
 .books-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
+    display:grid;
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+    gap:12px;
 }
 
-.book-card{
-  min-height:70px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:#102a46;
-  color:var(--text);
-  padding:14px 12px;
-  cursor:pointer;
-  font-size:17px;
-  font-weight:800;
-  transition:.2s ease;
+.book{
+    min-height:78px;
+    border:1px solid var(--line);
+    border-radius:13px;
+    background:var(--panel2);
+    color:var(--white);
+    cursor:pointer;
+    padding:13px;
+    font-size:18px;
+    font-weight:900;
+    transition:.2s ease;
 }
 
-.book-card:hover{
-  border-color:var(--gold);
-  background:#153657;
-  color:var(--gold2);
-  transform:translateY(-2px);
+.book:hover{
+    border-color:var(--gold);
+    background:var(--panel3);
+    color:var(--gold2);
+    transform:translateY(-2px);
 }
 
 .book-number{
-  display:block;
-  color:var(--gold2);
-  font-size:13px;
-  margin-bottom:5px;
+    display:block;
+    color:var(--gold2);
+    font-size:13px;
+    margin-bottom:5px;
 }
 
-/* =========================
-   CHAPTER GRID
-========================= */
+/* =========================================================
+   الأصحاحات
+========================================================= */
 
 .chapters-grid{
-  display:grid;
-  grid-template-columns:repeat(6,minmax(0,1fr));
-  gap:10px;
+    display:grid;
+    grid-template-columns:
+        repeat(7,minmax(0,1fr));
+    gap:10px;
 }
 
-.chapter-card{
-  min-height:58px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:#102a46;
-  color:var(--text);
-  cursor:pointer;
-  font-size:17px;
-  font-weight:900;
-  transition:.2s ease;
+.chapter{
+    min-height:60px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:var(--panel2);
+    color:var(--white);
+    cursor:pointer;
+    font-size:18px;
+    font-weight:900;
+    transition:.2s ease;
 }
 
-.chapter-card:hover{
-  border-color:var(--gold);
-  background:#153657;
-  color:var(--gold2);
-  transform:translateY(-2px);
+.chapter:hover{
+    border-color:var(--gold);
+    background:var(--panel3);
+    color:var(--gold2);
+    transform:translateY(-2px);
 }
 
-/* =========================
-   CHAPTER READING
-========================= */
+/* =========================================================
+   قراءة الأصحاح
+========================================================= */
 
-.reading-panel{
-  padding:0;
-  overflow:hidden;
+.chapter-reading{
+    width:100%;
 }
 
-.chapter-header{
-  padding:22px 22px 12px;
-  text-align:center;
-  border-bottom:1px solid var(--line);
+.chapter-heading{
+    text-align:center;
+    padding:5px 0 22px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:4px;
 }
 
-.chapter-book{
-  color:var(--muted);
-  font-size:16px;
-  margin-bottom:7px;
+.chapter-book-name{
+    color:var(--muted);
+    font-size:17px;
+    margin-bottom:7px;
 }
 
-.chapter-title{
-  margin:0;
-  color:var(--gold2);
-  font-size:29px;
-  font-weight:900;
+.chapter-number{
+    margin:0;
+    color:var(--gold2);
+    font-size:30px;
+    font-weight:900;
 }
 
-.chapter-text{
-  padding:8px 24px 20px;
+.verses{
+    width:100%;
 }
 
 .verse{
-  position:relative;
-  padding:17px 5px;
-  border-bottom:1px solid #17344f;
-  line-height:2.35;
-  font-size:20px;
-  cursor:pointer;
-  transition:.18s ease;
-}
-
-.verse:last-child{
-  border-bottom:0;
+    padding:18px 8px;
+    border-bottom:1px solid #17344f;
+    font-size:21px;
+    line-height:2.35;
+    cursor:pointer;
+    transition:.18s ease;
 }
 
 .verse:hover{
-  background:rgba(16,42,70,.72);
+    background:rgba(16,42,70,.75);
 }
 
-.vnum{
-  color:var(--gold2);
-  font-weight:900;
-  margin-left:9px;
-  font-size:17px;
+.verse-number{
+    color:var(--gold2);
+    font-size:17px;
+    font-weight:900;
+    margin-left:9px;
 }
 
-/* =========================
-   CHAPTER NAVIGATION
-========================= */
+/* =========================================================
+   السابق / السماعة / التالي
+========================================================= */
 
 .chapter-navigation{
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  gap:12px;
-  padding:18px 22px;
-  border-top:1px solid var(--line);
-  background:#081a2b;
+    margin-top:15px;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:12px;
 }
 
 .nav-button{
-  min-height:50px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:#102a46;
-  color:var(--text);
-  padding:10px 16px;
-  font-size:17px;
-  font-weight:900;
-  cursor:pointer;
-  transition:.2s ease;
+    min-height:52px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:var(--panel2);
+    color:var(--white);
+    padding:10px 18px;
+    font-size:17px;
+    font-weight:900;
+    cursor:pointer;
 }
 
 .nav-button:hover:not(:disabled){
-  border-color:var(--gold);
-  color:var(--gold2);
-  background:#153657;
+    border-color:var(--gold);
+    color:var(--gold2);
+    background:var(--panel3);
 }
 
 .nav-button:disabled{
-  opacity:.35;
-  cursor:not-allowed;
+    opacity:.30;
+    cursor:not-allowed;
 }
 
-.nav-prev{
-  justify-self:start;
+.previous{
+    justify-self:start;
 }
 
-.nav-next{
-  justify-self:end;
+.next{
+    justify-self:end;
 }
 
-.audio-button{
-  width:58px;
-  height:50px;
-  padding:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
+.audio{
+    width:60px;
+    height:52px;
+    padding:0;
+    font-size:25px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-/* =========================
-   VERSE MODAL
-========================= */
+/* =========================================================
+   البحث
+========================================================= */
 
-.modal-backdrop{
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  background:rgba(0,0,0,.76);
-  backdrop-filter:blur(5px);
+.search-container{
+    width:100%;
 }
 
-.modal-backdrop.open{
-  display:flex;
-}
-
-.modal{
-  width:min(760px,100%);
-  max-height:88vh;
-  overflow:auto;
-  background:#0d2138;
-  border:1px solid var(--gold);
-  border-radius:20px;
-  box-shadow:0 20px 70px rgba(0,0,0,.45);
-}
-
-.modal-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:18px 20px;
-  border-bottom:1px solid var(--line);
-}
-
-.modal-title{
-  margin:0;
-  color:var(--gold2);
-  font-size:23px;
-  font-weight:900;
-}
-
-.modal-close{
-  width:42px;
-  height:42px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:#102a46;
-  color:var(--text);
-  cursor:pointer;
-  font-size:20px;
-}
-
-.modal-close:hover{
-  border-color:var(--gold);
-}
-
-.modal-verse{
-  padding:20px;
-  line-height:2.3;
-  font-size:19px;
-  border-bottom:1px solid var(--line);
-}
-
-.modal-actions{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-  padding:18px 20px 20px;
-}
-
-.modal-action{
-  min-height:56px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:#102a46;
-  color:var(--text);
-  cursor:pointer;
-  font-size:16px;
-  font-weight:900;
-  transition:.2s ease;
-}
-
-.modal-action:hover{
-  border-color:var(--gold);
-  background:#153657;
-  color:var(--gold2);
-}
-
-/* =========================
-   SEARCH
-========================= */
-
-.search-box{
-  display:flex;
-  gap:10px;
-  margin-bottom:18px;
+.search-form{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
 }
 
 .search-input{
-  flex:1;
-  min-height:50px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  outline:none;
-  background:#102a46;
-  color:var(--text);
-  padding:12px 15px;
-  font-size:17px;
+    flex:1;
+    min-height:55px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:var(--panel2);
+    color:var(--white);
+    outline:none;
+    padding:12px 16px;
+    font-size:18px;
 }
 
 .search-input:focus{
-  border-color:var(--gold);
+    border-color:var(--gold);
 }
 
 .search-submit{
-  min-width:110px;
-  border:1px solid var(--gold);
-  border-radius:12px;
-  background:#153657;
-  color:var(--gold2);
-  font-size:17px;
-  font-weight:900;
-  cursor:pointer;
+    min-width:115px;
+    border:1px solid var(--gold);
+    border-radius:12px;
+    background:var(--panel3);
+    color:var(--gold2);
+    font-size:17px;
+    font-weight:900;
+    cursor:pointer;
 }
 
 .search-results{
-  display:flex;
-  flex-direction:column;
+    width:100%;
 }
 
 .search-result{
-  padding:16px 5px;
-  border-bottom:1px solid #17344f;
-  cursor:pointer;
-  line-height:2;
+    padding:16px 8px;
+    border-bottom:1px solid #17344f;
+    cursor:pointer;
+    line-height:2;
 }
 
 .search-result:hover{
-  background:#102a46;
+    background:var(--panel2);
 }
 
-.search-result-ref{
-  color:var(--gold2);
-  font-weight:900;
-  margin-left:8px;
+.search-reference{
+    display:block;
+    color:var(--gold2);
+    font-size:16px;
+    font-weight:900;
+    margin-bottom:4px;
 }
 
-/* =========================
-   HIDDEN
-========================= */
+/* =========================================================
+   الرسائل
+========================================================= */
 
-.hidden{
-  display:none !important;
+.empty{
+    text-align:center;
+    color:var(--muted);
+    padding:40px 20px;
+    line-height:2;
 }
 
-/* =========================
+.error{
+    color:var(--danger);
+    background:#351b24;
+    border:1px solid #6b3040;
+    border-radius:12px;
+    padding:16px;
+    line-height:2;
+}
+
+/* =========================================================
+   نافذة الآية
+========================================================= */
+
+.modal-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(5px);
+}
+
+.modal-backdrop.open{
+    display:flex;
+}
+
+.modal{
+    width:min(760px,100%);
+    max-height:88vh;
+    overflow:auto;
+    background:var(--panel);
+    border:1px solid var(--gold);
+    border-radius:20px;
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.50);
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:18px 20px;
+    border-bottom:1px solid var(--line);
+}
+
+.modal-title{
+    margin:0;
+    color:var(--gold2);
+    font-size:23px;
+    font-weight:900;
+}
+
+.close-modal{
+    width:42px;
+    height:42px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--panel2);
+    color:var(--white);
+    cursor:pointer;
+    font-size:22px;
+}
+
+.modal-verse{
+    padding:22px;
+    font-size:20px;
+    line-height:2.35;
+    border-bottom:1px solid var(--line);
+}
+
+.modal-actions{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    padding:18px;
+}
+
+.modal-action{
+    min-height:58px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:var(--panel2);
+    color:var(--white);
+    cursor:pointer;
+    font-size:17px;
+    font-weight:900;
+    transition:.2s ease;
+}
+
+.modal-action:hover{
+    border-color:var(--gold);
+    background:var(--panel3);
+    color:var(--gold2);
+}
+
+/* =========================================================
    RESPONSIVE
-========================= */
+========================================================= */
 
 @media(max-width:900px){
 
-  .books-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
+    .books-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
 
-  .chapters-grid{
-    grid-template-columns:repeat(5,minmax(0,1fr));
-  }
+    .chapters-grid{
+        grid-template-columns:repeat(5,minmax(0,1fr));
+    }
 
 }
 
 @media(max-width:700px){
 
-  header{
-    padding:10px 4%;
-  }
+    .header-inner{
+        min-height:68px;
+    }
 
-  .header-inner{
-    min-height:62px;
-  }
+    .logo{
+        width:55px;
+        height:55px;
+    }
 
-  .logo{
-    width:54px;
-    height:54px;
-  }
+    .brand-title{
+        font-size:19px;
+    }
 
-  .brand-title{
-    font-size:19px;
-  }
+    .home-button{
+        min-height:42px;
+        padding:8px 12px;
+        font-size:15px;
+    }
 
-  .home-link{
-    min-height:42px;
-    padding:8px 12px;
-    font-size:15px;
-  }
+    main{
+        width:94%;
+        padding-top:20px;
+    }
 
-  main{
-    width:94%;
-    padding-top:18px;
-  }
+    .main-icons{
+        grid-template-columns:1fr;
+        gap:18px;
+    }
 
-  .panel{
-    padding:14px;
-  }
+    .main-icon{
+        min-height:240px;
+    }
 
-  .testament-grid{
-    grid-template-columns:1fr;
-  }
+    .main-icon-symbol{
+        font-size:72px;
+    }
 
-  .books-grid{
-    grid-template-columns:1fr;
-  }
+    .main-icon-title{
+        font-size:26px;
+    }
 
-  .chapters-grid{
-    grid-template-columns:repeat(4,minmax(0,1fr));
-  }
+    .testaments{
+        grid-template-columns:1fr;
+    }
 
-  .chapter-title{
-    font-size:25px;
-  }
+    .workspace{
+        padding:16px;
+    }
 
-  .chapter-text{
-    padding:5px 15px 15px;
-  }
+    .books-grid{
+        grid-template-columns:1fr;
+    }
 
-  .verse{
-    font-size:18px;
-    line-height:2.25;
-    padding:15px 3px;
-  }
+    .chapters-grid{
+        grid-template-columns:repeat(4,minmax(0,1fr));
+    }
 
-  .chapter-navigation{
-    padding:14px;
-  }
+    .verse{
+        font-size:18px;
+        line-height:2.25;
+    }
 
-  .nav-button{
-    font-size:15px;
-    padding:8px;
-  }
+    .chapter-number{
+        font-size:26px;
+    }
 
-  .modal-actions{
-    grid-template-columns:1fr;
-  }
+    .modal-actions{
+        grid-template-columns:1fr;
+    }
 
 }
 
 @media(max-width:430px){
 
-  .brand{
-    gap:7px;
-  }
+    .brand-title{
+        font-size:16px;
+    }
 
-  .brand-title{
-    font-size:16px;
-  }
+    .chapters-grid{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+    }
 
-  .home-link{
-    font-size:14px;
-  }
+    .chapter-navigation{
+        gap:6px;
+    }
 
-  .chapters-grid{
-    grid-template-columns:repeat(3,minmax(0,1fr));
-  }
+    .nav-button{
+        padding:8px;
+        font-size:14px;
+    }
 
-  .bible-tool{
-    font-size:15px;
-    padding:9px 12px;
-  }
-
-  .chapter-navigation{
-    grid-template-columns:1fr auto 1fr;
-    gap:6px;
-  }
-
-  .nav-button{
-    min-height:46px;
-    font-size:13px;
-  }
-
-  .audio-button{
-    width:48px;
-  }
+    .audio{
+        width:50px;
+    }
 
 }
 </style>
@@ -730,81 +786,41 @@ main{
 
 <body>
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
 <header>
-  <div class="header-inner">
 
-    <!-- اليمين -->
-    <a class="home-link" href="index.html">⌂ الرئيسية</a>
+    <div class="header-inner">
 
-    <!-- اليسار -->
-    <div class="brand">
-      <div class="brand-title">موسوعة الكتاب المقدس</div>
-      <img
-        class="logo"
-        src="assets/logo.png"
-        alt="شعار كنيسة رجاء الأمم سيدني"
-      >
+        <!-- اليمين -->
+        <a
+            href="index.html"
+            class="home-button"
+        >
+            ⌂ الرئيسية
+        </a>
+
+        <!-- اليسار -->
+        <div class="brand">
+
+            <div class="brand-title">
+                موسوعة الكتاب المقدس
+            </div>
+
+            <img
+                src="assets/logo.png"
+                class="logo"
+                alt="شعار الكنيسة"
+            >
+
+        </div>
+
     </div>
 
-  </div>
 </header>
 
 
 <main>
 
-  <div id="app">
-
-    <!-- =====================================================
-         أعلى مساحة الكتاب المقدس
-         تظهر دائمًا
-    ====================================================== -->
-
-    <div class="bible-toolbar">
-
-      <div class="bible-toolbar-left">
-
-        <button
-          id="bibleHomeButton"
-          class="bible-tool active"
-          type="button"
-          onclick="showTestaments()"
-        >
-          📖 الكتاب المقدس
-        </button>
-
-        <button
-          id="searchButton"
-          class="bible-tool"
-          type="button"
-          onclick="showSearch()"
-        >
-          🔎 البحث
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         المحتوى المتغير داخل نفس الصفحة
-    ====================================================== -->
-
-    <section id="mainPanel" class="panel">
-
-      <div id="status" class="status">
-        جاري تحميل الكتاب المقدس...
-      </div>
-
-      <div id="content"></div>
-
-    </section>
-
-  </div>
+    <div id="app"></div>
 
 </main>
 
@@ -814,75 +830,77 @@ main{
 ========================================================= -->
 
 <div
-  id="modalBackdrop"
-  class="modal-backdrop"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="modalTitle"
+    id="verseModal"
+    class="modal-backdrop"
 >
 
-  <div class="modal">
+    <div class="modal">
 
-    <div class="modal-header">
+        <div class="modal-header">
 
-      <h2 id="modalTitle" class="modal-title">
-        الآية
-      </h2>
+            <h2
+                id="modalTitle"
+                class="modal-title"
+            >
+                الآية
+            </h2>
 
-      <button
-        class="modal-close"
-        type="button"
-        onclick="closeVerse()"
-        aria-label="إغلاق"
-      >
-        ×
-      </button>
+            <button
+                class="close-modal"
+                onclick="closeVerse()"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            id="modalVerse"
+            class="modal-verse"
+        ></div>
+
+
+        <!-- الخيارات الأربعة فقط -->
+
+        <div class="modal-actions">
+
+            <button
+                class="modal-action"
+                onclick="verseFeature('similar')"
+                type="button"
+            >
+                🔗 الآيات المشابهة
+            </button>
+
+            <button
+                class="modal-action"
+                onclick="verseFeature('language')"
+                type="button"
+            >
+                🔤 أصل اللغة
+            </button>
+
+            <button
+                class="modal-action"
+                onclick="verseFeature('places')"
+                type="button"
+            >
+                🗺️ الأماكن والأنهار
+            </button>
+
+            <button
+                class="modal-action"
+                onclick="verseFeature('commentary')"
+                type="button"
+            >
+                📚 التفسير
+            </button>
+
+        </div>
 
     </div>
-
-    <div id="modalVerse" class="modal-verse"></div>
-
-    <!-- =====================================================
-         الأربعة خيارات فقط
-    ====================================================== -->
-
-    <div class="modal-actions">
-
-      <button
-        class="modal-action"
-        type="button"
-        onclick="openVerseFeature('similar')"
-      >
-        🔗 الآيات المشابهة
-      </button>
-
-      <button
-        class="modal-action"
-        type="button"
-        onclick="openVerseFeature('language')"
-      >
-        🔤 أصل اللغة
-      </button>
-
-      <button
-        class="modal-action"
-        type="button"
-        onclick="openVerseFeature('places')"
-      >
-        🗺️ الأماكن والأنهار
-      </button>
-
-      <button
-        class="modal-action"
-        type="button"
-        onclick="openVerseFeature('commentary')"
-      >
-        📚 التفسير
-      </button>
-
-    </div>
-
-  </div>
 
 </div>
 
@@ -897,172 +915,170 @@ const BIBLE_URL = "bible.json";
 
 
 /* =========================================================
-   أسماء الأسفار
+   أسماء الأسفار الرسمية
 ========================================================= */
 
 const BOOK_NAMES = {
 
-  "01-gen":"التكوين",
-  "02-exo":"الخروج",
-  "03-lev":"اللاويين",
-  "04-num":"العدد",
-  "05-deu":"التثنية",
-  "06-josh":"يشوع",
-  "07-judg":"القضاة",
-  "08-ruth":"راعوث",
-  "09-1sam":"صموئيل الأول",
-  "10-2sam":"صموئيل الثاني",
-  "11-1kgs":"ملوك الأول",
-  "12-2kgs":"ملوك الثاني",
-  "13-1chr":"أخبار الأيام الأول",
-  "14-2chr":"أخبار الأيام الثاني",
-  "15-ezra":"عزرا",
-  "16-neh":"نحميا",
-  "17-est":"أستير",
-  "18-job":"أيوب",
-  "19-ps":"المزامير",
-  "20-prov":"الأمثال",
-  "21-eccl":"الجامعة",
-  "22-song":"نشيد الأنشاد",
-  "23-isa":"إشعياء",
-  "24-jer":"إرميا",
-  "25-lam":"مراثي إرميا",
-  "26-ezek":"حزقيال",
-  "27-dan":"دانيال",
-  "28-hos":"هوشع",
-  "29-joel":"يوئيل",
-  "30-amos":"عاموس",
-  "31-obad":"عوبديا",
-  "32-jonah":"يونان",
-  "33-mic":"ميخا",
-  "34-nah":"ناحوم",
-  "35-hab":"حبقوق",
-  "36-zeph":"صفنيا",
-  "37-hag":"حجي",
-  "38-zec":"زكريا",
-  "39-mal":"ملاخي",
+    "01-gen":"التكوين",
+    "02-exo":"الخروج",
+    "03-lev":"اللاويين",
+    "04-num":"العدد",
+    "05-deu":"التثنية",
+    "06-josh":"يشوع",
+    "07-judg":"القضاة",
+    "08-ruth":"راعوث",
+    "09-1sam":"صموئيل الأول",
+    "10-2sam":"صموئيل الثاني",
+    "11-1kgs":"ملوك الأول",
+    "12-2kgs":"ملوك الثاني",
+    "13-1chr":"أخبار الأيام الأول",
+    "14-2chr":"أخبار الأيام الثاني",
+    "15-ezra":"عزرا",
+    "16-neh":"نحميا",
+    "17-est":"أستير",
+    "18-job":"أيوب",
+    "19-ps":"المزامير",
+    "20-prov":"الأمثال",
+    "21-eccl":"الجامعة",
+    "22-song":"نشيد الأنشاد",
+    "23-isa":"إشعياء",
+    "24-jer":"إرميا",
+    "25-lam":"مراثي إرميا",
+    "26-ezek":"حزقيال",
+    "27-dan":"دانيال",
+    "28-hos":"هوشع",
+    "29-joel":"يوئيل",
+    "30-amos":"عاموس",
+    "31-obad":"عوبديا",
+    "32-jonah":"يونان",
+    "33-mic":"ميخا",
+    "34-nah":"ناحوم",
+    "35-hab":"حبقوق",
+    "36-zeph":"صفنيا",
+    "37-hag":"حجي",
+    "38-zec":"زكريا",
+    "39-mal":"ملاخي",
 
-  "40-matt":"متى",
-  "41-mark":"مرقس",
-  "42-luke":"لوقا",
-  "43-john":"يوحنا",
-  "44-acts":"أعمال الرسل",
-  "45-rom":"رومية",
-  "46-1cor":"كورنثوس الأولى",
-  "47-2cor":"كورنثوس الثانية",
-  "48-gal":"غلاطية",
-  "49-eph":"أفسس",
-  "50-phil":"فيلبي",
-  "51-col":"كولوسي",
-  "52-1thess":"تسالونيكي الأولى",
-  "53-2thess":"تسالونيكي الثانية",
-  "54-1tim":"تيموثاوس الأولى",
-  "55-2tim":"تيموثاوس الثانية",
-  "56-tit":"تيطس",
-  "57-phlm":"فليمون",
-  "58-heb":"العبرانيين",
-  "59-jas":"يعقوب",
-  "60-1pet":"بطرس الأولى",
-  "61-2pet":"بطرس الثانية",
-  "62-1john":"يوحنا الأولى",
-  "63-2john":"يوحنا الثانية",
-  "64-3john":"يوحنا الثالثة",
-  "65-jude":"يهوذا",
-  "66-rev":"رؤيا يوحنا"
+    "40-matt":"متى",
+    "41-mark":"مرقس",
+    "42-luke":"لوقا",
+    "43-john":"يوحنا",
+    "44-acts":"أعمال الرسل",
+    "45-rom":"رومية",
+    "46-1cor":"كورنثوس الأولى",
+    "47-2cor":"كورنثوس الثانية",
+    "48-gal":"غلاطية",
+    "49-eph":"أفسس",
+    "50-phil":"فيلبي",
+    "51-col":"كولوسي",
+    "52-1thess":"تسالونيكي الأولى",
+    "53-2thess":"تسالونيكي الثانية",
+    "54-1tim":"تيموثاوس الأولى",
+    "55-2tim":"تيموثاوس الثانية",
+    "56-tit":"تيطس",
+    "57-phlm":"فليمون",
+    "58-heb":"العبرانيين",
+    "59-jas":"يعقوب",
+    "60-1pet":"بطرس الأولى",
+    "61-2pet":"بطرس الثانية",
+    "62-1john":"يوحنا الأولى",
+    "63-2john":"يوحنا الثانية",
+    "64-3john":"يوحنا الثالثة",
+    "65-jude":"يهوذا",
+    "66-rev":"رؤيا يوحنا"
 
 };
 
 
 /* =========================================================
    ترتيب العهد القديم
-   39 سفرًا
 ========================================================= */
 
-const OLD_IDS = [
+const OLD_BOOKS = [
 
-  "01-gen",
-  "02-exo",
-  "03-lev",
-  "04-num",
-  "05-deu",
-  "06-josh",
-  "07-judg",
-  "08-ruth",
-  "09-1sam",
-  "10-2sam",
-  "11-1kgs",
-  "12-2kgs",
-  "13-1chr",
-  "14-2chr",
-  "15-ezra",
-  "16-neh",
-  "17-est",
-  "18-job",
-  "19-ps",
-  "20-prov",
-  "21-eccl",
-  "22-song",
-  "23-isa",
-  "24-jer",
-  "25-lam",
-  "26-ezek",
-  "27-dan",
-  "28-hos",
-  "29-joel",
-  "30-amos",
-  "31-obad",
-  "32-jonah",
-  "33-mic",
-  "34-nah",
-  "35-hab",
-  "36-zeph",
-  "37-hag",
-  "38-zec",
-  "39-mal"
+    "01-gen",
+    "02-exo",
+    "03-lev",
+    "04-num",
+    "05-deu",
+    "06-josh",
+    "07-judg",
+    "08-ruth",
+    "09-1sam",
+    "10-2sam",
+    "11-1kgs",
+    "12-2kgs",
+    "13-1chr",
+    "14-2chr",
+    "15-ezra",
+    "16-neh",
+    "17-est",
+    "18-job",
+    "19-ps",
+    "20-prov",
+    "21-eccl",
+    "22-song",
+    "23-isa",
+    "24-jer",
+    "25-lam",
+    "26-ezek",
+    "27-dan",
+    "28-hos",
+    "29-joel",
+    "30-amos",
+    "31-obad",
+    "32-jonah",
+    "33-mic",
+    "34-nah",
+    "35-hab",
+    "36-zeph",
+    "37-hag",
+    "38-zec",
+    "39-mal"
 
 ];
 
 
 /* =========================================================
    ترتيب العهد الجديد
-   27 سفرًا
 ========================================================= */
 
-const NEW_IDS = [
+const NEW_BOOKS = [
 
-  "40-matt",
-  "41-mark",
-  "42-luke",
-  "43-john",
-  "44-acts",
-  "45-rom",
-  "46-1cor",
-  "47-2cor",
-  "48-gal",
-  "49-eph",
-  "50-phil",
-  "51-col",
-  "52-1thess",
-  "53-2thess",
-  "54-1tim",
-  "55-2tim",
-  "56-tit",
-  "57-phlm",
-  "58-heb",
-  "59-jas",
-  "60-1pet",
-  "61-2pet",
-  "62-1john",
-  "63-2john",
-  "64-3john",
-  "65-jude",
-  "66-rev"
+    "40-matt",
+    "41-mark",
+    "42-luke",
+    "43-john",
+    "44-acts",
+    "45-rom",
+    "46-1cor",
+    "47-2cor",
+    "48-gal",
+    "49-eph",
+    "50-phil",
+    "51-col",
+    "52-1thess",
+    "53-2thess",
+    "54-1tim",
+    "55-2tim",
+    "56-tit",
+    "57-phlm",
+    "58-heb",
+    "59-jas",
+    "60-1pet",
+    "61-2pet",
+    "62-1john",
+    "63-2john",
+    "64-3john",
+    "65-jude",
+    "66-rev"
 
 ];
 
 
 /* =========================================================
-   الحالة العامة
+   الحالة
 ========================================================= */
 
 let verses = [];
@@ -1080,721 +1096,770 @@ let currentVerse = null;
    أدوات
 ========================================================= */
 
-const $ = id => document.getElementById(id);
-
-const esc = value => {
-
-  return String(value ?? "")
-    .replace(/[&<>"']/g, character => ({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#039;"
-    }[character]));
-
-};
+const app = document.getElementById("app");
 
 
-/* =========================================================
-   توحيد بيانات bible.json
-========================================================= */
+function escapeHTML(value){
 
-function normaliseRows(data){
+    return String(value ?? "")
+        .replace(/[&<>"']/g,function(char){
 
-  let rows = [];
+            return {
 
-  /*
-   * الصيغة الأساسية المتوقعة:
-   * [
-   *   {
-   *     book:"01-gen",
-   *     chapter:1,
-   *     verse:1,
-   *     text:"..."
-   *   }
-   * ]
-   */
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#039;"
 
-  if(Array.isArray(data)){
+            }[char];
 
-    rows = data;
-
-  }
-
-  /*
-   * دعم بعض البنى المحتملة دون تغيير bible.json
-   */
-
-  else if(data && Array.isArray(data.verses)){
-
-    rows = data.verses;
-
-  }
-
-  else if(data && Array.isArray(data.data)){
-
-    rows = data.data;
-
-  }
-
-  return rows
-
-    .map(v => ({
-
-      book:String(v.book ?? v.bookId ?? "").trim(),
-
-      chapter:Number(v.chapter ?? v.chapterNumber),
-
-      verse:Number(
-        v.verse ??
-        v.number ??
-        v.verseNumber
-      ),
-
-      text:String(
-        v.text ??
-        v.content ??
-        v.verseText ??
-        ""
-      ).trim()
-
-    }))
-
-    .filter(v =>
-
-      v.book &&
-      Number.isFinite(v.chapter) &&
-      Number.isFinite(v.verse) &&
-      v.text
-
-    );
+        });
 
 }
 
 
 /* =========================================================
-   تحميل bible.json
+   الصفحة الأولى
 ========================================================= */
 
-async function loadBible(){
+function renderStart(){
 
-  try{
+    currentTestament = null;
+    currentBook = null;
+    currentChapter = null;
 
-    $("status").textContent =
-      "جاري تحميل نص الكتاب المقدس...";
+    app.innerHTML = `
 
-    const response = await fetch(
-      BIBLE_URL,
-      {
-        cache:"no-store"
-      }
-    );
+        <section class="start-screen">
 
-    if(!response.ok){
+            <h1 class="start-title">
+                الكتاب المقدس
+            </h1>
 
-      throw new Error(
-        `bible.json HTTP ${response.status}`
-      );
+            <p class="start-subtitle">
+                اختر القسم الذي تريد الدخول إليه
+            </p>
+
+
+            <div class="main-icons">
+
+                <!-- أيقونة الكتاب المقدس -->
+
+                <button
+                    class="main-icon"
+                    type="button"
+                    onclick="openBible()"
+                >
+
+                    <div class="main-icon-symbol">
+                        📖
+                    </div>
+
+                    <div class="main-icon-title">
+                        الكتاب المقدس
+                    </div>
+
+                    <div class="main-icon-description">
+                        العهد القديم والعهد الجديد والأسفار والأصحاحات والآيات
+                    </div>
+
+                </button>
+
+
+                <!-- أيقونة البحث -->
+
+                <button
+                    class="main-icon"
+                    type="button"
+                    onclick="openSearch()"
+                >
+
+                    <div class="main-icon-symbol">
+                        🔎
+                    </div>
+
+                    <div class="main-icon-title">
+                        البحث
+                    </div>
+
+                    <div class="main-icon-description">
+                        البحث في نص الكتاب المقدس
+                    </div>
+
+                </button>
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   فتح أيقونة الكتاب المقدس
+   نفس المساحة
+========================================================= */
+
+function openBible(){
+
+    renderTestaments();
+
+}
+
+
+/* =========================================================
+   العهد القديم / الجديد
+========================================================= */
+
+function renderTestaments(){
+
+    currentTestament = null;
+    currentBook = null;
+    currentChapter = null;
+
+    app.innerHTML = `
+
+        <section class="workspace">
+
+            <div class="inner-topbar">
+
+                <button
+                    class="inner-back"
+                    type="button"
+                    onclick="renderStart()"
+                >
+                    ← رجوع
+                </button>
+
+                <h2 class="inner-title">
+                    📖 الكتاب المقدس
+                </h2>
+
+            </div>
+
+
+            <div class="testaments">
+
+                <button
+                    class="testament"
+                    type="button"
+                    onclick="openTestament('old')"
+                >
+
+                    <div class="testament-symbol">
+                        📜
+                    </div>
+
+                    <div class="testament-title">
+                        العهد القديم
+                    </div>
+
+                    <div class="testament-count">
+                        39 سفرًا
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="testament"
+                    type="button"
+                    onclick="openTestament('new')"
+                >
+
+                    <div class="testament-symbol">
+                        ✝️
+                    </div>
+
+                    <div class="testament-title">
+                        العهد الجديد
+                    </div>
+
+                    <div class="testament-count">
+                        27 سفرًا
+                    </div>
+
+                </button>
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   فتح العهد
+========================================================= */
+
+function openTestament(testament){
+
+    currentTestament = testament;
+
+    currentBook = null;
+
+    currentChapter = null;
+
+    const list =
+        testament === "old"
+            ? OLD_BOOKS
+            : NEW_BOOKS;
+
+    const title =
+        testament === "old"
+            ? "العهد القديم"
+            : "العهد الجديد";
+
+
+    app.innerHTML = `
+
+        <section class="workspace">
+
+            <div class="inner-topbar">
+
+                <button
+                    class="inner-back"
+                    type="button"
+                    onclick="renderTestaments()"
+                >
+                    ← العهدان
+                </button>
+
+                <h2 class="inner-title">
+                    📖 ${title}
+                </h2>
+
+            </div>
+
+
+            <div class="books-grid">
+
+                ${list.map(function(bookId,index){
+
+                    return `
+
+                        <button
+                            class="book"
+                            type="button"
+                            onclick="openBook('${bookId}')"
+                        >
+
+                            <span class="book-number">
+                                السفر ${index + 1}
+                            </span>
+
+                            ${escapeHTML(
+                                BOOK_NAMES[bookId]
+                            )}
+
+                        </button>
+
+                    `;
+
+                }).join("")}
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   فتح السفر
+========================================================= */
+
+function openBook(bookId){
+
+    currentBook = bookId;
+
+    currentChapter = null;
+
+
+    const chapters = [
+
+        ...new Set(
+
+            verses
+
+                .filter(function(v){
+
+                    return v.book === bookId;
+
+                })
+
+                .map(function(v){
+
+                    return v.chapter;
+
+                })
+
+        )
+
+    ].sort(function(a,b){
+
+        return a-b;
+
+    });
+
+
+    /*
+       إذا لم تكن بيانات السفر موجودة في bible.json
+       لا نخفي السفر ولا نحذفه.
+    */
+
+    if(!chapters.length){
+
+        app.innerHTML = `
+
+            <section class="workspace">
+
+                <div class="inner-topbar">
+
+                    <button
+                        class="inner-back"
+                        type="button"
+                        onclick="openTestament(currentTestament)"
+                    >
+                        ← الأسفار
+                    </button>
+
+                    <h2 class="inner-title">
+                        📖 ${escapeHTML(
+                            BOOK_NAMES[bookId]
+                        )}
+                    </h2>
+
+                </div>
+
+
+                <div class="empty">
+
+                    <strong>
+                        ${escapeHTML(
+                            BOOK_NAMES[bookId]
+                        )}
+                    </strong>
+
+                    <br>
+
+                    بيانات هذا السفر غير موجودة حاليًا
+                    في <b>bible.json</b>.
+
+                    <br><br>
+
+                    سيظهر السفر هنا تلقائيًا بمجرد إضافة
+                    أصحاحاته وآياته إلى قاعدة الكتاب المقدس.
+
+                </div>
+
+            </section>
+
+        `;
+
+        return;
 
     }
 
-    const data = await response.json();
 
-    verses = normaliseRows(data);
+    app.innerHTML = `
 
-    if(!verses.length){
+        <section class="workspace">
 
-      throw new Error(
-        "bible.json contains no readable verses"
-      );
+            <div class="inner-topbar">
+
+                <button
+                    class="inner-back"
+                    type="button"
+                    onclick="openTestament(currentTestament)"
+                >
+                    ← الأسفار
+                </button>
+
+                <h2 class="inner-title">
+                    📖 ${escapeHTML(
+                        BOOK_NAMES[bookId]
+                    )}
+                </h2>
+
+            </div>
+
+
+            <div class="chapters-grid">
+
+                ${chapters.map(function(chapter){
+
+                    return `
+
+                        <button
+                            class="chapter"
+                            type="button"
+                            onclick="openChapter(
+                                '${bookId}',
+                                ${chapter}
+                            )"
+                        >
+                            ${chapter}
+                        </button>
+
+                    `;
+
+                }).join("")}
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   فتح الأصحاح
+========================================================= */
+
+function openChapter(bookId,chapter){
+
+    currentBook = bookId;
+
+    currentChapter = Number(chapter);
+
+
+    const rows = verses
+
+        .filter(function(v){
+
+            return (
+
+                v.book === bookId &&
+                Number(v.chapter) === Number(chapter)
+
+            );
+
+        })
+
+        .sort(function(a,b){
+
+            return a.verse - b.verse;
+
+        });
+
+
+    if(!rows.length){
+
+        return;
 
     }
 
-    $("status").textContent =
-      `تم تحميل ${verses.length.toLocaleString("ar-EG")} آية.`;
 
-    showTestaments();
+    app.innerHTML = `
 
-  }
+        <section class="workspace">
 
-  catch(error){
+            <!--
+                عند قراءة الأصحاح لا توجد
+                أي قوائم إضافية.
+            -->
 
-    console.error(error);
+            <div class="chapter-reading">
 
-    $("status").innerHTML = `
-      <div class="error">
-        تعذر تحميل بيانات الكتاب المقدس.
-        <br>
-        تأكد من وجود الملف
-        <b>bible.json</b>
-        في نفس مجلد
-        <b>bible.html</b>.
-      </div>
+                <div class="chapter-heading">
+
+                    <div class="chapter-book-name">
+                        ${escapeHTML(
+                            BOOK_NAMES[bookId]
+                        )}
+                    </div>
+
+                    <h2 class="chapter-number">
+                        الأصحاح ${chapter}
+                    </h2>
+
+                </div>
+
+
+                <div class="verses">
+
+                    ${rows.map(function(v){
+
+                        return `
+
+                            <div
+                                class="verse"
+                                tabindex="0"
+                                role="button"
+                                onclick="openVerse(
+                                    '${v.book}',
+                                    ${v.chapter},
+                                    ${v.verse}
+                                )"
+                            >
+
+                                <span class="verse-number">
+                                    ${v.verse}
+                                </span>
+
+                                ${escapeHTML(v.text)}
+
+                            </div>
+
+                        `;
+
+                    }).join("")}
+
+                </div>
+
+
+                <div class="chapter-navigation">
+
+                    <button
+                        id="previousButton"
+                        class="nav-button previous"
+                        type="button"
+                        onclick="previousChapter()"
+                    >
+                        ← السابق
+                    </button>
+
+
+                    <button
+                        class="nav-button audio"
+                        type="button"
+                        onclick="playChapter()"
+                        title="السماعة"
+                    >
+                        🔊
+                    </button>
+
+
+                    <button
+                        id="nextButton"
+                        class="nav-button next"
+                        type="button"
+                        onclick="nextChapter()"
+                    >
+                        التالي →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
     `;
 
-  }
+
+    updateNavigation();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 
 }
 
 
 /* =========================================================
-   ضبط أزرار الشريط العلوي
+   الأصحاحات المتاحة للسفر الحالي
 ========================================================= */
 
-function setToolbar(active){
+function getChapters(bookId){
 
-  $("bibleHomeButton").classList.toggle(
-    "active",
-    active === "bible"
-  );
+    return [
 
-  $("searchButton").classList.toggle(
-    "active",
-    active === "search"
-  );
+        ...new Set(
+
+            verses
+
+                .filter(function(v){
+
+                    return v.book === bookId;
+
+                })
+
+                .map(function(v){
+
+                    return Number(v.chapter);
+
+                })
+
+        )
+
+    ].sort(function(a,b){
+
+        return a-b;
+
+    });
 
 }
 
 
 /* =========================================================
-   عرض العهدين
+   تحديث السابق والتالي
 ========================================================= */
 
-function showTestaments(){
+function updateNavigation(){
 
-  currentTestament = null;
-  currentBook = null;
-  currentChapter = null;
+    const chapters =
+        getChapters(currentBook);
 
-  setToolbar("bible");
-
-  $("status").textContent = "";
-
-  $("content").innerHTML = `
-
-    <h2 class="level-heading">
-      الكتاب المقدس
-    </h2>
-
-    <div class="level-subtitle">
-      اختر العهد للانتقال إلى جميع أسفاره
-    </div>
-
-    <div class="testament-grid">
-
-      <button
-        class="testament-card"
-        type="button"
-        onclick="showBooks('old')"
-      >
-
-        <div class="testament-icon">
-          📜
-        </div>
-
-        <div class="testament-name">
-          العهد القديم
-        </div>
-
-        <div class="testament-count">
-          39 سفرًا
-        </div>
-
-      </button>
+    const index =
+        chapters.indexOf(
+            Number(currentChapter)
+        );
 
 
-      <button
-        class="testament-card"
-        type="button"
-        onclick="showBooks('new')"
-      >
+    const previous =
+        document.getElementById(
+            "previousButton"
+        );
 
-        <div class="testament-icon">
-          ✝️
-        </div>
+    const next =
+        document.getElementById(
+            "nextButton"
+        );
 
-        <div class="testament-name">
-          العهد الجديد
-        </div>
 
-        <div class="testament-count">
-          27 سفرًا
-        </div>
+    if(!previous || !next){
 
-      </button>
+        return;
 
-    </div>
+    }
 
-  `;
+
+    previous.disabled =
+        index <= 0;
+
+
+    next.disabled =
+        index < 0 ||
+        index >= chapters.length - 1;
 
 }
 
 
 /* =========================================================
-   عرض جميع أسفار العهد المختار
+   السابق
 ========================================================= */
 
-function showBooks(testament){
+function previousChapter(){
 
-  currentTestament = testament;
+    const chapters =
+        getChapters(currentBook);
 
-  currentBook = null;
+    const index =
+        chapters.indexOf(
+            Number(currentChapter)
+        );
 
-  currentChapter = null;
 
-  setToolbar("bible");
+    if(index > 0){
 
-  const ids =
-    testament === "old"
-      ? OLD_IDS
-      : NEW_IDS;
+        openChapter(
+            currentBook,
+            chapters[index - 1]
+        );
 
-  const available = ids.filter(
-    id => BOOK_NAMES[id]
-  );
-
-  const title =
-    testament === "old"
-      ? "العهد القديم"
-      : "العهد الجديد";
-
-  $("status").textContent = "";
-
-  $("content").innerHTML = `
-
-    <h2 class="level-heading">
-      ${title}
-    </h2>
-
-    <div class="level-subtitle">
-      ${available.length} سفرًا
-    </div>
-
-    <div class="books-grid">
-
-      ${available.map((id,index) => `
-
-        <button
-          class="book-card"
-          type="button"
-          onclick="showChapters('${id}')"
-        >
-
-          <span class="book-number">
-            السفر ${index + 1}
-          </span>
-
-          ${esc(BOOK_NAMES[id])}
-
-        </button>
-
-      `).join("")}
-
-    </div>
-
-  `;
+    }
 
 }
 
 
 /* =========================================================
-   عرض جميع أصحاحات السفر
+   التالي
 ========================================================= */
 
-function showChapters(bookId){
+function nextChapter(){
 
-  currentBook = bookId;
+    const chapters =
+        getChapters(currentBook);
 
-  currentChapter = null;
-
-  setToolbar("bible");
-
-  const chapters = [
-
-    ...new Set(
-
-      verses
-
-        .filter(v => v.book === bookId)
-
-        .map(v => v.chapter)
-
-    )
-
-  ].sort((a,b) => a-b);
+    const index =
+        chapters.indexOf(
+            Number(currentChapter)
+        );
 
 
-  if(!chapters.length){
+    if(
+        index >= 0 &&
+        index < chapters.length - 1
+    ){
 
-    $("status").innerHTML = `
-      <div class="error">
-        لا توجد أصحاحات لهذا السفر في
-        <b>bible.json</b>.
-      </div>
-    `;
+        openChapter(
+            currentBook,
+            chapters[index + 1]
+        );
 
-    $("content").innerHTML = "";
-
-    return;
-
-  }
-
-
-  $("status").textContent = "";
-
-
-  $("content").innerHTML = `
-
-    <h2 class="level-heading">
-      ${esc(BOOK_NAMES[bookId])}
-    </h2>
-
-    <div class="level-subtitle">
-      جميع أصحاحات السفر
-    </div>
-
-    <div class="chapters-grid">
-
-      ${chapters.map(chapter => `
-
-        <button
-          class="chapter-card"
-          type="button"
-          onclick="showChapter('${bookId}',${chapter})"
-        >
-          ${chapter}
-        </button>
-
-      `).join("")}
-
-    </div>
-
-  `;
+    }
 
 }
 
 
 /* =========================================================
-   عرض الأصحاح بالكامل
-========================================================= */
-
-function showChapter(bookId,chapter){
-
-  currentBook = bookId;
-
-  currentChapter = Number(chapter);
-
-  setToolbar("bible");
-
-  const rows = verses
-
-    .filter(v =>
-      v.book === bookId &&
-      v.chapter === currentChapter
-    )
-
-    .sort((a,b) => a.verse - b.verse);
-
-
-  if(!rows.length){
-
-    $("status").innerHTML = `
-      <div class="error">
-        لا توجد آيات لهذا الأصحاح.
-      </div>
-    `;
-
-    $("content").innerHTML = "";
-
-    return;
-
-  }
-
-
-  $("status").textContent = "";
-
-
-  /*
-   * أثناء قراءة الأصحاح لا نعرض
-   * أي قائمة أسفار أو أصحاحات.
-   */
-
-  $("content").innerHTML = `
-
-    <div class="reading-panel">
-
-      <div class="chapter-header">
-
-        <div class="chapter-book">
-          ${esc(BOOK_NAMES[bookId])}
-        </div>
-
-        <h2 class="chapter-title">
-          الأصحاح ${currentChapter}
-        </h2>
-
-      </div>
-
-
-      <div class="chapter-text">
-
-        ${rows.map(v => `
-
-          <div
-            class="verse"
-            role="button"
-            tabindex="0"
-            onclick="openVerse(
-              '${v.book}',
-              ${v.chapter},
-              ${v.verse}
-            )"
-            onkeydown="
-              if(event.key==='Enter' || event.key===' '){
-                event.preventDefault();
-                openVerse(
-                  '${v.book}',
-                  ${v.chapter},
-                  ${v.verse}
-                );
-              }
-            "
-          >
-
-            <span class="vnum">
-              ${v.verse}
-            </span>
-
-            ${esc(v.text)}
-
-          </div>
-
-        `).join("")}
-
-      </div>
-
-
-      <div class="chapter-navigation">
-
-        <button
-          id="previousChapterButton"
-          class="nav-button nav-prev"
-          type="button"
-          onclick="goPreviousChapter()"
-        >
-          ← السابق
-        </button>
-
-
-        <button
-          class="nav-button audio-button"
-          type="button"
-          onclick="playChapter()"
-          aria-label="تشغيل الأصحاح"
-          title="السماعة"
-        >
-          🔊
-        </button>
-
-
-        <button
-          id="nextChapterButton"
-          class="nav-button nav-next"
-          type="button"
-          onclick="goNextChapter()"
-        >
-          التالي →
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  updateChapterNavigation();
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* =========================================================
-   الحصول على أصحاحات السفر الحالي
-========================================================= */
-
-function getCurrentChapters(){
-
-  if(!currentBook){
-
-    return [];
-
-  }
-
-  return [
-
-    ...new Set(
-
-      verses
-
-        .filter(v => v.book === currentBook)
-
-        .map(v => v.chapter)
-
-    )
-
-  ].sort((a,b) => a-b);
-
-}
-
-
-/* =========================================================
-   السابق / التالي
-========================================================= */
-
-function updateChapterNavigation(){
-
-  const chapters = getCurrentChapters();
-
-  const index =
-    chapters.indexOf(currentChapter);
-
-  const previous =
-    $("previousChapterButton");
-
-  const next =
-    $("nextChapterButton");
-
-
-  if(!previous || !next){
-
-    return;
-
-  }
-
-
-  previous.disabled =
-    index <= 0;
-
-
-  next.disabled =
-    index === -1 ||
-    index >= chapters.length - 1;
-
-}
-
-
-function goPreviousChapter(){
-
-  const chapters = getCurrentChapters();
-
-  const index =
-    chapters.indexOf(currentChapter);
-
-
-  if(index > 0){
-
-    showChapter(
-      currentBook,
-      chapters[index - 1]
-    );
-
-  }
-
-}
-
-
-function goNextChapter(){
-
-  const chapters = getCurrentChapters();
-
-  const index =
-    chapters.indexOf(currentChapter);
-
-
-  if(
-    index >= 0 &&
-    index < chapters.length - 1
-  ){
-
-    showChapter(
-      currentBook,
-      chapters[index + 1]
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   السماعة
-   جاهزة لربط الصوت لاحقًا
-========================================================= */
-
-function playChapter(){
-
-  /*
-   * لا يوجد مسار صوت داخل المواصفة الحالية.
-   * الزر محفوظ وظيفيًا لربط الصوت لاحقًا
-   * دون تغيير بنية صفحة الكتاب المقدس.
-   */
-
-  alert(
-    "سيتم ربط صوت الأصحاح بهذه الأيقونة لاحقًا."
-  );
-
-}
-
-
-/* =========================================================
-   نافذة الآية
+   فتح الآية
 ========================================================= */
 
 function openVerse(book,chapter,verse){
 
-  const found = verses.find(v =>
+    const found = verses.find(function(v){
 
-    v.book === book &&
-    v.chapter === Number(chapter) &&
-    v.verse === Number(verse)
+        return (
 
-  );
+            v.book === book &&
+            Number(v.chapter) === Number(chapter) &&
+            Number(v.verse) === Number(verse)
 
+        );
 
-  if(!found){
-
-    return;
-
-  }
+    });
 
 
-  currentVerse = found;
+    if(!found){
+
+        return;
+
+    }
 
 
-  $("modalTitle").textContent =
-    `${BOOK_NAMES[book]} ${chapter}:${verse}`;
+    currentVerse = found;
 
 
-  $("modalVerse").innerHTML = `
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
 
-    <span class="vnum">
-      ${verse}
-    </span>
-
-    ${esc(found.text)}
-
-  `;
+        `${BOOK_NAMES[book]} ${chapter}:${verse}`;
 
 
-  $("modalBackdrop").classList.add("open");
+    document.getElementById(
+        "modalVerse"
+    ).innerHTML = `
 
-  document.body.style.overflow = "hidden";
+        <span class="verse-number">
+            ${verse}
+        </span>
+
+        ${escapeHTML(found.text)}
+
+    `;
+
+
+    document.getElementById(
+        "verseModal"
+    ).classList.add("open");
+
+
+    document.body.style.overflow =
+        "hidden";
 
 }
 
@@ -1805,300 +1870,523 @@ function openVerse(book,chapter,verse){
 
 function closeVerse(){
 
-  $("modalBackdrop").classList.remove("open");
+    document.getElementById(
+        "verseModal"
+    ).classList.remove("open");
 
-  document.body.style.overflow = "";
+    document.body.style.overflow = "";
 
 }
 
 
 /* =========================================================
-   وظائف نافذة الآية الأربعة
+   الخيارات الأربعة فقط
 ========================================================= */
 
-function openVerseFeature(feature){
+function verseFeature(feature){
 
-  if(!currentVerse){
+    if(!currentVerse){
 
-    return;
+        return;
 
-  }
-
-
-  /*
-   * هذه الوظائف هي نقاط الربط المستقبلية.
-   * لا يتم إضافة أي خيارات أخرى إلى نافذة الآية.
-   */
-
-  if(feature === "similar"){
-
-    alert(
-      "الآيات المشابهة — سيتم ربطها بمنظومة الآيات المشابهة لاحقًا."
-    );
-
-    return;
-
-  }
+    }
 
 
-  if(feature === "language"){
+    /*
+       نقاط الربط المستقبلية فقط.
+       لا تتم إضافة أي خيار خامس.
+    */
 
-    alert(
-      "أصل اللغة — سيتم ربطه ببيانات العبرية والآرامية واليونانية لاحقًا."
-    );
+    if(feature === "similar"){
 
-    return;
+        alert(
+            "الآيات المشابهة — سيتم ربط منظومة الآيات المشابهة لاحقًا."
+        );
 
-  }
+        return;
 
-
-  if(feature === "places"){
-
-    alert(
-      "الأماكن والأنهار — سيتم ربطها بقاعدة الأماكن والأنهار والخرائط لاحقًا."
-    );
-
-    return;
-
-  }
+    }
 
 
-  if(feature === "commentary"){
+    if(feature === "language"){
 
-    alert(
-      "التفسير — سيتم ربطه بمنظومة التفسير المستقلة لكل آية لاحقًا."
-    );
+        alert(
+            "أصل اللغة — سيتم ربط بيانات العبرية والآرامية واليونانية لاحقًا."
+        );
 
-    return;
+        return;
 
-  }
+    }
+
+
+    if(feature === "places"){
+
+        alert(
+            "الأماكن والأنهار — سيتم ربط قاعدة الأماكن والأنهار والخرائط لاحقًا."
+        );
+
+        return;
+
+    }
+
+
+    if(feature === "commentary"){
+
+        alert(
+            "التفسير — سيتم ربط منظومة التفسير المستقلة لكل آية لاحقًا."
+        );
+
+        return;
+
+    }
 
 }
 
 
 /* =========================================================
    البحث
+   نفس أيقونة البحث، نفس الصفحة
 ========================================================= */
 
-function showSearch(){
+function openSearch(){
 
-  setToolbar("search");
+    currentTestament = null;
 
-  currentTestament = null;
+    currentBook = null;
 
-  currentBook = null;
-
-  currentChapter = null;
+    currentChapter = null;
 
 
-  $("status").textContent = "";
+    app.innerHTML = `
+
+        <section class="workspace">
+
+            <div class="inner-topbar">
+
+                <button
+                    class="inner-back"
+                    type="button"
+                    onclick="renderStart()"
+                >
+                    ← رجوع
+                </button>
+
+                <h2 class="inner-title">
+                    🔎 البحث
+                </h2>
+
+            </div>
 
 
-  $("content").innerHTML = `
+            <div class="search-container">
 
-    <h2 class="level-heading">
-      البحث
-    </h2>
+                <div class="search-form">
 
-    <div class="level-subtitle">
-      البحث في نص الكتاب المقدس
-    </div>
+                    <input
+                        id="searchInput"
+                        class="search-input"
+                        type="search"
+                        placeholder="اكتب كلمة أو عبارة من الكتاب المقدس..."
+                        autocomplete="off"
+                    >
 
+                    <button
+                        class="search-submit"
+                        type="button"
+                        onclick="performSearch()"
+                    >
+                        بحث
+                    </button>
 
-    <div class="search-box">
-
-      <input
-        id="searchInput"
-        class="search-input"
-        type="search"
-        placeholder="اكتب كلمة أو عبارة..."
-        autocomplete="off"
-      >
-
-      <button
-        class="search-submit"
-        type="button"
-        onclick="performSearch()"
-      >
-        بحث
-      </button>
-
-    </div>
+                </div>
 
 
-    <div id="searchResults"></div>
+                <div id="searchResults"></div>
 
-  `;
+            </div>
+
+        </section>
+
+    `;
 
 
-  const input = $("searchInput");
+    const input =
+        document.getElementById(
+            "searchInput"
+        );
 
-  input.focus();
+
+    input.focus();
 
 
-  input.addEventListener(
-    "keydown",
-    event => {
+    input.addEventListener(
+        "keydown",
+        function(event){
 
-      if(event.key === "Enter"){
+            if(event.key === "Enter"){
 
-        performSearch();
+                performSearch();
 
-      }
+            }
 
-    }
-  );
+        }
+    );
 
 }
 
+
+/* =========================================================
+   تنفيذ البحث
+========================================================= */
 
 function performSearch(){
 
-  const input = $("searchInput");
+    const input =
+        document.getElementById(
+            "searchInput"
+        );
 
-  if(!input){
-
-    return;
-
-  }
-
-
-  const query =
-    input.value.trim().toLocaleLowerCase("ar");
+    const results =
+        document.getElementById(
+            "searchResults"
+        );
 
 
-  const results =
-    $("searchResults");
+    if(!input || !results){
+
+        return;
+
+    }
 
 
-  if(!query){
+    const query =
+        input.value
+            .trim()
+            .toLocaleLowerCase("ar");
+
+
+    if(!query){
+
+        results.innerHTML = `
+
+            <div class="empty">
+                اكتب كلمة أو عبارة للبحث.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const hits =
+        verses.filter(function(v){
+
+            return v.text
+                .toLocaleLowerCase("ar")
+                .includes(query);
+
+        });
+
+
+    if(!hits.length){
+
+        results.innerHTML = `
+
+            <div class="empty">
+                لا توجد نتائج.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
 
     results.innerHTML = `
-      <div class="status">
-        اكتب كلمة أو عبارة للبحث.
-      </div>
-    `;
 
-    return;
+        <div class="empty">
 
-  }
-
-
-  const hits = verses.filter(v =>
-
-    v.text
-      .toLocaleLowerCase("ar")
-      .includes(query)
-
-  );
-
-
-  if(!hits.length){
-
-    results.innerHTML = `
-      <div class="status">
-        لا توجد نتائج للبحث.
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  results.innerHTML = `
-
-    <div class="status">
-      عدد النتائج:
-      ${hits.length.toLocaleString("ar-EG")}
-    </div>
-
-
-    <div class="search-results">
-
-      ${hits.slice(0,300).map(v => `
-
-        <div
-          class="search-result"
-          onclick="openSearchResult(
-            '${v.book}',
-            ${v.chapter},
-            ${v.verse}
-          )"
-        >
-
-          <span class="search-result-ref">
-            ${esc(BOOK_NAMES[v.book])}
-            ${v.chapter}:${v.verse}
-          </span>
-
-          ${esc(v.text)}
+            عدد النتائج:
+            ${hits.length.toLocaleString("ar-EG")}
 
         </div>
 
-      `).join("")}
 
-    </div>
+        <div class="search-results">
 
-  `;
+            ${hits.slice(0,300).map(function(v){
 
-}
+                return `
 
+                    <div
+                        class="search-result"
+                        onclick="openSearchVerse(
+                            '${v.book}',
+                            ${v.chapter},
+                            ${v.verse}
+                        )"
+                    >
 
-function openSearchResult(book,chapter,verse){
+                        <span class="search-reference">
 
-  showChapter(book,chapter);
+                            ${escapeHTML(
+                                BOOK_NAMES[v.book] ||
+                                v.book
+                            )}
 
-  setTimeout(() => {
+                            ${v.chapter}:${v.verse}
 
-    openVerse(book,chapter,verse);
+                        </span>
 
-  },80);
+                        ${escapeHTML(v.text)}
+
+                    </div>
+
+                `;
+
+            }).join("")}
+
+        </div>
+
+    `;
 
 }
 
 
 /* =========================================================
-   إغلاق النافذة بالنقر خارجها
+   نتيجة البحث
 ========================================================= */
 
-$("modalBackdrop").addEventListener(
-  "click",
-  event => {
+function openSearchVerse(
+    book,
+    chapter,
+    verse
+){
 
-    if(event.target === $("modalBackdrop")){
+    /*
+       نذهب إلى الأصحاح داخل نفس الصفحة
+       ثم نفتح الآية.
+    */
 
-      closeVerse();
+    openChapter(
+        book,
+        Number(chapter)
+    );
 
-    }
 
-  }
-);
+    setTimeout(function(){
+
+        openVerse(
+            book,
+            Number(chapter),
+            Number(verse)
+        );
+
+    },50);
+
+}
 
 
 /* =========================================================
-   إغلاق النافذة بمفتاح ESC
+   السماعة
+========================================================= */
+
+function playChapter(){
+
+    /*
+       نقطة ربط الصوت لاحقًا.
+       لا يتم تغيير تصميم الصفحة.
+    */
+
+    alert(
+        "سيتم ربط صوت الأصحاح بهذه الأيقونة لاحقًا."
+    );
+
+}
+
+
+/* =========================================================
+   إغلاق النافذة عند الضغط خارجها
+========================================================= */
+
+document
+    .getElementById("verseModal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target ===
+                document.getElementById(
+                    "verseModal"
+                )
+            ){
+
+                closeVerse();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   ESC
 ========================================================= */
 
 document.addEventListener(
-  "keydown",
-  event => {
+    "keydown",
+    function(event){
 
-    if(
-      event.key === "Escape" &&
-      $("modalBackdrop").classList.contains("open")
-    ){
+        if(
+            event.key === "Escape" &&
+            document
+                .getElementById("verseModal")
+                .classList
+                .contains("open")
+        ){
 
-      closeVerse();
+            closeVerse();
+
+        }
 
     }
-
-  }
 );
 
 
 /* =========================================================
-   بدء تشغيل الصفحة
+   تحميل bible.json
+========================================================= */
+
+async function loadBible(){
+
+    try{
+
+        const response =
+            await fetch(
+                BIBLE_URL,
+                {
+                    cache:"no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP " + response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(!Array.isArray(data)){
+
+            throw new Error(
+                "bible.json ليس مصفوفة JSON"
+            );
+
+        }
+
+
+        verses = data
+
+            .map(function(v){
+
+                return {
+
+                    book:String(
+                        v.book ?? ""
+                    ).trim(),
+
+                    chapter:Number(
+                        v.chapter
+                    ),
+
+                    verse:Number(
+                        v.verse ??
+                        v.number
+                    ),
+
+                    text:String(
+                        v.text ?? ""
+                    ).trim()
+
+                };
+
+            })
+
+            .filter(function(v){
+
+                return (
+
+                    v.book &&
+                    Number.isFinite(v.chapter) &&
+                    Number.isFinite(v.verse) &&
+                    v.text
+
+                );
+
+            });
+
+
+        /*
+           لا نحذف أي سفر من قائمة الأسفار.
+           البيانات فقط هي التي تأتي من bible.json.
+        */
+
+
+        renderStart();
+
+
+        console.log(
+            "Bible loaded:",
+            verses.length,
+            "verses"
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        app.innerHTML = `
+
+            <section class="workspace">
+
+                <div class="error">
+
+                    تعذر تحميل
+                    <b>bible.json</b>.
+
+                    <br><br>
+
+                    تأكد من وجود الملف
+                    <b>bible.json</b>
+                    في نفس مجلد
+                    <b>bible.html</b>.
+
+                </div>
+
+            </section>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   تشغيل
 ========================================================= */
 
 loadBible();
@@ -2107,4 +2395,3 @@ loadBible();
 
 </body>
 </html>
-```
