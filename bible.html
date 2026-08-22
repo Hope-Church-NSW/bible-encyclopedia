@@ -299,15 +299,16 @@ main{
 }
 
 .book{
-    min-height:100px;
+    min-height:95px;
     border:1px solid var(--line);
     border-radius:13px;
     background:var(--panel2);
-    color:var(--white);
+    color:var(--gold2);
     cursor:pointer;
-    padding:20px 13px;
-    font-size:26px;
+    padding:18px 13px;
+    font-size:25px;
     font-weight:900;
+    line-height:1.5;
     transition:.2s ease;
     display:flex;
     align-items:center;
@@ -322,8 +323,12 @@ main{
     transform:translateY(-2px);
 }
 
-.book-number{
-    display:none;
+.book-name{
+    display:block;
+    color:var(--gold2);
+    font-size:25px;
+    font-weight:900;
+    line-height:1.5;
 }
 
 .chapters-grid{
@@ -681,6 +686,15 @@ main{
         grid-template-columns:1fr;
     }
 
+    .book{
+        min-height:82px;
+        font-size:23px;
+    }
+
+    .book-name{
+        font-size:23px;
+    }
+
     .chapters-grid{
         grid-template-columns:repeat(4,minmax(0,1fr));
     }
@@ -721,6 +735,15 @@ main{
 
     .audio{
         width:50px;
+    }
+
+    .book{
+        min-height:76px;
+        font-size:21px;
+    }
+
+    .book-name{
+        font-size:21px;
     }
 
 }
@@ -852,7 +875,7 @@ const BIBLE_URL = "bible.json";
 
 /* =========================================================
    أسماء الأسفار
-   IDs مطابقة حرفيًا لبنية bible.json
+   IDs مطابقة لبنية bible.json
 ========================================================= */
 
 const BOOK_NAMES = {
@@ -930,7 +953,6 @@ const BOOK_NAMES = {
 
 /* =========================================================
    ترتيب العهد القديم
-   مطابق لـ bible.json
 ========================================================= */
 
 const OLD_BOOKS = [
@@ -980,7 +1002,6 @@ const OLD_BOOKS = [
 
 /* =========================================================
    ترتيب العهد الجديد
-   مطابق لـ bible.json
 ========================================================= */
 
 const NEW_BOOKS = [
@@ -1282,9 +1303,11 @@ function openTestament(testament){
                             onclick="openBook('${bookId}')"
                         >
 
-                            ${escapeHTML(
-                                BOOK_NAMES[bookId]
-                            )}
+                            <span class="book-name">
+                                ${escapeHTML(
+                                    BOOK_NAMES[bookId]
+                                )}
+                            </span>
 
                         </button>
 
@@ -1835,11 +1858,35 @@ function verseFeature(feature){
     }
 
 
+    /* =====================================================
+       التفسير
+       يفتح موسوعة التفسير المستقلة مع مرجع الآية
+       ولا يلمس bible.json أو بنية bible.html
+    ===================================================== */
+
     if(feature === "commentary"){
 
-        alert(
-            "التفسير — سيتم ربط منظومة التفسير المستقلة لكل آية لاحقًا."
-        );
+        const book =
+            encodeURIComponent(
+                String(currentVerse.book)
+            );
+
+        const chapter =
+            encodeURIComponent(
+                String(currentVerse.chapter)
+            );
+
+        const verse =
+            encodeURIComponent(
+                String(currentVerse.verse)
+            );
+
+
+        window.location.href =
+            "overview.html" +
+            "?book=" + book +
+            "&chapter=" + chapter +
+            "&verse=" + verse;
 
         return;
 
