@@ -299,16 +299,20 @@ main{
 }
 
 .book{
-    min-height:78px;
+    min-height:100px;
     border:1px solid var(--line);
     border-radius:13px;
     background:var(--panel2);
     color:var(--white);
     cursor:pointer;
-    padding:13px;
-    font-size:18px;
+    padding:20px 13px;
+    font-size:26px;
     font-weight:900;
     transition:.2s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
 }
 
 .book:hover{
@@ -319,10 +323,7 @@ main{
 }
 
 .book-number{
-    display:block;
-    color:var(--gold2);
-    font-size:13px;
-    margin-bottom:5px;
+    display:none;
 }
 
 .chapters-grid{
@@ -1271,7 +1272,7 @@ function openTestament(testament){
 
             <div class="books-grid">
 
-                ${list.map(function(bookId,index){
+                ${list.map(function(bookId){
 
                     return `
 
@@ -1280,10 +1281,6 @@ function openTestament(testament){
                             type="button"
                             onclick="openBook('${bookId}')"
                         >
-
-                            <span class="book-number">
-                                السفر ${index + 1}
-                            </span>
 
                             ${escapeHTML(
                                 BOOK_NAMES[bookId]
