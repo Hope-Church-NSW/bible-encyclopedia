@@ -11,12 +11,7 @@
 
 <style>
 
-/* =====================================================
-   ROOT
-===================================================== */
-
 :root{
-
     --blue-1:#04111f;
     --blue-2:#071c31;
     --blue-3:#0d2d4a;
@@ -29,14 +24,8 @@
     --white:#f7f9fc;
     --muted:#aebdca;
 
-    --border:
-        rgba(212,175,55,.32);
+    --border:rgba(212,175,55,.32);
 }
-
-
-/* =====================================================
-   GLOBAL
-===================================================== */
 
 *{
     box-sizing:border-box;
@@ -142,7 +131,7 @@ body{
 
 
 /* =====================================================
-   BACK BUTTON
+   HOME BUTTON
 ===================================================== */
 
 .home-btn{
@@ -252,14 +241,12 @@ body{
 @keyframes logoFloat{
 
     0%,100%{
-
         transform:
             translateY(0)
             rotateY(0deg);
     }
 
     50%{
-
         transform:
             translateY(-4px)
             rotateY(8deg);
@@ -353,56 +340,24 @@ body{
 
 
 /* =====================================================
-   SECTION
+   STUDY GROUP
+   لا توجد عناوين ظاهرة للمجموعات
 ===================================================== */
 
 .study-group{
 
-    margin-top:42px;
+    margin-top:28px;
 }
 
 
+/*
+   إخفاء عناوين الأقسام بالكامل.
+   المستخدم يرى الأيقونات فقط.
+*/
+
 .group-title{
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:12px;
-
-    margin:
-        0 0 22px;
-
-    padding:
-        15px 20px;
-
-    color:var(--gold-light);
-
-    font-size:
-        clamp(23px,4vw,29px);
-
-    font-weight:900;
-
-    border:
-        1px solid
-        rgba(212,175,55,.34);
-
-    border-radius:18px;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(13,56,93,.94),
-            rgba(4,23,39,.98)
-        );
-
-    box-shadow:
-
-        0 10px 26px
-        rgba(0,0,0,.40);
+    display:none !important;
 }
 
 
@@ -622,17 +577,30 @@ body{
 
 
 /* =====================================================
-   REMOVE ALL TEXT INSIDE STUDY CARDS
+   أي نص داخل البطاقات ممنوع ظهوره
 ===================================================== */
 
 .study-card h3,
-.study-card p{
+.study-card p,
+.study-card .card-title,
+.study-card .card-name,
+.study-card .card-text,
+.study-card .book-name,
+.study-card .book-subtitle{
 
     display:none !important;
 
-    margin:0;
+    visibility:hidden !important;
 
-    padding:0;
+    height:0 !important;
+
+    width:0 !important;
+
+    margin:0 !important;
+
+    padding:0 !important;
+
+    overflow:hidden !important;
 }
 
 
@@ -772,20 +740,7 @@ footer{
 
     .study-group{
 
-        margin-top:30px;
-    }
-
-
-    .group-title{
-
-        padding:
-            12px;
-
-        margin-bottom:15px;
-
-        font-size:21px;
-
-        border-radius:15px;
+        margin-top:20px;
     }
 
 
@@ -895,26 +850,19 @@ footer{
     <div class="topbar">
 
 
-        <!-- زر العودة -->
-
         <a
             href="index.html"
             class="home-btn"
             title="العودة إلى الرئيسية"
+            aria-label="العودة إلى الرئيسية"
         >
 
-            <span>
-                ⌂
-            </span>
+            <span>⌂</span>
 
-            <span>
-                الرئيسية
-            </span>
+            <span>الرئيسية</span>
 
         </a>
 
-
-        <!-- شعار الكنيسة -->
 
         <div class="brand">
 
@@ -965,9 +913,7 @@ footer{
             🏛️ العبادة والهيكل
         </h2>
 
-
         <div class="study-grid">
-
 
             <a
                 href="study-tabernacle.html"
@@ -975,11 +921,7 @@ footer{
                 title="خيمة الاجتماع"
                 aria-label="خيمة الاجتماع"
             >
-
-                <div class="card-icon">
-                    ⛺
-                </div>
-
+                <div class="card-icon">⛺</div>
             </a>
 
 
@@ -989,11 +931,7 @@ footer{
                 title="هيكل سليمان"
                 aria-label="هيكل سليمان"
             >
-
-                <div class="card-icon">
-                    🏛️
-                </div>
-
+                <div class="card-icon">🏛️</div>
             </a>
 
 
@@ -1003,11 +941,7 @@ footer{
                 title="هيكل هيرودس"
                 aria-label="هيكل هيرودس"
             >
-
-                <div class="card-icon">
-                    🏗️
-                </div>
-
+                <div class="card-icon">🏗️</div>
             </a>
 
 
@@ -1017,13 +951,8 @@ footer{
                 title="مقارنة خيمة الاجتماع والهياكل"
                 aria-label="مقارنة خيمة الاجتماع والهياكل"
             >
-
-                <div class="card-icon">
-                    ⚖️
-                </div>
-
+                <div class="card-icon">⚖️</div>
             </a>
-
 
         </div>
 
@@ -1040,9 +969,7 @@ footer{
             📅 المواسم والأعياد
         </h2>
 
-
         <div class="study-grid">
-
 
             <a
                 href="study-biblical-feasts.html"
@@ -1050,13 +977,8 @@ footer{
                 title="مواسم وأعياد الكتاب المقدس"
                 aria-label="مواسم وأعياد الكتاب المقدس"
             >
-
-                <div class="card-icon">
-                    🕎
-                </div>
-
+                <div class="card-icon">🕎</div>
             </a>
-
 
         </div>
 
@@ -1073,9 +995,7 @@ footer{
             📚 الموسوعة الكتابية
         </h2>
 
-
         <div class="study-grid">
-
 
             <a
                 href="encyclopedia.html"
@@ -1083,11 +1003,7 @@ footer{
                 title="الموسوعة الكتابية"
                 aria-label="الموسوعة الكتابية"
             >
-
-                <div class="card-icon">
-                    📖
-                </div>
-
+                <div class="card-icon">📖</div>
             </a>
 
 
@@ -1097,13 +1013,8 @@ footer{
                 title="مقدمة أسفار الكتاب المقدس"
                 aria-label="مقدمة أسفار الكتاب المقدس"
             >
-
-                <div class="card-icon">
-                    📜
-                </div>
-
+                <div class="card-icon">📜</div>
             </a>
-
 
         </div>
 
@@ -1120,9 +1031,7 @@ footer{
             ✝️ المسيح في الكتاب المقدس
         </h2>
 
-
         <div class="study-grid">
-
 
             <a
                 href="study-christ-prophecies.html"
@@ -1130,11 +1039,7 @@ footer{
                 title="المسيح في نبوات الكتاب"
                 aria-label="المسيح في نبوات الكتاب"
             >
-
-                <div class="card-icon">
-                    ✝
-                </div>
-
+                <div class="card-icon">✝</div>
             </a>
 
 
@@ -1144,13 +1049,8 @@ footer{
                 title="معجزات المسيح"
                 aria-label="معجزات المسيح"
             >
-
-                <div class="card-icon">
-                    ✨
-                </div>
-
+                <div class="card-icon">✨</div>
             </a>
-
 
         </div>
 
@@ -1167,9 +1067,7 @@ footer{
             👤 الشخصيات
         </h2>
 
-
         <div class="study-grid">
-
 
             <a
                 href="study-biblical-characters.html"
@@ -1177,13 +1075,8 @@ footer{
                 title="شخصيات الكتاب المقدس"
                 aria-label="شخصيات الكتاب المقدس"
             >
-
-                <div class="card-icon">
-                    👤
-                </div>
-
+                <div class="card-icon">👤</div>
             </a>
-
 
         </div>
 
@@ -1200,9 +1093,7 @@ footer{
             🕍 الخلفية اليهودية للعهد الجديد
         </h2>
 
-
         <div class="study-grid">
-
 
             <a
                 href="study-jewish-background.html"
@@ -1210,13 +1101,8 @@ footer{
                 title="الخلفية اليهودية للعهد الجديد"
                 aria-label="الخلفية اليهودية للعهد الجديد"
             >
-
-                <div class="card-icon">
-                    🕍
-                </div>
-
+                <div class="card-icon">🕍</div>
             </a>
-
 
         </div>
 
@@ -1233,9 +1119,7 @@ footer{
             🌊 الجغرافيا الكتابية
         </h2>
 
-
         <div class="study-grid">
-
 
             <a
                 href="study-biblical-rivers.html"
@@ -1243,13 +1127,8 @@ footer{
                 title="الأنهار في الكتاب المقدس"
                 aria-label="الأنهار في الكتاب المقدس"
             >
-
-                <div class="card-icon">
-                    🌊
-                </div>
-
+                <div class="card-icon">🌊</div>
             </a>
-
 
         </div>
 
