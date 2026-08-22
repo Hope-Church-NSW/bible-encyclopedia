@@ -303,10 +303,10 @@ main{
     border:1px solid var(--line);
     border-radius:13px;
     background:var(--panel2);
-    color:var(--gold2);
+    color:var(--white);
     cursor:pointer;
-    padding:18px 13px;
-    font-size:25px;
+    padding:13px;
+    font-size:18px;
     font-weight:900;
     transition:.2s ease;
 }
@@ -316,6 +316,10 @@ main{
     background:var(--panel3);
     color:var(--gold2);
     transform:translateY(-2px);
+}
+
+.book-number{
+    display:none;
 }
 
 .chapters-grid{
@@ -356,9 +360,8 @@ main{
 }
 
 .chapter-book-name{
-    color:var(--gold2);
-    font-size:25px;
-    font-weight:900;
+    color:var(--muted);
+    font-size:17px;
     margin-bottom:7px;
 }
 
@@ -751,11 +754,13 @@ main{
 
 </header>
 
+
 <main>
 
     <div id="app"></div>
 
 </main>
+
 
 <div
     id="verseModal"
@@ -783,10 +788,12 @@ main{
 
         </div>
 
+
         <div
             id="modalVerse"
             class="modal-verse"
         ></div>
+
 
         <div class="modal-actions">
 
@@ -828,17 +835,27 @@ main{
 
 </div>
 
+
 <script>
 
 /* =========================================================
    مصدر الكتاب المقدس
+   الملف الموجود فعليًا في المستودع
 ========================================================= */
 
 const BIBLE_URL = "bible.json";
 
 
 /* =========================================================
-   موسوعة أسماء الأسفار
+   ملف موسوعة التفسير
+========================================================= */
+
+const COMMENTARY_URL = "overview.html";
+
+
+/* =========================================================
+   أسماء الأسفار
+   IDs مطابقة حرفيًا لبنية bible.json
 ========================================================= */
 
 const BOOK_NAMES = {
@@ -915,7 +932,7 @@ const BOOK_NAMES = {
 
 
 /* =========================================================
-   ترتيب الأسفار
+   ترتيب العهد القديم
 ========================================================= */
 
 const OLD_BOOKS = [
@@ -963,6 +980,10 @@ const OLD_BOOKS = [
 ];
 
 
+/* =========================================================
+   ترتيب العهد الجديد
+========================================================= */
+
 const NEW_BOOKS = [
 
     "40-Matthew",
@@ -996,21 +1017,11 @@ const NEW_BOOKS = [
 ];
 
 
-const ALL_BOOKS = [
-    ...OLD_BOOKS,
-    ...NEW_BOOKS
-];
-
-
 /* =========================================================
    الحالة
 ========================================================= */
 
 let verses = [];
-
-let verseIndex = new Map();
-
-let chapterIndex = new Map();
 
 let currentTestament = null;
 
@@ -1022,15 +1033,11 @@ let currentVerse = null;
 
 
 /* =========================================================
-   عناصر الصفحة
+   أدوات
 ========================================================= */
 
 const app = document.getElementById("app");
 
-
-/* =========================================================
-   حماية HTML
-========================================================= */
 
 function escapeHTML(value){
 
@@ -1053,904 +1060,13 @@ function escapeHTML(value){
 
 
 /* =========================================================
-   تحويل قيم الأصحاح والآية
-========================================================= */
-
-function normalizeNumber(value){
-
-    if(
-        value === null ||
-        value === undefined ||
-        value === ""
-    ){
-
-        return NaN;
-
-    }
-
-    const number =
-        Number(
-            String(value)
-                .replace(/[^\d.]/g,"")
-        );
-
-    return Number.isFinite(number)
-        ? number
-        : NaN;
-
-}
-
-
-/* =========================================================
-   استخراج النص
-========================================================= */
-
-function extractText(value){
-
-    if(value === null || value === undefined){
-
-        return "";
-
-    }
-
-    if(typeof value === "string"){
-
-        return value.trim();
-
-    }
-
-    if(typeof value === "number"){
-
-        return String(value);
-
-    }
-
-    if(typeof value === "object"){
-
-        const candidates = [
-
-            value.text,
-            value.verse,
-            value.content,
-            value.value,
-            value.body
-
-        ];
-
-        for(const candidate of candidates){
-
-            const text = extractText(candidate);
-
-            if(text){
-
-                return text;
-
-            }
-
-        }
-
-    }
-
-    return "";
-
-}
-
-
-/* =========================================================
-   استخراج اسم السفر من أي بنية محتملة
-========================================================= */
-
-function normalizeBookId(value){
-
-    if(value === null || value === undefined){
-
-        return "";
-
-    }
-
-    if(typeof value === "object"){
-
-        return normalizeBookId(
-
-            value.book ??
-            value.bookId ??
-            value.id ??
-            value.name ??
-            value.key
-
-        );
-
-    }
-
-    const raw =
-        String(value).trim();
-
-    if(!raw){
-
-        return "";
-
-    }
-
-    if(BOOK_NAMES[raw]){
-
-        return raw;
-
-    }
-
-    const clean =
-        raw
-            .replace(/\.json$/i,"")
-            .trim();
-
-    if(BOOK_NAMES[clean]){
-
-        return clean;
-
-    }
-
-    const lower =
-        clean.toLowerCase();
-
-    const found =
-        ALL_BOOKS.find(function(id){
-
-            return id.toLowerCase() === lower;
-
-        });
-
-    if(found){
-
-        return found;
-
-    }
-
-    return clean;
-
-}
-
-
-/* =========================================================
-   إضافة آية صحيحة إلى قاعدة الذاكرة
-========================================================= */
-
-function pushVerse(book,chapter,verse,text){
-
-    const bookId =
-        normalizeBookId(book);
-
-    const chapterNumber =
-        normalizeNumber(chapter);
-
-    const verseNumber =
-        normalizeNumber(verse);
-
-    const verseText =
-        extractText(text);
-
-    if(!bookId){
-
-        return;
-
-    }
-
-    if(!Number.isFinite(chapterNumber)){
-
-        return;
-
-    }
-
-    if(!Number.isFinite(verseNumber)){
-
-        return;
-
-    }
-
-    if(!verseText){
-
-        return;
-
-    }
-
-    verses.push({
-
-        book:bookId,
-
-        chapter:chapterNumber,
-
-        verse:verseNumber,
-
-        text:verseText
-
-    });
-
-}
-
-
-/* =========================================================
-   قراءة صف آية مباشر
-========================================================= */
-
-function readDirectVerseObject(obj){
-
-    if(!obj || typeof obj !== "object"){
-
-        return false;
-
-    }
-
-    const book =
-        obj.book ??
-        obj.bookId ??
-        obj.book_id ??
-        obj.bookID ??
-        obj.bookName;
-
-    const chapter =
-        obj.chapter ??
-        obj.chapterNumber ??
-        obj.chapter_number ??
-        obj.ch;
-
-    const verse =
-        obj.verse ??
-        obj.verseNumber ??
-        obj.verse_number ??
-        obj.number ??
-        obj.v;
-
-    const text =
-        obj.text ??
-        obj.content ??
-        obj.verseText ??
-        obj.body;
-
-    if(
-        book !== undefined &&
-        chapter !== undefined &&
-        verse !== undefined &&
-        text !== undefined
-    ){
-
-        pushVerse(
-            book,
-            chapter,
-            verse,
-            text
-        );
-
-        return true;
-
-    }
-
-    return false;
-
-}
-
-
-/* =========================================================
-   قراءة بنية bible.json المرنة
-========================================================= */
-
-function parseBibleData(data){
-
-    verses = [];
-
-    verseIndex.clear();
-
-    chapterIndex.clear();
-
-
-    /*
-       الحالة 1:
-       bible.json عبارة عن مصفوفة مباشرة
-       من الآيات.
-    */
-
-    if(Array.isArray(data)){
-
-        for(const item of data){
-
-            readRecursive(
-                item,
-                null,
-                null
-            );
-
-        }
-
-    }else{
-
-        readRecursive(
-            data,
-            null,
-            null
-        );
-
-    }
-
-
-    /*
-       إزالة التكرار.
-    */
-
-    const unique =
-        new Map();
-
-    for(const verse of verses){
-
-        const key =
-            verse.book +
-            "|" +
-            verse.chapter +
-            "|" +
-            verse.verse;
-
-        if(!unique.has(key)){
-
-            unique.set(
-                key,
-                verse
-            );
-
-        }
-
-    }
-
-    verses =
-        Array.from(
-            unique.values()
-        );
-
-
-    /*
-       ترتيب الكتاب كاملًا.
-    */
-
-    verses.sort(function(a,b){
-
-        const indexA =
-            ALL_BOOKS.indexOf(a.book);
-
-        const indexB =
-            ALL_BOOKS.indexOf(b.book);
-
-
-        const safeA =
-            indexA >= 0
-                ? indexA
-                : 999;
-
-        const safeB =
-            indexB >= 0
-                ? indexB
-                : 999;
-
-
-        if(safeA !== safeB){
-
-            return safeA - safeB;
-
-        }
-
-
-        if(a.chapter !== b.chapter){
-
-            return a.chapter - b.chapter;
-
-        }
-
-
-        return a.verse - b.verse;
-
-    });
-
-
-    /*
-       إنشاء فهارس سريعة.
-    */
-
-    for(const verse of verses){
-
-        const verseKey =
-            verse.book +
-            "|" +
-            verse.chapter +
-            "|" +
-            verse.verse;
-
-        verseIndex.set(
-            verseKey,
-            verse
-        );
-
-
-        const chapterKey =
-            verse.book +
-            "|" +
-            verse.chapter;
-
-
-        if(!chapterIndex.has(chapterKey)){
-
-            chapterIndex.set(
-                chapterKey,
-                []
-            );
-
-        }
-
-        chapterIndex
-            .get(chapterKey)
-            .push(verse);
-
-    }
-
-}
-
-
-/* =========================================================
-   القراءة العودية
-========================================================= */
-
-function readRecursive(
-    node,
-    inheritedBook,
-    inheritedChapter
-){
-
-    if(node === null || node === undefined){
-
-        return;
-
-    }
-
-
-    /*
-       مصفوفة.
-    */
-
-    if(Array.isArray(node)){
-
-        for(const item of node){
-
-            readRecursive(
-                item,
-                inheritedBook,
-                inheritedChapter
-            );
-
-        }
-
-        return;
-
-    }
-
-
-    /*
-       نص فقط.
-    */
-
-    if(typeof node !== "object"){
-
-        return;
-
-    }
-
-
-    /*
-       محاولة قراءة الآية مباشرة.
-    */
-
-    if(readDirectVerseObject(node)){
-
-        return;
-
-    }
-
-
-    /*
-       استخراج السفر الموروث.
-    */
-
-    let book =
-        inheritedBook;
-
-
-    if(
-        node.book !== undefined ||
-        node.bookId !== undefined ||
-        node.book_id !== undefined ||
-        node.id !== undefined &&
-        (
-            node.chapters !== undefined ||
-            node.chapter !== undefined ||
-            node.verses !== undefined
-        )
-    ){
-
-        book =
-            normalizeBookId(
-                node.book ??
-                node.bookId ??
-                node.book_id ??
-                node.id ??
-                node.name ??
-                node.key
-            );
-
-    }
-
-
-    /*
-       استخراج الأصحاح الموروث.
-    */
-
-    let chapter =
-        inheritedChapter;
-
-
-    if(
-        node.chapter !== undefined ||
-        node.chapterNumber !== undefined ||
-        node.chapter_number !== undefined
-    ){
-
-        chapter =
-            normalizeNumber(
-                node.chapter ??
-                node.chapterNumber ??
-                node.chapter_number
-            );
-
-    }
-
-
-    /*
-       بنية:
-       book -> chapters
-    */
-
-    const chapterCollections = [
-
-        node.chapters,
-        node.chapterData,
-        node.chapter_data
-
-    ];
-
-
-    for(const collection of chapterCollections){
-
-        if(collection === undefined){
-
-            continue;
-
-        }
-
-
-        if(Array.isArray(collection)){
-
-            collection.forEach(function(item,index){
-
-                readRecursive(
-                    item,
-                    book,
-                    index + 1
-                );
-
-            });
-
-        }else if(
-            collection &&
-            typeof collection === "object"
-        ){
-
-            Object.keys(collection).forEach(function(key){
-
-                const value =
-                    collection[key];
-
-                const numericKey =
-                    normalizeNumber(key);
-
-                readRecursive(
-                    value,
-                    book,
-                    Number.isFinite(numericKey)
-                        ? numericKey
-                        : chapter
-                );
-
-            });
-
-        }
-
-    }
-
-
-    /*
-       بنية verses داخل السفر أو الأصحاح.
-    */
-
-    if(node.verses !== undefined){
-
-        const collection =
-            node.verses;
-
-
-        if(Array.isArray(collection)){
-
-            collection.forEach(function(item,index){
-
-                if(
-                    item &&
-                    typeof item === "object" &&
-                    !Array.isArray(item)
-                ){
-
-                    const itemVerse =
-                        item.verse ??
-                        item.verseNumber ??
-                        item.verse_number ??
-                        item.number ??
-                        index + 1;
-
-                    const itemText =
-                        item.text ??
-                        item.content ??
-                        item.verseText ??
-                        item.body ??
-                        item.value;
-
-                    pushVerse(
-                        book,
-                        chapter,
-                        itemVerse,
-                        itemText
-                    );
-
-                }
-
-            });
-
-        }else if(
-            collection &&
-            typeof collection === "object"
-        ){
-
-            Object.keys(collection).forEach(function(key){
-
-                const item =
-                    collection[key];
-
-
-                if(
-                    item &&
-                    typeof item === "object" &&
-                    !Array.isArray(item)
-                ){
-
-                    const itemVerse =
-                        item.verse ??
-                        item.verseNumber ??
-                        item.number ??
-                        normalizeNumber(key);
-
-
-                    const itemText =
-                        item.text ??
-                        item.content ??
-                        item.value ??
-                        item.body ??
-                        item.verse;
-
-
-                    pushVerse(
-                        book,
-                        chapter,
-                        itemVerse,
-                        itemText
-                    );
-
-                }else{
-
-                    pushVerse(
-                        book,
-                        chapter,
-                        key,
-                        item
-                    );
-
-                }
-
-            });
-
-        }
-
-    }
-
-
-    /*
-       بعض صيغ JSON تستخدم:
-       books
-    */
-
-    if(node.books !== undefined){
-
-        const books =
-            node.books;
-
-        if(Array.isArray(books)){
-
-            books.forEach(function(item){
-
-                readRecursive(
-                    item,
-                    null,
-                    null
-                );
-
-            });
-
-        }else if(
-            books &&
-            typeof books === "object"
-        ){
-
-            Object.keys(books).forEach(function(key){
-
-                readRecursive(
-                    books[key],
-                    normalizeBookId(key),
-                    null
-                );
-
-            });
-
-        }
-
-    }
-
-
-    /*
-       المرور على بقية الخصائص غير المعروفة
-       لاكتشاف البنية بدون كسر bible.json.
-    */
-
-    const ignored = new Set([
-
-        "book",
-        "bookId",
-        "book_id",
-        "bookID",
-        "bookName",
-        "id",
-        "name",
-        "key",
-
-        "chapter",
-        "chapterNumber",
-        "chapter_number",
-
-        "verse",
-        "verseNumber",
-        "verse_number",
-        "number",
-
-        "text",
-        "content",
-        "verseText",
-        "body",
-        "value",
-
-        "chapters",
-        "chapterData",
-        "chapter_data",
-
-        "verses",
-        "books"
-
-    ]);
-
-
-    for(const key of Object.keys(node)){
-
-        if(ignored.has(key)){
-
-            continue;
-
-        }
-
-
-        const value =
-            node[key];
-
-
-        /*
-           إذا كان المفتاح اسم سفر معروف.
-        */
-
-        const possibleBook =
-            normalizeBookId(key);
-
-
-        const isKnownBook =
-            ALL_BOOKS.includes(
-                possibleBook
-            );
-
-
-        if(isKnownBook){
-
-            readRecursive(
-                value,
-                possibleBook,
-                null
-            );
-
-            continue;
-
-        }
-
-
-        /*
-           إذا كان المفتاح رقم أصحاح.
-        */
-
-        const possibleChapter =
-            normalizeNumber(key);
-
-
-        if(
-            book &&
-            Number.isFinite(
-                possibleChapter
-            )
-        ){
-
-            readRecursive(
-                value,
-                book,
-                possibleChapter
-            );
-
-            continue;
-
-        }
-
-
-        /*
-           الاستمرار داخل البنية.
-        */
-
-        if(
-            value &&
-            typeof value === "object"
-        ){
-
-            readRecursive(
-                value,
-                book,
-                chapter
-            );
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
    الصفحة الأولى
 ========================================================= */
 
 function renderStart(){
 
     currentTestament = null;
-
     currentBook = null;
-
     currentChapter = null;
 
     app.innerHTML = `
@@ -2018,7 +1134,7 @@ function renderStart(){
 
 
 /* =========================================================
-   فتح الكتاب
+   فتح الكتاب المقدس
 ========================================================= */
 
 function openBible(){
@@ -2035,9 +1151,7 @@ function openBible(){
 function renderTestaments(){
 
     currentTestament = null;
-
     currentBook = null;
-
     currentChapter = null;
 
     app.innerHTML = `
@@ -2119,19 +1233,16 @@ function renderTestaments(){
 
 function openTestament(testament){
 
-    currentTestament =
-        testament;
+    currentTestament = testament;
 
     currentBook = null;
 
     currentChapter = null;
 
-
     const list =
         testament === "old"
             ? OLD_BOOKS
             : NEW_BOOKS;
-
 
     const title =
         testament === "old"
@@ -2171,10 +1282,11 @@ function openTestament(testament){
                             type="button"
                             onclick="openBook('${bookId}')"
                         >
+
                             ${escapeHTML(
-                                BOOK_NAMES[bookId] ||
-                                bookId
+                                BOOK_NAMES[bookId]
                             )}
+
                         </button>
 
                     `;
@@ -2191,95 +1303,66 @@ function openTestament(testament){
 
 
 /* =========================================================
-   الأصحاحات الموجودة فعليًا
-========================================================= */
-
-function getChapters(bookId){
-
-    const chapters = [];
-
-
-    for(const key of chapterIndex.keys()){
-
-        const parts =
-            key.split("|");
-
-
-        if(parts[0] !== bookId){
-
-            continue;
-
-        }
-
-
-        const chapter =
-            Number(parts[1]);
-
-
-        if(
-            Number.isFinite(chapter) &&
-            !chapters.includes(chapter)
-        ){
-
-            chapters.push(
-                chapter
-            );
-
-        }
-
-    }
-
-
-    return chapters.sort(
-        function(a,b){
-            return a-b;
-        }
-    );
-
-}
-
-
-/* =========================================================
-   آيات أصحاح معين
-========================================================= */
-
-function getChapterVerses(
-    bookId,
-    chapter
-){
-
-    const key =
-        bookId +
-        "|" +
-        Number(chapter);
-
-
-    return (
-        chapterIndex.get(key) ||
-        []
-    ).slice().sort(
-        function(a,b){
-            return a.verse-b.verse;
-        }
-    );
-
-}
-
-
-/* =========================================================
    فتح السفر
 ========================================================= */
 
 function openBook(bookId){
 
-    currentBook =
-        bookId;
+    currentBook = bookId;
 
     currentChapter = null;
 
 
-    const chapters =
-        getChapters(bookId);
+    const chapters = getChapters(bookId);
+
+
+    if(!chapters.length){
+
+        app.innerHTML = `
+
+            <section class="workspace">
+
+                <div class="inner-topbar">
+
+                    <button
+                        class="inner-back"
+                        type="button"
+                        onclick="openTestament(currentTestament)"
+                    >
+                        ← الأسفار
+                    </button>
+
+                    <h2 class="inner-title">
+                        📖 ${escapeHTML(
+                            BOOK_NAMES[bookId] || bookId
+                        )}
+                    </h2>
+
+                </div>
+
+
+                <div class="empty">
+
+                    <strong>
+                        ${escapeHTML(
+                            BOOK_NAMES[bookId] || bookId
+                        )}
+                    </strong>
+
+                    <br>
+
+                    لا توجد بيانات لهذا السفر داخل
+                    <b>bible.json</b>.
+
+                </div>
+
+            </section>
+
+        `;
+
+        return;
+
+    }
 
 
     app.innerHTML = `
@@ -2298,55 +1381,35 @@ function openBook(bookId){
 
                 <h2 class="inner-title">
                     📖 ${escapeHTML(
-                        BOOK_NAMES[bookId] ||
-                        bookId
+                        BOOK_NAMES[bookId] || bookId
                     )}
                 </h2>
 
             </div>
 
-            ${
-                chapters.length
-                ?
-                `
-                <div class="chapters-grid">
 
-                    ${chapters.map(function(chapter){
+            <div class="chapters-grid">
 
-                        return `
+                ${chapters.map(function(chapter){
 
-                            <button
-                                class="chapter"
-                                type="button"
-                                onclick="openChapter(
-                                    '${bookId}',
-                                    ${chapter}
-                                )"
-                            >
+                    return `
+
+                        <button
+                            class="chapter"
+                            type="button"
+                            onclick="openChapter(
+                                '${bookId}',
                                 ${chapter}
-                            </button>
+                            )"
+                        >
+                            ${chapter}
+                        </button>
 
-                        `;
+                    `;
 
-                    }).join("")}
+                }).join("")}
 
-                </div>
-                `
-                :
-                `
-                <div class="empty">
-
-                    لا توجد أصحاحات مقروءة لهذا السفر
-                    في <b>bible.json</b>.
-
-                    <br><br>
-
-                    اسم السفر الموجود في البيانات:
-                    <b>${escapeHTML(bookId)}</b>
-
-                </div>
-                `
-            }
+            </div>
 
         </section>
 
@@ -2359,23 +1422,31 @@ function openBook(bookId){
    فتح الأصحاح
 ========================================================= */
 
-function openChapter(
-    bookId,
-    chapter
-){
+function openChapter(bookId,chapter){
 
-    currentBook =
-        bookId;
+    currentBook = bookId;
 
-    currentChapter =
-        Number(chapter);
+    currentChapter = Number(chapter);
 
 
-    const rows =
-        getChapterVerses(
-            bookId,
-            chapter
-        );
+    const rows = verses
+
+        .filter(function(v){
+
+            return (
+
+                v.book === bookId &&
+                Number(v.chapter) === Number(chapter)
+
+            );
+
+        })
+
+        .sort(function(a,b){
+
+            return a.verse - b.verse;
+
+        });
 
 
     if(!rows.length){
@@ -2384,30 +1455,9 @@ function openChapter(
 
             <section class="workspace">
 
-                <div class="inner-topbar">
-
-                    <button
-                        class="inner-back"
-                        type="button"
-                        onclick="openBook('${bookId}')"
-                    >
-                        ← الأصحاحات
-                    </button>
-
-                    <h2 class="inner-title">
-                        ${escapeHTML(
-                            BOOK_NAMES[bookId] ||
-                            bookId
-                        )}
-                    </h2>
-
-                </div>
-
                 <div class="empty">
-
                     لا توجد آيات لهذا الأصحاح داخل
                     <b>bible.json</b>.
-
                 </div>
 
             </section>
@@ -2429,8 +1479,7 @@ function openChapter(
 
                     <div class="chapter-book-name">
                         ${escapeHTML(
-                            BOOK_NAMES[bookId] ||
-                            bookId
+                            BOOK_NAMES[bookId] || bookId
                         )}
                     </div>
 
@@ -2452,7 +1501,7 @@ function openChapter(
                                 tabindex="0"
                                 role="button"
                                 onclick="openVerse(
-                                    '${escapeHTML(v.book)}',
+                                    '${v.book}',
                                     ${v.chapter},
                                     ${v.verse}
                                 )"
@@ -2525,16 +1574,54 @@ function openChapter(
 
 
 /* =========================================================
+   الأصحاحات الموجودة فعليًا في bible.json
+========================================================= */
+
+function getChapters(bookId){
+
+    return [
+
+        ...new Set(
+
+            verses
+
+                .filter(function(v){
+
+                    return v.book === bookId;
+
+                })
+
+                .map(function(v){
+
+                    return Number(v.chapter);
+
+                })
+
+                .filter(function(chapter){
+
+                    return Number.isFinite(chapter);
+
+                })
+
+        )
+
+    ].sort(function(a,b){
+
+        return a-b;
+
+    });
+
+}
+
+
+/* =========================================================
    تحديث التنقل
 ========================================================= */
 
 function updateNavigation(){
 
     const chapters =
-        getChapters(
-            currentBook
-        );
-
+        getChapters(currentBook);
 
     const index =
         chapters.indexOf(
@@ -2546,7 +1633,6 @@ function updateNavigation(){
         document.getElementById(
             "previousButton"
         );
-
 
     const next =
         document.getElementById(
@@ -2579,10 +1665,7 @@ function updateNavigation(){
 function previousChapter(){
 
     const chapters =
-        getChapters(
-            currentBook
-        );
-
+        getChapters(currentBook);
 
     const index =
         chapters.indexOf(
@@ -2609,10 +1692,7 @@ function previousChapter(){
 function nextChapter(){
 
     const chapters =
-        getChapters(
-            currentBook
-        );
-
+        getChapters(currentBook);
 
     const index =
         chapters.indexOf(
@@ -2639,22 +1719,19 @@ function nextChapter(){
    فتح الآية
 ========================================================= */
 
-function openVerse(
-    book,
-    chapter,
-    verse
-){
+function openVerse(book,chapter,verse){
 
-    const key =
-        book +
-        "|" +
-        Number(chapter) +
-        "|" +
-        Number(verse);
+    const found = verses.find(function(v){
 
+        return (
 
-    const found =
-        verseIndex.get(key);
+            v.book === book &&
+            Number(v.chapter) === Number(chapter) &&
+            Number(v.verse) === Number(verse)
+
+        );
+
+    });
 
 
     if(!found){
@@ -2664,8 +1741,7 @@ function openVerse(
     }
 
 
-    currentVerse =
-        found;
+    currentVerse = found;
 
 
     document.getElementById(
@@ -2709,7 +1785,6 @@ function closeVerse(){
         "verseModal"
     ).classList.remove("open");
 
-
     document.body.style.overflow = "";
 
 }
@@ -2731,7 +1806,7 @@ function verseFeature(feature){
     if(feature === "similar"){
 
         alert(
-            "منظومة الآيات المشابهة ستُربط بقاعدة الدراسة الخاصة بها."
+            "الآيات المشابهة — سيتم ربط منظومة الآيات المشابهة لاحقًا."
         );
 
         return;
@@ -2742,7 +1817,7 @@ function verseFeature(feature){
     if(feature === "language"){
 
         alert(
-            "منظومة أصل اللغة ستُربط ببيانات العبرية والآرامية واليونانية."
+            "أصل اللغة — سيتم ربط بيانات العبرية والآرامية واليونانية لاحقًا."
         );
 
         return;
@@ -2753,7 +1828,7 @@ function verseFeature(feature){
     if(feature === "places"){
 
         alert(
-            "منظومة الأماكن والأنهار والخرائط ستُربط بقاعدة البيانات الخاصة بها."
+            "الأماكن والأنهار — سيتم ربط قاعدة الأماكن والأنهار والخرائط لاحقًا."
         );
 
         return;
@@ -2761,35 +1836,59 @@ function verseFeature(feature){
     }
 
 
+    /* =====================================================
+       التعديل الأساسي:
+       إرسال المرجع الحقيقي إلى overview.html
+    ===================================================== */
+
     if(feature === "commentary"){
 
-        /*
-           الانتقال إلى موسوعة التفسير
-           مع تمرير المرجع كاملًا.
-        */
-
         const book =
-            currentVerse.book;
+            String(
+                currentVerse.book ?? ""
+            ).trim();
 
         const chapter =
-            currentVerse.chapter;
+            Number(
+                currentVerse.chapter
+            );
 
         const verse =
-            currentVerse.verse;
+            Number(
+                currentVerse.verse
+            );
 
 
-        const url =
-            "overview.html" +
-            "?book=" +
-            encodeURIComponent(book) +
-            "&chapter=" +
-            encodeURIComponent(chapter) +
-            "&verse=" +
-            encodeURIComponent(verse);
+        if(
+            !book ||
+            !Number.isFinite(chapter) ||
+            !Number.isFinite(verse)
+        ){
+
+            alert(
+                "تعذر تحديد مرجع الآية."
+            );
+
+            return;
+
+        }
+
+
+        const params =
+            new URLSearchParams({
+
+                book:book,
+
+                chapter:String(chapter),
+
+                verse:String(verse)
+
+            });
 
 
         window.location.href =
-            url;
+            `${COMMENTARY_URL}?${params.toString()}`;
+
 
         return;
 
@@ -2844,7 +1943,6 @@ function openSearch(){
                         autocomplete="off"
                     >
 
-
                     <button
                         class="search-submit"
                         type="button"
@@ -2891,7 +1989,7 @@ function openSearch(){
 
 
 /* =========================================================
-   البحث في النص
+   تنفيذ البحث
 ========================================================= */
 
 function performSearch(){
@@ -2900,7 +1998,6 @@ function performSearch(){
         document.getElementById(
             "searchInput"
         );
-
 
     const results =
         document.getElementById(
@@ -3036,7 +2133,7 @@ function openSearchVerse(
             Number(verse)
         );
 
-    },20);
+    },50);
 
 }
 
@@ -3055,7 +2152,7 @@ function playChapter(){
 
 
 /* =========================================================
-   إغلاق النافذة خارجها
+   إغلاق النافذة عند الضغط خارجها
 ========================================================= */
 
 document
@@ -3104,7 +2201,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   تحميل bible.json
+   تحميل bible.json فقط
 ========================================================= */
 
 async function loadBible(){
@@ -3123,8 +2220,7 @@ async function loadBible(){
         if(!response.ok){
 
             throw new Error(
-                "HTTP " +
-                response.status
+                "HTTP " + response.status
             );
 
         }
@@ -3134,29 +2230,120 @@ async function loadBible(){
             await response.json();
 
 
-        /*
-           قراءة bible.json بدون افتراض
-           بنية واحدة فقط.
-        */
-
-        parseBibleData(data);
-
-
-        /*
-           التأكد من وجود بيانات.
-        */
-
-        if(!verses.length){
+        if(!Array.isArray(data)){
 
             throw new Error(
-                "تم تحميل bible.json ولكن لم يتم العثور على آيات قابلة للقراءة."
+                "bible.json يجب أن يكون مصفوفة JSON"
             );
 
         }
 
 
         /*
-           تشغيل الواجهة.
+           bible.json يحتوي مباشرة على:
+
+           {
+               book,
+               chapter,
+               verse,
+               text
+           }
+
+           لذلك لا نستخدم أي ملف آخر.
+        */
+
+        verses = data
+
+            .map(function(v){
+
+                return {
+
+                    book:String(
+                        v.book ?? ""
+                    ).trim(),
+
+                    chapter:Number(
+                        v.chapter
+                    ),
+
+                    verse:Number(
+                        v.verse ??
+                        v.number
+                    ),
+
+                    text:String(
+                        v.text ?? ""
+                    ).trim()
+
+                };
+
+            })
+
+            .filter(function(v){
+
+                return (
+
+                    v.book &&
+                    Number.isFinite(v.chapter) &&
+                    Number.isFinite(v.verse) &&
+                    v.text
+
+                );
+
+            });
+
+
+        /*
+           ترتيب البيانات داخل الذاكرة
+           لضمان ثبات التنقل.
+        */
+
+        verses.sort(function(a,b){
+
+            const bookA =
+                String(a.book);
+
+            const bookB =
+                String(b.book);
+
+            const indexA =
+                OLD_BOOKS.indexOf(bookA) >= 0
+                    ? OLD_BOOKS.indexOf(bookA)
+                    : NEW_BOOKS.indexOf(bookA) + OLD_BOOKS.length;
+
+            const indexB =
+                OLD_BOOKS.indexOf(bookB) >= 0
+                    ? OLD_BOOKS.indexOf(bookB)
+                    : NEW_BOOKS.indexOf(bookB) + OLD_BOOKS.length;
+
+
+            if(indexA !== indexB){
+
+                return indexA - indexB;
+
+            }
+
+
+            if(
+                Number(a.chapter) !==
+                Number(b.chapter)
+            ){
+
+                return Number(a.chapter) -
+                       Number(b.chapter);
+
+            }
+
+
+            return Number(a.verse) -
+                   Number(b.verse);
+
+        });
+
+
+        /*
+           تشغيل الصفحة بعد تحميل
+           bible.json بالكامل.
         */
 
         renderStart();
@@ -3179,12 +2366,6 @@ async function loadBible(){
         );
 
 
-        console.log(
-            "Chapters loaded:",
-            chapterIndex.size
-        );
-
-
     }catch(error){
 
         console.error(
@@ -3199,14 +2380,13 @@ async function loadBible(){
 
                 <div class="error">
 
-                    تعذر تحميل بيانات الكتاب المقدس من
+                    تعذر تحميل
                     <b>bible.json</b>.
 
                     <br><br>
 
                     تأكد من أن الملف موجود في نفس
-                    مجلد <b>bible.html</b> وأن بنيته تحتوي
-                    على بيانات الأسفار والأصحاحات والآيات.
+                    مجلد <b>bible.html</b>.
 
                     <br><br>
 
@@ -3225,7 +2405,7 @@ async function loadBible(){
 
 
 /* =========================================================
-   التشغيل
+   تشغيل
 ========================================================= */
 
 loadBible();
