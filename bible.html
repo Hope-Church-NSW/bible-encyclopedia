@@ -52,10 +52,6 @@ body{
         sans-serif;
 }
 
-/* =========================================================
-   HEADER
-========================================================= */
-
 header{
     position:sticky;
     top:0;
@@ -75,7 +71,6 @@ header{
     gap:20px;
 }
 
-/* اليمين */
 .home-button{
     min-height:48px;
     padding:10px 18px;
@@ -98,7 +93,6 @@ header{
     transform:translateY(-1px);
 }
 
-/* اليسار */
 .brand{
     display:flex;
     align-items:center;
@@ -119,10 +113,6 @@ header{
         0 2px 8px rgba(212,175,55,.30);
 }
 
-/* =========================================================
-   MAIN
-========================================================= */
-
 main{
     width:min(1250px,94%);
     margin:auto;
@@ -132,10 +122,6 @@ main{
 #app{
     width:100%;
 }
-
-/* =========================================================
-   الصفحة الرئيسية للكتاب المقدس
-========================================================= */
 
 .start-screen{
     width:100%;
@@ -156,9 +142,6 @@ main{
     margin:0 0 28px;
 }
 
-/*
-   الأيقونتان كبيرتان
-*/
 .main-icons{
     width:min(950px,100%);
     margin:0 auto;
@@ -221,10 +204,6 @@ main{
     margin-top:10px;
 }
 
-/* =========================================================
-   المساحة الداخلية
-========================================================= */
-
 .workspace{
     width:100%;
     background:rgba(13,33,56,.96);
@@ -235,7 +214,6 @@ main{
         0 15px 45px rgba(0,0,0,.22);
 }
 
-/* زر الرجوع داخل نفس المساحة */
 .inner-topbar{
     display:flex;
     align-items:center;
@@ -266,10 +244,6 @@ main{
     font-weight:900;
     margin:0;
 }
-
-/* =========================================================
-   العهدان
-========================================================= */
 
 .testaments{
     display:grid;
@@ -317,10 +291,6 @@ main{
     font-size:16px;
 }
 
-/* =========================================================
-   الأسفار
-========================================================= */
-
 .books-grid{
     display:grid;
     grid-template-columns:
@@ -355,10 +325,6 @@ main{
     margin-bottom:5px;
 }
 
-/* =========================================================
-   الأصحاحات
-========================================================= */
-
 .chapters-grid{
     display:grid;
     grid-template-columns:
@@ -384,10 +350,6 @@ main{
     color:var(--gold2);
     transform:translateY(-2px);
 }
-
-/* =========================================================
-   قراءة الأصحاح
-========================================================= */
 
 .chapter-reading{
     width:100%;
@@ -436,10 +398,6 @@ main{
     font-weight:900;
     margin-left:9px;
 }
-
-/* =========================================================
-   السابق / السماعة / التالي
-========================================================= */
 
 .chapter-navigation{
     margin-top:15px;
@@ -492,10 +450,6 @@ main{
     align-items:center;
     justify-content:center;
 }
-
-/* =========================================================
-   البحث
-========================================================= */
 
 .search-container{
     width:100%;
@@ -557,10 +511,6 @@ main{
     margin-bottom:4px;
 }
 
-/* =========================================================
-   الرسائل
-========================================================= */
-
 .empty{
     text-align:center;
     color:var(--muted);
@@ -576,10 +526,6 @@ main{
     padding:16px;
     line-height:2;
 }
-
-/* =========================================================
-   نافذة الآية
-========================================================= */
 
 .modal-backdrop{
     position:fixed;
@@ -666,10 +612,6 @@ main{
     background:var(--panel3);
     color:var(--gold2);
 }
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
 
 @media(max-width:900px){
 
@@ -790,7 +732,6 @@ main{
 
     <div class="header-inner">
 
-        <!-- اليمين -->
         <a
             href="index.html"
             class="home-button"
@@ -798,7 +739,6 @@ main{
             ⌂ الرئيسية
         </a>
 
-        <!-- اليسار -->
         <div class="brand">
 
             <div class="brand-title">
@@ -824,10 +764,6 @@ main{
 
 </main>
 
-
-<!-- =========================================================
-     نافذة الآية
-========================================================= -->
 
 <div
     id="verseModal"
@@ -861,8 +797,6 @@ main{
             class="modal-verse"
         ></div>
 
-
-        <!-- الخيارات الأربعة فقط -->
 
         <div class="modal-actions">
 
@@ -909,170 +843,174 @@ main{
 
 /* =========================================================
    مصدر الكتاب المقدس
+   الملف الموجود فعليًا في المستودع
 ========================================================= */
 
 const BIBLE_URL = "bible.json";
 
 
 /* =========================================================
-   أسماء الأسفار الرسمية
+   أسماء الأسفار
+   IDs مطابقة حرفيًا لبنية bible.json
 ========================================================= */
 
 const BOOK_NAMES = {
 
     "01-gen":"التكوين",
-    "02-exo":"الخروج",
-    "03-lev":"اللاويين",
-    "04-num":"العدد",
-    "05-deu":"التثنية",
-    "06-josh":"يشوع",
-    "07-judg":"القضاة",
-    "08-ruth":"راعوث",
-    "09-1sam":"صموئيل الأول",
-    "10-2sam":"صموئيل الثاني",
-    "11-1kgs":"ملوك الأول",
-    "12-2kgs":"ملوك الثاني",
-    "13-1chr":"أخبار الأيام الأول",
-    "14-2chr":"أخبار الأيام الثاني",
-    "15-ezra":"عزرا",
-    "16-neh":"نحميا",
-    "17-est":"أستير",
-    "18-job":"أيوب",
-    "19-ps":"المزامير",
-    "20-prov":"الأمثال",
-    "21-eccl":"الجامعة",
-    "22-song":"نشيد الأنشاد",
-    "23-isa":"إشعياء",
-    "24-jer":"إرميا",
-    "25-lam":"مراثي إرميا",
-    "26-ezek":"حزقيال",
-    "27-dan":"دانيال",
-    "28-hos":"هوشع",
-    "29-joel":"يوئيل",
-    "30-amos":"عاموس",
-    "31-obad":"عوبديا",
-    "32-jonah":"يونان",
-    "33-mic":"ميخا",
-    "34-nah":"ناحوم",
-    "35-hab":"حبقوق",
-    "36-zeph":"صفنيا",
-    "37-hag":"حجي",
-    "38-zec":"زكريا",
-    "39-mal":"ملاخي",
+    "02-Exodus":"الخروج",
+    "03-Leviticus":"اللاويين",
+    "04-Numbers":"العدد",
+    "05-Deut":"التثنية",
+    "06-Joshua":"يشوع",
+    "07-Judges":"القضاة",
+    "08-Ruth":"راعوث",
+    "09-1Samuel":"صموئيل الأول",
+    "10-2Samuel":"صموئيل الثاني",
+    "11-1Kings":"ملوك الأول",
+    "12-2Kings":"ملوك الثاني",
+    "13-1Chronicles":"أخبار الأيام الأول",
+    "14-2Chronicles":"أخبار الأيام الثاني",
+    "15-Ezra":"عزرا",
+    "16-Nehemiah":"نحميا",
+    "17-Esther":"أستير",
+    "18-Job":"أيوب",
+    "19-Psalms":"المزامير",
+    "20-Proverbs":"الأمثال",
+    "21-Ecclesiastes":"الجامعة",
+    "22-Song":"نشيد الأنشاد",
+    "23-Isaiah":"إشعياء",
+    "24-Jeremiah":"إرميا",
+    "25-Lamentations":"مراثي إرميا",
+    "26-Ezekiel":"حزقيال",
+    "27-Daniel":"دانيال",
+    "28-Hosea":"هوشع",
+    "29-Joel":"يوئيل",
+    "30-Amos":"عاموس",
+    "31-Obadiah":"عوبديا",
+    "32-Jonah":"يونان",
+    "33-Micah":"ميخا",
+    "34-Nahum":"ناحوم",
+    "35-Habakkuk":"حبقوق",
+    "36-Zephaniah":"صفنيا",
+    "37-Haggai":"حجي",
+    "38-Zechariah":"زكريا",
+    "39-Malachi":"ملاخي",
 
-    "40-matt":"متى",
-    "41-mark":"مرقس",
-    "42-luke":"لوقا",
-    "43-john":"يوحنا",
-    "44-acts":"أعمال الرسل",
-    "45-rom":"رومية",
-    "46-1cor":"كورنثوس الأولى",
-    "47-2cor":"كورنثوس الثانية",
-    "48-gal":"غلاطية",
-    "49-eph":"أفسس",
-    "50-phil":"فيلبي",
-    "51-col":"كولوسي",
-    "52-1thess":"تسالونيكي الأولى",
-    "53-2thess":"تسالونيكي الثانية",
-    "54-1tim":"تيموثاوس الأولى",
-    "55-2tim":"تيموثاوس الثانية",
-    "56-tit":"تيطس",
-    "57-phlm":"فليمون",
-    "58-heb":"العبرانيين",
-    "59-jas":"يعقوب",
-    "60-1pet":"بطرس الأولى",
+    "40-Matthew":"متى",
+    "41-Mark":"مرقس",
+    "42-Luke":"لوقا",
+    "43-John":"يوحنا",
+    "44-Acts":"أعمال الرسل",
+    "45-Romans":"رومية",
+    "46-1-Corinthians":"كورنثوس الأولى",
+    "47-2-Corinthians":"كورنثوس الثانية",
+    "48-Galatians":"غلاطية",
+    "49-Ephesians":"أفسس",
+    "50-Philippians":"فيلبي",
+    "51-Colossians":"كولوسي",
+    "52-1-Thessalonians":"تسالونيكي الأولى",
+    "53-2-Thessalonians":"تسالونيكي الثانية",
+    "54-1-Timothy":"تيموثاوس الأولى",
+    "55-2-Timothy":"تيموثاوس الثانية",
+    "56-Titus":"تيطس",
+    "57-Philemon":"فليمون",
+    "58-Hebrews":"العبرانيين",
+    "59-James":"يعقوب",
+    "60-1-peter":"بطرس الأولى",
     "61-2pet":"بطرس الثانية",
-    "62-1john":"يوحنا الأولى",
-    "63-2john":"يوحنا الثانية",
-    "64-3john":"يوحنا الثالثة",
-    "65-jude":"يهوذا",
-    "66-rev":"رؤيا يوحنا"
+    "62-1-John":"يوحنا الأولى",
+    "63-2-John":"يوحنا الثانية",
+    "64-3-John":"يوحنا الثالثة",
+    "65-Jude":"يهوذا",
+    "66-Revelation":"رؤيا يوحنا"
 
 };
 
 
 /* =========================================================
    ترتيب العهد القديم
+   مطابق لـ bible.json
 ========================================================= */
 
 const OLD_BOOKS = [
 
     "01-gen",
-    "02-exo",
-    "03-lev",
-    "04-num",
-    "05-deu",
-    "06-josh",
-    "07-judg",
-    "08-ruth",
-    "09-1sam",
-    "10-2sam",
-    "11-1kgs",
-    "12-2kgs",
-    "13-1chr",
-    "14-2chr",
-    "15-ezra",
-    "16-neh",
-    "17-est",
-    "18-job",
-    "19-ps",
-    "20-prov",
-    "21-eccl",
-    "22-song",
-    "23-isa",
-    "24-jer",
-    "25-lam",
-    "26-ezek",
-    "27-dan",
-    "28-hos",
-    "29-joel",
-    "30-amos",
-    "31-obad",
-    "32-jonah",
-    "33-mic",
-    "34-nah",
-    "35-hab",
-    "36-zeph",
-    "37-hag",
-    "38-zec",
-    "39-mal"
+    "02-Exodus",
+    "03-Leviticus",
+    "04-Numbers",
+    "05-Deut",
+    "06-Joshua",
+    "07-Judges",
+    "08-Ruth",
+    "09-1Samuel",
+    "10-2Samuel",
+    "11-1Kings",
+    "12-2Kings",
+    "13-1Chronicles",
+    "14-2Chronicles",
+    "15-Ezra",
+    "16-Nehemiah",
+    "17-Esther",
+    "18-Job",
+    "19-Psalms",
+    "20-Proverbs",
+    "21-Ecclesiastes",
+    "22-Song",
+    "23-Isaiah",
+    "24-Jeremiah",
+    "25-Lamentations",
+    "26-Ezekiel",
+    "27-Daniel",
+    "28-Hosea",
+    "29-Joel",
+    "30-Amos",
+    "31-Obadiah",
+    "32-Jonah",
+    "33-Micah",
+    "34-Nahum",
+    "35-Habakkuk",
+    "36-Zephaniah",
+    "37-Haggai",
+    "38-Zechariah",
+    "39-Malachi"
 
 ];
 
 
 /* =========================================================
    ترتيب العهد الجديد
+   مطابق لـ bible.json
 ========================================================= */
 
 const NEW_BOOKS = [
 
-    "40-matt",
-    "41-mark",
-    "42-luke",
-    "43-john",
-    "44-acts",
-    "45-rom",
-    "46-1cor",
-    "47-2cor",
-    "48-gal",
-    "49-eph",
-    "50-phil",
-    "51-col",
-    "52-1thess",
-    "53-2thess",
-    "54-1tim",
-    "55-2tim",
-    "56-tit",
-    "57-phlm",
-    "58-heb",
-    "59-jas",
-    "60-1pet",
+    "40-Matthew",
+    "41-Mark",
+    "42-Luke",
+    "43-John",
+    "44-Acts",
+    "45-Romans",
+    "46-1-Corinthians",
+    "47-2-Corinthians",
+    "48-Galatians",
+    "49-Ephesians",
+    "50-Philippians",
+    "51-Colossians",
+    "52-1-Thessalonians",
+    "53-2-Thessalonians",
+    "54-1-Timothy",
+    "55-2-Timothy",
+    "56-Titus",
+    "57-Philemon",
+    "58-Hebrews",
+    "59-James",
+    "60-1-peter",
     "61-2pet",
-    "62-1john",
-    "63-2john",
-    "64-3john",
-    "65-jude",
-    "66-rev"
+    "62-1-John",
+    "63-2-John",
+    "64-3-John",
+    "65-Jude",
+    "66-Revelation"
 
 ];
 
@@ -1141,10 +1079,7 @@ function renderStart(){
                 اختر القسم الذي تريد الدخول إليه
             </p>
 
-
             <div class="main-icons">
-
-                <!-- أيقونة الكتاب المقدس -->
 
                 <button
                     class="main-icon"
@@ -1166,8 +1101,6 @@ function renderStart(){
 
                 </button>
 
-
-                <!-- أيقونة البحث -->
 
                 <button
                     class="main-icon"
@@ -1199,8 +1132,7 @@ function renderStart(){
 
 
 /* =========================================================
-   فتح أيقونة الكتاب المقدس
-   نفس المساحة
+   فتح الكتاب المقدس
 ========================================================= */
 
 function openBible(){
@@ -1211,7 +1143,7 @@ function openBible(){
 
 
 /* =========================================================
-   العهد القديم / الجديد
+   العهدان
 ========================================================= */
 
 function renderTestaments(){
@@ -1383,37 +1315,8 @@ function openBook(bookId){
     currentChapter = null;
 
 
-    const chapters = [
+    const chapters = getChapters(bookId);
 
-        ...new Set(
-
-            verses
-
-                .filter(function(v){
-
-                    return v.book === bookId;
-
-                })
-
-                .map(function(v){
-
-                    return v.chapter;
-
-                })
-
-        )
-
-    ].sort(function(a,b){
-
-        return a-b;
-
-    });
-
-
-    /*
-       إذا لم تكن بيانات السفر موجودة في bible.json
-       لا نخفي السفر ولا نحذفه.
-    */
 
     if(!chapters.length){
 
@@ -1433,7 +1336,7 @@ function openBook(bookId){
 
                     <h2 class="inner-title">
                         📖 ${escapeHTML(
-                            BOOK_NAMES[bookId]
+                            BOOK_NAMES[bookId] || bookId
                         )}
                     </h2>
 
@@ -1444,19 +1347,14 @@ function openBook(bookId){
 
                     <strong>
                         ${escapeHTML(
-                            BOOK_NAMES[bookId]
+                            BOOK_NAMES[bookId] || bookId
                         )}
                     </strong>
 
                     <br>
 
-                    بيانات هذا السفر غير موجودة حاليًا
-                    في <b>bible.json</b>.
-
-                    <br><br>
-
-                    سيظهر السفر هنا تلقائيًا بمجرد إضافة
-                    أصحاحاته وآياته إلى قاعدة الكتاب المقدس.
+                    لا توجد بيانات لهذا السفر داخل
+                    <b>bible.json</b>.
 
                 </div>
 
@@ -1485,7 +1383,7 @@ function openBook(bookId){
 
                 <h2 class="inner-title">
                     📖 ${escapeHTML(
-                        BOOK_NAMES[bookId]
+                        BOOK_NAMES[bookId] || bookId
                     )}
                 </h2>
 
@@ -1555,6 +1453,19 @@ function openChapter(bookId,chapter){
 
     if(!rows.length){
 
+        app.innerHTML = `
+
+            <section class="workspace">
+
+                <div class="empty">
+                    لا توجد آيات لهذا الأصحاح داخل
+                    <b>bible.json</b>.
+                </div>
+
+            </section>
+
+        `;
+
         return;
 
     }
@@ -1564,18 +1475,13 @@ function openChapter(bookId,chapter){
 
         <section class="workspace">
 
-            <!--
-                عند قراءة الأصحاح لا توجد
-                أي قوائم إضافية.
-            -->
-
             <div class="chapter-reading">
 
                 <div class="chapter-heading">
 
                     <div class="chapter-book-name">
                         ${escapeHTML(
-                            BOOK_NAMES[bookId]
+                            BOOK_NAMES[bookId] || bookId
                         )}
                     </div>
 
@@ -1660,6 +1566,7 @@ function openChapter(bookId,chapter){
 
     updateNavigation();
 
+
     window.scrollTo({
         top:0,
         behavior:"smooth"
@@ -1669,7 +1576,7 @@ function openChapter(bookId,chapter){
 
 
 /* =========================================================
-   الأصحاحات المتاحة للسفر الحالي
+   الأصحاحات الموجودة فعليًا في bible.json
 ========================================================= */
 
 function getChapters(bookId){
@@ -1692,6 +1599,12 @@ function getChapters(bookId){
 
                 })
 
+                .filter(function(chapter){
+
+                    return Number.isFinite(chapter);
+
+                })
+
         )
 
     ].sort(function(a,b){
@@ -1704,7 +1617,7 @@ function getChapters(bookId){
 
 
 /* =========================================================
-   تحديث السابق والتالي
+   تحديث التنقل
 ========================================================= */
 
 function updateNavigation(){
@@ -1837,7 +1750,7 @@ function openVerse(book,chapter,verse){
         "modalTitle"
     ).textContent =
 
-        `${BOOK_NAMES[book]} ${chapter}:${verse}`;
+        `${BOOK_NAMES[book] || book} ${chapter}:${verse}`;
 
 
     document.getElementById(
@@ -1892,11 +1805,6 @@ function verseFeature(feature){
     }
 
 
-    /*
-       نقاط الربط المستقبلية فقط.
-       لا تتم إضافة أي خيار خامس.
-    */
-
     if(feature === "similar"){
 
         alert(
@@ -1945,7 +1853,6 @@ function verseFeature(feature){
 
 /* =========================================================
    البحث
-   نفس أيقونة البحث، نفس الصفحة
 ========================================================= */
 
 function openSearch(){
@@ -2157,7 +2064,7 @@ function performSearch(){
 
 
 /* =========================================================
-   نتيجة البحث
+   فتح نتيجة البحث
 ========================================================= */
 
 function openSearchVerse(
@@ -2165,11 +2072,6 @@ function openSearchVerse(
     chapter,
     verse
 ){
-
-    /*
-       نذهب إلى الأصحاح داخل نفس الصفحة
-       ثم نفتح الآية.
-    */
 
     openChapter(
         book,
@@ -2195,11 +2097,6 @@ function openSearchVerse(
 ========================================================= */
 
 function playChapter(){
-
-    /*
-       نقطة ربط الصوت لاحقًا.
-       لا يتم تغيير تصميم الصفحة.
-    */
 
     alert(
         "سيتم ربط صوت الأصحاح بهذه الأيقونة لاحقًا."
@@ -2258,7 +2155,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   تحميل bible.json
+   تحميل bible.json فقط
 ========================================================= */
 
 async function loadBible(){
@@ -2290,11 +2187,24 @@ async function loadBible(){
         if(!Array.isArray(data)){
 
             throw new Error(
-                "bible.json ليس مصفوفة JSON"
+                "bible.json يجب أن يكون مصفوفة JSON"
             );
 
         }
 
+
+        /*
+           bible.json يحتوي مباشرة على:
+
+           {
+               book,
+               chapter,
+               verse,
+               text
+           }
+
+           لذلك لا نستخدم أي ملف آخر.
+        */
 
         verses = data
 
@@ -2338,10 +2248,57 @@ async function loadBible(){
 
 
         /*
-           لا نحذف أي سفر من قائمة الأسفار.
-           البيانات فقط هي التي تأتي من bible.json.
+           ترتيب البيانات داخل الذاكرة
+           لضمان ثبات التنقل.
         */
 
+        verses.sort(function(a,b){
+
+            const bookA =
+                String(a.book);
+
+            const bookB =
+                String(b.book);
+
+            const indexA =
+                OLD_BOOKS.indexOf(bookA) >= 0
+                    ? OLD_BOOKS.indexOf(bookA)
+                    : NEW_BOOKS.indexOf(bookA) + OLD_BOOKS.length;
+
+            const indexB =
+                OLD_BOOKS.indexOf(bookB) >= 0
+                    ? OLD_BOOKS.indexOf(bookB)
+                    : NEW_BOOKS.indexOf(bookB) + OLD_BOOKS.length;
+
+
+            if(indexA !== indexB){
+
+                return indexA - indexB;
+
+            }
+
+
+            if(
+                Number(a.chapter) !==
+                Number(b.chapter)
+            ){
+
+                return Number(a.chapter) -
+                       Number(b.chapter);
+
+            }
+
+
+            return Number(a.verse) -
+                   Number(b.verse);
+
+        });
+
+
+        /*
+           تشغيل الصفحة بعد تحميل
+           bible.json بالكامل.
+        */
 
         renderStart();
 
@@ -2353,9 +2310,22 @@ async function loadBible(){
         );
 
 
+        console.log(
+            "Books loaded:",
+            new Set(
+                verses.map(function(v){
+                    return v.book;
+                })
+            ).size
+        );
+
+
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Bible loading error:",
+            error
+        );
 
 
         app.innerHTML = `
@@ -2369,10 +2339,13 @@ async function loadBible(){
 
                     <br><br>
 
-                    تأكد من وجود الملف
-                    <b>bible.json</b>
-                    في نفس مجلد
-                    <b>bible.html</b>.
+                    تأكد من أن الملف موجود في نفس
+                    مجلد <b>bible.html</b>.
+
+                    <br><br>
+
+                    الخطأ:
+                    <b>${escapeHTML(error.message)}</b>
 
                 </div>
 
