@@ -2,31 +2,46 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>مقدمة أسفار الكتاب المقدس | موسوعة الكتاب المقدس</title>
+<title>مقدمة الأسفار الكتابية | موسوعة الكتاب المقدس</title>
 
 <style>
 
+/* =====================================================
+   ROOT
+===================================================== */
+
 :root{
-    --blue:#061a2d;
-    --blue2:#0b2742;
-    --blue3:#123b61;
-    --blue4:#174d7c;
+
+    --blue-950:#03101d;
+    --blue-900:#061a2c;
+    --blue-800:#082943;
+    --blue-700:#0d385d;
+    --blue-600:#14527e;
 
     --gold:#d4af37;
-    --gold2:#f4d76b;
-    --gold3:#fff0a6;
+    --gold-light:#f4dc79;
+    --gold-dark:#806018;
 
-    --white:#ffffff;
-    --text:#e9eef5;
-    --muted:#aebdca;
+    --white:#f8fbff;
+    --muted:#b7c7d6;
 
-    --line:rgba(212,175,55,.28);
+    --border:
+        rgba(212,175,55,.34);
 
-    --shadow:0 20px 60px rgba(0,0,0,.45);
+    --shadow:
+        0 22px 55px
+        rgba(0,0,0,.52);
 }
+
+
+/* =====================================================
+   GLOBAL
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -37,47 +52,87 @@ html{
 }
 
 body{
+
     margin:0;
-    font-family:Tahoma,Arial,sans-serif;
-    direction:rtl;
-    color:var(--text);
+
+    min-height:100vh;
+
+    color:var(--white);
+
+    font-family:
+        "Noto Naskh Arabic",
+        "Amiri",
+        Tahoma,
+        Arial,
+        sans-serif;
+
     background:
+
         radial-gradient(
-            circle at 50% 0%,
-            #174d7c 0%,
-            #0b2742 28%,
-            #061a2d 65%,
-            #030d18 100%
+            circle at 50% 5%,
+            rgba(20,82,126,.75),
+            transparent 42%
+        ),
+
+        radial-gradient(
+            circle at 15% 80%,
+            rgba(13,56,93,.35),
+            transparent 38%
+        ),
+
+        linear-gradient(
+            145deg,
+            var(--blue-950),
+            var(--blue-900) 48%,
+            #020911
         );
-    line-height:2;
 }
+
 
 /* =====================================================
    HEADER
 ===================================================== */
 
-header{
-    position:sticky;
-    top:0;
-    z-index:1000;
+.top-frame{
 
-    background:rgba(3,15,27,.95);
+    position:relative;
 
-    backdrop-filter:blur(14px);
+    z-index:100;
 
-    border-bottom:1px solid var(--line);
+    width:100%;
+
+    border-bottom:
+        1px solid
+        rgba(212,175,55,.30);
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(8,41,67,.98),
+            rgba(3,16,29,.98)
+        );
 
     box-shadow:
-        0 5px 25px rgba(0,0,0,.28);
+
+        0 10px 35px
+        rgba(0,0,0,.55),
+
+        inset 0 -1px 0
+        rgba(255,255,255,.04);
 }
 
+
 .topbar{
-    max-width:1250px;
-    min-height:82px;
+
+    max-width:1450px;
+
+    min-height:95px;
 
     margin:auto;
 
-    padding:10px 20px;
+    padding:
+        10px 20px;
 
     display:flex;
 
@@ -88,273 +143,271 @@ header{
     gap:20px;
 }
 
+
 /* =====================================================
-   BRAND
+   LEFT — BACK BUTTON
+===================================================== */
+
+.back-button{
+
+    min-width:190px;
+
+    height:58px;
+
+    padding:
+        0 18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.65);
+
+    border-radius:16px;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #16476d,
+            #061a2d
+        );
+
+    box-shadow:
+
+        inset 0 1px 0
+        rgba(255,255,255,.12),
+
+        0 8px 22px
+        rgba(0,0,0,.48);
+
+    font-size:18px;
+
+    font-weight:900;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+
+.back-button:hover{
+
+    transform:
+        translateY(-4px)
+        scale(1.03);
+
+    border-color:
+        var(--gold-light);
+
+    box-shadow:
+
+        0 13px 28px
+        rgba(0,0,0,.55),
+
+        0 0 20px
+        rgba(212,175,55,.16);
+}
+
+
+.back-icon{
+
+    color:
+        var(--gold-light);
+
+    font-size:27px;
+
+    line-height:1;
+}
+
+
+.back-text{
+
+    white-space:nowrap;
+}
+
+
+/* =====================================================
+   RIGHT — CHURCH BRAND
 ===================================================== */
 
 .brand{
+
     display:flex;
+
     align-items:center;
-    gap:13px;
+
+    gap:14px;
 }
 
+
 .brand-logo{
-    width:58px;
-    height:58px;
+
+    width:70px;
+
+    height:70px;
 
     object-fit:contain;
 
     filter:
         drop-shadow(
-            0 0 8px rgba(212,175,55,.25)
+            0 7px 8px
+            rgba(0,0,0,.85)
         );
 
-    animation:logoFloat 4s ease-in-out infinite;
+    animation:
+        logoFloat 5s
+        ease-in-out
+        infinite;
 }
+
 
 @keyframes logoFloat{
 
     0%,100%{
-        transform:translateY(0);
+
+        transform:
+            translateY(0)
+            rotateY(0deg);
     }
 
     50%{
-        transform:translateY(-5px);
-    }
 
+        transform:
+            translateY(-4px)
+            rotateY(8deg);
+    }
 }
+
 
 .brand-name{
-    color:var(--gold2);
 
-    font-size:20px;
+    font-size:22px;
 
-    font-weight:700;
-}
+    font-weight:900;
 
-/* =====================================================
-   BACK BUTTON
-===================================================== */
-
-.back-btn{
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    text-decoration:none;
-
-    color:white;
-
-    padding:11px 18px;
-
-    border-radius:11px;
-
-    border:1px solid var(--gold);
+    white-space:nowrap;
 
     background:
+
         linear-gradient(
-            145deg,
-            rgba(18,59,97,.98),
-            rgba(6,26,45,.98)
+            180deg,
+            #fff6bf 0%,
+            var(--gold-light) 30%,
+            var(--gold) 65%,
+            var(--gold-dark) 100%
         );
 
-    font-family:Tahoma,Arial,sans-serif;
+    -webkit-background-clip:text;
 
-    font-size:18px;
+    background-clip:text;
 
-    font-weight:700;
+    color:transparent;
 
-    box-shadow:
-        0 5px 18px rgba(0,0,0,.25);
-
-    transition:.3s;
+    text-shadow:
+        0 3px 5px
+        rgba(0,0,0,.9);
 }
 
-.back-btn:hover{
-    transform:translateY(-2px);
-
-    border-color:var(--gold2);
-
-    box-shadow:
-        0 8px 25px rgba(212,175,55,.25);
-}
 
 /* =====================================================
    MAIN
 ===================================================== */
 
 main{
+
     max-width:1250px;
 
     margin:auto;
 
-    padding:35px 18px 70px;
+    padding:
+        45px 20px 80px;
 }
 
+
 /* =====================================================
-   HERO
+   PAGE TITLE
 ===================================================== */
 
-.hero{
+.page-title{
 
-    position:relative;
+    padding:
+        28px 20px;
 
-    overflow:hidden;
+    margin-bottom:35px;
 
     text-align:center;
 
-    padding:45px 25px 40px;
-
-    margin-bottom:25px;
-
-    border-radius:28px;
-
-    border:1px solid var(--line);
-
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            rgba(23,77,124,.75),
-            rgba(6,26,45,.97) 70%
-        );
-
-    box-shadow:var(--shadow);
-}
-
-.hero::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:280px;
-    height:280px;
-
-    top:-150px;
-    right:-100px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(212,175,55,.16),
-            transparent 70%
-        );
-
-    pointer-events:none;
-}
-
-.hero-icon{
-
-    width:90px;
-    height:90px;
-
-    margin:0 auto 15px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
+    border:
+        1px solid
+        rgba(212,175,55,.42);
 
     border-radius:24px;
 
-    font-size:50px;
-
     background:
+
         linear-gradient(
             145deg,
-            #174d7c,
-            #0a2945
+            rgba(16,62,98,.98),
+            rgba(4,23,39,.99)
         );
 
-    border:1px solid var(--line);
-
     box-shadow:
-        0 15px 35px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.08);
-
-    animation:heroFloat 4s ease-in-out infinite;
+        var(--shadow);
 }
 
-@keyframes heroFloat{
 
-    0%,100%{
-        transform:translateY(0);
-    }
+.page-title h1{
 
-    50%{
-        transform:translateY(-7px);
-    }
+    margin:0;
 
+    color:
+        var(--gold-light);
+
+    font-size:
+        clamp(28px,5vw,42px);
+
+    font-weight:900;
 }
 
-.hero h1{
 
-    position:relative;
+.page-title p{
 
-    margin:0 0 10px;
+    margin:
+        10px 0 0;
 
-    color:var(--gold2);
+    color:
+        var(--muted);
 
-    font-size:clamp(30px,5vw,44px);
+    font-size:
+        clamp(16px,2vw,20px);
 
-    line-height:1.4;
+    line-height:1.9;
 }
 
-.hero p{
-
-    position:relative;
-
-    max-width:900px;
-
-    margin:auto;
-
-    color:#dce6ef;
-
-    font-size:19px;
-
-    line-height:2;
-}
 
 /* =====================================================
-   SECTION TITLE
+   TESTAMENT SECTION
 ===================================================== */
 
-.section-title{
+.testament{
 
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin:30px 0 18px;
-
-    padding:14px 20px;
-
-    border-radius:17px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(18,59,97,.90),
-            rgba(6,26,45,.95)
-        );
-
-    border:1px solid var(--line);
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.22);
+    margin-bottom:42px;
 }
 
-.section-title span{
 
-    width:48px;
-    height:48px;
+.testament-header{
 
     display:flex;
 
@@ -362,28 +415,94 @@ main{
 
     justify-content:center;
 
-    flex-shrink:0;
+    gap:15px;
 
-    border-radius:14px;
+    margin-bottom:22px;
 
-    background:#0d3455;
+    padding:
+        17px 20px;
 
-    border:1px solid var(--line);
+    border:
+        1px solid
+        rgba(212,175,55,.40);
 
-    font-size:26px;
+    border-radius:19px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(13,56,93,.96),
+            rgba(4,23,39,.98)
+        );
+
+    box-shadow:
+
+        0 12px 30px
+        rgba(0,0,0,.42);
 }
 
-.section-title h2{
+
+.testament-icon{
+
+    width:46px;
+
+    height:46px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:13px;
+
+    color:#071526;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #fff1a2,
+            var(--gold),
+            var(--gold-dark)
+        );
+
+    font-size:25px;
+
+    box-shadow:
+        0 7px 15px
+        rgba(0,0,0,.38);
+}
+
+
+.testament-title{
 
     margin:0;
 
-    color:var(--gold2);
+    color:
+        var(--gold-light);
 
-    font-size:26px;
+    font-size:
+        clamp(24px,4vw,32px);
+
+    font-weight:900;
 }
 
+
+.testament-count{
+
+    color:
+        var(--muted);
+
+    font-size:15px;
+
+    font-weight:700;
+}
+
+
 /* =====================================================
-   BOOK GRID
+   BOOKS GRID
 ===================================================== */
 
 .books-grid{
@@ -391,10 +510,11 @@ main{
     display:grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(4,1fr);
 
-    gap:18px;
+    gap:17px;
 }
+
 
 /* =====================================================
    BOOK CARD
@@ -404,44 +524,56 @@ main{
 
     position:relative;
 
-    min-height:150px;
+    min-height:145px;
+
+    padding:20px 15px;
 
     display:flex;
 
+    flex-direction:column;
+
     align-items:center;
 
-    gap:16px;
+    justify-content:center;
 
-    padding:20px;
+    text-align:center;
 
-    text-decoration:none;
-
-    color:white;
+    border:
+        1px solid
+        rgba(212,175,55,.28);
 
     border-radius:20px;
 
-    border:1px solid rgba(212,175,55,.20);
+    color:#fff;
+
+    text-decoration:none;
 
     background:
+
         linear-gradient(
             145deg,
-            #123b61,
-            #071d31
+            rgba(13,56,93,.94),
+            rgba(4,23,39,.98)
         );
 
     box-shadow:
-        0 10px 28px rgba(0,0,0,.28);
+
+        0 10px 25px
+        rgba(0,0,0,.40),
+
+        inset 0 1px 0
+        rgba(255,255,255,.05);
 
     overflow:hidden;
 
     transition:
 
-        transform .3s ease,
-
-        border-color .3s ease,
-
-        box-shadow .3s ease;
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
 }
+
 
 .book-card::before{
 
@@ -449,48 +581,60 @@ main{
 
     position:absolute;
 
-    width:150px;
-    height:150px;
+    top:0;
 
-    top:-80px;
-    left:-70px;
+    right:0;
 
-    border-radius:50%;
+    left:0;
+
+    height:3px;
 
     background:
-        radial-gradient(
-            circle,
-            rgba(212,175,55,.14),
-            transparent 70%
+
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold),
+            transparent
         );
 
-    pointer-events:none;
+    opacity:.65;
 }
+
 
 .book-card:hover{
 
-    transform:translateY(-6px);
+    transform:
+        translateY(-7px);
 
     border-color:
-        rgba(212,175,55,.65);
+        var(--gold-light);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(20,82,126,.98),
+            rgba(6,26,44,.99)
+        );
 
     box-shadow:
 
-        0 18px 38px rgba(0,0,0,.40),
+        0 17px 35px
+        rgba(0,0,0,.55),
 
-        0 0 25px rgba(212,175,55,.10);
+        0 0 22px
+        rgba(212,175,55,.10);
 }
 
-/* =====================================================
-   BOOK NUMBER
-===================================================== */
 
 .book-number{
 
-    width:58px;
-    height:58px;
+    width:38px;
 
-    flex-shrink:0;
+    height:38px;
+
+    margin-bottom:10px;
 
     display:flex;
 
@@ -498,238 +642,266 @@ main{
 
     justify-content:center;
 
-    border-radius:17px;
+    border-radius:11px;
 
-    color:var(--gold2);
+    color:#071526;
 
     background:
+
         linear-gradient(
-            145deg,
-            #174d7c,
-            #0a2945
+            180deg,
+            #fff1a2,
+            var(--gold),
+            var(--gold-dark)
         );
 
-    border:1px solid var(--line);
+    font-size:14px;
 
-    font-size:20px;
-
-    font-weight:bold;
+    font-weight:900;
 
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.08),
-        0 8px 18px rgba(0,0,0,.25);
+        0 6px 13px
+        rgba(0,0,0,.35);
 }
 
-/* =====================================================
-   BOOK CONTENT
-===================================================== */
 
-.book-content{
+.book-name{
 
-    position:relative;
-
-    z-index:2;
-
-    min-width:0;
-}
-
-.book-content h3{
-
-    margin:0 0 5px;
-
-    color:var(--gold2);
-
-    font-size:21px;
-
-    line-height:1.5;
-}
-
-.book-content p{
-
-    margin:0;
-
-    color:#cbd7e1;
-
-    font-size:15px;
-
-    line-height:1.7;
-}
-
-/* =====================================================
-   BOOK ARROW
-===================================================== */
-
-.book-arrow{
-
-    margin-right:auto;
-
-    color:var(--gold2);
-
-    font-size:24px;
-
-    transition:.3s;
-}
-
-.book-card:hover .book-arrow{
-
-    transform:
-        translateX(-5px);
-
-}
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-footer{
-
-    text-align:center;
-
-    padding:35px 15px;
-
-    color:var(--muted);
-
-    border-top:1px solid var(--line);
-
-    background:
-        rgba(3,14,24,.55);
-
-    font-size:17px;
-
-    line-height:2;
-}
-
-.footer-name{
-
-    color:var(--gold2);
-
-    font-weight:700;
+    color:#fff;
 
     font-size:19px;
 
-    margin-bottom:5px;
+    line-height:1.5;
+
+    font-weight:900;
 }
+
+
+.book-subtitle{
+
+    margin-top:5px;
+
+    color:
+        #8fa5b8;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
 
 /* =====================================================
-   TABLET
+   FOOTER NOTE
 ===================================================== */
 
-@media(max-width:950px){
+.structure-note{
 
-    .books-grid{
+    margin-top:15px;
 
-        grid-template-columns:
-            repeat(2,1fr);
-    }
+    padding:20px;
 
+    text-align:center;
+
+    border:
+        1px solid
+        rgba(212,175,55,.20);
+
+    border-radius:18px;
+
+    color:
+        #91a7b9;
+
+    background:
+        rgba(3,16,29,.48);
+
+    font-size:14px;
+
+    line-height:1.9;
 }
+
 
 /* =====================================================
    MOBILE
 ===================================================== */
 
-@media(max-width:650px){
-
-    .topbar{
-
-        padding:9px 12px;
-    }
-
-    .brand-name{
-
-        font-size:16px;
-    }
-
-    .brand-logo{
-
-        width:48px;
-        height:48px;
-    }
-
-    .back-btn{
-
-        padding:9px 12px;
-
-        font-size:16px;
-    }
-
-    .hero{
-
-        padding:35px 18px;
-    }
-
-    .hero-icon{
-
-        width:75px;
-        height:75px;
-
-        font-size:40px;
-    }
-
-    .hero h1{
-
-        font-size:29px;
-    }
-
-    .hero p{
-
-        font-size:17px;
-    }
+@media(max-width:1050px){
 
     .books-grid{
 
-        grid-template-columns:1fr;
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+}
 
-        gap:13px;
+
+@media(max-width:720px){
+
+    .topbar{
+
+        min-height:80px;
+
+        padding:
+            8px 12px;
     }
 
-    .book-card{
 
-        min-height:125px;
+    .brand{
 
-        padding:16px;
+        gap:7px;
     }
 
-    .book-number{
+
+    .brand-logo{
 
         width:52px;
+
         height:52px;
-
-        font-size:18px;
     }
 
-    .book-content h3{
 
-        font-size:20px;
-    }
-
-    .book-content p{
+    .brand-name{
 
         font-size:14px;
     }
 
-    .section-title h2{
 
-        font-size:22px;
+    .back-button{
+
+        min-width:150px;
+
+        height:50px;
+
+        padding:
+            0 12px;
+
+        font-size:15px;
+
+        border-radius:14px;
     }
 
+
+    .back-icon{
+
+        font-size:23px;
+    }
+
+
+    main{
+
+        padding:
+            30px 12px 55px;
+    }
+
+
+    .page-title{
+
+        padding:
+            22px 14px;
+
+        border-radius:19px;
+    }
+
+
+    .books-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:12px;
+    }
+
+
+    .book-card{
+
+        min-height:130px;
+
+        padding:15px 10px;
+
+        border-radius:17px;
+    }
+
+
+    .book-name{
+
+        font-size:17px;
+    }
+
+
+    .book-number{
+
+        width:34px;
+
+        height:34px;
+
+        font-size:13px;
+    }
 }
 
-@media(max-width:430px){
+
+@media(max-width:420px){
 
     .brand-name{
 
-        display:none;
+        font-size:12px;
     }
 
-    .back-btn{
+
+    .brand-logo{
+
+        width:46px;
+
+        height:46px;
+    }
+
+
+    .back-button{
+
+        min-width:115px;
+
+        height:46px;
+
+        padding:
+            0 9px;
+
+        font-size:13px;
+    }
+
+
+    .back-icon{
+
+        font-size:21px;
+    }
+
+
+    .books-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:9px;
+    }
+
+
+    .book-card{
+
+        min-height:120px;
+    }
+
+
+    .book-name{
 
         font-size:15px;
     }
 
+
+    .book-subtitle{
+
+        font-size:10px;
+    }
 }
 
 </style>
+
 </head>
 
 
@@ -740,1319 +912,1308 @@ footer{
      HEADER
 ===================================================== -->
 
-<header>
+<header class="top-frame">
 
-<div class="topbar">
-
-
-<!-- الرجوع إلى موسوعة الكتاب المقدس -->
-
-<a
-    href="encyclopedia.html"
-    class="back-btn"
->
-
-    <span>↩️</span>
-
-    <span>
-        موسوعة الكتاب المقدس
-    </span>
-
-</a>
+    <div class="topbar">
 
 
-<div class="brand">
+        <!-- اليمين في RTL: الرجوع -->
 
-<div class="brand-name">
-    كنيسة رجاء الأمم سيدني
-</div>
+        <a
+            href="studies.html"
+            class="back-button"
+            title="العودة إلى الدراسات الكتابية"
+            aria-label="العودة إلى الدراسات الكتابية"
+        >
 
-<img
-    src="assets/logo.png"
-    class="brand-logo"
-    alt="شعار كنيسة رجاء الأمم سيدني"
->
+            <span class="back-icon">
+                ←
+            </span>
 
-</div>
+            <span class="back-text">
+                الدراسات الكتابية
+            </span>
 
-</div>
+        </a>
+
+
+        <!-- اليسار في RTL: الشعار -->
+
+        <div class="brand">
+
+            <div class="brand-name">
+                <span id="churchName">
+                    كنيسة رجاء الأمم سيدني
+                </span>
+            </div>
+
+            <img
+                src="assets/logo.png"
+                class="brand-logo"
+                alt="كنيسة رجاء الأمم سيدني"
+            >
+
+        </div>
+
+    </div>
 
 </header>
 
 
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main>
 
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+    <section class="page-title">
 
-<section class="hero">
+        <h1>
+            مقدمة الأسفار الكتابية
+        </h1>
 
-<div class="hero-icon">
-    📖
-</div>
+        <p>
+            دراسة منهجية شاملة لأسفار الكتاب المقدس
+            من التكوين إلى الرؤيا
+        </p>
 
-<h1>
-    مقدمة أسفار الكتاب المقدس
-</h1>
+    </section>
 
-<p>
-دراسة تمهيدية شاملة لأسفار الكتاب المقدس،
-تتناول هوية كل سفر، ومؤلفه، وزمن كتابته،
-والخلفية التاريخية، والموضوع الرئيسي،
-والرسالة اللاهوتية، وأهم الشخصيات والأحداث.
-</p>
 
-</section>
+    <!-- =================================================
+         OLD TESTAMENT
+    ================================================== -->
 
+    <section class="testament">
 
+        <div class="testament-header">
 
-<!-- =====================================================
-     OLD TESTAMENT
-===================================================== -->
+            <div class="testament-icon">
+                📜
+            </div>
 
-<div class="section-title">
+            <div>
 
-<span>
-    📜
-</span>
+                <h2 class="testament-title">
+                    العهد القديم
+                </h2>
 
-<h2>
-    أسفار العهد القديم — 39 سفرًا
-</h2>
+                <div class="testament-count">
+                    39 سفرًا
+                </div>
 
-</div>
+            </div>
 
+        </div>
 
 
-<div class="books-grid">
+        <div class="books-grid">
 
 
-<!-- 01 GENESIS -->
+            <a class="book-card"
+               href="study-biblical-book-genesis.html">
 
-<a
-    href="study-bible-book-genesis.html"
-    class="book-card"
->
+                <span class="book-number">1</span>
 
-<div class="book-number">
-    01
-</div>
+                <span class="book-name">
+                    التكوين
+                </span>
 
-<div class="book-content">
+                <span class="book-subtitle">
+                    Genesis
+                </span>
 
-<h3>
-    سفر التكوين
-</h3>
+            </a>
 
-<p>
-    Genesis
-</p>
 
-</div>
+            <a class="book-card"
+               href="study-biblical-book-exodus.html">
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-number">2</span>
 
-</a>
+                <span class="book-name">
+                    الخروج
+                </span>
 
+                <span class="book-subtitle">
+                    Exodus
+                </span>
 
-<!-- 02 EXODUS -->
+            </a>
 
-<a
-    href="study-bible-book-exodus.html"
-    class="book-card"
->
 
-<div class="book-number">
-    02
-</div>
+            <a class="book-card"
+               href="study-biblical-book-leviticus.html">
 
-<div class="book-content">
+                <span class="book-number">3</span>
 
-<h3>
-    سفر الخروج
-</h3>
+                <span class="book-name">
+                    اللاويين
+                </span>
 
-<p>
-    Exodus
-</p>
+                <span class="book-subtitle">
+                    Leviticus
+                </span>
 
-</div>
+            </a>
 
-<div class="book-arrow">
-    ‹
-</div>
 
-</a>
+            <a class="book-card"
+               href="study-biblical-book-numbers.html">
 
+                <span class="book-number">4</span>
 
-<!-- 03 LEVITICUS -->
+                <span class="book-name">
+                    العدد
+                </span>
 
-<a
-    href="study-bible-book-leviticus.html"
-    class="book-card"
->
+                <span class="book-subtitle">
+                    Numbers
+                </span>
 
-<div class="book-number">
-    03
-</div>
+            </a>
 
-<div class="book-content">
 
-<h3>
-    سفر اللاويين
-</h3>
+            <a class="book-card"
+               href="study-biblical-book-deuteronomy.html">
 
-<p>
-    Leviticus
-</p>
+                <span class="book-number">5</span>
 
-</div>
+                <span class="book-name">
+                    التثنية
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-subtitle">
+                    Deuteronomy
+                </span>
 
-</a>
+            </a>
 
 
-<!-- 04 NUMBERS -->
+            <a class="book-card"
+               href="study-biblical-book-joshua.html">
 
-<a
-    href="study-bible-book-numbers.html"
-    class="book-card"
->
+                <span class="book-number">6</span>
 
-<div class="book-number">
-    04
-</div>
+                <span class="book-name">
+                    يشوع
+                </span>
 
-<div class="book-content">
+                <span class="book-subtitle">
+                    Joshua
+                </span>
 
-<h3>
-    سفر العدد
-</h3>
+            </a>
 
-<p>
-    Numbers
-</p>
 
-</div>
+            <a class="book-card"
+               href="study-biblical-book-judges.html">
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-number">7</span>
 
-</a>
+                <span class="book-name">
+                    القضاة
+                </span>
 
+                <span class="book-subtitle">
+                    Judges
+                </span>
 
-<!-- 05 DEUTERONOMY -->
+            </a>
 
-<a
-    href="study-bible-book-deuteronomy.html"
-    class="book-card"
->
 
-<div class="book-number">
-    05
-</div>
+            <a class="book-card"
+               href="study-biblical-book-ruth.html">
 
-<div class="book-content">
+                <span class="book-number">8</span>
 
-<h3>
-    سفر التثنية
-</h3>
+                <span class="book-name">
+                    راعوث
+                </span>
 
-<p>
-    Deuteronomy
-</p>
+                <span class="book-subtitle">
+                    Ruth
+                </span>
 
-</div>
+            </a>
 
-<div class="book-arrow">
-    ‹
-</div>
 
-</a>
+            <a class="book-card"
+               href="study-biblical-book-1-samuel.html">
 
+                <span class="book-number">9</span>
 
-<!-- 06 JOSHUA -->
+                <span class="book-name">
+                    صموئيل الأول
+                </span>
 
-<a
-    href="study-bible-book-joshua.html"
-    class="book-card"
->
+                <span class="book-subtitle">
+                    1 Samuel
+                </span>
 
-<div class="book-number">
-    06
-</div>
+            </a>
 
-<div class="book-content">
 
-<h3>
-    سفر يشوع
-</h3>
+            <a class="book-card"
+               href="study-biblical-book-2-samuel.html">
 
-<p>
-    Joshua
-</p>
+                <span class="book-number">10</span>
 
-</div>
+                <span class="book-name">
+                    صموئيل الثاني
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-subtitle">
+                    2 Samuel
+                </span>
 
-</a>
+            </a>
 
 
-<!-- 07 JUDGES -->
+            <a class="book-card"
+               href="study-biblical-book-1-kings.html">
 
-<a
-    href="study-bible-book-judges.html"
-    class="book-card"
->
+                <span class="book-number">11</span>
 
-<div class="book-number">
-    07
-</div>
+                <span class="book-name">
+                    ملوك الأول
+                </span>
 
-<div class="book-content">
+                <span class="book-subtitle">
+                    1 Kings
+                </span>
 
-<h3>
-    سفر القضاة
-</h3>
+            </a>
 
-<p>
-    Judges
-</p>
 
-</div>
+            <a class="book-card"
+               href="study-biblical-book-2-kings.html">
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-number">12</span>
 
-</a>
+                <span class="book-name">
+                    ملوك الثاني
+                </span>
 
+                <span class="book-subtitle">
+                    2 Kings
+                </span>
 
-<!-- 08 RUTH -->
+            </a>
 
-<a
-    href="study-bible-book-ruth.html"
-    class="book-card"
->
 
-<div class="book-number">
-    08
-</div>
+            <a class="book-card"
+               href="study-biblical-book-1-chronicles.html">
 
-<div class="book-content">
+                <span class="book-number">13</span>
 
-<h3>
-    سفر راعوث
-</h3>
+                <span class="book-name">
+                    أخبار الأيام الأول
+                </span>
 
-<p>
-    Ruth
-</p>
+                <span class="book-subtitle">
+                    1 Chronicles
+                </span>
 
-</div>
+            </a>
 
-<div class="book-arrow">
-    ‹
-</div>
 
-</a>
+            <a class="book-card"
+               href="study-biblical-book-2-chronicles.html">
 
+                <span class="book-number">14</span>
 
-<!-- 09 1 SAMUEL -->
+                <span class="book-name">
+                    أخبار الأيام الثاني
+                </span>
 
-<a
-    href="study-bible-book-1-samuel.html"
-    class="book-card"
->
+                <span class="book-subtitle">
+                    2 Chronicles
+                </span>
 
-<div class="book-number">
-    09
-</div>
+            </a>
 
-<div class="book-content">
 
-<h3>
-    صموئيل الأول
-</h3>
+            <a class="book-card"
+               href="study-biblical-book-ezra.html">
 
-<p>
-    1 Samuel
-</p>
+                <span class="book-number">15</span>
 
-</div>
+                <span class="book-name">
+                    عزرا
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-subtitle">
+                    Ezra
+                </span>
 
-</a>
+            </a>
 
 
-<!-- 10 2 SAMUEL -->
+            <a class="book-card"
+               href="study-biblical-book-nehemiah.html">
 
-<a
-    href="study-bible-book-2-samuel.html"
-    class="book-card"
->
+                <span class="book-number">16</span>
 
-<div class="book-number">
-    10
-</div>
+                <span class="book-name">
+                    نحميا
+                </span>
 
-<div class="book-content">
+                <span class="book-subtitle">
+                    Nehemiah
+                </span>
 
-<h3>
-    صموئيل الثاني
-</h3>
+            </a>
 
-<p>
-    2 Samuel
-</p>
 
-</div>
+            <a class="book-card"
+               href="study-biblical-book-esther.html">
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-number">17</span>
 
-</a>
+                <span class="book-name">
+                    أستير
+                </span>
 
+                <span class="book-subtitle">
+                    Esther
+                </span>
 
-<!-- 11 1 KINGS -->
+            </a>
 
-<a
-    href="study-bible-book-1-kings.html"
-    class="book-card"
->
 
-<div class="book-number">
-    11
-</div>
+            <a class="book-card"
+               href="study-biblical-book-job.html">
 
-<div class="book-content">
+                <span class="book-number">18</span>
 
-<h3>
-    الملوك الأول
-</h3>
+                <span class="book-name">
+                    أيوب
+                </span>
 
-<p>
-    1 Kings
-</p>
+                <span class="book-subtitle">
+                    Job
+                </span>
 
-</div>
+            </a>
 
-<div class="book-arrow">
-    ‹
-</div>
 
-</a>
+            <a class="book-card"
+               href="study-biblical-book-psalms.html">
 
+                <span class="book-number">19</span>
 
-<!-- 12 2 KINGS -->
+                <span class="book-name">
+                    المزامير
+                </span>
 
-<a
-    href="study-bible-book-2-kings.html"
-    class="book-card"
->
+                <span class="book-subtitle">
+                    Psalms
+                </span>
 
-<div class="book-number">
-    12
-</div>
+            </a>
 
-<div class="book-content">
 
-<h3>
-    الملوك الثاني
-</h3>
+            <a class="book-card"
+               href="study-biblical-book-proverbs.html">
 
-<p>
-    2 Kings
-</p>
+                <span class="book-number">20</span>
 
-</div>
+                <span class="book-name">
+                    الأمثال
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-subtitle">
+                    Proverbs
+                </span>
 
-</a>
+            </a>
 
 
-<!-- 13 1 CHRONICLES -->
+            <a class="book-card"
+               href="study-biblical-book-ecclesiastes.html">
 
-<a
-    href="study-bible-book-1-chronicles.html"
-    class="book-card"
->
+                <span class="book-number">21</span>
 
-<div class="book-number">
-    13
-</div>
+                <span class="book-name">
+                    الجامعة
+                </span>
 
-<div class="book-content">
+                <span class="book-subtitle">
+                    Ecclesiastes
+                </span>
 
-<h3>
-    أخبار الأيام الأول
-</h3>
+            </a>
 
-<p>
-    1 Chronicles
-</p>
 
-</div>
+            <a class="book-card"
+               href="study-biblical-book-song-of-solomon.html">
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-number">22</span>
 
-</a>
+                <span class="book-name">
+                    نشيد الأنشاد
+                </span>
 
+                <span class="book-subtitle">
+                    Song of Solomon
+                </span>
 
-<!-- 14 2 CHRONICLES -->
+            </a>
 
-<a
-    href="study-bible-book-2-chronicles.html"
-    class="book-card"
->
 
-<div class="book-number">
-    14
-</div>
+            <a class="book-card"
+               href="study-biblical-book-isaiah.html">
 
-<div class="book-content">
+                <span class="book-number">23</span>
 
-<h3>
-    أخبار الأيام الثاني
-</h3>
+                <span class="book-name">
+                    إشعياء
+                </span>
 
-<p>
-    2 Chronicles
-</p>
+                <span class="book-subtitle">
+                    Isaiah
+                </span>
 
-</div>
+            </a>
 
-<div class="book-arrow">
-    ‹
-</div>
 
-</a>
+            <a class="book-card"
+               href="study-biblical-book-jeremiah.html">
 
+                <span class="book-number">24</span>
 
-<!-- 15 EZRA -->
+                <span class="book-name">
+                    إرميا
+                </span>
 
-<a
-    href="study-bible-book-ezra.html"
-    class="book-card"
->
+                <span class="book-subtitle">
+                    Jeremiah
+                </span>
 
-<div class="book-number">
-    15
-</div>
+            </a>
 
-<div class="book-content">
 
-<h3>
-    سفر عزرا
-</h3>
+            <a class="book-card"
+               href="study-biblical-book-lamentations.html">
 
-<p>
-    Ezra
-</p>
+                <span class="book-number">25</span>
 
-</div>
+                <span class="book-name">
+                    مراثي إرميا
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-subtitle">
+                    Lamentations
+                </span>
 
-</a>
+            </a>
 
 
-<!-- 16 NEHEMIAH -->
+            <a class="book-card"
+               href="study-biblical-book-ezekiel.html">
 
-<a
-    href="study-bible-book-nehemiah.html"
-    class="book-card"
->
+                <span class="book-number">26</span>
 
-<div class="book-number">
-    16
-</div>
+                <span class="book-name">
+                    حزقيال
+                </span>
 
-<div class="book-content">
+                <span class="book-subtitle">
+                    Ezekiel
+                </span>
 
-<h3>
-    سفر نحميا
-</h3>
+            </a>
 
-<p>
-    Nehemiah
-</p>
 
-</div>
+            <a class="book-card"
+               href="study-biblical-book-daniel.html">
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-number">27</span>
 
-</a>
+                <span class="book-name">
+                    دانيال
+                </span>
 
+                <span class="book-subtitle">
+                    Daniel
+                </span>
 
-<!-- 17 ESTHER -->
+            </a>
 
-<a
-    href="study-bible-book-esther.html"
-    class="book-card"
->
 
-<div class="book-number">
-    17
-</div>
+            <a class="book-card"
+               href="study-biblical-book-hosea.html">
 
-<div class="book-content">
+                <span class="book-number">28</span>
 
-<h3>
-    سفر أستير
-</h3>
+                <span class="book-name">
+                    هوشع
+                </span>
 
-<p>
-    Esther
-</p>
+                <span class="book-subtitle">
+                    Hosea
+                </span>
 
-</div>
+            </a>
 
-<div class="book-arrow">
-    ‹
-</div>
 
-</a>
+            <a class="book-card"
+               href="study-biblical-book-joel.html">
 
+                <span class="book-number">29</span>
 
-<!-- 18 JOB -->
+                <span class="book-name">
+                    يوئيل
+                </span>
 
-<a
-    href="study-bible-book-job.html"
-    class="book-card"
->
+                <span class="book-subtitle">
+                    Joel
+                </span>
 
-<div class="book-number">
-    18
-</div>
+            </a>
 
-<div class="book-content">
 
-<h3>
-    سفر أيوب
-</h3>
+            <a class="book-card"
+               href="study-biblical-book-amos.html">
 
-<p>
-    Job
-</p>
+                <span class="book-number">30</span>
 
-</div>
+                <span class="book-name">
+                    عاموس
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-subtitle">
+                    Amos
+                </span>
 
-</a>
+            </a>
 
 
-<!-- 19 PSALMS -->
+            <a class="book-card"
+               href="study-biblical-book-obadiah.html">
 
-<a
-    href="study-bible-book-psalms.html"
-    class="book-card"
->
+                <span class="book-number">31</span>
 
-<div class="book-number">
-    19
-</div>
+                <span class="book-name">
+                    عوبديا
+                </span>
 
-<div class="book-content">
+                <span class="book-subtitle">
+                    Obadiah
+                </span>
 
-<h3>
-    سفر المزامير
-</h3>
+            </a>
 
-<p>
-    Psalms
-</p>
 
-</div>
+            <a class="book-card"
+               href="study-biblical-book-jonah.html">
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-number">32</span>
 
-</a>
+                <span class="book-name">
+                    يونان
+                </span>
 
+                <span class="book-subtitle">
+                    Jonah
+                </span>
 
-<!-- 20 PROVERBS -->
+            </a>
 
-<a
-    href="study-bible-book-proverbs.html"
-    class="book-card"
->
 
-<div class="book-number">
-    20
-</div>
+            <a class="book-card"
+               href="study-biblical-book-micah.html">
 
-<div class="book-content">
+                <span class="book-number">33</span>
 
-<h3>
-    سفر الأمثال
-</h3>
+                <span class="book-name">
+                    ميخا
+                </span>
 
-<p>
-    Proverbs
-</p>
+                <span class="book-subtitle">
+                    Micah
+                </span>
 
-</div>
+            </a>
 
-<div class="book-arrow">
-    ‹
-</div>
 
-</a>
+            <a class="book-card"
+               href="study-biblical-book-nahum.html">
 
+                <span class="book-number">34</span>
 
-<!-- 21 ECCLESIASTES -->
+                <span class="book-name">
+                    ناحوم
+                </span>
 
-<a
-    href="study-bible-book-ecclesiastes.html"
-    class="book-card"
->
+                <span class="book-subtitle">
+                    Nahum
+                </span>
 
-<div class="book-number">
-    21
-</div>
+            </a>
 
-<div class="book-content">
 
-<h3>
-    سفر الجامعة
-</h3>
+            <a class="book-card"
+               href="study-biblical-book-habakkuk.html">
 
-<p>
-    Ecclesiastes
-</p>
+                <span class="book-number">35</span>
 
-</div>
+                <span class="book-name">
+                    حبقوق
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-subtitle">
+                    Habakkuk
+                </span>
 
-</a>
+            </a>
 
 
-<!-- 22 SONG OF SONGS -->
+            <a class="book-card"
+               href="study-biblical-book-zephaniah.html">
 
-<a
-    href="study-bible-book-song-of-solomon.html"
-    class="book-card"
->
+                <span class="book-number">36</span>
 
-<div class="book-number">
-    22
-</div>
+                <span class="book-name">
+                    صفنيا
+                </span>
 
-<div class="book-content">
+                <span class="book-subtitle">
+                    Zephaniah
+                </span>
 
-<h3>
-    نشيد الأنشاد
-</h3>
+            </a>
 
-<p>
-    Song of Solomon
-</p>
 
-</div>
+            <a class="book-card"
+               href="study-biblical-book-haggai.html">
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-number">37</span>
 
-</a>
+                <span class="book-name">
+                    حجي
+                </span>
 
+                <span class="book-subtitle">
+                    Haggai
+                </span>
 
-<!-- 23 ISAIAH -->
+            </a>
 
-<a
-    href="study-bible-book-isaiah.html"
-    class="book-card"
->
 
-<div class="book-number">
-    23
-</div>
+            <a class="book-card"
+               href="study-biblical-book-zechariah.html">
 
-<div class="book-content">
+                <span class="book-number">38</span>
 
-<h3>
-    سفر إشعياء
-</h3>
+                <span class="book-name">
+                    زكريا
+                </span>
 
-<p>
-    Isaiah
-</p>
+                <span class="book-subtitle">
+                    Zechariah
+                </span>
 
-</div>
+            </a>
 
-<div class="book-arrow">
-    ‹
-</div>
 
-</a>
+            <a class="book-card"
+               href="study-biblical-book-malachi.html">
 
+                <span class="book-number">39</span>
 
-<!-- 24 JEREMIAH -->
+                <span class="book-name">
+                    ملاخي
+                </span>
 
-<a
-    href="study-bible-book-jeremiah.html"
-    class="book-card"
->
+                <span class="book-subtitle">
+                    Malachi
+                </span>
 
-<div class="book-number">
-    24
-</div>
+            </a>
 
-<div class="book-content">
 
-<h3>
-    سفر إرميا
-</h3>
+        </div>
 
-<p>
-    Jeremiah
-</p>
+    </section>
 
-</div>
 
-<div class="book-arrow">
-    ‹
-</div>
+    <!-- =================================================
+         NEW TESTAMENT
+    ================================================== -->
 
-</a>
+    <section class="testament">
 
+        <div class="testament-header">
 
-<!-- 25 LAMENTATIONS -->
+            <div class="testament-icon">
+                ✝
+            </div>
 
-<a
-    href="study-bible-book-lamentations.html"
-    class="book-card"
->
+            <div>
 
-<div class="book-number">
-    25
-</div>
+                <h2 class="testament-title">
+                    العهد الجديد
+                </h2>
 
-<div class="book-content">
+                <div class="testament-count">
+                    27 سفرًا
+                </div>
 
-<h3>
-    مراثي إرميا
-</h3>
+            </div>
 
-<p>
-    Lamentations
-</p>
+        </div>
 
-</div>
 
-<div class="book-arrow">
-    ‹
-</div>
+        <div class="books-grid">
 
-</a>
 
+            <a class="book-card"
+               href="study-biblical-book-matthew.html">
 
-<!-- 26 EZEKIEL -->
+                <span class="book-number">40</span>
 
-<a
-    href="study-bible-book-ezekiel.html"
-    class="book-card"
->
+                <span class="book-name">
+                    متى
+                </span>
 
-<div class="book-number">
-    26
-</div>
+                <span class="book-subtitle">
+                    Matthew
+                </span>
 
-<div class="book-content">
+            </a>
 
-<h3>
-    سفر حزقيال
-</h3>
 
-<p>
-    Ezekiel
-</p>
+            <a class="book-card"
+               href="study-biblical-book-mark.html">
 
-</div>
+                <span class="book-number">41</span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-name">
+                    مرقس
+                </span>
 
-</a>
+                <span class="book-subtitle">
+                    Mark
+                </span>
 
+            </a>
 
-<!-- 27 DANIEL -->
 
-<a
-    href="study-bible-book-daniel.html"
-    class="book-card"
->
+            <a class="book-card"
+               href="study-biblical-book-luke.html">
 
-<div class="book-number">
-    27
-</div>
+                <span class="book-number">42</span>
 
-<div class="book-content">
+                <span class="book-name">
+                    لوقا
+                </span>
 
-<h3>
-    سفر دانيال
-</h3>
+                <span class="book-subtitle">
+                    Luke
+                </span>
 
-<p>
-    Daniel
-</p>
+            </a>
 
-</div>
 
-<div class="book-arrow">
-    ‹
-</div>
+            <a class="book-card"
+               href="study-biblical-book-john.html">
 
-</a>
+                <span class="book-number">43</span>
 
+                <span class="book-name">
+                    يوحنا
+                </span>
 
-<!-- 28 HOSEA -->
+                <span class="book-subtitle">
+                    John
+                </span>
 
-<a
-    href="study-bible-book-hosea.html"
-    class="book-card"
->
+            </a>
 
-<div class="book-number">
-    28
-</div>
 
-<div class="book-content">
+            <a class="book-card"
+               href="study-biblical-book-acts.html">
 
-<h3>
-    سفر هوشع
-</h3>
+                <span class="book-number">44</span>
 
-<p>
-    Hosea
-</p>
+                <span class="book-name">
+                    أعمال الرسل
+                </span>
 
-</div>
+                <span class="book-subtitle">
+                    Acts
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+            </a>
 
-</a>
 
+            <a class="book-card"
+               href="study-biblical-book-romans.html">
 
-<!-- 29 JOEL -->
+                <span class="book-number">45</span>
 
-<a
-    href="study-bible-book-joel.html"
-    class="book-card"
->
+                <span class="book-name">
+                    رومية
+                </span>
 
-<div class="book-number">
-    29
-</div>
+                <span class="book-subtitle">
+                    Romans
+                </span>
 
-<div class="book-content">
+            </a>
 
-<h3>
-    سفر يوئيل
-</h3>
 
-<p>
-    Joel
-</p>
+            <a class="book-card"
+               href="study-biblical-book-1-corinthians.html">
 
-</div>
+                <span class="book-number">46</span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-name">
+                    كورنثوس الأولى
+                </span>
 
-</a>
+                <span class="book-subtitle">
+                    1 Corinthians
+                </span>
 
+            </a>
 
-<!-- 30 AMOS -->
 
-<a
-    href="study-bible-book-amos.html"
-    class="book-card"
->
+            <a class="book-card"
+               href="study-biblical-book-2-corinthians.html">
 
-<div class="book-number">
-    30
-</div>
+                <span class="book-number">47</span>
 
-<div class="book-content">
+                <span class="book-name">
+                    كورنثوس الثانية
+                </span>
 
-<h3>
-    سفر عاموس
-</h3>
+                <span class="book-subtitle">
+                    2 Corinthians
+                </span>
 
-<p>
-    Amos
-</p>
+            </a>
 
-</div>
 
-<div class="book-arrow">
-    ‹
-</div>
+            <a class="book-card"
+               href="study-biblical-book-galatians.html">
 
-</a>
+                <span class="book-number">48</span>
 
+                <span class="book-name">
+                    غلاطية
+                </span>
 
-<!-- 31 OBADIAH -->
+                <span class="book-subtitle">
+                    Galatians
+                </span>
 
-<a
-    href="study-bible-book-obadiah.html"
-    class="book-card"
->
+            </a>
 
-<div class="book-number">
-    31
-</div>
 
-<div class="book-content">
+            <a class="book-card"
+               href="study-biblical-book-ephesians.html">
 
-<h3>
-    سفر عوبديا
-</h3>
+                <span class="book-number">49</span>
 
-<p>
-    Obadiah
-</p>
+                <span class="book-name">
+                    أفسس
+                </span>
 
-</div>
+                <span class="book-subtitle">
+                    Ephesians
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+            </a>
 
-</a>
 
+            <a class="book-card"
+               href="study-biblical-book-philippians.html">
 
-<!-- 32 JONAH -->
+                <span class="book-number">50</span>
 
-<a
-    href="study-bible-book-jonah.html"
-    class="book-card"
->
+                <span class="book-name">
+                    فيلبي
+                </span>
 
-<div class="book-number">
-    32
-</div>
+                <span class="book-subtitle">
+                    Philippians
+                </span>
 
-<div class="book-content">
+            </a>
 
-<h3>
-    سفر يونان
-</h3>
 
-<p>
-    Jonah
-</p>
+            <a class="book-card"
+               href="study-biblical-book-colossians.html">
 
-</div>
+                <span class="book-number">51</span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-name">
+                    كولوسي
+                </span>
 
-</a>
+                <span class="book-subtitle">
+                    Colossians
+                </span>
 
+            </a>
 
-<!-- 33 MICAH -->
 
-<a
-    href="study-bible-book-micah.html"
-    class="book-card"
->
+            <a class="book-card"
+               href="study-biblical-book-1-thessalonians.html">
 
-<div class="book-number">
-    33
-</div>
+                <span class="book-number">52</span>
 
-<div class="book-content">
+                <span class="book-name">
+                    تسالونيكي الأولى
+                </span>
 
-<h3>
-    سفر ميخا
-</h3>
+                <span class="book-subtitle">
+                    1 Thessalonians
+                </span>
 
-<p>
-    Micah
-</p>
+            </a>
 
-</div>
 
-<div class="book-arrow">
-    ‹
-</div>
+            <a class="book-card"
+               href="study-biblical-book-2-thessalonians.html">
 
-</a>
+                <span class="book-number">53</span>
 
+                <span class="book-name">
+                    تسالونيكي الثانية
+                </span>
 
-<!-- 34 NAHUM -->
+                <span class="book-subtitle">
+                    2 Thessalonians
+                </span>
 
-<a
-    href="study-bible-book-nahum.html"
-    class="book-card"
->
+            </a>
 
-<div class="book-number">
-    34
-</div>
 
-<div class="book-content">
+            <a class="book-card"
+               href="study-biblical-book-1-timothy.html">
 
-<h3>
-    سفر ناحوم
-</h3>
+                <span class="book-number">54</span>
 
-<p>
-    Nahum
-</p>
+                <span class="book-name">
+                    تيموثاوس الأولى
+                </span>
 
-</div>
+                <span class="book-subtitle">
+                    1 Timothy
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+            </a>
 
-</a>
 
+            <a class="book-card"
+               href="study-biblical-book-2-timothy.html">
 
-<!-- 35 HABAKKUK -->
+                <span class="book-number">55</span>
 
-<a
-    href="study-bible-book-habakkuk.html"
-    class="book-card"
->
+                <span class="book-name">
+                    تيموثاوس الثانية
+                </span>
 
-<div class="book-number">
-    35
-</div>
+                <span class="book-subtitle">
+                    2 Timothy
+                </span>
 
-<div class="book-content">
+            </a>
 
-<h3>
-    سفر حبقوق
-</h3>
 
-<p>
-    Habakkuk
-</p>
+            <a class="book-card"
+               href="study-biblical-book-titus.html">
 
-</div>
+                <span class="book-number">56</span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-name">
+                    تيطس
+                </span>
 
-</a>
+                <span class="book-subtitle">
+                    Titus
+                </span>
 
+            </a>
 
-<!-- 36 ZEPHANIAH -->
 
-<a
-    href="study-bible-book-zephaniah.html"
-    class="book-card"
->
+            <a class="book-card"
+               href="study-biblical-book-philemon.html">
 
-<div class="book-number">
-    36
-</div>
+                <span class="book-number">57</span>
 
-<div class="book-content">
+                <span class="book-name">
+                    فليمون
+                </span>
 
-<h3>
-    سفر صفنيا
-</h3>
+                <span class="book-subtitle">
+                    Philemon
+                </span>
 
-<p>
-    Zephaniah
-</p>
+            </a>
 
-</div>
 
-<div class="book-arrow">
-    ‹
-</div>
+            <a class="book-card"
+               href="study-biblical-book-hebrews.html">
 
-</a>
+                <span class="book-number">58</span>
 
+                <span class="book-name">
+                    العبرانيين
+                </span>
 
-<!-- 37 HAGGAI -->
+                <span class="book-subtitle">
+                    Hebrews
+                </span>
 
-<a
-    href="study-bible-book-haggai.html"
-    class="book-card"
->
+            </a>
 
-<div class="book-number">
-    37
-</div>
 
-<div class="book-content">
+            <a class="book-card"
+               href="study-biblical-book-james.html">
 
-<h3>
-    سفر حجي
-</h3>
+                <span class="book-number">59</span>
 
-<p>
-    Haggai
-</p>
+                <span class="book-name">
+                    يعقوب
+                </span>
 
-</div>
+                <span class="book-subtitle">
+                    James
+                </span>
 
-<div class="book-arrow">
-    ‹
-</div>
+            </a>
 
-</a>
 
+            <a class="book-card"
+               href="study-biblical-book-1-peter.html">
 
-<!-- 38 ZECHARIAH -->
+                <span class="book-number">60</span>
 
-<a
-    href="study-bible-book-zechariah.html"
-    class="book-card"
->
+                <span class="book-name">
+                    بطرس الأولى
+                </span>
 
-<div class="book-number">
-    38
-</div>
+                <span class="book-subtitle">
+                    1 Peter
+                </span>
 
-<div class="book-content">
+            </a>
 
-<h3>
-    سفر زكريا
-</h3>
 
-<p>
-    Zechariah
-</p>
+            <a class="book-card"
+               href="study-biblical-book-2-peter.html">
 
-</div>
+                <span class="book-number">61</span>
 
-<div class="book-arrow">
-    ‹
-</div>
+                <span class="book-name">
+                    بطرس الثانية
+                </span>
 
-</a>
+                <span class="book-subtitle">
+                    2 Peter
+                </span>
 
+            </a>
 
-<!-- 39 MALACHI -->
 
-<a
-    href="study-bible-book-malachi.html"
-    class="book-card"
->
+            <a class="book-card"
+               href="study-biblical-book-1-john.html">
 
-<div class="book-number">
-    39
-</div>
+                <span class="book-number">62</span>
 
-<div class="book-content">
+                <span class="book-name">
+                    يوحنا الأولى
+                </span>
 
-<h3>
-    سفر ملاخي
-</h3>
+                <span class="book-subtitle">
+                    1 John
+                </span>
 
-<p>
-    Malachi
-</p>
+            </a>
 
-</div>
 
-<div class="book-arrow">
-    ‹
-</div>
+            <a class="book-card"
+               href="study-biblical-book-2-john.html">
 
-</a>
+                <span class="book-number">63</span>
 
+                <span class="book-name">
+                    يوحنا الثانية
+                </span>
 
-</div>
+                <span class="book-subtitle">
+                    2 John
+                </span>
 
+            </a>
 
-<!-- =====================================================
-     NOTE
-===================================================== -->
 
-<section class="section-title" style="margin-top:30px;">
+            <a class="book-card"
+               href="study-biblical-book-3-john.html">
 
-<span>
-    ✝️
-</span>
+                <span class="book-number">64</span>
 
-<h2>
-    العهد الجديد
-</h2>
+                <span class="book-name">
+                    يوحنا الثالثة
+                </span>
 
-</section>
+                <span class="book-subtitle">
+                    3 John
+                </span>
 
-<div style="
-    text-align:center;
-    padding:22px;
-    margin-bottom:20px;
-    border-radius:18px;
-    border:1px solid var(--line);
-    background:rgba(7,29,48,.75);
-    color:#cbd7e1;
-    font-size:18px;
-">
+            </a>
 
-    ستتم إضافة أسفار العهد الجديد الـ27 بنفس الهيكل
-    مع الحفاظ على ترتيب أسفار الكتاب المقدس.
 
-</div>
+            <a class="book-card"
+               href="study-biblical-book-jude.html">
+
+                <span class="book-number">65</span>
+
+                <span class="book-name">
+                    يهوذا
+                </span>
+
+                <span class="book-subtitle">
+                    Jude
+                </span>
+
+            </a>
+
+
+            <a class="book-card"
+               href="study-biblical-book-revelation.html">
+
+                <span class="book-number">66</span>
+
+                <span class="book-name">
+                    رؤيا يوحنا
+                </span>
+
+                <span class="book-subtitle">
+                    Revelation
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <div class="structure-note">
+
+        هذا القسم مخصص لبناء الدراسات التفصيلية لكل سفر.
+        كل سفر سيُبنى في ملف مستقل، مع الحفاظ على استقلال
+        الصفحة الرئيسية وعدم التأثير على بقية أقسام موسوعة الكتاب المقدس.
+
+    </div>
 
 
 </main>
 
 
-<footer>
+<script>
 
-<div class="footer-name">
-    كنيسة رجاء الأمم سيدني
-</div>
+/* =====================================================
+   LANGUAGE
+===================================================== */
 
-موسوعة الكتاب المقدس
+const translations = {
 
-<br>
+    ar:{
 
-مقدمة أسفار الكتاب المقدس
+        churchName:
+            "كنيسة رجاء الأمم سيدني",
 
-</footer>
+        backText:
+            "الدراسات الكتابية"
+
+    },
+
+    en:{
+
+        churchName:
+            "Hope Of Nation Church NSW",
+
+        backText:
+            "Bible Studies"
+
+    }
+
+};
+
+
+function setLanguage(language){
+
+    const t =
+        translations[language] ||
+        translations.ar;
+
+
+    document.documentElement.lang =
+        language;
+
+
+    document.documentElement.dir =
+        language === "en"
+            ? "ltr"
+            : "rtl";
+
+
+    const churchName =
+        document.getElementById(
+            "churchName"
+        );
+
+
+    const backText =
+        document.querySelector(
+            ".back-text"
+        );
+
+
+    if(churchName){
+
+        churchName.textContent =
+            t.churchName;
+    }
+
+
+    if(backText){
+
+        backText.textContent =
+            t.backText;
+    }
+
+
+    localStorage.setItem(
+        "bibleAppLanguage",
+        language
+    );
+
+}
+
+
+const savedLanguage =
+    localStorage.getItem(
+        "bibleAppLanguage"
+    ) || "ar";
+
+
+setLanguage(
+    savedLanguage
+);
+
+</script>
 
 
 </body>
+
 </html>
