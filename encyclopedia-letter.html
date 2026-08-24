@@ -4,189 +4,260 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>الموسوعة الكتابية | دائرة المعارف</title>
+<title>موسوعة الكتاب المقدس</title>
 
 <style>
 :root{
     --bg:#061321;
     --bg2:#0a1b2d;
     --panel:#0d2138;
-    --gold:#d6b15e;
-    --gold2:#f0d58a;
+    --panel2:#102a45;
+    --gold:#d4af37;
+    --gold2:#f1d477;
     --text:#f5f7fa;
-    --muted:#aebdcd;
-    --border:rgba(214,177,94,.28);
+    --muted:#b8c4d1;
+    --border:rgba(212,175,55,.35);
+    --shadow:0 12px 35px rgba(0,0,0,.35);
 }
 
 *{
     box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
     margin:0;
-    padding:0;
-}
-
-html,
-body{
-    width:100%;
-    min-height:100%;
-}
-
-body{
+    min-height:100vh;
     background:
-        radial-gradient(circle at top right,rgba(25,69,108,.35),transparent 35%),
-        linear-gradient(145deg,var(--bg),var(--bg2));
+        radial-gradient(circle at top,rgba(24,67,105,.35),transparent 40%),
+        linear-gradient(180deg,var(--bg2),var(--bg));
     color:var(--text);
     font-family:Tahoma,Arial,sans-serif;
+    line-height:1.9;
 }
 
 header{
     position:sticky;
     top:0;
     z-index:1000;
-    height:78px;
+    background:rgba(6,19,33,.96);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    box-shadow:0 5px 25px rgba(0,0,0,.3);
+}
+
+.header-inner{
+    width:min(1200px,94%);
+    min-height:78px;
+    margin:auto;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 22px;
-    background:rgba(6,19,33,.97);
-    border-bottom:1px solid var(--border);
-    box-shadow:0 8px 25px rgba(0,0,0,.3);
+    gap:20px;
 }
 
-.brand{
+.logo-area{
     display:flex;
     align-items:center;
     gap:12px;
+    min-width:0;
 }
 
 .logo{
-    width:46px;
-    height:46px;
+    width:48px;
+    height:48px;
     object-fit:contain;
 }
 
-.brand-title{
+.brand{
     color:var(--gold2);
     font-size:18px;
     font-weight:bold;
+    white-space:nowrap;
 }
 
-.back{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:7px;
-    padding:11px 17px;
-    border-radius:12px;
+.back-btn{
     border:1px solid var(--border);
-    background:#102b47;
-    color:var(--text);
+    background:linear-gradient(135deg,#102b46,#0b1d31);
+    color:var(--gold2);
+    padding:10px 18px;
+    border-radius:12px;
     text-decoration:none;
-    font-size:14px;
+    font-weight:bold;
     transition:.2s;
 }
 
-.back:hover{
-    color:var(--gold2);
-    border-color:var(--gold);
+.back-btn:hover{
+    background:#173653;
+    transform:translateY(-1px);
 }
 
 main{
-    width:100%;
-    padding:25px 14px 35px;
+    width:min(1200px,94%);
+    margin:35px auto 70px;
 }
 
-.title{
+.page-title{
     text-align:center;
-    margin-bottom:20px;
+    margin-bottom:30px;
 }
 
-.title .icon{
-    width:64px;
-    height:64px;
-    margin:0 auto 10px;
-    border-radius:18px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#102b47;
-    border:1px solid var(--border);
-    font-size:32px;
-}
-
-.title h1{
+.page-title h1{
+    margin:0;
     color:var(--gold2);
-    font-size:27px;
-    margin-bottom:8px;
+    font-size:clamp(28px,5vw,42px);
 }
 
-.title p{
+.page-title p{
     color:var(--muted);
-    font-size:14px;
+    margin:8px 0 0;
+    font-size:16px;
 }
 
-.viewer{
-    width:100%;
-    max-width:1400px;
-    height:calc(100vh - 185px);
-    min-height:650px;
-    margin:0 auto;
-    background:#fff;
+.loading,
+.error,
+.empty{
+    background:linear-gradient(145deg,var(--panel),var(--panel2));
     border:1px solid var(--border);
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 18px 50px rgba(0,0,0,.45);
-}
-
-.viewer iframe{
-    width:100%;
-    height:100%;
-    border:0;
-    display:block;
-    background:#fff;
-}
-
-.notice{
-    max-width:1400px;
-    margin:15px auto 0;
+    border-radius:18px;
+    padding:30px;
     text-align:center;
-    color:#8194a8;
-    font-size:12px;
-    line-height:1.8;
+    box-shadow:var(--shadow);
 }
 
-@media(max-width:600px){
+.error{
+    color:#ffb4b4;
+    border-color:rgba(255,100,100,.35);
+}
 
-    header{
-        height:70px;
-        padding:0 12px;
+.empty{
+    color:var(--muted);
+}
+
+.entries{
+    display:grid;
+    gap:22px;
+}
+
+.entry{
+    background:linear-gradient(145deg,rgba(13,33,56,.98),rgba(9,28,47,.98));
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:28px;
+    box-shadow:var(--shadow);
+}
+
+.entry-title{
+    margin:0 0 18px;
+    padding-bottom:12px;
+    border-bottom:1px solid rgba(212,175,55,.22);
+    color:var(--gold2);
+    font-size:28px;
+    line-height:1.5;
+}
+
+.entry-content{
+    color:#edf2f7;
+    font-size:18px;
+    white-space:normal;
+    overflow-wrap:anywhere;
+}
+
+.entry-content p{
+    margin:0 0 16px;
+}
+
+.entry-content h1,
+.entry-content h2,
+.entry-content h3,
+.entry-content h4{
+    color:var(--gold2);
+    margin:24px 0 12px;
+}
+
+.entry-content ul,
+.entry-content ol{
+    padding-right:28px;
+}
+
+.entry-content blockquote{
+    margin:18px 0;
+    padding:12px 18px;
+    border-right:4px solid var(--gold);
+    background:rgba(212,175,55,.07);
+    color:#e8edf2;
+}
+
+.entry-content a{
+    color:var(--gold2);
+}
+
+.entry-content strong{
+    color:#fff;
+}
+
+.meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:18px;
+}
+
+.badge{
+    display:inline-block;
+    border:1px solid rgba(212,175,55,.25);
+    background:rgba(212,175,55,.08);
+    color:var(--gold2);
+    border-radius:20px;
+    padding:3px 10px;
+    font-size:13px;
+}
+
+.footer{
+    width:min(1200px,94%);
+    margin:0 auto 30px;
+    text-align:center;
+    color:#8090a0;
+    font-size:13px;
+}
+
+@media(max-width:700px){
+
+    .header-inner{
+        min-height:68px;
     }
 
     .logo{
-        width:38px;
-        height:38px;
+        width:40px;
+        height:40px;
     }
 
-    .brand-title{
-        font-size:14px;
+    .brand{
+        font-size:15px;
     }
 
-    .back{
-        padding:9px 11px;
-        font-size:12px;
+    .back-btn{
+        padding:8px 12px;
+        font-size:13px;
     }
 
     main{
-        padding:18px 7px 25px;
+        margin-top:25px;
     }
 
-    .title h1{
+    .entry{
+        padding:20px;
+    }
+
+    .entry-title{
         font-size:23px;
     }
 
-    .viewer{
-        height:calc(100vh - 160px);
-        min-height:550px;
-        border-radius:9px;
+    .entry-content{
+        font-size:17px;
     }
 }
 </style>
@@ -195,169 +266,588 @@ main{
 <body>
 
 <header>
+    <div class="header-inner">
 
-    <a class="back" href="encyclopedia.html">
-        ↩ الموسوعة الكتابية
-    </a>
+        <a href="encyclopedia.html" class="back-btn">
+            ← موسوعة الكتاب المقدس
+        </a>
 
-    <div class="brand">
-
-        <img
-            src="logo.png"
-            class="logo"
-            alt="شعار الكنيسة"
-            onerror="this.style.display='none'"
-        >
-
-        <div class="brand-title">
-            موسوعة الكتاب المقدس
+        <div class="logo-area">
+            <img
+                src="assets/logo.png"
+                class="logo"
+                alt="شعار الكنيسة"
+                onerror="this.style.display='none'"
+            >
+            <div class="brand">موسوعة الكتاب المقدس</div>
         </div>
 
     </div>
-
 </header>
 
 <main>
 
-    <section class="title">
-
-        <div class="icon">📚</div>
-
-        <h1 id="pageTitle">الموسوعة الكتابية</h1>
-
-        <p id="pageSubtitle">
-            دائرة المعارف الكتابية — حرف الألف
-        </p>
-
+    <section class="page-title">
+        <h1 id="letterTitle">موسوعة الكتاب المقدس</h1>
+        <p id="letterDescription">جاري تحميل محتوى الموسوعة...</p>
     </section>
 
-    <section class="viewer">
-
-        <iframe
-            id="encyclopediaViewer"
-            title="دائرة المعارف الكتابية"
-            loading="eager"
-            allow="fullscreen">
-        </iframe>
-
+    <section id="content">
+        <div class="loading">
+            جاري تحميل البيانات...
+        </div>
     </section>
-
-    <div class="notice">
-        المحتوى المعروض هو المادة الأصلية الكاملة لدائرة المعارف الكتابية.
-    </div>
 
 </main>
 
+<div class="footer">
+    موسوعة الكتاب المقدس — كنيسة رجاء الأمم سيدني
+</div>
+
 <script>
 
+const DATA_URL = "encyclopedia_ar.json";
+
+/* الحروف العربية */
+const ARABIC_LETTERS = [
+    "ا","ب","ت","ث","ج","ح","خ",
+    "د","ذ","ر","ز","س","ش","ص",
+    "ض","ط","ظ","ع","غ","ف","ق",
+    "ك","ل","م","ن","ه","و","ي"
+];
+
+/* ---------------------------------------------------------
+   قراءة الحرف من عنوان الصفحة
+   مثال:
+   encyclopedia-letter.html?letter=ا
+--------------------------------------------------------- */
+
 const params = new URLSearchParams(window.location.search);
-const letter = params.get("letter") || "ا";
 
-/*
-    ملفات دائرة المعارف.
-    يتم إضافة بقية المجلدات هنا عند توفر ملفاتها.
-*/
+let requestedLetter = params.get("letter") || "";
 
-const encyclopediaFiles = {
+requestedLetter = decodeURIComponent(requestedLetter).trim();
 
-    "ا": "دائرة المعارف أ.pdf",
+/* توحيد بعض أشكال الألف */
+function normalizeLetter(letter){
+
+    if(!letter) return "";
+
+    letter = letter.trim();
+
+    const map = {
+        "أ":"ا",
+        "إ":"ا",
+        "آ":"ا",
+        "ٱ":"ا"
+    };
+
+    return map[letter] || letter;
+}
+
+const letter = normalizeLetter(requestedLetter);
+
+/* ---------------------------------------------------------
+   تنظيف النص
+--------------------------------------------------------- */
+
+function cleanText(value){
+
+    if(value === null || value === undefined){
+        return "";
+    }
+
+    return String(value)
+        .replace(/\r\n/g,"\n")
+        .replace(/\r/g,"\n")
+        .replace(/\u0000/g,"")
+        .trim();
+}
+
+/* ---------------------------------------------------------
+   تحويل النص إلى HTML آمن
+--------------------------------------------------------- */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+/* ---------------------------------------------------------
+   تحويل النص العربي متعدد الفقرات
+--------------------------------------------------------- */
+
+function textToHTML(text){
+
+    text = cleanText(text);
+
+    if(!text){
+        return "";
+    }
 
     /*
-    "ب": "دائرة المعارف ب.pdf",
-    "ت": "دائرة المعارف ت.pdf",
-    "ث": "دائرة المعارف ث.pdf",
-    "ج": "دائرة المعارف ج.pdf",
-    "ح": "دائرة المعارف ح.pdf",
-    "خ": "دائرة المعارف خ.pdf",
-    "د": "دائرة المعارف د.pdf",
-    "ذ": "دائرة المعارف ذ.pdf",
-    "ر": "دائرة المعارف ر.pdf",
-    "ز": "دائرة المعارف ز.pdf",
-    "س": "دائرة المعارف س.pdf",
-    "ش": "دائرة المعارف ش.pdf",
-    "ص": "دائرة المعارف ص.pdf",
-    "ض": "دائرة المعارف ض.pdf",
-    "ط": "دائرة المعارف ط.pdf",
-    "ظ": "دائرة المعارف ظ.pdf",
-    "ع": "دائرة المعارف ع.pdf",
-    "غ": "دائرة المعارف غ.pdf",
-    "ف": "دائرة المعارف ف.pdf",
-    "ق": "دائرة المعارف ق.pdf",
-    "ك": "دائرة المعارف ك.pdf",
-    "ل": "دائرة المعارف ل.pdf",
-    "م": "دائرة المعارف م.pdf",
-    "ن": "دائرة المعارف ن.pdf",
-    "هـ": "دائرة المعارف هـ.pdf",
-    "و": "دائرة المعارف و.pdf",
-    "ي": "دائرة المعارف ي.pdf"
+       إذا كان المحتوى يحتوي على HTML حقيقي
+       نعرضه كما هو فقط إذا كان واضحًا أنه HTML.
     */
 
-};
+    const looksLikeHTML =
+        /<(p|div|br|h1|h2|h3|h4|ul|ol|li|blockquote|strong|em)[\s>]/i.test(text);
 
-const viewer = document.getElementById("encyclopediaViewer");
-const title = document.getElementById("pageTitle");
-const subtitle = document.getElementById("pageSubtitle");
+    if(looksLikeHTML){
+        return text;
+    }
 
-const file = encyclopediaFiles[letter];
+    return text
+        .split(/\n{2,}/)
+        .map(part => {
 
-const arabicLetters = {
-    "ا":"الألف",
-    "ب":"الباء",
-    "ت":"التاء",
-    "ث":"الثاء",
-    "ج":"الجيم",
-    "ح":"الحاء",
-    "خ":"الخاء",
-    "د":"الدال",
-    "ذ":"الذال",
-    "ر":"الراء",
-    "ز":"الزاي",
-    "س":"السين",
-    "ش":"الشين",
-    "ص":"الصاد",
-    "ض":"الضاد",
-    "ط":"الطاء",
-    "ظ":"الظاء",
-    "ع":"العين",
-    "غ":"الغين",
-    "ف":"الفاء",
-    "ق":"القاف",
-    "ك":"الكاف",
-    "ل":"اللام",
-    "م":"الميم",
-    "ن":"النون",
-    "هـ":"الهاء",
-    "و":"الواو",
-    "ي":"الياء"
-};
+            const paragraph = part
+                .trim()
+                .replace(/\n/g,"<br>");
 
-if(file){
+            return paragraph
+                ? `<p>${escapeHTML(paragraph)}</p>`
+                : "";
 
-    viewer.src = encodeURI(file);
-
-    const letterName =
-        arabicLetters[letter] || letter;
-
-    title.textContent =
-        "الموسوعة الكتابية — " + letterName;
-
-    subtitle.textContent =
-        "دائرة المعارف الكتابية — حرف " + letterName;
-
-    document.title =
-        "الموسوعة الكتابية | حرف " + letterName;
-
-}else{
-
-    viewer.remove();
-
-    title.textContent =
-        "الموسوعة الكتابية";
-
-    subtitle.textContent =
-        "محتوى هذا الحرف لم تتم إضافته بعد.";
-
+        })
+        .join("");
 }
+
+/* ---------------------------------------------------------
+   استخراج أول حرف من عنوان المدخل
+--------------------------------------------------------- */
+
+function firstArabicLetter(text){
+
+    text = cleanText(text);
+
+    if(!text){
+        return "";
+    }
+
+    for(const char of text){
+
+        const normalized = normalizeLetter(char);
+
+        if(ARABIC_LETTERS.includes(normalized)){
+            return normalized;
+        }
+    }
+
+    return "";
+}
+
+/* ---------------------------------------------------------
+   استخراج عنوان المدخل من أشكال JSON المختلفة
+--------------------------------------------------------- */
+
+function getTitle(item){
+
+    if(typeof item === "string"){
+        return item.split(/\n/)[0].trim();
+    }
+
+    if(!item || typeof item !== "object"){
+        return "";
+    }
+
+    return cleanText(
+        item.title ??
+        item.name ??
+        item.word ??
+        item.term ??
+        item.headword ??
+        item.entry ??
+        item.heading ??
+        ""
+    );
+}
+
+/* ---------------------------------------------------------
+   استخراج محتوى المدخل
+--------------------------------------------------------- */
+
+function getContent(item){
+
+    if(typeof item === "string"){
+
+        const lines = item.split(/\n/);
+
+        return lines.slice(1).join("\n").trim();
+    }
+
+    if(!item || typeof item !== "object"){
+        return "";
+    }
+
+    const possibleFields = [
+        "content",
+        "text",
+        "body",
+        "description",
+        "article",
+        "definition",
+        "study",
+        "details",
+        "html"
+    ];
+
+    for(const field of possibleFields){
+
+        if(item[field] !== undefined &&
+           item[field] !== null &&
+           String(item[field]).trim() !== ""){
+
+            return cleanText(item[field]);
+        }
+    }
+
+    return "";
+}
+
+/* ---------------------------------------------------------
+   استخراج المدخلات من JSON مهما كان الهيكل
+--------------------------------------------------------- */
+
+function extractEntries(data){
+
+    if(Array.isArray(data)){
+        return data;
+    }
+
+    if(!data || typeof data !== "object"){
+        return [];
+    }
+
+    /*
+       إذا كان JSON منظماً هكذا:
+
+       {
+         "ا": [...],
+         "ب": [...],
+         ...
+       }
+    */
+
+    if(letter){
+
+        const direct =
+            data[letter] ??
+            data[requestedLetter] ??
+            data[letter.toUpperCase()];
+
+        if(Array.isArray(direct)){
+            return direct;
+        }
+
+        if(direct && typeof direct === "object"){
+            return Object.entries(direct).map(([key,value]) => {
+
+                if(typeof value === "object" && value !== null){
+                    return {
+                        title: value.title || value.name || key,
+                        ...value
+                    };
+                }
+
+                return {
+                    title:key,
+                    content:value
+                };
+
+            });
+        }
+    }
+
+    /*
+       البحث عن مصفوفات محتوى داخل JSON
+    */
+
+    const candidates = [
+        data.entries,
+        data.items,
+        data.articles,
+        data.articles,
+        data.data,
+        data.encyclopedia,
+        data.entries_ar,
+        data.words,
+        data.terms
+    ];
+
+    for(const candidate of candidates){
+
+        if(Array.isArray(candidate)){
+            return candidate;
+        }
+    }
+
+    /*
+       إذا كان JSON عبارة عن object
+       والمفاتيح هي أسماء المداخل.
+    */
+
+    const objectEntries = Object.entries(data);
+
+    if(objectEntries.length){
+
+        return objectEntries.map(([key,value]) => {
+
+            if(typeof value === "object" && value !== null){
+
+                return {
+                    title:
+                        value.title ||
+                        value.name ||
+                        value.word ||
+                        key,
+
+                    ...value
+                };
+            }
+
+            return {
+                title:key,
+                content:value
+            };
+        });
+    }
+
+    return [];
+}
+
+/* ---------------------------------------------------------
+   تصفية المداخل حسب الحرف
+--------------------------------------------------------- */
+
+function filterByLetter(entries){
+
+    if(!letter){
+        return entries;
+    }
+
+    return entries.filter(item => {
+
+        const title = getTitle(item);
+
+        if(!title){
+            return false;
+        }
+
+        return firstArabicLetter(title) === letter;
+    });
+}
+
+/* ---------------------------------------------------------
+   ترتيب المداخل
+--------------------------------------------------------- */
+
+function sortEntries(entries){
+
+    return [...entries].sort((a,b) => {
+
+        const titleA = getTitle(a);
+        const titleB = getTitle(b);
+
+        return titleA.localeCompare(
+            titleB,
+            "ar",
+            {
+                sensitivity:"base",
+                numeric:false
+            }
+        );
+    });
+}
+
+/* ---------------------------------------------------------
+   إظهار الصفحة
+--------------------------------------------------------- */
+
+function render(entries){
+
+    const content = document.getElementById("content");
+    const title = document.getElementById("letterTitle");
+    const description = document.getElementById("letterDescription");
+
+    if(letter){
+
+        title.textContent =
+            `حرف ${letter}`;
+
+        description.textContent =
+            `مداخل موسوعة الكتاب المقدس تحت حرف ${letter}`;
+
+    }else{
+
+        title.textContent =
+            "موسوعة الكتاب المقدس";
+
+        description.textContent =
+            "اختر حرفًا من الموسوعة لعرض المداخل.";
+    }
+
+    if(!entries.length){
+
+        content.innerHTML = `
+            <div class="empty">
+                <div style="font-size:42px;margin-bottom:10px;">📖</div>
+                <div style="font-size:20px;color:var(--gold2);margin-bottom:8px;">
+                    لا توجد بيانات معروضة لهذا الحرف
+                </div>
+                <div>
+                    تأكد من أن ملف
+                    <strong>encyclopedia_ar.json</strong>
+                    يحتوي على المداخل الخاصة بحرف ${escapeHTML(letter || "المحدد")}.
+                </div>
+            </div>
+        `;
+
+        return;
+    }
+
+    const html = entries.map((item,index) => {
+
+        const itemTitle =
+            getTitle(item) ||
+            `مدخل ${index + 1}`;
+
+        const itemContent =
+            getContent(item);
+
+        let meta = "";
+
+        if(item && typeof item === "object"){
+
+            const source =
+                item.source ||
+                item.reference ||
+                item.sources;
+
+            if(source){
+
+                meta += `
+                    <span class="badge">
+                        المصدر: ${escapeHTML(
+                            Array.isArray(source)
+                                ? source.join("، ")
+                                : source
+                        )}
+                    </span>
+                `;
+            }
+        }
+
+        return `
+            <article class="entry">
+
+                ${meta ? `<div class="meta">${meta}</div>` : ""}
+
+                <h2 class="entry-title">
+                    ${escapeHTML(itemTitle)}
+                </h2>
+
+                <div class="entry-content">
+                    ${
+                        itemContent
+                            ? textToHTML(itemContent)
+                            : `<p style="color:var(--muted);">
+                                لا يوجد محتوى لهذا المدخل.
+                               </p>`
+                    }
+                </div>
+
+            </article>
+        `;
+
+    }).join("");
+
+    content.innerHTML = `
+        <div class="entries">
+            ${html}
+        </div>
+    `;
+}
+
+/* ---------------------------------------------------------
+   تحميل الموسوعة
+--------------------------------------------------------- */
+
+async function loadEncyclopedia(){
+
+    const content =
+        document.getElementById("content");
+
+    try{
+
+        const response =
+            await fetch(DATA_URL, {
+                cache:"no-store"
+            });
+
+        if(!response.ok){
+
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+        }
+
+        const data =
+            await response.json();
+
+        let entries =
+            extractEntries(data);
+
+        entries =
+            filterByLetter(entries);
+
+        entries =
+            sortEntries(entries);
+
+        render(entries);
+
+    }catch(error){
+
+        console.error(
+            "Encyclopedia loading error:",
+            error
+        );
+
+        content.innerHTML = `
+            <div class="error">
+
+                <div style="font-size:42px;margin-bottom:10px;">
+                    ⚠️
+                </div>
+
+                <div style="font-size:21px;margin-bottom:10px;">
+                    تعذر تحميل موسوعة الكتاب المقدس
+                </div>
+
+                <div style="color:var(--muted);">
+                    تأكد من وجود الملف:
+                </div>
+
+                <strong style="color:var(--gold2);">
+                    encyclopedia_ar.json
+                </strong>
+
+                <div style="margin-top:12px;font-size:14px;color:#8998a8;">
+                    ${escapeHTML(error.message)}
+                </div>
+
+            </div>
+        `;
+    }
+}
+
+/* تشغيل النظام */
+loadEncyclopedia();
 
 </script>
 
