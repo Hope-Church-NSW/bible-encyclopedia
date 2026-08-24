@@ -4,71 +4,84 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>الموسوعة الكتابية | موسوعة الكتاب المقدس</title>
+<title>الموسوعة الكتابية | دائرة المعارف الكتابية</title>
 
 <style>
 :root{
     --bg:#061321;
     --bg2:#0a1b2d;
     --panel:#0d2138;
-    --panel2:#102b47;
+    --panel2:#102a45;
     --gold:#d6b15e;
     --gold2:#f0d58a;
-    --text:#f5f7fa;
-    --muted:#aebdcd;
+    --text:#f4f6f8;
+    --muted:#aebdca;
     --border:rgba(214,177,94,.28);
-    --shadow:0 18px 45px rgba(0,0,0,.35);
+    --shadow:0 12px 35px rgba(0,0,0,.28);
 }
 
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
+    margin:0;
     min-height:100vh;
     background:
-        radial-gradient(circle at top right, rgba(25,69,108,.35), transparent 35%),
-        linear-gradient(145deg,var(--bg),var(--bg2));
+        radial-gradient(circle at top,#102a45 0%,var(--bg) 45%,#030b13 100%);
     color:var(--text);
-    font-family:Tahoma,"Arial",sans-serif;
+    font-family:Tahoma,"Segoe UI",Arial,sans-serif;
 }
 
 header{
     position:sticky;
     top:0;
     z-index:100;
-    height:78px;
     background:rgba(6,19,33,.96);
+    backdrop-filter:blur(14px);
     border-bottom:1px solid var(--border);
     box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.header-inner{
+    max-width:1200px;
+    margin:auto;
+    min-height:82px;
+    padding:12px 18px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 22px;
+    gap:20px;
 }
 
 .header-right{
     display:flex;
     align-items:center;
+    gap:10px;
 }
 
 .back-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
     text-decoration:none;
     color:var(--text);
-    background:linear-gradient(135deg,#123250,#0c243d);
+    background:var(--panel);
     border:1px solid var(--border);
+    padding:11px 16px;
     border-radius:12px;
-    padding:11px 17px;
     font-size:15px;
-    transition:.25s;
+    transition:.2s;
 }
 
 .back-btn:hover{
+    background:var(--panel2);
     border-color:var(--gold);
     color:var(--gold2);
-    transform:translateY(-1px);
 }
 
 .brand{
@@ -78,156 +91,277 @@ header{
 }
 
 .logo{
-    width:45px;
-    height:45px;
+    width:52px;
+    height:52px;
     object-fit:contain;
+}
+
+.brand-text{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
 }
 
 .brand-title{
     color:var(--gold2);
-    font-size:18px;
+    font-size:17px;
     font-weight:bold;
 }
 
+.brand-subtitle{
+    color:var(--muted);
+    font-size:12px;
+}
+
 main{
-    width:min(1100px,94%);
-    margin:0 auto;
-    padding:38px 0 55px;
+    max-width:1200px;
+    margin:auto;
+    padding:30px 18px 60px;
 }
 
 .hero{
     text-align:center;
-    margin-bottom:34px;
+    padding:20px 0 28px;
 }
 
 .hero-icon{
-    width:82px;
-    height:82px;
-    margin:0 auto 17px;
-    border-radius:24px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:43px;
-    background:linear-gradient(145deg,#153b5d,#0c2239);
-    border:1px solid var(--border);
-    box-shadow:var(--shadow);
-}
-
-.hero h1{
-    color:var(--gold2);
-    font-size:32px;
+    font-size:58px;
+    line-height:1;
     margin-bottom:12px;
 }
 
+.hero h1{
+    margin:0;
+    color:var(--gold2);
+    font-size:32px;
+}
+
 .hero p{
+    max-width:780px;
+    margin:12px auto 0;
     color:var(--muted);
-    font-size:16px;
     line-height:1.9;
+    font-size:15px;
+}
+
+.search-box{
+    position:sticky;
+    top:82px;
+    z-index:50;
+    margin:0 auto 22px;
+    max-width:850px;
+}
+
+.search-input{
+    width:100%;
+    height:54px;
+    padding:0 20px;
+    border-radius:15px;
+    border:1px solid var(--border);
+    outline:none;
+    background:rgba(13,33,56,.96);
+    color:white;
+    font-family:inherit;
+    font-size:16px;
+    box-shadow:var(--shadow);
+}
+
+.search-input:focus{
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(214,177,94,.1);
 }
 
 .alphabet{
     display:grid;
-    grid-template-columns:repeat(7,1fr);
-    gap:14px;
+    grid-template-columns:repeat(10,1fr);
+    gap:9px;
+    margin:0 auto 30px;
+    max-width:1000px;
 }
 
-.letter{
-    text-decoration:none;
-    min-height:92px;
+.letter-btn{
+    border:1px solid var(--border);
+    background:var(--panel);
+    color:var(--gold2);
+    min-height:48px;
+    border-radius:11px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:20px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.letter-btn:hover,
+.letter-btn.active{
+    background:var(--gold);
+    color:#07121d;
+    border-color:var(--gold);
+    transform:translateY(-2px);
+}
+
+.status{
+    text-align:center;
+    color:var(--muted);
+    margin:15px 0 25px;
+    font-size:14px;
+}
+
+.letter-section{
+    margin-bottom:32px;
+    scroll-margin-top:145px;
+}
+
+.letter-title{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:15px;
+    color:var(--gold2);
+    font-size:26px;
+}
+
+.letter-title span{
     display:flex;
     align-items:center;
     justify-content:center;
-    flex-direction:column;
-    gap:7px;
-    color:var(--text);
-    background:
-        linear-gradient(145deg,rgba(16,43,71,.98),rgba(9,29,48,.98));
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:var(--panel2);
     border:1px solid var(--border);
-    border-radius:17px;
-    box-shadow:0 10px 28px rgba(0,0,0,.20);
-    transition:
-        transform .22s ease,
-        border-color .22s ease,
-        background .22s ease,
-        box-shadow .22s ease;
 }
 
-.letter strong{
-    font-size:31px;
+.entries{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.entry{
+    background:linear-gradient(145deg,var(--panel),rgba(10,27,45,.78));
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:18px;
+    box-shadow:var(--shadow);
+    transition:.2s;
+}
+
+.entry:hover{
+    border-color:rgba(214,177,94,.6);
+    transform:translateY(-2px);
+}
+
+.entry-title{
+    margin:0 0 10px;
+    color:var(--gold2);
+    font-size:20px;
+}
+
+.entry-page{
+    color:#8fa6b9;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.entry-text{
+    color:#e6edf2;
+    line-height:2;
+    font-size:14px;
+    white-space:pre-wrap;
+}
+
+mark{
+    background:rgba(214,177,94,.45);
+    color:white;
+    border-radius:3px;
+    padding:1px 3px;
+}
+
+.empty{
+    text-align:center;
+    padding:50px 20px;
+    color:var(--muted);
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+}
+
+.loading{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--gold2);
+    font-size:17px;
+}
+
+footer{
+    border-top:1px solid var(--border);
+    background:#040d17;
+    text-align:center;
+    padding:30px 20px;
+    color:var(--muted);
+    line-height:2;
+}
+
+.footer-title{
     color:var(--gold2);
     font-weight:bold;
 }
 
-.letter span{
-    font-size:11px;
-    color:var(--muted);
-}
-
-.letter:hover{
-    transform:translateY(-5px);
-    border-color:var(--gold);
-    background:linear-gradient(145deg,#173f62,#0d2944);
-    box-shadow:0 15px 34px rgba(0,0,0,.35);
-}
-
-.footer{
-    text-align:center;
-    margin-top:38px;
-    color:#71859a;
-    font-size:12px;
-}
-
-@media(max-width:800px){
+@media(max-width:850px){
     .alphabet{
-        grid-template-columns:repeat(5,1fr);
+        grid-template-columns:repeat(7,1fr);
+    }
+
+    .entries{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:27px;
     }
 }
 
-@media(max-width:560px){
-    header{
-        height:70px;
-        padding:0 13px;
+@media(max-width:600px){
+    .header-inner{
+        min-height:72px;
+        padding:10px 12px;
+    }
+
+    .logo{
+        width:44px;
+        height:44px;
     }
 
     .brand-title{
         font-size:14px;
     }
 
-    .logo{
-        width:38px;
-        height:38px;
+    .brand-subtitle{
+        display:none;
     }
 
     .back-btn{
-        padding:9px 12px;
+        padding:9px 11px;
         font-size:13px;
     }
 
     main{
-        padding-top:27px;
+        padding:22px 12px 45px;
     }
 
-    .hero h1{
-        font-size:27px;
-    }
-
-    .hero p{
-        font-size:14px;
+    .search-box{
+        top:72px;
     }
 
     .alphabet{
-        grid-template-columns:repeat(4,1fr);
-        gap:10px;
+        grid-template-columns:repeat(5,1fr);
+        gap:7px;
     }
 
-    .letter{
-        min-height:78px;
-        border-radius:14px;
-    }
-
-    .letter strong{
-        font-size:27px;
+    .letter-btn{
+        min-height:44px;
+        font-size:18px;
     }
 }
 </style>
@@ -236,163 +370,503 @@ main{
 <body>
 
 <header>
+    <div class="header-inner">
 
-    <div class="header-right">
-        <a class="back-btn" href="studies.html">
-            ↩ موسوعة الكتاب المقدس
-        </a>
-    </div>
-
-    <div class="brand">
-        <img
-            class="logo"
-            src="logo.png"
-            alt="شعار كنيسة رجاء الأمم سيدني"
-            onerror="this.style.display='none'"
-        >
-
-        <div class="brand-title">
-            موسوعة الكتاب المقدس
+        <div class="header-right">
+            <a href="studies.html" class="back-btn">
+                ↩️
+                <span>موسوعة الكتاب المقدس</span>
+            </a>
         </div>
-    </div>
 
+        <div class="brand">
+            <div class="brand-text">
+                <div class="brand-title">موسوعة الكتاب المقدس</div>
+                <div class="brand-subtitle">دائرة المعارف الكتابية</div>
+            </div>
+
+            <img
+                src="logo.png"
+                class="logo"
+                alt="شعار الكنيسة"
+                onerror="this.style.display='none'"
+            >
+        </div>
+
+    </div>
 </header>
 
 <main>
 
     <section class="hero">
+        <div class="hero-icon">📖</div>
 
-        <div class="hero-icon">📚</div>
-
-        <h1>الموسوعة الكتابية</h1>
+        <h1>دائرة المعارف الكتابية</h1>
 
         <p>
-            دائرة المعارف الكتابية مرتبة حسب الحروف الأبجدية العربية
+            موسوعة كتابية مرتبة أبجديًا، تتيح الوصول إلى المواد
+            والمداخل والنصوص المستخرجة من دائرة المعارف الكتابية.
         </p>
-
     </section>
 
-    <section class="alphabet" aria-label="الحروف الأبجدية">
+    <div class="search-box">
+        <input
+            id="searchInput"
+            class="search-input"
+            type="search"
+            placeholder="🔎 ابحث في دائرة المعارف الكتابية..."
+            autocomplete="off"
+            spellcheck="false"
+        >
+    </div>
 
-        <a class="letter" href="encyclopedia-letter.html?letter=ا">
-            <strong>ا</strong><span>الألف</span>
-        </a>
+    <div id="alphabet" class="alphabet"></div>
 
-        <a class="letter" href="encyclopedia-letter.html?letter=ب">
-            <strong>ب</strong><span>الباء</span>
-        </a>
+    <div id="status" class="status">
+        جاري تحميل دائرة المعارف...
+    </div>
 
-        <a class="letter" href="encyclopedia-letter.html?letter=ت">
-            <strong>ت</strong><span>التاء</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ث">
-            <strong>ث</strong><span>الثاء</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ج">
-            <strong>ج</strong><span>الجيم</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ح">
-            <strong>ح</strong><span>الحاء</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=خ">
-            <strong>خ</strong><span>الخاء</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=د">
-            <strong>د</strong><span>الدال</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ذ">
-            <strong>ذ</strong><span>الذال</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ر">
-            <strong>ر</strong><span>الراء</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ز">
-            <strong>ز</strong><span>الزاي</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=س">
-            <strong>س</strong><span>السين</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ش">
-            <strong>ش</strong><span>الشين</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ص">
-            <strong>ص</strong><span>الصاد</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ض">
-            <strong>ض</strong><span>الضاد</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ط">
-            <strong>ط</strong><span>الطاء</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ظ">
-            <strong>ظ</strong><span>الظاء</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ع">
-            <strong>ع</strong><span>العين</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=غ">
-            <strong>غ</strong><span>الغين</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ف">
-            <strong>ف</strong><span>الفاء</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ق">
-            <strong>ق</strong><span>القاف</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ك">
-            <strong>ك</strong><span>الكاف</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ل">
-            <strong>ل</strong><span>اللام</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=م">
-            <strong>م</strong><span>الميم</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ن">
-            <strong>ن</strong><span>النون</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=هـ">
-            <strong>هـ</strong><span>الهاء</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=و">
-            <strong>و</strong><span>الواو</span>
-        </a>
-
-        <a class="letter" href="encyclopedia-letter.html?letter=ي">
-            <strong>ي</strong><span>الياء</span>
-        </a>
-
-    </section>
-
-    <div class="footer">
-        الموسوعة الكتابية — دائرة المعارف الكتابية
+    <div id="content">
+        <div class="loading">
+            ⏳ جاري تجهيز الموسوعة...
+        </div>
     </div>
 
 </main>
+
+<footer>
+    <div class="footer-title">
+        كنيسة رجاء الأمم سيدني
+    </div>
+    موسوعة الكتاب المقدس
+</footer>
+
+<script>
+
+const DATA_URL = "encyclopedia_text/encyclopedia_ar.json";
+
+const ARABIC_LETTERS = [
+    "ا","ب","ت","ث","ج","ح","خ",
+    "د","ذ","ر","ز","س","ش","ص",
+    "ض","ط","ظ","ع","غ","ف","ق",
+    "ك","ل","م","ن","ه","و","ي"
+];
+
+let pages = [];
+let entries = [];
+let currentLetter = null;
+let currentSearch = "";
+
+const alphabet = document.getElementById("alphabet");
+const content = document.getElementById("content");
+const status = document.getElementById("status");
+const searchInput = document.getElementById("searchInput");
+
+function normalizeArabic(text){
+
+    return String(text || "")
+        .normalize("NFC")
+        .replace(/[أإآٱ]/g,"ا")
+        .replace(/ى/g,"ي")
+        .replace(/ة/g,"ه")
+        .replace(/ؤ/g,"و")
+        .replace(/ئ/g,"ي")
+        .replace(/ـ/g,"")
+        .replace(/[ًٌٍَُِّْ]/g,"")
+        .trim();
+}
+
+function firstArabicLetter(text){
+
+    const normalized = normalizeArabic(text);
+
+    for(const char of normalized){
+
+        if(ARABIC_LETTERS.includes(char)){
+            return char;
+        }
+
+    }
+
+    return "#";
+}
+
+function escapeHTML(text){
+
+    return String(text || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function highlight(text, query){
+
+    if(!query){
+        return escapeHTML(text);
+    }
+
+    const safe = escapeHTML(text);
+
+    const escapedQuery = query
+        .replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+
+    return safe.replace(
+        new RegExp(escapedQuery,"gi"),
+        match => `<mark>${match}</mark>`
+    );
+}
+
+function buildAlphabet(){
+
+    alphabet.innerHTML = "";
+
+    ARABIC_LETTERS.forEach(letter => {
+
+        const button = document.createElement("button");
+
+        button.className = "letter-btn";
+        button.type = "button";
+        button.textContent = letter;
+        button.dataset.letter = letter;
+
+        button.addEventListener("click", () => {
+
+            currentLetter =
+                currentLetter === letter
+                    ? null
+                    : letter;
+
+            document
+                .querySelectorAll(".letter-btn")
+                .forEach(btn => {
+                    btn.classList.toggle(
+                        "active",
+                        btn.dataset.letter === currentLetter
+                    );
+                });
+
+            render();
+        });
+
+        alphabet.appendChild(button);
+
+    });
+}
+
+function createEntries(data){
+
+    entries = [];
+
+    if(!data){
+        return;
+    }
+
+    const sourcePages =
+        Array.isArray(data)
+            ? data
+            : Array.isArray(data.pages)
+                ? data.pages
+                : [];
+
+    sourcePages.forEach(page => {
+
+        const text = String(page.text || "").trim();
+
+        if(!text){
+            return;
+        }
+
+        const lines = text
+            .split(/\n+/)
+            .map(x => x.trim())
+            .filter(Boolean);
+
+        /*
+         * كل صفحة تُعامل كوحدة محتوى مستقلة.
+         * هذا يحافظ على النص الأصلي حتى لو كانت عناوين
+         * المداخل غير قابلة للاستخراج الآلي بصورة مؤكدة.
+         */
+
+        const title =
+            lines.length > 0
+                ? lines[0]
+                : `صفحة ${page.page}`;
+
+        entries.push({
+            page: page.page,
+            title,
+            text,
+            letter: firstArabicLetter(title)
+        });
+
+    });
+}
+
+function filteredEntries(){
+
+    let result = entries;
+
+    if(currentLetter){
+
+        result = result.filter(
+            entry => entry.letter === currentLetter
+        );
+
+    }
+
+    if(currentSearch){
+
+        const q = normalizeArabic(currentSearch);
+
+        result = result.filter(entry => {
+
+            const title = normalizeArabic(entry.title);
+            const text = normalizeArabic(entry.text);
+
+            return (
+                title.includes(q) ||
+                text.includes(q)
+            );
+
+        });
+
+    }
+
+    return result;
+}
+
+function render(){
+
+    const result = filteredEntries();
+
+    content.innerHTML = "";
+
+    if(result.length === 0){
+
+        content.innerHTML = `
+            <div class="empty">
+                لا توجد نتائج مطابقة للبحث الحالي.
+            </div>
+        `;
+
+        status.textContent =
+            "عدد النتائج: 0";
+
+        return;
+    }
+
+    /*
+     * عند البحث أو اختيار حرف:
+     * تعرض النتائج مباشرة.
+     *
+     * عند عدم وجود فلترة:
+     * تعرض المداخل مرتبة حسب الحروف الأبجدية.
+     */
+
+    if(currentLetter || currentSearch){
+
+        renderFlat(result);
+
+    }else{
+
+        renderAlphabetical(result);
+
+    }
+
+    status.textContent =
+        `عدد المواد المعروضة: ${result.length}`;
+}
+
+function renderFlat(result){
+
+    const section = document.createElement("section");
+
+    section.className = "letter-section";
+
+    const title = document.createElement("div");
+
+    title.className = "letter-title";
+
+    title.innerHTML = `
+        <span>${currentLetter || "🔎"}</span>
+        <strong>
+            ${currentSearch
+                ? "نتائج البحث"
+                : `المداخل التي تبدأ بحرف ${currentLetter}`}
+        </strong>
+    `;
+
+    section.appendChild(title);
+
+    const grid = document.createElement("div");
+
+    grid.className = "entries";
+
+    result.forEach(entry => {
+
+        grid.appendChild(
+            createEntryCard(entry)
+        );
+
+    });
+
+    section.appendChild(grid);
+
+    content.appendChild(section);
+}
+
+function renderAlphabetical(result){
+
+    const groups = {};
+
+    ARABIC_LETTERS.forEach(letter => {
+        groups[letter] = [];
+    });
+
+    result.forEach(entry => {
+
+        if(groups[entry.letter]){
+            groups[entry.letter].push(entry);
+        }
+
+    });
+
+    ARABIC_LETTERS.forEach(letter => {
+
+        if(!groups[letter].length){
+            return;
+        }
+
+        const section = document.createElement("section");
+
+        section.className = "letter-section";
+        section.id = `letter-${letter}`;
+
+        const title = document.createElement("div");
+
+        title.className = "letter-title";
+
+        title.innerHTML = `
+            <span>${letter}</span>
+            <strong>حرف ${letter}</strong>
+        `;
+
+        section.appendChild(title);
+
+        const grid = document.createElement("div");
+
+        grid.className = "entries";
+
+        groups[letter].forEach(entry => {
+
+            grid.appendChild(
+                createEntryCard(entry)
+            );
+
+        });
+
+        section.appendChild(grid);
+
+        content.appendChild(section);
+
+    });
+}
+
+function createEntryCard(entry){
+
+    const article = document.createElement("article");
+
+    article.className = "entry";
+
+    article.innerHTML = `
+        <h2 class="entry-title">
+            ${highlight(entry.title,currentSearch)}
+        </h2>
+
+        <div class="entry-page">
+            📄 الصفحة ${entry.page}
+        </div>
+
+        <div class="entry-text">
+            ${highlight(entry.text,currentSearch)}
+        </div>
+    `;
+
+    return article;
+}
+
+async function loadEncyclopedia(){
+
+    try{
+
+        const response =
+            await fetch(DATA_URL,{
+                cache:"no-store"
+            });
+
+        if(!response.ok){
+
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        pages =
+            Array.isArray(data)
+                ? data
+                : data.pages || [];
+
+        createEntries(data);
+
+        buildAlphabet();
+
+        render();
+
+    }catch(error){
+
+        console.error(error);
+
+        status.textContent =
+            "تعذر تحميل بيانات دائرة المعارف.";
+
+        content.innerHTML = `
+            <div class="empty">
+                <h2>⚠️ تعذر تحميل الموسوعة</h2>
+
+                <p>
+                    تأكد من وجود الملف:
+                </p>
+
+                <strong>
+                    encyclopedia_text/encyclopedia_ar.json
+                </strong>
+            </div>
+        `;
+
+    }
+}
+
+searchInput.addEventListener(
+    "input",
+    event => {
+
+        currentSearch =
+            event.target.value.trim();
+
+        render();
+
+    }
+);
+
+loadEncyclopedia();
+
+</script>
 
 </body>
 </html>
