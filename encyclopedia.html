@@ -1,2054 +1,1158 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>موسوعة الكتاب المقدس</title>
 
-<title>الموسوعة الكتابية</title>
-
-<style>
-
-:root{
-    --bg:#061321;
-    --bg2:#0a1b2d;
-    --panel:#0d2138;
-    --panel2:#102a45;
-    --gold:#d6b45a;
-    --gold2:#f0d98a;
-    --text:#f4f6f8;
-    --muted:#aebdca;
-    --border:rgba(214,180,90,.25);
-    --shadow:0 12px 35px rgba(0,0,0,.35);
-}
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-
-    background:
-        radial-gradient(
-            circle at top right,
-            rgba(214,180,90,.07),
-            transparent 30%
-        ),
-        linear-gradient(
-            180deg,
-            var(--bg),
-            var(--bg2)
-        );
-
-    color:var(--text);
-
-    font-family:
-        Tahoma,
-        Arial,
-        sans-serif;
-
-    min-height:100vh;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header{
-
-    height:78px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:0 22px;
-
-    background:rgba(6,19,33,.96);
-
-    border-bottom:
-        1px solid var(--border);
-
-    position:sticky;
-
-    top:0;
-
-    z-index:1000;
-
-    backdrop-filter:blur(10px);
-}
-
-.header-right,
-.header-left{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:14px;
-}
-
-.home-btn{
-
-    border:
-        1px solid var(--border);
-
-    background:
-        rgba(255,255,255,.03);
-
-    color:var(--text);
-
-    padding:10px 15px;
-
-    border-radius:12px;
-
-    text-decoration:none;
-
-    font-size:14px;
-
-    transition:.2s;
-}
-
-.home-btn:hover{
-
-    background:
-        rgba(214,180,90,.12);
-
-    border-color:
-        var(--gold);
-}
-
-.logo{
-
-    width:42px;
-
-    height:42px;
-
-    object-fit:contain;
-}
-
-.brand{
-
-    color:var(--gold2);
-
-    font-size:18px;
-
-    font-weight:bold;
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-main{
-
-    width:min(1200px,94%);
-
-    margin:30px auto 60px;
-}
-
-
-/* =========================================================
-   TITLE
-========================================================= */
-
-.page-title{
-
-    text-align:center;
-
-    margin-bottom:25px;
-}
-
-.page-title h1{
-
-    margin:0;
-
-    color:var(--gold2);
-
-    font-size:30px;
-}
-
-.page-title p{
-
-    color:var(--muted);
-
-    margin:10px 0 0;
-
-    font-size:14px;
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.search-box{
-
-    background:
-        linear-gradient(
-            145deg,
-            var(--panel),
-            var(--panel2)
-        );
-
-    border:
-        1px solid var(--border);
-
-    border-radius:18px;
-
-    padding:18px;
-
-    box-shadow:var(--shadow);
-
-    margin-bottom:22px;
-}
-
-.search-box input{
-
-    width:100%;
-
-    padding:14px 17px;
-
-    border-radius:12px;
-
-    border:
-        1px solid var(--border);
-
-    outline:none;
-
-    background:#071726;
-
-    color:white;
-
-    font-family:inherit;
-
-    font-size:15px;
-}
-
-.search-box input::placeholder{
-
-    color:#8193a3;
-}
-
-.search-box input:focus{
-
-    border-color:
-        var(--gold);
-}
-
-
-/* =========================================================
-   LETTERS
-========================================================= */
-
-.letters{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(auto-fit,minmax(55px,1fr));
-
-    gap:9px;
-
-    margin-bottom:25px;
-}
-
-.letter{
-
-    min-height:52px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:12px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #0d2138,
-            #102a45
-        );
-
-    color:var(--gold2);
-
-    font-size:20px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-    font-family:inherit;
-
-    position:relative;
-}
-
-.letter:hover{
-
-    transform:translateY(-2px);
-
-    border-color:
-        var(--gold);
-
-    background:
-        rgba(214,180,90,.12);
-}
-
-.letter.active{
-
-    background:
-        linear-gradient(
-            145deg,
-            #9d7b2f,
-            #d6b45a
-        );
-
-    color:#07111d;
-
-    border-color:
-        var(--gold2);
-}
-
-.letter.loaded::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:7px;
-
-    height:7px;
-
-    border-radius:50%;
-
-    background:#6fd08b;
-
-    left:7px;
-
-    top:7px;
-}
-
-
-/* =========================================================
-   CONTENT
-========================================================= */
-
-.content-layout{
-
-    display:grid;
-
-    grid-template-columns:
-        330px 1fr;
-
-    gap:20px;
-
-    align-items:start;
-}
-
-
-/* =========================================================
-   PANELS
-========================================================= */
-
-.entries-panel,
-.article-panel{
-
-    background:
-        linear-gradient(
-            145deg,
-            var(--panel),
-            var(--panel2)
-        );
-
-    border:
-        1px solid var(--border);
-
-    border-radius:18px;
-
-    box-shadow:var(--shadow);
-}
-
-.entries-panel{
-
-    overflow:hidden;
-}
-
-.panel-title{
-
-    padding:16px 18px;
-
-    border-bottom:
-        1px solid var(--border);
-
-    color:var(--gold2);
-
-    font-weight:bold;
-}
-
-.entries{
-
-    max-height:650px;
-
-    overflow-y:auto;
-}
-
-
-/* =========================================================
-   ENTRY
-========================================================= */
-
-.entry{
-
-    padding:14px 17px;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.06);
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.entry:last-child{
-
-    border-bottom:0;
-}
-
-.entry:hover{
-
-    background:
-        rgba(214,180,90,.08);
-}
-
-.entry.active{
-
-    background:
-        rgba(214,180,90,.13);
-
-    border-right:
-        3px solid var(--gold);
-}
-
-.entry-title{
-
-    color:var(--gold2);
-
-    font-weight:bold;
-
-    font-size:16px;
-}
-
-.entry-preview{
-
-    margin-top:6px;
-
-    color:var(--muted);
-
-    font-size:12px;
-
-    line-height:1.7;
-}
-
-
-/* =========================================================
-   ARTICLE
-========================================================= */
-
-.article-panel{
-
-    min-height:500px;
-
-    padding:28px;
-}
-
-.article-header{
-
-    border-bottom:
-        1px solid var(--border);
-
-    padding-bottom:18px;
-
-    margin-bottom:24px;
-}
-
-.article-title{
-
-    margin:0;
-
-    color:var(--gold2);
-
-    font-size:28px;
-}
-
-.article-body{
-
-    color:#e8edf2;
-
-    line-height:2.15;
-
-    font-size:16px;
-
-    white-space:normal;
-}
-
-.article-body p{
-
-    margin:0 0 20px;
-}
-
-.article-body h2,
-.article-body h3,
-.article-body h4{
-
-    color:var(--gold2);
-
-    margin-top:30px;
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-.message{
-
-    text-align:center;
-
-    color:var(--muted);
-
-    padding:50px 20px;
-
-    line-height:2;
-}
-
-.loading{
-
-    color:var(--gold2);
-}
-
-
-/* =========================================================
-   FILE STATUS
-========================================================= */
-
-.file-status{
-
-    margin-top:10px;
-
-    font-size:12px;
-
-    color:var(--muted);
-
-    text-align:center;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:800px){
-
-    header{
-
-        height:auto;
-
-        min-height:70px;
-
-        padding:10px 14px;
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    .brand{
-
-        font-size:14px;
+    body {
+      margin: 0;
+      background: #f5f7fa;
+      color: #1d2733;
+      font-family: Tahoma, Arial, sans-serif;
     }
 
-    .logo{
-
-        width:36px;
-
-        height:36px;
+    .page {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
     }
 
-    main{
-
-        width:94%;
-
-        margin-top:20px;
+    .header {
+      background: linear-gradient(135deg, #0b3d91, #174ea6);
+      color: white;
+      border-radius: 18px;
+      padding: 22px 24px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.12);
+      margin-bottom: 20px;
     }
 
-    .page-title h1{
-
-        font-size:24px;
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
     }
 
-    .content-layout{
-
-        grid-template-columns:1fr;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .entries{
-
-        max-height:300px;
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
     }
 
-    .article-panel{
-
-        padding:20px;
+    .brand-title {
+      font-size: 25px;
+      font-weight: bold;
     }
 
-    .article-title{
-
-        font-size:23px;
+    .brand-subtitle {
+      margin-top: 5px;
+      font-size: 13px;
+      opacity: .9;
     }
 
-    .article-body{
-
-        font-size:15px;
-
-        line-height:2;
+    .home-button {
+      color: white;
+      text-decoration: none;
+      background: rgba(255,255,255,.13);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: .2s;
     }
 
-    .letters{
-
-        grid-template-columns:
-            repeat(7,1fr);
+    .home-button:hover {
+      background: rgba(255,255,255,.22);
     }
 
-    .letter{
-
-        min-height:45px;
-
-        font-size:17px;
+    .title-section {
+      text-align: center;
+      margin: 24px 0 18px;
     }
 
-}
+    .title-section h1 {
+      margin: 0;
+      color: #0b3d91;
+      font-size: 28px;
+    }
 
-</style>
+    .title-section p {
+      margin: 8px 0 0;
+      color: #66717d;
+      font-size: 14px;
+    }
 
+    /* ==============================
+       الأبجدية
+       ============================== */
+
+    .alphabet-container {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+      margin-bottom: 22px;
+    }
+
+    .alphabet-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #0b3d91;
+      margin-bottom: 16px;
+    }
+
+    .alphabet {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .letter-button {
+      position: relative;
+      border: 1px solid #d8dee6;
+      background: #fafbfc;
+      color: #263442;
+      min-height: 58px;
+      border-radius: 12px;
+      font-size: 23px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .2s;
+      font-family: Tahoma, Arial, sans-serif;
+    }
+
+    .letter-button:hover {
+      border-color: #174ea6;
+      background: #eef4ff;
+      transform: translateY(-1px);
+    }
+
+    .letter-button.active {
+      background: #0b3d91;
+      color: white;
+      border-color: #0b3d91;
+    }
+
+    .letter-button.disabled {
+      opacity: .42;
+      cursor: default;
+      background: #f3f4f5;
+    }
+
+    .letter-button.disabled:hover {
+      transform: none;
+      border-color: #d8dee6;
+      background: #f3f4f5;
+    }
+
+    .study-dot {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      background: #22c55e;
+      border-radius: 50%;
+      top: 8px;
+      left: 9px;
+      box-shadow: 0 0 0 2px rgba(34,197,94,.12);
+    }
+
+    /* ==============================
+       النتائج
+       ============================== */
+
+    .results-container {
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+      min-height: 180px;
+    }
+
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid #e7ebef;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    .results-header h2 {
+      margin: 0;
+      color: #0b3d91;
+      font-size: 22px;
+    }
+
+    .count {
+      color: #697586;
+      font-size: 13px;
+    }
+
+    .entries {
+      display: grid;
+      gap: 12px;
+    }
+
+    .entry {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #f8fafc;
+      border: 1px solid #e1e6eb;
+      border-radius: 13px;
+      padding: 16px 18px;
+      transition: .2s;
+    }
+
+    .entry:hover {
+      background: #eef4ff;
+      border-color: #a9c0e8;
+      transform: translateY(-1px);
+    }
+
+    .entry-title {
+      color: #0b3d91;
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .entry-preview {
+      color: #606c78;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .loading,
+    .error,
+    .empty {
+      text-align: center;
+      padding: 35px 15px;
+      color: #66717d;
+    }
+
+    .error {
+      color: #a33a3a;
+    }
+
+    .error strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    @media (max-width: 700px) {
+      .page {
+        padding: 12px;
+      }
+
+      .alphabet {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .letter-button {
+        min-height: 52px;
+        font-size: 21px;
+      }
+
+      .brand-title {
+        font-size: 21px;
+      }
+
+      .title-section h1 {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .alphabet {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
+<div class="page">
 
-<header>
+  <!-- ==============================
+       الرأس
+       ============================== -->
 
-    <div class="header-right">
+  <header class="header">
 
-        <a
-            href="index.html"
-            class="home-btn"
-        >
-            ⌂ الرئيسية
-        </a>
+    <div class="header-top">
 
-    </div>
+      <div class="brand">
+        <div class="brand-icon">📚</div>
 
-
-    <div class="header-left">
-
-        <img
-            src="logo.png"
-            class="logo"
-            alt="شعار الكنيسة"
-        >
-
-        <div class="brand">
-            موسوعة الكتاب المقدس
+        <div>
+          <div class="brand-title">موسوعة الكتاب المقدس</div>
+          <div class="brand-subtitle">
+            دائرة المعارف الكتابية — قاعدة البيانات العربية المركزية
+          </div>
         </div>
+      </div>
+
+      <a href="index.html" class="home-button">
+        ⌂ الرئيسية
+      </a>
 
     </div>
 
-</header>
+  </header>
 
 
+  <!-- ==============================
+       العنوان
+       ============================== -->
 
-<main>
+  <section class="title-section">
 
-
-<section class="page-title">
-
-    <h1>
-        الموسوعة الكتابية
-    </h1>
+    <h1>دائرة المعارف الكتابية</h1>
 
     <p>
-        دائرة المعارف الكتابية — تصفح المداخل والمقالات حسب الترتيب الأبجدي
+      اختر حرفًا لاستعراض المداخل الموسوعية
     </p>
 
-</section>
+  </section>
 
 
+  <!-- ==============================
+       الأبجدية
+       ============================== -->
 
-<section class="search-box">
+  <section class="alphabet-container">
 
-    <input
-        type="search"
-        id="searchInput"
-        placeholder="ابحث في جميع المداخل المحملة..."
-        autocomplete="off"
-    >
-
-    <div
-        id="fileStatus"
-        class="file-status"
-    >
-        جاري تحميل ملفات الموسوعة...
+    <div class="alphabet-title">
+      🔎 المداخل الأبجدية
     </div>
 
-</section>
+    <div id="alphabet" class="alphabet"></div>
+
+  </section>
 
 
+  <!-- ==============================
+       النتائج
+       ============================== -->
 
-<section
-    id="letters"
-    class="letters"
-></section>
+  <section class="results-container">
 
+    <div class="results-header">
 
-
-<section class="content-layout">
-
-
-<aside class="entries-panel">
-
-
-    <div
-        class="panel-title"
-        id="entriesTitle"
-    >
+      <h2 id="resultsTitle">
         اختر حرفًا
-    </div>
+      </h2>
 
-
-    <div
-        id="entries"
-        class="entries"
-    >
-
-        <div class="message">
-
-            اختر أحد الحروف
-            لعرض المداخل.
-
-        </div>
+      <div id="resultsCount" class="count"></div>
 
     </div>
 
+    <div id="results">
 
-</aside>
-
-
-
-<article class="article-panel">
-
-
-    <div id="article">
-
-        <div class="message">
-
-            <div class="loading">
-
-                جاري تحميل الموسوعة...
-
-            </div>
-
-        </div>
+      <div class="empty">
+        اختر أحد الحروف لعرض المداخل.
+      </div>
 
     </div>
 
+  </section>
 
-</article>
-
-
-</section>
-
-
-</main>
-
+</div>
 
 
 <script>
 
+"use strict";
+
 /* =========================================================
-   إعداد ملفات الحروف
-========================================================= */
+   الإعدادات
+   ========================================================= */
 
-/*
-   مهم جدًا:
-
-   حرف أ موجود حاليًا في:
-   encyclopedia_ar.json
-
-   حرف ب موجود حاليًا في:
-   encyclopedia_b.json
-
-   أما بقية الملفات فهذه هي الأسماء التي سيستخدمها
-   النظام عندما تضيفها مستقبلًا.
-*/
-
-const LETTER_FILES = {
-
-    "ا": "encyclopedia_ar.json",
-
-    "ب": "encyclopedia_b.json",
-
-    "ت": "encyclopedia_ta.json",
-
-    "ث": "encyclopedia_tha.json",
-
-    "ج": "encyclopedia_jim.json",
-
-    "ح": "encyclopedia_ha.json",
-
-    "خ": "encyclopedia_kha.json",
-
-    "د": "encyclopedia_dal.json",
-
-    "ذ": "encyclopedia_dhal.json",
-
-    "ر": "encyclopedia_ra.json",
-
-    "ز": "encyclopedia_zay.json",
-
-    "س": "encyclopedia_sin.json",
-
-    "ش": "encyclopedia_shin.json",
-
-    "ص": "encyclopedia_sad.json",
-
-    "ض": "encyclopedia_dad.json",
-
-    "ط": "encyclopedia_ta2.json",
-
-    "ظ": "encyclopedia_za.json",
-
-    "ع": "encyclopedia_ain.json",
-
-    "غ": "encyclopedia_ghain.json",
-
-    "ف": "encyclopedia_fa.json",
-
-    "ق": "encyclopedia_qaf.json",
-
-    "ك": "encyclopedia_kaf.json",
-
-    "ل": "encyclopedia_lam.json",
-
-    "م": "encyclopedia_mim.json",
-
-    "ن": "encyclopedia_nun.json",
-
-    "ه": "encyclopedia_ha2.json",
-
-    "و": "encyclopedia_waw.json",
-
-    "ي": "encyclopedia_ya.json"
-
-};
+const ENCYCLOPEDIA_URL = "encyclopedia_ar.json";
 
 
 /* =========================================================
-   ترتيب الحروف العربية
-========================================================= */
+   الحروف العربية
+   ========================================================= */
 
 const ARABIC_LETTERS = [
-
-    "ا",
-    "ب",
-    "ت",
-    "ث",
-    "ج",
-    "ح",
-    "خ",
-    "د",
-    "ذ",
-    "ر",
-    "ز",
-    "س",
-    "ش",
-    "ص",
-    "ض",
-    "ط",
-    "ظ",
-    "ع",
-    "غ",
-    "ف",
-    "ق",
-    "ك",
-    "ل",
-    "م",
-    "ن",
-    "ه",
-    "و",
-    "ي"
-
+  "أ",
+  "ب",
+  "ت",
+  "ث",
+  "ج",
+  "ح",
+  "خ",
+  "د",
+  "ذ",
+  "ر",
+  "ز",
+  "س",
+  "ش",
+  "ص",
+  "ض",
+  "ط",
+  "ظ",
+  "ع",
+  "غ",
+  "ف",
+  "ق",
+  "ك",
+  "ل",
+  "م",
+  "ن",
+  "ه",
+  "و",
+  "ي"
 ];
 
 
 /* =========================================================
-   المتغيرات
-========================================================= */
-
-let encyclopedia = [];
-
-let entriesByLetter = {};
-
-let currentLetter = null;
-
-let currentEntry = null;
-
-
-/* =========================================================
    عناصر الصفحة
-========================================================= */
+   ========================================================= */
 
-const lettersContainer =
-    document.getElementById("letters");
-
-const entriesContainer =
-    document.getElementById("entries");
-
-const entriesTitle =
-    document.getElementById("entriesTitle");
-
-const articleContainer =
-    document.getElementById("article");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const fileStatus =
-    document.getElementById("fileStatus");
+const alphabetElement = document.getElementById("alphabet");
+const resultsElement = document.getElementById("results");
+const resultsTitleElement = document.getElementById("resultsTitle");
+const resultsCountElement = document.getElementById("resultsCount");
 
 
 /* =========================================================
-   تهيئة مخازن الحروف
-========================================================= */
+   البيانات
+   ========================================================= */
 
-function initializeLetterStorage(){
+let encyclopediaData = null;
+let entries = [];
 
-    ARABIC_LETTERS.forEach(letter => {
 
-        entriesByLetter[letter] = [];
+/* =========================================================
+   تطبيع النص العربي
+   =========================================================
+
+   مهم جدًا:
+
+   نحن لا نحذف الهمزات هنا بشكل عشوائي.
+
+   لأن:
+   أ
+   إ
+   آ
+
+   يجب أن تُعامل جميعها باعتبارها من "الألف".
+
+   لكن باقي الحروف نحافظ عليها قدر الإمكان.
+   ========================================================= */
+
+function normalizeArabic(text) {
+
+  if (text === null || text === undefined) {
+    return "";
+  }
+
+  return String(text)
+    .trim()
+    .replace(/^[\u200B-\u200D\uFEFF]+/, "");
+}
+
+
+/* =========================================================
+   معرفة الحرف الأبجدي للمدخل
+   ========================================================= */
+
+function getEntryLetter(title) {
+
+  const text = normalizeArabic(title);
+
+  if (!text) {
+    return null;
+  }
+
+  const firstCharacter = text.charAt(0);
+
+  /*
+   * الألف:
+   *
+   * أ
+   * إ
+   * آ
+   *
+   * كلها تحت حرف "أ"
+   */
+
+  if (
+    firstCharacter === "أ" ||
+    firstCharacter === "إ" ||
+    firstCharacter === "آ"
+  ) {
+    return "أ";
+  }
+
+  /*
+   * باقي الحروف
+   */
+
+  if (ARABIC_LETTERS.includes(firstCharacter)) {
+    return firstCharacter;
+  }
+
+  return null;
+}
+
+
+/* =========================================================
+   استخراج اسم المدخل من أي بنية JSON
+   =========================================================
+
+   لأن ملف الموسوعة قد يحتوي على:
+
+   title
+   name
+   entry
+   heading
+
+   أو بنية أخرى.
+
+   نبحث عن الاسم بطريقة آمنة.
+   ========================================================= */
+
+function getEntryTitle(entry) {
+
+  if (!entry || typeof entry !== "object") {
+    return "";
+  }
+
+  const possibleTitles = [
+    entry.title,
+    entry.name,
+    entry.entry,
+    entry.heading,
+    entry.term,
+    entry.word
+  ];
+
+  for (const value of possibleTitles) {
+
+    if (
+      typeof value === "string" &&
+      value.trim() !== ""
+    ) {
+      return value.trim();
+    }
+
+  }
+
+  return "";
+}
+
+
+/* =========================================================
+   استخراج المحتوى النصي للمدخل
+   ========================================================= */
+
+function getEntryText(entry) {
+
+  if (!entry || typeof entry !== "object") {
+    return "";
+  }
+
+  const possibleTexts = [
+    entry.text,
+    entry.content,
+    entry.description,
+    entry.body,
+    entry.study
+  ];
+
+  for (const value of possibleTexts) {
+
+    if (
+      typeof value === "string" &&
+      value.trim() !== ""
+    ) {
+      return value.trim();
+    }
+
+  }
+
+  return "";
+}
+
+
+/* =========================================================
+   تحويل البيانات إلى قائمة مداخل
+   ========================================================= */
+
+function extractEntries(data) {
+
+  /*
+   * الحالة الأولى:
+   *
+   * JSON عبارة عن Array
+   */
+
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+
+  /*
+   * الحالة الثانية:
+   *
+   * البيانات داخل entries
+   */
+
+  if (
+    data &&
+    Array.isArray(data.entries)
+  ) {
+    return data.entries;
+  }
+
+
+  /*
+   * الحالة الثالثة:
+   *
+   * البيانات داخل encyclopedia
+   */
+
+  if (
+    data &&
+    Array.isArray(data.encyclopedia)
+  ) {
+    return data.encyclopedia;
+  }
+
+
+  /*
+   * الحالة الرابعة:
+   *
+   * البيانات موزعة على الحروف:
+
+   {
+      "أ": [...],
+      "ب": [...],
+      ...
+   }
+
+   في هذه الحالة نجمعها.
+   */
+
+  if (
+    data &&
+    typeof data === "object"
+  ) {
+
+    const result = [];
+
+    for (const letter of ARABIC_LETTERS) {
+
+      const value = data[letter];
+
+      if (Array.isArray(value)) {
+
+        for (const item of value) {
+
+          result.push(item);
+
+        }
+
+      }
+
+    }
+
+    if (result.length > 0) {
+      return result;
+    }
+
+  }
+
+
+  return [];
+}
+
+
+/* =========================================================
+   بناء الأبجدية
+   ========================================================= */
+
+function renderAlphabet() {
+
+  alphabetElement.innerHTML = "";
+
+  for (const letter of ARABIC_LETTERS) {
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "letter-button";
+    button.dataset.letter = letter;
+    button.textContent = letter;
+
+
+    /*
+     * نحسب هل يوجد فعليًا مدخل يبدأ بهذا الحرف.
+     */
+
+    const letterEntries = entries.filter(entry => {
+
+      const title = getEntryTitle(entry);
+
+      return getEntryLetter(title) === letter;
 
     });
 
+
+    /*
+     * إذا كان للحرف مداخل:
+     * نجعله فعالًا ونضع النقطة الخضراء.
+     */
+
+    if (letterEntries.length > 0) {
+
+      const dot = document.createElement("span");
+
+      dot.className = "study-dot";
+
+      button.appendChild(dot);
+
+      button.addEventListener("click", () => {
+
+        showLetter(letter);
+
+      });
+
+    } else {
+
+      /*
+       * لا توجد دراسة لهذا الحرف.
+       */
+
+      button.classList.add("disabled");
+
+      button.setAttribute(
+        "aria-disabled",
+        "true"
+      );
+
+    }
+
+    alphabetElement.appendChild(button);
+  }
+
 }
 
 
 /* =========================================================
-   تحميل جميع ملفات الموسوعة
-========================================================= */
+   عرض مداخل حرف معين
+   ========================================================= */
 
-async function loadEncyclopedia(){
+function showLetter(letter) {
 
-    initializeLetterStorage();
+  /*
+   * إزالة active من جميع الحروف
+   */
 
-    buildLetters();
+  document
+    .querySelectorAll(".letter-button")
+    .forEach(button => {
 
-    let loadedFiles = 0;
+      button.classList.remove("active");
 
-    let loadedEntries = 0;
-
-    let failedFiles = [];
-
-
-    /*
-       نحمل الملفات بشكل مستقل.
-
-       إذا كان ملف موجودًا:
-       نضيف مداخله.
-
-       إذا كان غير موجود:
-       لا نوقف الموسوعة.
-    */
-
-    for(
-        const letter of ARABIC_LETTERS
-    ){
-
-        const file =
-            LETTER_FILES[letter];
-
-        try{
-
-            const response =
-                await fetch(
-                    file,
-                    {
-                        cache:"no-store"
-                    }
-                );
+    });
 
 
-            if(!response.ok){
+  /*
+   * تفعيل الحرف الحالي
+   */
 
-                throw new Error(
-                    "HTTP " +
-                    response.status
-                );
-
-            }
-
-
-            const data =
-                await response.json();
-
-
-            const entries =
-                normalizeData(data);
-
-
-            /*
-               هنا نربط الملف بالحرف نفسه.
-
-               أي أن encyclopedia_b.json
-               لا يحتاج أن يضع letter داخل كل مدخل.
-            */
-
-            const normalizedEntries =
-                entries.map(entry => {
-
-                    return {
-
-                        ...entry,
-
-                        letter: letter
-
-                    };
-
-                });
-
-
-            entriesByLetter[letter] =
-                normalizedEntries;
-
-
-            encyclopedia.push(
-                ...normalizedEntries
-            );
-
-
-            loadedFiles++;
-
-            loadedEntries +=
-                normalizedEntries.length;
-
-
-            markLetterLoaded(letter);
-
-
-        }catch(error){
-
-            /*
-               لا نوقف التطبيق.
-               الملف غير موجود أو غير صالح.
-            */
-
-            failedFiles.push({
-
-                letter:letter,
-
-                file:file,
-
-                error:error.message
-
-            });
-
-        }
-
-    }
-
-
-    updateFileStatus(
-        loadedFiles,
-        loadedEntries,
-        failedFiles
+  const activeButton =
+    document.querySelector(
+      `.letter-button[data-letter="${CSS.escape(letter)}"]`
     );
 
+  if (activeButton) {
+    activeButton.classList.add("active");
+  }
 
-    showWelcome();
 
-}
+  /*
+   * استخراج المداخل الخاصة بالحرف.
+   */
 
+  const letterEntries = entries
+    .filter(entry => {
 
-/* =========================================================
-   تحديث حالة الملفات
-========================================================= */
+      const title = getEntryTitle(entry);
 
-function updateFileStatus(
-    loadedFiles,
-    loadedEntries,
-    failedFiles
-){
+      return getEntryLetter(title) === letter;
 
-    let text =
-        "تم تحميل " +
-        loadedFiles +
-        " ملفًا — " +
-        loadedEntries +
-        " مدخلًا";
+    })
+    .sort((a, b) => {
 
+      const titleA =
+        getEntryTitle(a);
 
-    if(failedFiles.length){
+      const titleB =
+        getEntryTitle(b);
 
-        text +=
-            " — " +
-            "الملفات غير الموجودة: " +
-            failedFiles.length;
+      return titleA.localeCompare(
+        titleB,
+        "ar"
+      );
 
-    }
+    });
 
 
-    fileStatus.textContent =
-        text;
+  resultsTitleElement.textContent =
+    `حرف ${letter}`;
 
-}
 
+  resultsCountElement.textContent =
+    `${letterEntries.length} مدخل`;
 
-/* =========================================================
-   تحديد الحرف الذي تم تحميل ملفه
-========================================================= */
 
-function markLetterLoaded(letter){
+  /*
+   * لا توجد مداخل
+   */
 
-    const button =
-        document.querySelector(
-            `.letter[data-letter="${letter}"]`
-        );
+  if (letterEntries.length === 0) {
 
-    if(button){
+    resultsElement.innerHTML = `
+      <div class="empty">
+        لا توجد مداخل موسوعية تبدأ بحرف ${letter}.
+      </div>
+    `;
 
-        button.classList.add(
-            "loaded"
-        );
+    return;
+  }
 
-    }
 
-}
+  /*
+   * إنشاء قائمة المداخل
+   */
 
+  const container =
+    document.createElement("div");
 
-/* =========================================================
-   توحيد شكل JSON
-========================================================= */
+  container.className = "entries";
 
-function normalizeData(data){
 
-    let result = [];
-
-
-    /*
-       الشكل الأول:
-
-       [
-          {
-             "title":"بابل",
-             "text":"..."
-          }
-       ]
-    */
-
-    if(Array.isArray(data)){
-
-        result = data;
-
-    }
-
-
-    /*
-       الشكل الثاني:
-
-       {
-          "entries":[]
-       }
-    */
-
-    else if(
-        data &&
-        Array.isArray(data.entries)
-    ){
-
-        result =
-            data.entries;
-
-    }
-
-
-    /*
-       الشكل الثالث:
-
-       {
-          "articles":[]
-       }
-    */
-
-    else if(
-        data &&
-        Array.isArray(data.articles)
-    ){
-
-        result =
-            data.articles;
-
-    }
-
-
-    /*
-       الشكل الرابع:
-
-       {
-          "أ":[...],
-          "ب":[...]
-       }
-
-       هذا مدعوم أيضًا.
-    */
-
-    else if(
-        data &&
-        typeof data === "object"
-    ){
-
-        for(
-            const key of Object.keys(data)
-        ){
-
-            if(
-                Array.isArray(data[key])
-            ){
-
-                data[key].forEach(
-                    item => {
-
-                        if(
-                            typeof item === "string"
-                        ){
-
-                            result.push({
-
-                                title:item,
-
-                                text:item
-
-                            });
-
-                        }
-
-                        else if(
-                            item &&
-                            typeof item === "object"
-                        ){
-
-                            result.push(item);
-
-                        }
-
-                    }
-                );
-
-            }
-
-        }
-
-    }
-
-
-    /*
-       توحيد كل مدخل
-    */
-
-    return result
-
-        .map(item => {
-
-            if(
-                typeof item === "string"
-            ){
-
-                return {
-
-                    title:item,
-
-                    text:item,
-
-                    letter:""
-
-                };
-
-            }
-
-
-            if(
-                !item ||
-                typeof item !== "object"
-            ){
-
-                return null;
-
-            }
-
-
-            return {
-
-                ...item,
-
-                title:
-                    item.title ||
-                    item.name ||
-                    item.heading ||
-                    "",
-
-                text:
-                    item.text ||
-                    item.content ||
-                    item.body ||
-                    item.description ||
-                    "",
-
-                letter:
-                    item.letter ||
-                    ""
-
-            };
-
-        })
-
-        .filter(
-            item =>
-                item &&
-                item.title
-        );
-
-}
-
-
-/* =========================================================
-   بناء الحروف
-========================================================= */
-
-function buildLetters(){
-
-    lettersContainer.innerHTML = "";
-
-
-    ARABIC_LETTERS.forEach(
-        letter => {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "letter";
-
-
-            /*
-               عرض الألف بصريًا كـ أ
-               بينما القيمة الداخلية تبقى ا
-            */
-
-            button.textContent =
-                letter === "ا"
-                ? "أ"
-                : letter;
-
-
-            button.dataset.letter =
-                letter;
-
-
-            button.addEventListener(
-                "click",
-                () =>
-                    selectLetter(letter)
-            );
-
-
-            lettersContainer.appendChild(
-                button
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   اختيار حرف
-========================================================= */
-
-function selectLetter(letter){
-
-    currentLetter =
-        letter;
-
-    searchInput.value =
-        "";
-
-
-    document
-        .querySelectorAll(".letter")
-        .forEach(button => {
-
-            button.classList.toggle(
-
-                "active",
-
-                button.dataset.letter ===
-                letter
-
-            );
-
-        });
-
-
-    /*
-       نأخذ المداخل من ملف الحرف
-       مباشرة.
-
-       هذا أهم تغيير في النظام.
-    */
-
-    const filtered =
-        (
-            entriesByLetter[letter] ||
-            []
-        )
-
-        .slice()
-
-        .sort(compareEntries);
-
-
-    const visibleLetter =
-        letter === "ا"
-        ? "أ"
-        : letter;
-
-
-    entriesTitle.textContent =
-        "مداخل حرف " +
-        visibleLetter +
-        " — " +
-        filtered.length;
-
-
-    renderEntries(
-        filtered
-    );
-
-
-    if(filtered.length){
-
-        selectEntry(
-            filtered[0]
-        );
-
-    }
-
-    else{
-
-        articleContainer.innerHTML = `
-
-            <div class="message">
-
-                لا توجد مداخل محملة
-                لهذا الحرف حاليًا.
-
-                <br><br>
-
-                إذا كنت قد أنشأت ملف هذا الحرف،
-                تأكد من أن اسمه يطابق الاسم
-                المحدد في نظام الموسوعة.
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   ترتيب المداخل
-========================================================= */
-
-function compareEntries(a,b){
-
-    return String(a.title)
-        .localeCompare(
-            String(b.title),
-            "ar"
-        );
-
-}
-
-
-/* =========================================================
-   عرض المداخل
-========================================================= */
-
-function renderEntries(list){
-
-    entriesContainer.innerHTML = "";
-
-
-    if(!list.length){
-
-        entriesContainer.innerHTML = `
-
-            <div class="message">
-
-                لا توجد نتائج.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    list.forEach(
-        entry => {
-
-            const item =
-                document.createElement(
-                    "div"
-                );
-
-
-            item.className =
-                "entry";
-
-
-            const title =
-                document.createElement(
-                    "div"
-                );
-
-
-            title.className =
-                "entry-title";
-
-
-            title.textContent =
-                entry.title;
-
-
-            const preview =
-                document.createElement(
-                    "div"
-                );
-
-
-            preview.className =
-                "entry-preview";
-
-
-            preview.textContent =
-                createPreview(
-                    entry.text
-                );
-
-
-            item.appendChild(
-                title
-            );
-
-            item.appendChild(
-                preview
-            );
-
-
-            item.addEventListener(
-                "click",
-                () =>
-                    selectEntry(entry)
-            );
-
-
-            entriesContainer.appendChild(
-                item
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   تحديد المدخل
-========================================================= */
-
-function selectEntry(entry){
-
-    currentEntry =
-        entry;
-
-
-    document
-        .querySelectorAll(".entry")
-        .forEach(item => {
-
-            const title =
-                item.querySelector(
-                    ".entry-title"
-                );
-
-
-            item.classList.toggle(
-
-                "active",
-
-                title &&
-                title.textContent ===
-                entry.title
-
-            );
-
-        });
-
-
-    renderArticle(
-        entry
-    );
-
-}
-
-
-/* =========================================================
-   عرض المقال
-========================================================= */
-
-function renderArticle(entry){
+  for (const entry of letterEntries) {
 
     const title =
-        escapeHTML(
-            entry.title
-        );
+      getEntryTitle(entry);
+
+    const text =
+      getEntryText(entry);
 
 
-    const body =
-        formatText(
-            entry.text
-        );
+    const item =
+      document.createElement("a");
+
+    item.className = "entry";
 
 
-    articleContainer.innerHTML = `
+    /*
+     * إذا كان المدخل يحتوي على رابط
+     * نستخدمه.
 
-        <div class="article-header">
+     * وإلا نعرضه كبطاقة.
+     */
 
-            <h2 class="article-title">
+    if (
+      typeof entry.url === "string" &&
+      entry.url.trim() !== ""
+    ) {
 
-                ${title}
+      item.href = entry.url;
 
-            </h2>
+    } else if (
+      typeof entry.href === "string" &&
+      entry.href.trim() !== ""
+    ) {
 
-        </div>
+      item.href = entry.href;
+
+    } else {
+
+      item.href = "#";
+
+      item.addEventListener(
+        "click",
+        event => event.preventDefault()
+      );
+
+    }
 
 
-        <div class="article-body">
+    const titleElement =
+      document.createElement("div");
 
-            ${body}
+    titleElement.className =
+      "entry-title";
 
-        </div>
+    titleElement.textContent =
+      title;
 
-    `;
+
+    const previewElement =
+      document.createElement("div");
+
+    previewElement.className =
+      "entry-preview";
 
 
-    window.scrollTo({
+    /*
+     * عرض بداية المحتوى فقط داخل القائمة.
+     */
 
-        top:0,
+    if (text) {
 
-        behavior:"smooth"
+      const cleanText =
+        text
+          .replace(/\s+/g, " ")
+          .trim();
 
-    });
+      previewElement.textContent =
+        cleanText.length > 240
+          ? cleanText.substring(0, 240) + "…"
+          : cleanText;
+
+    } else {
+
+      previewElement.textContent =
+        "دراسة موسوعية";
+
+    }
+
+
+    item.appendChild(titleElement);
+    item.appendChild(previewElement);
+
+    container.appendChild(item);
+
+  }
+
+
+  resultsElement.innerHTML = "";
+  resultsElement.appendChild(container);
 
 }
 
 
 /* =========================================================
-   تنسيق النص
-========================================================= */
+   تحميل الموسوعة
+   ========================================================= */
 
-function formatText(text){
+async function loadEncyclopedia() {
 
-    if(!text){
+  /*
+   * حالة التحميل
+   */
 
-        return `
-
-            <p>
-
-                لا يوجد محتوى متاح
-                لهذا المدخل.
-
-            </p>
-
-        `;
-
-    }
+  resultsElement.innerHTML = `
+    <div class="loading">
+      جارٍ تحميل الموسوعة…
+    </div>
+  `;
 
 
-    let safe =
-        escapeHTML(
-            String(text)
-        );
+  try {
 
-
-    safe =
-        safe
-
-        .replace(
-            /\r\n/g,
-            "\n"
-        )
-
-        .replace(
-            /\r/g,
-            "\n"
-        );
-
-
-    const paragraphs =
-        safe
-
-        .split(
-            /\n{2,}/
-        )
-
-        .map(
-            p => p.trim()
-        )
-
-        .filter(
-            Boolean
-        );
-
-
-    return paragraphs
-
-        .map(
-            p => {
-
-                return `
-
-                    <p>
-
-                        ${
-                            p.replace(
-                                /\n/g,
-                                "<br>"
-                            )
-                        }
-
-                    </p>
-
-                `;
-
-            }
-        )
-
-        .join("");
-
-}
-
-
-/* =========================================================
-   إنشاء المعاينة
-========================================================= */
-
-function createPreview(text){
-
-    if(!text){
-
-        return "";
-
-    }
-
-
-    const clean =
-        String(text)
-
-        .replace(
-            /\s+/g,
-            " "
-        )
-
-        .trim();
-
-
-    if(
-        clean.length <= 130
-    ){
-
-        return clean;
-
-    }
-
-
-    return (
-        clean.substring(
-            0,
-            130
-        ) +
-        "..."
-    );
-
-}
-
-
-/* =========================================================
-   البحث في جميع الملفات المحملة
-========================================================= */
-
-searchInput.addEventListener(
-    "input",
-    performSearch
-);
-
-
-function performSearch(){
-
-    const query =
-        searchInput.value
-            .trim()
-            .toLowerCase();
-
-
-    if(!query){
-
-        if(currentLetter){
-
-            selectLetter(
-                currentLetter
-            );
-
+    const response =
+      await fetch(
+        ENCYCLOPEDIA_URL,
+        {
+          cache: "no-cache"
         }
+      );
 
-        else{
 
-            showWelcome();
+    /*
+     * التحقق من HTTP
+     */
 
-        }
+    if (!response.ok) {
 
-        return;
+      throw new Error(
+        `HTTP ${response.status}`
+      );
 
     }
 
 
-    document
-        .querySelectorAll(".letter")
-        .forEach(button =>
-            button.classList.remove(
-                "active"
-            )
-        );
+    /*
+     * قراءة JSON
+
+     * مهم:
+     * response.json() سيعطي خطأ واضحًا
+     * إذا كان الملف HTML أو JSON غير صالح.
+     */
+
+    const data =
+      await response.json();
 
 
-    currentLetter =
-        null;
+    encyclopediaData = data;
 
 
-    const results =
-        encyclopedia
+    /*
+     * استخراج المداخل.
+     */
 
-        .filter(entry => {
-
-            const title =
-                String(
-                    entry.title
-                ).toLowerCase();
+    entries =
+      extractEntries(data);
 
 
-            const text =
-                String(
-                    entry.text
-                ).toLowerCase();
+    /*
+     * التحقق من البيانات.
+     */
+
+    if (!Array.isArray(entries)) {
+
+      throw new Error(
+        "لم يتم العثور على قائمة المداخل داخل ملف JSON."
+      );
+
+    }
 
 
-            return (
+    /*
+     * بناء الأبجدية من البيانات الحقيقية.
+     */
 
-                title.includes(query) ||
-
-                text.includes(query)
-
-            );
-
-        })
-
-        .sort(
-            compareEntries
-        );
+    renderAlphabet();
 
 
-    entriesTitle.textContent =
-        "نتائج البحث — " +
-        results.length;
+    /*
+     * تحديد الحرف الموجود في الرابط إن وجد.
+     *
+     * مثال:
+     *
+     * encyclopedia.html?letter=أ
+     */
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const requestedLetter =
+      params.get("letter");
 
 
-    renderEntries(
-        results
+    if (
+      requestedLetter &&
+      ARABIC_LETTERS.includes(requestedLetter)
+    ) {
+
+      const exists =
+        entries.some(entry => {
+
+          return (
+            getEntryLetter(
+              getEntryTitle(entry)
+            ) === requestedLetter
+          );
+
+        });
+
+
+      if (exists) {
+
+        showLetter(requestedLetter);
+
+      }
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Encyclopedia loading error:",
+      error
     );
 
 
-    if(results.length){
+    /*
+     * رسالة الخطأ
+     */
 
-        selectEntry(
-            results[0]
-        );
+    resultsElement.innerHTML = `
+      <div class="error">
 
-    }
+        <strong>
+          تعذر التحميل
+        </strong>
 
-    else{
+        حدث خطأ أثناء تحميل الموسوعة.
 
-        articleContainer.innerHTML = `
+        <br><br>
 
-            <div class="message">
+        <small>
+          ${escapeHtml(error.message)}
+        </small>
 
-                لا توجد نتائج مطابقة للبحث.
+        <br><br>
 
-            </div>
+        <span>
+          الملف المطلوب:
+          <b>encyclopedia_ar.json</b>
+        </span>
 
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   شاشة البداية
-========================================================= */
-
-function showWelcome(){
-
-    entriesTitle.textContent =
-        "الموسوعة الكتابية";
-
-
-    entriesContainer.innerHTML = `
-
-        <div class="message">
-
-            <strong>
-
-                ${encyclopedia.length}
-
-            </strong>
-
-            مدخلًا محملًا
-
-            <br><br>
-
-            اختر حرفًا من الأبجدية
-            لعرض المداخل.
-
-        </div>
-
+      </div>
     `;
 
-
-    articleContainer.innerHTML = `
-
-        <div class="message">
-
-            <div style="
-                font-size:48px;
-                margin-bottom:15px;
-            ">
-
-                📖
-
-            </div>
-
-
-            <div style="
-                color:var(--gold2);
-                font-size:22px;
-                font-weight:bold;
-            ">
-
-                دائرة المعارف الكتابية
-
-            </div>
-
-
-            <p>
-
-                اختر حرفًا من الأبجدية
-                أو استخدم مربع البحث
-                للوصول إلى المدخل المطلوب.
-
-            </p>
-
-        </div>
-
-    `;
+  }
 
 }
 
 
 /* =========================================================
-   حماية HTML
-========================================================= */
+   حماية عرض رسالة الخطأ
+   ========================================================= */
 
-function escapeHTML(value){
+function escapeHtml(value) {
 
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 }
 
 
 /* =========================================================
-   التشغيل
-========================================================= */
+   بدء التطبيق
+   ========================================================= */
 
 loadEncyclopedia();
 
 </script>
 
-
 </body>
-
 </html>
