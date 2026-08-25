@@ -4,20 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>دائرة المعارف الكتابية</title>
+<title>موسوعة الكتاب المقدس</title>
 
 <style>
 :root{
     --bg:#061321;
-    --bg2:#0a1b2d;
-    --panel:#0d2138;
-    --panel2:#102b46;
-    --gold:#d6b15a;
-    --gold2:#f0d58a;
-    --text:#f4f6f8;
-    --muted:#aebdca;
-    --border:rgba(214,177,90,.25);
-    --shadow:0 14px 40px rgba(0,0,0,.35);
+    --bg2:#091a2b;
+    --panel:#0d2238;
+    --panel2:#102a44;
+    --gold:#d9b84c;
+    --gold2:#f0d66a;
+    --text:#f4f4f4;
+    --muted:#9baabd;
+    --border:#66572b;
+    --danger:#8b3040;
 }
 
 *{
@@ -28,114 +28,92 @@ html,body{
     margin:0;
     padding:0;
     min-height:100%;
+    background:
+        radial-gradient(circle at top,#0d253d 0%,#061321 48%,#020a12 100%);
+    color:var(--text);
+    font-family:Tahoma,Arial,sans-serif;
 }
 
 body{
-    font-family:Tahoma,Arial,sans-serif;
-    background:
-        radial-gradient(circle at top right,rgba(30,70,110,.25),transparent 35%),
-        linear-gradient(145deg,var(--bg),var(--bg2));
-    color:var(--text);
-}
-
-button,
-input{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
+    min-height:100vh;
 }
 
 /* =========================
    HEADER
 ========================= */
 
-.header{
+header{
     height:76px;
+    background:#071625;
+    border-bottom:1px solid #24364a;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 22px;
-    border-bottom:1px solid var(--border);
-    background:rgba(6,19,33,.94);
-    backdrop-filter:blur(12px);
-    position:sticky;
-    top:0;
-    z-index:100;
+    padding:0 14px;
 }
 
-.header-right,
-.header-left{
+.header-right{
     display:flex;
     align-items:center;
     gap:12px;
 }
 
-.home-btn{
-    border:1px solid var(--border);
-    background:var(--panel);
-    color:var(--text);
-    padding:10px 15px;
-    border-radius:12px;
-    font-size:14px;
-    transition:.2s;
-}
-
-.home-btn:hover{
-    background:var(--panel2);
-    border-color:var(--gold);
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.brand-logo{
-    width:44px;
-    height:44px;
+.header-logo{
+    width:42px;
+    height:42px;
     object-fit:contain;
 }
 
-.brand-title{
+.header-title{
     color:var(--gold2);
     font-size:17px;
     font-weight:bold;
+}
+
+.home-btn{
+    border:1px solid var(--border);
+    background:#0d2136;
+    color:var(--gold2);
+    border-radius:9px;
+    padding:8px 15px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:13px;
+}
+
+.home-btn:hover{
+    background:#16324e;
 }
 
 /* =========================
    MAIN
 ========================= */
 
-.container{
-    width:min(1200px,94%);
+main{
+    width:min(1100px,94%);
     margin:0 auto;
-    padding:30px 0 60px;
+    padding:30px 0 70px;
 }
 
 .hero{
     text-align:center;
-    padding:30px 15px 22px;
 }
 
 .hero-icon{
-    font-size:58px;
+    font-size:38px;
     margin-bottom:8px;
 }
 
 .hero h1{
     margin:0;
     color:var(--gold2);
-    font-size:30px;
+    font-size:27px;
 }
 
 .hero p{
-    margin:10px auto 0;
+    margin:8px 0 20px;
     color:var(--muted);
-    max-width:760px;
-    line-height:1.9;
+    font-size:13px;
 }
 
 /* =========================
@@ -143,316 +121,206 @@ button{
 ========================= */
 
 .search-box{
+    width:min(560px,100%);
+    margin:0 auto 20px;
     position:relative;
-    max-width:850px;
-    margin:10px auto 28px;
 }
 
 .search-box input{
     width:100%;
-    height:56px;
-    border-radius:16px;
+    height:48px;
+    padding:0 18px 0 45px;
+    border-radius:11px;
     border:1px solid var(--border);
-    background:rgba(13,33,56,.95);
-    color:var(--text);
-    padding:0 54px 0 18px;
-    font-size:16px;
     outline:none;
-    box-shadow:var(--shadow);
+    background:#0d2136;
+    color:#fff;
+    font-family:inherit;
+    font-size:14px;
 }
 
-.search-box input:focus{
-    border-color:var(--gold);
+.search-box input::placeholder{
+    color:#8495a9;
 }
 
 .search-icon{
     position:absolute;
-    right:18px;
-    top:50%;
-    transform:translateY(-50%);
-    font-size:22px;
-}
-
-/* =========================
-   ALPHABET
-========================= */
-
-.section-title{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin:25px 0 15px;
-    color:var(--gold2);
-    font-size:19px;
-}
-
-.alphabet{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(48px,1fr));
-    gap:9px;
-}
-
-.letter-btn{
-    min-height:48px;
-    border:1px solid var(--border);
-    border-radius:12px;
-    background:var(--panel);
-    color:var(--text);
-    font-size:18px;
-    font-weight:bold;
-    transition:.2s;
-}
-
-.letter-btn:hover,
-.letter-btn.active{
-    background:var(--gold);
-    color:#071321;
-    border-color:var(--gold);
-    transform:translateY(-2px);
-}
-
-/* =========================
-   CONTENT PANEL
-========================= */
-
-.panel{
-    margin-top:25px;
-    background:rgba(13,33,56,.92);
-    border:1px solid var(--border);
-    border-radius:20px;
-    box-shadow:var(--shadow);
-    overflow:hidden;
-}
-
-.panel-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    padding:18px 20px;
-    border-bottom:1px solid var(--border);
-}
-
-.panel-title{
-    color:var(--gold2);
+    left:16px;
+    top:12px;
     font-size:20px;
-    font-weight:bold;
 }
 
-.panel-count{
+/* =========================
+   ERROR
+========================= */
+
+.status{
+    width:min(560px,100%);
+    margin:0 auto 20px;
+    padding:15px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#0d2136;
+    text-align:center;
     color:var(--muted);
     font-size:13px;
 }
 
+.status.error{
+    border-color:var(--danger);
+    color:#ffd6dc;
+}
+
+.status.success{
+    border-color:#3f6c52;
+    color:#cdebd8;
+}
+
 /* =========================
-   ENTRIES
+   LETTERS
 ========================= */
 
-.entries{
+.letters{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-    gap:12px;
-    padding:18px;
+    grid-template-columns:repeat(14,1fr);
+    gap:8px;
+    width:min(780px,100%);
+    margin:15px auto 25px;
+}
+
+.letter{
+    min-height:45px;
+    border:1px solid var(--border);
+    background:#0d2136;
+    color:var(--gold2);
+    border-radius:9px;
+    font-family:inherit;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.letter:hover,
+.letter.active{
+    background:#193b59;
+    border-color:var(--gold);
+}
+
+/* =========================
+   RESULTS
+========================= */
+
+.results{
+    width:min(900px,100%);
+    margin:0 auto;
+}
+
+.result-count{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:12px;
 }
 
 .entry{
-    border:1px solid rgba(214,177,90,.18);
-    background:rgba(16,43,70,.75);
-    border-radius:14px;
-    padding:17px;
-    color:var(--text);
-    text-align:right;
-    transition:.2s;
-    min-height:70px;
+    background:linear-gradient(145deg,#0d2238,#091b2d);
+    border:1px solid #29435b;
+    border-radius:12px;
+    margin-bottom:12px;
+    overflow:hidden;
 }
 
-.entry:hover{
-    border-color:var(--gold);
-    background:rgba(20,52,83,.95);
-    transform:translateY(-2px);
-}
-
-.entry-name{
-    color:var(--gold2);
-    font-size:17px;
-    font-weight:bold;
-}
-
-.entry-type{
-    display:block;
-    color:var(--muted);
-    font-size:12px;
-    margin-top:7px;
-}
-
-/* =========================
-   ARTICLE
-========================= */
-
-.article{
-    padding:25px;
-}
-
-.article-back{
-    border:1px solid var(--border);
-    background:transparent;
-    color:var(--gold2);
-    padding:9px 14px;
-    border-radius:10px;
-    margin-bottom:20px;
-}
-
-.article-title{
-    color:var(--gold2);
-    font-size:28px;
-    margin:5px 0 20px;
-}
-
-.article-subtitle{
-    color:var(--muted);
-    line-height:1.9;
-    margin-bottom:25px;
-}
-
-.article-section{
-    margin:25px 0;
-}
-
-.article-section h3{
+.entry-title{
+    padding:14px 18px;
     color:var(--gold2);
     font-size:19px;
-    margin-bottom:10px;
-}
-
-.article-section p{
-    color:#e7edf2;
-    line-height:2.05;
-    font-size:16px;
-    margin:0;
-    white-space:pre-line;
-}
-
-.references{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-}
-
-.reference{
-    border:1px solid var(--border);
-    background:var(--panel2);
-    color:var(--gold2);
-    padding:8px 11px;
-    border-radius:9px;
-    font-size:13px;
-}
-
-/* =========================
-   SOURCES
-========================= */
-
-.sources{
-    margin-top:30px;
-    padding:20px;
-    border-radius:15px;
-    border:1px solid var(--border);
-    background:rgba(6,19,33,.65);
-}
-
-.source-item{
-    padding:10px 0;
-    border-bottom:1px solid rgba(255,255,255,.06);
-    color:#dbe4ea;
-    line-height:1.8;
-}
-
-.source-item:last-child{
-    border-bottom:0;
-}
-
-.source-label{
-    color:var(--gold2);
     font-weight:bold;
+    border-bottom:1px solid #243b50;
+    cursor:pointer;
+}
+
+.entry-title:hover{
+    background:#102a43;
+}
+
+.entry-content{
+    display:none;
+    padding:20px;
+    line-height:2;
+    color:#e8edf3;
+    font-size:15px;
+}
+
+.entry.open .entry-content{
+    display:block;
+}
+
+.entry-content p{
+    margin:0 0 15px;
+}
+
+.entry-content h2,
+.entry-content h3,
+.entry-content h4{
+    color:var(--gold2);
+}
+
+.entry-content strong{
+    color:var(--gold2);
 }
 
 /* =========================
-   EMPTY / LOADING
+   EMPTY
 ========================= */
 
-.message{
-    padding:30px 20px;
+.empty{
     text-align:center;
     color:var(--muted);
-    line-height:2;
-}
-
-.error{
-    color:#ffb4b4;
+    padding:35px 10px;
 }
 
 /* =========================
-   FOOTER
+   RESPONSIVE
 ========================= */
 
-.footer{
-    text-align:center;
-    color:#7f94a6;
-    font-size:12px;
-    padding:30px 10px;
+@media(max-width:800px){
+    .letters{
+        grid-template-columns:repeat(9,1fr);
+    }
 }
 
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:650px){
-
-    .header{
-        height:68px;
-        padding:0 12px;
+@media(max-width:520px){
+    header{
+        height:65px;
     }
 
-    .brand-title{
+    .header-title{
         font-size:13px;
     }
 
-    .brand-logo{
-        width:38px;
-        height:38px;
+    .header-logo{
+        width:35px;
+        height:35px;
     }
 
-    .home-btn{
-        padding:8px 10px;
-        font-size:12px;
+    main{
+        padding-top:22px;
     }
 
     .hero h1{
-        font-size:25px;
+        font-size:22px;
     }
 
-    .hero-icon{
-        font-size:48px;
-    }
-
-    .alphabet{
+    .letters{
         grid-template-columns:repeat(6,1fr);
     }
 
-    .letter-btn{
-        min-height:44px;
+    .entry-title{
         font-size:17px;
     }
 
-    .entries{
-        grid-template-columns:1fr;
-    }
-
-    .article{
-        padding:18px;
-    }
-
-    .article-title{
-        font-size:24px;
+    .entry-content{
+        font-size:14px;
+        padding:15px;
     }
 }
 </style>
@@ -460,48 +328,38 @@ button{
 
 <body>
 
-<header class="header">
+<header>
+
+    <button class="home-btn" onclick="goHome()">
+        ⌂ الرئيسية
+    </button>
 
     <div class="header-right">
-        <button class="home-btn" onclick="goHome()">
-            ⌂ الرئيسية
-        </button>
-    </div>
-
-    <div class="header-left brand">
-
-        <!--
-            إذا كان شعار المشروع باسم مختلف في مستودعك
-            غيّر src فقط، ولا تغيّر باقي الكود.
-        -->
-        <img
-            src="logo.png"
-            class="brand-logo"
-            alt="شعار موسوعة الكتاب المقدس"
-            onerror="this.style.display='none'"
-        >
-
-        <div class="brand-title">
+        <div class="header-title">
             موسوعة الكتاب المقدس
         </div>
 
+        <img
+            class="header-logo"
+            src="logo.png"
+            alt="شعار الكنيسة"
+            onerror="this.style.display='none'"
+        >
     </div>
 
 </header>
 
 
-<main class="container">
+<main>
 
     <section class="hero">
 
-        <div class="hero-icon">📖</div>
+        <div class="hero-icon">📚</div>
 
-        <h1>دائرة المعارف الكتابية</h1>
+        <h1>موسوعة الكتاب المقدس</h1>
 
         <p>
-            موسوعة كتابية عربية منظمة أبجديًا،
-            تجمع المداخل الكتابية والتاريخية والجغرافية
-            والأثرية واللغوية، مع توثيق المصادر والمراجع.
+            موسوعة الدراسات والمعلومات الكتابية
         </p>
 
     </section>
@@ -514,76 +372,30 @@ button{
         <input
             id="searchInput"
             type="search"
-            placeholder="ابحث في جميع مداخل الموسوعة..."
+            placeholder="إبحث في الموسوعة..."
             autocomplete="off"
         >
 
     </div>
 
 
-    <section>
-
-        <div class="section-title">
-            <span>🔤</span>
-            <span>الفهرس الأبجدي</span>
-        </div>
-
-        <div
-            id="alphabet"
-            class="alphabet">
-        </div>
-
-    </section>
+    <div id="status" class="status">
+        جاري تحميل الموسوعة...
+    </div>
 
 
-    <section class="panel">
-
-        <div class="panel-header">
-
-            <div
-                id="panelTitle"
-                class="panel-title">
-                اختر حرفًا
-            </div>
-
-            <div
-                id="panelCount"
-                class="panel-count">
-            </div>
-
-        </div>
-
-        <div
-            id="entries"
-            class="entries">
-
-            <div class="message">
-                اختر حرفًا من الفهرس لعرض المداخل.
-            </div>
-
-        </div>
-
-    </section>
+    <div id="letters" class="letters"></div>
 
 
-    <section
-        id="articlePanel"
-        class="panel"
-        style="display:none">
+    <section class="results">
 
-        <div
-            id="article"
-            class="article">
-        </div>
+        <div id="resultCount" class="result-count"></div>
+
+        <div id="results"></div>
 
     </section>
 
 </main>
-
-
-<footer class="footer">
-    دائرة المعارف الكتابية — قاعدة معرفة موثقة
-</footer>
 
 
 <script>
@@ -592,12 +404,20 @@ button{
    CONFIGURATION
 ========================================================= */
 
-const DATA_URL = "encyclopedia-data.json";
+const ENCYCLOPEDIA_URL = "encyclopedia_ar.json";
 
-const ALPHABET = [
-    "أ","ب","ت","ث","ج","ح","خ","د","ذ","ر",
-    "ز","س","ش","ص","ض","ط","ظ","ع","غ","ف",
-    "ق","ك","ل","م","ن","هـ","و","ي"
+const HOME_URL = "index.html";
+
+
+/* =========================================================
+   ARABIC ALPHABET
+========================================================= */
+
+const ARABIC_LETTERS = [
+    "ا","ب","ت","ث","ج","ح","خ",
+    "د","ذ","ر","ز","س","ش","ص",
+    "ض","ط","ظ","ع","غ","ف","ق",
+    "ك","ل","م","ن","ه","و","ي"
 ];
 
 
@@ -605,656 +425,31 @@ const ALPHABET = [
    STATE
 ========================================================= */
 
-let encyclopedia = {
-    entries: []
-};
+let encyclopedia = [];
 
-let activeLetter = null;
+let activeLetter = "";
 
-
-/* =========================================================
-   DOM
-========================================================= */
-
-const alphabetEl   = document.getElementById("alphabet");
-const entriesEl    = document.getElementById("entries");
-const panelTitleEl = document.getElementById("panelTitle");
-const panelCountEl = document.getElementById("panelCount");
-const searchInput  = document.getElementById("searchInput");
-const articlePanel = document.getElementById("articlePanel");
-const articleEl    = document.getElementById("article");
+let searchTerm = "";
 
 
 /* =========================================================
-   START
+   ELEMENTS
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", init);
+const lettersContainer =
+    document.getElementById("letters");
 
+const resultsContainer =
+    document.getElementById("results");
 
-/* =========================================================
-   INITIALIZATION
-========================================================= */
+const resultCount =
+    document.getElementById("resultCount");
 
-async function init(){
+const searchInput =
+    document.getElementById("searchInput");
 
-    buildAlphabet();
-
-    await loadData();
-
-    searchInput.addEventListener(
-        "input",
-        handleSearch
-    );
-}
-
-
-/* =========================================================
-   LOAD DATA
-========================================================= */
-
-async function loadData(){
-
-    try{
-
-        const response = await fetch(DATA_URL, {
-            cache: "no-store"
-        });
-
-        if(!response.ok){
-            throw new Error(
-                "HTTP " + response.status
-            );
-        }
-
-        const data = await response.json();
-
-        if(Array.isArray(data)){
-            encyclopedia.entries = data;
-        }
-        else if(Array.isArray(data.entries)){
-            encyclopedia.entries = data.entries;
-        }
-        else{
-            encyclopedia.entries = [];
-        }
-
-        encyclopedia.entries =
-            encyclopedia.entries.map(normalizeEntry);
-
-    }
-    catch(error){
-
-        console.error(error);
-
-        entriesEl.innerHTML = `
-            <div class="message error">
-                تعذر تحميل قاعدة بيانات الموسوعة.
-                <br>
-                تأكد أن الملف
-                <strong>encyclopedia-data.json</strong>
-                موجود بجانب هذا الملف.
-            </div>
-        `;
-    }
-
-}
-
-
-/* =========================================================
-   NORMALIZE ENTRY
-========================================================= */
-
-function normalizeEntry(entry){
-
-    return {
-
-        id:
-            entry.id ||
-            slugify(entry.title || ""),
-
-        title:
-            entry.title ||
-            "بدون عنوان",
-
-        letter:
-            entry.letter ||
-            getFirstLetter(entry.title || ""),
-
-        type:
-            entry.type ||
-            "مدخل موسوعي",
-
-        summary:
-            entry.summary ||
-            "",
-
-        content:
-            entry.content ||
-            "",
-
-        sections:
-            Array.isArray(entry.sections)
-                ? entry.sections
-                : [],
-
-        bibleReferences:
-            Array.isArray(entry.bibleReferences)
-                ? entry.bibleReferences
-                : [],
-
-        sources:
-            Array.isArray(entry.sources)
-                ? entry.sources
-                : [],
-
-        related:
-            Array.isArray(entry.related)
-                ? entry.related
-                : [],
-
-        images:
-            Array.isArray(entry.images)
-                ? entry.images
-                : []
-
-    };
-
-}
-
-
-/* =========================================================
-   ALPHABET
-========================================================= */
-
-function buildAlphabet(){
-
-    alphabetEl.innerHTML = "";
-
-    ALPHABET.forEach(letter => {
-
-        const button =
-            document.createElement("button");
-
-        button.className = "letter-btn";
-
-        button.textContent = letter;
-
-        button.dataset.letter = letter;
-
-        button.addEventListener(
-            "click",
-            () => selectLetter(letter)
-        );
-
-        alphabetEl.appendChild(button);
-
-    });
-
-}
-
-
-/* =========================================================
-   SELECT LETTER
-========================================================= */
-
-function selectLetter(letter){
-
-    activeLetter = letter;
-
-    document
-        .querySelectorAll(".letter-btn")
-        .forEach(button => {
-
-            button.classList.toggle(
-                "active",
-                button.dataset.letter === letter
-            );
-
-        });
-
-    articlePanel.style.display = "none";
-
-    searchInput.value = "";
-
-    const list =
-        getEntriesByLetter(letter);
-
-    renderEntries(
-        list,
-        `مداخل حرف ${letter}`
-    );
-
-    window.scrollTo({
-        top: document
-            .querySelector(".panel")
-            .offsetTop - 80,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* =========================================================
-   GET LETTER ENTRIES
-========================================================= */
-
-function getEntriesByLetter(letter){
-
-    return encyclopedia.entries
-
-        .filter(entry =>
-            normalizeArabicLetter(
-                entry.letter
-            ) ===
-            normalizeArabicLetter(letter)
-        )
-
-        .sort(compareArabic);
-
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function handleSearch(){
-
-    const query =
-        normalizeText(
-            searchInput.value
-        );
-
-    if(!query){
-
-        if(activeLetter){
-
-            renderEntries(
-                getEntriesByLetter(activeLetter),
-                `مداخل حرف ${activeLetter}`
-            );
-
-        }
-        else{
-
-            panelTitleEl.textContent =
-                "اختر حرفًا";
-
-            panelCountEl.textContent = "";
-
-            entriesEl.innerHTML = `
-                <div class="message">
-                    اختر حرفًا من الفهرس لعرض المداخل.
-                </div>
-            `;
-        }
-
-        articlePanel.style.display = "none";
-
-        return;
-    }
-
-
-    const results =
-        encyclopedia.entries.filter(entry => {
-
-            const searchable = normalizeText(
-                [
-                    entry.title,
-                    entry.type,
-                    entry.summary,
-                    entry.content,
-                    ...entry.sections.map(
-                        section =>
-                            section.title +
-                            " " +
-                            section.content
-                    ),
-                    ...entry.bibleReferences,
-                    ...entry.related
-                ].join(" ")
-            );
-
-            return searchable.includes(query);
-
-        })
-        .sort(compareArabic);
-
-
-    articlePanel.style.display = "none";
-
-    renderEntries(
-        results,
-        `نتائج البحث عن: ${searchInput.value}`
-    );
-
-}
-
-
-/* =========================================================
-   RENDER ENTRIES
-========================================================= */
-
-function renderEntries(list, title){
-
-    panelTitleEl.textContent = title;
-
-    panelCountEl.textContent =
-        list.length +
-        (list.length === 1
-            ? " مدخل"
-            : " مداخل");
-
-
-    if(!list.length){
-
-        entriesEl.innerHTML = `
-            <div class="message">
-                لا توجد مداخل متاحة حاليًا.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    entriesEl.innerHTML = "";
-
-
-    list.forEach(entry => {
-
-        const button =
-            document.createElement("button");
-
-        button.className = "entry";
-
-        button.innerHTML = `
-            <span class="entry-name">
-                ${escapeHtml(entry.title)}
-            </span>
-
-            <span class="entry-type">
-                ${escapeHtml(entry.type)}
-            </span>
-        `;
-
-        button.addEventListener(
-            "click",
-            () => openEntry(entry.id)
-        );
-
-        entriesEl.appendChild(button);
-
-    });
-
-}
-
-
-/* =========================================================
-   OPEN ENTRY
-========================================================= */
-
-function openEntry(id){
-
-    const entry =
-        encyclopedia.entries.find(
-            item => item.id === id
-        );
-
-    if(!entry){
-        return;
-    }
-
-    renderArticle(entry);
-
-    articlePanel.style.display = "block";
-
-    setTimeout(() => {
-
-        window.scrollTo({
-            top:
-                articlePanel.offsetTop - 80,
-            behavior:"smooth"
-        });
-
-    },50);
-
-}
-
-
-/* =========================================================
-   ARTICLE
-========================================================= */
-
-function renderArticle(entry){
-
-    let html = `
-
-        <button
-            class="article-back"
-            onclick="closeArticle()">
-
-            ← العودة إلى المداخل
-
-        </button>
-
-        <h2 class="article-title">
-            ${escapeHtml(entry.title)}
-        </h2>
-    `;
-
-
-    if(entry.summary){
-
-        html += `
-            <div class="article-subtitle">
-                ${formatText(entry.summary)}
-            </div>
-        `;
-
-    }
-
-
-    if(entry.content){
-
-        html += `
-            <section class="article-section">
-
-                <p>
-                    ${formatText(entry.content)}
-                </p>
-
-            </section>
-        `;
-
-    }
-
-
-    if(entry.sections.length){
-
-        entry.sections.forEach(section => {
-
-            html += `
-
-                <section class="article-section">
-
-                    <h3>
-                        ${escapeHtml(
-                            section.title || ""
-                        )}
-                    </h3>
-
-                    <p>
-                        ${formatText(
-                            section.content || ""
-                        )}
-                    </p>
-
-                </section>
-            `;
-
-        });
-
-    }
-
-
-    if(entry.bibleReferences.length){
-
-        html += `
-
-            <section class="article-section">
-
-                <h3>
-                    📖 المراجع الكتابية
-                </h3>
-
-                <div class="references">
-        `;
-
-        entry.bibleReferences.forEach(ref => {
-
-            html += `
-                <span class="reference">
-                    ${escapeHtml(ref)}
-                </span>
-            `;
-
-        });
-
-        html += `
-                </div>
-
-            </section>
-        `;
-
-    }
-
-
-    if(entry.sources.length){
-
-        html += `
-
-            <section class="sources">
-
-                <h3>
-                    📚 المصادر والتوثيق
-                </h3>
-        `;
-
-        entry.sources.forEach(source => {
-
-            html += `
-
-                <div class="source-item">
-
-                    <span class="source-label">
-                        ${escapeHtml(
-                            source.type ||
-                            "مصدر"
-                        )}
-                    </span>
-
-                    :
-                    ${escapeHtml(
-                        source.title ||
-                        source.name ||
-                        ""
-                    )}
-
-                    ${
-                        source.details
-                        ? `<br>${escapeHtml(
-                            source.details
-                        )}`
-                        : ""
-                    }
-
-                </div>
-
-            `;
-
-        });
-
-        html += `
-            </section>
-        `;
-
-    }
-
-
-    if(entry.related.length){
-
-        html += `
-
-            <section class="article-section">
-
-                <h3>
-                    🔗 مداخل مرتبطة
-                </h3>
-
-                <div class="references">
-        `;
-
-        entry.related.forEach(id => {
-
-            const related =
-                encyclopedia.entries.find(
-                    item => item.id === id
-                );
-
-            if(related){
-
-                html += `
-
-                    <button
-                        class="reference"
-                        onclick="openEntry('${escapeAttr(
-                            related.id
-                        )}')">
-
-                        ${escapeHtml(
-                            related.title
-                        )}
-
-                    </button>
-                `;
-
-            }
-
-        });
-
-        html += `
-                </div>
-
-            </section>
-        `;
-
-    }
-
-
-    articleEl.innerHTML = html;
-
-}
-
-
-/* =========================================================
-   CLOSE ARTICLE
-========================================================= */
-
-function closeArticle(){
-
-    articlePanel.style.display = "none";
-
-    window.scrollTo({
-        top:
-            document
-                .querySelector(".panel")
-                .offsetTop - 80,
-        behavior:"smooth"
-    });
-
-}
+const statusBox =
+    document.getElementById("status");
 
 
 /* =========================================================
@@ -1263,165 +458,522 @@ function closeArticle(){
 
 function goHome(){
 
-    /*
-       نحافظ على الصفحة الرئيسية الحالية
-       للمشروع ولا نفترض اسمًا مختلفًا.
-    */
-
-    window.location.href = "index.html";
+    window.location.href = HOME_URL;
 
 }
 
 
 /* =========================================================
-   ARABIC NORMALIZATION
+   NORMALIZE ARABIC
 ========================================================= */
 
-function normalizeText(value){
+function normalizeArabic(text){
 
-    return String(value || "")
-
-        .toLowerCase()
-
-        .replace(/[ًٌٍَُِّْـ]/g, "")
-
-        .replace(/[إأآا]/g, "ا")
-
-        .replace(/ى/g, "ي")
-
-        .replace(/ة/g, "ه")
-
-        .replace(/ؤ/g, "و")
-
-        .replace(/ئ/g, "ي")
-
-        .trim();
-
-}
-
-
-function normalizeArabicLetter(letter){
-
-    const value =
-        normalizeText(letter);
-
-    if(value === "ا"){
-        return "ا";
-    }
-
-    if(value === "ه"){
-        return "هـ";
-    }
-
-    return value;
+    return String(text || "")
+        .trim()
+        .replace(/[أإآٱ]/g,"ا")
+        .replace(/ى/g,"ي")
+        .replace(/ة/g,"ه")
+        .replace(/ؤ/g,"و")
+        .replace(/ئ/g,"ي")
+        .replace(/[ًٌٍَُِّْـ]/g,"")
+        .toLowerCase();
 
 }
 
 
 /* =========================================================
-   ARABIC SORT
+   GET TITLE
 ========================================================= */
 
-function compareArabic(a,b){
+function getEntryTitle(entry){
 
-    return String(a.title)
-        .localeCompare(
-            String(b.title),
-            "ar",
-            {
-                sensitivity:"base"
+    return (
+        entry.title ||
+        entry.name ||
+        entry.term ||
+        entry.word ||
+        entry.heading ||
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   GET CONTENT
+========================================================= */
+
+function getEntryContent(entry){
+
+    return (
+        entry.content ||
+        entry.text ||
+        entry.body ||
+        entry.description ||
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   SORT
+========================================================= */
+
+function sortEncyclopedia(){
+
+    encyclopedia.sort((a,b)=>{
+
+        const titleA =
+            normalizeArabic(getEntryTitle(a));
+
+        const titleB =
+            normalizeArabic(getEntryTitle(b));
+
+        return titleA.localeCompare(
+            titleB,
+            "ar"
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
+async function loadEncyclopedia(){
+
+    try{
+
+        const response =
+            await fetch(
+                ENCYCLOPEDIA_URL,
+                {
+                    cache:"no-store"
+                }
+            );
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP " + response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        /*
+         * ندعم أكثر من شكل للـ JSON
+         */
+
+        if(Array.isArray(data)){
+
+            encyclopedia = data;
+
+        }
+
+        else if(Array.isArray(data.entries)){
+
+            encyclopedia = data.entries;
+
+        }
+
+        else if(Array.isArray(data.articles)){
+
+            encyclopedia = data.articles;
+
+        }
+
+        else if(Array.isArray(data.items)){
+
+            encyclopedia = data.items;
+
+        }
+
+        else if(Array.isArray(data.pages)){
+
+            encyclopedia = data.pages;
+
+        }
+
+        else{
+
+            /*
+             * إذا كان JSON عبارة عن كائن
+             * والمفاتيح هي أسماء المواد
+             */
+
+            encyclopedia =
+                Object.entries(data)
+                .map(([title,content])=>({
+
+                    title:title,
+                    content:content
+
+                }));
+
+        }
+
+
+        encyclopedia =
+            encyclopedia.filter(entry=>{
+
+                return (
+                    getEntryTitle(entry) ||
+                    getEntryContent(entry)
+                );
+
+            });
+
+
+        sortEncyclopedia();
+
+
+        statusBox.className =
+            "status success";
+
+        statusBox.textContent =
+            "تم تحميل الموسوعة بنجاح";
+
+
+        renderLetters();
+
+        renderResults();
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Encyclopedia loading error:",
+            error
+        );
+
+
+        statusBox.className =
+            "status error";
+
+        statusBox.innerHTML = `
+            <strong>⚠️ تعذر تحميل الموسوعة</strong>
+            <br><br>
+            تأكد من وجود الملف:
+            <br>
+            <strong>encyclopedia_ar.json</strong>
+            <br><br>
+            ورسالة الخطأ:
+            <br>
+            HTTP ${error.message.replace("HTTP ","")}
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   LETTER BUTTONS
+========================================================= */
+
+function renderLetters(){
+
+    lettersContainer.innerHTML = "";
+
+
+    ARABIC_LETTERS.forEach(letter=>{
+
+        const button =
+            document.createElement("button");
+
+        button.className = "letter";
+
+        button.textContent = letter;
+
+        button.dataset.letter = letter;
+
+
+        button.addEventListener(
+            "click",
+            ()=>{
+
+                if(activeLetter === letter){
+
+                    activeLetter = "";
+
+                }
+                else{
+
+                    activeLetter = letter;
+
+                }
+
+                updateLetterButtons();
+
+                renderResults();
+
             }
         );
 
-}
+
+        lettersContainer.appendChild(button);
+
+    });
 
 
-/* =========================================================
-   FIRST LETTER
-========================================================= */
-
-function getFirstLetter(title){
-
-    const value =
-        String(title || "").trim();
-
-    if(!value){
-        return "";
-    }
-
-    const first =
-        value.charAt(0);
-
-    if(
-        first === "آ" ||
-        first === "أ" ||
-        first === "إ"
-    ){
-        return "أ";
-    }
-
-    return first;
+    updateLetterButtons();
 
 }
 
 
 /* =========================================================
-   SLUG
+   LETTER ACTIVE STATE
 ========================================================= */
 
-function slugify(value){
+function updateLetterButtons(){
 
-    return normalizeText(value)
+    document
+        .querySelectorAll(".letter")
+        .forEach(button=>{
 
-        .replace(/\s+/g,"-")
+            button.classList.toggle(
+                "active",
+                button.dataset.letter === activeLetter
+            );
 
-        .replace(
-            /[^a-z0-9\u0600-\u06ff\-]/g,
-            ""
+        });
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function getFilteredEntries(){
+
+    let list =
+        encyclopedia;
+
+
+    if(activeLetter){
+
+        list =
+            list.filter(entry=>{
+
+                const title =
+                    normalizeArabic(
+                        getEntryTitle(entry)
+                    );
+
+                return title.startsWith(
+                    normalizeArabic(activeLetter)
+                );
+
+            });
+
+    }
+
+
+    if(searchTerm){
+
+        const query =
+            normalizeArabic(searchTerm);
+
+
+        list =
+            list.filter(entry=>{
+
+                const title =
+                    normalizeArabic(
+                        getEntryTitle(entry)
+                    );
+
+                const content =
+                    normalizeArabic(
+                        getEntryContent(entry)
+                    );
+
+                return (
+                    title.includes(query) ||
+                    content.includes(query)
+                );
+
+            });
+
+    }
+
+
+    return list;
+
+}
+
+
+/* =========================================================
+   RENDER RESULTS
+========================================================= */
+
+function renderResults(){
+
+    const list =
+        getFilteredEntries();
+
+
+    resultCount.textContent =
+        list.length
+        ? `عدد المواد: ${list.length}`
+        : "";
+
+
+    resultsContainer.innerHTML = "";
+
+
+    if(!list.length){
+
+        resultsContainer.innerHTML = `
+            <div class="empty">
+                لا توجد مواد مطابقة للبحث.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.forEach((entry,index)=>{
+
+        const title =
+            getEntryTitle(entry);
+
+        const content =
+            getEntryContent(entry);
+
+
+        const article =
+            document.createElement("article");
+
+        article.className =
+            "entry";
+
+
+        const titleBox =
+            document.createElement("div");
+
+        titleBox.className =
+            "entry-title";
+
+        titleBox.textContent =
+            title || "مادة موسوعية";
+
+
+        const contentBox =
+            document.createElement("div");
+
+        contentBox.className =
+            "entry-content";
+
+
+        /*
+         * نحافظ على النص كما هو،
+         * مع تحويل أسطر النص إلى فقرات.
+         */
+
+        if(typeof content === "string"){
+
+            contentBox.innerHTML =
+                textToHTML(content);
+
+        }
+        else{
+
+            contentBox.textContent =
+                JSON.stringify(content);
+
+        }
+
+
+        titleBox.addEventListener(
+            "click",
+            ()=>{
+
+                article.classList.toggle("open");
+
+            }
         );
 
+
+        article.appendChild(titleBox);
+
+        article.appendChild(contentBox);
+
+        resultsContainer.appendChild(article);
+
+    });
+
 }
 
 
 /* =========================================================
-   TEXT FORMAT
+   TEXT TO HTML
 ========================================================= */
 
-function formatText(value){
+function textToHTML(text){
 
-    return escapeHtml(value)
-        .replace(/\n/g,"<br>");
-}
+    /*
+     * حماية النص من HTML غير المقصود
+     */
 
-
-/* =========================================================
-   SECURITY
-========================================================= */
-
-function escapeHtml(value){
-
-    return String(value || "")
-
+    const escaped =
+        String(text)
         .replace(/&/g,"&amp;")
-
         .replace(/</g,"&lt;")
-
-        .replace(/>/g,"&gt;")
-
-        .replace(/"/g,"&quot;")
-
-        .replace(/'/g,"&#039;");
-
-}
+        .replace(/>/g,"&gt;");
 
 
-function escapeAttr(value){
+    return escaped
+        .split(/\n\s*\n/)
+        .map(paragraph=>{
 
-    return String(value || "")
-        .replace(/'/g,"&#039;")
-        .replace(/"/g,"&quot;");
+            return `<p>${paragraph
+                .replace(/\n/g,"<br>")
+            }</p>`;
+
+        })
+        .join("");
 
 }
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    ()=>{
+
+        searchTerm =
+            searchInput.value.trim();
+
+        renderResults();
+
+    }
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadEncyclopedia();
 
 </script>
 
