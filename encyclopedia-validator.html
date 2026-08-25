@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>فحص موسوعة الكتاب المقدس</title>
+
+<style>
+:root{
+    --bg:#061321;
+    --bg2:#0a1b2d;
+    --panel:#0d2138;
+    --panel2:#102a45;
+    --gold:#d4af37;
+    --gold2:#f0cf62;
+    --text:#f4f7fa;
+    --muted:#aebdca;
+    --green:#63d39a;
+    --red:#ff7777;
+    --orange:#f3b562;
+    --border:rgba(212,175,55,.28);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top right,rgba(20,70,110,.22),transparent 35%),
+        linear-gradient(135deg,var(--bg),var(--bg2));
+    color:var(--text);
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+header{
+    height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    background:rgba(5,17,29,.96);
+    border-bottom:1px solid var(--border);
+}
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:45px;
+    height:45px;
+    object-fit:contain;
+}
+
+.title{
+    color:var(--gold2);
+    font-size:18px;
+    font-weight:bold;
+}
+
+.subtitle{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
+
+.back{
+    color:var(--text);
+    text-decoration:none;
+    border:1px solid var(--border);
+    background:var(--panel);
+    padding:10px 15px;
+    border-radius:11px;
+}
+
+.container{
+    width:min(1400px,94%);
+    margin:30px auto 60px;
+}
+
+h1{
+    text-align:center;
+    color:var(--gold2);
+    font-size:28px;
+    margin:0 0 10px;
+}
+
+.description{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:30px;
+}
+
+.actions{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.action-btn{
+    border:1px solid var(--border);
+    background:var(--panel2);
+    color:var(--text);
+    padding:12px 22px;
+    border-radius:11px;
+    font-size:14px;
+}
+
+.action-btn:hover{
+    border-color:var(--gold);
+    color:var(--gold2);
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:linear-gradient(145deg,var(--panel),#091b2d);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:22px;
+    text-align:center;
+}
+
+.card-number{
+    font-size:30px;
+    font-weight:bold;
+    color:var(--gold2);
+}
+
+.card-label{
+    color:var(--muted);
+    margin-top:8px;
+    font-size:13px;
+}
+
+.results{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:18px;
+}
+
+.panel{
+    background:linear-gradient(145deg,var(--panel),#091b2d);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
+}
+
+.panel-title{
+    color:var(--gold2);
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+.letters{
+    display:grid;
+    grid-template-columns:repeat(14,1fr);
+    gap:8px;
+}
+
+.letter{
+    padding:10px 5px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:9px;
+    text-align:center;
+    background:#102a45;
+}
+
+.letter.ok{
+    border-color:rgba(99,211,154,.35);
+}
+
+.letter.empty{
+    border-color:rgba(255,119,119,.35);
+    color:var(--red);
+}
+
+.letter strong{
+    display:block;
+    font-size:19px;
+    color:var(--gold2);
+}
+
+.letter span{
+    display:block;
+    font-size:11px;
+    color:var(--muted);
+    margin-top:5px;
+}
+
+.issue{
+    padding:13px 15px;
+    margin-bottom:8px;
+    border-radius:9px;
+    background:#081a2c;
+    border-right:4px solid var(--red);
+    line-height:1.8;
+}
+
+.issue.warning{
+    border-right-color:var(--orange);
+}
+
+.issue.success{
+    border-right-color:var(--green);
+}
+
+.empty-message{
+    color:var(--muted);
+    text-align:center;
+    padding:20px;
+}
+
+.status{
+    text-align:center;
+    padding:18px;
+    color:var(--muted);
+}
+
+@media(max-width:900px){
+
+    .dashboard{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .letters{
+        grid-template-columns:repeat(7,1fr);
+    }
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:0 12px;
+    }
+
+    .subtitle{
+        display:none;
+    }
+
+    .dashboard{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    .card{
+        padding:15px 8px;
+    }
+
+    .card-number{
+        font-size:24px;
+    }
+
+    .letters{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <a href="encyclopedia.html" class="back">
+        ⟵ العودة إلى الموسوعة
+    </a>
+
+    <div class="logo-area">
+
+        <img
+            src="logo.png"
+            class="logo"
+            alt="الشعار"
+            onerror="this.style.display='none'"
+        >
+
+        <div>
+            <div class="title">موسوعة الكتاب المقدس</div>
+            <div class="subtitle">فحص قاعدة بيانات دائرة المعارف الكتابية</div>
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <h1>فحص قاعدة بيانات الموسوعة</h1>
+
+    <div class="description">
+        فحص بنية المداخل، الحروف، العناوين، النصوص، والتكرار
+    </div>
+
+
+    <div class="actions">
+
+        <button
+            class="action-btn"
+            onclick="runValidator()"
+        >
+            🔍 فحص الموسوعة
+        </button>
+
+        <button
+            class="action-btn"
+            onclick="location.reload()"
+        >
+            ↻ إعادة التحميل
+        </button>
+
+    </div>
+
+
+    <section class="dashboard">
+
+        <div class="card">
+            <div id="totalEntries" class="card-number">—</div>
+            <div class="card-label">إجمالي المداخل</div>
+        </div>
+
+        <div class="card">
+            <div id="lettersUsed" class="card-number">—</div>
+            <div class="card-label">الحروف المستخدمة</div>
+        </div>
+
+        <div class="card">
+            <div id="emptyEntries" class="card-number">—</div>
+            <div class="card-label">مداخل ناقصة</div>
+        </div>
+
+        <div class="card">
+            <div id="duplicates" class="card-number">—</div>
+            <div class="card-label">مداخل مكررة</div>
+        </div>
+
+    </section>
+
+
+    <section class="results">
+
+        <div class="panel">
+
+            <div class="panel-title">
+                حالة الحروف العربية الـ28
+            </div>
+
+            <div
+                id="lettersResult"
+                class="letters"
+            >
+                <div class="status">
+                    اضغط «فحص الموسوعة».
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-title">
+                نتائج الفحص
+            </div>
+
+            <div id="issuesResult">
+
+                <div class="empty-message">
+                    لم يتم تشغيل الفحص بعد.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   الإعدادات
+========================================================= */
+
+const JSON_FILE = "encyclopedia_ar.json";
+
+const ARABIC_LETTERS = [
+    "ا","ب","ت","ث","ج","ح","خ",
+    "د","ذ","ر","ز","س","ش","ص",
+    "ض","ط","ظ","ع","غ","ف","ق",
+    "ك","ل","م","ن","ه","و","ي"
+];
+
+
+/* =========================================================
+   تشغيل الفحص
+========================================================= */
+
+async function runValidator(){
+
+    const issues = [];
+    const warnings = [];
+
+    try{
+
+        const response = await fetch(
+            JSON_FILE,
+            {cache:"no-cache"}
+        );
+
+        if(!response.ok){
+
+            throw new Error(
+                `تعذر تحميل ${JSON_FILE} — HTTP ${response.status}`
+            );
+
+        }
+
+        const rawData = await response.json();
+
+        const entries = normalizeData(rawData);
+
+
+        /* =========================
+           فحص المداخل
+        ========================== */
+
+        const normalizedEntries = entries.map(
+            (entry,index) =>
+                normalizeEntry(entry,index)
+        );
+
+
+        let emptyEntries = 0;
+
+        const titleMap = new Map();
+
+        const letterCounts = {};
+
+        ARABIC_LETTERS.forEach(
+            letter => letterCounts[letter] = 0
+        );
+
+
+        normalizedEntries.forEach(
+            (entry,index) => {
+
+                const title =
+                    String(entry.title || "").trim();
+
+                const text =
+                    String(entry.text || "").trim();
+
+
+                /*
+                 * عنوان ناقص
+                 */
+
+                if(!title){
+
+                    emptyEntries++;
+
+                    issues.push({
+                        type:"error",
+                        text:`المدخل رقم ${index + 1} لا يحتوي على عنوان.`
+                    });
+
+                }
+
+
+                /*
+                 * نص ناقص
+                 */
+
+                if(!text){
+
+                    emptyEntries++;
+
+                    issues.push({
+                        type:"error",
+                        text:
+                            `المدخل «${title || `رقم ${index + 1}`}» لا يحتوي على نص.`
+                    });
+
+                }
+
+
+                /*
+                 * تحديد الحرف
+                 */
+
+                const letter =
+                    normalizeLetter(
+                        entry.letter ||
+                        getFirstArabicLetter(title)
+                    );
+
+
+                if(
+                    letter &&
+                    ARABIC_LETTERS.includes(letter)
+                ){
+
+                    letterCounts[letter]++;
+
+                }else{
+
+                    issues.push({
+                        type:"error",
+                        text:
+                            `المدخل «${title || `رقم ${index + 1}`}» غير مرتبط بحرف عربي صحيح.`
+                    });
+
+                }
+
+
+                /*
+                 * كشف التكرار
+                 */
+
+                if(title){
+
+                    const key =
+                        normalizeTitle(title);
+
+                    if(titleMap.has(key)){
+
+                        const previous =
+                            titleMap.get(key);
+
+                        issues.push({
+                            type:"error",
+                            text:
+                                `مدخل مكرر: «${title}» — يظهر أيضًا في المدخل رقم ${previous + 1}.`
+                        });
+
+                    }else{
+
+                        titleMap.set(key,index);
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /*
+         * الحروف التي ليس بها مداخل
+         */
+
+        ARABIC_LETTERS.forEach(
+            letter => {
+
+                if(letterCounts[letter] === 0){
+
+                    warnings.push(
+                        `الحرف «${letter}» لا يحتوي حاليًا على أي مدخل.`
+                    );
+
+                }
+
+            }
+        );
+
+
+        /*
+         * تحديث الأرقام
+         */
+
+        document.getElementById(
+            "totalEntries"
+        ).textContent =
+            normalizedEntries.length;
+
+
+        document.getElementById(
+            "lettersUsed"
+        ).textContent =
+            Object.values(letterCounts)
+                .filter(count => count > 0)
+                .length;
+
+
+        document.getElementById(
+            "emptyEntries"
+        ).textContent =
+            emptyEntries;
+
+
+        document.getElementById(
+            "duplicates"
+        ).textContent =
+            issues.filter(
+                issue =>
+                    issue.text.includes("مكرر")
+            ).length;
+
+
+        renderLetters(letterCounts);
+
+        renderIssues(issues,warnings);
+
+
+    }catch(error){
+
+        document.getElementById(
+            "issuesResult"
+        ).innerHTML = `
+            <div class="issue">
+                ❌ فشل فحص الموسوعة.
+                <br><br>
+                ${escapeHtml(error.message)}
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   تطبيع JSON
+========================================================= */
+
+function normalizeData(data){
+
+    let entries = [];
+
+
+    if(Array.isArray(data)){
+
+        entries = data;
+
+    }
+
+    else if(
+        data &&
+        Array.isArray(data.entries)
+    ){
+
+        entries = data.entries;
+
+    }
+
+    else if(
+        data &&
+        Array.isArray(data.articles)
+    ){
+
+        entries = data.articles;
+
+    }
+
+    else if(
+        data &&
+        Array.isArray(data.items)
+    ){
+
+        entries = data.items;
+
+    }
+
+    else if(
+        data &&
+        typeof data === "object"
+    ){
+
+        for(const key of Object.keys(data)){
+
+            if(Array.isArray(data[key])){
+
+                for(const item of data[key]){
+
+                    if(
+                        item &&
+                        typeof item === "object"
+                    ){
+
+                        entries.push({
+                            ...item,
+                            letter:
+                                item.letter ||
+                                key
+                        });
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    return entries;
+
+}
+
+
+/* =========================================================
+   تطبيع المدخل
+========================================================= */
+
+function normalizeEntry(item,index){
+
+    if(typeof item === "string"){
+
+        return {
+            title:item,
+            text:item,
+            letter:getFirstArabicLetter(item)
+        };
+
+    }
+
+
+    return {
+
+        ...item,
+
+        title:
+            item.title ??
+            item.name ??
+            item.heading ??
+            item.entry ??
+            item.term ??
+            "",
+
+        text:
+            item.text ??
+            item.content ??
+            item.body ??
+            item.article ??
+            item.description ??
+            "",
+
+        letter:
+            item.letter ??
+            item.char ??
+            item.firstLetter ??
+            getFirstArabicLetter(
+                item.title ??
+                item.name ??
+                item.heading ??
+                item.entry ??
+                item.term ??
+                ""
+            )
+
+    };
+
+}
+
+
+/* =========================================================
+   الحرف الأول
+========================================================= */
+
+function getFirstArabicLetter(value){
+
+    if(!value){
+        return "";
+    }
+
+    let text =
+        String(value)
+            .trim()
+            .replace(
+                /^[\u0627\u0623\u0625\u0622\u0671]ل/,
+                ""
+            );
+
+    return normalizeLetter(
+        text.charAt(0)
+    );
+
+}
+
+
+/* =========================================================
+   توحيد الحروف
+========================================================= */
+
+function normalizeLetter(letter){
+
+    if(!letter){
+        return "";
+    }
+
+    const value =
+        String(letter)
+            .trim()
+            .charAt(0);
+
+
+    if(
+        value === "أ" ||
+        value === "إ" ||
+        value === "آ" ||
+        value === "ٱ"
+    ){
+
+        return "ا";
+
+    }
+
+
+    if(value === "ى"){
+
+        return "ي";
+
+    }
+
+
+    return value;
+
+}
+
+
+/* =========================================================
+   توحيد عنوان المدخل للتكرار
+========================================================= */
+
+function normalizeTitle(title){
+
+    return String(title)
+        .trim()
+        .toLocaleLowerCase("ar")
+        .replace(/^ال/,"")
+        .replace(/[ًٌٍَُِّْـ]/g,"")
+        .replace(/\s+/g," ");
+
+}
+
+
+/* =========================================================
+   عرض حالة الحروف
+========================================================= */
+
+function renderLetters(counts){
+
+    const container =
+        document.getElementById(
+            "lettersResult"
+        );
+
+    container.innerHTML = "";
+
+
+    ARABIC_LETTERS.forEach(
+        letter => {
+
+            const count =
+                counts[letter] || 0;
+
+
+            const div =
+                document.createElement("div");
+
+
+            div.className =
+                "letter " +
+                (
+                    count > 0
+                        ? "ok"
+                        : "empty"
+                );
+
+
+            div.innerHTML = `
+                <strong>${letter}</strong>
+                <span>${count} مدخل</span>
+            `;
+
+
+            container.appendChild(div);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   عرض الأخطاء
+========================================================= */
+
+function renderIssues(
+    issues,
+    warnings
+){
+
+    const container =
+        document.getElementById(
+            "issuesResult"
+        );
+
+
+    if(
+        issues.length === 0 &&
+        warnings.length === 0
+    ){
+
+        container.innerHTML = `
+            <div class="issue success">
+                ✅ قاعدة البيانات اجتازت الفحص بنجاح.
+                <br>
+                لا توجد أخطاء أو مداخل مكررة.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    let html = "";
+
+
+    issues.forEach(
+        issue => {
+
+            html += `
+                <div class="issue">
+                    ❌ ${escapeHtml(issue.text)}
+                </div>
+            `;
+
+        }
+    );
+
+
+    warnings.forEach(
+        warning => {
+
+            html += `
+                <div class="issue warning">
+                    ⚠️ ${escapeHtml(warning)}
+                </div>
+            `;
+
+        }
+    );
+
+
+    container.innerHTML = html;
+
+}
+
+
+/* =========================================================
+   حماية HTML
+========================================================= */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   تشغيل أولي
+========================================================= */
+
+runValidator();
+
+</script>
+
+</body>
+</html>
