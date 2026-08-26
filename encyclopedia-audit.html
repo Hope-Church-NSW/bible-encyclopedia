@@ -37,7 +37,7 @@
     }
 
     main {
-        width: min(1200px, calc(100% - 30px));
+        width: min(1400px, calc(100% - 30px));
         margin: 25px auto 60px;
     }
 
@@ -59,7 +59,7 @@
 
     .files {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 12px;
     }
 
@@ -123,6 +123,15 @@
         margin-top: 4px;
     }
 
+    .stat-value.small {
+        font-size: 18px;
+    }
+
+    .table-wrap {
+        width: 100%;
+        overflow-x: auto;
+    }
+
     table {
         width: 100%;
         border-collapse: collapse;
@@ -154,6 +163,7 @@
         padding: 2px 6px;
         border-radius: 5px;
         font-family: Consolas, monospace;
+        word-break: break-word;
     }
 
     .issue {
@@ -176,6 +186,10 @@
         border-color: #087443;
     }
 
+    .issue.neutral {
+        border-color: #667085;
+    }
+
     .empty {
         color: #667085;
         padding: 15px 0;
@@ -193,23 +207,60 @@
         margin-top: 12px;
     }
 
-    button {
-        border: 0;
-        border-radius: 8px;
-        padding: 10px 18px;
-        cursor: pointer;
-        font-family: inherit;
-        background: #172d52;
-        color: white;
-        font-size: 15px;
+    .badge {
+        display: inline-block;
+        padding: 3px 9px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: bold;
+        margin: 2px;
+        background: #eef1f5;
     }
 
-    button:hover {
-        opacity: .9;
+    .badge.ok {
+        background: #e8f7ef;
     }
 
-    .hidden {
-        display: none;
+    .badge.warning {
+        background: #fff5d9;
+    }
+
+    .badge.error {
+        background: #fdebea;
+    }
+
+    .direction-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 15px;
+    }
+
+    .direction-card {
+        border: 1px solid #dce3ec;
+        border-radius: 10px;
+        padding: 15px;
+        background: #fafcff;
+    }
+
+    .direction-card h3 {
+        margin-top: 0;
+        color: #172d52;
+        font-size: 17px;
+    }
+
+    .danger-text {
+        color: #b42318;
+        font-weight: bold;
+    }
+
+    .warning-text {
+        color: #9a6700;
+        font-weight: bold;
+    }
+
+    .success-text {
+        color: #087443;
+        font-weight: bold;
     }
 </style>
 </head>
@@ -218,7 +269,7 @@
 
 <header>
     <h1>🔎 الفحص الهندسي لموسوعة الكتاب المقدس</h1>
-    <p>فحص تشخيصي غير مدمّر — لا يقوم بتعديل أو حذف أي ملف</p>
+    <p>فحص تشخيصي غير مدمّر — قراءة فقط ولا يقوم بتعديل أو حذف أي ملف</p>
 </header>
 
 <main>
@@ -231,7 +282,13 @@
         </div>
 
         <div class="footer-note">
-            هذه الصفحة تقرأ الملفات فقط. لا تقوم بالكتابة إليها أو تعديلها.
+            الملفات التي تدخل في هذا الفحص حاليًا:
+            <code>encyclopedia_ar.json</code>
+            و
+            <code>encyclopedia_b.json</code>.
+            ملف
+            <code>encyclopedia_ar_additions_alef.json</code>
+            غير داخل في الفحص لأنه حُذف من المشروع.
         </div>
     </section>
 
@@ -252,10 +309,26 @@
     </section>
 
     <section class="panel">
+        <h2>أشكال الألف المكتشفة</h2>
+
+        <div id="alefForms">
+            <div class="loading">جارٍ الفحص...</div>
+        </div>
+    </section>
+
+    <section class="panel">
         <h2>توزيع المداخل حسب الحرف</h2>
 
         <div id="letterTable">
             <div class="loading">جارٍ التحليل...</div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>مقارنة encyclopedia_ar.json مع encyclopedia_b.json</h2>
+
+        <div id="comparison">
+            <div class="loading">جارٍ المقارنة...</div>
         </div>
     </section>
 
@@ -300,13 +373,8 @@ const FILES = [
     },
     {
         name: "encyclopedia_b.json",
-        required: false,
+        required: true,
         role: "بيانات حرف ب"
-    },
-    {
-        name: "encyclopedia_ar_additions_alef.json",
-        required: false,
-        role: "إضافات حرف أ"
     }
 ];
 
@@ -317,10 +385,6 @@ const ARABIC_LETTERS = [
     "ك", "ل", "م", "ن", "ه", "و", "ي"
 ];
 
-/*
- * جميع هذه الأشكال تعتبر تحت حرف "أ"
- * لأغراض الفحص فقط.
- */
 const ALEF_FORMS = new Set([
     "أ",
     "إ",
@@ -329,6 +393,18 @@ const ALEF_FORMS = new Set([
     "ٱ"
 ]);
 
+/*
+ * هذه الأشكال كلها تعتبر أشكالًا مختلفة فعليًا عند العرض،
+ * لكن يمكن تجميعها تحت "الألف" عند التحليل الأبجدي.
+ */
+const ALEF_FORM_NAMES = {
+    "أ": "ألف بهمزة فوق",
+    "إ": "ألف بهمزة تحت",
+    "آ": "ألف ممدودة",
+    "ا": "ألف عادية",
+    "ٱ": "ألف وصل"
+};
+
 /* =========================================================
    STATE
 ========================================================= */
@@ -336,7 +412,6 @@ const ALEF_FORMS = new Set([
 const results = {};
 
 let allIssues = [];
-let allEntries = [];
 
 /* =========================================================
    DOM HELPERS
@@ -356,7 +431,7 @@ function escapeHTML(value) {
 }
 
 /* =========================================================
-   ARABIC NORMALIZATION
+   ARABIC HELPERS
 ========================================================= */
 
 function normalizeArabicLetter(letter) {
@@ -365,21 +440,23 @@ function normalizeArabicLetter(letter) {
         return "";
     }
 
-    let value = String(letter).trim();
+    const value = String(letter).trim();
 
     if (!value) {
         return "";
     }
 
-    if (ALEF_FORMS.has(value.charAt(0))) {
+    const first = value.charAt(0);
+
+    if (ALEF_FORMS.has(first)) {
         return "أ";
     }
 
-    return value.charAt(0);
+    return first;
 }
 
 
-function firstArabicLetter(title) {
+function getRawFirstArabicLetter(title) {
 
     if (!title) {
         return "";
@@ -392,20 +469,29 @@ function firstArabicLetter(title) {
     }
 
     /*
-     * إزالة علامات الاقتباس والأقواس وبعض العلامات
-     * التي قد تسبق أول حرف.
+     * إزالة العلامات التي قد تسبق العنوان.
+     * لا يتم هنا تحويل أشكال الألف.
      */
     const cleaned = value
-        .replace(/^[\s"'«»“”‘’()[\]{}:؛،,.!?؟\-–—]+/g, "")
+        .replace(
+            /^[\s"'«»“”‘’()[\]{}:؛،,.!?؟\-–—]+/g,
+            ""
+        )
         .trim();
 
     if (!cleaned) {
         return "";
     }
 
-    const first = cleaned.charAt(0);
+    return cleaned.charAt(0);
+}
 
-    return normalizeArabicLetter(first);
+
+function firstArabicLetter(title) {
+
+    const raw = getRawFirstArabicLetter(title);
+
+    return normalizeArabicLetter(raw);
 }
 
 
@@ -499,6 +585,27 @@ function extractEntries(data) {
 
 
 /* =========================================================
+   CONTENT EXTRACTION
+========================================================= */
+
+function getEntryContent(entry) {
+
+    if (!entry || typeof entry !== "object") {
+        return "";
+    }
+
+    const content =
+        entry.content ??
+        entry.text ??
+        entry.description ??
+        entry.body ??
+        "";
+
+    return String(content).trim();
+}
+
+
+/* =========================================================
    ANALYZE SINGLE FILE
 ========================================================= */
 
@@ -516,8 +623,6 @@ function analyzeFile(fileName, data) {
         };
     }
 
-    const issues = [];
-
     const ids = new Map();
     const titles = new Map();
 
@@ -525,6 +630,12 @@ function analyzeFile(fileName, data) {
 
     for (const letter of ARABIC_LETTERS) {
         letterCounts[letter] = 0;
+    }
+
+    const rawFirstLetterCounts = {};
+
+    for (const form of ALEF_FORMS) {
+        rawFirstLetterCounts[form] = 0;
     }
 
     const invalidEntries = [];
@@ -574,17 +685,7 @@ function analyzeFile(fileName, data) {
             });
         }
 
-        /*
-         * فحص المحتوى.
-         */
-        const content =
-            entry.content ??
-            entry.text ??
-            entry.description ??
-            entry.body ??
-            "";
-
-        if (!String(content).trim()) {
+        if (!getEntryContent(entry)) {
 
             invalidEntries.push({
                 index,
@@ -593,9 +694,6 @@ function analyzeFile(fileName, data) {
             });
         }
 
-        /*
-         * ID duplication.
-         */
         if (id) {
 
             if (!ids.has(id)) {
@@ -605,9 +703,6 @@ function analyzeFile(fileName, data) {
             ids.get(id).push(index);
         }
 
-        /*
-         * Title duplication.
-         */
         if (title) {
 
             if (!titles.has(title)) {
@@ -617,15 +712,21 @@ function analyzeFile(fileName, data) {
             titles.get(title).push(index);
         }
 
-        /*
-         * Letter check.
-         */
+        const rawFirst = getRawFirstArabicLetter(title);
+        const calculated = normalizeArabicLetter(rawFirst);
         const normalizedDeclared =
             normalizeArabicLetter(declaredLetter);
 
-        const calculated =
-            firstArabicLetter(title);
+        /*
+         * تسجيل شكل الألف الفعلي في العنوان.
+         */
+        if (ALEF_FORMS.has(rawFirst)) {
+            rawFirstLetterCounts[rawFirst]++;
+        }
 
+        /*
+         * التحقق من الحرف المعلن مقابل الحرف الفعلي.
+         */
         if (
             normalizedDeclared &&
             calculated &&
@@ -635,13 +736,13 @@ function analyzeFile(fileName, data) {
             invalidEntries.push({
                 index,
                 reason:
-                    `عدم تطابق الحرف: البيانات تقول "${declaredLetter}" بينما عنوان المدخل يبدأ بحرف "${calculated}".`,
+                    `عدم تطابق الحرف: البيانات تقول "${declaredLetter}" بينما عنوان المدخل يبدأ فعليًا بالحرف "${rawFirst}".`,
                 entry
             });
         }
 
         /*
-         * Unknown letter.
+         * الحرف المعلن غير موجود في الأبجدية المعتمدة.
          */
         if (
             normalizedDeclared &&
@@ -651,13 +752,29 @@ function analyzeFile(fileName, data) {
             invalidEntries.push({
                 index,
                 reason:
-                    `الحرف "${declaredLetter}" غير موجود في الأبجدية المعتمدة.`,
+                    `الحرف "${declaredLetter}" غير موجود في الأبجدية العربية المعتمدة.`,
                 entry
             });
         }
 
         /*
-         * Count normalized letter.
+         * العنوان لا يبدأ بحرف عربي معروف.
+         */
+        if (
+            title &&
+            !ARABIC_LETTERS.includes(calculated)
+        ) {
+
+            invalidEntries.push({
+                index,
+                reason:
+                    `العنوان "${title}" لا يبدأ بحرف عربي معتمد.`,
+                entry
+            });
+        }
+
+        /*
+         * عدّ الحروف حسب الحرف المعلن.
          */
         if (
             normalizedDeclared &&
@@ -671,9 +788,6 @@ function analyzeFile(fileName, data) {
         }
     });
 
-    /*
-     * Duplicate IDs.
-     */
     const duplicateIDs = [];
 
     for (const [id, indexes] of ids.entries()) {
@@ -688,9 +802,6 @@ function analyzeFile(fileName, data) {
         }
     }
 
-    /*
-     * Duplicate titles.
-     */
     const duplicateTitles = [];
 
     for (const [title, indexes] of titles.entries()) {
@@ -709,6 +820,7 @@ function analyzeFile(fileName, data) {
         entries,
         structureValid: true,
         letterCounts,
+        rawFirstLetterCounts,
         invalidEntries,
         duplicateIDs,
         duplicateTitles
@@ -717,7 +829,7 @@ function analyzeFile(fileName, data) {
 
 
 /* =========================================================
-   ADD ISSUE
+   ISSUE MANAGEMENT
 ========================================================= */
 
 function addIssue(type, title, details) {
@@ -731,7 +843,7 @@ function addIssue(type, title, details) {
 
 
 /* =========================================================
-   RENDER FILE STATUS
+   FILE STATUS
 ========================================================= */
 
 function renderFileStatus() {
@@ -762,10 +874,8 @@ function renderFileStatus() {
                         ${escapeHTML(file.name)}
                     </div>
 
-                    <div class="file-status ${
-                        file.required ? "error" : "warning"
-                    }">
-                        ${file.required ? "✖ خطأ" : "⚠ غير موجود"}
+                    <div class="file-status error">
+                        ✖ الملف غير موجود
                     </div>
 
                     <div class="footer-note">
@@ -794,8 +904,12 @@ function renderFileStatus() {
             `;
         }
 
-        const count =
-            result.analysis?.entries?.length ?? 0;
+        const analysis = result.analysis;
+
+        const structureText =
+            analysis?.structureValid
+                ? "✔ البنية صالحة"
+                : "✖ البنية غير صالحة";
 
         return `
             <div class="file-card">
@@ -808,9 +922,15 @@ function renderFileStatus() {
                 </div>
 
                 <div class="footer-note">
-                    الدور: ${escapeHTML(file.role)}
+                    الدور:
+                    ${escapeHTML(file.role)}
                     <br>
-                    عدد المداخل: <strong>${count}</strong>
+                    عدد المداخل:
+                    <strong>
+                        ${analysis?.entries?.length ?? 0}
+                    </strong>
+                    <br>
+                    ${structureText}
                 </div>
             </div>
         `;
@@ -822,12 +942,14 @@ function renderFileStatus() {
 
 
 /* =========================================================
-   RENDER SUMMARY
+   SUMMARY
 ========================================================= */
 
 function renderSummary() {
 
-    let totalEntries = 0;
+    let mainCount = 0;
+    let bCount = 0;
+
     let totalInvalid = 0;
     let totalDuplicateIDs = 0;
     let totalDuplicateTitles = 0;
@@ -846,8 +968,16 @@ function renderSummary() {
             continue;
         }
 
-        totalEntries +=
+        const count =
             result.analysis.entries.length;
+
+        if (file.name === "encyclopedia_ar.json") {
+            mainCount = count;
+        }
+
+        if (file.name === "encyclopedia_b.json") {
+            bCount = count;
+        }
 
         totalInvalid +=
             result.analysis.invalidEntries.length;
@@ -858,9 +988,7 @@ function renderSummary() {
         totalDuplicateTitles +=
             result.analysis.duplicateTitles.length;
 
-        for (
-            const letter of ARABIC_LETTERS
-        ) {
+        for (const letter of ARABIC_LETTERS) {
 
             if (
                 result.analysis.letterCounts[letter] > 0
@@ -873,10 +1001,28 @@ function renderSummary() {
     $("summary").innerHTML = `
         <div class="stat">
             <div class="stat-label">
+                مداخل encyclopedia_ar.json
+            </div>
+            <div class="stat-value">
+                ${mainCount}
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">
+                مداخل encyclopedia_b.json
+            </div>
+            <div class="stat-value">
+                ${bCount}
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">
                 إجمالي المداخل المفحوصة
             </div>
             <div class="stat-value">
-                ${totalEntries}
+                ${mainCount + bCount}
             </div>
         </div>
 
@@ -891,7 +1037,7 @@ function renderSummary() {
 
         <div class="stat">
             <div class="stat-label">
-                مداخل بها مشكلات
+                ملاحظات بنيوية
             </div>
             <div class="stat-value">
                 ${totalInvalid}
@@ -900,7 +1046,7 @@ function renderSummary() {
 
         <div class="stat">
             <div class="stat-label">
-                IDs مكررة
+                مجموعات IDs مكررة
             </div>
             <div class="stat-value">
                 ${totalDuplicateIDs}
@@ -909,7 +1055,7 @@ function renderSummary() {
 
         <div class="stat">
             <div class="stat-label">
-                عناوين مكررة
+                مجموعات عناوين مكررة
             </div>
             <div class="stat-value">
                 ${totalDuplicateTitles}
@@ -920,16 +1066,12 @@ function renderSummary() {
 
 
 /* =========================================================
-   RENDER LETTER COUNTS
+   ALEF FORMS
 ========================================================= */
 
-function renderLetterTable() {
+function renderAlefForms() {
 
-    const totals = {};
-
-    for (const letter of ARABIC_LETTERS) {
-        totals[letter] = 0;
-    }
+    const rows = [];
 
     for (const file of FILES) {
 
@@ -943,26 +1085,114 @@ function renderLetterTable() {
             continue;
         }
 
-        for (
-            const letter of ARABIC_LETTERS
-        ) {
+        for (const form of ALEF_FORMS) {
 
-            totals[letter] +=
-                result.analysis.letterCounts[letter] || 0;
+            const count =
+                result.analysis.rawFirstLetterCounts[form] || 0;
+
+            rows.push(`
+                <tr>
+                    <td>
+                        ${escapeHTML(file.name)}
+                    </td>
+
+                    <td>
+                        <strong>${escapeHTML(form)}</strong>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            ALEF_FORM_NAMES[form] || ""
+                        )}
+                    </td>
+
+                    <td>
+                        ${count}
+                    </td>
+                </tr>
+            `);
         }
     }
 
+    $("alefForms").innerHTML = `
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>الملف</th>
+                        <th>الشكل</th>
+                        <th>الوصف</th>
+                        <th>عدد العناوين التي تبدأ به</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    ${rows.join("")}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer-note">
+            هذا الفحص يحافظ على الفرق الحقيقي بين
+            <code>أ</code>
+            و
+            <code>إ</code>
+            و
+            <code>آ</code>
+            و
+            <code>ا</code>
+            و
+            <code>ٱ</code>
+            ولا يمحو هذا الفرق أثناء التشخيص.
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   LETTER TABLE
+========================================================= */
+
+function renderLetterTable() {
+
     const rows = ARABIC_LETTERS.map(letter => {
 
-        const count = totals[letter];
+        const mainResult =
+            results["encyclopedia_ar.json"];
+
+        const bResult =
+            results["encyclopedia_b.json"];
+
+        const mainCount =
+            mainResult?.analysis?.letterCounts?.[letter] || 0;
+
+        const bFileCount =
+            bResult?.analysis?.letterCounts?.[letter] || 0;
+
+        const total =
+            mainCount + bFileCount;
 
         return `
             <tr>
-                <td><strong>${letter}</strong></td>
-                <td>${count}</td>
+                <td>
+                    <strong>${escapeHTML(letter)}</strong>
+                </td>
+
+                <td>
+                    ${mainCount}
+                </td>
+
+                <td>
+                    ${bFileCount}
+                </td>
+
+                <td>
+                    <strong>${total}</strong>
+                </td>
+
                 <td>
                     ${
-                        count > 0
+                        total > 0
                             ? '<span class="ok">✔ توجد بيانات</span>'
                             : '<span class="neutral">لا توجد بيانات</span>'
                     }
@@ -973,61 +1203,764 @@ function renderLetterTable() {
     }).join("");
 
     $("letterTable").innerHTML = `
-        <table>
-            <thead>
-                <tr>
-                    <th>الحرف</th>
-                    <th>عدد المداخل</th>
-                    <th>الحالة</th>
-                </tr>
-            </thead>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>الحرف</th>
+                        <th>الرئيسي</th>
+                        <th>ملف ب</th>
+                        <th>الإجمالي</th>
+                        <th>الحالة</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                ${rows}
-            </tbody>
-        </table>
+                <tbody>
+                    ${rows}
+                </tbody>
+            </table>
+        </div>
     `;
 }
 
 
 /* =========================================================
-   RENDER ISSUES
+   ENTRY KEY
 ========================================================= */
 
-function renderIssues() {
+function entryKey(entry) {
 
-    if (!allIssues.length) {
+    if (!entry || typeof entry !== "object") {
+        return "";
+    }
 
-        $("issues").innerHTML = `
-            <div class="issue ok">
-                ✔ لم يتم اكتشاف مشكلة في الفحص العام.
+    const id =
+        String(entry.id ?? "").trim();
+
+    if (id) {
+        return "id:" + id;
+    }
+
+    const title =
+        String(entry.title ?? "").trim();
+
+    if (title) {
+        return "title:" + title;
+    }
+
+    return "";
+}
+
+
+/* =========================================================
+   CROSS-FILE COMPARISON
+========================================================= */
+
+function analyzeAcrossFiles() {
+
+    const main =
+        results["encyclopedia_ar.json"];
+
+    const bFile =
+        results["encyclopedia_b.json"];
+
+    if (
+        !main ||
+        !main.valid ||
+        !main.analysis ||
+        !bFile ||
+        !bFile.valid ||
+        !bFile.analysis
+    ) {
+        return;
+    }
+
+    /*
+     * -----------------------------------------------------
+     * 1. IDs مكررة بين الملفين
+     * -----------------------------------------------------
+     */
+
+    const mainById = new Map();
+    const bById = new Map();
+
+    main.analysis.entries.forEach((entry, index) => {
+
+        const id =
+            String(entry.id ?? "").trim();
+
+        if (id && !mainById.has(id)) {
+            mainById.set(id, {
+                entry,
+                index
+            });
+        }
+    });
+
+    bFile.analysis.entries.forEach((entry, index) => {
+
+        const id =
+            String(entry.id ?? "").trim();
+
+        if (id && !bById.has(id)) {
+            bById.set(id, {
+                entry,
+                index
+            });
+        }
+    });
+
+    const duplicateIDsAcross = [];
+
+    for (const id of bById.keys()) {
+
+        if (mainById.has(id)) {
+
+            duplicateIDsAcross.push({
+                id,
+                main: mainById.get(id),
+                b: bById.get(id)
+            });
+        }
+    }
+
+    if (duplicateIDsAcross.length) {
+
+        addIssue(
+            "warning",
+            "IDs مشتركة بين الملف الرئيسي وملف ب",
+            `تم العثور على ${duplicateIDsAcross.length} ID موجود في الملفين.`
+        );
+
+    } else {
+
+        addIssue(
+            "ok",
+            "لا توجد IDs مشتركة بين الملفين",
+            "لم يتم العثور على ID واحد موجود في الملفين معًا."
+        );
+    }
+
+    /*
+     * -----------------------------------------------------
+     * 2. عناوين مشتركة بين الملفين
+     * -----------------------------------------------------
+     */
+
+    const mainByTitle = new Map();
+    const bByTitle = new Map();
+
+    main.analysis.entries.forEach((entry, index) => {
+
+        const title =
+            String(entry.title ?? "").trim();
+
+        if (title && !mainByTitle.has(title)) {
+            mainByTitle.set(title, {
+                entry,
+                index
+            });
+        }
+    });
+
+    bFile.analysis.entries.forEach((entry, index) => {
+
+        const title =
+            String(entry.title ?? "").trim();
+
+        if (title && !bByTitle.has(title)) {
+            bByTitle.set(title, {
+                entry,
+                index
+            });
+        }
+    });
+
+    const duplicateTitlesAcross = [];
+
+    for (const title of bByTitle.keys()) {
+
+        if (mainByTitle.has(title)) {
+
+            duplicateTitlesAcross.push({
+                title,
+                main: mainByTitle.get(title),
+                b: bByTitle.get(title)
+            });
+        }
+    }
+
+    if (duplicateTitlesAcross.length) {
+
+        addIssue(
+            "warning",
+            "عناوين مشتركة بين الملف الرئيسي وملف ب",
+            `تم العثور على ${duplicateTitlesAcross.length} عنوان موجود في الملفين.`
+        );
+
+    } else {
+
+        addIssue(
+            "ok",
+            "لا توجد عناوين مشتركة بين الملفين",
+            "لم يتم العثور على عنوان واحد مطابق في الملفين."
+        );
+    }
+
+    /*
+     * -----------------------------------------------------
+     * 3. تحديد مداخل ب الموجودة في الرئيسي
+     * -----------------------------------------------------
+     */
+
+    const mainBEntries =
+        main.analysis.entries.filter(entry => {
+
+            return normalizeArabicLetter(entry.letter) === "ب";
+
+        });
+
+    /*
+     * -----------------------------------------------------
+     * 4. مداخل ملف ب التي لا توجد في الرئيسي
+     * -----------------------------------------------------
+     */
+
+    const bMissingFromMain = [];
+
+    bFile.analysis.entries.forEach((entry, index) => {
+
+        const id =
+            String(entry.id ?? "").trim();
+
+        const title =
+            String(entry.title ?? "").trim();
+
+        let found = false;
+
+        if (id && mainById.has(id)) {
+            found = true;
+        }
+
+        if (!found && title && mainByTitle.has(title)) {
+            found = true;
+        }
+
+        if (!found) {
+
+            bMissingFromMain.push({
+                entry,
+                index
+            });
+        }
+    });
+
+    /*
+     * -----------------------------------------------------
+     * 5. مداخل ب في الرئيسي غير موجودة في ملف ب
+     * -----------------------------------------------------
+     */
+
+    const mainBMissingFromB = [];
+
+    mainBEntries.forEach((entry, index) => {
+
+        const id =
+            String(entry.id ?? "").trim();
+
+        const title =
+            String(entry.title ?? "").trim();
+
+        let found = false;
+
+        if (id && bById.has(id)) {
+            found = true;
+        }
+
+        if (!found && title && bByTitle.has(title)) {
+            found = true;
+        }
+
+        if (!found) {
+
+            mainBMissingFromB.push({
+                entry,
+                index
+            });
+        }
+    });
+
+    /*
+     * -----------------------------------------------------
+     * 6. التحقق من أن ملف ب فعلًا ملف حرف ب
+     * -----------------------------------------------------
+     */
+
+    const wrongBEntries =
+        bFile.analysis.entries.filter(entry => {
+
+            const declared =
+                normalizeArabicLetter(entry.letter);
+
+            const actual =
+                firstArabicLetter(entry.title);
+
+            return declared !== "ب" || actual !== "ب";
+        });
+
+    if (!bFile.analysis.entries.length) {
+
+        addIssue(
+            "error",
+            "encyclopedia_b.json فارغ",
+            "ملف حرف ب لا يحتوي أي مدخل."
+        );
+
+    } else if (wrongBEntries.length) {
+
+        addIssue(
+            "error",
+            "encyclopedia_b.json يحتوي مداخل ليست من حرف ب",
+            `عدد المداخل المخالفة: ${wrongBEntries.length}.`
+        );
+
+    } else {
+
+        addIssue(
+            "ok",
+            "ملف ب مطابق لحرف ب",
+            `جميع المداخل وعددها ${bFile.analysis.entries.length} تبدأ فعليًا بحرف ب ومعلنة بالحرف ب.`
+        );
+    }
+
+    /*
+     * -----------------------------------------------------
+     * 7. تسجيل نتيجة المقارنة في STATE
+     * -----------------------------------------------------
+     */
+
+    results.crossFile = {
+        mainBCount: mainBEntries.length,
+        bFileCount: bFile.analysis.entries.length,
+        duplicateIDsAcross,
+        duplicateTitlesAcross,
+        bMissingFromMain,
+        mainBMissingFromB,
+        wrongBEntries
+    };
+}
+
+
+/* =========================================================
+   RENDER CROSS-FILE COMPARISON
+========================================================= */
+
+function renderComparison() {
+
+    const comparison =
+        results.crossFile;
+
+    if (!comparison) {
+
+        $("comparison").innerHTML = `
+            <div class="issue error">
+                ✖ تعذر إجراء المقارنة بين الملفين.
             </div>
         `;
 
         return;
     }
 
-    $("issues").innerHTML =
-        allIssues.map(issue => {
+    const duplicateIDs =
+        comparison.duplicateIDsAcross;
+
+    const duplicateTitles =
+        comparison.duplicateTitlesAcross;
+
+    const bMissing =
+        comparison.bMissingFromMain;
+
+    const mainMissing =
+        comparison.mainBMissingFromB;
+
+    const wrongB =
+        comparison.wrongBEntries;
+
+    const sharedIDsRows =
+        duplicateIDs.map(item => {
 
             return `
-                <div class="issue ${escapeHTML(issue.type)}">
-                    <strong>
-                        ${escapeHTML(issue.title)}
-                    </strong>
+                <tr>
+                    <td>
+                        <code>${escapeHTML(item.id)}</code>
+                    </td>
 
-                    <div>
-                        ${escapeHTML(issue.details)}
-                    </div>
-                </div>
+                    <td>
+                        ${item.main.index + 1}
+                    </td>
+
+                    <td>
+                        ${item.b.index + 1}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            item.main.entry.title ?? ""
+                        )}
+                    </td>
+                </tr>
             `;
-
         }).join("");
+
+    const sharedTitleRows =
+        duplicateTitles.map(item => {
+
+            return `
+                <tr>
+                    <td>
+                        ${escapeHTML(item.title)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            String(
+                                item.main.entry.id ?? ""
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            String(
+                                item.b.entry.id ?? ""
+                            )
+                        )}
+                    </td>
+                </tr>
+            `;
+        }).join("");
+
+    const bMissingRows =
+        bMissing.map(item => {
+
+            return `
+                <tr>
+                    <td>${item.index + 1}</td>
+
+                    <td>
+                        <code>
+                            ${escapeHTML(
+                                item.entry.id ?? ""
+                            )}
+                        </code>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            item.entry.title ?? ""
+                        )}
+                    </td>
+                </tr>
+            `;
+        }).join("");
+
+    const mainMissingRows =
+        mainMissing.map(item => {
+
+            return `
+                <tr>
+                    <td>${item.index + 1}</td>
+
+                    <td>
+                        <code>
+                            ${escapeHTML(
+                                item.entry.id ?? ""
+                            )}
+                        </code>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            item.entry.title ?? ""
+                        )}
+                    </td>
+                </tr>
+            `;
+        }).join("");
+
+    const wrongBRows =
+        wrongB.map((entry, index) => {
+
+            return `
+                <tr>
+                    <td>${index + 1}</td>
+
+                    <td>
+                        <code>
+                            ${escapeHTML(
+                                entry.id ?? ""
+                            )}
+                        </code>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            entry.title ?? ""
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            entry.letter ?? ""
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            firstArabicLetter(entry.title)
+                        )}
+                    </td>
+                </tr>
+            `;
+        }).join("");
+
+    $("comparison").innerHTML = `
+
+        <div class="summary">
+
+            <div class="stat">
+                <div class="stat-label">
+                    مداخل ب في الرئيسي
+                </div>
+                <div class="stat-value">
+                    ${comparison.mainBCount}
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">
+                    مداخل ملف ب
+                </div>
+                <div class="stat-value">
+                    ${comparison.bFileCount}
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">
+                    IDs مشتركة
+                </div>
+                <div class="stat-value">
+                    ${duplicateIDs.length}
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">
+                    عناوين مشتركة
+                </div>
+                <div class="stat-value">
+                    ${duplicateTitles.length}
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">
+                    في ب وغير موجود في الرئيسي
+                </div>
+                <div class="stat-value">
+                    ${bMissing.length}
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">
+                    في الرئيسي وغير موجود في ب
+                </div>
+                <div class="stat-value">
+                    ${mainMissing.length}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="direction-grid">
+
+            <div class="direction-card">
+
+                <h3>
+                    🔴 IDs موجودة في الملفين
+                </h3>
+
+                ${
+                    sharedIDsRows
+                        ? `
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>موضع الرئيسي</th>
+                                            <th>موضع ب</th>
+                                            <th>العنوان</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${sharedIDsRows}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `
+                        : `
+                            <div class="issue ok">
+                                ✔ لا توجد IDs مشتركة.
+                            </div>
+                        `
+                }
+
+            </div>
+
+            <div class="direction-card">
+
+                <h3>
+                    🟠 عناوين موجودة في الملفين
+                </h3>
+
+                ${
+                    sharedTitleRows
+                        ? `
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>العنوان</th>
+                                            <th>ID الرئيسي</th>
+                                            <th>ID ملف ب</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${sharedTitleRows}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `
+                        : `
+                            <div class="issue ok">
+                                ✔ لا توجد عناوين مشتركة.
+                            </div>
+                        `
+                }
+
+            </div>
+
+            <div class="direction-card">
+
+                <h3>
+                    🔵 موجود في encyclopedia_b.json وغير موجود في الرئيسي
+                </h3>
+
+                ${
+                    bMissingRows
+                        ? `
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>الموضع</th>
+                                            <th>ID</th>
+                                            <th>العنوان</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${bMissingRows}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `
+                        : `
+                            <div class="issue ok">
+                                ✔ كل مداخل ملف ب موجودة في الرئيسي.
+                            </div>
+                        `
+                }
+
+            </div>
+
+            <div class="direction-card">
+
+                <h3>
+                    🟣 مداخل ب في الرئيسي وغير موجودة في ملف ب
+                </h3>
+
+                ${
+                    mainMissingRows
+                        ? `
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>الموضع في الرئيسي</th>
+                                            <th>ID</th>
+                                            <th>العنوان</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${mainMissingRows}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `
+                        : `
+                            <div class="issue ok">
+                                ✔ لا توجد مداخل ب إضافية في الرئيسي.
+                            </div>
+                        `
+                }
+
+            </div>
+
+        </div>
+
+        <div style="margin-top:20px">
+
+            <h3>
+                فحص محتوى encyclopedia_b.json
+            </h3>
+
+            ${
+                wrongBRows
+                    ? `
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>المدخل</th>
+                                        <th>ID</th>
+                                        <th>العنوان</th>
+                                        <th>الحرف المعلن</th>
+                                        <th>الحرف الفعلي</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${wrongBRows}
+                                </tbody>
+                            </table>
+                        </div>
+                    `
+                    : `
+                        <div class="issue ok">
+                            ✔ جميع مداخل ملف ب متوافقة مع حرف ب.
+                        </div>
+                    `
+            }
+
+        </div>
+    `;
 }
 
 
 /* =========================================================
-   RENDER INVALID ENTRIES
+   INVALID ENTRIES
 ========================================================= */
 
 function renderInvalidEntries() {
@@ -1077,6 +2010,14 @@ function renderInvalidEntries() {
                                 : "-"
                         }
                     </td>
+
+                    <td>
+                        ${
+                            item.entry?.letter
+                                ? escapeHTML(item.entry.letter)
+                                : "-"
+                        }
+                    </td>
                 </tr>
             `);
 
@@ -1095,27 +2036,30 @@ function renderInvalidEntries() {
     }
 
     $("invalidEntries").innerHTML = `
-        <table>
-            <thead>
-                <tr>
-                    <th>الملف</th>
-                    <th>الموضع</th>
-                    <th>المشكلة</th>
-                    <th>ID</th>
-                    <th>العنوان</th>
-                </tr>
-            </thead>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>الملف</th>
+                        <th>الموضع</th>
+                        <th>المشكلة</th>
+                        <th>ID</th>
+                        <th>العنوان</th>
+                        <th>الحرف</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                ${rows.join("")}
-            </tbody>
-        </table>
+                <tbody>
+                    ${rows.join("")}
+                </tbody>
+            </table>
+        </div>
     `;
 }
 
 
 /* =========================================================
-   RENDER DUPLICATES
+   DUPLICATES
 ========================================================= */
 
 function renderDuplicates() {
@@ -1138,10 +2082,25 @@ function renderDuplicates() {
 
             rows.push(`
                 <tr>
-                    <td>${escapeHTML(file.name)}</td>
-                    <td>ID</td>
-                    <td><code>${escapeHTML(item.value)}</code></td>
-                    <td>${item.indexes.map(x => x + 1).join("، ")}</td>
+                    <td>
+                        ${escapeHTML(file.name)}
+                    </td>
+
+                    <td>
+                        ID
+                    </td>
+
+                    <td>
+                        <code>
+                            ${escapeHTML(item.value)}
+                        </code>
+                    </td>
+
+                    <td>
+                        ${item.indexes
+                            .map(x => x + 1)
+                            .join("، ")}
+                    </td>
                 </tr>
             `);
         });
@@ -1150,10 +2109,88 @@ function renderDuplicates() {
 
             rows.push(`
                 <tr>
-                    <td>${escapeHTML(file.name)}</td>
-                    <td>العنوان</td>
-                    <td>${escapeHTML(item.value)}</td>
-                    <td>${item.indexes.map(x => x + 1).join("، ")}</td>
+                    <td>
+                        ${escapeHTML(file.name)}
+                    </td>
+
+                    <td>
+                        العنوان
+                    </td>
+
+                    <td>
+                        ${escapeHTML(item.value)}
+                    </td>
+
+                    <td>
+                        ${item.indexes
+                            .map(x => x + 1)
+                            .join("، ")}
+                    </td>
+                </tr>
+            `);
+        });
+    }
+
+    /*
+     * التكرارات بين الملفين.
+     */
+    const cross =
+        results.crossFile;
+
+    if (cross) {
+
+        cross.duplicateIDsAcross.forEach(item => {
+
+            rows.push(`
+                <tr>
+                    <td>
+                        encyclopedia_ar.json ↔ encyclopedia_b.json
+                    </td>
+
+                    <td>
+                        ID مشترك
+                    </td>
+
+                    <td>
+                        <code>
+                            ${escapeHTML(item.id)}
+                        </code>
+                    </td>
+
+                    <td>
+                        الرئيسي:
+                        ${item.main.index + 1}
+                        —
+                        ب:
+                        ${item.b.index + 1}
+                    </td>
+                </tr>
+            `);
+        });
+
+        cross.duplicateTitlesAcross.forEach(item => {
+
+            rows.push(`
+                <tr>
+                    <td>
+                        encyclopedia_ar.json ↔ encyclopedia_b.json
+                    </td>
+
+                    <td>
+                        عنوان مشترك
+                    </td>
+
+                    <td>
+                        ${escapeHTML(item.title)}
+                    </td>
+
+                    <td>
+                        الرئيسي:
+                        ${item.main.index + 1}
+                        —
+                        ب:
+                        ${item.b.index + 1}
+                    </td>
                 </tr>
             `);
         });
@@ -1163,7 +2200,7 @@ function renderDuplicates() {
 
         $("duplicates").innerHTML = `
             <div class="issue ok">
-                ✔ لم يتم العثور على IDs أو عناوين مكررة داخل كل ملف منفردًا.
+                ✔ لم يتم العثور على IDs أو عناوين مكررة داخل الملفات أو بينهما.
             </div>
         `;
 
@@ -1171,199 +2208,23 @@ function renderDuplicates() {
     }
 
     $("duplicates").innerHTML = `
-        <table>
-            <thead>
-                <tr>
-                    <th>الملف</th>
-                    <th>نوع التكرار</th>
-                    <th>القيمة</th>
-                    <th>المواضع</th>
-                </tr>
-            </thead>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>النطاق</th>
+                        <th>نوع التكرار</th>
+                        <th>القيمة</th>
+                        <th>المواضع</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                ${rows.join("")}
-            </tbody>
-        </table>
+                <tbody>
+                    ${rows.join("")}
+                </tbody>
+            </table>
+        </div>
     `;
-}
-
-
-/* =========================================================
-   CROSS-FILE ANALYSIS
-========================================================= */
-
-function analyzeAcrossFiles() {
-
-    const idMap = new Map();
-    const titleMap = new Map();
-
-    for (const file of FILES) {
-
-        const result = results[file.name];
-
-        if (
-            !result ||
-            !result.valid ||
-            !result.analysis
-        ) {
-            continue;
-        }
-
-        result.analysis.entries.forEach((entry, index) => {
-
-            const id =
-                String(entry.id ?? "").trim();
-
-            const title =
-                String(entry.title ?? "").trim();
-
-            if (id) {
-
-                if (!idMap.has(id)) {
-                    idMap.set(id, []);
-                }
-
-                idMap.get(id).push({
-                    file: file.name,
-                    index,
-                    title
-                });
-            }
-
-            if (title) {
-
-                if (!titleMap.has(title)) {
-                    titleMap.set(title, []);
-                }
-
-                titleMap.get(title).push({
-                    file: file.name,
-                    index,
-                    id
-                });
-            }
-        });
-    }
-
-    /*
-     * IDs مكررة بين الملفات.
-     */
-    for (const [id, occurrences] of idMap.entries()) {
-
-        if (occurrences.length > 1) {
-
-            addIssue(
-                "warning",
-                "ID مكرر بين ملفات البيانات",
-                `${id} موجود في: ` +
-                occurrences
-                    .map(x => x.file)
-                    .join("، ")
-            );
-        }
-    }
-
-    /*
-     * Titles مكررة بين الملفات.
-     */
-    for (const [title, occurrences] of titleMap.entries()) {
-
-        if (occurrences.length > 1) {
-
-            addIssue(
-                "warning",
-                "عنوان مكرر بين ملفات البيانات",
-                `"${title}" موجود في: ` +
-                occurrences
-                    .map(x => x.file)
-                    .join("، ")
-            );
-        }
-    }
-
-    /*
-     * فحص ملف ب تحديدًا.
-     */
-    const bFile =
-        results["encyclopedia_b.json"];
-
-    if (
-        bFile &&
-        bFile.valid &&
-        bFile.analysis
-    ) {
-
-        const bCount =
-            bFile.analysis.letterCounts["ب"] || 0;
-
-        const wrongB =
-            bFile.analysis.entries.filter(entry => {
-
-                return normalizeArabicLetter(
-                    entry.letter
-                ) !== "ب";
-
-            });
-
-        if (bCount === 0) {
-
-            addIssue(
-                "error",
-                "ملف encyclopedia_b.json لا يحتوي مداخل بحرف ب",
-                "هذا يحتاج إلى فحص مباشر قبل دمجه."
-            );
-
-        } else {
-
-            addIssue(
-                "ok",
-                "تم العثور على بيانات حرف ب",
-                `encyclopedia_b.json يحتوي ${bCount} مدخلًا مصنفًا تحت حرف ب.`
-            );
-        }
-
-        if (wrongB.length) {
-
-            addIssue(
-                "warning",
-                "ملف ب يحتوي مداخل مصنفة خارج حرف ب",
-                `عدد المداخل المخالفة: ${wrongB.length}`
-            );
-        }
-    }
-
-    /*
-     * فحص ملف إضافات الألف.
-     */
-    const alefFile =
-        results["encyclopedia_ar_additions_alef.json"];
-
-    if (
-        alefFile &&
-        alefFile.valid &&
-        alefFile.analysis
-    ) {
-
-        const alefEntries =
-            alefFile.analysis.entries;
-
-        const wrongAlef =
-            alefEntries.filter(entry => {
-
-                const calculated =
-                    firstArabicLetter(entry.title);
-
-                return calculated !== "أ";
-            });
-
-        addIssue(
-            wrongAlef.length ? "warning" : "ok",
-            "فحص إضافات حرف أ",
-            `عدد المداخل: ${alefEntries.length} — ` +
-            `المداخل التي لا يبدأ عنوانها فعليًا بالألف: ${wrongAlef.length}`
-        );
-    }
 }
 
 
@@ -1383,19 +2244,35 @@ function renderOverallStatus() {
             issue => issue.type === "warning"
         ).length;
 
+    const oks =
+        allIssues.filter(
+            issue => issue.type === "ok"
+        ).length;
+
     if (errors > 0) {
 
         $("overallStatus").innerHTML = `
             <div class="issue error">
-                <strong>✖ تم اكتشاف أخطاء تحتاج إلى معالجة</strong>
+
+                <strong>
+                    ✖ النتيجة النهائية: خطأ
+                </strong>
+
                 <br>
-                أخطاء: ${errors}
-                — تحذيرات: ${warnings}
+
+                تم اكتشاف
+                <strong>${errors}</strong>
+                خطأ و
+                <strong>${warnings}</strong>
+                تحذير.
+
                 <br>
+
                 <span class="footer-note">
-                    لا تعدّل أي ملف بيانات بناءً على هذه النتيجة وحدها.
-                    هذه مرحلة تشخيص فقط.
+                    لا تقم بأي إصلاح أو حذف بناءً على هذه النتيجة وحدها.
+                    نستخدم التقرير أولًا لتحديد السبب بدقة.
                 </span>
+
             </div>
         `;
 
@@ -1406,9 +2283,24 @@ function renderOverallStatus() {
 
         $("overallStatus").innerHTML = `
             <div class="issue warning">
-                <strong>⚠ البيانات قابلة للقراءة لكن توجد نقاط تحتاج مراجعة</strong>
+
+                <strong>
+                    ⚠ النتيجة النهائية: تحذير
+                </strong>
+
                 <br>
-                تحذيرات: ${warnings}
+
+                لا توجد أخطاء حرجة في القراءة،
+                ولكن توجد
+                <strong>${warnings}</strong>
+                نقطة تحتاج إلى مراجعة.
+
+                <br>
+
+                <span class="footer-note">
+                    تم تسجيل ${oks} نتيجة سليمة.
+                </span>
+
             </div>
         `;
 
@@ -1417,7 +2309,22 @@ function renderOverallStatus() {
 
     $("overallStatus").innerHTML = `
         <div class="issue ok">
-            <strong>✔ لم تظهر مشكلات في الفحص الأساسي.</strong>
+
+            <strong>
+                ✔ النتيجة النهائية: آمن تشخيصيًا
+            </strong>
+
+            <br>
+
+            لم يتم اكتشاف أخطاء أو تحذيرات في الاختبارات المنفذة.
+
+            <br>
+
+            <span class="footer-note">
+                هذه النتيجة لا تعني أن المحتوى اللاهوتي أو الموسوعي كامل؛
+                إنها تعني فقط أن الاختبارات البنيوية التي ينفذها هذا المدقق لم تجد مشكلة.
+            </span>
+
         </div>
     `;
 }
@@ -1431,6 +2338,16 @@ async function runAudit() {
 
     allIssues = [];
 
+    /*
+     * تصفير النتائج السابقة.
+     */
+    for (const key of Object.keys(results)) {
+        delete results[key];
+    }
+
+    /*
+     * تحميل الملفات المحددة فقط.
+     */
     for (const file of FILES) {
 
         const result =
@@ -1440,22 +2357,11 @@ async function runAudit() {
 
         if (!result.exists) {
 
-            if (file.required) {
-
-                addIssue(
-                    "error",
-                    `الملف الأساسي غير موجود: ${file.name}`,
-                    result.error
-                );
-
-            } else {
-
-                addIssue(
-                    "warning",
-                    `الملف الاختياري غير موجود: ${file.name}`,
-                    result.error
-                );
-            }
+            addIssue(
+                "error",
+                `الملف غير موجود: ${file.name}`,
+                result.error
+            );
 
             continue;
         }
@@ -1490,45 +2396,79 @@ async function runAudit() {
             continue;
         }
 
-        if (
-            analysis.invalidEntries.length
-        ) {
+        /*
+         * المداخل المخالفة.
+         */
+        if (analysis.invalidEntries.length) {
 
             addIssue(
                 "warning",
                 `مداخل تحتاج مراجعة: ${file.name}`,
                 `تم العثور على ${analysis.invalidEntries.length} ملاحظة بنيوية.`
             );
+        } else {
+
+            addIssue(
+                "ok",
+                `البنية الداخلية سليمة: ${file.name}`,
+                "لا توجد ملاحظات بنيوية على المداخل."
+            );
         }
 
-        if (
-            analysis.duplicateIDs.length
-        ) {
+        /*
+         * IDs مكررة داخل الملف.
+         */
+        if (analysis.duplicateIDs.length) {
 
             addIssue(
                 "warning",
                 `IDs مكررة داخل ${file.name}`,
                 `عدد مجموعات التكرار: ${analysis.duplicateIDs.length}`
             );
+
+        } else {
+
+            addIssue(
+                "ok",
+                `لا توجد IDs مكررة داخل ${file.name}`,
+                "كل ID فريد داخل الملف."
+            );
         }
 
-        if (
-            analysis.duplicateTitles.length
-        ) {
+        /*
+         * العناوين المكررة داخل الملف.
+         */
+        if (analysis.duplicateTitles.length) {
 
             addIssue(
                 "warning",
                 `عناوين مكررة داخل ${file.name}`,
                 `عدد مجموعات التكرار: ${analysis.duplicateTitles.length}`
             );
+
+        } else {
+
+            addIssue(
+                "ok",
+                `لا توجد عناوين مكررة داخل ${file.name}`,
+                "كل عنوان فريد داخل الملف."
+            );
         }
     }
 
+    /*
+     * المقارنة بين الملفات.
+     */
     analyzeAcrossFiles();
 
+    /*
+     * العرض.
+     */
     renderFileStatus();
     renderSummary();
+    renderAlefForms();
     renderLetterTable();
+    renderComparison();
     renderIssues();
     renderInvalidEntries();
     renderDuplicates();
