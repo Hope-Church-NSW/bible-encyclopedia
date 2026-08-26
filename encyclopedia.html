@@ -39,6 +39,7 @@
         ========================= */
 
         .header {
+            border-bottom: 2px solid #d4af37;
             background: linear-gradient(
                 135deg,
                 #0b3d91,
@@ -46,13 +47,24 @@
             );
 
             color: #ffffff;
-            padding: 18px 20px 22px;
+            padding: 0 20px;
             box-shadow: 0 3px 12px rgba(0,0,0,0.12);
         }
 
         .header-inner {
             max-width: 1100px;
+            min-height: 78px;
             margin: 0 auto;
+            direction: ltr;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand-area {
+            order: 2;
         }
 
         .brand {
@@ -63,15 +75,41 @@
             font-weight: bold;
         }
 
+        .brand-logo {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            direction: rtl;
+        }
+
         .brand-icon {
             font-size: 30px;
             line-height: 1;
         }
 
         .subtitle {
-            margin-top: 7px;
+            margin-top: 0;
             font-size: 14px;
             opacity: 0.92;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            direction: rtl;
+            order: 1;
+        }
+
+        .header-actions .home-link {
+            margin-top: 0;
         }
 
         .home-link {
@@ -87,8 +125,35 @@
             transition: 0.2s ease;
         }
 
+        .brand-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            direction: ltr;
+        }
+
+        .brand-area .brand {
+            color: #f1d477;
+            font-size: 18px;
+        }
+
+        .brand-area .subtitle {
+            color: #b8c4d1;
+            font-size: 12px;
+        }
+
+        .studies-link {
+            background: #0757a8;
+            border: 1px solid #d4af37;
+            font-weight: bold;
+        }
+
         .home-link:hover {
             background: rgba(255,255,255,0.24);
+        }
+
+        .studies-link:hover {
+            background: #0b6dcc;
         }
 
         /* =========================
@@ -106,12 +171,15 @@
             padding: 24px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.06);
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .title-card h1 {
             margin: 0;
             color: #0b3d91;
             font-size: 27px;
+            text-align: center;
+            width: 100%;
         }
 
         .title-card p {
@@ -237,6 +305,7 @@
             margin-top: 6px;
             font-size: 11px;
             color: #667085;
+            display: none;
         }
 
         .data-dot {
@@ -294,11 +363,81 @@
             padding: 0 15px 30px;
         }
 
+        /* ألوان موحدة مع صفحات الدراسات */
+        body {
+            background:
+                radial-gradient(circle at top, rgba(24,67,105,.35), transparent 40%),
+                linear-gradient(180deg, #0a1b2d, #061321);
+            color: #f5f7fa;
+        }
+
+        .title-card,
+        .status,
+        .letters-card {
+            background: linear-gradient(145deg, #0d2138, #091c2f);
+            border: 1px solid rgba(212,175,55,.35);
+            box-shadow: 0 12px 35px rgba(0,0,0,.35);
+        }
+
+        .title-card h1,
+        .section-title {
+            color: #f1d477;
+        }
+
+        .title-card p,
+        .status-details,
+        .letter-name {
+            color: #b8c4d1;
+        }
+
+        .letter {
+            border-color: rgba(212,175,55,.28);
+            background: rgba(16,42,69,.82);
+            color: #f5f7fa;
+        }
+
+        .letter:hover {
+            border-color: #d4af37;
+            background: #173653;
+        }
+
+        .letter.has-data {
+            background: #102a45;
+            border-color: #d4af37;
+            color: #f1d477;
+        }
+
+        .letter.has-data:hover {
+            background: #173653;
+        }
+
+        .error-box {
+            background: rgba(93,31,39,.7);
+            border-color: rgba(255,140,140,.35);
+            color: #ffb4b4;
+        }
+
         /* =========================
            MOBILE
         ========================= */
 
         @media (max-width: 600px) {
+
+            .header-inner {
+                align-items: flex-start;
+                flex-direction: column;
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            .header-actions {
+                width: 100%;
+                order: 1;
+            }
+
+            .brand-area {
+                order: 2;
+            }
 
             .container {
                 width: min(100% - 18px, 1100px);
@@ -306,7 +445,7 @@
             }
 
             .header {
-                padding: 15px;
+                padding: 0 15px;
             }
 
             .title-card,
@@ -346,24 +485,29 @@
     <header class="header">
         <div class="header-inner">
 
-            <div class="brand">
-                <span class="brand-icon">📚</span>
+            <div class="brand-area">
+                <img
+                    class="brand-logo"
+                    src="assets/logo.png"
+                    alt="شعار الكنيسة"
+                >
 
-                <span>
-                    موسوعة الكتاب المقدس
-                </span>
+                <div class="brand-text">
+                    <div class="brand">
+                        موسوعة الكتاب المقدس
+                    </div>
+
+                </div>
             </div>
 
-            <div class="subtitle">
-                دائرة المعارف الكتابية — قاعدة البيانات العربية المركزية
-            </div>
-
-            <a
-                class="home-link"
-                href="index.html"
-            >
-                ⌂ الرئيسية
-            </a>
+            <nav class="header-actions" aria-label="التنقل الرئيسي">
+                <a
+                    class="home-link studies-link"
+                    href="studies.html"
+                >
+                    📖 الدراسات
+                </a>
+            </nav>
 
         </div>
     </header>
@@ -377,40 +521,10 @@
                 دائرة المعارف الكتابية
             </h1>
 
-            <p>
-                اختر حرفًا لاستعراض المداخل الموسوعية
-            </p>
-
         </section>
 
 
-        <div
-            id="status"
-            class="status loading"
-        >
-
-            <div
-                id="statusTitle"
-                class="status-title"
-            >
-                جاري تحميل الموسوعة...
-            </div>
-
-            <div
-                id="statusDetails"
-                class="status-details"
-            >
-                يتم قراءة encyclopedia_ar.json والتحقق من بنيته.
-            </div>
-
-        </div>
-
-
         <section class="letters-card">
-
-            <div class="section-title">
-                🔎 المداخل الأبجدية
-            </div>
 
             <div
                 id="lettersGrid"
@@ -427,10 +541,6 @@
 
     </main>
 
-
-    <footer class="footer">
-        موسوعة الكتاب المقدس — دائرة المعارف الكتابية
-    </footer>
 
 </div>
 
@@ -550,6 +660,14 @@ function setStatus(
     details = ""
 ) {
 
+    if (
+        !statusElement ||
+        !statusTitleElement ||
+        !statusDetailsElement
+    ) {
+        return;
+    }
+
     statusElement.className =
         "status " + type;
 
@@ -642,9 +760,6 @@ function renderLetters(
                 "encyclopedia-letter.html?letter=" +
                 encodeURIComponent(letter);
 
-            link.title =
-                "استعراض مداخل حرف " + letter;
-
             const dot =
                 document.createElement("span");
 
@@ -664,17 +779,6 @@ function renderLetters(
 
             link.appendChild(symbol);
 
-            const name =
-                document.createElement("span");
-
-            name.className =
-                "letter-name";
-
-            name.textContent =
-                "يوجد مداخل";
-
-            link.appendChild(name);
-
             lettersGrid.appendChild(link);
 
         } else {
@@ -684,9 +788,6 @@ function renderLetters(
 
             box.className =
                 "letter empty";
-
-            box.title =
-                "لا توجد مداخل مسجلة لهذا الحرف";
 
             const symbol =
                 document.createElement("span");
@@ -698,17 +799,6 @@ function renderLetters(
                 letter;
 
             box.appendChild(symbol);
-
-            const name =
-                document.createElement("span");
-
-            name.className =
-                "letter-name";
-
-            name.textContent =
-                "لا توجد مداخل";
-
-            box.appendChild(name);
 
             lettersGrid.appendChild(box);
         }
