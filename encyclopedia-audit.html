@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>فحص موسوعة الكتاب المقدس</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Tahoma, Arial, sans-serif;
+        background: #f4f7fb;
+        color: #172033;
+        line-height: 1.8;
+    }
+
+    header {
+        background: #172d52;
+        color: white;
+        padding: 28px 20px;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+    }
+
+    header p {
+        margin: 0;
+        opacity: 0.9;
+    }
+
+    main {
+        width: min(1200px, calc(100% - 30px));
+        margin: 25px auto 60px;
+    }
+
+    .panel {
+        background: white;
+        border-radius: 14px;
+        padding: 22px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.07);
+    }
+
+    .panel h2 {
+        margin-top: 0;
+        color: #172d52;
+        font-size: 21px;
+        border-bottom: 1px solid #e5e9ef;
+        padding-bottom: 10px;
+    }
+
+    .files {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 12px;
+    }
+
+    .file-card {
+        border: 1px solid #dce3ec;
+        border-radius: 10px;
+        padding: 14px;
+        background: #fafcff;
+    }
+
+    .file-name {
+        font-weight: bold;
+        word-break: break-word;
+    }
+
+    .file-status {
+        margin-top: 6px;
+        font-size: 14px;
+    }
+
+    .ok {
+        color: #087443;
+        font-weight: bold;
+    }
+
+    .warning {
+        color: #9a6700;
+        font-weight: bold;
+    }
+
+    .error {
+        color: #b42318;
+        font-weight: bold;
+    }
+
+    .neutral {
+        color: #667085;
+    }
+
+    .summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 12px;
+    }
+
+    .stat {
+        background: #f7f9fc;
+        border: 1px solid #e0e6ee;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: #667085;
+    }
+
+    .stat-value {
+        font-size: 25px;
+        font-weight: bold;
+        margin-top: 4px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        background: white;
+    }
+
+    th,
+    td {
+        border: 1px solid #e0e5eb;
+        padding: 9px 10px;
+        text-align: right;
+        vertical-align: top;
+    }
+
+    th {
+        background: #eef3f9;
+        color: #172d52;
+    }
+
+    tr:nth-child(even) {
+        background: #fafbfd;
+    }
+
+    code {
+        direction: ltr;
+        unicode-bidi: embed;
+        background: #eef1f5;
+        padding: 2px 6px;
+        border-radius: 5px;
+        font-family: Consolas, monospace;
+    }
+
+    .issue {
+        border-right: 5px solid;
+        padding: 12px 15px;
+        margin: 9px 0;
+        border-radius: 7px;
+        background: #fafafa;
+    }
+
+    .issue.error {
+        border-color: #b42318;
+    }
+
+    .issue.warning {
+        border-color: #9a6700;
+    }
+
+    .issue.ok {
+        border-color: #087443;
+    }
+
+    .empty {
+        color: #667085;
+        padding: 15px 0;
+    }
+
+    .loading {
+        text-align: center;
+        padding: 30px;
+        color: #667085;
+    }
+
+    .footer-note {
+        font-size: 13px;
+        color: #667085;
+        margin-top: 12px;
+    }
+
+    button {
+        border: 0;
+        border-radius: 8px;
+        padding: 10px 18px;
+        cursor: pointer;
+        font-family: inherit;
+        background: #172d52;
+        color: white;
+        font-size: 15px;
+    }
+
+    button:hover {
+        opacity: .9;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🔎 الفحص الهندسي لموسوعة الكتاب المقدس</h1>
+    <p>فحص تشخيصي غير مدمّر — لا يقوم بتعديل أو حذف أي ملف</p>
+</header>
+
+<main>
+
+    <section class="panel">
+        <h2>حالة الفحص</h2>
+
+        <div id="overallStatus" class="loading">
+            جارٍ فحص ملفات الموسوعة...
+        </div>
+
+        <div class="footer-note">
+            هذه الصفحة تقرأ الملفات فقط. لا تقوم بالكتابة إليها أو تعديلها.
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>الملفات التي تم فحصها</h2>
+
+        <div id="fileStatus" class="files">
+            <div class="loading">جارٍ التحميل...</div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>الملخص العام</h2>
+
+        <div id="summary" class="summary">
+            <div class="loading">جارٍ التحليل...</div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>توزيع المداخل حسب الحرف</h2>
+
+        <div id="letterTable">
+            <div class="loading">جارٍ التحليل...</div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>المشكلات المكتشفة</h2>
+
+        <div id="issues">
+            <div class="loading">جارٍ الفحص...</div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>المداخل المشكوك في بنيتها</h2>
+
+        <div id="invalidEntries">
+            <div class="loading">جارٍ الفحص...</div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>التكرارات</h2>
+
+        <div id="duplicates">
+            <div class="loading">جارٍ الفحص...</div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+"use strict";
+
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+const FILES = [
+    {
+        name: "encyclopedia_ar.json",
+        required: true,
+        role: "قاعدة الموسوعة الرئيسية"
+    },
+    {
+        name: "encyclopedia_b.json",
+        required: false,
+        role: "بيانات حرف ب"
+    },
+    {
+        name: "encyclopedia_ar_additions_alef.json",
+        required: false,
+        role: "إضافات حرف أ"
+    }
+];
+
+const ARABIC_LETTERS = [
+    "أ", "ب", "ت", "ث", "ج", "ح", "خ",
+    "د", "ذ", "ر", "ز", "س", "ش", "ص",
+    "ض", "ط", "ظ", "ع", "غ", "ف", "ق",
+    "ك", "ل", "م", "ن", "ه", "و", "ي"
+];
+
+/*
+ * جميع هذه الأشكال تعتبر تحت حرف "أ"
+ * لأغراض الفحص فقط.
+ */
+const ALEF_FORMS = new Set([
+    "أ",
+    "إ",
+    "آ",
+    "ا",
+    "ٱ"
+]);
+
+/* =========================================================
+   STATE
+========================================================= */
+
+const results = {};
+
+let allIssues = [];
+let allEntries = [];
+
+/* =========================================================
+   DOM HELPERS
+========================================================= */
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function escapeHTML(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+/* =========================================================
+   ARABIC NORMALIZATION
+========================================================= */
+
+function normalizeArabicLetter(letter) {
+
+    if (!letter) {
+        return "";
+    }
+
+    let value = String(letter).trim();
+
+    if (!value) {
+        return "";
+    }
+
+    if (ALEF_FORMS.has(value.charAt(0))) {
+        return "أ";
+    }
+
+    return value.charAt(0);
+}
+
+
+function firstArabicLetter(title) {
+
+    if (!title) {
+        return "";
+    }
+
+    const value = String(title).trim();
+
+    if (!value) {
+        return "";
+    }
+
+    /*
+     * إزالة علامات الاقتباس والأقواس وبعض العلامات
+     * التي قد تسبق أول حرف.
+     */
+    const cleaned = value
+        .replace(/^[\s"'«»“”‘’()[\]{}:؛،,.!?؟\-–—]+/g, "")
+        .trim();
+
+    if (!cleaned) {
+        return "";
+    }
+
+    const first = cleaned.charAt(0);
+
+    return normalizeArabicLetter(first);
+}
+
+
+/* =========================================================
+   LOAD JSON
+========================================================= */
+
+async function loadJSON(fileName) {
+
+    try {
+
+        const response = await fetch(
+            fileName + "?audit=" + Date.now(),
+            {
+                cache: "no-store"
+            }
+        );
+
+        if (!response.ok) {
+
+            return {
+                exists: false,
+                valid: false,
+                error: "HTTP " + response.status
+            };
+        }
+
+        const rawText = await response.text();
+
+        if (!rawText.trim()) {
+
+            return {
+                exists: true,
+                valid: false,
+                error: "الملف فارغ."
+            };
+        }
+
+        let data;
+
+        try {
+
+            data = JSON.parse(rawText);
+
+        } catch (error) {
+
+            return {
+                exists: true,
+                valid: false,
+                error: error.message
+            };
+        }
+
+        return {
+            exists: true,
+            valid: true,
+            data
+        };
+
+    } catch (error) {
+
+        return {
+            exists: false,
+            valid: false,
+            error: error.message
+        };
+    }
+}
+
+
+/* =========================================================
+   EXTRACT ENTRIES
+========================================================= */
+
+function extractEntries(data) {
+
+    if (Array.isArray(data)) {
+        return data;
+    }
+
+    if (
+        data &&
+        typeof data === "object" &&
+        Array.isArray(data.entries)
+    ) {
+        return data.entries;
+    }
+
+    return null;
+}
+
+
+/* =========================================================
+   ANALYZE SINGLE FILE
+========================================================= */
+
+function analyzeFile(fileName, data) {
+
+    const entries = extractEntries(data);
+
+    if (!entries) {
+
+        return {
+            entries: [],
+            structureValid: false,
+            structureError:
+                'لم يتم العثور على مصفوفة "entries".'
+        };
+    }
+
+    const issues = [];
+
+    const ids = new Map();
+    const titles = new Map();
+
+    const letterCounts = {};
+
+    for (const letter of ARABIC_LETTERS) {
+        letterCounts[letter] = 0;
+    }
+
+    const invalidEntries = [];
+
+    entries.forEach((entry, index) => {
+
+        if (!entry || typeof entry !== "object") {
+
+            invalidEntries.push({
+                index,
+                reason: "المدخل ليس كائن JSON.",
+                entry
+            });
+
+            return;
+        }
+
+        const id = String(entry.id ?? "").trim();
+        const title = String(entry.title ?? "").trim();
+        const declaredLetter =
+            String(entry.letter ?? "").trim();
+
+        if (!id) {
+
+            invalidEntries.push({
+                index,
+                reason: "لا يوجد id.",
+                entry
+            });
+        }
+
+        if (!title) {
+
+            invalidEntries.push({
+                index,
+                reason: "لا يوجد title.",
+                entry
+            });
+        }
+
+        if (!declaredLetter) {
+
+            invalidEntries.push({
+                index,
+                reason: "لا يوجد letter.",
+                entry
+            });
+        }
+
+        /*
+         * فحص المحتوى.
+         */
+        const content =
+            entry.content ??
+            entry.text ??
+            entry.description ??
+            entry.body ??
+            "";
+
+        if (!String(content).trim()) {
+
+            invalidEntries.push({
+                index,
+                reason: "المحتوى فارغ.",
+                entry
+            });
+        }
+
+        /*
+         * ID duplication.
+         */
+        if (id) {
+
+            if (!ids.has(id)) {
+                ids.set(id, []);
+            }
+
+            ids.get(id).push(index);
+        }
+
+        /*
+         * Title duplication.
+         */
+        if (title) {
+
+            if (!titles.has(title)) {
+                titles.set(title, []);
+            }
+
+            titles.get(title).push(index);
+        }
+
+        /*
+         * Letter check.
+         */
+        const normalizedDeclared =
+            normalizeArabicLetter(declaredLetter);
+
+        const calculated =
+            firstArabicLetter(title);
+
+        if (
+            normalizedDeclared &&
+            calculated &&
+            normalizedDeclared !== calculated
+        ) {
+
+            invalidEntries.push({
+                index,
+                reason:
+                    `عدم تطابق الحرف: البيانات تقول "${declaredLetter}" بينما عنوان المدخل يبدأ بحرف "${calculated}".`,
+                entry
+            });
+        }
+
+        /*
+         * Unknown letter.
+         */
+        if (
+            normalizedDeclared &&
+            !ARABIC_LETTERS.includes(normalizedDeclared)
+        ) {
+
+            invalidEntries.push({
+                index,
+                reason:
+                    `الحرف "${declaredLetter}" غير موجود في الأبجدية المعتمدة.`,
+                entry
+            });
+        }
+
+        /*
+         * Count normalized letter.
+         */
+        if (
+            normalizedDeclared &&
+            Object.prototype.hasOwnProperty.call(
+                letterCounts,
+                normalizedDeclared
+            )
+        ) {
+
+            letterCounts[normalizedDeclared]++;
+        }
+    });
+
+    /*
+     * Duplicate IDs.
+     */
+    const duplicateIDs = [];
+
+    for (const [id, indexes] of ids.entries()) {
+
+        if (indexes.length > 1) {
+
+            duplicateIDs.push({
+                type: "id",
+                value: id,
+                indexes
+            });
+        }
+    }
+
+    /*
+     * Duplicate titles.
+     */
+    const duplicateTitles = [];
+
+    for (const [title, indexes] of titles.entries()) {
+
+        if (indexes.length > 1) {
+
+            duplicateTitles.push({
+                type: "title",
+                value: title,
+                indexes
+            });
+        }
+    }
+
+    return {
+        entries,
+        structureValid: true,
+        letterCounts,
+        invalidEntries,
+        duplicateIDs,
+        duplicateTitles
+    };
+}
+
+
+/* =========================================================
+   ADD ISSUE
+========================================================= */
+
+function addIssue(type, title, details) {
+
+    allIssues.push({
+        type,
+        title,
+        details
+    });
+}
+
+
+/* =========================================================
+   RENDER FILE STATUS
+========================================================= */
+
+function renderFileStatus() {
+
+    const html = FILES.map(file => {
+
+        const result = results[file.name];
+
+        if (!result) {
+
+            return `
+                <div class="file-card">
+                    <div class="file-name">
+                        ${escapeHTML(file.name)}
+                    </div>
+                    <div class="file-status neutral">
+                        لم يتم الفحص
+                    </div>
+                </div>
+            `;
+        }
+
+        if (!result.exists) {
+
+            return `
+                <div class="file-card">
+                    <div class="file-name">
+                        ${escapeHTML(file.name)}
+                    </div>
+
+                    <div class="file-status ${
+                        file.required ? "error" : "warning"
+                    }">
+                        ${file.required ? "✖ خطأ" : "⚠ غير موجود"}
+                    </div>
+
+                    <div class="footer-note">
+                        ${escapeHTML(result.error)}
+                    </div>
+                </div>
+            `;
+        }
+
+        if (!result.valid) {
+
+            return `
+                <div class="file-card">
+                    <div class="file-name">
+                        ${escapeHTML(file.name)}
+                    </div>
+
+                    <div class="file-status error">
+                        ✖ JSON غير صالح
+                    </div>
+
+                    <div class="footer-note">
+                        ${escapeHTML(result.error)}
+                    </div>
+                </div>
+            `;
+        }
+
+        const count =
+            result.analysis?.entries?.length ?? 0;
+
+        return `
+            <div class="file-card">
+                <div class="file-name">
+                    ${escapeHTML(file.name)}
+                </div>
+
+                <div class="file-status ok">
+                    ✔ JSON صالح
+                </div>
+
+                <div class="footer-note">
+                    الدور: ${escapeHTML(file.role)}
+                    <br>
+                    عدد المداخل: <strong>${count}</strong>
+                </div>
+            </div>
+        `;
+
+    }).join("");
+
+    $("fileStatus").innerHTML = html;
+}
+
+
+/* =========================================================
+   RENDER SUMMARY
+========================================================= */
+
+function renderSummary() {
+
+    let totalEntries = 0;
+    let totalInvalid = 0;
+    let totalDuplicateIDs = 0;
+    let totalDuplicateTitles = 0;
+
+    const letters = new Set();
+
+    for (const file of FILES) {
+
+        const result = results[file.name];
+
+        if (
+            !result ||
+            !result.valid ||
+            !result.analysis
+        ) {
+            continue;
+        }
+
+        totalEntries +=
+            result.analysis.entries.length;
+
+        totalInvalid +=
+            result.analysis.invalidEntries.length;
+
+        totalDuplicateIDs +=
+            result.analysis.duplicateIDs.length;
+
+        totalDuplicateTitles +=
+            result.analysis.duplicateTitles.length;
+
+        for (
+            const letter of ARABIC_LETTERS
+        ) {
+
+            if (
+                result.analysis.letterCounts[letter] > 0
+            ) {
+                letters.add(letter);
+            }
+        }
+    }
+
+    $("summary").innerHTML = `
+        <div class="stat">
+            <div class="stat-label">
+                إجمالي المداخل المفحوصة
+            </div>
+            <div class="stat-value">
+                ${totalEntries}
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">
+                الحروف التي تحتوي بيانات
+            </div>
+            <div class="stat-value">
+                ${letters.size}
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">
+                مداخل بها مشكلات
+            </div>
+            <div class="stat-value">
+                ${totalInvalid}
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">
+                IDs مكررة
+            </div>
+            <div class="stat-value">
+                ${totalDuplicateIDs}
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">
+                عناوين مكررة
+            </div>
+            <div class="stat-value">
+                ${totalDuplicateTitles}
+            </div>
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   RENDER LETTER COUNTS
+========================================================= */
+
+function renderLetterTable() {
+
+    const totals = {};
+
+    for (const letter of ARABIC_LETTERS) {
+        totals[letter] = 0;
+    }
+
+    for (const file of FILES) {
+
+        const result = results[file.name];
+
+        if (
+            !result ||
+            !result.valid ||
+            !result.analysis
+        ) {
+            continue;
+        }
+
+        for (
+            const letter of ARABIC_LETTERS
+        ) {
+
+            totals[letter] +=
+                result.analysis.letterCounts[letter] || 0;
+        }
+    }
+
+    const rows = ARABIC_LETTERS.map(letter => {
+
+        const count = totals[letter];
+
+        return `
+            <tr>
+                <td><strong>${letter}</strong></td>
+                <td>${count}</td>
+                <td>
+                    ${
+                        count > 0
+                            ? '<span class="ok">✔ توجد بيانات</span>'
+                            : '<span class="neutral">لا توجد بيانات</span>'
+                    }
+                </td>
+            </tr>
+        `;
+
+    }).join("");
+
+    $("letterTable").innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>الحرف</th>
+                    <th>عدد المداخل</th>
+                    <th>الحالة</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                ${rows}
+            </tbody>
+        </table>
+    `;
+}
+
+
+/* =========================================================
+   RENDER ISSUES
+========================================================= */
+
+function renderIssues() {
+
+    if (!allIssues.length) {
+
+        $("issues").innerHTML = `
+            <div class="issue ok">
+                ✔ لم يتم اكتشاف مشكلة في الفحص العام.
+            </div>
+        `;
+
+        return;
+    }
+
+    $("issues").innerHTML =
+        allIssues.map(issue => {
+
+            return `
+                <div class="issue ${escapeHTML(issue.type)}">
+                    <strong>
+                        ${escapeHTML(issue.title)}
+                    </strong>
+
+                    <div>
+                        ${escapeHTML(issue.details)}
+                    </div>
+                </div>
+            `;
+
+        }).join("");
+}
+
+
+/* =========================================================
+   RENDER INVALID ENTRIES
+========================================================= */
+
+function renderInvalidEntries() {
+
+    const rows = [];
+
+    for (const file of FILES) {
+
+        const result = results[file.name];
+
+        if (
+            !result ||
+            !result.valid ||
+            !result.analysis
+        ) {
+            continue;
+        }
+
+        result.analysis.invalidEntries.forEach(item => {
+
+            rows.push(`
+                <tr>
+                    <td>
+                        ${escapeHTML(file.name)}
+                    </td>
+
+                    <td>
+                        ${item.index + 1}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(item.reason)}
+                    </td>
+
+                    <td>
+                        ${
+                            item.entry?.id
+                                ? `<code>${escapeHTML(item.entry.id)}</code>`
+                                : "-"
+                        }
+                    </td>
+
+                    <td>
+                        ${
+                            item.entry?.title
+                                ? escapeHTML(item.entry.title)
+                                : "-"
+                        }
+                    </td>
+                </tr>
+            `);
+
+        });
+    }
+
+    if (!rows.length) {
+
+        $("invalidEntries").innerHTML = `
+            <div class="issue ok">
+                ✔ لم يتم العثور على مداخل مخالفة للبنية الأساسية.
+            </div>
+        `;
+
+        return;
+    }
+
+    $("invalidEntries").innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>الملف</th>
+                    <th>الموضع</th>
+                    <th>المشكلة</th>
+                    <th>ID</th>
+                    <th>العنوان</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                ${rows.join("")}
+            </tbody>
+        </table>
+    `;
+}
+
+
+/* =========================================================
+   RENDER DUPLICATES
+========================================================= */
+
+function renderDuplicates() {
+
+    const rows = [];
+
+    for (const file of FILES) {
+
+        const result = results[file.name];
+
+        if (
+            !result ||
+            !result.valid ||
+            !result.analysis
+        ) {
+            continue;
+        }
+
+        result.analysis.duplicateIDs.forEach(item => {
+
+            rows.push(`
+                <tr>
+                    <td>${escapeHTML(file.name)}</td>
+                    <td>ID</td>
+                    <td><code>${escapeHTML(item.value)}</code></td>
+                    <td>${item.indexes.map(x => x + 1).join("، ")}</td>
+                </tr>
+            `);
+        });
+
+        result.analysis.duplicateTitles.forEach(item => {
+
+            rows.push(`
+                <tr>
+                    <td>${escapeHTML(file.name)}</td>
+                    <td>العنوان</td>
+                    <td>${escapeHTML(item.value)}</td>
+                    <td>${item.indexes.map(x => x + 1).join("، ")}</td>
+                </tr>
+            `);
+        });
+    }
+
+    if (!rows.length) {
+
+        $("duplicates").innerHTML = `
+            <div class="issue ok">
+                ✔ لم يتم العثور على IDs أو عناوين مكررة داخل كل ملف منفردًا.
+            </div>
+        `;
+
+        return;
+    }
+
+    $("duplicates").innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>الملف</th>
+                    <th>نوع التكرار</th>
+                    <th>القيمة</th>
+                    <th>المواضع</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                ${rows.join("")}
+            </tbody>
+        </table>
+    `;
+}
+
+
+/* =========================================================
+   CROSS-FILE ANALYSIS
+========================================================= */
+
+function analyzeAcrossFiles() {
+
+    const idMap = new Map();
+    const titleMap = new Map();
+
+    for (const file of FILES) {
+
+        const result = results[file.name];
+
+        if (
+            !result ||
+            !result.valid ||
+            !result.analysis
+        ) {
+            continue;
+        }
+
+        result.analysis.entries.forEach((entry, index) => {
+
+            const id =
+                String(entry.id ?? "").trim();
+
+            const title =
+                String(entry.title ?? "").trim();
+
+            if (id) {
+
+                if (!idMap.has(id)) {
+                    idMap.set(id, []);
+                }
+
+                idMap.get(id).push({
+                    file: file.name,
+                    index,
+                    title
+                });
+            }
+
+            if (title) {
+
+                if (!titleMap.has(title)) {
+                    titleMap.set(title, []);
+                }
+
+                titleMap.get(title).push({
+                    file: file.name,
+                    index,
+                    id
+                });
+            }
+        });
+    }
+
+    /*
+     * IDs مكررة بين الملفات.
+     */
+    for (const [id, occurrences] of idMap.entries()) {
+
+        if (occurrences.length > 1) {
+
+            addIssue(
+                "warning",
+                "ID مكرر بين ملفات البيانات",
+                `${id} موجود في: ` +
+                occurrences
+                    .map(x => x.file)
+                    .join("، ")
+            );
+        }
+    }
+
+    /*
+     * Titles مكررة بين الملفات.
+     */
+    for (const [title, occurrences] of titleMap.entries()) {
+
+        if (occurrences.length > 1) {
+
+            addIssue(
+                "warning",
+                "عنوان مكرر بين ملفات البيانات",
+                `"${title}" موجود في: ` +
+                occurrences
+                    .map(x => x.file)
+                    .join("، ")
+            );
+        }
+    }
+
+    /*
+     * فحص ملف ب تحديدًا.
+     */
+    const bFile =
+        results["encyclopedia_b.json"];
+
+    if (
+        bFile &&
+        bFile.valid &&
+        bFile.analysis
+    ) {
+
+        const bCount =
+            bFile.analysis.letterCounts["ب"] || 0;
+
+        const wrongB =
+            bFile.analysis.entries.filter(entry => {
+
+                return normalizeArabicLetter(
+                    entry.letter
+                ) !== "ب";
+
+            });
+
+        if (bCount === 0) {
+
+            addIssue(
+                "error",
+                "ملف encyclopedia_b.json لا يحتوي مداخل بحرف ب",
+                "هذا يحتاج إلى فحص مباشر قبل دمجه."
+            );
+
+        } else {
+
+            addIssue(
+                "ok",
+                "تم العثور على بيانات حرف ب",
+                `encyclopedia_b.json يحتوي ${bCount} مدخلًا مصنفًا تحت حرف ب.`
+            );
+        }
+
+        if (wrongB.length) {
+
+            addIssue(
+                "warning",
+                "ملف ب يحتوي مداخل مصنفة خارج حرف ب",
+                `عدد المداخل المخالفة: ${wrongB.length}`
+            );
+        }
+    }
+
+    /*
+     * فحص ملف إضافات الألف.
+     */
+    const alefFile =
+        results["encyclopedia_ar_additions_alef.json"];
+
+    if (
+        alefFile &&
+        alefFile.valid &&
+        alefFile.analysis
+    ) {
+
+        const alefEntries =
+            alefFile.analysis.entries;
+
+        const wrongAlef =
+            alefEntries.filter(entry => {
+
+                const calculated =
+                    firstArabicLetter(entry.title);
+
+                return calculated !== "أ";
+            });
+
+        addIssue(
+            wrongAlef.length ? "warning" : "ok",
+            "فحص إضافات حرف أ",
+            `عدد المداخل: ${alefEntries.length} — ` +
+            `المداخل التي لا يبدأ عنوانها فعليًا بالألف: ${wrongAlef.length}`
+        );
+    }
+}
+
+
+/* =========================================================
+   OVERALL STATUS
+========================================================= */
+
+function renderOverallStatus() {
+
+    const errors =
+        allIssues.filter(
+            issue => issue.type === "error"
+        ).length;
+
+    const warnings =
+        allIssues.filter(
+            issue => issue.type === "warning"
+        ).length;
+
+    if (errors > 0) {
+
+        $("overallStatus").innerHTML = `
+            <div class="issue error">
+                <strong>✖ تم اكتشاف أخطاء تحتاج إلى معالجة</strong>
+                <br>
+                أخطاء: ${errors}
+                — تحذيرات: ${warnings}
+                <br>
+                <span class="footer-note">
+                    لا تعدّل أي ملف بيانات بناءً على هذه النتيجة وحدها.
+                    هذه مرحلة تشخيص فقط.
+                </span>
+            </div>
+        `;
+
+        return;
+    }
+
+    if (warnings > 0) {
+
+        $("overallStatus").innerHTML = `
+            <div class="issue warning">
+                <strong>⚠ البيانات قابلة للقراءة لكن توجد نقاط تحتاج مراجعة</strong>
+                <br>
+                تحذيرات: ${warnings}
+            </div>
+        `;
+
+        return;
+    }
+
+    $("overallStatus").innerHTML = `
+        <div class="issue ok">
+            <strong>✔ لم تظهر مشكلات في الفحص الأساسي.</strong>
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   MAIN AUDIT
+========================================================= */
+
+async function runAudit() {
+
+    allIssues = [];
+
+    for (const file of FILES) {
+
+        const result =
+            await loadJSON(file.name);
+
+        results[file.name] = result;
+
+        if (!result.exists) {
+
+            if (file.required) {
+
+                addIssue(
+                    "error",
+                    `الملف الأساسي غير موجود: ${file.name}`,
+                    result.error
+                );
+
+            } else {
+
+                addIssue(
+                    "warning",
+                    `الملف الاختياري غير موجود: ${file.name}`,
+                    result.error
+                );
+            }
+
+            continue;
+        }
+
+        if (!result.valid) {
+
+            addIssue(
+                "error",
+                `JSON غير صالح: ${file.name}`,
+                result.error
+            );
+
+            continue;
+        }
+
+        const analysis =
+            analyzeFile(
+                file.name,
+                result.data
+            );
+
+        result.analysis = analysis;
+
+        if (!analysis.structureValid) {
+
+            addIssue(
+                "error",
+                `بنية JSON غير صحيحة: ${file.name}`,
+                analysis.structureError
+            );
+
+            continue;
+        }
+
+        if (
+            analysis.invalidEntries.length
+        ) {
+
+            addIssue(
+                "warning",
+                `مداخل تحتاج مراجعة: ${file.name}`,
+                `تم العثور على ${analysis.invalidEntries.length} ملاحظة بنيوية.`
+            );
+        }
+
+        if (
+            analysis.duplicateIDs.length
+        ) {
+
+            addIssue(
+                "warning",
+                `IDs مكررة داخل ${file.name}`,
+                `عدد مجموعات التكرار: ${analysis.duplicateIDs.length}`
+            );
+        }
+
+        if (
+            analysis.duplicateTitles.length
+        ) {
+
+            addIssue(
+                "warning",
+                `عناوين مكررة داخل ${file.name}`,
+                `عدد مجموعات التكرار: ${analysis.duplicateTitles.length}`
+            );
+        }
+    }
+
+    analyzeAcrossFiles();
+
+    renderFileStatus();
+    renderSummary();
+    renderLetterTable();
+    renderIssues();
+    renderInvalidEntries();
+    renderDuplicates();
+    renderOverallStatus();
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    runAudit
+);
+</script>
+
+</body>
+</html>
