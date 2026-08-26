@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الدار الخارجية والسور | خيمة الاجتماع | موسوعة الكتاب المقدس</title>
+
+<style>
+:root{
+    --bg:#04111f;
+    --bg2:#071d31;
+    --card:#0b2943;
+    --gold:#d4af37;
+    --gold-light:#f3dc79;
+    --text:#e5edf4;
+    --muted:#9eb0c0;
+    --border:rgba(212,175,55,.28);
+    --line:rgba(255,255,255,.08);
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+    margin:0;
+    background:
+        radial-gradient(circle at 50% -10%,#174b78 0%,transparent 42%),
+        linear-gradient(145deg,var(--bg),#061a2c 55%,#020a12);
+    color:var(--text);
+    font-family:"Noto Naskh Arabic","Amiri",Tahoma,Arial,sans-serif;
+    line-height:2;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(3,15,27,.97);
+    border-bottom:1px solid rgba(212,175,55,.4);
+    box-shadow:0 8px 30px rgba(0,0,0,.5);
+}
+
+.header-inner{
+    max-width:1150px;
+    min-height:82px;
+    margin:auto;
+    padding:10px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.back-btn{
+    color:#fff;
+    text-decoration:none;
+    padding:8px 15px;
+    border:1px solid rgba(212,175,55,.6);
+    border-radius:11px;
+    background:linear-gradient(145deg,#173b5c,#071a2d);
+    font-weight:800;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:58px;
+    height:58px;
+    object-fit:contain;
+}
+
+.brand-name{
+    color:var(--gold-light);
+    font-size:19px;
+    font-weight:900;
+}
+
+.container{
+    width:min(1080px,calc(100% - 30px));
+    margin:auto;
+    padding:30px 0 70px;
+}
+
+.breadcrumb{
+    margin-bottom:22px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.breadcrumb a{
+    color:var(--gold-light);
+    text-decoration:none;
+}
+
+.hero{
+    text-align:center;
+    padding:42px 22px;
+    margin-bottom:25px;
+    border:1px solid var(--border);
+    border-radius:22px;
+    background:linear-gradient(145deg,rgba(16,53,82,.95),rgba(5,22,38,.97));
+    box-shadow:0 15px 35px rgba(0,0,0,.4);
+}
+
+.hero-icon{
+    font-size:58px;
+    line-height:1.2;
+}
+
+.hero h1{
+    margin:10px 0;
+    color:var(--gold-light);
+    font-size:35px;
+}
+
+.hero p{
+    max-width:900px;
+    margin:auto;
+    font-size:17px;
+}
+
+.section{
+    margin-top:22px;
+    padding:28px;
+    border:1px solid var(--border);
+    border-radius:18px;
+    background:linear-gradient(145deg,rgba(12,40,64,.94),rgba(5,21,35,.97));
+    box-shadow:0 10px 25px rgba(0,0,0,.34);
+}
+
+.section h2{
+    margin:0 0 18px;
+    padding-right:13px;
+    border-right:4px solid var(--gold);
+    color:var(--gold-light);
+    font-size:25px;
+}
+
+.section h3{
+    color:#ecd273;
+    font-size:20px;
+    margin-top:25px;
+}
+
+.scripture{
+    margin:20px 0;
+    padding:18px 22px;
+    border-right:4px solid var(--gold);
+    border-radius:12px;
+    background:rgba(2,15,27,.72);
+}
+
+.scripture strong{
+    color:var(--gold-light);
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.info-card{
+    padding:20px;
+    border:1px solid var(--line);
+    border-radius:15px;
+    background:rgba(2,15,27,.55);
+}
+
+.info-card strong{
+    display:block;
+    margin-bottom:6px;
+    color:var(--gold-light);
+    font-size:18px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+    margin-top:18px;
+}
+
+table{
+    width:100%;
+    min-width:720px;
+    border-collapse:collapse;
+    background:rgba(2,15,27,.55);
+}
+
+th,td{
+    padding:13px 14px;
+    border:1px solid rgba(212,175,55,.2);
+    text-align:right;
+    vertical-align:top;
+}
+
+th{
+    color:var(--gold-light);
+    background:rgba(212,175,55,.08);
+}
+
+.highlight{
+    padding:20px;
+    border-right:4px solid var(--gold);
+    border-radius:14px;
+    background:rgba(212,175,55,.045);
+}
+
+.christ{
+    padding:20px;
+    border-right:4px solid #b8cad9;
+    border-radius:14px;
+    background:rgba(184,202,217,.045);
+}
+
+.church{
+    padding:20px;
+    border-right:4px solid var(--gold);
+    border-radius:14px;
+    background:rgba(212,175,55,.04);
+}
+
+.note{
+    margin-top:18px;
+    padding:18px;
+    border-radius:14px;
+    border:1px solid rgba(212,175,55,.22);
+    background:rgba(2,15,27,.45);
+}
+
+.note strong{
+    color:var(--gold-light);
+}
+
+.reference-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:13px;
+}
+
+.reference{
+    padding:17px;
+    border-radius:13px;
+    background:rgba(2,15,27,.58);
+    border:1px solid var(--line);
+}
+
+.reference strong{
+    color:var(--gold-light);
+}
+
+footer{
+    max-width:1080px;
+    margin:auto;
+    padding:25px 15px 40px;
+    text-align:center;
+    color:#8193a5;
+    border-top:1px solid rgba(212,175,55,.15);
+}
+
+@media(max-width:700px){
+
+    .header-inner{
+        min-height:74px;
+        padding:8px 12px;
+    }
+
+    .logo{
+        width:50px;
+        height:50px;
+    }
+
+    .brand-name{
+        font-size:14px;
+    }
+
+    .back-btn{
+        padding:7px 10px;
+        font-size:13px;
+    }
+
+    .container{
+        width:calc(100% - 20px);
+        padding-top:22px;
+    }
+
+    .hero{
+        padding:28px 16px;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .section{
+        padding:20px 16px;
+    }
+
+    .section h2{
+        font-size:21px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="header-inner">
+
+<a href="study-tabernacle.html" class="back-btn">
+← خيمة الاجتماع
+</a>
+
+<div class="brand">
+<div class="brand-name">كنيسة رجاء الأمم سيدني</div>
+
+<img src="assets/logo.png"
+     class="logo"
+     alt="كنيسة رجاء الأمم سيدني">
+</div>
+
+</div>
+</header>
+
+<main class="container">
+
+<div class="breadcrumb">
+<a href="index.html">الرئيسية</a>
+&nbsp;›&nbsp;
+<a href="studies.html">الدراسات</a>
+&nbsp;›&nbsp;
+<a href="study-tabernacle.html">خيمة الاجتماع</a>
+&nbsp;›&nbsp;
+الدار الخارجية والسور
+</div>
+
+<section class="hero">
+
+<div class="hero-icon">🏕️</div>
+
+<h1>الدار الخارجية والسور</h1>
+
+<p>
+دراسة متعمقة في تصميم الدار الخارجية لخيمة الاجتماع،
+وأبعادها، وسورها، وأعمدتها، وستائرها، ومدخلها، ووظيفتها
+في تنظيم الاقتراب إلى المسكن، مع دراسة أبعادها الكتابية
+ودلالاتها اللاهوتية.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>الدار الخارجية: الإطار الذي يحيط بالمسكن</h2>
+
+<p>
+كانت الدار الخارجية مساحة مستطيلة تحيط بالمسكن من جميع
+الجهات. ولم تكن مجرد مساحة فارغة، بل كانت منطقة محددة
+بوضوح تفصل المكان المقدس عن المحيط الخارجي.
+</p>
+
+<p>
+داخل هذه الدار وُضع مذبح المحرقة والمرحضة، ثم يأتي المسكن
+نفسه في الجزء الداخلي منها.
+</p>
+
+<div class="scripture">
+
+<strong>خروج 27:9–10</strong>
+
+<p>
+يبدأ النص بوصف ستائر الدار من جهة الجنوب، ثم يصف الأعمدة
+والقواعد والأوتاد والأطناب المرتبطة بها.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>الأبعاد الرئيسية للدار</h2>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>العنصر</th>
+<th>المقاس الكتابي</th>
+<th>المرجع</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>طول الدار</td>
+<td>100 ذراع</td>
+<td>خروج 27:18</td>
+</tr>
+
+<tr>
+<td>عرض الدار</td>
+<td>50 ذراعًا</td>
+<td>خروج 27:18</td>
+</tr>
+
+<tr>
+<td>ارتفاع ستائر الدار</td>
+<td>5 أذرع</td>
+<td>خروج 27:18</td>
+</tr>
+
+<tr>
+<td>مساحة الدار</td>
+<td>5000 ذراع مربع</td>
+<td>استنتاج هندسي من الأبعاد</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="highlight">
+
+<strong>النسبة الهندسية:</strong>
+
+<p>
+الدار مستطيل بنسبة 2 : 1؛ إذ يبلغ طولها 100 ذراع مقابل
+50 ذراعًا عرضًا.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>السور والستائر</h2>
+
+<p>
+السور لم يكن سورًا حجريًا بالمعنى المعتاد، بل كان يتكون من
+ستائر من البوص المبروم معلقة على أعمدة وقواعد.
+</p>
+
+<div class="scripture">
+
+<strong>خروج 27:9</strong>
+
+<p>
+يصف النص ستائر الدار من البوص المبروم، وأعمدتها وقواعدها.
+</p>
+
+</div>
+
+<p>
+وهذا التصميم جعل الحدود واضحة، مع الحفاظ على طبيعة الخيمة
+كمسكن قابل للنقل أثناء رحلة إسرائيل في البرية.
+</p>
+
+<div class="info-grid">
+
+<div class="info-card">
+<strong>الستائر</strong>
+من البوص المبروم.
+</div>
+
+<div class="info-card">
+<strong>الأعمدة</strong>
+تحمل الستائر حول الدار.
+</div>
+
+<div class="info-card">
+<strong>القواعد</strong>
+تثبت الأعمدة.
+</div>
+
+<div class="info-card">
+<strong>الأوتاد والأطناب</strong>
+تدعم البناء وتثبته.
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>عدد الأعمدة وتوزيعها</h2>
+
+<p>
+يذكر النص تفاصيل أعداد الأعمدة على جوانب الدار.
+</p>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>الجهة</th>
+<th>عدد الأعمدة</th>
+<th>المرجع</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>الجانب الجنوبي</td>
+<td>20 عمودًا</td>
+<td>خروج 27:10</td>
+</tr>
+
+<tr>
+<td>الجانب الشمالي</td>
+<td>20 عمودًا</td>
+<td>خروج 27:11</td>
+</tr>
+
+<tr>
+<td>الجانب الغربي</td>
+<td>10 أعمدة</td>
+<td>خروج 27:12</td>
+</tr>
+
+<tr>
+<td>الجهة الشرقية</td>
+<td>منطقة المدخل مع أعمدة الستارة</td>
+<td>خروج 27:13–16</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>ارتفاع السور</h2>
+
+<p>
+ارتفاع ستائر الدار كان خمسة أذرع.
+</p>
+
+<div class="scripture">
+
+<strong>خروج 27:18</strong>
+
+<p>
+«وَارْتِفَاعُ السَّتَائِرِ خَمْسَةُ أَذْرُعٍ».
+</p>
+
+</div>
+
+<p>
+وهذا الارتفاع كان كافيًا لتحديد حدود الدار بوضوح، مع بقاء
+المسكن نفسه ظاهرًا فوق مستوى الستائر.
+</p>
+
+<div class="note">
+
+<strong>ملاحظة هندسية:</strong>
+
+<p>
+النص يعطي الارتفاع للستائر، وليس وصفًا لسور صلب مغلق.
+لذلك يجب عدم إعادة تصور الدار كسور حجري مرتفع.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>مواد السور</h2>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>المادة</th>
+<th>الاستخدام</th>
+<th>المرجع</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>البوص المبروم</td>
+<td>ستائر الدار</td>
+<td>خروج 27:9</td>
+</tr>
+
+<tr>
+<td>الفضة</td>
+<td>تفاصيل مرتبطة بالأعمدة</td>
+<td>خروج 27:10–11</td>
+</tr>
+
+<tr>
+<td>النحاس</td>
+<td>القواعد</td>
+<td>خروج 27:10</td>
+</tr>
+
+<tr>
+<td>الأوتاد</td>
+<td>تثبيت الدار</td>
+<td>خروج 27:19</td>
+</tr>
+
+<tr>
+<td>الأطناب</td>
+<td>التثبيت والدعم</td>
+<td>خروج 35:18</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>مدخل الدار</h2>
+
+<p>
+كان للدار مدخل محدد في الجهة الشرقية، ولم يكن الدخول موزعًا
+على جميع الجهات.
+</p>
+
+<div class="scripture">
+
+<strong>خروج 27:13–16</strong>
+
+<p>
+يصف النص الجهة الشرقية ثم يحدد ستارة الباب ومقاسها وموادها
+وأعمدتها.
+</p>
+
+</div>
+
+<div class="info-grid">
+
+<div class="info-card">
+<strong>الموقع</strong>
+الجهة الشرقية.
+</div>
+
+<div class="info-card">
+<strong>عرض ستارة الباب</strong>
+20 ذراعًا.
+</div>
+
+<div class="info-card">
+<strong>المواد</strong>
+أسمانجوني وأرجوان وقرمز وبوص مبروم.
+</div>
+
+<div class="info-card">
+<strong>الوظيفة</strong>
+مدخل محدد إلى الدار.
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>الدار ومسار الاقتراب</h2>
+
+<p>
+عند دخول الإنسان من الباب الشرقي يبدأ مسار واضح داخل الدار.
+وأول عنصر رئيسي يواجهه هو مذبح المحرقة.
+</p>
+
+<p>
+بعد ذلك تأتي المرحضة، ثم المسكن الذي يحتوي القدس وقدس
+الأقداس.
+</p>
+
+<div class="highlight">
+
+<strong>المسار المكاني:</strong>
+
+<p>
+الباب ← الدار ← مذبح المحرقة ← المرحضة ← المسكن ← القدس
+← الحجاب ← قدس الأقداس.
+</p>
+
+</div>
+
+<p>
+هذا الترتيب يجعل الدار جزءًا من نظام لاهوتي متكامل، وليس
+مجرد مساحة تحيط بالخيمة.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>الدار والقداسة</h2>
+
+<p>
+الدار الخارجية كانت مقدسة لأنها جزء من المكان الذي اختاره
+الرب لسكنى اسمه، لكنها تختلف في درجة الاقتراب عن المسكن
+وقدس الأقداس.
+</p>
+
+<p>
+وهنا يظهر أحد أهم المفاهيم في تصميم خيمة الاجتماع:
+<strong>القداسة مرتبطة بالاقتراب المنظم من حضور الله.</strong>
+</p>
+
+<div class="scripture">
+
+<strong>خروج 25:8</strong>
+
+<p>
+«فَيَصْنَعُونَ لِي مَقْدِسًا لِأَسْكُنَ فِي وَسَطِهِمْ».
+</p>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>الدار والحد الفاصل</h2>
+
+<p>
+وجود الستائر والأعمدة يخلق حدًا مرئيًا بين الداخل والخارج.
+لكن هذا الحد ليس مجرد عزل جغرافي؛ بل يعلن أن الدخول إلى
+المكان المقدس له نظام.
+</p>
+
+<div class="christ">
+
+<strong>قراءة مسيحية:</strong>
+
+<p>
+في ضوء العهد الجديد، لا يصبح الحل بإلغاء فكرة القداسة، بل
+بالانتقال من نظام الاقتراب المرتبط بالمسكن الأرضي إلى
+الاقتراب من الله من خلال المسيح.
+</p>
+
+</div>
+
+<div class="scripture">
+
+<strong>يوحنا 14:6</strong>
+
+<p>
+«أَنَا هُوَ الطَّرِيقُ وَالْحَقُّ وَالْحَيَاةُ. لَيْسَ أَحَدٌ
+يَأْتِي إِلَى الآبِ إِلَّا بِي».
+</p>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>الدار والمسيح</h2>
+
+<p>
+لا ينبغي القول إن كل ستارة أو عمود هو رمز مباشر للمسيح دون
+دليل نصي. القراءة المسيحانية الأقوى تأتي من الصورة الكاملة
+لنظام الاقتراب والذبيحة والكهنوت والحضور الإلهي.
+</p>
+
+<div class="christ">
+
+<strong>المحور المسيحاني:</strong>
+
+<p>
+الإنسان يدخل إلى المكان المقدس من خلال مدخل محدد، ويواجه
+المذبح، ثم الاغتسال، ثم يتجه نحو المسكن. وفي العهد الجديد
+تتجمع موضوعات الطريق والذبيحة والكهنوت والاقتراب في شخص
+المسيح وعمله.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>الدار والكنيسة</h2>
+
+<p>
+لا تمثل الدار نموذجًا معماريًا يجب على الكنيسة الحديثة
+إعادة بنائه حرفيًا.
+</p>
+
+<p>
+لكنها تقدم صورة قوية عن أهمية أن يكون للعبادة نظام،
+وأن تُفهم خدمة الله في إطار القداسة، والاقتراب، والخدمة،
+والتكريس.
+</p>
+
+<div class="church">
+
+<strong>التطبيق اللاهوتي:</strong>
+
+<p>
+في العهد الجديد لا تتمحور حياة المؤمن حول الاقتراب من مبنى
+مقدس، بل حول السكنى الإلهية في شعب الله بالروح القدس.
+</p>
+
+</div>
+
+<div class="scripture">
+
+<strong>1 كورنثوس 3:16</strong>
+
+<p>
+«أَلَسْتُمْ تَعْلَمُونَ أَنَّكُمْ هَيْكَلُ اللهِ، وَرُوحُ اللهِ
+يَسْكُنُ فِيكُمْ؟»
+</p>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>أهم الملاحظات البحثية</h2>
+
+<div class="info-grid">
+
+<div class="info-card">
+<strong>1</strong>
+الدار مستطيلة وليست مربعة.
+</div>
+
+<div class="info-card">
+<strong>2</strong>
+أبعادها الأساسية 100 × 50 ذراعًا.
+</div>
+
+<div class="info-card">
+<strong>3</strong>
+ارتفاع الستائر خمسة أذرع.
+</div>
+
+<div class="info-card">
+<strong>4</strong>
+المدخل الرئيسي في الجهة الشرقية.
+</div>
+
+<div class="info-card">
+<strong>5</strong>
+السور مكوّن من ستائر وأعمدة وقواعد، وليس جدارًا حجريًا.
+</div>
+
+<div class="info-card">
+<strong>6</strong>
+الدار جزء من نظام الاقتراب من حضور الله.
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>النصوص الأساسية للدراسة</h2>
+
+<div class="reference-grid">
+
+<div class="reference">
+<strong>خروج 27:9–19</strong>
+<br>
+الوصف الأساسي للدار وأعمدتها وستائرها.
+</div>
+
+<div class="reference">
+<strong>خروج 35:17–18</strong>
+<br>
+تفاصيل تنفيذ ستائر الدار والأطناب والأوتاد.
+</div>
+
+<div class="reference">
+<strong>خروج 38:9–20</strong>
+<br>
+تنفيذ الدار وأبعادها وموادها.
+</div>
+
+<div class="reference">
+<strong>لاويين 1</strong>
+<br>
+الذبائح المرتبطة بخدمة المذبح.
+</div>
+
+<div class="reference">
+<strong>عبرانيين 9</strong>
+<br>
+قراءة العهد الجديد لخدمة المسكن.
+</div>
+
+<div class="reference">
+<strong>يوحنا 14:6</strong>
+<br>
+المسيح والطريق إلى الآب.
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+كنيسة رجاء الأمم سيدني
+<br>
+موسوعة الكتاب المقدس
+
+</footer>
+
+</body>
+</html>

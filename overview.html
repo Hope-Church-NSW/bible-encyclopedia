@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>التفسير | موسوعة الكتاب المقدس</title>
+
+<style>
+
+:root{
+    --bg:#061321;
+    --bg2:#0a1b2d;
+    --panel:#0d2138;
+    --panel2:#102a46;
+    --panel3:#153657;
+
+    --gold:#d4af37;
+    --gold2:#f2d675;
+
+    --white:#f4f7fb;
+    --muted:#9fb0c3;
+
+    --line:#1d3b59;
+    --blue:#2d7ff9;
+
+    --danger:#ffb4b4;
+    --success:#9ee6b8;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(45,127,249,.12),
+            transparent 34%
+        ),
+        linear-gradient(
+            145deg,
+            var(--bg),
+            var(--bg2)
+        );
+
+    color:var(--white);
+
+    font-family:
+        Arial,
+        Tahoma,
+        "Segoe UI",
+        sans-serif;
+
+    line-height:1.9;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:rgba(6,19,33,.97);
+
+    border-bottom:1px solid var(--line);
+
+    backdrop-filter:blur(14px);
+}
+
+.header-inner{
+    width:min(1400px,92%);
+    min-height:78px;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.back-button{
+    min-height:48px;
+
+    padding:10px 18px;
+
+    border:1px solid var(--gold);
+    border-radius:12px;
+
+    background:var(--panel2);
+
+    color:var(--gold2);
+
+    text-decoration:none;
+
+    font-size:18px;
+    font-weight:900;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:7px;
+
+    transition:.2s ease;
+}
+
+.back-button:hover{
+    background:var(--panel3);
+    transform:translateY(-1px);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+}
+
+.logo{
+    width:68px;
+    height:68px;
+
+    object-fit:contain;
+}
+
+.brand-title{
+    color:var(--gold2);
+
+    font-size:25px;
+    font-weight:900;
+
+    text-shadow:
+        0 2px 8px rgba(212,175,55,.30);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+    width:min(1180px,94%);
+
+    margin:auto;
+
+    padding:30px 0 70px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    text-align:center;
+
+    margin-bottom:28px;
+}
+
+.hero-title{
+    margin:0;
+
+    color:var(--gold2);
+
+    font-size:36px;
+    font-weight:900;
+}
+
+.hero-subtitle{
+    margin:8px 0 0;
+
+    color:var(--muted);
+
+    font-size:17px;
+}
+
+
+/* =========================================================
+   REFERENCE CARD
+========================================================= */
+
+.reference-card{
+    background:
+        linear-gradient(
+            145deg,
+            var(--panel2),
+            var(--panel)
+        );
+
+    border:1px solid var(--gold);
+
+    border-radius:22px;
+
+    padding:28px;
+
+    margin-bottom:24px;
+
+    box-shadow:
+        0 18px 50px rgba(0,0,0,.25);
+
+    text-align:center;
+}
+
+.reference-book{
+    color:var(--gold2);
+
+    font-size:31px;
+    font-weight:900;
+
+    margin-bottom:4px;
+}
+
+.reference-location{
+    color:var(--muted);
+
+    font-size:18px;
+}
+
+.reference-verse{
+    margin-top:20px;
+
+    padding:20px;
+
+    border-top:1px solid var(--line);
+
+    color:var(--white);
+
+    font-size:23px;
+
+    line-height:2.25;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.study{
+    display:flex;
+    flex-direction:column;
+
+    gap:18px;
+}
+
+.section{
+    background:rgba(13,33,56,.96);
+
+    border:1px solid var(--line);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.18);
+}
+
+.section-header{
+    padding:17px 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--panel3),
+            var(--panel2)
+        );
+
+    border-bottom:1px solid var(--line);
+
+    color:var(--gold2);
+
+    font-size:22px;
+    font-weight:900;
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+}
+
+.section-body{
+    padding:22px;
+
+    color:var(--white);
+
+    font-size:18px;
+
+    line-height:2.15;
+}
+
+.section-body p{
+    margin:0 0 16px;
+}
+
+.section-body p:last-child{
+    margin-bottom:0;
+}
+
+
+/* =========================================================
+   TWO COLUMN INFORMATION
+========================================================= */
+
+.info-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:15px;
+}
+
+.info-box{
+    padding:17px;
+
+    background:var(--panel2);
+
+    border:1px solid var(--line);
+
+    border-radius:13px;
+}
+
+.info-label{
+    color:var(--gold2);
+
+    font-size:15px;
+    font-weight:900;
+
+    margin-bottom:6px;
+}
+
+.info-value{
+    color:var(--white);
+
+    font-size:17px;
+}
+
+
+/* =========================================================
+   ORIGINAL LANGUAGE
+========================================================= */
+
+.language-word{
+    margin-bottom:15px;
+
+    padding:18px;
+
+    background:var(--panel2);
+
+    border:1px solid var(--line);
+
+    border-radius:14px;
+}
+
+.language-word:last-child{
+    margin-bottom:0;
+}
+
+.word-main{
+    color:var(--gold2);
+
+    font-size:25px;
+    font-weight:900;
+
+    margin-bottom:8px;
+}
+
+.word-meta{
+    color:var(--muted);
+
+    font-size:16px;
+
+    margin-bottom:10px;
+}
+
+.word-description{
+    color:var(--white);
+
+    font-size:17px;
+
+    line-height:2;
+}
+
+
+/* =========================================================
+   COMMENTATORS
+========================================================= */
+
+.commentators{
+    display:flex;
+    flex-direction:column;
+
+    gap:13px;
+}
+
+.commentator{
+    background:var(--panel2);
+
+    border:1px solid var(--line);
+
+    border-radius:14px;
+
+    padding:18px;
+}
+
+.commentator-name{
+    color:var(--gold2);
+
+    font-size:20px;
+    font-weight:900;
+
+    margin-bottom:9px;
+}
+
+.commentator-label{
+    color:var(--muted);
+
+    font-size:14px;
+
+    margin-bottom:8px;
+}
+
+.commentator-text{
+    color:var(--white);
+
+    font-size:17px;
+
+    line-height:2.15;
+}
+
+
+/* =========================================================
+   COMPARISON
+========================================================= */
+
+.comparison-list{
+    display:flex;
+    flex-direction:column;
+
+    gap:12px;
+}
+
+.comparison-item{
+    background:var(--panel2);
+
+    border-right:3px solid var(--gold);
+
+    border-radius:10px;
+
+    padding:14px 17px;
+}
+
+.comparison-title{
+    color:var(--gold2);
+
+    font-weight:900;
+
+    margin-bottom:5px;
+}
+
+
+/* =========================================================
+   BIBLICAL CONNECTIONS
+========================================================= */
+
+.connections{
+    display:flex;
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.connection{
+    padding:15px;
+
+    background:var(--panel2);
+
+    border:1px solid var(--line);
+
+    border-radius:12px;
+}
+
+.connection-reference{
+    color:var(--gold2);
+
+    font-weight:900;
+
+    font-size:17px;
+
+    margin-bottom:5px;
+}
+
+
+/* =========================================================
+   REFERENCES
+========================================================= */
+
+.references{
+    display:flex;
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.reference-item{
+    padding:15px 17px;
+
+    background:var(--panel2);
+
+    border:1px solid var(--line);
+
+    border-radius:12px;
+}
+
+.reference-type{
+    color:var(--gold2);
+
+    font-weight:900;
+
+    font-size:15px;
+
+    margin-bottom:5px;
+}
+
+.reference-name{
+    color:var(--white);
+
+    font-size:17px;
+
+    font-weight:700;
+}
+
+.reference-note{
+    color:var(--muted);
+
+    font-size:15px;
+
+    margin-top:5px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+    margin-top:20px;
+
+    padding:13px 16px;
+
+    border-radius:11px;
+
+    font-size:15px;
+
+    text-align:center;
+}
+
+.status-complete{
+    color:var(--success);
+
+    background:rgba(40,120,70,.15);
+
+    border:1px solid rgba(100,210,140,.35);
+}
+
+.status-pending{
+    color:var(--gold2);
+
+    background:rgba(212,175,55,.08);
+
+    border:1px solid rgba(212,175,55,.25);
+}
+
+
+/* =========================================================
+   EMPTY / ERROR
+========================================================= */
+
+.empty{
+    padding:55px 25px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:18px;
+
+    line-height:2;
+}
+
+.error{
+    padding:22px;
+
+    background:#351b24;
+
+    border:1px solid #6b3040;
+
+    border-radius:14px;
+
+    color:var(--danger);
+
+    line-height:2;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+    padding:80px 20px;
+
+    text-align:center;
+
+    color:var(--gold2);
+
+    font-size:21px;
+    font-weight:900;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    margin-top:35px;
+
+    padding:25px;
+
+    text-align:center;
+
+    border-top:1px solid var(--line);
+
+    color:var(--muted);
+
+    font-size:14px;
+}
+
+.footer strong{
+    color:var(--gold2);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:800px){
+
+    .header-inner{
+        min-height:68px;
+    }
+
+    .logo{
+        width:55px;
+        height:55px;
+    }
+
+    .brand-title{
+        font-size:19px;
+    }
+
+    .back-button{
+        min-height:42px;
+
+        padding:8px 12px;
+
+        font-size:15px;
+    }
+
+    .hero-title{
+        font-size:30px;
+    }
+
+    .reference-book{
+        font-size:27px;
+    }
+
+    .reference-verse{
+        font-size:20px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .section-header{
+        font-size:20px;
+    }
+
+    .section-body{
+        padding:18px;
+
+        font-size:17px;
+    }
+
+}
+
+
+@media(max-width:500px){
+
+    main{
+        width:94%;
+
+        padding-top:20px;
+    }
+
+    .brand-title{
+        font-size:16px;
+    }
+
+    .hero-title{
+        font-size:27px;
+    }
+
+    .reference-card{
+        padding:20px;
+    }
+
+    .reference-book{
+        font-size:24px;
+    }
+
+    .reference-verse{
+        font-size:18px;
+    }
+
+    .section-header{
+        padding:14px 16px;
+
+        font-size:18px;
+    }
+
+    .section-body{
+        padding:16px;
+
+        font-size:16px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="header-inner">
+
+        <a
+            href="bible.html"
+            class="back-button"
+        >
+            ← الكتاب المقدس
+        </a>
+
+
+        <div class="brand">
+
+            <div class="brand-title">
+                موسوعة الكتاب المقدس
+            </div>
+
+            <img
+                src="assets/logo.png"
+                class="logo"
+                alt="شعار الكنيسة"
+            >
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <h1 class="hero-title">
+            موسوعة التفسير
+        </h1>
+
+        <p class="hero-subtitle">
+            دراسة تفسيرية ولاهوتية متكاملة للآية
+        </p>
+
+    </section>
+
+
+    <div id="app">
+
+        <div class="loading">
+            جاري تحميل الدراسة التفسيرية...
+        </div>
+
+    </div>
+
+
+    <footer class="footer">
+
+        <strong>
+            موسوعة الكتاب المقدس
+        </strong>
+
+        <br>
+
+        دراسة الكتاب المقدس بصورة نصية وتاريخية ولغوية ولاهوتية موثقة.
+
+    </footer>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   الإعدادات
+========================================================= */
+
+const COMMENTARY_URL = "commentary.json";
+
+const app = document.getElementById("app");
+
+
+/* =========================================================
+   أسماء الأسفار
+   للاستخدام في حالة وجود المرجع فقط
+   ولا تُستخدم لبناء الكتاب المقدس
+========================================================= */
+
+const BOOK_NAMES = {
+
+    "01-gen":"التكوين",
+    "02-Exodus":"الخروج",
+    "03-Leviticus":"اللاويين",
+    "04-Numbers":"العدد",
+    "05-Deut":"التثنية",
+    "06-Joshua":"يشوع",
+    "07-Judges":"القضاة",
+    "08-Ruth":"راعوث",
+    "09-1Samuel":"صموئيل الأول",
+    "10-2Samuel":"صموئيل الثاني",
+    "11-1Kings":"ملوك الأول",
+    "12-2Kings":"ملوك الثاني",
+    "13-1Chronicles":"أخبار الأيام الأول",
+    "14-2Chronicles":"أخبار الأيام الثاني",
+    "15-Ezra":"عزرا",
+    "16-Nehemiah":"نحميا",
+    "17-Esther":"أستير",
+    "18-Job":"أيوب",
+    "19-Psalms":"المزامير",
+    "20-Proverbs":"الأمثال",
+    "21-Ecclesiastes":"الجامعة",
+    "22-Song":"نشيد الأنشاد",
+    "23-Isaiah":"إشعياء",
+    "24-Jeremiah":"إرميا",
+    "25-Lamentations":"مراثي إرميا",
+    "26-Ezekiel":"حزقيال",
+    "27-Daniel":"دانيال",
+    "28-Hosea":"هوشع",
+    "29-Joel":"يوئيل",
+    "30-Amos":"عاموس",
+    "31-Obadiah":"عوبديا",
+    "32-Jonah":"يونان",
+    "33-Micah":"ميخا",
+    "34-Nahum":"ناحوم",
+    "35-Habakkuk":"حبقوق",
+    "36-Zephaniah":"صفنيا",
+    "37-Haggai":"حجي",
+    "38-Zechariah":"زكريا",
+    "39-Malachi":"ملاخي",
+
+    "40-Matthew":"متى",
+    "41-Mark":"مرقس",
+    "42-Luke":"لوقا",
+    "43-John":"يوحنا",
+    "44-Acts":"أعمال الرسل",
+    "45-Romans":"رومية",
+    "46-1-Corinthians":"كورنثوس الأولى",
+    "47-2-Corinthians":"كورنثوس الثانية",
+    "48-Galatians":"غلاطية",
+    "49-Ephesians":"أفسس",
+    "50-Philippians":"فيلبي",
+    "51-Colossians":"كولوسي",
+    "52-1-Thessalonians":"تسالونيكي الأولى",
+    "53-2-Thessalonians":"تسالونيكي الثانية",
+    "54-1-Timothy":"تيموثاوس الأولى",
+    "55-2-Timothy":"تيموثاوس الثانية",
+    "56-Titus":"تيطس",
+    "57-Philemon":"فليمون",
+    "58-Hebrews":"العبرانيين",
+    "59-James":"يعقوب",
+    "60-1-peter":"بطرس الأولى",
+    "61-2pet":"بطرس الثانية",
+    "62-1-John":"يوحنا الأولى",
+    "63-2-John":"يوحنا الثانية",
+    "64-3-John":"يوحنا الثالثة",
+    "65-Jude":"يهوذا",
+    "66-Revelation":"رؤيا يوحنا"
+};
+
+
+/* =========================================================
+   حماية HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/[&<>"']/g,function(char){
+
+            return {
+
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#039;"
+
+            }[char];
+
+        });
+
+}
+
+
+/* =========================================================
+   تحويل النص إلى HTML
+========================================================= */
+
+function textHTML(value){
+
+    if(
+        value === null ||
+        value === undefined ||
+        String(value).trim() === ""
+    ){
+
+        return "";
+
+    }
+
+    return escapeHTML(value)
+        .replace(/\r\n/g,"\n")
+        .replace(/\r/g,"\n")
+        .replace(/\n{2,}/g,"\n\n")
+        .replace(/\n/g,"<br><br>");
+
+}
+
+
+/* =========================================================
+   استخراج مرجع الآية من الرابط
+========================================================= */
+
+function getVerseReference(){
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    let reference =
+        params.get("ref") ||
+        params.get("verse") ||
+        params.get("reference");
+
+
+    if(!reference){
+
+        return null;
+
+    }
+
+
+    reference =
+        decodeURIComponent(reference)
+            .trim();
+
+
+    return reference || null;
+
+}
+
+
+/* =========================================================
+   تحليل المرجع
+========================================================= */
+
+function parseReference(reference){
+
+    if(!reference){
+
+        return null;
+
+    }
+
+
+    const match =
+        reference.match(
+            /^(.+):(\d+):(\d+)$/
+        );
+
+
+    if(!match){
+
+        return {
+
+            key:reference,
+            book:null,
+            chapter:null,
+            verse:null
+
+        };
+
+    }
+
+
+    return {
+
+        key:reference,
+
+        book:match[1],
+
+        chapter:Number(match[2]),
+
+        verse:Number(match[3])
+
+    };
+
+}
+
+
+/* =========================================================
+   البحث عن سجل التفسير
+========================================================= */
+
+function findCommentary(data,reference){
+
+    if(
+        !data ||
+        !reference
+    ){
+
+        return null;
+
+    }
+
+
+    if(
+        data.verses &&
+        typeof data.verses === "object"
+    ){
+
+        if(
+            data.verses[reference]
+        ){
+
+            return data.verses[reference];
+
+        }
+
+
+        const normalized =
+            normalizeReference(reference);
+
+
+        if(
+            data.verses[normalized]
+        ){
+
+            return data.verses[normalized];
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   توحيد المرجع
+========================================================= */
+
+function normalizeReference(reference){
+
+    return String(reference)
+        .trim()
+        .replace(/\s+/g,"");
+
+}
+
+
+/* =========================================================
+   عرض النص العادي
+========================================================= */
+
+function renderTextSection(
+    icon,
+    title,
+    value
+){
+
+    if(
+        value === null ||
+        value === undefined ||
+        String(value).trim() === ""
+    ){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <section class="section">
+
+            <div class="section-header">
+                ${icon}
+                ${escapeHTML(title)}
+            </div>
+
+            <div class="section-body">
+                ${textHTML(value)}
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   عرض مجموعة معلومات
+========================================================= */
+
+function renderInfoGrid(items){
+
+    const valid =
+        items.filter(function(item){
+
+            return (
+                item.value !== null &&
+                item.value !== undefined &&
+                String(item.value).trim() !== ""
+            );
+
+        });
+
+
+    if(!valid.length){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <div class="info-grid">
+
+            ${valid.map(function(item){
+
+                return `
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            ${escapeHTML(item.label)}
+                        </div>
+
+                        <div class="info-value">
+                            ${textHTML(item.value)}
+                        </div>
+
+                    </div>
+
+                `;
+
+            }).join("")}
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   الخلفية التاريخية
+========================================================= */
+
+function renderHistorical(data){
+
+    if(!data){
+
+        return "";
+
+    }
+
+
+    return renderTextSection(
+        "🏺",
+        "الخلفية التاريخية",
+        [
+            data.period,
+            data.place,
+            data.historical_setting,
+            data.cultural_context
+        ]
+        .filter(Boolean)
+        .join("\n\n")
+    );
+
+}
+
+
+/* =========================================================
+   الخلفية اليهودية
+========================================================= */
+
+function renderJewishBackground(data){
+
+    if(!data){
+
+        return "";
+
+    }
+
+
+    const content = [
+
+        data.overview,
+        data.second_temple_context,
+        data.rabbinic_interpretation,
+        data.talmudic_material,
+        data.midrashic_material,
+        data.source_distinction
+
+    ]
+    .filter(function(value){
+
+        return (
+            value !== null &&
+            value !== undefined &&
+            String(value).trim() !== ""
+        );
+
+    })
+    .join("\n\n");
+
+
+    return renderTextSection(
+        "✡️",
+        "الخلفية اليهودية والمصادر اليهودية",
+        content
+    );
+
+}
+
+
+/* =========================================================
+   الكلمات الأصلية
+========================================================= */
+
+function renderOriginalLanguage(data){
+
+    if(!data){
+
+        return "";
+
+    }
+
+
+    const words =
+        Array.isArray(data.words)
+            ? data.words
+            : [];
+
+
+    if(!words.length){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <section class="section">
+
+            <div class="section-header">
+                🔤 الكلمات الأصلية
+            </div>
+
+            <div class="section-body">
+
+                <div class="info-grid">
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            اللغة
+                        </div>
+
+                        <div class="info-value">
+                            ${escapeHTML(data.language || "")}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <br>
+
+                ${words.map(function(word){
+
+                    return `
+
+                        <div class="language-word">
+
+                            <div class="word-main">
+
+                                ${escapeHTML(
+                                    word.word || ""
+                                )}
+
+                            </div>
+
+
+                            <div class="word-meta">
+
+                                ${word.transliteration
+                                    ? "النطق: " +
+                                      escapeHTML(
+                                          word.transliteration
+                                      )
+                                    : ""}
+
+                                ${word.strong
+                                    ? " | Strong: " +
+                                      escapeHTML(
+                                          word.strong
+                                      )
+                                    : ""}
+
+                                ${word.root
+                                    ? " | الجذر: " +
+                                      escapeHTML(
+                                          word.root
+                                      )
+                                    : ""}
+
+                                ${word.grammar
+                                    ? " | الصرف والنحو: " +
+                                      escapeHTML(
+                                          word.grammar
+                                      )
+                                    : ""}
+
+                            </div>
+
+
+                            <div class="word-description">
+
+                                ${textHTML(
+                                    [
+                                        word.literal_meaning
+                                            ? "المعنى الحرفي: " +
+                                              word.literal_meaning
+                                            : "",
+
+                                        word.semantic_range
+                                            ? "المجال الدلالي: " +
+                                              word.semantic_range
+                                            : "",
+
+                                        word.theological_significance
+                                            ? "الدلالة اللاهوتية: " +
+                                              word.theological_significance
+                                            : ""
+
+                                    ]
+                                    .filter(Boolean)
+                                    .join("\n\n")
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }).join("")}
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   المفسرون
+========================================================= */
+
+function renderCommentators(data){
+
+    if(!data){
+
+        return "";
+
+    }
+
+
+    const names = [
+
+        ["matthew_henry","متى هنري"],
+
+        ["keil_delitzsch","كيل ودليتش"],
+
+        ["pulpit","تفسير المنبر"],
+
+        ["ellicott","إليكت"],
+
+        ["benson","بنسون"],
+
+        [
+            "jamieson_fausset_brown",
+            "جاميسون وفوست وبراون"
+        ],
+
+        ["macarthur","جون ماك آرثر"]
+
+    ];
+
+
+    const available =
+        names.filter(function(item){
+
+            return (
+                data[item[0]] &&
+                (
+                    data[item[0]].summary ||
+                    data[item[0]].interpretation ||
+                    data[item[0]].theological_emphasis
+                )
+            );
+
+        });
+
+
+    if(!available.length){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <section class="section">
+
+            <div class="section-header">
+                📚 أقوال المفسرين المعتمدين
+            </div>
+
+            <div class="section-body">
+
+                <div class="commentators">
+
+                    ${available.map(function(item){
+
+                        const commentator =
+                            data[item[0]];
+
+
+                        return `
+
+                            <article class="commentator">
+
+                                <div class="commentator-name">
+                                    ${escapeHTML(item[1])}
+                                </div>
+
+
+                                ${
+                                    commentator.summary
+                                    ?
+                                    `
+                                    <div class="commentator-label">
+                                        خلاصة التفسير
+                                    </div>
+
+                                    <div class="commentator-text">
+                                        ${textHTML(
+                                            commentator.summary
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    commentator.interpretation
+                                    ?
+                                    `
+                                    <div class="commentator-label">
+                                        التفسير
+                                    </div>
+
+                                    <div class="commentator-text">
+                                        ${textHTML(
+                                            commentator.interpretation
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    commentator.theological_emphasis
+                                    ?
+                                    `
+                                    <div class="commentator-label">
+                                        التركيز اللاهوتي
+                                    </div>
+
+                                    <div class="commentator-text">
+                                        ${textHTML(
+                                            commentator.theological_emphasis
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </article>
+
+                        `;
+
+                    }).join("")}
+
+                </div>
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   المقارنة بين المفسرين
+========================================================= */
+
+function renderComparison(data){
+
+    if(!data){
+
+        return "";
+
+    }
+
+
+    const sections = [
+
+        [
+            "نقاط الاتفاق",
+            data.points_of_agreement
+        ],
+
+        [
+            "نقاط الاختلاف",
+            data.points_of_difference
+        ],
+
+        [
+            "الاحتمالات التفسيرية",
+            data.interpretive_options
+        ]
+
+    ];
+
+
+    const available =
+        sections.filter(function(item){
+
+            return (
+                Array.isArray(item[1]) &&
+                item[1].length
+            );
+
+        });
+
+
+    const preferred =
+        data.preferred_interpretation ||
+        "";
+
+
+    const reasoning =
+        data.reasoning ||
+        "";
+
+
+    if(
+        !available.length &&
+        !preferred &&
+        !reasoning
+    ){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <section class="section">
+
+            <div class="section-header">
+                ⚖️ المقارنة بين التفسيرات
+            </div>
+
+            <div class="section-body">
+
+                <div class="comparison-list">
+
+                    ${available.map(function(item){
+
+                        return `
+
+                            <div class="comparison-item">
+
+                                <div class="comparison-title">
+                                    ${escapeHTML(item[0])}
+                                </div>
+
+                                <div>
+
+                                    ${item[1].map(function(value){
+
+                                        return `
+                                            <div>
+                                                • ${textHTML(value)}
+                                            </div>
+                                        `;
+
+                                    }).join("")}
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }).join("")}
+
+
+                    ${
+                        preferred
+                        ?
+                        `
+                        <div class="comparison-item">
+
+                            <div class="comparison-title">
+                                التفسير الأرجح
+                            </div>
+
+                            ${textHTML(preferred)}
+
+                        </div>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    ${
+                        reasoning
+                        ?
+                        `
+                        <div class="comparison-item">
+
+                            <div class="comparison-title">
+                                أساس الترجيح
+                            </div>
+
+                            ${textHTML(reasoning)}
+
+                        </div>
+                        `
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   اللاهوت
+========================================================= */
+
+function renderTheology(data){
+
+    if(!data){
+
+        return "";
+
+    }
+
+
+    const items = [
+
+        ["الله",data.god],
+
+        ["المسيح",data.christ],
+
+        ["الروح القدس",data.holy_spirit],
+
+        ["الخلاص",data.salvation],
+
+        ["العهد",data.covenant],
+
+        ["الملكوت",data.kingdom],
+
+        ["الكنيسة",data.church],
+
+        ["الأخرويات",data.eschatology]
+
+    ];
+
+
+    const grid =
+        renderInfoGrid(
+
+            items.map(function(item){
+
+                return {
+
+                    label:item[0],
+                    value:item[1]
+
+                };
+
+            })
+
+        );
+
+
+    if(!grid){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <section class="section">
+
+            <div class="section-header">
+                ✝️ المعنى اللاهوتي
+            </div>
+
+            <div class="section-body">
+
+                ${grid}
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   المسيح في الآية
+========================================================= */
+
+function renderChristological(data){
+
+    if(!data){
+
+        return "";
+
+    }
+
+
+    const content = [
+
+        data.direct
+            ? "الارتباط المباشر:\n" +
+              data.direct
+            : "",
+
+        data.typological
+            ? "الارتباط الرمزي/النمطي:\n" +
+              data.typological
+            : "",
+
+        data.canonical
+            ? "الارتباط القانوني الكتابي:\n" +
+              data.canonical
+            : "",
+
+        data.new_testament_connection
+            ? "الارتباط بالعهد الجديد:\n" +
+              data.new_testament_connection
+            : ""
+
+    ]
+    .filter(Boolean)
+    .join("\n\n");
+
+
+    return renderTextSection(
+        "✝️",
+        "ارتباط الآية بالمسيح",
+        content
+    );
+
+}
+
+
+/* =========================================================
+   الربط ببقية الكتاب المقدس
+========================================================= */
+
+function renderConnections(data){
+
+    if(
+        !Array.isArray(data) ||
+        !data.length
+    ){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <section class="section">
+
+            <div class="section-header">
+                🔗 ارتباط الآية ببقية الكتاب المقدس
+            </div>
+
+            <div class="section-body">
+
+                <div class="connections">
+
+                    ${data.map(function(item){
+
+                        return `
+
+                            <div class="connection">
+
+                                ${
+                                    item.reference
+                                    ?
+                                    `
+                                    <div class="connection-reference">
+                                        ${escapeHTML(
+                                            item.reference
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.relationship
+                                    ?
+                                    `
+                                    <div>
+                                        <strong>
+                                            العلاقة:
+                                        </strong>
+
+                                        ${textHTML(
+                                            item.relationship
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.explanation
+                                    ?
+                                    `
+                                    <div style="margin-top:6px;">
+                                        ${textHTML(
+                                            item.explanation
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+                        `;
+
+                    }).join("")}
+
+                </div>
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   الأماكن والأنهار
+========================================================= */
+
+function renderPlaces(data){
+
+    if(
+        !Array.isArray(data) ||
+        !data.length
+    ){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <section class="section">
+
+            <div class="section-header">
+                🗺️ الأماكن والأنهار
+            </div>
+
+            <div class="section-body">
+
+                <div class="connections">
+
+                    ${data.map(function(item){
+
+                        return `
+
+                            <div class="connection">
+
+                                <div class="connection-reference">
+
+                                    ${escapeHTML(
+                                        item.name || ""
+                                    )}
+
+                                </div>
+
+
+                                ${
+                                    item.type
+                                    ?
+                                    `
+                                    <div>
+                                        <strong>
+                                            النوع:
+                                        </strong>
+
+                                        ${escapeHTML(
+                                            item.type
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.modern_location
+                                    ?
+                                    `
+                                    <div>
+                                        <strong>
+                                            الموقع الحالي:
+                                        </strong>
+
+                                        ${textHTML(
+                                            item.modern_location
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.biblical_significance
+                                    ?
+                                    `
+                                    <div style="margin-top:6px;">
+                                        ${textHTML(
+                                            item.biblical_significance
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+                        `;
+
+                    }).join("")}
+
+                </div>
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   التطبيقات
+========================================================= */
+
+function renderApplications(data){
+
+    if(!data){
+
+        return "";
+
+    }
+
+
+    const items = [
+
+        ["تطبيق شخصي",data.personal],
+
+        ["تطبيق كنسي",data.church],
+
+        ["الخدمة",data.ministry],
+
+        ["التلمذة",data.discipleship],
+
+        ["الدراسة والبحث",data.research]
+
+    ];
+
+
+    const grid =
+        renderInfoGrid(
+
+            items.map(function(item){
+
+                return {
+
+                    label:item[0],
+                    value:item[1]
+
+                };
+
+            })
+
+        );
+
+
+    if(!grid){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <section class="section">
+
+            <div class="section-header">
+                💡 التطبيقات والدلالات
+            </div>
+
+            <div class="section-body">
+
+                ${grid}
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   المراجع
+========================================================= */
+
+function renderReferences(data){
+
+    if(
+        !Array.isArray(data) ||
+        !data.length
+    ){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <section class="section">
+
+            <div class="section-header">
+                📖 المراجع والمصادر
+            </div>
+
+            <div class="section-body">
+
+                <div class="references">
+
+                    ${data.map(function(item){
+
+                        return `
+
+                            <div class="reference-item">
+
+                                ${
+                                    item.type
+                                    ?
+                                    `
+                                    <div class="reference-type">
+                                        ${escapeHTML(
+                                            item.type
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                <div class="reference-name">
+
+                                    ${escapeHTML(
+                                        item.author ||
+                                        item.work ||
+                                        item.title ||
+                                        item.reference ||
+                                        ""
+                                    )}
+
+                                </div>
+
+
+                                ${
+                                    item.work &&
+                                    item.author
+                                    ?
+                                    `
+                                    <div>
+                                        العمل:
+                                        ${escapeHTML(
+                                            item.work
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.edition
+                                    ?
+                                    `
+                                    <div>
+                                        الطبعة:
+                                        ${escapeHTML(
+                                            item.edition
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.publisher
+                                    ?
+                                    `
+                                    <div>
+                                        الناشر:
+                                        ${escapeHTML(
+                                            item.publisher
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.year
+                                    ?
+                                    `
+                                    <div>
+                                        السنة:
+                                        ${escapeHTML(
+                                            item.year
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.pages
+                                    ?
+                                    `
+                                    <div>
+                                        الصفحات:
+                                        ${escapeHTML(
+                                            item.pages
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.section
+                                    ?
+                                    `
+                                    <div>
+                                        القسم:
+                                        ${escapeHTML(
+                                            item.section
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.entry
+                                    ?
+                                    `
+                                    <div>
+                                        المدخل:
+                                        ${escapeHTML(
+                                            item.entry
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    item.note
+                                    ?
+                                    `
+                                    <div class="reference-note">
+                                        ${textHTML(
+                                            item.note
+                                        )}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+                        `;
+
+                    }).join("")}
+
+                </div>
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   حالة الدراسة
+========================================================= */
+
+function renderStatus(data){
+
+    if(!data){
+
+        return "";
+
+    }
+
+
+    const status =
+        data.status || {};
+
+
+    if(
+        status.completed &&
+        status.reviewed &&
+        status.sources_verified
+    ){
+
+        return `
+
+            <div class="status status-complete">
+
+                ✓ دراسة مكتملة
+                —
+                تمت مراجعة المحتوى والتحقق من المصادر.
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="status status-pending">
+
+            هذه الدراسة جزء من قاعدة موسوعة التفسير،
+            وسيتم استكمال المادة العلمية والتحقق من المصادر
+            بحسب حالة السجل.
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   بناء الدراسة كاملة
+========================================================= */
+
+function renderStudy(study,reference){
+
+    if(!study){
+
+        renderMissing(reference);
+
+        return;
+
+    }
+
+
+    const parsed =
+        parseReference(reference);
+
+
+    const book =
+        study.reference?.book ||
+        parsed?.book ||
+        "";
+
+
+    const chapter =
+        study.reference?.chapter ??
+        parsed?.chapter ??
+        "";
+
+
+    const verse =
+        study.reference?.verse ??
+        parsed?.verse ??
+        "";
+
+
+    const bookName =
+        study.reference?.book_name ||
+        BOOK_NAMES[book] ||
+        book;
+
+
+    const verseText =
+        study.text ||
+        "";
+
+
+    app.innerHTML = `
+
+        <div class="reference-card">
+
+            <div class="reference-book">
+
+                ${escapeHTML(bookName)}
+
+            </div>
+
+
+            <div class="reference-location">
+
+                الأصحاح ${escapeHTML(chapter)}
+                :
+                الآية ${escapeHTML(verse)}
+
+            </div>
+
+
+            ${
+                verseText
+                ?
+                `
+                <div class="reference-verse">
+
+                    ${textHTML(verseText)}
+
+                </div>
+                `
+                :
+                ""
+            }
+
+        </div>
+
+
+        <div class="study">
+
+
+            ${renderTextSection(
+                "📖",
+                "سياق الآية",
+                [
+                    study.context?.immediate,
+                    study.context?.chapter,
+                    study.context?.book,
+                    study.context?.canonical
+                ]
+                .filter(Boolean)
+                .join("\n\n")
+            )}
+
+
+            ${renderTextSection(
+                "🧩",
+                "البناء الأدبي والموضوعي",
+                [
+                    study.literary_structure?.genre
+                        ? "نوع النص:\n" +
+                          study.literary_structure.genre
+                        : "",
+
+                    study.literary_structure?.structure
+                        ? "البناء:\n" +
+                          study.literary_structure.structure
+                        : "",
+
+                    study.literary_structure?.theme
+                        ? "الموضوع:\n" +
+                          study.literary_structure.theme
+                        : "",
+
+                    study.literary_structure?.literary_features
+                        ? "الخصائص الأدبية:\n" +
+                          study.literary_structure.literary_features
+                        : ""
+
+                ]
+                .filter(Boolean)
+                .join("\n\n")
+            )}
+
+
+            ${renderHistorical(
+                study.historical_background
+            )}
+
+
+            ${renderJewishBackground(
+                study.jewish_background
+            )}
+
+
+            ${renderOriginalLanguage(
+                study.original_language
+            )}
+
+
+            ${renderCommentators(
+                study.commentators
+            )}
+
+
+            ${renderComparison(
+                study.comparison
+            )}
+
+
+            ${renderTheology(
+                study.theological_interpretation
+            )}
+
+
+            ${renderChristological(
+                study.christological_connection
+            )}
+
+
+            ${renderConnections(
+                study.biblical_connections
+            )}
+
+
+            ${renderPlaces(
+                study.places_and_rivers
+            )}
+
+
+            ${renderApplications(
+                study.applications
+            )}
+
+
+            ${renderTextSection(
+                "📜",
+                "الخلاصة التفسيرية",
+                study.summary
+            )}
+
+
+            ${renderReferences(
+                study.references
+            )}
+
+
+            ${renderStatus(
+                study
+            )}
+
+        </div>
+
+    `;
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   عدم وجود تفسير للآية
+========================================================= */
+
+function renderMissing(reference){
+
+    const parsed =
+        parseReference(reference);
+
+
+    const book =
+        parsed?.book || "";
+
+
+    const chapter =
+        parsed?.chapter || "";
+
+
+    const verse =
+        parsed?.verse || "";
+
+
+    const bookName =
+        BOOK_NAMES[book] ||
+        book ||
+        "الآية";
+
+
+    app.innerHTML = `
+
+        <section class="section">
+
+            <div class="section-header">
+                📚 موسوعة التفسير
+            </div>
+
+            <div class="empty">
+
+                لا توجد دراسة تفسيرية مدخلة حاليًا
+                لهذا المرجع في
+                <b>commentary.json</b>.
+
+                <br><br>
+
+                المرجع:
+
+                <strong style="color:var(--gold2);">
+
+                    ${escapeHTML(bookName)}
+                    ${chapter ? " " + chapter : ""}
+                    ${verse ? ":" + verse : ""}
+
+                </strong>
+
+                <br><br>
+
+                هذا لا يعني أن الآية غير موجودة في الكتاب المقدس.
+                بيانات الكتاب المقدس نفسها لا يتم تحميلها من
+                <b>commentary.json</b>.
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   خطأ تحميل قاعدة التفسير
+========================================================= */
+
+function renderError(error){
+
+    app.innerHTML = `
+
+        <section class="section">
+
+            <div class="section-header">
+                ⚠️ خطأ في موسوعة التفسير
+            </div>
+
+            <div class="error">
+
+                تعذر تحميل
+                <b>commentary.json</b>.
+
+                <br><br>
+
+                تأكد من أن الملف موجود في نفس مجلد
+                <b>overview.html</b>.
+
+                <br><br>
+
+                الخطأ:
+
+                <b>
+                    ${escapeHTML(
+                        error?.message || "خطأ غير معروف"
+                    )}
+                </b>
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   تحميل قاعدة التفسير
+========================================================= */
+
+async function loadCommentary(){
+
+    const reference =
+        getVerseReference();
+
+
+    if(!reference){
+
+        app.innerHTML = `
+
+            <section class="section">
+
+                <div class="section-header">
+                    📚 موسوعة التفسير
+                </div>
+
+                <div class="empty">
+
+                    لم يتم إرسال مرجع آية إلى صفحة التفسير.
+
+                    <br><br>
+
+                    افتح التفسير من نافذة آية داخل
+                    <b>bible.html</b>.
+
+                </div>
+
+            </section>
+
+        `;
+
+        return;
+
+    }
+
+
+    try{
+
+        const response =
+            await fetch(
+                COMMENTARY_URL,
+                {
+                    cache:"no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP " + response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const study =
+            findCommentary(
+                data,
+                reference
+            );
+
+
+        renderStudy(
+            study,
+            reference
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Commentary loading error:",
+            error
+        );
+
+
+        renderError(error);
+
+    }
+
+}
+
+
+/* =========================================================
+   التشغيل
+========================================================= */
+
+loadCommentary();
+
+</script>
+
+</body>
+</html>
