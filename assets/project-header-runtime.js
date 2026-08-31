@@ -1,4 +1,73 @@
 (function () {
+    const selectedLanguage = localStorage.getItem('bibleAppLanguage') === 'en' ? 'en' : 'ar';
+    document.documentElement.lang = selectedLanguage;
+    document.documentElement.dir = selectedLanguage === 'en' ? 'ltr' : 'rtl';
+    document.body.dir = document.documentElement.dir;
+
+    function normalizeTranslationKey(value) {
+        return String(value || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function translatePattern(value) {
+        const patterns = [
+            [/^الأصحاح\s+(\d+)$/, 'Chapter $1'],
+            [/^(\d+)\s+سفرًا$/, '$1 Books'],
+            [/^نتائج البحث عن:\s*(.+)$/, 'Search results for: $1']
+        ];
+        for (const [pattern, replacement] of patterns) {
+            if (pattern.test(value)) return value.replace(pattern, replacement);
+        }
+        return '';
+    }
+
+    function translateElement(root, translations) {
+        const scope = root && root.nodeType === Node.ELEMENT_NODE ? root : document.body;
+        if (!scope) return;
+        const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        textNodes.forEach((node) => {
+            if (!node.parentElement || /^(SCRIPT|STYLE|PRE|TEXTAREA)$/.test(node.parentElement.tagName)) return;
+            const key = normalizeTranslationKey(node.nodeValue);
+            const translation = translations[key] || translatePattern(key);
+            if (!key || key.length === 1 || !translation) return;
+            const leading = node.nodeValue.match(/^\s*/)[0];
+            const trailing = node.nodeValue.match(/\s*$/)[0];
+            node.nodeValue = `${leading}${translation}${trailing}`;
+        });
+        scope.querySelectorAll('[title], [placeholder], [aria-label], [alt]').forEach((element) => {
+            ['title', 'placeholder', 'aria-label', 'alt'].forEach((attribute) => {
+                const value = element.getAttribute(attribute);
+                const translation = translations[normalizeTranslationKey(value)];
+                if (translation) element.setAttribute(attribute, translation);
+            });
+        });
+    }
+
+    async function applyEnglishTranslations() {
+        if (selectedLanguage !== 'en') return;
+        try {
+            const response = await fetch('assets/project-translations-en.json?v=20260831-2');
+            if (!response.ok) throw new Error(`Translation file returned ${response.status}`);
+            const translations = await response.json();
+            const titleKey = normalizeTranslationKey(document.title);
+            if (translations[titleKey]) document.title = translations[titleKey];
+            translateElement(document.body, translations);
+            let translationFrame = 0;
+            new MutationObserver((mutations) => {
+                if (translationFrame) return;
+                const added = mutations.flatMap((mutation) => [...mutation.addedNodes]).find((node) => node.nodeType === Node.ELEMENT_NODE);
+                if (!added) return;
+                translationFrame = requestAnimationFrame(() => {
+                    translationFrame = 0;
+                    translateElement(document.body, translations);
+                });
+            }).observe(document.body, { childList: true, subtree: true });
+        } catch (error) {
+            console.error('Unable to load English translations.', error);
+        }
+    }
+
     const isEntryPage = location.pathname.endsWith('/index.html') || location.pathname.endsWith('index.html') || location.pathname === '/';
     if (!isEntryPage && !localStorage.getItem('bibleAppSession')) {
         location.replace('index.html');
@@ -52,11 +121,22 @@
     brand.innerHTML = `<div class="project-brand-text"><div class="project-brand-name">موسوعة الكتاب المقدس</div><div class="project-brand-church">كنيسة رجاء الأمم سيدني</div></div><img class="project-brand-logo" src="${logo ? logo.getAttribute('src') : 'assets/logo.png'}" alt="شعار كنيسة رجاء الأمم سيدني">`;
     const actions = document.createElement('div');
     actions.className = 'project-header-actions';
+    const languageToggle = document.createElement('button');
+    languageToggle.className = 'project-language-toggle';
+    languageToggle.type = 'button';
+    languageToggle.setAttribute('aria-label', 'Switch language');
+    languageToggle.textContent = selectedLanguage === 'en' ? 'العربية' : 'English';
+    languageToggle.addEventListener('click', () => {
+        const language = localStorage.getItem('bibleAppLanguage') === 'en' ? 'ar' : 'en';
+        localStorage.setItem('bibleAppLanguage', language);
+        location.reload();
+    });
     const back = document.createElement('a');
     back.className = 'project-return';
     back.href = returnHref;
     back.innerHTML = `<span>↩</span><span>${returnText || 'الدراسات'}</span>`;
     if (!isHomePage) actions.appendChild(back);
+    actions.appendChild(languageToggle);
     if (location.pathname.endsWith('/bible.html') || location.pathname.endsWith('bible.html')) {
         document.body.classList.add('project-bible-page');
         const bibleHome = document.createElement('button');
@@ -84,4 +164,5 @@
     projectFooter.className = 'project-footer';
     projectFooter.innerHTML = '<div>موسوعة الكتاب المقدس</div><div>كنيسة رجاء الأمم سيدني</div>';
     document.body.appendChild(projectFooter);
+    applyEnglishTranslations();
 }());

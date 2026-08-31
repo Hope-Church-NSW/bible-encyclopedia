@@ -1029,7 +1029,9 @@ main{
    الملف الموجود فعليًا في المستودع
 ========================================================= */
 
-const BIBLE_URL = "bible.json";
+const ENGLISH_MODE = localStorage.getItem("bibleAppLanguage") === "en";
+const BIBLE_URL = ENGLISH_MODE ? "bible-en.json" : "bible.json";
+const ui = (arabic, english) => ENGLISH_MODE ? english : arabic;
 const CROSS_REFERENCES_URL = "cross-references.json";
 const VERSE_GEOGRAPHY_URL = "verse-geography.json";
 const ORIGINAL_LANGUAGE_URL = "original-language-bible.json";
@@ -1118,6 +1120,29 @@ const BOOK_NAMES = {
     "66-Revelation":"رؤيا يوحنا"
 
 };
+
+const ENGLISH_BOOK_NAMES = {
+    "01-gen":"Genesis", "02-Exodus":"Exodus", "03-Leviticus":"Leviticus", "04-Numbers":"Numbers",
+    "05-Deut":"Deuteronomy", "06-Joshua":"Joshua", "07-Judges":"Judges", "08-Ruth":"Ruth",
+    "09-1-Samuel":"1 Samuel", "10-2-Samuel":"2 Samuel", "11-1-Kings":"1 Kings", "12-2-Kings":"2 Kings",
+    "13-1-Chronicles":"1 Chronicles", "14-2-Chronicles":"2 Chronicles", "15-Ezra":"Ezra", "16-Nehmiah":"Nehemiah",
+    "17-Esther":"Esther", "18-Job":"Job", "19-Psalms":"Psalms", "20-Proverbs":"Proverbs",
+    "21-Ecclesiastes":"Ecclesiastes", "22-Sos":"Song of Solomon", "23-Isiah":"Isaiah", "24-Jeremiah":"Jeremiah",
+    "25-Lamentations":"Lamentations", "26-Ezekiel":"Ezekiel", "27-Daniel":"Daniel", "28-Hosea":"Hosea",
+    "29-Joel":"Joel", "30-Amos":"Amos", "31-Obadiah":"Obadiah", "32-Jonah":"Jonah", "33-Micah":"Micah",
+    "34-Nahum":"Nahum", "35-Habakuk":"Habakkuk", "36-Zephaniah":"Zephaniah", "37-Haggai":"Haggai",
+    "38-Zechariah":"Zechariah", "39-Malachi":"Malachi", "40-Matthew":"Matthew", "41-Mark":"Mark",
+    "42-Luke":"Luke", "43-John":"John", "44-Acts":"Acts", "45-Romans":"Romans", "46-1-Corinthians":"1 Corinthians",
+    "47-2-Corinthians":"2 Corinthians", "48-Galatians":"Galatians", "49-Ephesians":"Ephesians", "50-Philipians":"Philippians",
+    "51-Colossians":"Colossians", "52-1-thessalonians":"1 Thessalonians", "53-2-thessalonians":"2 Thessalonians",
+    "54-1-Timothy":"1 Timothy", "55-2-Timothy":"2 Timothy", "56-Titus":"Titus", "57-Phillemon":"Philemon",
+    "58-Hebrews":"Hebrews", "59-James":"James", "60-1-peter":"1 Peter", "61-2pet":"2 Peter",
+    "62-1-John":"1 John", "63-2-John":"2 John", "64-3-John":"3 John", "65-Jude":"Jude", "66-Revelation":"Revelation"
+};
+
+if(ENGLISH_MODE){
+    Object.assign(BOOK_NAMES, ENGLISH_BOOK_NAMES);
+}
 
 
 /* =========================================================
@@ -1379,7 +1404,7 @@ function renderTestaments(){
 
             <div class="inner-topbar">
                 <h2 class="inner-title">
-                    📖 الكتاب المقدس
+                    📖 ${ui("الكتاب المقدس", "Holy Bible")}
                 </h2>
 
             </div>
@@ -1390,11 +1415,11 @@ function renderTestaments(){
                         id="searchInput"
                         class="search-input"
                         type="search"
-                        placeholder="ابحث بكلمة أو عبارة في الكتاب المقدس..."
+                        placeholder="${ui("ابحث بكلمة أو عبارة في الكتاب المقدس...", "Search for a word or phrase in the Holy Bible...")}"
                         autocomplete="off"
                     >
                     <button class="search-submit" type="button" onclick="performSearch()">
-                        بحث
+                        ${ui("بحث", "Search")}
                     </button>
                 </div>
                 <div id="searchResults"></div>
@@ -1414,11 +1439,11 @@ function renderTestaments(){
                     </div>
 
                     <div class="testament-title">
-                        العهد القديم
+                        ${ui("العهد القديم", "Old Testament")}
                     </div>
 
                     <div class="testament-count">
-                        39 سفرًا
+                        ${ui("39 سفرًا", "39 Books")}
                     </div>
 
                 </button>
@@ -1435,11 +1460,11 @@ function renderTestaments(){
                     </div>
 
                     <div class="testament-title">
-                        العهد الجديد
+                        ${ui("العهد الجديد", "New Testament")}
                     </div>
 
                     <div class="testament-count">
-                        27 سفرًا
+                        ${ui("27 سفرًا", "27 Books")}
                     </div>
 
                 </button>
@@ -1477,8 +1502,8 @@ function openTestament(testament){
 
     const title =
         testament === "old"
-            ? "العهد القديم"
-            : "العهد الجديد";
+            ? ui("العهد القديم", "Old Testament")
+            : ui("العهد الجديد", "New Testament");
 
 
     app.innerHTML = `
@@ -1492,7 +1517,7 @@ function openTestament(testament){
                     type="button"
                     onclick="renderTestaments()"
                 >
-                    ← العهدان
+                    ← ${ui("العهدان", "Testaments")}
                 </button>
 
                 <h2 class="inner-title">
@@ -1560,7 +1585,7 @@ function openBook(bookId){
                         type="button"
                         onclick="openTestament(currentTestament)"
                     >
-                        ← الأسفار
+                        ← ${ui("الأسفار", "Books")}
                     </button>
 
                     <h2 class="inner-title">
@@ -1582,7 +1607,7 @@ function openBook(bookId){
 
                     <br>
 
-                    لا توجد بيانات لهذا السفر داخل
+                    ${ui("لا توجد بيانات لهذا السفر داخل", "No data is available for this book in")}
                     <b>bible.json</b>.
 
                 </div>
@@ -1607,7 +1632,7 @@ function openBook(bookId){
                     type="button"
                     onclick="openTestament(currentTestament)"
                 >
-                    ← الأسفار
+                    ← ${ui("الأسفار", "Books")}
                 </button>
 
                 <h2 class="inner-title">
@@ -1688,7 +1713,7 @@ function openChapter(bookId,chapter){
             <section class="workspace">
 
                 <div class="empty">
-                    لا توجد آيات لهذا الأصحاح داخل
+                    ${ui("لا توجد آيات لهذا الأصحاح داخل", "No verses are available for this chapter in")}
                     <b>bible.json</b>.
                 </div>
 
@@ -1716,7 +1741,7 @@ function openChapter(bookId,chapter){
                     </div>
 
                     <h2 class="chapter-number">
-                        الأصحاح ${chapter}
+                        ${ui("الأصحاح", "Chapter")} ${chapter}
                     </h2>
 
                 </div>
@@ -1764,7 +1789,7 @@ function openChapter(bookId,chapter){
                         type="button"
                         onclick="previousChapter()"
                     >
-                        ← السابق
+                        ← ${ui("السابق", "Previous")}
                     </button>
 
 
@@ -1784,7 +1809,7 @@ function openChapter(bookId,chapter){
                         type="button"
                         onclick="nextChapter()"
                     >
-                        التالي →
+                        ${ui("التالي", "Next")} →
                     </button>
 
                 </div>
