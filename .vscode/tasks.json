@@ -1,0 +1,486 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Apply shared project header",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"const fs=require('fs'); for (const file of fs.readdirSync('.').filter(f=>f.endsWith('.html'))) { let s=fs.readFileSync(file,'utf8'); if(!s.includes('assets/project-header.css')) s=s.replace('</head>','<link rel=\"stylesheet\" href=\"assets/project-header.css\">\\n</head>'); if(!s.includes('assets/project-header.js')) s=s.replace('</body>','<script src=\"assets/project-header.js\"></script>\\n</body>'); fs.writeFileSync(file,s,'utf8'); } console.log('Shared header assets linked to all HTML pages');"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Link shared header files",
+			"type": "shell",
+			"command": "node link-project-header.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify shared header coverage",
+			"type": "shell",
+			"command": "node verify-project-header.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Refresh shared header assets",
+			"type": "shell",
+			"command": "node bump-header-assets.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Switch header runtime files",
+			"type": "shell",
+			"command": "node switch-header-runtime.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Preserve Ezra source",
+			"type": "shell",
+			"command": "node copy-ezra-source.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Preserve Genesis and Nehemiah sources",
+			"type": "shell",
+			"command": "node copy-two-studies.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Preserve remaining study sources",
+			"type": "shell",
+			"command": "node copy-remaining-studies.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Preserve Job and Esther sources",
+			"type": "shell",
+			"command": "node copy-job-esther.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Preserve wisdom study sources",
+			"type": "shell",
+			"command": "node copy-wisdom-studies.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Preserve prophetic study sources",
+			"type": "shell",
+			"command": "node copy-prophets.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Preserve second prophet batch",
+			"type": "shell",
+			"command": "node copy-prophets-2.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Preserve Joel Amos Ezekiel",
+			"type": "shell",
+			"command": "node copy-new-prophets.js",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Preserve Matthew Study",
+			"type": "shell",
+			"command": "node -e \"require('fs').copyFileSync('C:\\\\Users\\\\Man\\\\Documents\\\\مقدمات العهد الجديد\\\\متى.txt','matthew-study.txt'); console.log('Copied Matthew study')\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Copy Matthew Source",
+			"type": "shell",
+			"command": "Copy-Item -LiteralPath 'C:\\Users\\Man\\Documents\\مقدمات العهد الجديد\\متى.txt' -Destination 'matthew-study.txt' -Force",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Index whole Bible commentary sources",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"--max-old-space-size=4096",
+				"index-whole-bible-commentary-sources.js"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validate unified Bible data",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"validate-unified-bible.js"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Install Copilot CLI Windows binary",
+			"type": "process",
+			"command": "npm.cmd",
+			"args": [
+				"install",
+				"-g",
+				"@github/copilot-win32-x64@1.0.81"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Generate Numbers commentary pilot",
+			"type": "process",
+			"command": "copilot.cmd",
+			"args": [
+				"-p",
+				"Work only in this repository. Produce the next approved Arabic Bible commentary batch for Numbers 1:17-31. Read build-numbers-four-line-01a.js as the exact style/schema model, bible.json for verse text, sources/commentaries/numbers/draft-chapter-01.json for traceable source arrays and interpreter_names, and commentary-quality-policy.json. Create only build-numbers-four-line-01b.js and sources/commentaries/numbers/approved-chapter-01b.json. Each verse must have exactly four original Arabic lines: academic, theological, deep, applied; each line 55-230 chars, total <=760 chars; no unsupported language/history claims; no repeated 8-word phrase; preserve exact sources and interpreter_names. Do not alter any existing file. Run node validate-commentary-quality.js on the generated JSON and repair until it passes. Return concise result.",
+				"--allow-all-tools",
+				"--no-ask-user",
+				"--no-custom-instructions",
+				"--disable-builtin-mcps",
+				"--max-ai-credits",
+				"30",
+				"--model",
+				"auto",
+				"--silent"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validate Numbers commentary 01b",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"validate-commentary-quality.js",
+				"sources/commentaries/numbers/approved-chapter-01b.json"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validate approved commentary cumulative",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"validate-approved-commentary-cumulative.js"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Generate Numbers commentary 01c",
+			"type": "process",
+			"command": "copilot.cmd",
+			"args": [
+				"-p",
+				"Work only in this repository. Produce approved Arabic Bible commentary for Numbers 1:32-54. Read build-numbers-four-line-01a.js and build-numbers-four-line-01b.js as exact style/schema models, bible.json, sources/commentaries/numbers/draft-chapter-01.json, commentary-quality-policy.json, and validate-approved-commentary-cumulative.js. Create only build-numbers-four-line-01c.js and sources/commentaries/numbers/approved-chapter-01c.json. Each verse must have exactly four original Arabic lines: academic, theological, deep, applied; each 55-230 chars and total <=760; explain that exact verse within its unit; no unsupported language/history claims; preserve exact sources and interpreter_names; avoid repeated 8-word phrases or high similarity with existing approved files. Run validate-commentary-quality.js and validate-approved-commentary-cumulative.js, repair until both pass. Do not alter existing files. Return concise result.",
+				"--allow-all-tools",
+				"--no-ask-user",
+				"--no-custom-instructions",
+				"--disable-builtin-mcps",
+				"--max-ai-credits",
+				"30",
+				"--model",
+				"auto",
+				"--silent"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validate Numbers commentary 01c",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"validate-commentary-quality.js",
+				"sources/commentaries/numbers/approved-chapter-01c.json"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Generate Numbers commentary 02a",
+			"type": "process",
+			"command": "copilot.cmd",
+			"args": [
+				"-p",
+				"Work only in this repository. Produce approved Arabic Bible commentary for Numbers 2:1-17. Read the existing build-numbers-four-line-01a.js, 01b.js, and 01c.js as style/schema models; bible.json; sources/commentaries/numbers/draft-chapter-02.json; commentary-quality-policy.json; and validate-approved-commentary-cumulative.js. Create only build-numbers-four-line-02a.js and sources/commentaries/numbers/approved-chapter-02a.json. Each verse needs exactly four original Arabic lines academic/theological/deep/applied, each 55-230 chars, total <=760, specific to that verse, source-grounded, no unsupported claims, preserving exact sources and interpreter_names. Avoid repeated 8-word phrases and high similarity with all existing approved files. Run both quality validators and repair until both pass. Do not alter existing files. Return concise result.",
+				"--allow-all-tools",
+				"--no-ask-user",
+				"--no-custom-instructions",
+				"--disable-builtin-mcps",
+				"--max-ai-credits",
+				"30",
+				"--model",
+				"auto",
+				"--silent"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validate Numbers commentary 02a",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"validate-commentary-quality.js",
+				"sources/commentaries/numbers/approved-chapter-02a.json"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Generate Numbers commentary 02b",
+			"type": "process",
+			"command": "copilot.cmd",
+			"args": [
+				"-p",
+				"Work only in this repository. Produce approved Arabic Bible commentary for Numbers 2:18-34. Read existing build-numbers-four-line scripts as exact style/schema models; bible.json; sources/commentaries/numbers/draft-chapter-02.json; commentary-quality-policy.json; and validate-approved-commentary-cumulative.js. Create only build-numbers-four-line-02b.js and sources/commentaries/numbers/approved-chapter-02b.json. Each verse needs exactly four original Arabic lines academic/theological/deep/applied, each 55-230 chars, total <=760, specific and source-grounded; preserve exact sources and interpreter_names; no unsupported claims, repeated 8-word phrases, or high similarity with approved files. Run both validators and repair until both pass. Do not alter existing files. Return concise result.",
+				"--allow-all-tools",
+				"--no-ask-user",
+				"--no-custom-instructions",
+				"--disable-builtin-mcps",
+				"--max-ai-credits",
+				"30",
+				"--model",
+				"auto",
+				"--silent"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validate Numbers commentary 02b",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"validate-commentary-quality.js",
+				"sources/commentaries/numbers/approved-chapter-02b.json"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build commentary production orchestrator",
+			"type": "process",
+			"command": "copilot.cmd",
+			"args": [
+				"-p",
+				"Work only in this repository. Implement a robust resumable production orchestrator for the remaining approved four-line Arabic Bible commentary. Read bible.json, commentary-worklist.json, commentary-quality-policy.json, validate-commentary-quality.js, validate-approved-commentary-cumulative.js, sync-approved-commentary-worklist.js, sources/commentaries/whole-bible/mhc-source-index.json, commentary-support-index.json, sources/commentaries/numbers/source-index.json, and existing build-numbers-four-line/approved files. Requirements: one user command; internally chunk at most 16 verses; invoke the installed authenticated Copilot CLI non-interactively using its npm-loader.js via Node spawnSync, max 30 credits per chunk; generate source packet per chunk with exact verse text, deduplicated primary source records/text/locators, and precise supplemental links; for Numbers prefer its three-source index, otherwise use whole-Bible primary index; request exactly four Arabic lines academic/theological/deep/applied within policy and exact interpreter names; write outputs under sources/commentaries/approved/<book>/; run validate-commentary-quality.js after every chunk; enforce global repeated eight-word phrase prevention incrementally; retry a failed chunk at most twice with validator feedback; never mark failed content approved; persist progress/report JSON after every chunk; resume by skipping already approved verse keys; stop cleanly on auth/quota/error; provide --dry-run and --max-chunks options; aggregate approved records into per-book commentary-data/<book>.json matching bible.html academic_synthesis explanation_lines schema; do not alter bible.json, existing approved commentary, or bible.html. Add concise README instructions and VS Code tasks for dry run and full run. Add tests using a mock CLI so orchestration logic can be validated without credits. Run tests. Return concise result.",
+				"--allow-all-tools",
+				"--no-ask-user",
+				"--no-custom-instructions",
+				"--disable-builtin-mcps",
+				"--max-ai-credits",
+				"30",
+				"--model",
+				"auto",
+				"--silent"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Dry run commentary production",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"run-approved-commentary-orchestrator.js",
+				"--dry-run",
+				"--max-chunks",
+				"2"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run full commentary production",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"run-approved-commentary-orchestrator.js"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run commentary production continuously",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"run-commentary-production-continuously.js"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run one commentary production chunk",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"run-approved-commentary-orchestrator.js",
+				"--max-chunks",
+				"1"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Test commentary production",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"test-commentary-orchestrator.js"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build Bible cross references",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-cross-references.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Extract original Bible texts",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"if exist sources\\original-languages\\hboWLC rmdir /s /q sources\\original-languages\\hboWLC & if exist sources\\original-languages\\grcbyz rmdir /s /q sources\\original-languages\\grcbyz & mkdir sources\\original-languages\\hboWLC & mkdir sources\\original-languages\\grcbyz & tar -xf sources\\original-languages\\hboWLC_usfm.zip -C sources\\original-languages\\hboWLC & tar -xf sources\\original-languages\\grcbyz_usfm.zip -C sources\\original-languages\\grcbyz & dir /s /b sources\\original-languages\\*.usfm"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Download original Bible texts cleanly",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"if not exist sources\\original-languages mkdir sources\\original-languages & curl.exe -L --fail https://ebible.org/Scriptures/hboWLC_usfm.zip -o sources\\original-languages\\hboWLC_usfm.zip & curl.exe -L --fail https://ebible.org/Scriptures/grcbyz_usfm.zip -o sources\\original-languages\\grcbyz_usfm.zip & mkdir sources\\original-languages\\hboWLC 2>nul & mkdir sources\\original-languages\\grcbyz 2>nul & tar -xf sources\\original-languages\\hboWLC_usfm.zip -C sources\\original-languages\\hboWLC & tar -xf sources\\original-languages\\grcbyz_usfm.zip -C sources\\original-languages\\grcbyz & dir /s /b sources\\original-languages"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Build original-language Bible",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-original-language-bible.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Audit original-language gaps",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"const b=require('./bible.json'),o=require('./original-language-bible.json').verses;const g={};for(const v of b){const k=`${v.book}:${v.chapter}:${v.verse}`;if(!o[k]){g[v.book]??=[];g[v.book].push(`${v.chapter}:${v.verse}`)}}console.log(JSON.stringify(g,null,2))"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Rebuild original-language Bible audit",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-original-language-bible.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Download Textus Receptus fallback",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"curl.exe -L --fail https://ebible.org/Scriptures/grctr_usfm.zip -o sources\\original-languages\\grctr_usfm.zip & mkdir sources\\original-languages\\grctr 2>nul & tar -xf sources\\original-languages\\grctr_usfm.zip -C sources\\original-languages\\grctr"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Rebuild complete original-language Bible",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-original-language-bible.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Check commentary production process",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"wmic process where \"name='node.exe' and commandline like '%run-approved-commentary-orchestrator.js%'\" get ProcessId,CommandLine /format:list"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Report commentary production status",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"commentary-production-status.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Refresh commentary completion status",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"commentary-production-status.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		}
+	]
+}

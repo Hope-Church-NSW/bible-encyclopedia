@@ -63,12 +63,20 @@ header{
 
 .header-inner{
     width:min(1400px,92%);
-    min-height:78px;
+    min-height:96px;
     margin:auto;
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:20px;
+}
+
+.header-actions{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:7px;
+    padding:8px 0;
 }
 
 .home-button{
@@ -91,6 +99,10 @@ header{
 .home-button:hover{
     background:var(--panel3);
     transform:translateY(-1px);
+}
+
+.bible-home-button[hidden]{
+    display:none;
 }
 
 .brand{
@@ -353,8 +365,9 @@ main{
 }
 
 .chapter-heading{
+    position:relative;
     text-align:center;
-    padding:5px 0 22px;
+    padding:52px 0 22px;
     border-bottom:1px solid var(--line);
     margin-bottom:4px;
 }
@@ -387,6 +400,11 @@ main{
 
 .verse:hover{
     background:rgba(16,42,70,.75);
+}
+
+.verse.search-target{
+    background:rgba(212,175,55,.16);
+    box-shadow:inset 0 0 0 2px rgba(212,175,55,.45);
 }
 
 .verse-number{
@@ -568,14 +586,21 @@ main{
 }
 
 .close-modal{
-    width:42px;
+    min-width:42px;
     height:42px;
+    padding:0 12px;
     border:1px solid var(--line);
     border-radius:10px;
     background:var(--panel2);
     color:var(--white);
     cursor:pointer;
     font-size:22px;
+}
+
+.modal.feature-open .close-modal{
+    width:auto;
+    font-size:15px;
+    font-weight:900;
 }
 
 .modal-verse{
@@ -608,6 +633,144 @@ main{
     border-color:var(--gold);
     background:var(--panel3);
     color:var(--gold2);
+}
+
+.modal.feature-open .modal-verse,
+.modal.feature-open .modal-actions{
+    display:none;
+}
+
+.verse-feature-panel{
+    display:none;
+    padding:22px;
+}
+
+.modal.feature-open .verse-feature-panel{
+    display:block;
+}
+
+.feature-title{
+    margin:18px 0 10px;
+    color:var(--gold2);
+    font-size:22px;
+}
+
+.feature-title:empty{
+    display:none;
+}
+
+.feature-content{
+    margin:0;
+    color:var(--white);
+    line-height:2;
+    white-space:pre-wrap;
+}
+
+.cross-reference-group + .cross-reference-group{
+    margin-top:20px;
+}
+
+.cross-reference-heading{
+    margin:0 0 10px;
+    color:var(--gold2);
+    font-size:17px;
+}
+
+.cross-reference-list{
+    display:grid;
+    gap:9px;
+}
+
+.cross-reference{
+    width:100%;
+    padding:11px 13px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--panel2);
+    color:var(--white);
+    text-align:right;
+    cursor:pointer;
+}
+
+.cross-reference:hover{
+    border-color:var(--gold);
+    background:var(--panel3);
+}
+
+.cross-reference-label{
+    display:block;
+    margin-bottom:4px;
+    color:var(--gold2);
+    font-weight:900;
+}
+
+.cross-reference-text{
+    display:block;
+    font-size:14px;
+    line-height:1.75;
+}
+
+.cross-reference-source{
+    margin:16px 0 0;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+}
+
+.geography-list{display:grid;gap:10px}.geography-item{padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}.geography-item h4{margin:0;color:var(--gold2);font-size:17px}.geography-kind{display:inline-block;margin-inline-start:7px;color:var(--muted);font-size:12px}.geography-item p{margin:5px 0 0;color:var(--white);line-height:1.7;white-space:normal}.geography-map{margin-top:10px}
+
+.original-language-modal{z-index:1100}.language-body{padding:20px}.language-block{padding:16px;border:1px solid var(--line);border-radius:11px;background:var(--panel2)}.language-block + .language-block{margin-top:12px}.language-label{margin:0 0 8px;color:var(--gold2);font-size:15px}.language-arabic,.language-original{margin:0;color:var(--white);font-size:19px;line-height:2}.language-original{font-family:"SBL Hebrew","Ezra SIL","SBL Greek","Gentium Plus","Times New Roman",serif;font-size:23px}.language-source{margin:12px 0 0;color:var(--muted);font-size:12px;line-height:1.7}.language-loading{padding:22px;color:var(--white)}
+
+.commentary-explanation p{
+    margin:0;
+    line-height:1.65;
+}
+
+.commentary-explanation{
+    white-space:normal;
+}
+
+.commentary-verse-text{
+    margin:12px 0 14px;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--panel2);
+    color:var(--gold2);
+    font-size:18px;
+    line-height:1.8;
+}
+
+.commentary-explanation .commentary-sources{
+    margin-top:0;
+    padding-top:0;
+    border-top:0;
+}
+
+.commentary-list{
+    display:grid;
+    gap:10px;
+    margin-top:16px;
+}
+
+.commentary-choice{
+    width:100%;
+    min-height:50px;
+    padding:10px 14px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--panel2);
+    color:var(--white);
+    cursor:pointer;
+    font:inherit;
+    font-weight:900;
+    text-align:right;
+}
+
+.commentary-choice:hover{
+    border-color:var(--gold);
+    color:var(--gold2);
+    background:var(--panel3);
 }
 
 @media(max-width:900px){
@@ -721,6 +884,8 @@ main{
 
 }
 </style>
+<link rel="stylesheet" href="assets/project-header-runtime.css">
+<link rel="stylesheet" href="assets/interactive-biblical-map.css">
 </head>
 
 <body>
@@ -729,12 +894,15 @@ main{
 
     <div class="header-inner">
 
-        <a
-            href="index.html"
-            class="home-button"
-        >
-            ⌂ الرئيسية
-        </a>
+        <div class="header-actions">
+            <a
+                href="index.html"
+                class="home-button"
+            >
+                ⌂ الرئيسية
+            </a>
+
+        </div>
 
         <div class="brand">
 
@@ -779,9 +947,11 @@ main{
             </h2>
 
             <button
+                id="modalCloseButton"
                 class="close-modal"
-                onclick="closeVerse()"
+                onclick="handleModalClose()"
                 type="button"
+                aria-label="إغلاق نافذة الآية"
             >
                 ×
             </button>
@@ -831,8 +1001,24 @@ main{
 
         </div>
 
+        <section id="verseFeaturePanel" class="verse-feature-panel" aria-live="polite">
+            <h3 id="featureTitle" class="feature-title"></h3>
+            <div id="featureContent" class="feature-content"></div>
+        </section>
+
     </div>
 
+</div>
+
+
+<div id="originalLanguageModal" class="modal-backdrop original-language-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 id="originalLanguageTitle" class="modal-title">أصل اللغة</h2>
+            <button class="close-modal" type="button" onclick="closeOriginalLanguage()" aria-label="العودة إلى الأصحاح بالكامل">↩ الأصحاح بالكامل</button>
+        </div>
+        <div id="originalLanguageContent" class="language-body"></div>
+    </div>
 </div>
 
 
@@ -844,6 +1030,9 @@ main{
 ========================================================= */
 
 const BIBLE_URL = "bible.json";
+const CROSS_REFERENCES_URL = "cross-references.json";
+const VERSE_GEOGRAPHY_URL = "verse-geography.json";
+const ORIGINAL_LANGUAGE_URL = "original-language-bible.json";
 
 
 /* =========================================================
@@ -868,21 +1057,21 @@ const BOOK_NAMES = {
     "06-Joshua":"يشوع",
     "07-Judges":"القضاة",
     "08-Ruth":"راعوث",
-    "09-1Samuel":"صموئيل الأول",
-    "10-2Samuel":"صموئيل الثاني",
-    "11-1Kings":"ملوك الأول",
-    "12-2Kings":"ملوك الثاني",
-    "13-1Chronicles":"أخبار الأيام الأول",
-    "14-2Chronicles":"أخبار الأيام الثاني",
+    "09-1-Samuel":"صموئيل الأول",
+    "10-2-Samuel":"صموئيل الثاني",
+    "11-1-Kings":"ملوك الأول",
+    "12-2-Kings":"ملوك الثاني",
+    "13-1-Chronicles":"أخبار الأيام الأول",
+    "14-2-Chronicles":"أخبار الأيام الثاني",
     "15-Ezra":"عزرا",
-    "16-Nehemiah":"نحميا",
+    "16-Nehmiah":"نحميا",
     "17-Esther":"أستير",
     "18-Job":"أيوب",
     "19-Psalms":"المزامير",
     "20-Proverbs":"الأمثال",
     "21-Ecclesiastes":"الجامعة",
-    "22-Song":"نشيد الأنشاد",
-    "23-Isaiah":"إشعياء",
+    "22-Sos":"نشيد الأنشاد",
+    "23-Isiah":"إشعياء",
     "24-Jeremiah":"إرميا",
     "25-Lamentations":"مراثي إرميا",
     "26-Ezekiel":"حزقيال",
@@ -894,7 +1083,7 @@ const BOOK_NAMES = {
     "32-Jonah":"يونان",
     "33-Micah":"ميخا",
     "34-Nahum":"ناحوم",
-    "35-Habakkuk":"حبقوق",
+    "35-Habakuk":"حبقوق",
     "36-Zephaniah":"صفنيا",
     "37-Haggai":"حجي",
     "38-Zechariah":"زكريا",
@@ -910,14 +1099,14 @@ const BOOK_NAMES = {
     "47-2-Corinthians":"كورنثوس الثانية",
     "48-Galatians":"غلاطية",
     "49-Ephesians":"أفسس",
-    "50-Philippians":"فيلبي",
+    "50-Philipians":"فيلبي",
     "51-Colossians":"كولوسي",
-    "52-1-Thessalonians":"تسالونيكي الأولى",
-    "53-2-Thessalonians":"تسالونيكي الثانية",
+    "52-1-thessalonians":"تسالونيكي الأولى",
+    "53-2-thessalonians":"تسالونيكي الثانية",
     "54-1-Timothy":"تيموثاوس الأولى",
     "55-2-Timothy":"تيموثاوس الثانية",
     "56-Titus":"تيطس",
-    "57-Philemon":"فليمون",
+    "57-Phillemon":"فليمون",
     "58-Hebrews":"العبرانيين",
     "59-James":"يعقوب",
     "60-1-peter":"بطرس الأولى",
@@ -945,21 +1134,21 @@ const OLD_BOOKS = [
     "06-Joshua",
     "07-Judges",
     "08-Ruth",
-    "09-1Samuel",
-    "10-2Samuel",
-    "11-1Kings",
-    "12-2Kings",
-    "13-1Chronicles",
-    "14-2Chronicles",
+    "09-1-Samuel",
+    "10-2-Samuel",
+    "11-1-Kings",
+    "12-2-Kings",
+    "13-1-Chronicles",
+    "14-2-Chronicles",
     "15-Ezra",
-    "16-Nehemiah",
+    "16-Nehmiah",
     "17-Esther",
     "18-Job",
     "19-Psalms",
     "20-Proverbs",
     "21-Ecclesiastes",
-    "22-Song",
-    "23-Isaiah",
+    "22-Sos",
+    "23-Isiah",
     "24-Jeremiah",
     "25-Lamentations",
     "26-Ezekiel",
@@ -971,7 +1160,7 @@ const OLD_BOOKS = [
     "32-Jonah",
     "33-Micah",
     "34-Nahum",
-    "35-Habakkuk",
+    "35-Habakuk",
     "36-Zephaniah",
     "37-Haggai",
     "38-Zechariah",
@@ -996,14 +1185,14 @@ const NEW_BOOKS = [
     "47-2-Corinthians",
     "48-Galatians",
     "49-Ephesians",
-    "50-Philippians",
+    "50-Philipians",
     "51-Colossians",
-    "52-1-Thessalonians",
-    "53-2-Thessalonians",
+    "52-1-thessalonians",
+    "53-2-thessalonians",
     "54-1-Timothy",
     "55-2-Timothy",
     "56-Titus",
-    "57-Philemon",
+    "57-Phillemon",
     "58-Hebrews",
     "59-James",
     "60-1-peter",
@@ -1031,12 +1220,27 @@ let currentChapter = null;
 
 let currentVerse = null;
 
+let verseLookup = new Map();
+
+let crossReferencesData = null;
+
+let verseGeographyData = null;
+
+let originalLanguageData = null;
+
+const commentaryCache = {};
+
 
 /* =========================================================
    أدوات
 ========================================================= */
 
 const app = document.getElementById("app");
+function showBibleHomeButton(show){
+    const button = document.getElementById("bibleHomeButton");
+    if(!button) return;
+    button.hidden = !show;
+}
 
 
 function escapeHTML(value){
@@ -1058,6 +1262,20 @@ function escapeHTML(value){
 
 }
 
+function normalizeArabicSearch(value){
+    return String(value || "")
+        .normalize("NFKD")
+        .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, "")
+        .replace(/ـ/g, "")
+        .replace(/[أإآٱ]/g, "ا")
+        .replace(/ى/g, "ي")
+        .replace(/ؤ/g, "و")
+        .replace(/ئ/g, "ي")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLocaleLowerCase("ar");
+}
+
 
 /* =========================================================
    الصفحة الأولى
@@ -1068,6 +1286,7 @@ function renderStart(){
     currentTestament = null;
     currentBook = null;
     currentChapter = null;
+    showBibleHomeButton(false);
 
     app.innerHTML = `
 
@@ -1159,19 +1378,26 @@ function renderTestaments(){
         <section class="workspace">
 
             <div class="inner-topbar">
-
-                <button
-                    class="inner-back"
-                    type="button"
-                    onclick="renderStart()"
-                >
-                    ← رجوع
-                </button>
-
                 <h2 class="inner-title">
                     📖 الكتاب المقدس
                 </h2>
 
+            </div>
+
+            <div class="search-container">
+                <div class="search-form">
+                    <input
+                        id="searchInput"
+                        class="search-input"
+                        type="search"
+                        placeholder="ابحث بكلمة أو عبارة في الكتاب المقدس..."
+                        autocomplete="off"
+                    >
+                    <button class="search-submit" type="button" onclick="performSearch()">
+                        بحث
+                    </button>
+                </div>
+                <div id="searchResults"></div>
             </div>
 
 
@@ -1223,6 +1449,11 @@ function renderTestaments(){
         </section>
 
     `;
+
+    const input = document.getElementById("searchInput");
+    input.addEventListener("keydown",function(event){
+        if(event.key === "Enter") performSearch();
+    });
 
 }
 
@@ -1427,6 +1658,7 @@ function openChapter(bookId,chapter){
     currentBook = bookId;
 
     currentChapter = Number(chapter);
+    showBibleHomeButton(true);
 
 
     const rows = verses
@@ -1498,6 +1730,8 @@ function openChapter(bookId,chapter){
 
                             <div
                                 class="verse"
+                                id="verse-${v.verse}"
+                                data-verse="${v.verse}"
                                 tabindex="0"
                                 role="button"
                                 onclick="openVerse(
@@ -1563,6 +1797,7 @@ function openChapter(bookId,chapter){
 
 
     updateNavigation();
+    showBibleHomeButton(true);
 
 
     window.scrollTo({
@@ -1785,8 +2020,29 @@ function closeVerse(){
         "verseModal"
     ).classList.remove("open");
 
+    closeVerseFeature();
+
     document.body.style.overflow = "";
 
+}
+
+function updateModalCloseButton(inCommentary){
+    const button = document.getElementById("modalCloseButton");
+    if(!button) return;
+    button.textContent = inCommentary ? "↩ الأصحاح بالكامل" : "×";
+    button.setAttribute(
+        "aria-label",
+        inCommentary ? "العودة إلى الأصحاح بالكامل" : "إغلاق نافذة الآية"
+    );
+}
+
+function handleModalClose(){
+    const modal = document.querySelector("#verseModal .modal");
+    if(modal && modal.classList.contains("feature-open")){
+        closeVerse();
+        return;
+    }
+    closeVerse();
 }
 
 
@@ -1803,96 +2059,219 @@ function verseFeature(feature){
     }
 
 
-    if(feature === "similar"){
+    const featureTitles = {
+        similar: "الآيات المشابهة",
+        language: "أصل اللغة",
+        places: "الأماكن والأنهار",
+        commentary: "التفسير"
+    };
 
-        alert(
-            "الآيات المشابهة — سيتم ربط منظومة الآيات المشابهة لاحقًا."
-        );
+    const featureMessages = {
+        similar: "لم تُعتمد قرائن كتابية موثقة لهذه الآية في قاعدة المشروع حتى الآن.",
+        language: "لا توجد بيانات لغوية موثقة مرتبطة بهذه الآية في قاعدة المشروع حتى الآن.",
+        places: "لا يوجد موضع أو نهر موثق مرتبط بهذه الآية في قاعدة الموسوعة حتى الآن.",
+        commentary: "قسم التفسير محفوظ لحين تزويد قائمة التفاسير المعتمدة. لن تُضاف إحالات غير مؤكدة."
+    };
 
-        return;
+    if(!featureTitles[feature]) return;
 
-    }
-
-
-    if(feature === "language"){
-
-        alert(
-            "أصل اللغة — سيتم ربط بيانات العبرية والآرامية واليونانية لاحقًا."
-        );
-
-        return;
-
-    }
-
-
-    if(feature === "places"){
-
-        alert(
-            "الأماكن والأنهار — سيتم ربط قاعدة الأماكن والأنهار والخرائط لاحقًا."
-        );
-
-        return;
-
-    }
-
-
-    /* =====================================================
-       التعديل الأساسي:
-       إرسال المرجع الحقيقي إلى overview.html
-    ===================================================== */
+    document.getElementById("featureTitle").textContent = featureTitles[feature];
+    const content = document.getElementById("featureContent");
 
     if(feature === "commentary"){
+        document.getElementById("featureTitle").textContent = "";
+        document.querySelector("#verseModal .modal").classList.add("feature-open");
+        updateModalCloseButton(true);
+        selectCommentary("academic_synthesis");
+        return;
+    }else if(feature === "similar"){
+        document.querySelector("#verseModal .modal").classList.add("feature-open");
+        updateModalCloseButton(true);
+        showSimilarVerses();
+        return;
+    }else if(feature === "places"){
+        document.querySelector("#verseModal .modal").classList.add("feature-open");
+        updateModalCloseButton(true);
+        showVerseGeography();
+        return;
+    }else if(feature === "language"){
+        openOriginalLanguage();
+        return;
+    }else{
+        content.textContent = featureMessages[feature];
+    }
+    document.querySelector("#verseModal .modal").classList.add("feature-open");
+}
 
-        const book =
-            String(
-                currentVerse.book ?? ""
-            ).trim();
+async function openOriginalLanguage(){
+    const verse = currentVerse;
+    if(!verse) return;
+    document.getElementById("verseModal").classList.remove("open");
+    closeVerseFeature();
+    const modal = document.getElementById("originalLanguageModal");
+    const content = document.getElementById("originalLanguageContent");
+    document.getElementById("originalLanguageTitle").textContent = `${BOOK_NAMES[verse.book] || verse.book} ${verse.chapter}:${verse.verse}`;
+    content.innerHTML = `<p class="language-loading">جارٍ تحميل النص الأصلي...</p>`;
+    modal.classList.add("open");
 
-        const chapter =
-            Number(
-                currentVerse.chapter
-            );
-
-        const verse =
-            Number(
-                currentVerse.verse
-            );
-
-
-        if(
-            !book ||
-            !Number.isFinite(chapter) ||
-            !Number.isFinite(verse)
-        ){
-
-            alert(
-                "تعذر تحديد مرجع الآية."
-            );
-
+    try{
+        if(!originalLanguageData){
+            const response = await fetch(ORIGINAL_LANGUAGE_URL,{cache:"no-store"});
+            if(!response.ok) throw new Error("original text unavailable");
+            originalLanguageData = await response.json();
+        }
+        const key = [verse.book,verse.chapter,verse.verse].join(":");
+        const original = originalLanguageData.verses[key];
+        if(!original){
+            content.innerHTML = `<section class="language-block"><h3 class="language-label">النص العربي</h3><p class="language-arabic">${escapeHTML(verse.text)}</p></section><p class="language-source">تعذر مطابقة ترقيم هذه الآية مع النسخة الأصلية المحلية دون تغيير حدود النص.</p>`;
             return;
+        }
+        const source = Number(verse.book.slice(0,2)) >= 40
+            ? "النص اليوناني البيزنطي 1904 / Textus Receptus، ملكية عامة"
+            : "Westminster Leningrad Codex، ملكية عامة";
+        content.innerHTML = `
+            <section class="language-block"><h3 class="language-label">النص العربي</h3><p class="language-arabic">${escapeHTML(verse.text)}</p></section>
+            <section class="language-block"><h3 class="language-label">النص باللغة ${escapeHTML(original.language)}</h3><p class="language-original" dir="${original.direction}">${escapeHTML(original.text)}</p></section>
+            <p class="language-source">المصدر: ${source}، عبر eBible.org.</p>`;
+        if(typeof removeProjectBlankLines === "function") removeProjectBlankLines(content);
+    }catch(error){
+        content.textContent = "تعذر تحميل النص الأصلي المحلي.";
+    }
+}
 
+function closeOriginalLanguage(){
+    document.getElementById("originalLanguageModal").classList.remove("open");
+    document.body.style.overflow = "";
+}
+
+async function showVerseGeography(){
+    const content = document.getElementById("featureContent");
+    content.textContent = "جارٍ جمع الأماكن والأنهار المرتبطة بالآية...";
+
+    try{
+        if(!verseGeographyData){
+            const response = await fetch(VERSE_GEOGRAPHY_URL,{cache:"no-store"});
+            if(!response.ok) throw new Error("geography unavailable");
+            verseGeographyData = await response.json();
         }
 
+        const key = [currentVerse.book,currentVerse.chapter,currentVerse.verse].join(":");
+        const ids = verseGeographyData.verses[key] || [];
+        const records = ids.map(id => verseGeographyData.records[id]).filter(Boolean);
+        if(!records.length){
+            content.textContent = "لا توجد دراسة مكان أو نهر مرتبطة صراحة بهذه الآية في قسم الدراسات الكتابية.";
+            return;
+        }
 
-        const params =
-            new URLSearchParams({
-
-                book:book,
-
-                chapter:String(chapter),
-
-                verse:String(verse)
-
-            });
-
-
-        window.location.href =
-            `${COMMENTARY_URL}?${params.toString()}`;
-
-
-        return;
-
+        const mapRegions = [...new Set(records.map(record => record.map).filter(Boolean))];
+        content.innerHTML = `<div class="geography-list">${records.map((record) => `
+            <article class="geography-item">
+                <h4>${escapeHTML(record.title)}<span class="geography-kind">${record.type === "river" ? "نهر" : "مكان كتابي"}</span></h4>
+                ${record.certainty ? `<p><strong>درجة التحديد:</strong> ${escapeHTML(record.certainty)}</p>` : ""}
+                <p>${escapeHTML(record.content)}</p>
+            </article>
+        `).join("")}</div>${mapRegions.map((region,index) => `<div class="geography-map" id="geographyMap${index}"></div>`).join("")}<p class="cross-reference-source">المصدر: قسم الدراسات الكتابية داخل التطبيق. لا تظهر إلا المواد المرتبطة بشاهد كتابي صريح.</p>`;
+        mapRegions.forEach((region,index) => {
+            if(typeof renderBiblicalMap === "function") renderBiblicalMap(document.getElementById(`geographyMap${index}`),region,"");
+        });
+        if(typeof removeProjectBlankLines === "function") removeProjectBlankLines(content);
+    }catch(error){
+        content.textContent = "تعذر تحميل فهرس الأماكن والأنهار المحلي.";
     }
+}
+
+async function showSimilarVerses(){
+    const content = document.getElementById("featureContent");
+    content.textContent = "جارٍ تحميل القرائن الكتابية...";
+
+    try{
+        if(!crossReferencesData){
+            const response = await fetch(CROSS_REFERENCES_URL,{cache:"no-store"});
+            if(!response.ok) throw new Error("cross references unavailable");
+            crossReferencesData = await response.json();
+        }
+
+        const key = [currentVerse.book,currentVerse.chapter,currentVerse.verse].join(":");
+        const references = crossReferencesData.verses[key] || [];
+        if(!references.length){
+            content.textContent = "لا توجد قرائن موثقة لهذه الآية في قاعدة الإحالات المعتمدة.";
+            return;
+        }
+
+        const groups = [
+            {title:"العهد القديم",items:references.filter(item => Number(item[0].slice(0,2)) <= 39)},
+            {title:"العهد الجديد",items:references.filter(item => Number(item[0].slice(0,2)) >= 40)}
+        ].filter(group => group.items.length);
+
+        content.innerHTML = groups.map(group => `
+            <section class="cross-reference-group">
+                <h4 class="cross-reference-heading">${group.title}</h4>
+                <div class="cross-reference-list">
+                    ${group.items.map(item => {
+                        const verse = verseLookup.get([item[0],item[1],item[2]].join(":"));
+                        if(!verse) return "";
+                        return `<button class="cross-reference" type="button" onclick="openCrossReference('${item[0]}',${item[1]},${item[2]})"><span class="cross-reference-label">${escapeHTML(BOOK_NAMES[item[0]] || item[0])} ${item[1]}:${item[2]}</span><span class="cross-reference-text">${escapeHTML(verse.text)}</span></button>`;
+                    }).join("")}
+                </div>
+            </section>
+        `).join("") + `<p class="cross-reference-source">المصدر: OpenBible.info Bible Cross References، المبني أساسًا على Treasury of Scripture Knowledge، بترخيص CC BY 4.0.</p>`;
+    }catch(error){
+        content.textContent = "تعذر تحميل قاعدة القرائن الكتابية المحلية.";
+    }
+}
+
+function openCrossReference(book,chapter,verse){
+    closeVerse();
+    openSearchVerse(book,chapter,verse);
+}
+
+const COMMENTATORS = [
+    {id:"academic_synthesis",name:"الشرح الأكاديمي اللاهوتي"}
+];
+
+function commentaryMarkup(record){
+    const verseText = currentVerse ? currentVerse.text : "";
+    if(!record || !record.explanation_lines){
+        return `<p class="commentary-verse-text">${escapeHTML(verseText)}</p><p class="feature-content">لم يكتمل بعد شرح هذه الآية وفق النظام الأكاديمي واللاهوتي والعميق والتطبيقي المتفق عليه. لن يُعرض الملخص القديم كتفسير معتمد.</p>`;
+    }
+    const lines = record.explanation_lines;
+    const sourceNames = Array.isArray(record.interpreter_names) ? record.interpreter_names : [];
+    return `<p class="commentary-verse-text">${escapeHTML(verseText)}</p><div class="feature-content commentary-explanation"><p><strong>السياق الأكاديمي:</strong> ${escapeHTML(lines.academic || "")}</p><p><strong>المعنى اللاهوتي:</strong> ${escapeHTML(lines.theological || "")}</p><p><strong>التعمق:</strong> ${escapeHTML(lines.deep || "")}</p><p><strong>التطبيق:</strong> ${escapeHTML(lines.applied || "")}</p><p class="commentary-sources"><strong>مصادر التفسير:</strong> ${escapeHTML(sourceNames.join("، "))}</p></div>`;
+}
+
+async function selectCommentary(commentatorId){
+    if(!currentVerse) return;
+    const commentator = COMMENTATORS.find(function(item){return item.id === commentatorId});
+    if(!commentator) return;
+
+    const content = document.getElementById("featureContent");
+    content.textContent = "جارٍ التحقق من الشرح المعتمد...";
+
+    try{
+        const commentaryFile = `commentary-data/${currentVerse.book}.json`;
+        if(!commentaryCache[commentaryFile]){
+            const response = await fetch(commentaryFile,{cache:"no-store"});
+            if(!response.ok) throw new Error("commentary unavailable");
+            commentaryCache[commentaryFile] = await response.json();
+        }
+
+        const commentaryData = commentaryCache[commentaryFile];
+        const reference = [currentVerse.book,currentVerse.chapter,currentVerse.verse].join(":");
+        const study = commentaryData.verses && (commentaryData.verses[reference] || commentaryData.verses[reference.replace(/\s+/g,"")]);
+        const records = study && study.commentators ? study.commentators : {};
+        const record = records[commentatorId];
+
+        document.getElementById("featureTitle").textContent = "";
+        content.innerHTML = commentaryMarkup(record);
+    }catch(error){
+        content.textContent = "تعذر تحميل قاعدة التفاسير المحلية. لم تتم إضافة أي شرح غير موثق.";
+    }
+}
+
+function closeVerseFeature(){
+    const modal = document.querySelector("#verseModal .modal");
+    if(modal) modal.classList.remove("feature-open");
+    updateModalCloseButton(false);
 
 }
 
@@ -2013,9 +2392,9 @@ function performSearch(){
 
 
     const query =
-        input.value
-            .trim()
-            .toLocaleLowerCase("ar");
+        normalizeArabicSearch(
+            input.value
+        );
 
 
     if(!query){
@@ -2036,9 +2415,9 @@ function performSearch(){
     const hits =
         verses.filter(function(v){
 
-            return v.text
-                .toLocaleLowerCase("ar")
-                .includes(query);
+            return normalizeArabicSearch(
+                v.text
+            ).includes(query);
 
         });
 
@@ -2124,16 +2503,18 @@ function openSearchVerse(
         Number(chapter)
     );
 
+    const target = document.getElementById(
+        `verse-${Number(verse)}`
+    );
 
-    setTimeout(function(){
-
-        openVerse(
-            book,
-            Number(chapter),
-            Number(verse)
-        );
-
-    },50);
+    if(target){
+        target.classList.add("search-target");
+        target.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+        target.focus({preventScroll:true});
+    }
 
 }
 
@@ -2340,13 +2721,19 @@ async function loadBible(){
 
         });
 
+        verseLookup = new Map(
+            verses.map(function(verse){
+                return [[verse.book,verse.chapter,verse.verse].join(":"),verse];
+            })
+        );
+
 
         /*
            تشغيل الصفحة بعد تحميل
            bible.json بالكامل.
         */
 
-        renderStart();
+        renderTestaments();
 
 
         console.log(
@@ -2412,5 +2799,7 @@ loadBible();
 
 </script>
 
+<script src="assets/interactive-biblical-map.js"></script>
+<script src="assets/project-header-runtime.js?v=20260829-6"></script>
 </body>
 </html>

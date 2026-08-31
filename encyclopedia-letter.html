@@ -211,6 +211,24 @@ main{
     min-width:0;
 }
 
+.original-language{
+    margin:0 0 22px;
+    padding:14px 16px;
+    border-right:3px solid var(--gold);
+    background:rgba(212,175,55,.08);
+}
+
+.original-language h3{
+    margin:0 0 5px;
+    color:var(--gold2);
+    font-size:16px;
+}
+
+.original-language p{
+    margin:0;
+    color:var(--muted);
+}
+
 .entry{
     background:linear-gradient(
         145deg,
@@ -362,6 +380,7 @@ main{
     }
 }
 </style>
+<link rel="stylesheet" href="assets/project-header-runtime.css">
 </head>
 
 <body>
@@ -1080,11 +1099,15 @@ function render(entries){
         const category = item && item.category
             ? `<div class="meta"><span class="badge">${escapeHTML(item.category)}</span></div>`
             : "";
+            const originalLanguage = item && item.originalLanguage
+                ? `<section class="original-language" aria-label="المعنى في أصل اللغة"><h3>المعنى في أصل اللغة</h3><p><strong>${escapeHTML(item.originalLanguage.language || "")}</strong>؛ ${escapeHTML(item.originalLanguage.meaning || "")}</p></section>`
+                : "";
 
         return `
             <article class="entry">
                 ${category}
                 <h2 class="entry-title">${escapeHTML(itemTitle)}</h2>
+                    ${originalLanguage}
                 <div class="entry-content">
                     ${itemContent ? textToHTML(itemContent) : "<p>لا يوجد محتوى لهذا المدخل.</p>"}
                 </div>
@@ -1139,7 +1162,8 @@ function render(entries){
 
     search.addEventListener("input", event => {
         const query = normalizeLetter(event.target.value);
-        const filtered = entries.filter(item => normalizeLetter(getTitle(item)).includes(query));
+        const filtered = entries
+            .filter(item => normalizeLetter(getTitle(item)).includes(query));
         indexList.innerHTML = renderIndex(filtered, entries[selectedIndex]);
         bindIndex();
     });
@@ -1264,5 +1288,6 @@ loadEncyclopedia();
 
 </script>
 
+<script src="assets/project-header-runtime.js"></script>
 </body>
 </html>

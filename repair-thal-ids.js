@@ -1,0 +1,2 @@
+"use strict";
+const fs=require("fs");const path=require("path");const file=path.join(__dirname,"encyclopedia_ar.json");const data=JSON.parse(fs.readFileSync(file,"utf8"));const entries=data.entries.filter(e=>e.letter==='ذ');if(entries.length!==40)throw Error(`المتوقع 40 مدخلًا، وجد ${entries.length}`);entries.forEach((e,i)=>{e.id=`thal-${i+1}`;});const tmp=`${file}.${process.pid}.tmp`;fs.writeFileSync(tmp,`${JSON.stringify(data,null,2)}\n`,'utf8');JSON.parse(fs.readFileSync(tmp,'utf8'));fs.renameSync(tmp,file);console.log('تم توحيد معرفات مداخل حرف ذ.');

@@ -256,7 +256,7 @@
 
         .letter {
             position: relative;
-            min-height: 74px;
+            min-height: 92px;
             border: 1px solid #d8e0ec;
             border-radius: 12px;
             background: #f8fafc;
@@ -305,7 +305,8 @@
             margin-top: 6px;
             font-size: 11px;
             color: #667085;
-            display: none;
+            display: block;
+            line-height: 1.45;
         }
 
         .data-dot {
@@ -476,6 +477,7 @@
             }
         }
     </style>
+<link rel="stylesheet" href="assets/project-header-runtime.css">
 </head>
 
 <body>
@@ -520,6 +522,10 @@
             <h1>
                 دائرة المعارف الكتابية
             </h1>
+
+            <p>
+                اختر حرفًا لعرض الدراسات والمداخل الكتابية الموثقة
+            </p>
 
         </section>
 
@@ -615,6 +621,7 @@ function normalizeArabicLetter(value) {
     const first = text.charAt(0);
 
     if (
+        first === "ا" ||
         first === "أ" ||
         first === "إ" ||
         first === "آ"
@@ -738,7 +745,8 @@ function clearError() {
 ========================================================= */
 
 function renderLetters(
-    availableLetters
+    availableLetters,
+    entryCounts = new Map()
 ) {
 
     lettersGrid.innerHTML = "";
@@ -779,6 +787,17 @@ function renderLetters(
 
             link.appendChild(symbol);
 
+            const name =
+                document.createElement("span");
+
+            name.className =
+                "letter-name";
+
+            name.textContent =
+                entryCounts.get(letter) + " دراسة";
+
+            link.appendChild(name);
+
             lettersGrid.appendChild(link);
 
         } else {
@@ -800,9 +819,53 @@ function renderLetters(
 
             box.appendChild(symbol);
 
+            const name =
+                document.createElement("span");
+
+            name.className =
+                "letter-name";
+
+            name.textContent =
+                "لا توجد دراسات";
+
+            box.appendChild(name);
+
             lettersGrid.appendChild(box);
         }
     });
+}
+
+
+function countEntriesByLetter(data) {
+
+    const counts = new Map();
+    const entries = Array.isArray(data && data.entries)
+        ? data.entries
+        : [];
+
+    entries.forEach(entry => {
+
+        if (!entry || typeof entry !== "object") {
+            return;
+        }
+
+        const value =
+            entry.title || entry.name || entry.word || entry.term || "";
+
+        const letter =
+            normalizeArabicLetter(value);
+
+        if (!LETTERS.includes(letter)) {
+            return;
+        }
+
+        counts.set(
+            letter,
+            (counts.get(letter) || 0) + 1
+        );
+    });
+
+    return counts;
 }
 
 
@@ -1146,9 +1209,13 @@ async function loadEncyclopedia() {
         const availableLetters =
             detectAvailableLetters(data);
 
+        const entryCounts =
+            countEntriesByLetter(data);
+
 
         renderLetters(
-            availableLetters
+            availableLetters,
+            entryCounts
         );
 
 
@@ -1373,5 +1440,6 @@ document.addEventListener(
 
 </script>
 
+<script src="assets/project-header-runtime.js"></script>
 </body>
 </html>

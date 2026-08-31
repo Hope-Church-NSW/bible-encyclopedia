@@ -1,0 +1,4 @@
+"use strict";
+const fs=require("fs");const path=require("path");const file=path.join(__dirname,"encyclopedia_ar.json");const bible=require("./bible.json");
+const normalize=value=>String(value).normalize("NFKC").replace(/[\u064B-\u065F\u0670ـ]/g,"").replace(/\s+/g,"");
+const bibleText=bible.map(v=>normalize(v.text)).join(" ");const data=JSON.parse(fs.readFileSync(file,"utf8"));const before=data.entries.filter(e=>e.letter==='ج');const kept=before.filter(e=>bibleText.includes(normalize(e.title)));const removed=before.filter(e=>!bibleText.includes(normalize(e.title)));data.entries=data.entries.filter(e=>e.letter!=='ج'||bibleText.includes(normalize(e.title)));const tmp=`${file}.${process.pid}.tmp`;fs.writeFileSync(tmp,`${JSON.stringify(data,null,2)}\n`,"utf8");JSON.parse(fs.readFileSync(tmp,"utf8"));fs.renameSync(tmp,file);console.log(JSON.stringify({kept:kept.map(e=>e.title),removed:removed.map(e=>e.title)},null,2));

@@ -41,7 +41,9 @@ function normalizeArabic(value) {
 }
 
 function firstArabicLetter(value) {
-    for (const character of String(value || "")) {
+    const title = String(value || "").trim().replace(/^ال\s*/, "");
+
+    for (const character of title) {
         const normalized = normalizeArabic(character);
 
         if (ARABIC_LETTERS.includes(normalized)) {

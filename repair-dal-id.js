@@ -1,0 +1,2 @@
+"use strict";
+const fs=require("fs");const path=require("path");const file=path.join(__dirname,"encyclopedia_ar.json");const data=JSON.parse(fs.readFileSync(file,"utf8"));const entry=data.entries.find(e=>e.title==='ديمتريوس'&&e.letter==='د');if(!entry)throw Error('لم يوجد مدخل ديمتريوس');entry.id='dal-50';const tmp=`${file}.${process.pid}.tmp`;fs.writeFileSync(tmp,`${JSON.stringify(data,null,2)}\n`,'utf8');JSON.parse(fs.readFileSync(tmp,'utf8'));fs.renameSync(tmp,file);console.log('تم إصلاح معرف ديمتريوس.');
