@@ -331,6 +331,7 @@ main{
 
 .entry-layer{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:24px;color:#fff;background:radial-gradient(circle at 50% 16%,rgba(255,255,255,.72),transparent 12%),linear-gradient(180deg,#56aee2 0%,#9ed9f2 43%,#e8f5f7 72%,#081827 100%);overflow:hidden;transition:opacity .65s ease,visibility .65s ease}
 .entry-layer[hidden]{display:none}.entry-layer.is-leaving{opacity:0;visibility:hidden}
+.entry-language-toggle{position:absolute;z-index:20;top:22px;left:22px;min-width:128px;height:42px;padding:0 16px;border:2px solid #d5ad43;border-radius:7px;color:#fff;background:#0757a8;font:900 14px/1 Arial,sans-serif;cursor:pointer;box-shadow:0 7px 18px rgba(0,0,0,.3)}.entry-language-toggle:hover{background:#0b6dcc}
 .sky-rays{position:absolute;inset:-30% -12% 30%;transform-origin:50% 0;transform:perspective(900px) rotateX(56deg);background:repeating-conic-gradient(from 250deg at 50% 0,rgba(255,255,255,.28) 0 4deg,transparent 4deg 13deg);filter:blur(1px);animation:rayDrift 9s ease-in-out infinite alternate}
 .sky-rays::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0,rgba(255,250,212,.72),transparent 48%);animation:rayPulse 4.5s ease-in-out infinite alternate}
 .scene-stage{position:relative;width:min(980px,96vw);height:min(760px,92vh);min-height:540px;perspective:1100px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;cursor:pointer}
@@ -341,7 +342,7 @@ main{
 .auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin-bottom:22px;border:1px solid rgba(255,255,255,.12);border-radius:7px;background:#061522}.auth-tab{border:0;border-radius:4px;padding:10px;color:#b9c9d8;background:transparent;font:inherit;cursor:pointer}.auth-tab.active{color:#071526;background:var(--gold-light);font-weight:900}.auth-field{display:grid;gap:8px;margin-bottom:18px}.auth-field label{font-weight:800}.auth-control,.phone-control select,.phone-control input{width:100%;min-height:48px;border:1px solid rgba(212,175,55,.4);border-radius:6px;padding:10px 12px;color:#fff;background:#071b2c;font:inherit;outline:none}.phone-control{display:grid;grid-template-columns:110px 1fr;gap:8px;direction:ltr}.phone-control select{color:#f4dc79}.auth-submit{width:100%;min-height:50px;border:0;border-radius:6px;color:#071526;background:linear-gradient(180deg,#ffef9c,#d4af37);font:inherit;font-weight:900;cursor:pointer}.auth-note,.auth-error{margin:14px 0 0;color:#aebfce;font-size:13px;line-height:1.7}.auth-error{min-height:22px;color:#ffb4ab}
 .auth-field[hidden]{display:none}.auth-panel{max-height:calc(100vh - 48px);overflow:auto}
 @keyframes logoOrbit{0%{transform:rotateY(0deg) translateY(0)}50%{transform:rotateY(180deg) translateY(-7px)}100%{transform:rotateY(360deg) translateY(0)}}@keyframes bookHover{0%,100%{transform:translateY(-8px) scale(1)}50%{transform:translateY(-16px) scale(1.015)}}@keyframes rayDrift{0%{transform:perspective(900px) rotateX(58deg) rotateZ(-2deg) scale(.96);opacity:.68}100%{transform:perspective(900px) rotateX(52deg) rotateZ(2deg) scale(1.08);opacity:1}}@keyframes rayPulse{to{opacity:.48;transform:translateY(6%) scaleX(1.08)}}
-@media(max-width:520px){.scene-stage{height:100vh;min-height:0}.scene-logo{top:18px;width:145px}.open-book{top:185px;width:94vw;height:235px}.scene-copy{top:420px}.scene-copy h1{font-size:31px}.scene-copy p{font-size:16px}.enter-project{padding:10px 23px}}
+@media(max-width:520px){.entry-language-toggle{top:12px;left:12px;min-width:108px;height:36px;padding:0 11px;font-size:12px}.scene-stage{height:100vh;min-height:0}.scene-logo{top:18px;width:145px}.open-book{top:185px;width:94vw;height:235px}.scene-copy{top:420px}.scene-copy h1{font-size:31px}.scene-copy p{font-size:16px}.enter-project{padding:10px 23px}}
 @media(max-height:700px) and (min-width:521px){.scene-stage{height:100vh;min-height:0}.scene-logo{top:4px;width:140px}.open-book{top:132px;height:280px;width:min(760px,90vw)}.scene-copy{top:390px}.scene-copy h1{font-size:34px}.scene-copy p{font-size:17px;margin-bottom:10px}.enter-project{padding:8px 24px}}
 @media(prefers-reduced-motion:reduce){.scene-logo,.open-book,.sky-rays,.sky-rays::after{animation:none}}
 
@@ -644,6 +645,7 @@ body.english .main-card{
 <body class="entry-active">
 
 <section id="introLayer" class="entry-layer" aria-label="الدخول إلى موسوعة الكتاب المقدس">
+    <button class="entry-language-toggle" type="button" onclick="event.stopPropagation();toggleEntryLanguage()" aria-label="تبديل اللغة">🌐 English</button>
     <div class="sky-rays"></div>
     <div class="scene-stage" onclick="openLogin()">
         <img class="scene-logo" src="assets/logo.png" alt="شعار كنيسة رجاء الأمم سيدني">
@@ -651,17 +653,18 @@ body.english .main-card{
             <img class="book-art" src="assets/open-bible.png" alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
             <div class="book-fallback" hidden><span class="book-page left"></span><span class="book-page right"></span></div>
         </div>
-        <div class="scene-copy"><h1>موسوعة الكتاب المقدس</h1><p>كلمة حية، معرفة راسخة، ورجاء لكل الأمم</p><button class="enter-project" type="button" onclick="event.stopPropagation();openLogin()">الدخول إلى الموسوعة</button></div>
+        <div class="scene-copy"><h1 id="introTitle">موسوعة الكتاب المقدس</h1><p id="introTagline">كلمة حية، معرفة راسخة، ورجاء لكل الأمم</p><button id="introEnter" class="enter-project" type="button" onclick="event.stopPropagation();openLogin()">الدخول إلى الموسوعة</button></div>
     </div>
 </section>
 
 <section id="authLayer" class="entry-layer auth-layer" hidden aria-label="تسجيل الدخول">
+    <button class="entry-language-toggle" type="button" onclick="toggleEntryLanguage()" aria-label="تبديل اللغة">🌐 English</button>
     <form class="auth-panel" onsubmit="signIn(event)" novalidate>
-        <div class="auth-brand"><img src="assets/logo.png" alt="شعار الكنيسة"><div><h2>تسجيل الدخول</h2><p>كنيسة رجاء الأمم سيدني</p></div></div>
+        <div class="auth-brand"><img src="assets/logo.png" alt="شعار الكنيسة"><div><h2 id="authTitle">تسجيل الدخول</h2><p id="authChurch">كنيسة رجاء الأمم سيدني</p></div></div>
         <div class="auth-tabs" role="tablist"><button id="emailTab" class="auth-tab active" type="button" onclick="selectAuthMethod('email')">البريد الإلكتروني</button><button id="phoneTab" class="auth-tab" type="button" onclick="selectAuthMethod('phone')">رقم الموبايل</button></div>
-        <div id="emailField" class="auth-field"><label for="emailInput">البريد الإلكتروني</label><input id="emailInput" class="auth-control" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com"></div>
-        <div id="phoneField" class="auth-field" hidden><label for="phoneInput">رقم الموبايل مع كود الدولة</label><div class="phone-control"><select id="countryCode" aria-label="كود الدولة"><option value="+61">+61 AU</option><option value="+20">+20 EG</option><option value="+962">+962 JO</option><option value="+961">+961 LB</option><option value="+966">+966 SA</option><option value="+971">+971 UAE</option><option value="+1">+1 US/CA</option><option value="+44">+44 UK</option></select><input id="phoneInput" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="رقم الموبايل"></div></div>
-        <button class="auth-submit" type="submit">الدخول إلى التطبيق</button><p id="authError" class="auth-error" role="alert"></p><p class="auth-note">يُحفظ تسجيل الدخول على هذا الجهاز. إرسال رموز تحقق فعلية يتطلب ربط مزود هوية خارجي.</p>
+        <div id="emailField" class="auth-field"><label id="emailLabel" for="emailInput">البريد الإلكتروني</label><input id="emailInput" class="auth-control" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com"></div>
+        <div id="phoneField" class="auth-field" hidden><label id="phoneLabel" for="phoneInput">رقم الموبايل مع كود الدولة</label><div class="phone-control"><select id="countryCode" aria-label="كود الدولة"><option value="+61">+61 AU</option><option value="+20">+20 EG</option><option value="+962">+962 JO</option><option value="+961">+961 LB</option><option value="+966">+966 SA</option><option value="+971">+971 UAE</option><option value="+1">+1 US/CA</option><option value="+44">+44 UK</option></select><input id="phoneInput" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="رقم الموبايل"></div></div>
+        <button id="authSubmit" class="auth-submit" type="submit">الدخول إلى التطبيق</button><p id="authError" class="auth-error" role="alert"></p><p id="authNote" class="auth-note">يُحفظ تسجيل الدخول على هذا الجهاز. إرسال رموز تحقق فعلية يتطلب ربط مزود هوية خارجي.</p>
     </form>
 </section>
 
@@ -860,7 +863,19 @@ const translations = {
             "كنيسة رجاء الأمم سيدني",
 
         footerText:
-            "كنيسة رجاء الأمم سيدني — موسوعة الكتاب المقدس"
+            "كنيسة رجاء الأمم سيدني — موسوعة الكتاب المقدس",
+
+        introTitle:"موسوعة الكتاب المقدس",
+        introTagline:"كلمة حية، معرفة راسخة، ورجاء لكل الأمم",
+        introEnter:"الدخول إلى الموسوعة",
+        authTitle:"تسجيل الدخول",
+        authChurch:"كنيسة رجاء الأمم سيدني",
+        emailTab:"البريد الإلكتروني",
+        phoneTab:"رقم الموبايل",
+        emailLabel:"البريد الإلكتروني",
+        phoneLabel:"رقم الموبايل مع كود الدولة",
+        authSubmit:"الدخول إلى التطبيق",
+        authNote:"يُحفظ تسجيل الدخول على هذا الجهاز. إرسال رموز تحقق فعلية يتطلب ربط مزود هوية خارجي."
     },
 
     en: {
@@ -895,7 +910,19 @@ const translations = {
             "Hope Of Nation Church NSW",
 
         footerText:
-            "Hope Of Nation Church NSW — Bible Encyclopedia"
+            "Hope Of Nation Church NSW — Bible Encyclopedia",
+
+        introTitle:"Bible Encyclopedia",
+        introTagline:"Living Word, grounded knowledge, and hope for all nations",
+        introEnter:"Enter the Encyclopedia",
+        authTitle:"Sign In",
+        authChurch:"Hope of Nations Church Sydney",
+        emailTab:"Email",
+        phoneTab:"Mobile",
+        emailLabel:"Email Address",
+        phoneLabel:"Mobile Number with Country Code",
+        authSubmit:"Enter the App",
+        authNote:"Your sign-in is stored on this device. Sending verification codes requires an external identity provider."
     }
 
 };
@@ -917,11 +944,19 @@ function setLanguage(language){
         language === "en"
     );
 
+    ["introTitle","introTagline","introEnter","authTitle","authChurch","emailTab","phoneTab","emailLabel","phoneLabel","authSubmit","authNote"].forEach(function(id){
+        const element = document.getElementById(id);
+        if(element) element.textContent = t[id];
+    });
 
-    document.getElementById(
-        "churchName"
-    ).textContent =
-        t.churchName;
+    document.querySelectorAll(".entry-language-toggle").forEach(function(button){
+        button.textContent = language === "en" ? "🌐 العربية" : "🌐 English";
+        button.setAttribute("aria-label", language === "en" ? "Switch to Arabic" : "تبديل إلى الإنجليزية");
+    });
+
+
+    const churchName = document.getElementById("churchName");
+    if(churchName) churchName.textContent = t.churchName;
 
 
     document.getElementById(
@@ -972,32 +1007,27 @@ function setLanguage(language){
         t.churchDescription;
 
 
-    document.getElementById(
-        "footerText"
-    ).textContent =
-        t.footerText;
+    const footerText = document.getElementById("footerText");
+    if(footerText) footerText.textContent = t.footerText;
 
 
-    document.getElementById(
-        "arabicButton"
-    ).classList.toggle(
-        "active",
-        language === "ar"
-    );
+    const arabicButton = document.getElementById("arabicButton");
+    if(arabicButton) arabicButton.classList.toggle("active",language === "ar");
 
 
-    document.getElementById(
-        "englishButton"
-    ).classList.toggle(
-        "active",
-        language === "en"
-    );
+    const englishButton = document.getElementById("englishButton");
+    if(englishButton) englishButton.classList.toggle("active",language === "en");
 
 
     localStorage.setItem(
         "bibleAppLanguage",
         language
     );
+}
+
+function toggleEntryLanguage(){
+    const language = localStorage.getItem("bibleAppLanguage") === "en" ? "ar" : "en";
+    setLanguage(language);
 }
 
 
