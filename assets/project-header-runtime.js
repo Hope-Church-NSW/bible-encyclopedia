@@ -1,8 +1,33 @@
 (function () {
+    const TRANSLATION_VERSION = '20260908-3';
+    const pageName = location.pathname.split('/').pop() || 'index.html';
+    const translationBundle = pageName.replace(/\.html$/, '.json');
+    const TRANSLATION_SESSION_KEY = `projectTranslationsEn:${TRANSLATION_VERSION}:${translationBundle}`;
     const selectedLanguage = localStorage.getItem('bibleAppLanguage') === 'en' ? 'en' : 'ar';
     document.documentElement.lang = selectedLanguage;
     document.documentElement.dir = selectedLanguage === 'en' ? 'ltr' : 'rtl';
     document.body.dir = document.documentElement.dir;
+
+    const manifest = document.createElement('link');
+    manifest.rel = 'manifest';
+    manifest.href = 'manifest.webmanifest';
+    document.head.appendChild(manifest);
+
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+        window.addEventListener('load', async () => {
+            try {
+                await navigator.serviceWorker.register('service-worker.js?v=15', { updateViaCache: 'none' });
+                const registration = await navigator.serviceWorker.ready;
+                if (registration.active && navigator.onLine) {
+                    const cacheSite = () => registration.active.postMessage('CACHE_PUBLISHED_SITE');
+                    if ('requestIdleCallback' in window) requestIdleCallback(cacheSite, { timeout: 5000 });
+                    else setTimeout(cacheSite, 1000);
+                }
+            } catch (error) {
+                console.error('Unable to enable offline access.', error);
+            }
+        });
+    }
 
     function normalizeTranslationKey(value) {
         return String(value || '').replace(/\s+/g, ' ').trim();
@@ -18,6 +43,12 @@
             if (pattern.test(value)) return value.replace(pattern, replacement);
         }
         return '';
+    }
+
+    function revealProjectPage() {
+        document.documentElement.classList.remove('project-english-pending');
+        document.documentElement.style.removeProperty('visibility');
+        document.body.classList.add('project-runtime-ready');
     }
 
     function translateElement(root, translations) {
@@ -47,21 +78,28 @@
     async function applyEnglishTranslations() {
         if (selectedLanguage !== 'en') return;
         try {
-            const response = await fetch('assets/project-translations-en.json?v=20260831-2');
-            if (!response.ok) throw new Error(`Translation file returned ${response.status}`);
-            const translations = await response.json();
+            let translationText = sessionStorage.getItem(TRANSLATION_SESSION_KEY);
+            if (!translationText) {
+                const response = await fetch(`assets/project-translations-pages/${translationBundle}?v=${TRANSLATION_VERSION}`);
+                if (!response.ok) throw new Error(`Translation file returned ${response.status}`);
+                translationText = await response.text();
+                try {
+                    sessionStorage.setItem(TRANSLATION_SESSION_KEY, translationText);
+                } catch (_) {
+                    // Translation still works when storage quota is unavailable.
+                }
+            }
+            const translations = JSON.parse(translationText);
             const titleKey = normalizeTranslationKey(document.title);
             if (translations[titleKey]) document.title = translations[titleKey];
             translateElement(document.body, translations);
-            let translationFrame = 0;
             new MutationObserver((mutations) => {
-                if (translationFrame) return;
-                const added = mutations.flatMap((mutation) => [...mutation.addedNodes]).find((node) => node.nodeType === Node.ELEMENT_NODE);
-                if (!added) return;
-                translationFrame = requestAnimationFrame(() => {
-                    translationFrame = 0;
-                    translateElement(document.body, translations);
-                });
+                const translationRoots = new Set();
+                mutations.forEach((mutation) => mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType === Node.ELEMENT_NODE) translationRoots.add(node);
+                    else if (node.nodeType === Node.TEXT_NODE && node.parentElement) translationRoots.add(node.parentElement);
+                }));
+                translationRoots.forEach((root) => translateElement(root, translations));
             }).observe(document.body, { childList: true, subtree: true });
         } catch (error) {
             console.error('Unable to load English translations.', error);
@@ -95,30 +133,105 @@
     window.removeProjectBlankLines = removeBlankDisplayLines;
     removeBlankDisplayLines(document.body);
     let blankLineFrame = 0;
+    const blankLineRoots = new Set();
     new MutationObserver((mutations) => {
-        if (blankLineFrame) return;
-        const added = mutations.flatMap((mutation) => [...mutation.addedNodes]).find((node) => node.nodeType === Node.ELEMENT_NODE);
-        if (!added) return;
+        mutations.forEach((mutation) => mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) blankLineRoots.add(node);
+            else if (node.nodeType === Node.TEXT_NODE && node.parentElement) blankLineRoots.add(node.parentElement);
+        }));
+        if (blankLineFrame || !blankLineRoots.size) return;
         blankLineFrame = requestAnimationFrame(() => {
             blankLineFrame = 0;
-            removeBlankDisplayLines(document.body);
+            const roots = [...blankLineRoots];
+            blankLineRoots.clear();
+            roots.forEach(removeBlankDisplayLines);
         });
     }).observe(document.body, { childList: true, subtree: true });
 
+    const prefetchedPages = new Set();
+    const translationPrefetches = new Map();
+    function prefetchTranslation(destination) {
+        if (selectedLanguage !== 'en') return null;
+        const bundle = destination.pathname.split('/').pop().replace(/\.html$/, '.json');
+        const storageKey = `projectTranslationsEn:${TRANSLATION_VERSION}:${bundle}`;
+        if (sessionStorage.getItem(storageKey)) return null;
+        if (translationPrefetches.has(bundle)) return translationPrefetches.get(bundle);
+        const pending = fetch(`assets/project-translations-pages/${bundle}?v=${TRANSLATION_VERSION}`)
+            .then((response) => {
+                if (!response.ok) throw new Error(`Translation file returned ${response.status}`);
+                return response.text();
+            })
+            .then((translationText) => {
+                try {
+                    sessionStorage.setItem(storageKey, translationText);
+                } catch (_) {
+                    // Navigation continues when storage quota is unavailable.
+                }
+            })
+            .catch(() => undefined);
+        translationPrefetches.set(bundle, pending);
+        return pending;
+    }
+    function prefetchPage(link) {
+        if (!link || link.target || link.hasAttribute('download')) return null;
+        const destination = new URL(link.href, location.href);
+        if (destination.origin !== location.origin || destination.pathname === location.pathname || !destination.pathname.endsWith('.html')) return null;
+        if (!prefetchedPages.has(destination.href)) {
+            prefetchedPages.add(destination.href);
+            const prefetch = document.createElement('link');
+            prefetch.rel = 'prefetch';
+            prefetch.href = destination.href;
+            document.head.appendChild(prefetch);
+        }
+        return prefetchTranslation(destination);
+    }
+    document.addEventListener('click', (event) => {
+        if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        const link = event.target.closest('a[href]');
+        const pendingTranslation = prefetchPage(link);
+        if (!pendingTranslation) return;
+        event.preventDefault();
+        pendingTranslation.finally(() => location.assign(link.href));
+    });
+    document.addEventListener('pointerover', (event) => prefetchPage(event.target.closest('a[href]')), { passive: true });
+    document.addEventListener('touchstart', (event) => prefetchPage(event.target.closest('a[href]')), { passive: true });
+    const prefetchLinkedPages = () => document.querySelectorAll('a[href]').forEach(prefetchPage);
+    if ('requestIdleCallback' in window) requestIdleCallback(prefetchLinkedPages, { timeout: 1500 });
+    else setTimeout(prefetchLinkedPages, 500);
+
     const header = document.querySelector('header, .top-frame, .site-header');
-    if (!header) return;
+    if (!header) {
+        applyEnglishTranslations().finally(revealProjectPage);
+        return;
+    }
     document.body.classList.add('project-unified-header');
     const returnControl = header.querySelector('.back-button, .back-btn, .home-button, .home-btn, .back-link');
     const riversControl = header.querySelector('.header-rivers-back');
     const logo = header.querySelector('img');
     const returnHref = returnControl ? returnControl.getAttribute('href') : 'studies.html';
-    const returnText = returnControl ? returnControl.textContent.replace(/[←→⌂]/g, '').trim() : 'الدراسات';
+    const returnsHome = returnHref && new URL(returnHref, location.href).pathname.endsWith('/index.html');
+    const returnText = returnsHome
+        ? (selectedLanguage === 'en' ? 'Home' : 'الرئيسية')
+        : (returnControl ? returnControl.textContent.replace(/[←→⌂🏠]/gu, '').trim() : (selectedLanguage === 'en' ? 'Studies' : 'الدراسات'));
     const isHomePage = location.pathname.endsWith('/index.html') || location.pathname.endsWith('index.html') || location.pathname === '/';
     header.className = 'project-header';
     header.replaceChildren();
     const brand = document.createElement('div');
     brand.className = 'project-brand';
-    brand.innerHTML = `<div class="project-brand-text"><div class="project-brand-name">موسوعة الكتاب المقدس</div><div class="project-brand-church">كنيسة رجاء الأمم سيدني</div></div><img class="project-brand-logo" src="${logo ? logo.getAttribute('src') : 'assets/logo.png'}" alt="شعار كنيسة رجاء الأمم سيدني">`;
+    const brandText = document.createElement('div');
+    brandText.className = 'project-brand-text';
+    const brandName = document.createElement('div');
+    brandName.className = 'project-brand-name';
+    brandName.textContent = 'موسوعة الكتاب المقدس';
+    const brandChurch = document.createElement('div');
+    brandChurch.className = 'project-brand-church';
+    brandChurch.textContent = 'كنيسة رجاء الأمم سيدني';
+    const brandLogo = document.createElement('img');
+    brandLogo.className = 'project-brand-logo';
+    brandLogo.src = logo ? logo.getAttribute('src') : 'assets/logo.png';
+    brandLogo.alt = 'شعار كنيسة رجاء الأمم سيدني';
+    brandText.append(brandName, brandChurch);
+    brand.append(brandText, brandLogo);
     const actions = document.createElement('div');
     actions.className = 'project-header-actions';
     const languageToggle = document.createElement('button');
@@ -134,11 +247,24 @@
     const back = document.createElement('a');
     back.className = 'project-return';
     back.href = returnHref;
-    back.innerHTML = `<span>↩</span><span>${returnText || 'الدراسات'}</span>`;
+    const backIcon = document.createElement('span');
+    backIcon.textContent = '↩';
+    const backText = document.createElement('span');
+    backText.textContent = returnText || 'الدراسات';
+    back.append(backIcon, backText);
     if (!isHomePage) actions.appendChild(back);
     actions.appendChild(languageToggle);
     if (location.pathname.endsWith('/bible.html') || location.pathname.endsWith('bible.html')) {
         document.body.classList.add('project-bible-page');
+        const readerSettings = document.createElement('button');
+        readerSettings.className = 'project-reader-settings';
+        readerSettings.type = 'button';
+        readerSettings.textContent = selectedLanguage === 'en' ? '⚙ Reading settings' : '⚙ إعدادات القراءة';
+        readerSettings.setAttribute('aria-label', selectedLanguage === 'en' ? 'Open reading settings' : 'فتح إعدادات القراءة');
+        readerSettings.addEventListener('click', () => {
+            if (typeof openReaderSettings === 'function') openReaderSettings();
+        });
+        actions.appendChild(readerSettings);
         const bibleHome = document.createElement('button');
         bibleHome.id = 'bibleHomeButton';
         bibleHome.className = 'project-books-return project-bible-return';
@@ -155,7 +281,7 @@
         const booksReturn = document.createElement('a');
         booksReturn.className = 'project-books-return';
         booksReturn.href = '#bookIndex';
-        booksReturn.textContent = '📖 الأسفار الكتابية';
+        booksReturn.textContent = selectedLanguage === 'en' ? '📖 Biblical Books' : '📖 الأسفار الكتابية';
         actions.appendChild(booksReturn);
     }
     header.append(brand, actions);
@@ -164,5 +290,5 @@
     projectFooter.className = 'project-footer';
     projectFooter.innerHTML = '<div>موسوعة الكتاب المقدس</div><div>كنيسة رجاء الأمم سيدني</div>';
     document.body.appendChild(projectFooter);
-    applyEnglishTranslations();
+    applyEnglishTranslations().finally(revealProjectPage);
 }());

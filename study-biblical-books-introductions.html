@@ -739,6 +739,8 @@ main{
 .ezra-study{display:none;margin:0 0 42px;padding:28px;border:1px solid rgba(212,175,55,.38);border-radius:20px;background:linear-gradient(145deg,rgba(13,56,93,.96),rgba(4,23,39,.99));box-shadow:var(--shadow)}
 .ezra-study.open{display:block}.ezra-study h2{margin:0;color:var(--gold-light);font-size:clamp(25px,4vw,34px)}.ezra-study pre{margin:18px 0 0;color:var(--white);font:inherit;font-size:16px;line-height:2;white-space:pre-wrap;word-break:normal;text-align:right;direction:rtl}.ezra-study .source-status{color:var(--muted);font-size:14px}.ezra-close{display:none}
 .verbatim-study pre{margin:18px 0 0;color:var(--white);font:inherit;font-size:16px;line-height:2;white-space:pre-wrap;word-break:normal;text-align:right;direction:rtl}.verbatim-study .source-status{color:var(--muted);font-size:14px}
+html[lang="en"] .verbatim-study{direction:ltr;text-align:left}
+html[lang="en"] .verbatim-study pre{direction:ltr;text-align:left}
 .study-mode .numbers-close{display:none}
 .study-mode .page-title,.study-mode .testament-switcher,.study-mode .testament,.study-mode .structure-note,.study-mode .genesis-close,.study-mode .exodus-close,.study-mode .leviticus-close,.study-mode .numbers-close,.study-mode .deuteronomy-close,.study-mode .joshua-close,.study-mode .judges-close,.study-mode .ruth-close,.study-mode .samuel-close,.study-mode .kings-close,.study-mode .chronicles-close,.study-mode .ezra-close{display:none}
 @media(max-width:720px){.testament{display:block;width:100%;margin-left:0}}
@@ -928,7 +930,10 @@ main{
 
 </style>
 
-<link rel="stylesheet" href="assets/project-header-runtime.css">
+<script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
+<link rel="preload" href="assets/project-translations-pages/study-biblical-books-introductions.json?v=20260908-3" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/project-header-runtime.css?v=20260908-3">
+<script defer src="assets/project-header-runtime.js?v=20260908-3"></script>
 </head>
 
 
@@ -2630,7 +2635,8 @@ const bookIndex=document.getElementById('bookIndex');
 const testamentSections=document.querySelectorAll('.testament');
 const studyPanels=Object.values(bookStudies);
 function loadVerbatimStudy(path,panel,title,targetId){
-    fetch(path).then(function(response){return response.text()}).then(function(text){
+    const sourcePath=localStorage.getItem('bibleAppLanguage')==='en'?path.replace(/-study\.txt$/,'-study-en.txt'):path;
+    fetch(sourcePath).then(function(response){return response.text()}).then(function(text){
         panel.classList.add('verbatim-study');
         panel.innerHTML='<h2>'+title+'</h2><p class="source-status">النص الكامل محفوظ ويُعرض حرفيًا من ملف الدراسة الأصلي.</p><pre id="'+targetId+'"></pre>';
         panel.querySelector('pre').textContent=text;
@@ -2704,8 +2710,11 @@ Object.keys(verbatimStudies).forEach(function(key){loadVerbatimStudy.apply(null,
 function updateStudyReturn(isOpen){
     const studyReturn=document.querySelector('.project-return');
     if(!studyReturn)return;
+    const english=localStorage.getItem('bibleAppLanguage')==='en';
     studyReturn.href=isOpen?'index.html':'studies.html';
-    studyReturn.innerHTML=isOpen?'<span>↩</span><span>الرئيسية</span>':'<span>↩</span><span>الدراسات الكتابية</span>';
+    studyReturn.innerHTML=isOpen
+        ?'<span>↩</span><span>'+(english?'Home':'الرئيسية')+'</span>'
+        :'<span>↩</span><span>'+(english?'Bible Studies':'الدراسات الكتابية')+'</span>';
 }
 
 function closeBookStudies(){
@@ -2741,7 +2750,6 @@ document.addEventListener('click',function(event){
     bookIndex.scrollIntoView({behavior:'smooth',block:'start'});
 });
 </script>
-<script src="assets/project-header-runtime.js"></script>
 </body>
 
 </html>

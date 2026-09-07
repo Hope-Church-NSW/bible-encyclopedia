@@ -1,6 +1,6 @@
 # Commentary production
 
-The production runner creates the approved four-line Arabic commentary in resumable chunks of at most four verses.
+The production runner creates the approved four-line Arabic commentary in resumable chunks of at most nine verses.
 
 ## Safety checks
 

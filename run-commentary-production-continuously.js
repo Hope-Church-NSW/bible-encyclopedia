@@ -34,4 +34,10 @@ while (pendingVerseCount() > 0) {
   wait(retryDelayMs);
 }
 
+const audit = spawnSync(process.execPath, ['audit-commentary-coverage.js', '--require-complete'], {
+  cwd: root,
+  encoding: 'utf8',
+  stdio: 'inherit'
+});
+if (audit.status !== 0) throw new Error('Commentary production finished with coverage audit failures.');
 console.log('Commentary production is complete.');

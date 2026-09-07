@@ -20,6 +20,8 @@
     --line:#1d3b59;
     --blue:#2d7ff9;
     --danger:#ffb4b4;
+    --reader-font-family:Arial,Tahoma,"Segoe UI",sans-serif;
+    --reader-font-size:21px;
 }
 
 *{
@@ -45,11 +47,92 @@ body{
             var(--bg2)
         );
     color:var(--white);
-    font-family:
-        Arial,
-        Tahoma,
-        "Segoe UI",
-        sans-serif;
+    font-family:var(--reader-font-family);
+}
+
+body[data-reader-theme="white"]{
+    --bg:#eef4fa;
+    --bg2:#ffffff;
+    --panel:#ffffff;
+    --panel2:#e8f0f8;
+    --panel3:#d7e6f4;
+    --gold:#9a6900;
+    --gold2:#805700;
+    --white:#10243a;
+    --muted:#526a82;
+    --line:#bdd0e1;
+    --danger:#9b1c31;
+}
+
+body[data-reader-theme="black"]{
+    --bg:#000000;
+    --bg2:#080808;
+    --panel:#101010;
+    --panel2:#191919;
+    --panel3:#252525;
+    --white:#f7f7f7;
+    --muted:#b7b7b7;
+    --line:#3b3b3b;
+}
+
+body.project-bible-page{
+    font-family:var(--reader-font-family) !important;
+}
+
+body.project-bible-page[data-reader-theme="white"] .project-header{
+    background:#ffffff !important;
+    border-bottom-color:#9a6900 !important;
+    box-shadow:0 8px 24px rgba(34,65,92,.16) !important;
+}
+
+body.project-unified-header.project-bible-page[data-reader-theme="white"]{
+    background:linear-gradient(180deg,#eef4fa 0%,#ffffff 100%) !important;
+    color:#10243a !important;
+}
+
+body.project-unified-header.project-bible-page[data-reader-theme="white"] .project-brand-church{
+    color:#10243a;
+    text-shadow:none;
+}
+
+body.project-unified-header.project-bible-page[data-reader-theme="white"] :is(.project-return,.project-reader-settings,.project-books-return){
+    background:#eef4fa;
+    color:#805700;
+    border-color:#9a6900;
+}
+
+body.project-unified-header.project-bible-page[data-reader-theme="white"] :is(.project-return,.project-reader-settings,.project-books-return):hover{
+    background:#d7e6f4;
+}
+
+body.project-unified-header.project-bible-page[data-reader-theme="white"] .project-footer{
+    background:#ffffff;
+    color:#10243a;
+    border-top-color:#9a6900;
+    box-shadow:inset 0 1px 0 rgba(16,36,58,.08);
+}
+
+body.project-bible-page[data-reader-theme="black"] .project-header{
+    background:#050505 !important;
+}
+
+body.project-unified-header.project-bible-page[data-reader-theme="black"] :is(.project-return,.project-reader-settings,.project-books-return){
+    background:#101010;
+    color:#f2d675;
+    border-color:#806f35;
+}
+
+body.project-unified-header.project-bible-page[data-reader-theme="black"] :is(.project-return,.project-reader-settings,.project-books-return):hover{
+    background:#252525;
+}
+
+body.project-unified-header.project-bible-page[data-reader-theme="black"]{
+    background:linear-gradient(180deg,#000000 0%,#080808 100%) !important;
+    color:#f7f7f7 !important;
+}
+
+body.project-unified-header.project-bible-page[data-reader-theme="black"] .project-footer{
+    background:#050505;
 }
 
 header{
@@ -218,7 +301,7 @@ main{
 
 .workspace{
     width:100%;
-    background:rgba(13,33,56,.96);
+    background:var(--panel);
     border:1px solid var(--line);
     border-radius:22px;
     padding:25px;
@@ -391,16 +474,44 @@ main{
 
 .verse{
     padding:18px 8px;
-    border-bottom:1px solid #17344f;
-    font-size:21px;
+    border-bottom:1px solid var(--line);
+    color:var(--white);
+    font-size:var(--reader-font-size);
     line-height:2.35;
     cursor:pointer;
     transition:.18s ease;
 }
 
-.verse:hover{
-    background:rgba(16,42,70,.75);
+.verse[data-highlight="yellow"],
+.modal-verse[data-highlight="yellow"]{
+    background:#ffe66d;
+    color:#17202a;
 }
+
+.verse[data-highlight="green"],
+.modal-verse[data-highlight="green"]{
+    background:#7cff6b;
+    color:#10210d;
+}
+
+.verse[data-highlight="blue"],
+.modal-verse[data-highlight="blue"]{
+    background:#69b7ff;
+    color:#071a2d;
+}
+
+.verse[data-highlight]:not([data-highlight=""]) .verse-number,
+.modal-verse[data-highlight]:not([data-highlight=""]) .verse-number{
+    color:#17202a;
+}
+
+.verse:hover{
+    background:var(--panel2);
+}
+
+.verse[data-highlight="yellow"]:hover{background:#ffe66d;}
+.verse[data-highlight="green"]:hover{background:#7cff6b;}
+.verse[data-highlight="blue"]:hover{background:#69b7ff;}
 
 .verse.search-target{
     background:rgba(212,175,55,.16);
@@ -420,7 +531,7 @@ main{
     border-top:1px solid var(--line);
 
     display:grid;
-    grid-template-columns:1fr auto 1fr;
+    grid-template-columns:repeat(2,minmax(0,1fr));
     align-items:center;
     gap:12px;
 }
@@ -456,16 +567,6 @@ main{
     justify-self:end;
 }
 
-.audio{
-    width:60px;
-    height:52px;
-    padding:0;
-    font-size:25px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
 .search-container{
     width:100%;
 }
@@ -478,6 +579,7 @@ main{
 
 .search-input{
     flex:1;
+    min-width:0;
     min-height:55px;
     border:1px solid var(--line);
     border-radius:12px;
@@ -509,7 +611,7 @@ main{
 
 .search-result{
     padding:16px 8px;
-    border-bottom:1px solid #17344f;
+    border-bottom:1px solid var(--line);
     cursor:pointer;
     line-height:2;
 }
@@ -605,9 +707,149 @@ main{
 
 .modal-verse{
     padding:22px;
-    font-size:20px;
+    font-size:var(--reader-font-size);
     line-height:2.35;
     border-bottom:1px solid var(--line);
+}
+
+.highlight-picker{
+    grid-column:1 / -1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    padding-top:5px;
+}
+
+.highlight-label{
+    width:100%;
+    color:var(--muted);
+    text-align:center;
+    font-size:14px;
+    font-weight:800;
+}
+
+.highlight-swatch{
+    width:44px;
+    height:44px;
+    border:3px solid transparent;
+    border-radius:50%;
+    cursor:pointer;
+    box-shadow:0 0 0 1px var(--line);
+}
+
+.highlight-swatch[aria-pressed="true"]{
+    border-color:var(--white);
+    box-shadow:0 0 0 2px var(--blue);
+}
+
+.highlight-yellow{background:#ffe66d;}
+.highlight-green{background:#7cff6b;}
+.highlight-blue{background:#69b7ff;}
+.highlight-clear{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--panel2);
+    color:var(--white);
+    font-size:24px;
+}
+
+.reader-settings .modal{
+    width:min(620px,100%);
+}
+
+.settings-body{
+    display:grid;
+    gap:22px;
+    padding:22px;
+}
+
+.setting-group{
+    display:grid;
+    gap:10px;
+}
+
+.setting-label{
+    color:var(--gold2);
+    font-size:17px;
+    font-weight:900;
+}
+
+.setting-select{
+    width:100%;
+    min-height:48px;
+    padding:8px 12px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--panel2);
+    color:var(--white);
+    font:inherit;
+}
+
+.font-size-control{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:14px;
+}
+
+.font-size-control input{
+    width:100%;
+    accent-color:var(--blue);
+}
+
+.font-size-value{
+    min-width:54px;
+    color:var(--white);
+    font-weight:900;
+    text-align:center;
+}
+
+.theme-options{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+}
+
+.theme-option{
+    min-height:52px;
+    border:2px solid var(--line);
+    border-radius:10px;
+    cursor:pointer;
+    font:inherit;
+    font-weight:900;
+}
+
+.theme-option[aria-pressed="true"]{
+    border-color:var(--gold);
+    box-shadow:0 0 0 2px rgba(45,127,249,.38);
+}
+
+.theme-blue{background:#0b2d5c;color:#fff;}
+.theme-white{background:#fff;color:#172b3d;}
+.theme-black{background:#050505;color:#fff;}
+
+.project-reader-settings{
+    direction:rtl;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:145px;
+    min-width:145px;
+    height:28px;
+    padding:0 10px;
+    border:1px solid rgba(224,184,76,.55);
+    border-radius:9px;
+    background:#071a26;
+    color:#f4dc78;
+    font:800 13px/1 Arial,sans-serif;
+    cursor:pointer;
+}
+
+body.project-unified-header.project-bible-page .project-header{
+    min-height:166px;
 }
 
 .modal-actions{
@@ -666,6 +908,10 @@ main{
     white-space:pre-wrap;
 }
 
+.feature-content.cross-reference-content{
+    white-space:normal;
+}
+
 .cross-reference-group + .cross-reference-group{
     margin-top:20px;
 }
@@ -719,7 +965,7 @@ main{
 
 .geography-list{display:grid;gap:10px}.geography-item{padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}.geography-item h4{margin:0;color:var(--gold2);font-size:17px}.geography-kind{display:inline-block;margin-inline-start:7px;color:var(--muted);font-size:12px}.geography-item p{margin:5px 0 0;color:var(--white);line-height:1.7;white-space:normal}.geography-map{margin-top:10px}
 
-.original-language-modal{z-index:1100}.language-body{padding:20px}.language-block{padding:16px;border:1px solid var(--line);border-radius:11px;background:var(--panel2)}.language-block + .language-block{margin-top:12px}.language-label{margin:0 0 8px;color:var(--gold2);font-size:15px}.language-arabic,.language-original{margin:0;color:var(--white);font-size:19px;line-height:2}.language-original{font-family:"SBL Hebrew","Ezra SIL","SBL Greek","Gentium Plus","Times New Roman",serif;font-size:23px}.language-source{margin:12px 0 0;color:var(--muted);font-size:12px;line-height:1.7}.language-loading{padding:22px;color:var(--white)}
+.original-language-modal{z-index:1100}.language-body{padding:20px}.language-block{padding:16px;border:1px solid var(--line);border-radius:11px;background:var(--panel2)}.language-block + .language-block{margin-top:12px}.language-label{margin:0 0 8px;color:var(--gold2);font-size:15px}.language-arabic,.language-original,.language-meaning{margin:0;color:var(--white);font-size:19px;line-height:2}.language-original{font-family:"SBL Hebrew","Ezra SIL","SBL Greek","Gentium Plus","Times New Roman",serif;font-size:23px}.language-meaning-note{display:block;margin-top:8px;color:var(--muted);font-size:12px;line-height:1.7}.language-source{margin:12px 0 0;color:var(--muted);font-size:12px;line-height:1.7}.language-loading{padding:22px;color:var(--white)}
 
 .commentary-explanation p{
     margin:0;
@@ -857,6 +1103,17 @@ main{
         grid-template-columns:1fr;
     }
 
+    .theme-options{
+        grid-template-columns:1fr;
+    }
+
+    .project-reader-settings{
+        width:130px;
+        min-width:130px;
+        height:27px;
+        font-size:12px;
+    }
+
 }
 
 @media(max-width:430px){
@@ -884,7 +1141,10 @@ main{
 
 }
 </style>
-<link rel="stylesheet" href="assets/project-header-runtime.css">
+<script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
+<link rel="preload" href="assets/project-translations-pages/bible.json?v=20260908-3" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/project-header-runtime.css?v=20260908-3">
+<script defer src="assets/project-header-runtime.js?v=20260908-3"></script>
 <link rel="stylesheet" href="assets/interactive-biblical-map.css">
 </head>
 
@@ -972,7 +1232,7 @@ main{
                 onclick="verseFeature('similar')"
                 type="button"
             >
-                🔗 الآيات المشابهة
+                🔗 آيات مقارنة
             </button>
 
             <button
@@ -999,6 +1259,14 @@ main{
                 📚 التفسير
             </button>
 
+            <div class="highlight-picker" aria-label="ألوان تظليل الآية">
+                <span class="highlight-label">تظليل الآية</span>
+                <button class="highlight-swatch highlight-yellow" type="button" data-highlight-color="yellow" onclick="setVerseHighlight('yellow')" aria-label="تظليل أصفر" aria-pressed="false"></button>
+                <button class="highlight-swatch highlight-green" type="button" data-highlight-color="green" onclick="setVerseHighlight('green')" aria-label="تظليل أخضر فسفوري" aria-pressed="false"></button>
+                <button class="highlight-swatch highlight-blue" type="button" data-highlight-color="blue" onclick="setVerseHighlight('blue')" aria-label="تظليل أزرق" aria-pressed="false"></button>
+                <button class="highlight-swatch highlight-clear" type="button" data-highlight-color="" onclick="setVerseHighlight('')" aria-label="إزالة التظليل" aria-pressed="false">×</button>
+            </div>
+
         </div>
 
         <section id="verseFeaturePanel" class="verse-feature-panel" aria-live="polite">
@@ -1008,6 +1276,42 @@ main{
 
     </div>
 
+</div>
+
+
+<div id="readerSettingsModal" class="modal-backdrop reader-settings" role="dialog" aria-modal="true" aria-labelledby="readerSettingsTitle">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 id="readerSettingsTitle" class="modal-title">إعدادات القراءة</h2>
+            <button class="close-modal" type="button" onclick="closeReaderSettings()" aria-label="إغلاق إعدادات القراءة">×</button>
+        </div>
+        <div class="settings-body">
+            <label class="setting-group">
+                <span class="setting-label">نوع الخط</span>
+                <select id="readerFontFamily" class="setting-select" onchange="setReaderPreference('font',this.value)">
+                    <option value="default">الخط الافتراضي</option>
+                    <option value="tahoma">Tahoma</option>
+                    <option value="arial">Arial</option>
+                    <option value="serif">Serif</option>
+                </select>
+            </label>
+            <label class="setting-group">
+                <span class="setting-label">مقاس الخط</span>
+                <span class="font-size-control">
+                    <input id="readerFontSize" type="range" min="17" max="30" step="1" oninput="setReaderPreference('size',this.value)" aria-label="مقاس الخط">
+                    <output id="readerFontSizeValue" class="font-size-value"></output>
+                </span>
+            </label>
+            <div class="setting-group">
+                <span class="setting-label">لون التطبيق</span>
+                <div class="theme-options">
+                    <button class="theme-option theme-blue" type="button" data-reader-theme-option="blue" onclick="setReaderPreference('theme','blue')" aria-pressed="false">أزرق</button>
+                    <button class="theme-option theme-white" type="button" data-reader-theme-option="white" onclick="setReaderPreference('theme','white')" aria-pressed="false">أبيض</button>
+                    <button class="theme-option theme-black" type="button" data-reader-theme-option="black" onclick="setReaderPreference('theme','black')" aria-pressed="false">أسود</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -1035,6 +1339,91 @@ const ui = (arabic, english) => ENGLISH_MODE ? english : arabic;
 const CROSS_REFERENCES_URL = "cross-references.json";
 const VERSE_GEOGRAPHY_URL = "verse-geography.json";
 const ORIGINAL_LANGUAGE_URL = "original-language-bible.json";
+const READER_PREFERENCES_KEY = "bibleReaderPreferencesV1";
+const VERSE_HIGHLIGHTS_KEY = "bibleVerseHighlightsV1";
+const READER_FONTS = {
+    default:'Arial,Tahoma,"Segoe UI",sans-serif',
+    tahoma:'Tahoma,Arial,sans-serif',
+    arial:'Arial,Tahoma,sans-serif',
+    serif:'Georgia,"Times New Roman",serif'
+};
+
+function readStoredObject(key){
+    try{
+        const value = JSON.parse(localStorage.getItem(key) || "{}");
+        return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+    }catch(error){
+        return {};
+    }
+}
+
+let readerPreferences = Object.assign(
+    {theme:"blue",font:"default",size:21},
+    readStoredObject(READER_PREFERENCES_KEY)
+);
+let verseHighlights = readStoredObject(VERSE_HIGHLIGHTS_KEY);
+
+function applyReaderPreferences(){
+    if(!["blue","white","black"].includes(readerPreferences.theme)) readerPreferences.theme = "blue";
+    if(!READER_FONTS[readerPreferences.font]) readerPreferences.font = "default";
+    readerPreferences.size = Math.min(30,Math.max(17,Number(readerPreferences.size) || 21));
+    document.body.dataset.readerTheme = readerPreferences.theme;
+    document.documentElement.style.setProperty("--reader-font-family",READER_FONTS[readerPreferences.font]);
+    document.documentElement.style.setProperty("--reader-font-size",readerPreferences.size + "px");
+    const font = document.getElementById("readerFontFamily");
+    const size = document.getElementById("readerFontSize");
+    const output = document.getElementById("readerFontSizeValue");
+    if(font) font.value = readerPreferences.font;
+    if(size) size.value = readerPreferences.size;
+    if(output) output.textContent = readerPreferences.size + " px";
+    document.querySelectorAll("[data-reader-theme-option]").forEach(function(button){
+        button.setAttribute("aria-pressed",String(button.dataset.readerThemeOption === readerPreferences.theme));
+    });
+}
+
+function setReaderPreference(name,value){
+    if(name === "theme" && ["blue","white","black"].includes(value)) readerPreferences.theme = value;
+    if(name === "font" && READER_FONTS[value]) readerPreferences.font = value;
+    if(name === "size") readerPreferences.size = Number(value);
+    applyReaderPreferences();
+    localStorage.setItem(READER_PREFERENCES_KEY,JSON.stringify(readerPreferences));
+}
+
+function openReaderSettings(){
+    applyReaderPreferences();
+    document.getElementById("readerSettingsModal").classList.add("open");
+    document.body.style.overflow = "hidden";
+}
+
+function closeReaderSettings(){
+    document.getElementById("readerSettingsModal").classList.remove("open");
+    document.body.style.overflow = "";
+}
+
+function verseStorageKey(verse){
+    return verse ? [verse.book,verse.chapter,verse.verse].join(":") : "";
+}
+
+function updateHighlightControls(color){
+    document.querySelectorAll("[data-highlight-color]").forEach(function(button){
+        button.setAttribute("aria-pressed",String(button.dataset.highlightColor === color));
+    });
+}
+
+function setVerseHighlight(color){
+    if(!currentVerse || !["","yellow","green","blue"].includes(color)) return;
+    const key = verseStorageKey(currentVerse);
+    if(color) verseHighlights[key] = color;
+    else delete verseHighlights[key];
+    localStorage.setItem(VERSE_HIGHLIGHTS_KEY,JSON.stringify(verseHighlights));
+    const chapterVerse = document.getElementById("verse-" + currentVerse.verse);
+    const modalVerse = document.getElementById("modalVerse");
+    if(chapterVerse) chapterVerse.dataset.highlight = color;
+    if(modalVerse) modalVerse.dataset.highlight = color;
+    updateHighlightControls(color);
+}
+
+applyReaderPreferences();
 
 
 /* =========================================================
@@ -1757,6 +2146,7 @@ function openChapter(bookId,chapter){
                                 class="verse"
                                 id="verse-${v.verse}"
                                 data-verse="${v.verse}"
+                                data-highlight="${verseHighlights[verseStorageKey(v)] || ""}"
                                 tabindex="0"
                                 role="button"
                                 onclick="openVerse(
@@ -1790,16 +2180,6 @@ function openChapter(bookId,chapter){
                         onclick="previousChapter()"
                     >
                         ← ${ui("السابق", "Previous")}
-                    </button>
-
-
-                    <button
-                        class="nav-button audio"
-                        type="button"
-                        onclick="playChapter()"
-                        title="السماعة"
-                    >
-                        🔊
                     </button>
 
 
@@ -2023,6 +2403,10 @@ function openVerse(book,chapter,verse){
 
     `;
 
+    const highlight = verseHighlights[verseStorageKey(found)] || "";
+    document.getElementById("modalVerse").dataset.highlight = highlight;
+    updateHighlightControls(highlight);
+
 
     document.getElementById(
         "verseModal"
@@ -2085,7 +2469,7 @@ function verseFeature(feature){
 
 
     const featureTitles = {
-        similar: "الآيات المشابهة",
+        similar: "آيات مقارنة",
         language: "أصل اللغة",
         places: "الأماكن والأنهار",
         commentary: "التفسير"
@@ -2136,7 +2520,7 @@ async function openOriginalLanguage(){
     const modal = document.getElementById("originalLanguageModal");
     const content = document.getElementById("originalLanguageContent");
     document.getElementById("originalLanguageTitle").textContent = `${BOOK_NAMES[verse.book] || verse.book} ${verse.chapter}:${verse.verse}`;
-    content.innerHTML = `<p class="language-loading">جارٍ تحميل النص الأصلي...</p>`;
+    content.innerHTML = `<p class="language-loading">${ui("جارٍ تحميل النص الأصلي...","Loading original-language text...")}</p>`;
     modal.classList.add("open");
 
     try{
@@ -2148,19 +2532,24 @@ async function openOriginalLanguage(){
         const key = [verse.book,verse.chapter,verse.verse].join(":");
         const original = originalLanguageData.verses[key];
         if(!original){
-            content.innerHTML = `<section class="language-block"><h3 class="language-label">النص العربي</h3><p class="language-arabic">${escapeHTML(verse.text)}</p></section><p class="language-source">تعذر مطابقة ترقيم هذه الآية مع النسخة الأصلية المحلية دون تغيير حدود النص.</p>`;
+            content.innerHTML = `<section class="language-block"><h3 class="language-label">${ui("النص العربي","Verse Text")}</h3><p class="language-arabic">${escapeHTML(verse.text)}</p></section><p class="language-source">${ui("تعذر مطابقة ترقيم هذه الآية مع النسخة الأصلية المحلية دون تغيير حدود النص.","This verse could not be matched to the local original-language edition without changing its boundaries.")}</p>`;
             return;
         }
         const source = Number(verse.book.slice(0,2)) >= 40
-            ? "النص اليوناني البيزنطي 1904 / Textus Receptus، ملكية عامة"
-            : "Westminster Leningrad Codex، ملكية عامة";
+            ? ui("النص اليوناني البيزنطي 1904 / Textus Receptus، ملكية عامة","Byzantine Greek Text 1904 / Textus Receptus, public domain")
+            : ui("Westminster Leningrad Codex، ملكية عامة","Westminster Leningrad Codex, public domain");
+        const originalLanguage = ENGLISH_MODE
+            ? ({"العبرية":"Hebrew","اليونانية":"Greek"}[original.language] || original.language)
+            : original.language;
+        const arabicMeaning = verse.text.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g, "");
         content.innerHTML = `
-            <section class="language-block"><h3 class="language-label">النص العربي</h3><p class="language-arabic">${escapeHTML(verse.text)}</p></section>
-            <section class="language-block"><h3 class="language-label">النص باللغة ${escapeHTML(original.language)}</h3><p class="language-original" dir="${original.direction}">${escapeHTML(original.text)}</p></section>
-            <p class="language-source">المصدر: ${source}، عبر eBible.org.</p>`;
+            <section class="language-block"><h3 class="language-label">${ui("الآية بالعربية","Verse")}</h3><p class="language-arabic">${escapeHTML(verse.text)}</p></section>
+            <section class="language-block"><h3 class="language-label">${ui("أصل اللغة","Original Language")} (${escapeHTML(originalLanguage)})</h3><p class="language-original" dir="${original.direction}">${escapeHTML(original.text)}</p></section>
+            <section class="language-block"><h3 class="language-label">${ui("المعنى بالعربية","Meaning")}</h3><p class="language-meaning">${escapeHTML(arabicMeaning)}</p><small class="language-meaning-note">${ui("ترجمة معنى النص الأصلي بصياغة الآية العربية المعتمدة؛ وليست شرحًا معجميًا كلمة بكلمة.","A meaning-based rendering of the original text using the selected English Bible; it is not a word-by-word lexical analysis.")}</small></section>
+            <p class="language-source">${ui("المصدر","Source")}: ${source}${ui("، عبر",", via")} eBible.org.</p>`;
         if(typeof removeProjectBlankLines === "function") removeProjectBlankLines(content);
     }catch(error){
-        content.textContent = "تعذر تحميل النص الأصلي المحلي.";
+        content.textContent = ui("تعذر تحميل النص الأصلي المحلي.","Failed to load the local original-language text.");
     }
 }
 
@@ -2207,6 +2596,7 @@ async function showVerseGeography(){
 
 async function showSimilarVerses(){
     const content = document.getElementById("featureContent");
+    content.classList.add("cross-reference-content");
     content.textContent = "جارٍ تحميل القرائن الكتابية...";
 
     try{
@@ -2254,6 +2644,11 @@ const COMMENTATORS = [
     {id:"academic_synthesis",name:"الشرح الأكاديمي اللاهوتي"}
 ];
 
+const ENGLISH_COMMENTARY_SOURCES = {
+    matthew_henry: "Matthew Henry, Commentary on the Whole Bible",
+    jfb: "Jamieson-Fausset-Brown Bible Commentary"
+};
+
 function commentaryMarkup(record){
     const verseText = currentVerse ? currentVerse.text : "";
     if(!record || !record.explanation_lines){
@@ -2264,24 +2659,45 @@ function commentaryMarkup(record){
     return `<p class="commentary-verse-text">${escapeHTML(verseText)}</p><div class="feature-content commentary-explanation"><p><strong>السياق الأكاديمي:</strong> ${escapeHTML(lines.academic || "")}</p><p><strong>المعنى اللاهوتي:</strong> ${escapeHTML(lines.theological || "")}</p><p><strong>التعمق:</strong> ${escapeHTML(lines.deep || "")}</p><p><strong>التطبيق:</strong> ${escapeHTML(lines.applied || "")}</p><p class="commentary-sources"><strong>مصادر التفسير:</strong> ${escapeHTML(sourceNames.join("، "))}</p></div>`;
 }
 
+function englishCommentaryMarkup(data,reference){
+    const verseText = currentVerse ? currentVerse.text : "";
+    const records = (data.verses?.[reference] || []).map(function(recordId){
+        return data.records?.[recordId];
+    }).filter(Boolean);
+    if(!records.length){
+        return `<p class="commentary-verse-text">${escapeHTML(verseText)}</p><p class="feature-content">No verified English commentary is available for this verse.</p>`;
+    }
+    return `<p class="commentary-verse-text">${escapeHTML(verseText)}</p><div class="feature-content commentary-explanation">${records.map(function(record){
+        const sourceName = ENGLISH_COMMENTARY_SOURCES[record.source_id] || record.source_id;
+        return `<article class="commentary-source"><p><strong>${escapeHTML(sourceName)}</strong></p><p>${escapeHTML(record.text || "")}</p><p class="commentary-sources"><strong>Source:</strong> ${escapeHTML(record.locator || "Local public-domain commentary index")}</p></article>`;
+    }).join("")}</div>`;
+}
+
 async function selectCommentary(commentatorId){
     if(!currentVerse) return;
     const commentator = COMMENTATORS.find(function(item){return item.id === commentatorId});
     if(!commentator) return;
 
     const content = document.getElementById("featureContent");
-    content.textContent = "جارٍ التحقق من الشرح المعتمد...";
+    content.textContent = ui("جارٍ التحقق من الشرح المعتمد...", "Loading verified commentary...");
 
     try{
-        const commentaryFile = `commentary-data/${currentVerse.book}.json`;
+        const commentaryFile = ENGLISH_MODE
+            ? `commentary-data-en/${currentVerse.book}.json`
+            : `commentary-data/${currentVerse.book}.json`;
         if(!commentaryCache[commentaryFile]){
-            const response = await fetch(commentaryFile,{cache:"no-store"});
+            const response = await fetch(commentaryFile);
             if(!response.ok) throw new Error("commentary unavailable");
             commentaryCache[commentaryFile] = await response.json();
         }
 
         const commentaryData = commentaryCache[commentaryFile];
         const reference = [currentVerse.book,currentVerse.chapter,currentVerse.verse].join(":");
+        if(ENGLISH_MODE){
+            document.getElementById("featureTitle").textContent = "";
+            content.innerHTML = englishCommentaryMarkup(commentaryData,reference);
+            return;
+        }
         const study = commentaryData.verses && (commentaryData.verses[reference] || commentaryData.verses[reference.replace(/\s+/g,"")]);
         const records = study && study.commentators ? study.commentators : {};
         const record = records[commentatorId];
@@ -2289,13 +2705,14 @@ async function selectCommentary(commentatorId){
         document.getElementById("featureTitle").textContent = "";
         content.innerHTML = commentaryMarkup(record);
     }catch(error){
-        content.textContent = "تعذر تحميل قاعدة التفاسير المحلية. لم تتم إضافة أي شرح غير موثق.";
+        content.textContent = ui("تعذر تحميل قاعدة التفاسير المحلية. لم تتم إضافة أي شرح غير موثق.", "Unable to load the local verified commentary.");
     }
 }
 
 function closeVerseFeature(){
     const modal = document.querySelector("#verseModal .modal");
     if(modal) modal.classList.remove("feature-open");
+    document.getElementById("featureContent").classList.remove("cross-reference-content");
     updateModalCloseButton(false);
 
 }
@@ -2545,19 +2962,6 @@ function openSearchVerse(
 
 
 /* =========================================================
-   السماعة
-========================================================= */
-
-function playChapter(){
-
-    alert(
-        "سيتم ربط صوت الأصحاح بهذه الأيقونة لاحقًا."
-    );
-
-}
-
-
-/* =========================================================
    إغلاق النافذة عند الضغط خارجها
 ========================================================= */
 
@@ -2589,6 +2993,14 @@ document
 document.addEventListener(
     "keydown",
     function(event){
+
+        if(
+            event.key === "Escape" &&
+            document.getElementById("readerSettingsModal").classList.contains("open")
+        ){
+            closeReaderSettings();
+            return;
+        }
 
         if(
             event.key === "Escape" &&
@@ -2825,6 +3237,5 @@ loadBible();
 </script>
 
 <script src="assets/interactive-biblical-map.js"></script>
-<script src="assets/project-header-runtime.js?v=20260829-6"></script>
 </body>
 </html>

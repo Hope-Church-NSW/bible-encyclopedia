@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
-const CHUNK_SIZE = 4;
+const CHUNK_SIZE = 9;
 const MAX_RETRIES = 2;
 const CREDIT_LIMIT_PER_CHUNK = 30;
 
@@ -257,6 +257,7 @@ function aggregateBookCommentary(options, bookCode) {
   const verses = {};
   const bookName = parseBookName(bookCode);
   for (const [chapterVerse, entry] of Object.entries(bookApproved)) {
+    if (!/^\d+:\d+$/.test(chapterVerse)) throw new Error(`Invalid approved verse reference: ${bookCode}:${chapterVerse}`);
     const [chapterRaw, verseRaw] = chapterVerse.split(':');
     const chapter = Number(chapterRaw);
     const verse = Number(verseRaw);
@@ -281,6 +282,9 @@ function aggregateBookCommentary(options, bookCode) {
       references,
       status: { completed: true, reviewed: true, sources_verified: true, preview: false }
     };
+  }
+  if (Object.keys(verses).length !== Object.keys(bookApproved).length) {
+    throw new Error(`Commentary display aggregation lost verses for ${bookCode}`);
   }
   const output = { verses };
   writeJson(path.join(options.workspaceRoot, 'commentary-data', `${bookCode}.json`), output);
@@ -646,9 +650,13 @@ function main() {
   console.log(`Completed ${chunksProcessed} chunk(s). Halted=${report.halted}. Pending remaining=${Math.max(0, pendingVerses.length - cursor)}.`);
 }
 
-try {
-  main();
-} catch (error) {
-  console.error(error && error.stack ? error.stack : String(error));
-  process.exitCode = 1;
+if (require.main === module) {
+  try {
+    main();
+  } catch (error) {
+    console.error(error && error.stack ? error.stack : String(error));
+    process.exitCode = 1;
+  }
 }
+
+module.exports = { aggregateBookCommentary };

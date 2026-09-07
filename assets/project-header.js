@@ -20,13 +20,20 @@
 
     const brand = document.createElement('div');
     brand.className = 'project-brand';
-    brand.innerHTML = `
-        <div class="project-brand-text">
-            <div class="project-brand-name">موسوعة الكتاب المقدس</div>
-            <div class="project-brand-church">كنيسة رجاء الأمم سيدني</div>
-        </div>
-        <img class="project-brand-logo" src="${logo ? logo.getAttribute('src') : 'assets/logo.png'}" alt="شعار كنيسة رجاء الأمم سيدني">
-    `;
+    const brandText = document.createElement('div');
+    brandText.className = 'project-brand-text';
+    const brandName = document.createElement('div');
+    brandName.className = 'project-brand-name';
+    brandName.textContent = 'موسوعة الكتاب المقدس';
+    const brandChurch = document.createElement('div');
+    brandChurch.className = 'project-brand-church';
+    brandChurch.textContent = 'كنيسة رجاء الأمم سيدني';
+    const brandLogo = document.createElement('img');
+    brandLogo.className = 'project-brand-logo';
+    brandLogo.src = logo ? logo.getAttribute('src') : 'assets/logo.png';
+    brandLogo.alt = 'شعار كنيسة رجاء الأمم سيدني';
+    brandText.append(brandName, brandChurch);
+    brand.append(brandText, brandLogo);
 
     const actions = document.createElement('div');
     actions.className = 'project-header-actions';
@@ -34,7 +41,11 @@
     const back = document.createElement('a');
     back.className = 'project-return';
     back.href = returnHref;
-    back.innerHTML = `<span>↩</span><span>${returnText || 'الدراسات'}</span>`;
+    const backIcon = document.createElement('span');
+    backIcon.textContent = '↩';
+    const backText = document.createElement('span');
+    backText.textContent = returnText || 'الدراسات';
+    back.append(backIcon, backText);
     actions.appendChild(back);
 
     if (riversControl) {

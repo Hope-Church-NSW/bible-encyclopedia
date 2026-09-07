@@ -481,6 +481,845 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "test"
+		},
+		{
+			"label": "Build English Bible",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-english-bible.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Inspect KJV VPL format",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"if exist .kjv-vpl-inspect rmdir /s /q .kjv-vpl-inspect & mkdir .kjv-vpl-inspect & curl.exe -L --fail https://ebible.org/Scriptures/eng-kjv2006_vpl.zip -o .kjv-vpl-inspect\\kjv.zip & tar -xf .kjv-vpl-inspect\\kjv.zip -C .kjv-vpl-inspect & dir /s /b .kjv-vpl-inspect & for /r .kjv-vpl-inspect %f in (*.txt) do @echo ==== %f & @findstr /n /r \"^\" \"%f\" | more +1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Validate KJV English Bible",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"validate-english-bible.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Review KJV publish status",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Stage KJV Bible update",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"assets/project-header.css",
+				"assets/project-header-runtime.css",
+				"assets/project-header-runtime.js",
+				"assets/project-translations-en.json",
+				"bible.html",
+				"bible-en.json",
+				"build-english-bible.js",
+				"english-bible-report.json",
+				"sources/bible/eng-kjv-ebible/SOURCE.md",
+				"validate-english-bible.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify staged KJV files",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"diff",
+				"--cached",
+				"--name-status"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Audit staged KJV snapshot",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"set GIT_PAGER=cat&& git diff --cached --name-status && git diff --cached --check && git ls-files --stage validate-english-bible.js && for %f in (bible-en.json) do @echo SIZE %~zf %f"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Commit KJV Bible update",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Add complete KJV English Bible"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Push KJV Bible update",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Commit first-page language icon",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"git add -- index.html && set GIT_PAGER=cat&& git diff --cached --name-only && git diff --cached --check && git commit -m \"Add language switcher to entry screen\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Save first-page language icon",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Add language switcher to entry screen"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Push first-page language icon",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify entry language icon on GitHub",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"set GIT_PAGER=cat&& git rev-parse HEAD && git ls-remote --heads origin main && git show origin/main:index.html | findstr /c:\"entry-language-toggle\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Audit English study translation",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"--check",
+				"build-project-translations.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Report study translation coverage",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--audit"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Translate first study batch",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=80"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Translate full-size study batch",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=140"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Validate resilient study translator",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"--check",
+				"build-project-translations.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Test resilient study batch",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=80"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Audit validated study translations",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--audit"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Translate all Bible studies to English",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Check study translation worker",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"wmic process where \"name='node.exe' and commandline like '%build-project-translations.js --studies%'\" get ProcessId,CommandLine /format:list"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Confirm study translation process",
+			"type": "shell",
+			"command": "Get-CimInstance",
+			"args": [
+				"Win32_Process",
+				"|",
+				"Where-Object",
+				"{",
+				"$_.Name",
+				"-eq",
+				"'node.exe'",
+				"-and",
+				"$_.CommandLine",
+				"-like",
+				"'*build-project-translations.js --studies*'",
+				"}",
+				"|",
+				"Select-Object",
+				"ProcessId,CommandLine"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Inspect translation subprocesses",
+			"type": "shell",
+			"command": "Get-CimInstance",
+			"args": [
+				"Win32_Process",
+				"|",
+				"Where-Object",
+				"{",
+				"$_.Name",
+				"-eq",
+				"'node.exe'",
+				"}",
+				"|",
+				"Select-Object",
+				"ProcessId,ParentProcessId,CommandLine",
+				"|",
+				"Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Test retrying study translation batch",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=80"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Resume all study translations",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify punctuation-safe study batch",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=80"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Retest mixed-language study titles",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=80"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Complete and validate all study translations",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify ordinal Bible book translation",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=80"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Continue complete study translation",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Confirm commentary production process modern",
+			"type": "shell",
+			"command": "Get-CimInstance",
+			"args": [
+				"Win32_Process",
+				"|",
+				"Where-Object",
+				"{",
+				"$_.Name",
+				"-eq",
+				"'node.exe'",
+				"-and",
+				"($_.CommandLine",
+				"-like",
+				"'*run-approved-commentary-orchestrator.js*'",
+				"-or",
+				"$_.CommandLine",
+				"-like",
+				"'*run-commentary-production-continuously.js*')",
+				"}",
+				"|",
+				"Select-Object",
+				"ProcessId,CommandLine"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Resume funded study translation",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify exact numeric study translation",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=80"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Finish funded study translation",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify extra translation ID handling",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=80"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Continue funded translations after retry",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify written number translation",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=80"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Continue all funded study content",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify written cardinal number handling",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies",
+				"--limit=80"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Resume studies after cardinal validation",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js",
+				"--studies"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Complete all project translations",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-project-translations.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Build offline site assets",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-offline-assets.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run project translation continuously",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"run-project-translations-continuously.js"
+			],
+			"isBackground": true,
+			"problemMatcher": {
+				"owner": "project-translation",
+				"pattern": {
+					"regexp": "^(.*)$",
+					"message": 1
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "Starting project translation pass",
+					"endsPattern": "Translated|Project translation is complete"
+				}
+			},
+			"group": "build"
+		},
+		{
+			"label": "Reload commentary nine-verse batches",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/PID",
+				"11048",
+				"/T",
+				"/F"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Build English commentary data",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-english-commentary.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Version shared runtime assets",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"version-project-runtime.js",
+				"20260907-4"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Build page translation bundles",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-page-translations.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Finalize fast navigation assets",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"version-project-runtime.js",
+				"20260907-5"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Refresh page translation bundles",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-page-translations.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Publish navigation runtime v6",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"version-project-runtime.js",
+				"20260907-6"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Publish navigation runtime v7",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"version-project-runtime.js",
+				"20260907-7"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Refresh offline assets v11",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-offline-assets.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Publish navigation runtime v8",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"version-project-runtime.js",
+				"20260907-8"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Refresh offline assets v12",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-offline-assets.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Publish no-flash runtime v9",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"version-project-runtime.js",
+				"20260907-9"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Rebuild no-flash translation bundles",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-page-translations.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Refresh offline assets v13",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-offline-assets.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Publish early language runtime",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"version-project-runtime.js",
+				"20260908-1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Rebuild early language bundles",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-page-translations.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Refresh offline assets v14",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-offline-assets.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Publish synchronized language runtime",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"version-project-runtime.js",
+				"20260908-2"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Rebuild synchronized page bundles",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-page-translations.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Refresh offline assets v15",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"build-offline-assets.js"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

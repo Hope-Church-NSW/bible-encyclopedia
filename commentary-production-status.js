@@ -6,7 +6,7 @@ for (const verse of pending) {
   const key = `${verse.book}:${verse.chapter}`;
   groups.set(key, (groups.get(key) || 0) + 1);
 }
-const remainingBatches = [...groups.values()].reduce((sum, count) => sum + Math.ceil(count / 8), 0);
+const remainingBatches = [...groups.values()].reduce((sum, count) => sum + Math.ceil(count / 9), 0);
 console.log(JSON.stringify({
   processed_batches: progress.processed_chunks,
   last_batch: progress.last_chunk,
