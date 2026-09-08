@@ -13,10 +13,23 @@
     manifest.href = 'manifest.webmanifest';
     document.head.appendChild(manifest);
 
+    const favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    favicon.type = 'image/png';
+    favicon.sizes = '48x48';
+    favicon.href = 'assets/app-icons/favicon-48.png';
+    document.head.appendChild(favicon);
+
+    const appleTouchIcon = document.createElement('link');
+    appleTouchIcon.rel = 'apple-touch-icon';
+    appleTouchIcon.sizes = '180x180';
+    appleTouchIcon.href = 'assets/app-icons/apple-touch-icon-180.png';
+    document.head.appendChild(appleTouchIcon);
+
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
         window.addEventListener('load', async () => {
             try {
-                await navigator.serviceWorker.register('service-worker.js?v=15', { updateViaCache: 'none' });
+                await navigator.serviceWorker.register('service-worker.js?v=16', { updateViaCache: 'none' });
                 const registration = await navigator.serviceWorker.ready;
                 if (registration.active && navigator.onLine) {
                     const cacheSite = () => registration.active.postMessage('CACHE_PUBLISHED_SITE');
