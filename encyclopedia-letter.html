@@ -726,6 +726,17 @@ function escapeHTML(text){
         .replace(/'/g,"&#039;");
 }
 
+function safeExternalURL(value){
+    try{
+        const url = new URL(String(value));
+        return ["http:", "https:"].includes(url.protocol)
+            ? url.href
+            : "";
+    }catch{
+        return "";
+    }
+}
+
 
 /* =========================================================
    تحويل النص إلى فقرات HTML
@@ -738,14 +749,6 @@ function textToHTML(text){
 
     if(!text){
         return "";
-    }
-
-    const looksLikeHTML =
-        /<(p|div|br|h1|h2|h3|h4|ul|ol|li|blockquote|strong|em)[\s>]/i
-        .test(text);
-
-    if(looksLikeHTML){
-        return text;
     }
 
     return text
@@ -1159,11 +1162,13 @@ function renderReferences(item){
             reference.year
         ].filter(Boolean).join(". ");
 
-        if(reference.url){
-            return `<li><a href="${escapeHTML(reference.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label || reference.url)}</a></li>`;
+        const safeURL = safeExternalURL(reference.url);
+
+        if(safeURL){
+            return `<li><a href="${escapeHTML(safeURL)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label || reference.url)}</a></li>`;
         }
 
-        return `<li>${escapeHTML(label)}</li>`;
+        return `<li>${escapeHTML(label || reference.url || "")}</li>`;
     }).join("");
 
     return `
