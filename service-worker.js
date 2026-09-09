@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bible-encyclopedia-v16';
+const CACHE_NAME = 'bible-encyclopedia-v18';
 const CORE_ASSETS = [
   './',
   'index.html',
@@ -82,6 +82,7 @@ self.addEventListener('fetch', (event) => {
     const requiresFreshCopy = event.request.mode === 'navigate'
       || url.pathname.endsWith('/assets/project-header-runtime.js')
       || url.pathname.endsWith('/assets/project-header-runtime.css')
+      || url.pathname.endsWith('/encyclopedia_en.json')
       || url.pathname.endsWith('/offline-assets.json');
 
     if (requiresFreshCopy) {

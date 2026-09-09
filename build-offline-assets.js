@@ -11,6 +11,7 @@ const runtimeData = new Set([
   'original-language-bible.json',
   'verse-geography.json',
   'encyclopedia_ar.json',
+  'encyclopedia_en.json',
   'encyclopedia_b.json',
   'encyclopedia_n.json',
   'commentary.json'

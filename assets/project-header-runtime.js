@@ -29,7 +29,7 @@
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
         window.addEventListener('load', async () => {
             try {
-                await navigator.serviceWorker.register('service-worker.js?v=16', { updateViaCache: 'none' });
+                await navigator.serviceWorker.register('service-worker.js?v=18', { updateViaCache: 'none' });
                 const registration = await navigator.serviceWorker.ready;
                 if (registration.active && navigator.onLine) {
                     const cacheSite = () => registration.active.postMessage('CACHE_PUBLISHED_SITE');
@@ -255,6 +255,10 @@
     languageToggle.addEventListener('click', () => {
         const language = localStorage.getItem('bibleAppLanguage') === 'en' ? 'ar' : 'en';
         localStorage.setItem('bibleAppLanguage', language);
+        if (pageName === 'encyclopedia-letter.html') {
+            location.assign('encyclopedia.html');
+            return;
+        }
         location.reload();
     });
     const back = document.createElement('a');

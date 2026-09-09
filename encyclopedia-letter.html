@@ -103,6 +103,68 @@ main{
     margin:35px auto 70px;
 }
 
+.alphabet-nav{
+    position:sticky;
+    top:104px;
+    z-index:20;
+    margin-bottom:24px;
+    padding:12px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:rgba(6,19,33,.96);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(12px);
+}
+
+.alphabet-list{
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
+    padding:2px 2px 7px;
+    scrollbar-color:var(--gold) var(--bg);
+}
+
+.alphabet-link{
+    display:grid;
+    flex:1 0 38px;
+    min-width:38px;
+    height:42px;
+    place-items:center;
+    border:1px solid rgba(212,175,55,.28);
+    border-radius:9px;
+    background:var(--panel2);
+    color:var(--text);
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+    line-height:1;
+    transition:.2s;
+}
+
+.alphabet-link:hover,
+.alphabet-link.active{
+    border-color:var(--gold);
+    background:linear-gradient(145deg,#715a15,#a58421);
+    color:#fff;
+}
+
+@media(min-width:901px){
+    .alphabet-list{
+        display:grid;
+        grid-template-columns:repeat(var(--letter-count,28),minmax(0,1fr));
+        gap:5px;
+        overflow:visible;
+        padding-bottom:2px;
+    }
+
+    .alphabet-link{
+        min-width:0;
+        width:auto;
+        height:40px;
+        font-size:17px;
+    }
+}
+
 .page-title{
     text-align:center;
     margin-bottom:30px;
@@ -142,9 +204,10 @@ main{
 
 .entries{
     display:grid;
-    grid-template-columns:minmax(230px,300px) minmax(0,1fr);
+    grid-template-columns:minmax(0,1fr) minmax(230px,300px);
+    grid-template-areas:"study index";
     gap:22px;
-    direction:rtl;
+    direction:ltr;
 }
 
 .entries-index,
@@ -157,9 +220,39 @@ main{
 }
 
 .entries-index{
+    grid-area:index;
+    direction:rtl;
+    min-width:0;
     align-self:start;
     position:sticky;
-    top:98px;
+    top:178px;
+}
+
+.entry-study{
+    grid-area:study;
+    direction:rtl;
+}
+
+html[dir="ltr"] .entries-index,
+html[dir="ltr"] .entry-study{
+    direction:ltr;
+}
+
+html[dir="ltr"] .entry-index-link{
+    text-align:left;
+}
+
+html[dir="ltr"] .original-language,
+html[dir="ltr"] .entry-content blockquote{
+    border-right:0;
+    border-left:3px solid var(--gold);
+}
+
+html[dir="ltr"] .references-list,
+html[dir="ltr"] .entry-content ul,
+html[dir="ltr"] .entry-content ol{
+    padding-right:0;
+    padding-left:28px;
 }
 
 .entries-index h2,
@@ -337,12 +430,48 @@ main{
 
 @media(max-width:700px){
 
+    main{
+        width:min(100% - 20px,1200px);
+    }
+
+    .alphabet-nav{
+        top:88px;
+        margin-bottom:18px;
+        padding:9px;
+        border-radius:12px;
+    }
+
+    .alphabet-link{
+        flex-basis:36px;
+        min-width:36px;
+        height:38px;
+        font-size:17px;
+    }
+
     .entries{
         grid-template-columns:1fr;
+        grid-template-areas:
+            "index"
+            "study";
     }
 
     .entries-index{
         position:static;
+    }
+
+    .entry-index-list{
+        display:flex;
+        gap:8px;
+        max-height:none;
+        overflow-x:auto;
+        padding-bottom:7px;
+    }
+
+    .entry-index-link{
+        flex:0 0 auto;
+        width:auto;
+        max-width:220px;
+        white-space:nowrap;
     }
 
     .header-inner{
@@ -415,6 +544,10 @@ main{
 
 <main>
 
+    <nav id="alphabetNav" class="alphabet-nav" aria-label="الحروف الأبجدية">
+        <div id="alphabetList" class="alphabet-list"></div>
+    </nav>
+
     <section class="page-title">
 
         <h1 id="letterTitle">
@@ -447,8 +580,10 @@ main{
    المسار الصحيح لقاعدة بيانات الموسوعة
    ========================================================= */
 
-const DATA_URL =
-    new URLSearchParams(window.location.search).get("letter") === "ن"
+const ENGLISH_MODE = document.documentElement.lang === "en";
+const DATA_URL = ENGLISH_MODE
+    ? "encyclopedia_en.json"
+    : new URLSearchParams(window.location.search).get("letter") === "ن"
         ? "encyclopedia_n.json"
         : "encyclopedia_ar.json";
 
@@ -463,6 +598,14 @@ const ARABIC_LETTERS = [
     "ض","ط","ظ","ع","غ","ف","ق",
     "ك","ل","م","ن","ه","و","ي"
 ];
+
+const LETTERS = ENGLISH_MODE
+    ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
+    : ARABIC_LETTERS;
+
+function ui(arabic, english){
+    return ENGLISH_MODE ? english : arabic;
+}
 
 
 /* =========================================================
@@ -494,6 +637,11 @@ function normalizeLetter(letter){
     letter =
         letter.trim();
 
+    if(ENGLISH_MODE){
+        const match = letter.normalize("NFKD").match(/[A-Za-z]/);
+        return match ? match[0].toUpperCase() : "";
+    }
+
     const map = {
         "أ":"ا",
         "إ":"ا",
@@ -505,8 +653,42 @@ function normalizeLetter(letter){
 }
 
 
-const letter =
-    normalizeLetter(requestedLetter);
+const letter = normalizeLetter(requestedLetter)
+    || (ENGLISH_MODE ? "A" : "ا");
+
+
+/* =========================================================
+   شريط الحروف الأبجدية
+   ========================================================= */
+
+function renderAlphabet(){
+
+    const alphabetList =
+        document.getElementById("alphabetList");
+
+    document.getElementById("alphabetNav").setAttribute(
+        "aria-label",
+        ui("الحروف الأبجدية", "Alphabetical index")
+    );
+    alphabetList.style.setProperty("--letter-count", LETTERS.length);
+
+    alphabetList.innerHTML = LETTERS.map(item => {
+        const active = item === letter ? " active" : "";
+        const current = item === letter ? ' aria-current="page"' : "";
+
+        return `<a class="alphabet-link${active}" href="encyclopedia-letter.html?letter=${encodeURIComponent(item)}"${current}>${item}</a>`;
+    }).join("");
+
+    const activeLetter = alphabetList.querySelector(".active");
+
+    if(activeLetter){
+        requestAnimationFrame(() => activeLetter.scrollIntoView({
+            behavior:"smooth",
+            block:"nearest",
+            inline:"center"
+        }));
+    }
+}
 
 
 /* =========================================================
@@ -590,7 +772,7 @@ function textToHTML(text){
    معرفة أول حرف عربي في العنوان
    ========================================================= */
 
-function firstArabicLetter(text){
+function firstEntryLetter(text){
 
     text =
         cleanText(text);
@@ -606,11 +788,7 @@ function firstArabicLetter(text){
         const normalized =
             normalizeLetter(char);
 
-        if(
-            ARABIC_LETTERS.includes(
-                normalized
-            )
-        ){
+        if(LETTERS.includes(normalized)){
             return normalized;
         }
     }
@@ -913,7 +1091,7 @@ function filterByLetter(entries){
             }
 
             return (
-                firstArabicLetter(title)
+                firstEntryLetter(title)
                 ===
                 letter
             );
@@ -939,7 +1117,7 @@ function sortEntries(entries){
 
             return titleA.localeCompare(
                 titleB,
-                "ar",
+                ENGLISH_MODE ? "en" : "ar",
                 {
                     sensitivity:"base",
                     numeric:false
@@ -990,7 +1168,7 @@ function renderReferences(item){
 
     return `
         <section class="references" aria-labelledby="references-title">
-            <h2 id="references-title" class="references-title">المراجع والمصادر</h2>
+            <h2 id="references-title" class="references-title">${ui("المراجع والمصادر", "References and sources")}</h2>
             <ol class="references-list">${items}</ol>
         </section>
     `;
@@ -1026,10 +1204,13 @@ function render(entries){
     if(letter){
 
         title.textContent =
-            `حرف ${letter}`;
+            ui(`حرف ${letter}`, `Letter ${letter}`);
 
         description.textContent =
-            `مداخل موسوعة الكتاب المقدس تحت حرف ${letter}`;
+            ui(
+                `مداخل موسوعة الكتاب المقدس تحت حرف ${letter}`,
+                `Biblical encyclopedia entries under the letter ${letter}`
+            );
 
     }else{
 
@@ -1037,7 +1218,10 @@ function render(entries){
             "موسوعة الكتاب المقدس";
 
         description.textContent =
-            "اختر حرفاً من الموسوعة لعرض المداخل.";
+            ui(
+                "اختر حرفاً من الموسوعة لعرض المداخل.",
+                "Choose a letter from the encyclopedia to view its entries."
+            );
     }
 
 
@@ -1065,16 +1249,16 @@ function render(entries){
                     color:var(--gold2);
                     margin-bottom:8px;
                 ">
-                    لا توجد بيانات معروضة لهذا الحرف
+                    ${ui("لا توجد بيانات معروضة لهذا الحرف", "No entries are available for this letter")}
                 </div>
 
                 <div>
-                    تأكد من أن ملف
+                    ${ui("تأكد من أن ملف", "Make sure the file")}
                     <strong>
-                        encyclopedia_ar.json
+                        ${DATA_URL}
                     </strong>
-                    يحتوي على المداخل الخاصة بحرف
-                    ${escapeHTML(letter || "المحدد")}.
+                    ${ui("يحتوي على المداخل الخاصة بحرف", "contains entries for the letter")}
+                    ${escapeHTML(letter || ui("المحدد", "selected"))}.
                 </div>
 
             </div>
@@ -1103,7 +1287,7 @@ function render(entries){
             ? `<div class="meta"><span class="badge">${escapeHTML(item.category)}</span></div>`
             : "";
             const originalLanguage = item && item.originalLanguage
-                ? `<section class="original-language" aria-label="المعنى في أصل اللغة"><h3>المعنى في أصل اللغة</h3><p><strong>${escapeHTML(item.originalLanguage.language || "")}</strong>؛ ${escapeHTML(item.originalLanguage.meaning || "")}</p></section>`
+                ? `<section class="original-language" aria-label="${ui("المعنى في أصل اللغة", "Meaning in the original language")}"><h3>${ui("المعنى في أصل اللغة", "Meaning in the original language")}</h3><p><strong>${escapeHTML(item.originalLanguage.language || "")}</strong>; ${escapeHTML(item.originalLanguage.meaning || "")}</p></section>`
                 : "";
 
         return `
@@ -1112,7 +1296,7 @@ function render(entries){
                 <h2 class="entry-title">${escapeHTML(itemTitle)}</h2>
                     ${originalLanguage}
                 <div class="entry-content">
-                    ${itemContent ? textToHTML(itemContent) : "<p>لا يوجد محتوى لهذا المدخل.</p>"}
+                    ${itemContent ? textToHTML(itemContent) : `<p>${ui("لا يوجد محتوى لهذا المدخل.", "There is no content for this entry.")}</p>`}
                 </div>
                 ${renderReferences(item)}
             </article>
@@ -1131,8 +1315,8 @@ function render(entries){
     content.innerHTML = `
         <div class="entries">
             <aside class="entries-index">
-                <h2>كلمات حرف ${escapeHTML(letter)}</h2>
-                <input class="entry-search" type="search" placeholder="ابحث في الكلمات" aria-label="ابحث في الكلمات">
+                <h2>${ui(`كلمات حرف ${escapeHTML(letter)}`, `Terms under ${escapeHTML(letter)}`)}</h2>
+                <input class="entry-search" type="search" placeholder="${ui("ابحث في الكلمات", "Search terms")}" aria-label="${ui("ابحث في الكلمات", "Search terms")}">
                 <div class="entry-index-list">${renderIndex(entries, selectedItem)}</div>
             </aside>
             <section class="entry-study" aria-live="polite">
@@ -1155,7 +1339,7 @@ function render(entries){
         selectedIndex = index;
         study.innerHTML = renderStudy(entries[index], index);
         indexList.innerHTML = renderIndex(entries, entries[index]);
-        history.replaceState(null, "", `encyclopedia-letter.html?letter=${encodeURIComponent(requestedLetter || letter)}&entry=${encodeURIComponent(id)}`);
+        history.replaceState(null, "", `encyclopedia-letter.html?letter=${encodeURIComponent(letter)}&entry=${encodeURIComponent(id)}`);
         bindIndex();
     };
 
@@ -1250,13 +1434,13 @@ async function loadEncyclopedia(){
                     font-size:21px;
                     margin-bottom:10px;
                 ">
-                    تعذر تحميل الموسوعة
+                    ${ui("تعذر تحميل الموسوعة", "Unable to load the encyclopedia")}
                 </div>
 
                 <div style="
                     color:var(--muted);
                 ">
-                    تأكد من وجود الملف في المسار التالي:
+                    ${ui("تأكد من وجود الملف في المسار التالي:", "Make sure the following file exists:")}
                 </div>
 
                 <strong style="
@@ -1265,7 +1449,7 @@ async function loadEncyclopedia(){
                     margin-top:8px;
                     direction:ltr;
                 ">
-                    encyclopedia_ar.json
+                    ${DATA_URL}
                 </strong>
 
                 <div style="
@@ -1287,6 +1471,7 @@ async function loadEncyclopedia(){
    تشغيل الموسوعة
    ========================================================= */
 
+renderAlphabet();
 loadEncyclopedia();
 
 </script>

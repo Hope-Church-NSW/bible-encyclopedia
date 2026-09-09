@@ -562,10 +562,11 @@
    CONFIGURATION
 ========================================================= */
 
-const ENCYCLOPEDIA_URL = "encyclopedia_ar.json";
+const ENGLISH_MODE = document.documentElement.lang === "en";
+const ENCYCLOPEDIA_URL = ENGLISH_MODE ? "encyclopedia_en.json" : "encyclopedia_ar.json";
 const NOUN_ENCYCLOPEDIA_URL = "encyclopedia_n.json";
 
-const LETTERS = [
+const ARABIC_LETTERS = [
     "أ",
     "ب",
     "ت",
@@ -596,6 +597,14 @@ const LETTERS = [
     "ي"
 ];
 
+const LETTERS = ENGLISH_MODE
+    ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
+    : ARABIC_LETTERS;
+
+function ui(arabic, english) {
+    return ENGLISH_MODE ? english : arabic;
+}
+
 /*
  * بعض قواعد البيانات العربية تستخدم:
  *
@@ -619,6 +628,11 @@ function normalizeArabicLetter(value) {
 
     if (!text) {
         return "";
+    }
+
+    if (ENGLISH_MODE) {
+        const match = text.normalize("NFKD").match(/[A-Za-z]/);
+        return match ? match[0].toUpperCase() : "";
     }
 
     const first = text.charAt(0);
@@ -796,8 +810,10 @@ function renderLetters(
             name.className =
                 "letter-name";
 
-            name.textContent =
-                entryCounts.get(letter) + " دراسة";
+            const count = entryCounts.get(letter);
+            name.textContent = ENGLISH_MODE
+                ? `${count} ${count === 1 ? "study" : "studies"}`
+                : count + " دراسة";
 
             link.appendChild(name);
 
@@ -829,7 +845,7 @@ function renderLetters(
                 "letter-name";
 
             name.textContent =
-                "لا توجد دراسات";
+                ui("لا توجد دراسات", "No studies");
 
             box.appendChild(name);
 
@@ -1090,7 +1106,7 @@ function validateStructure(data) {
     if (data === null) {
 
         throw new Error(
-            "ملف JSON يحتوي على null فقط."
+            ui("ملف JSON يحتوي على null فقط.", "The JSON file contains only null.")
         );
     }
 
@@ -1099,7 +1115,10 @@ function validateStructure(data) {
     ) {
 
         throw new Error(
-            "البنية الرئيسية للملف يجب أن تكون Object أو Array."
+            ui(
+                "البنية الرئيسية للملف يجب أن تكون Object أو Array.",
+                "The file root must be an object or an array."
+            )
         );
     }
 
@@ -1117,8 +1136,8 @@ async function loadEncyclopedia() {
 
     setStatus(
         "loading",
-        "جاري تحميل الموسوعة...",
-        "الملف: " + ENCYCLOPEDIA_URL
+        ui("جاري تحميل الموسوعة...", "Loading the encyclopedia..."),
+        ui("الملف: ", "File: ") + ENCYCLOPEDIA_URL
     );
 
     try {
@@ -1156,7 +1175,7 @@ async function loadEncyclopedia() {
         if (!rawText.trim()) {
 
             throw new Error(
-                "الملف encyclopedia_ar.json فارغ."
+                ui(`الملف ${ENCYCLOPEDIA_URL} فارغ.`, `The file ${ENCYCLOPEDIA_URL} is empty.`)
             );
         }
 
@@ -1181,15 +1200,11 @@ async function loadEncyclopedia() {
 
         validateStructure(data);
 
-        const nounResponse =
-            await fetch(
-                NOUN_ENCYCLOPEDIA_URL,
-                {
-                    cache: "no-store"
-                }
-            );
+        const nounResponse = ENGLISH_MODE
+            ? null
+            : await fetch(NOUN_ENCYCLOPEDIA_URL, { cache: "no-store" });
 
-        if (nounResponse.ok) {
+        if (nounResponse && nounResponse.ok) {
             const nounData = await nounResponse.json();
             validateStructure(nounData);
 
@@ -1224,10 +1239,10 @@ async function loadEncyclopedia() {
 
         setStatus(
             "success",
-            "تم تحميل الموسوعة بنجاح",
-            "عدد الحروف التي تحتوي على مداخل: " +
+            ui("تم تحميل الموسوعة بنجاح", "Encyclopedia loaded successfully"),
+            ui("عدد الحروف التي تحتوي على مداخل: ", "Letters containing entries: ") +
             availableLetters.size +
-            " من " +
+            ui(" من ", " of ") +
             LETTERS.length
         );
 
@@ -1237,12 +1252,12 @@ async function loadEncyclopedia() {
 
         setStatus(
             "error",
-            "تعذر تحميل الموسوعة",
+            ui("تعذر تحميل الموسوعة", "Unable to load the encyclopedia"),
             error.message
         );
 
         showError(
-            "حدث خطأ أثناء تحميل الموسوعة.",
+            ui("حدث خطأ أثناء تحميل الموسوعة.", "An error occurred while loading the encyclopedia."),
             error.message,
             ""
         );
