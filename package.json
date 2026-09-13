@@ -1,0 +1,23 @@
+{
+  "name": "bible-encyclopedia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Arabic and English offline Bible encyclopedia",
+  "scripts": {
+    "build:web": "node build-mobile-web.js",
+    "android:sync": "npm run build:web && cap sync android",
+    "android:open": "npm run android:sync && cap open android",
+    "android:bundle": "node verify-release-signing.js && npm run android:sync && cd android && gradlew.bat bundleRelease",
+    "android:release": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File build-android-release.ps1",
+    "ios:sync": "npm run build:web && cap sync ios",
+    "ios:open": "npm run ios:sync && cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/core": "^8.5.1",
+    "@capacitor/ios": "^8.5.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.1"
+  }
+}
