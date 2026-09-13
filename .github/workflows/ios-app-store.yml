@@ -61,6 +61,7 @@ jobs:
           security import "$certificate_path" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$keychain_path"
           security set-key-partition-list -S apple-tool:,apple: -s -k "$P12_PASSWORD" "$keychain_path"
           security list-keychain -d user -s "$keychain_path"
+            security find-identity -v -p codesigning "$keychain_path"
 
       - name: Install App Store Connect API key
         env:
