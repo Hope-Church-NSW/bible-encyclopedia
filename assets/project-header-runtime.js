@@ -8,6 +8,11 @@
     document.documentElement.dir = selectedLanguage === 'en' ? 'ltr' : 'rtl';
     document.body.dir = document.documentElement.dir;
 
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport && !viewport.content.includes('viewport-fit')) {
+        viewport.content = `${viewport.content}, viewport-fit=cover`;
+    }
+
     const manifest = document.createElement('link');
     manifest.rel = 'manifest';
     manifest.href = 'manifest.webmanifest';
@@ -259,7 +264,7 @@
     back.className = 'project-return';
     back.href = returnHref;
     const backIcon = document.createElement('span');
-    backIcon.textContent = returnsHome ? '⌂' : '↩';
+    backIcon.textContent = returnsHome ? '⌂' : (selectedLanguage === 'en' ? '←' : '→');
     const backText = document.createElement('span');
     backText.textContent = returnText || 'الدراسات';
     back.append(backIcon, backText);
