@@ -329,6 +329,139 @@ main{
     margin:auto;
 }
 
+.church-live{
+    width:min(1050px,100%);
+    margin:0 auto 34px;
+    padding:24px 0;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    text-align:center;
+}
+
+.church-live-heading{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:8px;
+}
+
+.church-live-heading h2{
+    margin:0;
+    color:var(--gold-light);
+    font-size:clamp(22px,3vw,30px);
+}
+
+.live-indicator{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    min-height:30px;
+    padding:0 10px;
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:6px;
+    color:#d5e0e9;
+    background:#071b2e;
+    font:900 12px/1 Arial,sans-serif;
+}
+
+.live-indicator-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#8293a2;
+}
+
+.church-live.is-live .live-indicator{
+    border-color:#ff5c68;
+    color:#fff;
+    background:#c8172b;
+}
+
+.church-live.is-live .live-indicator-dot{
+    background:#fff;
+    box-shadow:0 0 0 5px rgba(255,255,255,.18);
+    animation:livePulse 1.4s ease-out infinite;
+}
+
+.church-live-copy{
+    margin:0 auto 18px;
+    color:var(--muted);
+    font-size:15px;
+}
+
+.live-player{
+    width:min(900px,100%);
+    margin:20px auto 0;
+}
+
+.live-player iframe{
+    display:block;
+    width:100%;
+    aspect-ratio:16/9;
+    border:1px solid rgba(255,82,82,.65);
+    border-radius:8px;
+    background:#000;
+    box-shadow:0 18px 42px rgba(0,0,0,.48);
+}
+
+.live-watch-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:42px;
+    margin-top:14px;
+    padding:0 18px;
+    border-radius:6px;
+    color:#fff;
+    background:#d71920;
+    font-weight:900;
+    text-decoration:none;
+}
+
+.church-social-links{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.church-social-link{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    min-width:170px;
+    min-height:54px;
+    padding:8px 16px;
+    border:1px solid rgba(255,255,255,.24);
+    border-radius:7px;
+    color:#fff;
+    font-weight:900;
+    text-decoration:none;
+    transition:transform .2s ease,filter .2s ease;
+}
+
+.church-social-link:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.12);
+}
+
+.church-social-link svg{
+    width:30px;
+    height:30px;
+    flex:0 0 30px;
+}
+
+.church-social-link.youtube{background:#d71920}
+.church-social-link.facebook{background:#1877f2}
+
+[hidden]{display:none !important}
+
+@keyframes livePulse{
+    70%{box-shadow:0 0 0 9px rgba(255,255,255,0)}
+    100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}
+}
+
 .entry-layer{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:24px;color:#fff;background:radial-gradient(circle at 50% 16%,rgba(255,255,255,.72),transparent 12%),linear-gradient(180deg,#56aee2 0%,#9ed9f2 43%,#e8f5f7 72%,#081827 100%);overflow:hidden;transition:opacity .65s ease,visibility .65s ease}
 .entry-layer[hidden]{display:none}.entry-layer.is-leaving{opacity:0;visibility:hidden}
 .entry-language-toggle{position:absolute;z-index:20;top:22px;left:22px;min-width:128px;height:42px;padding:0 16px;border:2px solid #d5ad43;border-radius:7px;color:#fff;background:#0757a8;font:900 14px/1 Arial,sans-serif;cursor:pointer;box-shadow:0 7px 18px rgba(0,0,0,.3)}.entry-language-toggle:hover{background:#0b6dcc}
@@ -597,6 +730,11 @@ body.english .main-card{
     .main-card{
         min-height:205px;
     }
+
+    .church-live{
+        margin-bottom:26px;
+        padding:20px 0;
+    }
 }
 
 @media(max-width:500px){
@@ -635,6 +773,17 @@ body.english .main-card{
     .welcome-message{
         font-size:17px;
         line-height:2;
+    }
+
+    .church-live-heading{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .church-social-link{
+        min-width:0;
+        width:calc(50% - 7px);
+        padding-inline:10px;
     }
 }
 </style>
@@ -733,6 +882,33 @@ body.english .main-card{
             أهلاً بكم في موسوعة الكتاب المقدس، حيث نضع بين أيديكم كنزاً غنياً من المعرفة والدراسة الكتابية، يساعدكم على اكتشاف أعماق كلمة الله والنمو في الإيمان والمعرفة.
         </p>
 
+    </section>
+
+    <section id="churchLive" class="church-live" aria-labelledby="liveTitle">
+        <div class="church-live-heading">
+            <span id="liveIndicator" class="live-indicator">
+                <span class="live-indicator-dot" aria-hidden="true"></span>
+                <span id="liveIndicatorText">قنوات الكنيسة</span>
+            </span>
+            <h2 id="liveTitle">البث المباشر</h2>
+        </div>
+        <p id="liveDescription" class="church-live-copy">تابع البث المباشر أو انتقل إلى منصات الكنيسة الرسمية.</p>
+
+        <div id="livePlayer" class="live-player" hidden>
+            <iframe id="liveFrame" title="البث المباشر لكنيسة رجاء الأمم سيدني" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            <a id="liveWatchLink" class="live-watch-link" href="https://www.youtube.com/@HCNSW/live" target="_blank" rel="noopener">مشاهدة البث على YouTube</a>
+        </div>
+
+        <div id="churchSocialLinks" class="church-social-links">
+            <a class="church-social-link youtube" href="https://www.youtube.com/@HCNSW" target="_blank" rel="noopener" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8z"/><path fill="#d71920" d="M9.75 15.5 15.75 12l-6-3.5z"/></svg>
+                <span>YouTube</span>
+            </a>
+            <a class="church-social-link facebook" href="https://www.facebook.com/hopechurchNSW" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 8h3V4h-3c-3.3 0-5 1.9-5 5v3H6v4h3v8h4v-8h3.2l.8-4H13V9c0-.7.3-1 1-1z"/></svg>
+                <span>Facebook</span>
+            </a>
+        </div>
     </section>
 
 
@@ -854,6 +1030,12 @@ const translations = {
         churchDescription:
             "كنيسة رجاء الأمم سيدني",
 
+        liveTitle:"البث المباشر",
+        liveDescription:"تابع البث المباشر أو انتقل إلى منصات الكنيسة الرسمية.",
+        liveOffline:"قنوات الكنيسة",
+        liveNow:"مباشر الآن",
+        liveWatch:"مشاهدة البث على YouTube",
+
         footerText:
             "كنيسة رجاء الأمم سيدني — موسوعة الكتاب المقدس",
 
@@ -900,6 +1082,12 @@ const translations = {
 
         churchDescription:
             "Hope Of Nation Church NSW",
+
+        liveTitle:"Live Stream",
+        liveDescription:"Watch the live stream or visit the church's official channels.",
+        liveOffline:"Church channels",
+        liveNow:"LIVE NOW",
+        liveWatch:"Watch on YouTube",
 
         footerText:
             "Hope Of Nation Church NSW — Bible Encyclopedia",
@@ -1002,6 +1190,15 @@ function setLanguage(language){
     const footerText = document.getElementById("footerText");
     if(footerText) footerText.textContent = t.footerText;
 
+    ["liveTitle","liveDescription"].forEach(function(id){
+        const element = document.getElementById(id);
+        if(element) element.textContent = t[id];
+    });
+    const liveIndicatorText = document.getElementById("liveIndicatorText");
+    if(liveIndicatorText) liveIndicatorText.textContent = document.getElementById("churchLive").classList.contains("is-live") ? t.liveNow : t.liveOffline;
+    const liveWatchLink = document.getElementById("liveWatchLink");
+    if(liveWatchLink) liveWatchLink.textContent = t.liveWatch;
+
 
     const arabicButton = document.getElementById("arabicButton");
     if(arabicButton) arabicButton.classList.toggle("active",language === "ar");
@@ -1038,8 +1235,36 @@ function enterApp(){
     },650);
 }
 
+async function refreshChurchLiveStatus(){
+    const section = document.getElementById("churchLive");
+    const player = document.getElementById("livePlayer");
+    const frame = document.getElementById("liveFrame");
+    const socialLinks = document.getElementById("churchSocialLinks");
+    if(!section || !player || !frame || !socialLinks) return;
+
+    let status = {isLive:false,videoId:null};
+    try{
+        const response = await fetch(`live-status.json?t=${Date.now()}`,{cache:"no-store"});
+        if(response.ok) status = await response.json();
+    }catch(_){}
+
+    const isLive = status.isLive === true && /^[A-Za-z0-9_-]{11}$/.test(status.videoId || "");
+    section.classList.toggle("is-live",isLive);
+    player.hidden = !isLive;
+    socialLinks.hidden = isLive;
+    if(isLive){
+        const source = `https://www.youtube-nocookie.com/embed/${status.videoId}?autoplay=1&rel=0`;
+        if(frame.src !== source) frame.src = source;
+    }else{
+        frame.removeAttribute("src");
+    }
+    setLanguage(localStorage.getItem("bibleAppLanguage") === "en" ? "en" : "ar");
+}
+
 
 setLanguage(savedLanguage);
+refreshChurchLiveStatus();
+window.setInterval(refreshChurchLiveStatus,60000);
 
 </script>
  

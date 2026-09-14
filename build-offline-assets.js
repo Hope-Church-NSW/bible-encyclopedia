@@ -14,7 +14,8 @@ const runtimeData = new Set([
   'encyclopedia_en.json',
   'encyclopedia_b.json',
   'encyclopedia_n.json',
-  'commentary.json'
+  'commentary.json',
+  'live-status.json'
 ]);
 
 function filesIn(directory, predicate = () => true) {

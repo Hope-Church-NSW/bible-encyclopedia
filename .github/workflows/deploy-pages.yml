@@ -5,6 +5,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
 
 permissions:
   contents: read
@@ -33,6 +35,12 @@ jobs:
 
       - name: Build website
         run: npm run build:web
+
+      - name: Detect church YouTube live stream
+        run: node detect-youtube-live.js dist/live-status.json
+
+      - name: Set custom domain
+        run: printf '%s\n' 'hchurchbible.org' > dist/CNAME
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
