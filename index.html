@@ -650,25 +650,14 @@ body.english .main-card{
 <section id="introLayer" class="entry-layer" aria-label="الدخول إلى موسوعة الكتاب المقدس">
     <button class="entry-language-toggle" type="button" onclick="event.stopPropagation();toggleEntryLanguage()" aria-label="تبديل اللغة">🌐 English</button>
     <div class="sky-rays"></div>
-    <div class="scene-stage" onclick="openLogin()">
+    <div class="scene-stage" onclick="enterApp()">
         <img class="scene-logo" src="assets/logo.png" alt="شعار كنيسة رجاء الأمم سيدني">
         <div class="open-book" aria-hidden="true">
             <img class="book-art" src="assets/open-bible.png" alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
             <div class="book-fallback" hidden><span class="book-page left"></span><span class="book-page right"></span></div>
         </div>
-        <div class="scene-copy"><h1 id="introTitle">موسوعة الكتاب المقدس</h1><p id="introTagline">كلمة حية، معرفة راسخة، ورجاء لكل الأمم</p><button id="introEnter" class="enter-project" type="button" onclick="event.stopPropagation();openLogin()">الدخول إلى الموسوعة</button></div>
+        <div class="scene-copy"><h1 id="introTitle">موسوعة الكتاب المقدس</h1><p id="introTagline">كلمة حية، معرفة راسخة، ورجاء لكل الأمم</p><button id="introEnter" class="enter-project" type="button" onclick="event.stopPropagation();enterApp()">الدخول إلى الموسوعة</button></div>
     </div>
-</section>
-
-<section id="authLayer" class="entry-layer auth-layer" hidden aria-label="تسجيل الدخول">
-    <button class="entry-language-toggle" type="button" onclick="toggleEntryLanguage()" aria-label="تبديل اللغة">🌐 English</button>
-    <form class="auth-panel" onsubmit="signIn(event)" novalidate>
-        <div class="auth-brand"><img src="assets/logo.png" alt="شعار الكنيسة"><div><h2 id="authTitle">تسجيل الدخول</h2><p id="authChurch">كنيسة رجاء الأمم سيدني</p></div></div>
-        <div class="auth-tabs" role="tablist"><button id="emailTab" class="auth-tab active" type="button" onclick="selectAuthMethod('email')">البريد الإلكتروني</button><button id="phoneTab" class="auth-tab" type="button" onclick="selectAuthMethod('phone')">رقم الموبايل</button></div>
-        <div id="emailField" class="auth-field"><label id="emailLabel" for="emailInput">البريد الإلكتروني</label><input id="emailInput" class="auth-control" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com"></div>
-        <div id="phoneField" class="auth-field" hidden><label id="phoneLabel" for="phoneInput">رقم الموبايل مع كود الدولة</label><div class="phone-control"><select id="countryCode" aria-label="كود الدولة"><option value="+61">+61 AU</option><option value="+20">+20 EG</option><option value="+962">+962 JO</option><option value="+961">+961 LB</option><option value="+966">+966 SA</option><option value="+971">+971 UAE</option><option value="+1">+1 US/CA</option><option value="+44">+44 UK</option></select><input id="phoneInput" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="رقم الموبايل"></div></div>
-        <button id="authSubmit" class="auth-submit" type="submit">الدخول إلى التطبيق</button><p id="authError" class="auth-error" role="alert"></p><p id="authNote" class="auth-note">يُحفظ تسجيل الدخول على هذا الجهاز. إرسال رموز تحقق فعلية يتطلب ربط مزود هوية خارجي.</p>
-    </form>
 </section>
 
 <header class="top-frame">
@@ -1040,65 +1029,13 @@ const savedLanguage =
     ) || "ar";
 
 
-let authMethod = "email";
-
-function openLogin(){
+function enterApp(){
     const intro = document.getElementById("introLayer");
     intro.classList.add("is-leaving");
     window.setTimeout(function(){
         intro.hidden = true;
-        const auth = document.getElementById("authLayer");
-        auth.hidden = false;
-        document.getElementById("emailInput").focus();
+        document.body.classList.remove("entry-active");
     },650);
-}
-
-function selectAuthMethod(method){
-    authMethod = method;
-    document.getElementById("emailTab").classList.toggle("active",method === "email");
-    document.getElementById("phoneTab").classList.toggle("active",method === "phone");
-    document.getElementById("emailField").hidden = method !== "email";
-    document.getElementById("phoneField").hidden = method !== "phone";
-    document.getElementById(method === "email" ? "emailInput" : "phoneInput").focus();
-    document.getElementById("authError").textContent = "";
-}
-
-function signIn(event){
-    event.preventDefault();
-    const error = document.getElementById("authError");
-    let identity = "";
-
-    if(authMethod === "email"){
-        const input = document.getElementById("emailInput");
-        identity = input.value.trim().toLowerCase();
-        if(!input.validity.valid || !identity){
-            error.textContent = "أدخل بريدًا إلكترونيًا صحيحًا.";
-            input.focus();
-            return;
-        }
-    }else{
-        const phoneInput = document.getElementById("phoneInput");
-        const localNumber = phoneInput.value.replace(/\D/g,"");
-        if(localNumber.length < 7 || localNumber.length > 15){
-            error.textContent = "أدخل رقم موبايل صحيحًا بعد اختيار كود الدولة.";
-            phoneInput.focus();
-            return;
-        }
-        identity = document.getElementById("countryCode").value + localNumber.replace(/^0+/,"");
-    }
-
-    localStorage.setItem("bibleAppSession",JSON.stringify({
-        identity:identity,
-        method:authMethod,
-        signedInAt:new Date().toISOString()
-    }));
-    document.getElementById("authLayer").hidden = true;
-    document.body.classList.remove("entry-active");
-}
-
-if(localStorage.getItem("bibleAppSession")){
-    document.getElementById("introLayer").hidden = true;
-    document.body.classList.remove("entry-active");
 }
 
 
