@@ -117,17 +117,15 @@ main{
 }
 
 .alphabet-list{
-    display:flex;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(36px,1fr));
     gap:7px;
-    overflow-x:auto;
-    padding:2px 2px 7px;
-    scrollbar-color:var(--gold) var(--bg);
+    padding:2px;
 }
 
 .alphabet-link{
     display:grid;
-    flex:1 0 38px;
-    min-width:38px;
+    min-width:0;
     height:42px;
     place-items:center;
     border:1px solid rgba(212,175,55,.28);
@@ -150,10 +148,8 @@ main{
 
 @media(min-width:901px){
     .alphabet-list{
-        display:grid;
-        grid-template-columns:repeat(var(--letter-count,28),minmax(0,1fr));
+        grid-template-columns:repeat(auto-fit,minmax(34px,1fr));
         gap:5px;
-        overflow:visible;
         padding-bottom:2px;
     }
 
@@ -607,6 +603,10 @@ function ui(arabic, english){
     return ENGLISH_MODE ? english : arabic;
 }
 
+function displayLetter(value){
+    return !ENGLISH_MODE && value === "ا" ? "أ" : value;
+}
+
 
 /* =========================================================
    قراءة الحرف من الرابط
@@ -676,7 +676,7 @@ function renderAlphabet(){
         const active = item === letter ? " active" : "";
         const current = item === letter ? ' aria-current="page"' : "";
 
-        return `<a class="alphabet-link${active}" href="encyclopedia-letter.html?letter=${encodeURIComponent(item)}"${current}>${item}</a>`;
+        return `<a class="alphabet-link${active}" href="encyclopedia-letter.html?letter=${encodeURIComponent(item)}"${current}>${displayLetter(item)}</a>`;
     }).join("");
 
     const activeLetter = alphabetList.querySelector(".active");
@@ -1208,13 +1208,15 @@ function render(entries){
 
     if(letter){
 
+        const visibleLetter = displayLetter(letter);
+
         title.textContent =
-            ui(`حرف ${letter}`, `Letter ${letter}`);
+            ui(`حرف ${visibleLetter}`, `Letter ${visibleLetter}`);
 
         description.textContent =
             ui(
-                `مداخل موسوعة الكتاب المقدس تحت حرف ${letter}`,
-                `Biblical encyclopedia entries under the letter ${letter}`
+                `مداخل موسوعة الكتاب المقدس تحت حرف ${visibleLetter}`,
+                `Biblical encyclopedia entries under the letter ${visibleLetter}`
             );
 
     }else{
@@ -1263,7 +1265,7 @@ function render(entries){
                         ${DATA_URL}
                     </strong>
                     ${ui("يحتوي على المداخل الخاصة بحرف", "contains entries for the letter")}
-                    ${escapeHTML(letter || ui("المحدد", "selected"))}.
+                    ${escapeHTML(displayLetter(letter) || ui("المحدد", "selected"))}.
                 </div>
 
             </div>
@@ -1320,7 +1322,7 @@ function render(entries){
     content.innerHTML = `
         <div class="entries">
             <aside class="entries-index">
-                <h2>${ui(`كلمات حرف ${escapeHTML(letter)}`, `Terms under ${escapeHTML(letter)}`)}</h2>
+                <h2>${ui(`كلمات حرف ${escapeHTML(displayLetter(letter))}`, `Terms under ${escapeHTML(displayLetter(letter))}`)}</h2>
                 <input class="entry-search" type="search" placeholder="${ui("ابحث في الكلمات", "Search terms")}" aria-label="${ui("ابحث في الكلمات", "Search terms")}">
                 <div class="entry-index-list">${renderIndex(entries, selectedItem)}</div>
             </aside>
