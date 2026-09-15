@@ -1157,9 +1157,9 @@ body.project-unified-header.project-bible-page .project-header{
 }
 </style>
 <script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
-<link rel="preload" href="assets/project-translations-pages/bible.json?v=20260908-3" as="fetch" crossorigin>
-<link rel="stylesheet" href="assets/project-header-runtime.css?v=20260908-3">
-<script defer src="assets/project-header-runtime.js?v=20260908-3"></script>
+<link rel="preload" href="assets/project-translations-pages/bible.json?v=20260915-4" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/project-header-runtime.css?v=20260915-4">
+<script defer src="assets/project-header-runtime.js?v=20260915-4"></script>
 <link rel="stylesheet" href="assets/interactive-biblical-map.css">
 </head>
 
@@ -1386,6 +1386,11 @@ function applyReaderPreferences(){
     document.body.dataset.readerTheme = readerPreferences.theme;
     document.documentElement.style.setProperty("--reader-font-family",READER_FONTS[readerPreferences.font]);
     document.documentElement.style.setProperty("--reader-font-size",readerPreferences.size + "px");
+    document.body.style.setProperty("--project-small-size",Math.max(14,readerPreferences.size - 3) + "px");
+    document.body.style.setProperty("--project-body-size",readerPreferences.size + "px");
+    document.body.style.setProperty("--project-subheading-size",Math.min(34,readerPreferences.size + 3) + "px");
+    document.body.style.setProperty("--project-section-size",Math.min(38,readerPreferences.size + 7) + "px");
+    document.body.style.setProperty("--project-title-size",Math.min(48,readerPreferences.size + 15) + "px");
     const font = document.getElementById("readerFontFamily");
     const size = document.getElementById("readerFontSize");
     const output = document.getElementById("readerFontSizeValue");

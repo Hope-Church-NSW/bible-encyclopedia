@@ -1,5 +1,5 @@
 (function () {
-    const TRANSLATION_VERSION = '20260908-3';
+    const TRANSLATION_VERSION = '20260915-4';
     const pageName = location.pathname.split('/').pop() || 'index.html';
     const translationBundle = pageName.replace(/\.html$/, '.json');
     const TRANSLATION_SESSION_KEY = `projectTranslationsEn:${TRANSLATION_VERSION}:${translationBundle}`;
@@ -28,10 +28,15 @@
         const theme = ['blue', 'white', 'black'].includes(preferences.theme) ? preferences.theme : 'blue';
         const font = readerFonts[preferences.font] ? preferences.font : 'default';
         const size = Math.min(30, Math.max(17, Number(preferences.size) || 21));
+        const root = document.documentElement.style;
         document.body.dataset.readerTheme = theme;
+        root.setProperty('--reader-font-family', readerFonts[font]);
+        root.setProperty('--reader-font-size', `${size}px`);
+        document.body.style.setProperty('--project-small-size', `${Math.max(14, size - 3)}px`);
         document.body.style.setProperty('--project-body-size', `${size}px`);
-        document.body.style.setProperty('--reader-font-family', readerFonts[font]);
-        document.body.style.fontFamily = readerFonts[font];
+        document.body.style.setProperty('--project-subheading-size', `${Math.min(34, size + 3)}px`);
+        document.body.style.setProperty('--project-section-size', `${Math.min(38, size + 7)}px`);
+        document.body.style.setProperty('--project-title-size', `${Math.min(48, size + 15)}px`);
         return { theme, font, size };
     }
 

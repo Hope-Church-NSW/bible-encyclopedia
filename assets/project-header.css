@@ -11,34 +11,66 @@ body.project-unified-header .project-header {
     background: linear-gradient(180deg,rgba(7,29,49,.98),rgba(3,15,27,.98));
     border-bottom: 2px solid #d4af37;
     box-shadow: 0 8px 30px rgba(0,0,0,.55),inset 0 -1px 0 rgba(255,255,255,.04);
+    box-sizing: border-box;
 }
-
 body.project-unified-header {
     --project-page-gutter: clamp(16px, 3vw, 40px);
     --project-frame-radius: 12px;
     --project-icon-size: clamp(56px, 5.5vw, 82px);
     --project-title-size: clamp(28px, 3.2vw, 46px);
     --project-section-size: clamp(21px, 2vw, 30px);
+    --project-subheading-size: clamp(19px, 1.6vw, 24px);
     --project-body-size: clamp(16px, 1.25vw, 19px);
+    --project-small-size: 15px;
     background: linear-gradient(180deg,#061b3a 0%,#0b2d5c 100%) !important;
     color: #fff;
     font-size: var(--project-body-size);
     font-family: var(--reader-font-family, Tahoma, Arial, sans-serif) !important;
+    overflow-x: clip;
 }
 
-body.project-unified-header[dir="ltr"] {
-    font-family: var(--reader-font-family, Georgia, "Times New Roman", serif) !important;
-}
-
-body.project-unified-header :where(p, li, td, th, blockquote, label, input, textarea, select, .verse, .modal-verse) {
+body.project-unified-header :where(main, main *, footer, footer *, dialog, dialog *, .modal-backdrop, .modal-backdrop *, .project-settings-overlay, .project-settings-overlay *) {
     font-family: var(--reader-font-family, inherit) !important;
+}
+
+body.project-unified-header :where(
+    p, li, td, th, dd, dt, blockquote, pre,
+    main button, main a, main label, main input, main textarea, main select,
+    .verse, .modal-verse,
+    .entry-content, .section-body, .study-body,
+    .commentary-text, .scripture-text, .verse-text,
+    .hero-subtitle, .page-subtitle, .study-subtitle, .subtitle,
+    .description, .summary, .note, .footer-note
+) {
     font-size: var(--project-body-size) !important;
 }
 
+body.project-unified-header main :where(button, a) > :where(span, strong):not([class*="icon"]) {
+    font-size: inherit !important;
+}
+
+body.project-unified-header :where(h3, h4, h5, h6, .card-title, .entry-title, .study-name) {
+    font-size: var(--project-subheading-size) !important;
+}
+
+body.project-unified-header :where(small, figcaption, caption, .meta, .reference, .source) {
+    font-size: var(--project-small-size) !important;
+}
+
+body.project-unified-header :where(.language-original, .language-original *, [lang="he"], [lang="he"] *, [lang="grc"], [lang="grc"] *, [lang="el"], [lang="el"] *) {
+    font-family: "SBL Hebrew", "Ezra SIL", "SBL Greek", "Gentium Plus", serif !important;
+}
+
 body.project-unified-header main {
+    box-sizing: border-box;
+    min-width: 0;
     width: min(100%, 1500px);
     margin-inline: auto;
     padding-inline: var(--project-page-gutter);
+}
+
+body.project-unified-header main :where(p, li, dd, dt, blockquote, a) {
+    overflow-wrap: anywhere;
 }
 
 body.project-unified-header :where(h1, .page-title, .hero-title) {
@@ -420,6 +452,7 @@ body.project-unified-header .project-books-return {
 
 body.project-unified-header .project-footer {
     direction: rtl;
+    box-sizing: border-box;
     width: 100%;
     margin-top: 40px;
     padding: 22px 18px 26px;
@@ -429,7 +462,7 @@ body.project-unified-header .project-footer {
     box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
     text-align: center;
     line-height: 1.9;
-    font-size: 14px;
+    font-size: var(--project-small-size);
     font-weight: 700;
 }
 
@@ -442,8 +475,6 @@ body.project-unified-header .project-footer div:first-child {
         --project-page-gutter: 12px;
         --project-frame-radius: 8px;
         --project-icon-size: 54px;
-        --project-title-size: 27px;
-        --project-section-size: 20px;
     }
 
     body.project-unified-header .project-header {

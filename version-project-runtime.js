@@ -19,7 +19,11 @@ if (versionedRuntimeSource !== runtimeSource) fs.writeFileSync(runtimePath, vers
 for (const file of files) {
     const before = fs.readFileSync(file, 'utf8');
     const translationBundle = file.replace(/\.html$/, '.json');
-    const bootstrap = `<script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>\n<link rel="preload" href="assets/project-translations-pages/${translationBundle}?v=${version}" as="fetch" crossorigin>`;
+    const translationPath = `assets/project-translations-pages/${translationBundle}`;
+    const translationPreload = fs.existsSync(translationPath)
+        ? `\n<link rel="preload" href="${translationPath}?v=${version}" as="fetch" crossorigin>`
+        : '';
+    const bootstrap = `<script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>${translationPreload}`;
     let after = before
         .replace(/<script data-project-language-bootstrap>[\s\S]*?<\/script>\s*/g, '')
         .replace(/<link rel="preload" href="assets\/project-translations-pages\/[^"']+" as="fetch" crossorigin>\s*/g, '')
