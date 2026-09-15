@@ -610,6 +610,136 @@ main{
     font-weight:600;
 }
 
+.inquiry-button{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-top:12px;
+    padding:17px 22px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    color:var(--gold2);
+    background:linear-gradient(145deg,rgba(18,59,97,.8),rgba(7,29,48,.95));
+    font:700 20px Tahoma,Arial,sans-serif;
+    text-align:right;
+    cursor:pointer;
+}
+
+.inquiry-button:hover,
+.inquiry-button:focus-visible{
+    border-color:var(--gold);
+    box-shadow:var(--gold-shadow);
+}
+
+.inquiry-icon{
+    width:58px;
+    height:58px;
+    flex-shrink:0;
+    display:grid;
+    place-items:center;
+    border-radius:16px;
+    color:var(--gold2);
+    background:#0b2944;
+    border:1px solid var(--line);
+}
+
+.inquiry-icon svg{
+    width:29px;
+    height:29px;
+}
+
+.inquiry-dialog{
+    width:min(560px,calc(100% - 28px));
+    padding:0;
+    color:var(--text);
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:#071f34;
+    box-shadow:var(--shadow);
+}
+
+.inquiry-dialog::backdrop{
+    background:rgba(1,8,15,.78);
+    backdrop-filter:blur(4px);
+}
+
+.inquiry-dialog-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:19px 22px;
+    border-bottom:1px solid var(--line);
+}
+
+.inquiry-dialog h2{
+    margin:0;
+    color:var(--gold2);
+    font-size:25px;
+}
+
+.dialog-close{
+    width:40px;
+    height:40px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    color:white;
+    background:#0d3455;
+    font-size:27px;
+    line-height:1;
+    cursor:pointer;
+}
+
+.inquiry-form{
+    display:grid;
+    gap:17px;
+    padding:22px;
+}
+
+.inquiry-field{
+    display:grid;
+    gap:7px;
+    color:#e1e9ef;
+    font-size:17px;
+    font-weight:700;
+}
+
+.inquiry-field input,
+.inquiry-field textarea{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid rgba(212,175,55,.32);
+    border-radius:10px;
+    color:white;
+    background:#041522;
+    font:17px Tahoma,Arial,sans-serif;
+    resize:vertical;
+}
+
+.inquiry-field textarea{
+    min-height:130px;
+}
+
+.inquiry-field input:focus,
+.inquiry-field textarea:focus{
+    outline:2px solid var(--gold);
+    outline-offset:2px;
+}
+
+.inquiry-submit{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:50px;
+    border:0;
+    border-radius:11px;
+    color:#071a2b;
+    background:linear-gradient(145deg,var(--gold2),var(--gold));
+    font:800 18px Tahoma,Arial,sans-serif;
+    cursor:pointer;
+}
+
 /* =====================================================
    SCHEDULE
 ===================================================== */
@@ -1335,6 +1465,21 @@ footer{
 
 </div>
 
+<button
+    class="inquiry-button"
+    type="button"
+    onclick="openInquiryDialog()"
+    aria-haspopup="dialog"
+>
+<span class="inquiry-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="none">
+    <path d="M4 5h16v12H8l-4 3V5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    <path d="m5 6 7 6 7-6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+</svg>
+</span>
+<span id="inquiryButtonText">أرسل استفسارك</span>
+</button>
+
 </section>
 
 
@@ -1473,6 +1618,27 @@ footer{
 
 </main>
 
+<dialog id="inquiryDialog" class="inquiry-dialog" aria-labelledby="inquiryDialogTitle">
+<div class="inquiry-dialog-header">
+<h2 id="inquiryDialogTitle">أرسل استفسارك</h2>
+<button id="inquiryClose" class="dialog-close" type="button" onclick="closeInquiryDialog()" aria-label="إغلاق">×</button>
+</div>
+
+<form id="inquiryForm" class="inquiry-form">
+<label class="inquiry-field">
+<span id="inquiryNameLabel">الاسم</span>
+<input id="inquiryName" name="name" type="text" autocomplete="name" required>
+</label>
+
+<label class="inquiry-field">
+<span id="inquiryMessageLabel">طلب الصلاة أو الاستفسار</span>
+<textarea id="inquiryMessage" name="message" rows="4" required></textarea>
+</label>
+
+<button id="inquirySubmit" class="inquiry-submit" type="submit">إرسال إلى بريد الكنيسة</button>
+</form>
+</dialog>
+
 
 <!-- =====================================================
      FOOTER
@@ -1491,6 +1657,62 @@ footer{
 راعي الكنيسة - ق / أشرف كامل
 
 </footer>
+
+<script>
+const inquiryDialog=document.getElementById("inquiryDialog");
+const inquiryLanguage=localStorage.getItem("bibleAppLanguage")==="en"?"en":"ar";
+const inquiryText={
+    ar:{
+        title:"أرسل استفسارك",
+        close:"إغلاق",
+        name:"الاسم",
+        message:"طلب الصلاة أو الاستفسار",
+        send:"إرسال إلى بريد الكنيسة"
+    },
+    en:{
+        title:"Send your inquiry",
+        close:"Close",
+        name:"Name",
+        message:"Prayer request or inquiry",
+        send:"Send to the church email"
+    }
+}[inquiryLanguage];
+
+document.getElementById("inquiryButtonText").textContent=inquiryText.title;
+document.getElementById("inquiryDialogTitle").textContent=inquiryText.title;
+document.getElementById("inquiryClose").setAttribute("aria-label",inquiryText.close);
+document.getElementById("inquiryNameLabel").textContent=inquiryText.name;
+document.getElementById("inquiryMessageLabel").textContent=inquiryText.message;
+document.getElementById("inquirySubmit").textContent=inquiryText.send;
+
+function openInquiryDialog(){
+    inquiryDialog.showModal();
+    document.getElementById("inquiryName").focus();
+}
+
+function closeInquiryDialog(){
+    inquiryDialog.close();
+}
+
+inquiryDialog.addEventListener("click",event=>{
+    if(event.target===inquiryDialog){
+        closeInquiryDialog();
+    }
+});
+
+document.getElementById("inquiryForm").addEventListener("submit",event=>{
+    event.preventDefault();
+
+    const name=document.getElementById("inquiryName").value.trim();
+    const message=document.getElementById("inquiryMessage").value.trim();
+    const subject=inquiryLanguage==="en"?`Inquiry from ${name}`:`استفسار من ${name}`;
+    const body=inquiryLanguage==="en"
+        ?`Name: ${name}\n\nPrayer request or inquiry:\n${message}`
+        :`الاسم: ${name}\n\nطلب الصلاة أو الاستفسار:\n${message}`;
+
+    window.location.href=`mailto:info@hchurchbible.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
+</script>
 
 </body>
 </html>
