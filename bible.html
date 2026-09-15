@@ -500,6 +500,12 @@ main{
     color:#071a2d;
 }
 
+.verse[data-highlight="fuchsia"],
+.modal-verse[data-highlight="fuchsia"]{
+    background:#ff165d;
+    color:#ffffff;
+}
+
 .verse[data-highlight]:not([data-highlight=""]) .verse-number,
 .modal-verse[data-highlight]:not([data-highlight=""]) .verse-number{
     color:#17202a;
@@ -512,6 +518,7 @@ main{
 .verse[data-highlight="yellow"]:hover{background:#ffe66d;}
 .verse[data-highlight="green"]:hover{background:#7cff6b;}
 .verse[data-highlight="blue"]:hover{background:#69b7ff;}
+.verse[data-highlight="fuchsia"]:hover{background:#ff165d;}
 
 .verse.search-target{
     background:rgba(212,175,55,.16);
@@ -747,6 +754,7 @@ main{
 .highlight-yellow{background:#ffe66d;}
 .highlight-green{background:#7cff6b;}
 .highlight-blue{background:#69b7ff;}
+.highlight-fuchsia{background:#ff165d;}
 .highlight-clear{
     display:inline-flex;
     align-items:center;
@@ -1271,6 +1279,7 @@ body.project-unified-header.project-bible-page .project-header{
                 <button class="highlight-swatch highlight-yellow" type="button" data-highlight-color="yellow" onclick="setVerseHighlight('yellow')" aria-label="تظليل أصفر" aria-pressed="false"></button>
                 <button class="highlight-swatch highlight-green" type="button" data-highlight-color="green" onclick="setVerseHighlight('green')" aria-label="تظليل أخضر فسفوري" aria-pressed="false"></button>
                 <button class="highlight-swatch highlight-blue" type="button" data-highlight-color="blue" onclick="setVerseHighlight('blue')" aria-label="تظليل أزرق" aria-pressed="false"></button>
+                <button class="highlight-swatch highlight-fuchsia" type="button" data-highlight-color="fuchsia" onclick="setVerseHighlight('fuchsia')" aria-label="تظليل فوشيا أحمر فسفوري" aria-pressed="false"></button>
                 <button class="highlight-swatch highlight-clear" type="button" data-highlight-color="" onclick="setVerseHighlight('')" aria-label="إزالة التظليل" aria-pressed="false">×</button>
             </div>
 
@@ -1418,7 +1427,7 @@ function updateHighlightControls(color){
 }
 
 function setVerseHighlight(color){
-    if(!currentVerse || !["","yellow","green","blue"].includes(color)) return;
+    if(!currentVerse || !["","yellow","green","blue","fuchsia"].includes(color)) return;
     const key = verseStorageKey(currentVerse);
     if(color) verseHighlights[key] = color;
     else delete verseHighlights[key];
