@@ -40,6 +40,8 @@ jobs:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         run: |
+          mkdir -p fastlane
+          printf '%s\n' 'app_identifier("com.hopenations.bibleencyclopedia")' > fastlane/Deliverfile
           jq -n \
             --arg key_id "$APP_STORE_CONNECT_KEY_ID" \
             --arg issuer_id "$APP_STORE_CONNECT_ISSUER_ID" \
