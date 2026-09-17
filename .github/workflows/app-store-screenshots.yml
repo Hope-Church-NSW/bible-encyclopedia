@@ -1,0 +1,58 @@
+name: Upload App Store Screenshots
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-store-screenshots
+  cancel-in-progress: true
+
+jobs:
+  upload-screenshots:
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Prepare localized screenshots
+        run: |
+          screenshots="$RUNNER_TEMP/screenshots"
+          mkdir -p "$screenshots/ar-SA" "$screenshots/en-US"
+          cp app-store/ar/*.png "$screenshots/ar-SA/"
+          cp app-store/ipad/ar/*.png "$screenshots/ar-SA/"
+          cp app-store/en/*.png "$screenshots/en-US/"
+          cp app-store/ipad/en/*.png "$screenshots/en-US/"
+          test "$(find "$screenshots/ar-SA" -type f | wc -l | tr -d ' ')" -eq 8
+          test "$(find "$screenshots/en-US" -type f | wc -l | tr -d ' ')" -eq 8
+          echo "SCREENSHOTS_PATH=$screenshots" >> "$GITHUB_ENV"
+
+      - name: Install fastlane
+        run: gem install fastlane --no-document
+
+      - name: Upload screenshots to App Store Connect
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+        run: |
+          jq -n \
+            --arg key_id "$APP_STORE_CONNECT_KEY_ID" \
+            --arg issuer_id "$APP_STORE_CONNECT_ISSUER_ID" \
+            --arg key "$APP_STORE_CONNECT_PRIVATE_KEY" \
+            '{key_id: $key_id, issuer_id: $issuer_id, key: $key, in_house: false}' \
+            > "$RUNNER_TEMP/app-store-connect-key.json"
+
+          fastlane deliver \
+            --api_key_path "$RUNNER_TEMP/app-store-connect-key.json" \
+            --app_identifier com.hopenations.bibleencyclopedia \
+            --screenshots_path "$SCREENSHOTS_PATH" \
+            --skip_binary_upload true \
+            --skip_metadata true \
+            --overwrite_screenshots true \
+            --run_precheck_before_submit false \
+            --force
