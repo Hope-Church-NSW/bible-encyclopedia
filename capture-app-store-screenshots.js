@@ -82,6 +82,7 @@ async function captureSet(browser, baseUrl, device, locale) {
 }
 
 async function main() {
+    fs.rmSync(outputRoot, { recursive: true, force: true });
     const server = await startServer();
     const address = server.address();
     const baseUrl = `http://127.0.0.1:${address.port}`;

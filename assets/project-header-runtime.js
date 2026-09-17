@@ -6,10 +6,10 @@
     const selectedLanguage = localStorage.getItem('bibleAppLanguage') === 'en' ? 'en' : 'ar';
     const READER_PREFERENCES_KEY = 'bibleReaderPreferencesV1';
     const readerFonts = {
-        default: 'Arial,Tahoma,"Segoe UI",sans-serif',
-        tahoma: 'Tahoma,Arial,sans-serif',
-        arial: 'Arial,Tahoma,sans-serif',
-        serif: 'Georgia,"Times New Roman",serif'
+        default: 'Arial,"Helvetica Neue",Tahoma,sans-serif',
+        naskh: '"Geeza Pro","Noto Naskh Arabic","Traditional Arabic",serif',
+        serif: 'Georgia,"Times New Roman","Geeza Pro",serif',
+        mono: '"Courier New","Noto Sans Mono",monospace'
     };
     document.documentElement.lang = selectedLanguage;
     document.documentElement.dir = selectedLanguage === 'en' ? 'ltr' : 'rtl';
@@ -53,7 +53,7 @@
                     <button type="button" class="project-settings-close" aria-label="${selectedLanguage === 'en' ? 'Close reading settings' : 'إغلاق إعدادات القراءة'}">×</button>
                 </header>
                 <div class="project-settings-body">
-                    <label><span>${selectedLanguage === 'en' ? 'Font' : 'نوع الخط'}</span><select data-setting="font"><option value="default">${selectedLanguage === 'en' ? 'Default' : 'الخط الافتراضي'}</option><option value="tahoma">Tahoma</option><option value="arial">Arial</option><option value="serif">Serif</option></select></label>
+                    <label><span>${selectedLanguage === 'en' ? 'Font' : 'نوع الخط'}</span><select data-setting="font"><option value="default">${selectedLanguage === 'en' ? 'Clear sans' : 'خط واضح'}</option><option value="naskh">${selectedLanguage === 'en' ? 'Arabic Naskh' : 'نسخ عربي'}</option><option value="serif">${selectedLanguage === 'en' ? 'Classic serif' : 'خط تقليدي'}</option><option value="mono">${selectedLanguage === 'en' ? 'Monospace' : 'خط ثابت العرض'}</option></select></label>
                     <label><span>${selectedLanguage === 'en' ? 'Font size' : 'مقاس الخط'}</span><div class="project-settings-size"><input data-setting="size" type="range" min="17" max="30" step="1"><output></output></div></label>
                     <fieldset><legend>${selectedLanguage === 'en' ? 'App color' : 'لون التطبيق'}</legend><div class="project-settings-themes"><button type="button" data-theme="blue">${selectedLanguage === 'en' ? 'Blue' : 'أزرق'}</button><button type="button" data-theme="white">${selectedLanguage === 'en' ? 'White' : 'أبيض'}</button><button type="button" data-theme="black">${selectedLanguage === 'en' ? 'Black' : 'أسود'}</button></div></fieldset>
                 </div>
