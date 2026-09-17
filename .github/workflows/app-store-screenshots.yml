@@ -23,10 +23,10 @@ jobs:
         run: |
           screenshots="$RUNNER_TEMP/screenshots"
           mkdir -p "$screenshots/ar-SA" "$screenshots/en-US"
-          cp app-store/ar/*.png "$screenshots/ar-SA/"
-          cp app-store/ipad/ar/*.png "$screenshots/ar-SA/"
-          cp app-store/en/*.png "$screenshots/en-US/"
-          cp app-store/ipad/en/*.png "$screenshots/en-US/"
+          for image in app-store/ar/*.png; do cp "$image" "$screenshots/ar-SA/iphone-$(basename "$image")"; done
+          for image in app-store/ipad/ar/*.png; do cp "$image" "$screenshots/ar-SA/ipad-$(basename "$image")"; done
+          for image in app-store/en/*.png; do cp "$image" "$screenshots/en-US/iphone-$(basename "$image")"; done
+          for image in app-store/ipad/en/*.png; do cp "$image" "$screenshots/en-US/ipad-$(basename "$image")"; done
           test "$(find "$screenshots/ar-SA" -type f | wc -l | tr -d ' ')" -eq 8
           test "$(find "$screenshots/en-US" -type f | wc -l | tr -d ' ')" -eq 8
           echo "SCREENSHOTS_PATH=$screenshots" >> "$GITHUB_ENV"
