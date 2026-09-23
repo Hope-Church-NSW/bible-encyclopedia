@@ -3,74 +3,36 @@ body.project-unified-header .project-header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    min-height: calc(88px + env(safe-area-inset-top, 0px));
+    min-height: 88px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: calc(6px + env(safe-area-inset-top, 0px)) 14px 6px;
+    padding: 6px 14px;
     background: linear-gradient(180deg,rgba(7,29,49,.98),rgba(3,15,27,.98));
     border-bottom: 2px solid #d4af37;
     box-shadow: 0 8px 30px rgba(0,0,0,.55),inset 0 -1px 0 rgba(255,255,255,.04);
-    box-sizing: border-box;
 }
+
 body.project-unified-header {
     --project-page-gutter: clamp(16px, 3vw, 40px);
     --project-frame-radius: 12px;
     --project-icon-size: clamp(56px, 5.5vw, 82px);
     --project-title-size: clamp(28px, 3.2vw, 46px);
     --project-section-size: clamp(21px, 2vw, 30px);
-    --project-subheading-size: clamp(19px, 1.6vw, 24px);
     --project-body-size: clamp(16px, 1.25vw, 19px);
-    --project-small-size: 15px;
     background: linear-gradient(180deg,#061b3a 0%,#0b2d5c 100%) !important;
     color: #fff;
     font-size: var(--project-body-size);
-    font-family: var(--reader-font-family, Tahoma, Arial, sans-serif) !important;
-    overflow-x: clip;
 }
 
-body.project-unified-header :where(*):not(.project-brand-name, .project-brand-church, .project-brand-logo, .language-original, [lang="he"], [lang="grc"], [lang="el"]) {
-    font-family: var(--reader-font-family, inherit) !important;
-}
-
-body.project-unified-header :where(
-    p, li, td, th, dd, dt, blockquote, pre,
-    main button, main a, main label, main input, main textarea, main select,
-    .verse, .modal-verse,
-    .entry-content, .section-body, .study-body,
-    .commentary-text, .scripture-text, .verse-text,
-    .hero-subtitle, .page-subtitle, .study-subtitle, .subtitle,
-    .description, .summary, .note, .footer-note
-) {
-    font-size: var(--project-body-size) !important;
-}
-
-body.project-unified-header main :where(button, a) > :where(span, strong):not([class*="icon"]) {
-    font-size: inherit !important;
-}
-
-body.project-unified-header :where(h3, h4, h5, h6, .card-title, .entry-title, .study-name) {
-    font-size: var(--project-subheading-size) !important;
-}
-
-body.project-unified-header :where(small, figcaption, caption, .meta, .reference, .source) {
-    font-size: var(--project-small-size) !important;
-}
-
-body.project-unified-header :where(.language-original, .language-original *, [lang="he"], [lang="he"] *, [lang="grc"], [lang="grc"] *, [lang="el"], [lang="el"] *) {
-    font-family: "SBL Hebrew", "Ezra SIL", "SBL Greek", "Gentium Plus", serif !important;
+body.project-unified-header[dir="ltr"] {
+    font-family: Georgia, "Times New Roman", serif;
 }
 
 body.project-unified-header main {
-    box-sizing: border-box;
-    min-width: 0;
     width: min(100%, 1500px);
     margin-inline: auto;
     padding-inline: var(--project-page-gutter);
-}
-
-body.project-unified-header main :where(p, li, dd, dt, blockquote, a) {
-    overflow-wrap: anywhere;
 }
 
 body.project-unified-header :where(h1, .page-title, .hero-title) {
@@ -104,7 +66,7 @@ body.project-unified-header .project-brand {
     direction: ltr;
     position: absolute;
     left: 14px;
-    top: calc(2px + env(safe-area-inset-top, 0px));
+    bottom: 6px;
     width: 365px;
     height: 74px;
 }
@@ -199,173 +161,17 @@ body.project-unified-header .project-language-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    z-index: 1200;
-    left: max(14px, env(safe-area-inset-left, 0px));
-    bottom: max(14px, env(safe-area-inset-bottom, 0px));
-    width: 52px;
-    min-width: 52px;
-    height: 52px;
-    padding: 0;
-    border: 2px solid rgba(224,184,76,.9);
-    border-radius: 50%;
+    width: 145px;
+    min-width: 145px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid rgba(224,184,76,.8);
+    border-radius: 9px;
     color: #071a26;
     background: linear-gradient(180deg,#fff1a2,#d4af37);
-    box-shadow: 0 8px 22px rgba(0,0,0,.45);
-    font: 800 24px/1 Arial, sans-serif;
+    font: 800 13px/1 Arial, sans-serif;
     cursor: pointer;
     white-space: nowrap;
-}
-
-body.project-unified-header .project-reader-settings {
-    direction: rtl;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    z-index: 1200;
-    right: max(14px, env(safe-area-inset-right, 0px));
-    bottom: max(14px, env(safe-area-inset-bottom, 0px));
-    width: 52px;
-    min-width: 52px;
-    height: 52px;
-    padding: 0;
-    border: 2px solid rgba(224,184,76,.9);
-    border-radius: 50%;
-    background: #071a26;
-    color: #f4dc78;
-    box-shadow: 0 8px 22px rgba(0,0,0,.45);
-    font: 800 24px/1 Arial,sans-serif;
-    cursor: pointer;
-}
-
-.project-settings-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1400;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-    background: rgba(0,0,0,.78);
-    backdrop-filter: blur(5px);
-}
-
-.project-settings-overlay[hidden] {
-    display: none;
-}
-
-.project-settings-dialog {
-    direction: rtl;
-    width: min(620px,100%);
-    max-height: 88vh;
-    overflow: auto;
-    border: 1px solid #d4af37;
-    border-radius: 14px;
-    color: #fff;
-    background: #0b2742;
-    box-shadow: 0 25px 80px rgba(0,0,0,.5);
-}
-
-[dir="ltr"] .project-settings-dialog {
-    direction: ltr;
-}
-
-.project-settings-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 18px 20px;
-    border-bottom: 1px solid rgba(212,175,55,.35);
-}
-
-.project-settings-header h2 {
-    margin: 0;
-    color: #f4dc78;
-    font-size: 23px;
-}
-
-.project-settings-close {
-    width: 42px;
-    height: 42px;
-    border: 1px solid rgba(212,175,55,.45);
-    border-radius: 8px;
-    color: #fff;
-    background: #123957;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.project-settings-body {
-    display: grid;
-    gap: 22px;
-    padding: 22px;
-}
-
-.project-settings-body label,
-.project-settings-body fieldset {
-    display: grid;
-    gap: 10px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    color: #f4dc78;
-    font-weight: 900;
-}
-
-.project-settings-body select {
-    min-height: 48px;
-    padding: 8px 12px;
-    border: 1px solid rgba(212,175,55,.35);
-    border-radius: 8px;
-    color: #fff;
-    background: #123957;
-    font: inherit;
-}
-
-.project-settings-size {
-    display: grid;
-    grid-template-columns: 1fr 60px;
-    align-items: center;
-    gap: 12px;
-    color: #fff;
-}
-
-.project-settings-size input {
-    width: 100%;
-    accent-color: #d4af37;
-}
-
-.project-settings-themes {
-    display: grid;
-    grid-template-columns: repeat(3,minmax(0,1fr));
-    gap: 10px;
-}
-
-.project-settings-themes button {
-    min-height: 50px;
-    border: 2px solid rgba(212,175,55,.35);
-    border-radius: 8px;
-    color: #fff;
-    background: #123957;
-    font: inherit;
-    font-weight: 900;
-    cursor: pointer;
-}
-
-.project-settings-themes button[data-theme="white"] { color: #172b3d; background: #fff; }
-.project-settings-themes button[data-theme="black"] { background: #050505; }
-.project-settings-themes button[aria-pressed="true"] { border-color: #d4af37; box-shadow: 0 0 0 2px #2d7ff9; }
-
-body.project-unified-header[data-reader-theme="white"] {
-    background: #f5f7fa !important;
-    color: #172b3d;
-}
-
-body.project-unified-header[data-reader-theme="black"] {
-    background: #050505 !important;
-    color: #fff;
 }
 
 body.project-unified-header .project-return,
@@ -452,7 +258,6 @@ body.project-unified-header .project-books-return {
 
 body.project-unified-header .project-footer {
     direction: rtl;
-    box-sizing: border-box;
     width: 100%;
     margin-top: 40px;
     padding: 22px 18px 26px;
@@ -462,7 +267,7 @@ body.project-unified-header .project-footer {
     box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
     text-align: center;
     line-height: 1.9;
-    font-size: var(--project-small-size);
+    font-size: 14px;
     font-weight: 700;
 }
 
@@ -475,16 +280,19 @@ body.project-unified-header .project-footer div:first-child {
         --project-page-gutter: 12px;
         --project-frame-radius: 8px;
         --project-icon-size: 54px;
+        --project-title-size: 27px;
+        --project-section-size: 20px;
+        --project-body-size: 16px;
     }
 
     body.project-unified-header .project-header {
-        min-height: calc(82px + env(safe-area-inset-top, 0px));
-        padding: calc(7px + env(safe-area-inset-top, 0px)) 8px 7px;
+        min-height: 82px;
+        padding: 7px 8px;
     }
 
     body.project-unified-header .project-brand {
         left: 8px;
-        top: calc(1px + env(safe-area-inset-top, 0px));
+        bottom: 7px;
         width: 205px;
         height: 62px;
     }
@@ -514,14 +322,15 @@ body.project-unified-header .project-footer div:first-child {
     }
 
     body.project-unified-header .project-header-actions {
-        top: calc(7px + env(safe-area-inset-top, 0px));
+        top: 7px;
         right: 8px;
         gap: 4px;
     }
 
     body.project-unified-header .project-return,
     body.project-unified-header .project-rivers-return,
-    body.project-unified-header .project-books-return {
+    body.project-unified-header .project-books-return,
+    body.project-unified-header .project-language-toggle {
         width: 130px;
         min-width: 130px;
     }
@@ -548,21 +357,8 @@ body.project-unified-header .project-footer div:first-child {
     }
 
     body.project-unified-header .project-language-toggle {
-        left: max(10px, env(safe-area-inset-left, 0px));
-        bottom: max(10px, env(safe-area-inset-bottom, 0px));
-        width: 48px;
-        min-width: 48px;
-        height: 48px;
-        font-size: 22px;
-    }
-
-    body.project-unified-header .project-reader-settings {
-        right: max(10px, env(safe-area-inset-right, 0px));
-        bottom: max(10px, env(safe-area-inset-bottom, 0px));
-        width: 48px;
-        min-width: 48px;
-        height: 48px;
-        font-size: 22px;
+        height: 27px;
+        font-size: 12px;
     }
 
     body.project-unified-header :where(.main-grid, .studies-grid, .cards-grid, .features-grid) {
