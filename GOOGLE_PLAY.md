@@ -29,6 +29,21 @@ npm.cmd run android:bundle
 The signed bundle is created at
 `android/app/build/outputs/bundle/release/app-release.aab`.
 
+## GitHub Actions upload
+
+The `Google Play Upload` workflow builds, signs, and uploads an AAB to a selected
+Play track. Configure these GitHub Actions secrets before running it:
+
+- `ANDROID_UPLOAD_KEYSTORE_BASE64`: the upload keystore encoded as base64
+- `ANDROID_UPLOAD_STORE_PASSWORD`: the upload keystore password
+- `ANDROID_UPLOAD_KEY_ALIAS`: normally `bible-upload`
+- `ANDROID_UPLOAD_KEY_PASSWORD`: the upload key password
+- `GOOGLE_PLAY_SERVICE_ACCOUNT_JSON`: the complete Play Console service-account JSON
+
+In Play Console, grant the service account release access to this app. Run the
+workflow manually, enter a `versionCode` greater than every build already in
+Play Console, and use the `internal` track before promoting the release.
+
 ## Play Console
 
 1. Create the app in Google Play Console using the package ID above.

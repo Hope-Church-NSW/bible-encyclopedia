@@ -5,6 +5,7 @@ def releaseStorePassword = System.getenv('BIBLE_RELEASE_STORE_PASSWORD')
 def releaseKeyAlias = System.getenv('BIBLE_RELEASE_KEY_ALIAS')
 def releaseKeyPassword = System.getenv('BIBLE_RELEASE_KEY_PASSWORD')
 def hasReleaseSigning = [releaseStoreFile, releaseStorePassword, releaseKeyAlias, releaseKeyPassword].every { it }
+def releaseVersionCode = (System.getenv('BIBLE_VERSION_CODE') ?: '4').toInteger()
 
 android {
     namespace = "com.hopenations.bibleencyclopedia"
@@ -13,7 +14,7 @@ android {
         applicationId "com.hopenations.bibleencyclopedia"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 4
+        versionCode releaseVersionCode
         versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {

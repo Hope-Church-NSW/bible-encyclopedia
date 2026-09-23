@@ -1,0 +1,100 @@
+name: Google Play Upload
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_code:
+        description: Android versionCode (must be greater than every Play Console build)
+        required: true
+        default: '5'
+        type: string
+      track:
+        description: Google Play release track
+        required: true
+        default: internal
+        type: choice
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
+
+permissions:
+  contents: read
+
+concurrency:
+  group: google-play-upload
+  cancel-in-progress: false
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate version code
+        env:
+          VERSION_CODE: ${{ inputs.version_code }}
+        run: |
+          [[ "$VERSION_CODE" =~ ^[0-9]+$ ]]
+          test "$VERSION_CODE" -gt 4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and sync Android assets
+        run: npm run android:sync
+
+      - name: Install Android upload key
+        env:
+          ANDROID_UPLOAD_KEYSTORE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 }}
+          ANDROID_UPLOAD_STORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_STORE_PASSWORD }}
+          ANDROID_UPLOAD_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
+          ANDROID_UPLOAD_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          test -n "$ANDROID_UPLOAD_KEYSTORE_BASE64"
+          test -n "$ANDROID_UPLOAD_STORE_PASSWORD"
+          test -n "$ANDROID_UPLOAD_KEY_ALIAS"
+          test -n "$ANDROID_UPLOAD_KEY_PASSWORD"
+          test -n "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON"
+          printf '%s' "$ANDROID_UPLOAD_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/bible-upload.jks"
+          test -s "$RUNNER_TEMP/bible-upload.jks"
+
+      - name: Build signed app bundle
+        env:
+          BIBLE_RELEASE_STORE_FILE: ${{ runner.temp }}/bible-upload.jks
+          BIBLE_RELEASE_STORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_STORE_PASSWORD }}
+          BIBLE_RELEASE_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
+          BIBLE_RELEASE_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
+          BIBLE_VERSION_CODE: ${{ inputs.version_code }}
+        working-directory: android
+        run: ./gradlew bundleRelease --no-daemon --console=plain
+
+      - name: Verify signed app bundle
+        run: jarsigner -verify android/app/build/outputs/bundle/release/app-release.aab
+
+      - name: Upload to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.hopenations.bibleencyclopedia
+          releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
+          track: ${{ inputs.track }}
+          status: completed
