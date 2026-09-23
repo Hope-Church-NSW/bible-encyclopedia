@@ -19,6 +19,40 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Validate localized screenshots
+        run: |
+          ruby <<'RUBY'
+          require "digest"
+
+          sets = {
+            "app-store/ar" => [1242, 2688],
+            "app-store/en" => [1242, 2688],
+            "app-store/ipad/ar" => [2048, 2732],
+            "app-store/ipad/en" => [2048, 2732]
+          }
+
+          sets.each do |folder, expected_dimensions|
+            files = Dir[File.join(folder, "*.png")].sort
+            abort "#{folder} must contain exactly four PNG files" unless files.length == 4
+
+            files.each do |file|
+              header = File.binread(file, 24)
+              abort "#{file} is not a complete PNG" unless header.bytesize == 24 && header.start_with?("\x89PNG\r\n\x1a\n".b)
+              dimensions = header.byteslice(16, 8).unpack("NN")
+              abort "#{file} has dimensions #{dimensions.join('x')}" unless dimensions == expected_dimensions
+              abort "#{file} appears incomplete" unless File.size(file) >= 100_000
+            end
+          end
+
+          ["", "ipad/"].each do |device|
+            Dir["app-store/#{device}ar/*.png"].sort.each do |arabic|
+              english = arabic.sub("/#{device}ar/", "/#{device}en/")
+              abort "Missing localized counterpart for #{arabic}" unless File.exist?(english)
+              abort "#{arabic} and #{english} are identical" if Digest::SHA256.file(arabic) == Digest::SHA256.file(english)
+            end
+          end
+          RUBY
+
       - name: Prepare localized screenshots
         run: |
           screenshots="$RUNNER_TEMP/screenshots"
