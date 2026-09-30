@@ -5,7 +5,8 @@ const crypto = require('crypto');
 const { chromium } = require('playwright');
 
 const root = path.join(__dirname, 'dist');
-const outputRoot = path.join(__dirname, 'app-store');
+const appStoreOutputRoot = path.join(__dirname, 'app-store');
+const googlePlayOutputRoot = path.join(__dirname, 'google-play');
 const mimeTypes = {
     '.css': 'text/css',
     '.html': 'text/html',
@@ -50,10 +51,7 @@ async function waitForPage(page) {
 
 async function prepareStoreCapture(page, view) {
     const viewRules = {
-        chapter: '.verse:nth-child(n + 7) { display: none !important; }',
-        studies: '.study-card:nth-child(n + 7) { display: none !important; }',
-        testaments: '.search-container { display: none !important; } .testaments { margin-top: 24px !important; }',
-        books: '.book-card:nth-child(n + 5), #newTestament { display: none !important; }'
+        testaments: '.search-container { display: none !important; } .testaments { margin-top: 24px !important; }'
     };
     await page.addStyleTag({ content: `
         html, body { overflow: hidden !important; scrollbar-width: none; }
@@ -86,7 +84,7 @@ function pngDimensions(file) {
 function validateScreenshots(devices) {
     for (const device of devices) {
         for (const locale of ['ar', 'en']) {
-            const folder = path.join(outputRoot, device.folder, locale);
+            const folder = path.join(device.outputRoot, device.folder, locale);
             const files = fs.readdirSync(folder).filter((file) => file.endsWith('.png')).sort();
             if (files.length !== 4) throw new Error(`${folder} must contain exactly four screenshots.`);
             for (const file of files) {
@@ -101,8 +99,8 @@ function validateScreenshots(devices) {
             }
         }
 
-        const arabic = fs.readFileSync(path.join(outputRoot, device.folder, 'ar', '03-bible-testaments.png'));
-        const english = fs.readFileSync(path.join(outputRoot, device.folder, 'en', '03-bible-testaments.png'));
+        const arabic = fs.readFileSync(path.join(device.outputRoot, device.folder, 'ar', '03-bible-testaments.png'));
+        const english = fs.readFileSync(path.join(device.outputRoot, device.folder, 'en', '03-bible-testaments.png'));
         if (crypto.createHash('sha256').update(arabic).digest('hex') === crypto.createHash('sha256').update(english).digest('hex')) {
             throw new Error(`${device.folder || 'iphone'} testament screenshots must be localized.`);
         }
@@ -110,7 +108,7 @@ function validateScreenshots(devices) {
 }
 
 async function captureSet(browser, baseUrl, device, locale) {
-    const deviceName = device.folder || 'iphone';
+    const deviceName = device.name;
     console.log(`Capturing ${deviceName}/${locale}...`);
     const context = await browser.newContext({
         viewport: device.viewport,
@@ -119,7 +117,7 @@ async function captureSet(browser, baseUrl, device, locale) {
     const page = await context.newPage();
     page.setDefaultTimeout(20000);
     page.setDefaultNavigationTimeout(20000);
-    const output = path.join(outputRoot, device.folder, locale);
+    const output = path.join(device.outputRoot, device.folder, locale);
     fs.mkdirSync(output, { recursive: true });
 
     await page.goto(`${baseUrl}/index.html`);
@@ -159,15 +157,17 @@ async function captureSet(browser, baseUrl, device, locale) {
 }
 
 async function main() {
-    console.log('Preparing App Store screenshots...');
-    fs.rmSync(outputRoot, { recursive: true, force: true });
+    console.log('Preparing store screenshots...');
+    fs.rmSync(appStoreOutputRoot, { recursive: true, force: true });
+    fs.rmSync(googlePlayOutputRoot, { recursive: true, force: true });
     const server = await startServer();
     const address = server.address();
     const baseUrl = `http://127.0.0.1:${address.port}`;
     const browser = await chromium.launch({ headless: true });
     const devices = [
-        { folder: '', viewport: { width: 414, height: 896 }, deviceScaleFactor: 3 },
-        { folder: 'ipad', viewport: { width: 1024, height: 1366 }, deviceScaleFactor: 2 }
+        { name: 'iphone', outputRoot: appStoreOutputRoot, folder: '', viewport: { width: 414, height: 896 }, deviceScaleFactor: 3 },
+        { name: 'ipad', outputRoot: appStoreOutputRoot, folder: 'ipad', viewport: { width: 1024, height: 1366 }, deviceScaleFactor: 2 },
+        { name: 'google-phone', outputRoot: googlePlayOutputRoot, folder: '', viewport: { width: 360, height: 640 }, deviceScaleFactor: 3 }
     ];
 
     try {
@@ -176,7 +176,7 @@ async function main() {
             await captureSet(browser, baseUrl, device, 'en');
         }
         validateScreenshots(devices);
-        console.log('Validated 16 localized App Store screenshots.');
+        console.log('Validated 16 localized App Store screenshots and 8 localized Google Play screenshots.');
     } finally {
         await browser.close();
         await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));

@@ -1,0 +1,77 @@
+name: Upload Google Play Screenshots
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: google-play-screenshots
+  cancel-in-progress: true
+
+jobs:
+  upload-screenshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate localized screenshots
+        run: |
+          ruby <<'RUBY'
+          require "digest"
+
+          ["google-play/ar", "google-play/en"].each do |folder|
+            files = Dir[File.join(folder, "*.png")].sort
+            abort "#{folder} must contain exactly four PNG files" unless files.length == 4
+
+            files.each do |file|
+              header = File.binread(file, 24)
+              abort "#{file} is not a complete PNG" unless header.bytesize == 24 && header.start_with?("\x89PNG\r\n\x1a\n".b)
+              dimensions = header.byteslice(16, 8).unpack("NN")
+              abort "#{file} has dimensions #{dimensions.join('x')}" unless dimensions == [1080, 1920]
+              abort "#{file} appears incomplete" unless File.size(file) >= 100_000
+            end
+          end
+
+          Dir["google-play/ar/*.png"].sort.each do |arabic|
+            english = arabic.sub("/ar/", "/en/")
+            abort "Missing localized counterpart for #{arabic}" unless File.exist?(english)
+            abort "#{arabic} and #{english} are identical" if Digest::SHA256.file(arabic) == Digest::SHA256.file(english)
+          end
+          RUBY
+
+      - name: Prepare Google Play metadata
+        run: |
+          metadata="$RUNNER_TEMP/metadata/android"
+          mkdir -p "$metadata/ar/images/phoneScreenshots" "$metadata/en-US/images/phoneScreenshots"
+          cp google-play/ar/*.png "$metadata/ar/images/phoneScreenshots/"
+          cp google-play/en/*.png "$metadata/en-US/images/phoneScreenshots/"
+          test "$(find "$metadata/ar/images/phoneScreenshots" -type f | wc -l | tr -d ' ')" -eq 4
+          test "$(find "$metadata/en-US/images/phoneScreenshots" -type f | wc -l | tr -d ' ')" -eq 4
+          echo "GOOGLE_PLAY_METADATA_PATH=$RUNNER_TEMP/metadata/android" >> "$GITHUB_ENV"
+
+      - name: Install fastlane
+        run: gem install fastlane --no-document
+
+      - name: Upload screenshots to Google Play
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          test -n "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON"
+          printf '%s' "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON" > "$RUNNER_TEMP/google-play-service-account.json"
+
+          fastlane supply \
+            --json_key "$RUNNER_TEMP/google-play-service-account.json" \
+            --package_name com.hopenations.bibleencyclopedia \
+            --metadata_path "$GOOGLE_PLAY_METADATA_PATH" \
+            --skip_upload_apk true \
+            --skip_upload_aab true \
+            --skip_upload_metadata true \
+            --skip_upload_changelogs true \
+            --skip_upload_images true \
+            --skip_upload_screenshots false \
+            --sync_image_upload true
