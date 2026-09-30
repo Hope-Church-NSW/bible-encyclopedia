@@ -119,12 +119,6 @@
         }
     }
 
-    const isEntryPage = location.pathname.endsWith('/index.html') || location.pathname.endsWith('index.html') || location.pathname === '/';
-    if (!isEntryPage && !localStorage.getItem('bibleAppSession')) {
-        location.replace('index.html');
-        return;
-    }
-
     function removeBlankDisplayLines(root) {
         const scope = root && root.nodeType === Node.ELEMENT_NODE ? root : document.body;
         if (!scope) return;
