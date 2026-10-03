@@ -5,7 +5,7 @@ def releaseStorePassword = System.getenv('BIBLE_RELEASE_STORE_PASSWORD')
 def releaseKeyAlias = System.getenv('BIBLE_RELEASE_KEY_ALIAS')
 def releaseKeyPassword = System.getenv('BIBLE_RELEASE_KEY_PASSWORD')
 def hasReleaseSigning = [releaseStoreFile, releaseStorePassword, releaseKeyAlias, releaseKeyPassword].every { it }
-def releaseVersionCode = (System.getenv('BIBLE_VERSION_CODE') ?: '4').toInteger()
+def releaseVersionCode = (System.getenv('BIBLE_VERSION_CODE') ?: '5').toInteger()
 
 android {
     namespace = "com.hopenations.bibleencyclopedia"
@@ -15,7 +15,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode releaseVersionCode
-        versionName "1.2"
+        versionName "1.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
