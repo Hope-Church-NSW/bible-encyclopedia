@@ -119,6 +119,52 @@ try {
         }
     }
 
+    function Write-OpaqueAppleIcon {
+        param(
+            [string] $RelativePath,
+            [double] $ArtworkScale
+        )
+
+        $size = 1024
+        $target = [System.Drawing.Bitmap]::new(
+            $size,
+            $size,
+            [System.Drawing.Imaging.PixelFormat]::Format24bppRgb
+        )
+
+        try {
+            $graphics = [System.Drawing.Graphics]::FromImage($target)
+            try {
+                $graphics.Clear([System.Drawing.ColorTranslator]::FromHtml('#101d31'))
+                $graphics.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
+                $graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+                $graphics.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
+                $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
+
+                $scale = [Math]::Min(
+                    ($size * $ArtworkScale) / $bounds.Width,
+                    ($size * $ArtworkScale) / $bounds.Height
+                )
+                $drawWidth = [int][Math]::Round($bounds.Width * $scale)
+                $drawHeight = [int][Math]::Round($bounds.Height * $scale)
+                $left = [int][Math]::Floor(($size - $drawWidth) / 2)
+                $top = [int][Math]::Floor(($size - $drawHeight) / 2)
+                $destination = [System.Drawing.Rectangle]::new($left, $top, $drawWidth, $drawHeight)
+
+                $graphics.DrawImage($source, $destination, $bounds, [System.Drawing.GraphicsUnit]::Pixel)
+            } finally {
+                $graphics.Dispose()
+            }
+
+            $outputPath = Join-Path $projectRoot $RelativePath
+            $temporaryPath = "$outputPath.tmp.png"
+            $target.Save($temporaryPath, [System.Drawing.Imaging.ImageFormat]::Png)
+            Move-Item -Force $temporaryPath $outputPath
+        } finally {
+            $target.Dispose()
+        }
+    }
+
     Write-TransparentIcon 'assets\app-icons\icon-512.png' 512 512 0.92
     Write-TransparentIcon 'assets\app-icons\icon-192.png' 192 192 0.92
     Write-TransparentIcon 'assets\app-icons\apple-touch-icon-180.png' 180 180 0.92
@@ -142,6 +188,8 @@ try {
         Write-TransparentIcon "$directory\ic_launcher.png" $launcherSize $launcherSize 0.92
         Write-TransparentIcon "$directory\ic_launcher_round.png" $launcherSize $launcherSize 0.92
     }
+
+    Write-OpaqueAppleIcon 'ios\App\App\Assets.xcassets\AppIcon.appiconset\AppIcon-512@2x.png' 0.92
 } finally {
     $source.Dispose()
 }

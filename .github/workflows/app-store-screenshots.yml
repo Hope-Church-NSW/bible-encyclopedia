@@ -56,13 +56,13 @@ jobs:
       - name: Prepare localized screenshots
         run: |
           screenshots="$RUNNER_TEMP/screenshots"
-          mkdir -p "$screenshots/ar-SA" "$screenshots/en-US"
+          mkdir -p "$screenshots/ar-SA" "$screenshots/en-AU"
           for image in app-store/ar/*.png; do cp "$image" "$screenshots/ar-SA/iphone-$(basename "$image")"; done
           for image in app-store/ipad/ar/*.png; do cp "$image" "$screenshots/ar-SA/ipad-$(basename "$image")"; done
-          for image in app-store/en/*.png; do cp "$image" "$screenshots/en-US/iphone-$(basename "$image")"; done
-          for image in app-store/ipad/en/*.png; do cp "$image" "$screenshots/en-US/ipad-$(basename "$image")"; done
+          for image in app-store/en/*.png; do cp "$image" "$screenshots/en-AU/iphone-$(basename "$image")"; done
+          for image in app-store/ipad/en/*.png; do cp "$image" "$screenshots/en-AU/ipad-$(basename "$image")"; done
           test "$(find "$screenshots/ar-SA" -type f | wc -l | tr -d ' ')" -eq 8
-          test "$(find "$screenshots/en-US" -type f | wc -l | tr -d ' ')" -eq 8
+          test "$(find "$screenshots/en-AU" -type f | wc -l | tr -d ' ')" -eq 8
           echo "SCREENSHOTS_PATH=$screenshots" >> "$GITHUB_ENV"
 
       - name: Install fastlane
