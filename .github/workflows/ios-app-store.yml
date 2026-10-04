@@ -130,6 +130,7 @@ jobs:
           </plist>
           PLIST
 
+          set +e
           xcodebuild \
             -exportArchive \
             -archivePath "$RUNNER_TEMP/BibleEncyclopedia.xcarchive" \
@@ -138,4 +139,19 @@ jobs:
             -allowProvisioningUpdates \
             -authenticationKeyPath "$APPLE_API_KEY_PATH" \
             -authenticationKeyID "$APP_STORE_CONNECT_KEY_ID" \
-            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID"
+            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID" \
+            2>&1 | tee "$RUNNER_TEMP/app-store-upload.log"
+          upload_status="${PIPESTATUS[0]}"
+          set -e
+
+          if [ "$upload_status" -ne 0 ]; then
+            grep -Ei 'error:|failed|failure|ITMS-|App Store Connect|status code' "$RUNNER_TEMP/app-store-upload.log" \
+              | tail -20 \
+              | while IFS= read -r line; do
+                  sanitized="${line//'%'/'%25'}"
+                  sanitized="${sanitized//$'\r'/'%0D'}"
+                  sanitized="${sanitized//$'\n'/'%0A'}"
+                  echo "::error::$sanitized"
+                done
+            exit "$upload_status"
+          fi
