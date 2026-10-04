@@ -852,6 +852,7 @@ main{
     min-width:52px;
     height:52px;
     padding:0;
+    overflow:hidden;
     border:2px solid rgba(224,184,76,.9);
     border-radius:50%;
     background:#071a26;
@@ -3191,7 +3192,21 @@ async function loadBible(){
            bible.json بالكامل.
         */
 
-        renderTestaments();
+        const deepLink = new URLSearchParams(window.location.search);
+        const deepLinkBook = deepLink.get("book");
+        const deepLinkChapter = Number(deepLink.get("chapter"));
+        if(
+            BOOK_NAMES[deepLinkBook] &&
+            Number.isInteger(deepLinkChapter) &&
+            deepLinkChapter > 0 &&
+            verses.some(function(verse){
+                return verse.book === deepLinkBook && verse.chapter === deepLinkChapter;
+            })
+        ){
+            openChapter(deepLinkBook,deepLinkChapter);
+        }else{
+            renderTestaments();
+        }
 
 
         console.log(

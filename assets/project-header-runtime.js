@@ -3,10 +3,23 @@
     const pageName = location.pathname.split('/').pop() || 'index.html';
     const translationBundle = pageName.replace(/\.html$/, '.json');
     const TRANSLATION_SESSION_KEY = `projectTranslationsEn:${TRANSLATION_VERSION}:${translationBundle}`;
+    const PROJECT_PREFERENCES_KEY = 'bibleReaderPreferencesV1';
+    const PROJECT_FONTS = {
+        default: 'Arial, "Helvetica Neue", Tahoma, sans-serif',
+        naskh: '"Geeza Pro", "Noto Naskh Arabic", "Traditional Arabic", serif',
+        serif: 'Georgia, "Times New Roman", "Geeza Pro", serif',
+        mono: '"Courier New", "Noto Sans Mono", monospace'
+    };
     const selectedLanguage = localStorage.getItem('bibleAppLanguage') === 'en' ? 'en' : 'ar';
+    const isBiblePage = location.pathname.endsWith('/bible.html') || location.pathname.endsWith('bible.html');
     document.documentElement.lang = selectedLanguage;
     document.documentElement.dir = selectedLanguage === 'en' ? 'ltr' : 'rtl';
     document.body.dir = document.documentElement.dir;
+
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport && !viewport.content.includes('viewport-fit=')) {
+        viewport.content = `${viewport.content}, viewport-fit=cover`;
+    }
 
     const manifest = document.createElement('link');
     manifest.rel = 'manifest';
@@ -206,6 +219,185 @@
     if ('requestIdleCallback' in window) requestIdleCallback(prefetchLinkedPages, { timeout: 1500 });
     else setTimeout(prefetchLinkedPages, 500);
 
+    function selectProjectLanguage(language) {
+        localStorage.setItem('bibleAppLanguage', language);
+        if (pageName === 'encyclopedia-letter.html') {
+            location.assign('encyclopedia.html');
+            return;
+        }
+        location.reload();
+    }
+
+    function readProjectPreferences() {
+        try {
+            const stored = JSON.parse(localStorage.getItem(PROJECT_PREFERENCES_KEY) || '{}');
+            return stored && typeof stored === 'object' && !Array.isArray(stored) ? stored : {};
+        } catch (error) {
+            console.warn('Unable to read project display settings.', error);
+            return {};
+        }
+    }
+
+    const projectPreferences = Object.assign(
+        { theme: 'blue', font: 'default', size: 21 },
+        readProjectPreferences()
+    );
+
+    function applyProjectPreferences() {
+        if (!['blue', 'white', 'black'].includes(projectPreferences.theme)) projectPreferences.theme = 'blue';
+        if (!PROJECT_FONTS[projectPreferences.font]) projectPreferences.font = 'default';
+        projectPreferences.size = Math.min(30, Math.max(17, Number(projectPreferences.size) || 21));
+        document.body.dataset.projectTheme = projectPreferences.theme;
+        document.body.dataset.readerTheme = projectPreferences.theme;
+        document.documentElement.style.setProperty('--reader-font-family', PROJECT_FONTS[projectPreferences.font]);
+        document.documentElement.style.setProperty('--reader-font-size', `${projectPreferences.size}px`);
+        document.body.style.setProperty('font-family', PROJECT_FONTS[projectPreferences.font], 'important');
+        document.body.style.setProperty('--project-body-size', `${projectPreferences.size}px`);
+        document.body.style.setProperty('--project-section-size', `${Math.min(38, projectPreferences.size + 7)}px`);
+        document.body.style.setProperty('--project-title-size', `${Math.min(48, projectPreferences.size + 15)}px`);
+        document.body.style.setProperty('font-size', `${projectPreferences.size}px`);
+    }
+
+    function saveProjectPreference(name, value) {
+        if (name === 'theme' && ['blue', 'white', 'black'].includes(value)) projectPreferences.theme = value;
+        if (name === 'font' && PROJECT_FONTS[value]) projectPreferences.font = value;
+        if (name === 'size') projectPreferences.size = Number(value);
+        applyProjectPreferences();
+        localStorage.setItem(PROJECT_PREFERENCES_KEY, JSON.stringify(projectPreferences));
+    }
+
+    applyProjectPreferences();
+
+    const languageToggle = document.createElement('button');
+    languageToggle.className = 'project-language-toggle';
+    languageToggle.type = 'button';
+    languageToggle.setAttribute('aria-label', selectedLanguage === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية');
+    languageToggle.title = selectedLanguage === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية';
+    languageToggle.textContent = selectedLanguage === 'en' ? '🌐 العربية' : '🌐 English';
+    languageToggle.addEventListener('click', () => {
+        const language = localStorage.getItem('bibleAppLanguage') === 'en' ? 'ar' : 'en';
+        selectProjectLanguage(language);
+    });
+    document.body.appendChild(languageToggle);
+
+    const settingsBackdrop = document.createElement('div');
+    settingsBackdrop.className = 'project-settings-backdrop';
+    settingsBackdrop.hidden = true;
+    settingsBackdrop.setAttribute('role', 'dialog');
+    settingsBackdrop.setAttribute('aria-modal', 'true');
+    settingsBackdrop.setAttribute('aria-labelledby', 'projectSettingsTitle');
+    const settingsPanel = document.createElement('div');
+    settingsPanel.className = 'project-settings-panel';
+    const settingsHeading = document.createElement('div');
+    settingsHeading.className = 'project-settings-heading';
+    const settingsTitle = document.createElement('h2');
+    settingsTitle.id = 'projectSettingsTitle';
+    settingsTitle.textContent = selectedLanguage === 'en' ? 'Project settings' : 'إعدادات المشروع';
+    const settingsClose = document.createElement('button');
+    settingsClose.className = 'project-settings-close';
+    settingsClose.type = 'button';
+    settingsClose.textContent = '×';
+    settingsClose.setAttribute('aria-label', selectedLanguage === 'en' ? 'Close settings' : 'إغلاق الإعدادات');
+    settingsHeading.append(settingsTitle, settingsClose);
+    const settingsOptions = document.createElement('div');
+    settingsOptions.className = 'project-settings-options';
+
+    const fontGroup = document.createElement('label');
+    fontGroup.className = 'project-setting-group';
+    const fontLabel = document.createElement('span');
+    fontLabel.className = 'project-setting-label';
+    fontLabel.textContent = selectedLanguage === 'en' ? 'Font type' : 'نوع الخط';
+    const fontSelect = document.createElement('select');
+    fontSelect.className = 'project-setting-select';
+    [
+        ['default', selectedLanguage === 'en' ? 'Clear font' : 'خط واضح'],
+        ['naskh', selectedLanguage === 'en' ? 'Arabic Naskh' : 'نسخ عربي'],
+        ['serif', selectedLanguage === 'en' ? 'Traditional font' : 'خط تقليدي'],
+        ['mono', selectedLanguage === 'en' ? 'Monospace' : 'خط ثابت العرض']
+    ].forEach(([value, label]) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = label;
+        fontSelect.appendChild(option);
+    });
+    fontSelect.value = projectPreferences.font;
+    fontSelect.addEventListener('change', () => saveProjectPreference('font', fontSelect.value));
+    fontGroup.append(fontLabel, fontSelect);
+
+    const sizeGroup = document.createElement('label');
+    sizeGroup.className = 'project-setting-group';
+    const sizeLabel = document.createElement('span');
+    sizeLabel.className = 'project-setting-label';
+    sizeLabel.textContent = selectedLanguage === 'en' ? 'Font size' : 'حجم الخط';
+    const sizeRow = document.createElement('span');
+    sizeRow.className = 'project-setting-range-row';
+    const sizeRange = document.createElement('input');
+    sizeRange.className = 'project-setting-range';
+    sizeRange.type = 'range';
+    sizeRange.min = '17';
+    sizeRange.max = '30';
+    sizeRange.step = '1';
+    sizeRange.value = String(projectPreferences.size);
+    const sizeValue = document.createElement('output');
+    sizeValue.className = 'project-setting-size-value';
+    sizeValue.textContent = `${projectPreferences.size} px`;
+    sizeRange.addEventListener('input', () => {
+        sizeValue.textContent = `${sizeRange.value} px`;
+        saveProjectPreference('size', sizeRange.value);
+    });
+    sizeRow.append(sizeRange, sizeValue);
+    sizeGroup.append(sizeLabel, sizeRow);
+
+    const themeGroup = document.createElement('div');
+    themeGroup.className = 'project-setting-group';
+    const themeLabel = document.createElement('span');
+    themeLabel.className = 'project-setting-label';
+    themeLabel.textContent = selectedLanguage === 'en' ? 'Background' : 'الخلفية';
+    const themeOptions = document.createElement('div');
+    themeOptions.className = 'project-theme-options';
+    [['blue', selectedLanguage === 'en' ? 'Blue' : 'أزرق'], ['white', selectedLanguage === 'en' ? 'White' : 'أبيض'], ['black', selectedLanguage === 'en' ? 'Black' : 'أسود']].forEach(([theme, label]) => {
+        const option = document.createElement('button');
+        option.className = 'project-settings-option';
+        option.type = 'button';
+        option.textContent = label;
+        option.setAttribute('aria-pressed', String(projectPreferences.theme === theme));
+        option.addEventListener('click', () => {
+            saveProjectPreference('theme', theme);
+            themeOptions.querySelectorAll('button').forEach((button) => {
+                button.setAttribute('aria-pressed', String(button === option));
+            });
+        });
+        themeOptions.appendChild(option);
+    });
+    themeGroup.append(themeLabel, themeOptions);
+    settingsOptions.append(fontGroup, sizeGroup, themeGroup);
+    settingsPanel.append(settingsHeading, settingsOptions);
+    settingsBackdrop.appendChild(settingsPanel);
+    document.body.appendChild(settingsBackdrop);
+
+    const settingsToggle = document.createElement('button');
+    settingsToggle.className = 'project-reader-settings';
+    settingsToggle.type = 'button';
+    settingsToggle.textContent = '⚙';
+    settingsToggle.title = selectedLanguage === 'en' ? 'Settings' : 'الإعدادات';
+    settingsToggle.setAttribute('aria-label', selectedLanguage === 'en' ? 'Open settings' : 'فتح الإعدادات');
+    settingsToggle.addEventListener('click', () => {
+        settingsBackdrop.hidden = false;
+        settingsClose.focus();
+    });
+    const closeSettings = () => {
+        settingsBackdrop.hidden = true;
+        settingsToggle.focus();
+    };
+    settingsClose.addEventListener('click', closeSettings);
+    settingsBackdrop.addEventListener('click', (event) => {
+        if (event.target === settingsBackdrop) closeSettings();
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !settingsBackdrop.hidden) closeSettings();
+    });
+    document.body.appendChild(settingsToggle);
+
     const header = document.querySelector('header, .top-frame, .site-header');
     if (!header) {
         applyEnglishTranslations().finally(revealProjectPage);
@@ -241,20 +433,6 @@
     brand.append(brandText, brandLogo);
     const actions = document.createElement('div');
     actions.className = 'project-header-actions';
-    const languageToggle = document.createElement('button');
-    languageToggle.className = 'project-language-toggle';
-    languageToggle.type = 'button';
-    languageToggle.setAttribute('aria-label', 'Switch language');
-    languageToggle.textContent = selectedLanguage === 'en' ? 'العربية' : 'English';
-    languageToggle.addEventListener('click', () => {
-        const language = localStorage.getItem('bibleAppLanguage') === 'en' ? 'ar' : 'en';
-        localStorage.setItem('bibleAppLanguage', language);
-        if (pageName === 'encyclopedia-letter.html') {
-            location.assign('encyclopedia.html');
-            return;
-        }
-        location.reload();
-    });
     const back = document.createElement('a');
     back.className = 'project-return';
     back.href = returnHref;
@@ -264,18 +442,8 @@
     backText.textContent = returnText || 'الدراسات';
     back.append(backIcon, backText);
     if (!isHomePage) actions.appendChild(back);
-    actions.appendChild(languageToggle);
-    if (location.pathname.endsWith('/bible.html') || location.pathname.endsWith('bible.html')) {
+    if (isBiblePage) {
         document.body.classList.add('project-bible-page');
-        const readerSettings = document.createElement('button');
-        readerSettings.className = 'project-reader-settings';
-        readerSettings.type = 'button';
-        readerSettings.textContent = selectedLanguage === 'en' ? '⚙ Reading settings' : '⚙ إعدادات القراءة';
-        readerSettings.setAttribute('aria-label', selectedLanguage === 'en' ? 'Open reading settings' : 'فتح إعدادات القراءة');
-        readerSettings.addEventListener('click', () => {
-            if (typeof openReaderSettings === 'function') openReaderSettings();
-        });
-        actions.appendChild(readerSettings);
         const bibleHome = document.createElement('button');
         bibleHome.id = 'bibleHomeButton';
         bibleHome.className = 'project-books-return project-bible-return';

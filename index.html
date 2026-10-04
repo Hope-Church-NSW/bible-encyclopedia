@@ -455,6 +455,138 @@ main{
 .church-social-link.youtube{background:#d71920}
 .church-social-link.facebook{background:#1877f2}
 
+.daily-verse{
+    width:min(900px,100%);
+    margin:0 auto 38px;
+    padding:24px;
+    border:1px solid rgba(212,175,55,.65);
+    border-radius:14px;
+    background:linear-gradient(145deg,#102f55,#07182c);
+    box-shadow:0 22px 55px rgba(0,0,0,.35);
+    text-align:center;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+.daily-verse-title{
+    margin:0 0 18px;
+    color:var(--gold-light);
+    font:900 clamp(22px,3vw,30px)/1.3 Tahoma,Arial,sans-serif;
+}
+
+.daily-verse-text{
+    max-width:780px;
+    margin:0 auto 14px;
+    color:#fff;
+    font:700 clamp(21px,3vw,31px)/1.9 Tahoma,Arial,sans-serif;
+}
+
+.daily-verse-reference{
+    margin:0 0 18px;
+    color:#f5d977;
+    font:900 17px/1.5 Tahoma,Arial,sans-serif;
+}
+
+.daily-verse-actions{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.daily-verse-action{
+    min-width:105px;
+    min-height:46px;
+    padding:8px 14px;
+    border:1px solid rgba(212,175,55,.7);
+    border-radius:9px;
+    color:#fff;
+    background:#153a64;
+    font:800 14px/1 Tahoma,Arial,sans-serif;
+    cursor:pointer;
+}
+
+.daily-verse-action.is-liked{
+    color:#071526;
+    background:linear-gradient(180deg,#fff1a2,#d4af37);
+}
+
+.daily-verse-more{
+    position:relative;
+}
+
+.daily-verse-menu{
+    position:absolute;
+    z-index:40;
+    left:50%;
+    bottom:calc(100% + 8px);
+    width:190px;
+    padding:7px;
+    border:1px solid rgba(212,175,55,.65);
+    border-radius:10px;
+    background:#071a2c;
+    box-shadow:0 14px 34px rgba(0,0,0,.55);
+    transform:translateX(-50%);
+}
+
+.daily-verse-menu a,
+.daily-verse-menu button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    min-height:44px;
+    padding:8px;
+    border:0;
+    border-radius:7px;
+    color:#fff;
+    background:transparent;
+    font:800 14px/1.4 Tahoma,Arial,sans-serif;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.daily-verse-menu :is(a,button):hover{background:#153a64}
+
+.verse-image-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:11000;
+    display:grid;
+    place-items:center;
+    padding:18px;
+    background:rgba(0,0,0,.82);
+}
+
+.verse-image-backdrop[hidden]{display:none}
+
+.verse-image-dialog{
+    width:min(760px,100%);
+    max-height:calc(100vh - 36px);
+    overflow:auto;
+    padding:18px;
+    border:2px solid #d4af37;
+    border-radius:14px;
+    background:#0a2038;
+}
+
+.verse-image-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:14px;
+}
+
+.verse-image-header h2{margin:0;color:#f5d977;font:900 22px/1.3 Tahoma,Arial,sans-serif}
+.verse-image-close{width:40px;height:40px;border:1px solid #d4af37;border-radius:50%;color:#fff;background:#071526;font-size:24px;cursor:pointer}
+.verse-image-canvas{display:block;width:min(100%,480px);height:auto;margin:0 auto 16px;border:1px solid rgba(255,255,255,.22);border-radius:10px;background:#0b2d5c}
+.verse-background-options,.verse-image-actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
+.verse-background-button,.verse-image-button,.verse-upload-label{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 13px;border:1px solid rgba(212,175,55,.7);border-radius:8px;color:#fff;background:#153a64;font:800 13px/1 Tahoma,Arial,sans-serif;cursor:pointer}
+.verse-background-button[aria-pressed="true"]{color:#071526;background:linear-gradient(180deg,#fff1a2,#d4af37)}
+.verse-upload-label input{position:absolute;width:1px;height:1px;overflow:hidden;opacity:0}
+.verse-image-actions{margin-top:14px}
+.daily-verse-status{min-height:22px;margin:12px 0 0;color:#f5d977;font:700 13px/1.5 Tahoma,Arial,sans-serif}
+
 [hidden]{display:none !important}
 
 @keyframes livePulse{
@@ -884,32 +1016,43 @@ body.english .main-card{
 
     </section>
 
-    <section id="churchLive" class="church-live" aria-labelledby="liveTitle">
-        <div class="church-live-heading">
-            <span id="liveIndicator" class="live-indicator">
-                <span class="live-indicator-dot" aria-hidden="true"></span>
-                <span id="liveIndicatorText">قنوات الكنيسة</span>
-            </span>
-            <h2 id="liveTitle">البث المباشر</h2>
+    <section id="dailyVerse" class="daily-verse" aria-labelledby="dailyVerseTitle">
+        <h2 id="dailyVerseTitle" class="daily-verse-title">آية اليوم</h2>
+        <blockquote id="dailyVerseText" class="daily-verse-text"></blockquote>
+        <p id="dailyVerseReference" class="daily-verse-reference"></p>
+        <div class="daily-verse-actions">
+            <button id="dailyVerseLike" class="daily-verse-action" type="button" onclick="toggleDailyVerseLike()">♡ إعجاب</button>
+            <button id="dailyVerseShare" class="daily-verse-action" type="button" onclick="shareDailyVerse()">↗ مشاركة</button>
+            <div class="daily-verse-more">
+                <button id="dailyVerseMore" class="daily-verse-action" type="button" aria-expanded="false" onclick="toggleDailyVerseMenu()">⋯ المزيد</button>
+                <div id="dailyVerseMenu" class="daily-verse-menu" hidden>
+                    <a id="dailyVerseChapter" href="bible.html">📖 اقرأ الأصحاح</a>
+                    <button id="dailyVerseImage" type="button" onclick="openDailyVerseDesigner()">🖼 اصنعها في صورة</button>
+                </div>
+            </div>
         </div>
-        <p id="liveDescription" class="church-live-copy">تابع البث المباشر أو انتقل إلى منصات الكنيسة الرسمية.</p>
-
-        <div id="livePlayer" class="live-player" hidden>
-            <iframe id="liveFrame" title="البث المباشر لكنيسة رجاء الأمم سيدني" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-            <a id="liveWatchLink" class="live-watch-link" href="https://www.youtube.com/@HCNSW/live" target="_blank" rel="noopener">مشاهدة البث على YouTube</a>
-        </div>
-
-        <div id="churchSocialLinks" class="church-social-links">
-            <a class="church-social-link youtube" href="https://www.youtube.com/@HCNSW" target="_blank" rel="noopener" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8z"/><path fill="#d71920" d="M9.75 15.5 15.75 12l-6-3.5z"/></svg>
-                <span>YouTube</span>
-            </a>
-            <a class="church-social-link facebook" href="https://www.facebook.com/hopechurchNSW" target="_blank" rel="noopener" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 8h3V4h-3c-3.3 0-5 1.9-5 5v3H6v4h3v8h4v-8h3.2l.8-4H13V9c0-.7.3-1 1-1z"/></svg>
-                <span>Facebook</span>
-            </a>
-        </div>
+        <p id="dailyVerseStatus" class="daily-verse-status" aria-live="polite"></p>
     </section>
+
+    <div id="verseImageBackdrop" class="verse-image-backdrop" role="dialog" aria-modal="true" aria-labelledby="verseImageTitle" hidden>
+        <div class="verse-image-dialog">
+            <div class="verse-image-header">
+                <h2 id="verseImageTitle">اصنع آية اليوم في صورة</h2>
+                <button class="verse-image-close" type="button" onclick="closeDailyVerseDesigner()" aria-label="إغلاق">×</button>
+            </div>
+            <canvas id="dailyVerseCanvas" class="verse-image-canvas" width="1080" height="1080"></canvas>
+            <div class="verse-background-options">
+                <button class="verse-background-button" type="button" data-verse-background="navy" aria-pressed="true">أزرق</button>
+                <button class="verse-background-button" type="button" data-verse-background="sunrise" aria-pressed="false">شروق</button>
+                <button class="verse-background-button" type="button" data-verse-background="forest" aria-pressed="false">طبيعة</button>
+                <label class="verse-upload-label">اختر صورة<input id="dailyVerseBackgroundUpload" type="file" accept="image/*"></label>
+            </div>
+            <div class="verse-image-actions">
+                <button id="dailyVerseDownload" class="verse-image-button" type="button" onclick="downloadDailyVerseImage()">تنزيل الصورة</button>
+                <button id="dailyVerseImageShare" class="verse-image-button" type="button" onclick="shareDailyVerseImage()">مشاركة الصورة</button>
+            </div>
+        </div>
+    </div>
 
 
     <!-- أقسام التطبيق -->
@@ -995,6 +1138,7 @@ body.english .main-card{
 </footer>
 
 
+<script src="assets/daily-verse.js"></script>
 <script>
 
 const translations = {
@@ -1190,14 +1334,7 @@ function setLanguage(language){
     const footerText = document.getElementById("footerText");
     if(footerText) footerText.textContent = t.footerText;
 
-    ["liveTitle","liveDescription"].forEach(function(id){
-        const element = document.getElementById(id);
-        if(element) element.textContent = t[id];
-    });
-    const liveIndicatorText = document.getElementById("liveIndicatorText");
-    if(liveIndicatorText) liveIndicatorText.textContent = document.getElementById("churchLive").classList.contains("is-live") ? t.liveNow : t.liveOffline;
-    const liveWatchLink = document.getElementById("liveWatchLink");
-    if(liveWatchLink) liveWatchLink.textContent = t.liveWatch;
+    if(window.renderDailyVerse) window.renderDailyVerse(language);
 
 
     const arabicButton = document.getElementById("arabicButton");
@@ -1241,36 +1378,7 @@ if(new URLSearchParams(window.location.search).get("home") === "1"){
     document.body.classList.remove("entry-active");
 }
 
-async function refreshChurchLiveStatus(){
-    const section = document.getElementById("churchLive");
-    const player = document.getElementById("livePlayer");
-    const frame = document.getElementById("liveFrame");
-    const socialLinks = document.getElementById("churchSocialLinks");
-    if(!section || !player || !frame || !socialLinks) return;
-
-    let status = {isLive:false,videoId:null};
-    try{
-        const response = await fetch(`live-status.json?t=${Date.now()}`,{cache:"no-store"});
-        if(response.ok) status = await response.json();
-    }catch(_){}
-
-    const isLive = status.isLive === true && /^[A-Za-z0-9_-]{11}$/.test(status.videoId || "");
-    section.classList.toggle("is-live",isLive);
-    player.hidden = !isLive;
-    socialLinks.hidden = isLive;
-    if(isLive){
-        const source = `https://www.youtube-nocookie.com/embed/${status.videoId}?autoplay=1&rel=0`;
-        if(frame.src !== source) frame.src = source;
-    }else{
-        frame.removeAttribute("src");
-    }
-    setLanguage(localStorage.getItem("bibleAppLanguage") === "en" ? "en" : "ar");
-}
-
-
 setLanguage(savedLanguage);
-refreshChurchLiveStatus();
-window.setInterval(refreshChurchLiveStatus,60000);
 
 </script>
  

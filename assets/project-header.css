@@ -3,7 +3,7 @@ body.project-unified-header .project-header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    min-height: 88px;
+    min-height: calc(88px + env(safe-area-inset-top, 0px));
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -152,7 +152,7 @@ body.project-unified-header .project-header-actions {
     align-items: stretch;
     gap: 2px;
     position: absolute;
-    top: 24px;
+    top: calc(24px + env(safe-area-inset-top, 0px));
     right: 14px;
 }
 
@@ -161,17 +161,189 @@ body.project-unified-header .project-language-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 145px;
-    min-width: 145px;
-    height: 30px;
-    padding: 0 10px;
-    border: 1px solid rgba(224,184,76,.8);
-    border-radius: 9px;
+    position: fixed;
+    z-index: 1200;
+    left: max(14px, env(safe-area-inset-left, 0px));
+    bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    width: 108px;
+    min-width: 108px;
+    height: 52px;
+    padding: 0 12px;
+    border: 2px solid rgba(224,184,76,.9);
+    border-radius: 26px;
     color: #071a26;
     background: linear-gradient(180deg,#fff1a2,#d4af37);
-    font: 800 13px/1 Arial, sans-serif;
+    box-shadow: 0 8px 22px rgba(0,0,0,.45);
+    font: 800 14px/1 Arial, sans-serif;
     cursor: pointer;
     white-space: nowrap;
+}
+
+body.project-unified-header .project-reader-settings {
+    direction: rtl;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1200;
+    right: max(14px, env(safe-area-inset-right, 0px));
+    bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    width: 52px;
+    min-width: 52px;
+    height: 52px;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid rgba(224,184,76,.9);
+    border-radius: 50%;
+    background: #071a26;
+    color: #f4dc78;
+    box-shadow: 0 8px 22px rgba(0,0,0,.45);
+    font: 800 24px/1 Arial, sans-serif;
+    cursor: pointer;
+}
+
+body.project-unified-header .project-settings-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(0,0,0,.68);
+}
+
+body.project-unified-header .project-settings-backdrop[hidden] {
+    display: none;
+}
+
+body.project-unified-header .project-settings-panel {
+    direction: rtl;
+    width: min(360px, 100%);
+    padding: 20px;
+    border: 2px solid #d4af37;
+    border-radius: 14px;
+    color: #fff;
+    background: #0d2138;
+    box-shadow: 0 24px 70px rgba(0,0,0,.7);
+}
+
+body.project-unified-header .project-settings-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+body.project-unified-header .project-settings-heading h2 {
+    margin: 0;
+    color: #f4dc78;
+    font-size: 22px;
+}
+
+body.project-unified-header .project-settings-close {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(224,184,76,.65);
+    border-radius: 50%;
+    color: #fff;
+    background: #071a26;
+    font: 700 24px/1 Arial, sans-serif;
+    cursor: pointer;
+}
+
+body.project-unified-header .project-settings-options {
+    display: grid;
+    gap: 16px;
+}
+
+body.project-unified-header .project-setting-group {
+    display: grid;
+    gap: 8px;
+}
+
+body.project-unified-header .project-setting-label {
+    color: #f4dc78;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+body.project-unified-header .project-setting-select {
+    width: 100%;
+    min-height: 48px;
+    padding: 8px 12px;
+    border: 1px solid rgba(224,184,76,.65);
+    border-radius: 10px;
+    color: #fff;
+    background: #153657;
+    font: inherit;
+}
+
+body.project-unified-header .project-setting-range-row {
+    display: grid;
+    grid-template-columns: 1fr 58px;
+    align-items: center;
+    gap: 10px;
+}
+
+body.project-unified-header .project-setting-range {
+    width: 100%;
+    accent-color: #d4af37;
+}
+
+body.project-unified-header .project-setting-size-value {
+    color: #fff;
+    text-align: center;
+    font: 800 14px/1 Arial, sans-serif;
+}
+
+body.project-unified-header .project-theme-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+body.project-unified-header .project-settings-option {
+    min-height: 50px;
+    padding: 8px;
+    border: 1px solid rgba(224,184,76,.65);
+    border-radius: 10px;
+    color: #fff;
+    background: #153657;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+body.project-unified-header .project-settings-option[aria-pressed="true"] {
+    color: #071a26;
+    background: linear-gradient(180deg,#fff1a2,#d4af37);
+}
+
+body.project-unified-header[data-project-theme="white"] {
+    background: linear-gradient(180deg,#eef4fa 0%,#ffffff 100%) !important;
+    color: #10243a;
+}
+
+body.project-unified-header[data-project-theme="white"] .project-header,
+body.project-unified-header[data-project-theme="white"] .project-footer {
+    background: #fff;
+    border-color: #9a6900;
+}
+
+body.project-unified-header[data-project-theme="white"] .project-brand-church {
+    color: #10243a;
+    text-shadow: none;
+}
+
+body.project-unified-header[data-project-theme="black"] {
+    background: linear-gradient(180deg,#000 0%,#101010 100%) !important;
+    color: #f7f7f7;
+}
+
+body.project-unified-header[data-project-theme="black"] .project-header,
+body.project-unified-header[data-project-theme="black"] .project-footer {
+    background: #050505;
 }
 
 body.project-unified-header .project-return,
@@ -286,7 +458,7 @@ body.project-unified-header .project-footer div:first-child {
     }
 
     body.project-unified-header .project-header {
-        min-height: 82px;
+        min-height: calc(82px + env(safe-area-inset-top, 0px));
         padding: 7px 8px;
     }
 
@@ -322,15 +494,14 @@ body.project-unified-header .project-footer div:first-child {
     }
 
     body.project-unified-header .project-header-actions {
-        top: 7px;
+        top: calc(7px + env(safe-area-inset-top, 0px));
         right: 8px;
         gap: 4px;
     }
 
     body.project-unified-header .project-return,
     body.project-unified-header .project-rivers-return,
-    body.project-unified-header .project-books-return,
-    body.project-unified-header .project-language-toggle {
+    body.project-unified-header .project-books-return {
         width: 130px;
         min-width: 130px;
     }
@@ -357,8 +528,21 @@ body.project-unified-header .project-footer div:first-child {
     }
 
     body.project-unified-header .project-language-toggle {
-        height: 27px;
+        left: max(10px, env(safe-area-inset-left, 0px));
+        bottom: max(10px, env(safe-area-inset-bottom, 0px));
+        width: 96px;
+        min-width: 96px;
+        height: 48px;
         font-size: 12px;
+    }
+
+    body.project-unified-header .project-reader-settings {
+        right: max(10px, env(safe-area-inset-right, 0px));
+        bottom: max(10px, env(safe-area-inset-bottom, 0px));
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+        font-size: 22px;
     }
 
     body.project-unified-header :where(.main-grid, .studies-grid, .cards-grid, .features-grid) {
