@@ -179,7 +179,7 @@ body.project-unified-header .project-language-toggle {
     white-space: nowrap;
 }
 
-body.project-unified-header .project-reader-settings {
+body .project-reader-settings {
     direction: rtl;
     display: flex;
     align-items: center;
@@ -202,7 +202,7 @@ body.project-unified-header .project-reader-settings {
     cursor: pointer;
 }
 
-body.project-unified-header .project-settings-backdrop {
+body .project-settings-backdrop {
     position: fixed;
     inset: 0;
     z-index: 2000;
@@ -212,11 +212,11 @@ body.project-unified-header .project-settings-backdrop {
     background: rgba(0,0,0,.68);
 }
 
-body.project-unified-header .project-settings-backdrop[hidden] {
+body .project-settings-backdrop[hidden] {
     display: none;
 }
 
-body.project-unified-header .project-settings-panel {
+body .project-settings-panel {
     direction: rtl;
     width: min(360px, 100%);
     padding: 20px;
@@ -227,7 +227,7 @@ body.project-unified-header .project-settings-panel {
     box-shadow: 0 24px 70px rgba(0,0,0,.7);
 }
 
-body.project-unified-header .project-settings-heading {
+body .project-settings-heading {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -235,13 +235,13 @@ body.project-unified-header .project-settings-heading {
     margin-bottom: 18px;
 }
 
-body.project-unified-header .project-settings-heading h2 {
+body .project-settings-heading h2 {
     margin: 0;
     color: #f4dc78;
     font-size: 22px;
 }
 
-body.project-unified-header .project-settings-close {
+body .project-settings-close {
     width: 40px;
     height: 40px;
     border: 1px solid rgba(224,184,76,.65);
@@ -252,23 +252,23 @@ body.project-unified-header .project-settings-close {
     cursor: pointer;
 }
 
-body.project-unified-header .project-settings-options {
+body .project-settings-options {
     display: grid;
     gap: 16px;
 }
 
-body.project-unified-header .project-setting-group {
+body .project-setting-group {
     display: grid;
     gap: 8px;
 }
 
-body.project-unified-header .project-setting-label {
+body .project-setting-label {
     color: #f4dc78;
     font-size: 15px;
     font-weight: 800;
 }
 
-body.project-unified-header .project-setting-select {
+body .project-setting-select {
     width: 100%;
     min-height: 48px;
     padding: 8px 12px;
@@ -279,31 +279,31 @@ body.project-unified-header .project-setting-select {
     font: inherit;
 }
 
-body.project-unified-header .project-setting-range-row {
+body .project-setting-range-row {
     display: grid;
     grid-template-columns: 1fr 58px;
     align-items: center;
     gap: 10px;
 }
 
-body.project-unified-header .project-setting-range {
+body .project-setting-range {
     width: 100%;
     accent-color: #d4af37;
 }
 
-body.project-unified-header .project-setting-size-value {
+body .project-setting-size-value {
     color: #fff;
     text-align: center;
     font: 800 14px/1 Arial, sans-serif;
 }
 
-body.project-unified-header .project-theme-options {
+body .project-theme-options {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
 }
 
-body.project-unified-header .project-settings-option {
+body .project-settings-option {
     min-height: 50px;
     padding: 8px;
     border: 1px solid rgba(224,184,76,.65);
@@ -315,7 +315,7 @@ body.project-unified-header .project-settings-option {
     cursor: pointer;
 }
 
-body.project-unified-header .project-settings-option[aria-pressed="true"] {
+body .project-settings-option[aria-pressed="true"] {
     color: #071a26;
     background: linear-gradient(180deg,#fff1a2,#d4af37);
 }
@@ -395,6 +395,55 @@ body.project-unified-header .project-bible-return[hidden] {
 body.project-unified-header .project-return:hover,
 body.project-unified-header .project-rivers-return:hover {
     background: #0b6dcc;
+}
+
+body.project-unified-header .project-home-return {
+    position: fixed;
+    z-index: 1200;
+    top: calc(43px + env(safe-area-inset-top, 0px));
+    right: max(14px, env(safe-area-inset-right, 0px));
+    left: auto;
+    width: 130px;
+    min-width: 130px;
+    height: 38px;
+    padding: 0 12px;
+    border: 2px solid #d4af37;
+    border-radius: 9px;
+    flex-direction: row;
+    gap: 7px;
+    color: #fff;
+    background: #071a26;
+    box-shadow: 0 5px 14px rgba(0,0,0,.4);
+}
+
+body.project-unified-header .project-home-return > span {
+    position: static;
+    display: block;
+    flex: none;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    color: #fff;
+    font-size: 23px;
+    line-height: 1.2;
+    font-weight: 900;
+    text-align: center;
+    white-space: nowrap;
+}
+
+body.project-unified-header .project-home-return > span:last-child {
+    direction: ltr;
+}
+
+body.project-unified-header .project-home-return > span:only-child {
+    flex: 0 1 auto;
+    width: auto;
+    height: auto;
+    font-size: 23px;
+    line-height: 1.2;
+    white-space: nowrap;
 }
 
 body.project-unified-header .project-rivers-return {
@@ -512,6 +561,18 @@ body.project-unified-header .project-footer div:first-child {
         padding-inline: 5px;
     }
 
+    body.project-unified-header .project-home-return {
+        top: calc(36px + env(safe-area-inset-top, 0px));
+        right: max(8px, env(safe-area-inset-right, 0px));
+        left: auto;
+        width: 104px;
+        min-width: 104px;
+        height: 34px;
+        padding: 0 8px;
+        border-radius: 8px;
+        gap: 6px;
+    }
+
     body.project-unified-header .project-return > span:first-child {
         flex-basis: 18px;
         width: 18px;
@@ -527,6 +588,26 @@ body.project-unified-header .project-footer div:first-child {
         white-space: normal;
     }
 
+    body.project-unified-header .project-home-return > span {
+        display: block;
+        flex: none;
+        width: auto;
+        height: auto;
+        font-size: 22px;
+        line-height: 1.2;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    body.project-unified-header .project-home-return > span:only-child {
+        flex: 0 1 auto;
+        width: auto;
+        height: auto;
+        font-size: 22px;
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+
     body.project-unified-header .project-language-toggle {
         left: max(10px, env(safe-area-inset-left, 0px));
         bottom: max(10px, env(safe-area-inset-bottom, 0px));
@@ -536,7 +617,7 @@ body.project-unified-header .project-footer div:first-child {
         font-size: 12px;
     }
 
-    body.project-unified-header .project-reader-settings {
+    body .project-reader-settings {
         right: max(10px, env(safe-area-inset-right, 0px));
         bottom: max(10px, env(safe-area-inset-bottom, 0px));
         width: 48px;

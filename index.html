@@ -582,7 +582,12 @@ main{
 .verse-image-canvas{display:block;width:min(100%,480px);height:auto;margin:0 auto 16px;border:1px solid rgba(255,255,255,.22);border-radius:10px;background:#0b2d5c}
 .verse-background-options,.verse-image-actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
 .verse-background-button,.verse-image-button,.verse-upload-label{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 13px;border:1px solid rgba(212,175,55,.7);border-radius:8px;color:#fff;background:#153a64;font:800 13px/1 Tahoma,Arial,sans-serif;cursor:pointer}
-.verse-background-button[aria-pressed="true"]{color:#071526;background:linear-gradient(180deg,#fff1a2,#d4af37)}
+.verse-background-button{align-items:flex-end;width:120px;min-height:76px;background-position:center;background-size:cover;text-shadow:0 1px 4px #000,0 1px 8px #000}
+.verse-background-button[data-verse-background="sky"]{background-image:linear-gradient(0deg,rgba(0,0,0,.58),transparent 70%),url("assets/verse-backgrounds/sky-clouds.svg")}
+.verse-background-button[data-verse-background="sunrise"]{background-image:linear-gradient(0deg,rgba(0,0,0,.58),transparent 70%),url("assets/verse-backgrounds/sunrise.svg")}
+.verse-background-button[data-verse-background="trees"]{background-image:linear-gradient(0deg,rgba(0,0,0,.58),transparent 70%),url("assets/verse-backgrounds/trees.svg")}
+.verse-background-button[aria-pressed="true"]{border-color:#fff1a2;box-shadow:0 0 0 3px #d4af37}
+.verse-upload-label{min-height:76px}
 .verse-upload-label input{position:absolute;width:1px;height:1px;overflow:hidden;opacity:0}
 .verse-image-actions{margin-top:14px}
 .daily-verse-status{min-height:22px;margin:12px 0 0;color:#f5d977;font:700 13px/1.5 Tahoma,Arial,sans-serif}
@@ -920,9 +925,9 @@ body.english .main-card{
 }
 </style>
 <script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
-<link rel="preload" href="assets/project-translations-pages/index.json?v=20260915-4" as="fetch" crossorigin>
-<link rel="stylesheet" href="assets/project-header-runtime.css?v=20260915-4">
-<script defer src="assets/project-header-runtime.js?v=20260915-4"></script>
+<link rel="preload" href="assets/project-translations-pages/index.json?v=20261007-1" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261007-1">
+<script defer src="assets/project-header-runtime.js?v=20261007-1"></script>
 </head>
 
 
@@ -1042,10 +1047,10 @@ body.english .main-card{
             </div>
             <canvas id="dailyVerseCanvas" class="verse-image-canvas" width="1080" height="1080"></canvas>
             <div class="verse-background-options">
-                <button class="verse-background-button" type="button" data-verse-background="navy" aria-pressed="true">أزرق</button>
+                <button class="verse-background-button" type="button" data-verse-background="sky" aria-pressed="true">سماء وسحاب</button>
                 <button class="verse-background-button" type="button" data-verse-background="sunrise" aria-pressed="false">شروق</button>
-                <button class="verse-background-button" type="button" data-verse-background="forest" aria-pressed="false">طبيعة</button>
-                <label class="verse-upload-label">اختر صورة<input id="dailyVerseBackgroundUpload" type="file" accept="image/*"></label>
+                <button class="verse-background-button" type="button" data-verse-background="trees" aria-pressed="false">أشجار</button>
+                <label class="verse-upload-label">أضف صورتك<input id="dailyVerseBackgroundUpload" type="file" accept="image/*"></label>
             </div>
             <div class="verse-image-actions">
                 <button id="dailyVerseDownload" class="verse-image-button" type="button" onclick="downloadDailyVerseImage()">تنزيل الصورة</button>
@@ -1138,7 +1143,7 @@ body.english .main-card{
 </footer>
 
 
-<script src="assets/daily-verse.js"></script>
+<script src="assets/daily-verse.js?v=20261007-1"></script>
 <script>
 
 const translations = {

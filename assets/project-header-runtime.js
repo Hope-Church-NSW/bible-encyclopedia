@@ -1,5 +1,5 @@
 (function () {
-    const TRANSLATION_VERSION = '20260915-4';
+    const TRANSLATION_VERSION = '20261007-1';
     const pageName = location.pathname.split('/').pop() || 'index.html';
     const translationBundle = pageName.replace(/\.html$/, '.json');
     const TRANSLATION_SESSION_KEY = `projectTranslationsEn:${TRANSLATION_VERSION}:${translationBundle}`;
@@ -42,7 +42,7 @@
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
         window.addEventListener('load', async () => {
             try {
-                await navigator.serviceWorker.register('service-worker.js?v=20', { updateViaCache: 'none' });
+                await navigator.serviceWorker.register('service-worker.js?v=29', { updateViaCache: 'none' });
                 const registration = await navigator.serviceWorker.ready;
                 if (registration.active && navigator.onLine) {
                     const cacheSite = () => registration.active.postMessage('CACHE_PUBLISHED_SITE');
@@ -407,11 +407,8 @@
     const returnControl = header.querySelector('.back-button, .back-btn, .home-button, .home-btn, .back-link');
     const riversControl = header.querySelector('.header-rivers-back');
     const logo = header.querySelector('img');
-    const returnHref = returnControl ? returnControl.getAttribute('href') : 'studies.html';
-    const returnsHome = returnHref && new URL(returnHref, location.href).pathname.endsWith('/index.html');
-    const returnText = returnsHome
-        ? (selectedLanguage === 'en' ? 'Home' : 'الرئيسية')
-        : (returnControl ? returnControl.textContent.replace(/[←→⌂🏠]/gu, '').trim() : (selectedLanguage === 'en' ? 'Studies' : 'الدراسات'));
+    const returnHref = 'index.html?home=1';
+    const returnText = selectedLanguage === 'en' ? 'Home' : 'الرئيسية';
     const isHomePage = location.pathname.endsWith('/index.html') || location.pathname.endsWith('index.html') || location.pathname === '/';
     header.className = 'project-header';
     header.replaceChildren();
@@ -434,13 +431,17 @@
     const actions = document.createElement('div');
     actions.className = 'project-header-actions';
     const back = document.createElement('a');
-    back.className = 'project-return';
+    back.className = 'project-return project-home-return';
     back.href = returnHref;
-    const backIcon = document.createElement('span');
-    backIcon.textContent = '↩';
+    back.title = returnText;
+    back.setAttribute('aria-label', returnText);
+    back.addEventListener('click', (event) => {
+        event.preventDefault();
+        location.assign(new URL('index.html?home=1', location.href).href);
+    });
     const backText = document.createElement('span');
-    backText.textContent = returnText || 'الدراسات';
-    back.append(backIcon, backText);
+    backText.textContent = returnText;
+    back.appendChild(backText);
     if (!isHomePage) actions.appendChild(back);
     if (isBiblePage) {
         document.body.classList.add('project-bible-page');

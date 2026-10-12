@@ -16,15 +16,33 @@
         { book: '60-1-peter', chapter: 5, verse: 7, arBook: 'بطرس الأولى', enBook: '1 Peter', ar: 'مُلْقِينَ كُلَّ هَمِّكُمْ عَلَيْهِ، لأَنَّهُ هُوَ يَعْتَنِي بِكُمْ.', en: 'Casting all your care upon him; for he careth for you.' }
     ];
     const UI = {
-        ar: { title: 'آية اليوم', like: '♡ إعجاب', liked: '♥ تم الإعجاب', share: '↗ مشاركة', more: '⋯ المزيد', chapter: '📖 اقرأ الأصحاح', image: '🖼 اصنعها في صورة', designer: 'اصنع آية اليوم في صورة', blue: 'أزرق', sunrise: 'شروق', nature: 'طبيعة', upload: 'اختر صورة', download: 'تنزيل الصورة', shareImage: 'مشاركة الصورة', shared: 'تمت المشاركة.', copied: 'تم نسخ الآية.', saved: 'تم إنشاء الصورة.', brand: 'موسوعة الكتاب المقدس' },
-        en: { title: 'Verse of the Day', like: '♡ Like', liked: '♥ Liked', share: '↗ Share', more: '⋯ More', chapter: '📖 Read Chapter', image: '🖼 Create Image', designer: 'Create a Verse Image', blue: 'Blue', sunrise: 'Sunrise', nature: 'Nature', upload: 'Choose Photo', download: 'Download Image', shareImage: 'Share Image', shared: 'Shared successfully.', copied: 'Verse copied.', saved: 'Image created.', brand: 'Bible Encyclopedia' }
+        ar: { title: 'آية اليوم', like: '♡ إعجاب', liked: '♥ تم الإعجاب', share: '↗ مشاركة', more: '⋯ المزيد', chapter: '📖 اقرأ الأصحاح', image: '🖼 اصنعها في صورة', designer: 'اصنع آية اليوم في صورة', sky: 'سماء وسحاب', sunrise: 'شروق', trees: 'أشجار', upload: 'أضف صورتك', download: 'تنزيل الصورة', shareImage: 'مشاركة الصورة', shared: 'تمت المشاركة.', copied: 'تم نسخ الآية.', saved: 'تم إنشاء الصورة.', brand: 'موسوعة الكتاب المقدس' },
+        en: { title: 'Verse of the Day', like: '♡ Like', liked: '♥ Liked', share: '↗ Share', more: '⋯ More', chapter: '📖 Read Chapter', image: '🖼 Create Image', designer: 'Create a Verse Image', sky: 'Sky & Clouds', sunrise: 'Sunrise', trees: 'Trees', upload: 'Add Your Photo', download: 'Download Image', shareImage: 'Share Image', shared: 'Shared successfully.', copied: 'Verse copied.', saved: 'Image created.', brand: 'Bible Encyclopedia' }
     };
+    const BACKGROUND_SOURCES = {
+        sky: 'assets/verse-backgrounds/sky-clouds.svg',
+        sunrise: 'assets/verse-backgrounds/sunrise.svg',
+        trees: 'assets/verse-backgrounds/trees.svg'
+    };
+    const backgroundImages = {};
     const now = new Date();
     const dayNumber = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
     const dailyVerse = VERSES[((dayNumber % VERSES.length) + VERSES.length) % VERSES.length];
     let language = localStorage.getItem('bibleAppLanguage') === 'en' ? 'en' : 'ar';
-    let background = 'navy';
+    let background = 'sky';
     let uploadedImage = null;
+
+    Object.entries(BACKGROUND_SOURCES).forEach(([name, source]) => {
+        const image = new Image();
+        image.addEventListener('load', () => {
+            if (!uploadedImage && background === name) drawDailyVerseImage();
+        });
+        image.addEventListener('error', () => {
+            console.error(`Unable to load verse background: ${source}`);
+        });
+        image.src = source;
+        backgroundImages[name] = image;
+    });
 
     function reference() {
         return `${language === 'en' ? dailyVerse.enBook : dailyVerse.arBook} ${dailyVerse.chapter}:${dailyVerse.verse}`;
@@ -60,7 +78,7 @@
         document.getElementById('dailyVerseImage').textContent = text.image;
         document.getElementById('verseImageTitle').textContent = text.designer;
         const backgrounds = document.querySelectorAll('.verse-background-button');
-        [text.blue, text.sunrise, text.nature].forEach((label, index) => { backgrounds[index].textContent = label; });
+        [text.sky, text.sunrise, text.trees].forEach((label, index) => { backgrounds[index].textContent = label; });
         document.querySelector('.verse-upload-label').childNodes[0].nodeValue = text.upload;
         document.getElementById('dailyVerseDownload').textContent = text.download;
         document.getElementById('dailyVerseImageShare').textContent = text.shareImage;
@@ -119,12 +137,22 @@
             context.fillRect(0, 0, canvas.width, canvas.height);
             return;
         }
+        const selectedImage = backgroundImages[background];
+        if (selectedImage && selectedImage.complete && selectedImage.naturalWidth) {
+            const scale = Math.max(canvas.width / selectedImage.naturalWidth, canvas.height / selectedImage.naturalHeight);
+            const width = selectedImage.naturalWidth * scale;
+            const height = selectedImage.naturalHeight * scale;
+            context.drawImage(selectedImage, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height);
+            context.fillStyle = 'rgba(2,14,28,.42)';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
         const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
         const colors = {
-            navy: ['#061b3a', '#0b4f83'],
+            sky: ['#2989d8', '#eaf7ff'],
             sunrise: ['#4b2142', '#d97745'],
-            forest: ['#0b332c', '#2f6b4f']
-        }[background];
+            trees: ['#89c9cf', '#214f3b']
+        }[background] || ['#061b3a', '#0b4f83'];
         gradient.addColorStop(0, colors[0]);
         gradient.addColorStop(1, colors[1]);
         context.fillStyle = gradient;

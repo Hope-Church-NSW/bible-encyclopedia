@@ -17,6 +17,20 @@ const runtimeData = new Set([
   'commentary.json',
   'live-status.json'
 ]);
+const excludedRuntimeAssets = new Set([
+  'encyclopedia-audit.html',
+  'encyclopedia-validator.html',
+  'study-input-template.html',
+  'assets/app-icons/app-store-1024.png',
+  'assets/app-icons/google-play-512.png',
+  'assets/project-translations-pages/encyclopedia-audit.json',
+  'assets/project-translations-pages/encyclopedia-validator.json',
+  'assets/project-translations-pages/study-input-template.json'
+]);
+
+function isRuntimeAsset(file) {
+  return !excludedRuntimeAssets.has(path.relative(ROOT, file).replace(/\\/g, '/'));
+}
 
 function filesIn(directory, predicate = () => true) {
   if (!fs.existsSync(directory)) return [];
@@ -28,8 +42,8 @@ function filesIn(directory, predicate = () => true) {
 }
 
 const files = [
-  ...filesIn(ROOT, (file) => path.dirname(file) === ROOT && path.extname(file) === '.html'),
-  ...filesIn(path.join(ROOT, 'assets')),
+  ...filesIn(ROOT, (file) => path.dirname(file) === ROOT && path.extname(file) === '.html' && isRuntimeAsset(file)),
+  ...filesIn(path.join(ROOT, 'assets'), isRuntimeAsset),
   ...filesIn(path.join(ROOT, 'commentary-data'), (file) => path.extname(file) === '.json'),
   ...filesIn(path.join(ROOT, 'commentary-data-en'), (file) => path.extname(file) === '.json'),
   ...filesIn(ROOT, (file) => path.dirname(file) === ROOT && runtimeData.has(path.basename(file))),
