@@ -930,10 +930,11 @@ html[lang="en"] .verbatim-study pre{direction:ltr;text-align:left}
 
 </style>
 
-<script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
-<link rel="preload" href="assets/project-translations-pages/study-biblical-books-introductions.json?v=20261007-1" as="fetch" crossorigin>
-<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261007-1">
-<script defer src="assets/project-header-runtime.js?v=20261007-1"></script>
+<script data-project-language-bootstrap>try{const stored=localStorage.getItem('bibleAppLanguage');const language=['ar','en','es'].includes(stored)?stored:'ar';document.documentElement.lang=language;document.documentElement.dir=language==='ar'?'rtl':'ltr';if(language!=='ar'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
+<link rel="preload" href="assets/project-translations-pages/study-biblical-books-introductions.json?v=20261023-2" as="fetch" crossorigin>
+<link rel="preload" href="assets/project-translations-pages-es/study-biblical-books-introductions.json?v=20261023-2" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261023-2">
+<script defer src="assets/project-header-runtime.js?v=20261023-2"></script>
 </head>
 
 
@@ -2635,7 +2636,8 @@ const bookIndex=document.getElementById('bookIndex');
 const testamentSections=document.querySelectorAll('.testament');
 const studyPanels=Object.values(bookStudies);
 function loadVerbatimStudy(path,panel,title,targetId){
-    const sourcePath=localStorage.getItem('bibleAppLanguage')==='en'?path.replace(/-study\.txt$/,'-study-en.txt'):path;
+    const language=localStorage.getItem('bibleAppLanguage');
+    const sourcePath=['en','es'].includes(language)?path.replace(/-study\.txt$/,'-study-'+language+'.txt'):path;
     fetch(sourcePath).then(function(response){return response.text()}).then(function(text){
         panel.classList.add('verbatim-study');
         panel.innerHTML='<h2>'+title+'</h2><p class="source-status">النص الكامل محفوظ ويُعرض حرفيًا من ملف الدراسة الأصلي.</p><pre id="'+targetId+'"></pre>';
@@ -2710,11 +2712,16 @@ Object.keys(verbatimStudies).forEach(function(key){loadVerbatimStudy.apply(null,
 function updateStudyReturn(isOpen){
     const studyReturn=document.querySelector('.project-return');
     if(!studyReturn)return;
-    const english=localStorage.getItem('bibleAppLanguage')==='en';
+    const language=localStorage.getItem('bibleAppLanguage');
+    const labels=language==='es'
+        ?{home:'Inicio',studies:'Estudios bíblicos'}
+        :language==='en'
+            ?{home:'Home',studies:'Bible Studies'}
+            :{home:'الرئيسية',studies:'الدراسات الكتابية'};
     studyReturn.href=isOpen?'index.html':'studies.html';
     studyReturn.innerHTML=isOpen
-        ?'<span>↩</span><span>'+(english?'Home':'الرئيسية')+'</span>'
-        :'<span>↩</span><span>'+(english?'Bible Studies':'الدراسات الكتابية')+'</span>';
+        ?'<span>↩</span><span>'+labels.home+'</span>'
+        :'<span>↩</span><span>'+labels.studies+'</span>';
 }
 
 function closeBookStudies(){

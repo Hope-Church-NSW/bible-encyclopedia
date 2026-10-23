@@ -1157,10 +1157,11 @@ body.project-unified-header.project-bible-page .project-header{
 
 }
 </style>
-<script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
-<link rel="preload" href="assets/project-translations-pages/bible.json?v=20261007-1" as="fetch" crossorigin>
-<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261007-1">
-<script defer src="assets/project-header-runtime.js?v=20261007-1"></script>
+<script data-project-language-bootstrap>try{const stored=localStorage.getItem('bibleAppLanguage');const language=['ar','en','es'].includes(stored)?stored:'ar';document.documentElement.lang=language;document.documentElement.dir=language==='ar'?'rtl':'ltr';if(language!=='ar'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
+<link rel="preload" href="assets/project-translations-pages/bible.json?v=20261023-2" as="fetch" crossorigin>
+<link rel="preload" href="assets/project-translations-pages-es/bible.json?v=20261023-2" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261023-2">
+<script defer src="assets/project-header-runtime.js?v=20261023-2"></script>
 <link rel="stylesheet" href="assets/interactive-biblical-map.css">
 </head>
 
@@ -1350,9 +1351,17 @@ body.project-unified-header.project-bible-page .project-header{
    الملف الموجود فعليًا في المستودع
 ========================================================= */
 
-const ENGLISH_MODE = localStorage.getItem("bibleAppLanguage") === "en";
-const BIBLE_URL = ENGLISH_MODE ? "bible-en.json" : "bible.json";
-const ui = (arabic, english) => ENGLISH_MODE ? english : arabic;
+const APP_LANGUAGE = ["ar","en","es"].includes(localStorage.getItem("bibleAppLanguage"))
+    ? localStorage.getItem("bibleAppLanguage")
+    : "ar";
+const ENGLISH_MODE = APP_LANGUAGE === "en";
+const SPANISH_MODE = APP_LANGUAGE === "es";
+const BIBLE_URL = {
+    ar:"bible.json",
+    en:"bible-en.json",
+    es:"bible-es.json"
+}[APP_LANGUAGE];
+const ui = (arabic, english, spanish) => SPANISH_MODE ? (spanish || arabic) : ENGLISH_MODE ? english : arabic;
 const CROSS_REFERENCES_URL = "cross-references.json";
 const VERSE_GEOGRAPHY_URL = "verse-geography.json";
 const ORIGINAL_LANGUAGE_URL = "original-language-bible.json";
@@ -1555,6 +1564,29 @@ if(ENGLISH_MODE){
     Object.assign(BOOK_NAMES, ENGLISH_BOOK_NAMES);
 }
 
+const SPANISH_BOOK_NAMES = {
+    "01-gen":"Génesis", "02-Exodus":"Éxodo", "03-Leviticus":"Levítico", "04-Numbers":"Números",
+    "05-Deut":"Deuteronomio", "06-Joshua":"Josué", "07-Judges":"Jueces", "08-Ruth":"Rut",
+    "09-1-Samuel":"1 Samuel", "10-2-Samuel":"2 Samuel", "11-1-Kings":"1 Reyes", "12-2-Kings":"2 Reyes",
+    "13-1-Chronicles":"1 Crónicas", "14-2-Chronicles":"2 Crónicas", "15-Ezra":"Esdras", "16-Nehmiah":"Nehemías",
+    "17-Esther":"Ester", "18-Job":"Job", "19-Psalms":"Salmos", "20-Proverbs":"Proverbios",
+    "21-Ecclesiastes":"Eclesiastés", "22-Sos":"Cantares", "23-Isiah":"Isaías", "24-Jeremiah":"Jeremías",
+    "25-Lamentations":"Lamentaciones", "26-Ezekiel":"Ezequiel", "27-Daniel":"Daniel", "28-Hosea":"Oseas",
+    "29-Joel":"Joel", "30-Amos":"Amós", "31-Obadiah":"Abdías", "32-Jonah":"Jonás", "33-Micah":"Miqueas",
+    "34-Nahum":"Nahúm", "35-Habakuk":"Habacuc", "36-Zephaniah":"Sofonías", "37-Haggai":"Hageo",
+    "38-Zechariah":"Zacarías", "39-Malachi":"Malaquías", "40-Matthew":"Mateo", "41-Mark":"Marcos",
+    "42-Luke":"Lucas", "43-John":"Juan", "44-Acts":"Hechos", "45-Romans":"Romanos", "46-1-Corinthians":"1 Corintios",
+    "47-2-Corinthians":"2 Corintios", "48-Galatians":"Gálatas", "49-Ephesians":"Efesios", "50-Philipians":"Filipenses",
+    "51-Colossians":"Colosenses", "52-1-thessalonians":"1 Tesalonicenses", "53-2-thessalonians":"2 Tesalonicenses",
+    "54-1-Timothy":"1 Timoteo", "55-2-Timothy":"2 Timoteo", "56-Titus":"Tito", "57-Phillemon":"Filemón",
+    "58-Hebrews":"Hebreos", "59-James":"Santiago", "60-1-peter":"1 Pedro", "61-2pet":"2 Pedro",
+    "62-1-John":"1 Juan", "63-2-John":"2 Juan", "64-3-John":"3 Juan", "65-Jude":"Judas", "66-Revelation":"Apocalipsis"
+};
+
+if(SPANISH_MODE){
+    Object.assign(BOOK_NAMES, SPANISH_BOOK_NAMES);
+}
+
 
 /* =========================================================
    ترتيب العهد القديم
@@ -1676,6 +1708,21 @@ function showBibleHomeButton(show){
     const button = document.getElementById("bibleHomeButton");
     if(!button) return;
     button.hidden = !show;
+}
+
+function updateBibleLocation(state){
+    const url = new URL(window.location.href);
+    ["testament","book","chapter","verse","feature"].forEach(function(key){
+        url.searchParams.delete(key);
+    });
+    Object.entries(state || {}).forEach(function(entry){
+        const key = entry[0];
+        const value = entry[1];
+        if(value !== null && value !== undefined && value !== ""){
+            url.searchParams.set(key,String(value));
+        }
+    });
+    history.replaceState(null,"",url.href);
 }
 
 
@@ -1808,6 +1855,8 @@ function renderTestaments(){
     currentTestament = null;
     currentBook = null;
     currentChapter = null;
+    currentVerse = null;
+    updateBibleLocation({});
 
     app.innerHTML = `
 
@@ -1815,7 +1864,7 @@ function renderTestaments(){
 
             <div class="inner-topbar">
                 <h2 class="inner-title">
-                    📖 ${ui("الكتاب المقدس", "Holy Bible")}
+                    📖 ${ui("الكتاب المقدس", "Holy Bible", "La Biblia")}
                 </h2>
 
             </div>
@@ -1826,11 +1875,11 @@ function renderTestaments(){
                         id="searchInput"
                         class="search-input"
                         type="search"
-                        placeholder="${ui("ابحث بكلمة أو عبارة في الكتاب المقدس...", "Search for a word or phrase in the Holy Bible...")}"
+                        placeholder="${ui("ابحث بكلمة أو عبارة في الكتاب المقدس...", "Search for a word or phrase in the Holy Bible...", "Busca una palabra o frase en la Biblia...")}"
                         autocomplete="off"
                     >
                     <button class="search-submit" type="button" onclick="performSearch()">
-                        ${ui("بحث", "Search")}
+                        ${ui("بحث", "Search", "Buscar")}
                     </button>
                 </div>
                 <div id="searchResults"></div>
@@ -1850,11 +1899,11 @@ function renderTestaments(){
                     </div>
 
                     <div class="testament-title">
-                        ${ui("العهد القديم", "Old Testament")}
+                        ${ui("العهد القديم", "Old Testament", "Antiguo Testamento")}
                     </div>
 
                     <div class="testament-count">
-                        ${ui("39 سفرًا", "39 Books")}
+                        ${ui("39 سفرًا", "39 Books", "39 libros")}
                     </div>
 
                 </button>
@@ -1871,11 +1920,11 @@ function renderTestaments(){
                     </div>
 
                     <div class="testament-title">
-                        ${ui("العهد الجديد", "New Testament")}
+                        ${ui("العهد الجديد", "New Testament", "Nuevo Testamento")}
                     </div>
 
                     <div class="testament-count">
-                        ${ui("27 سفرًا", "27 Books")}
+                        ${ui("27 سفرًا", "27 Books", "27 libros")}
                     </div>
 
                 </button>
@@ -1905,6 +1954,8 @@ function openTestament(testament){
     currentBook = null;
 
     currentChapter = null;
+    currentVerse = null;
+    updateBibleLocation({testament:testament});
 
     const list =
         testament === "old"
@@ -1913,8 +1964,8 @@ function openTestament(testament){
 
     const title =
         testament === "old"
-            ? ui("العهد القديم", "Old Testament")
-            : ui("العهد الجديد", "New Testament");
+            ? ui("العهد القديم", "Old Testament", "Antiguo Testamento")
+            : ui("العهد الجديد", "New Testament", "Nuevo Testamento");
 
 
     app.innerHTML = `
@@ -1928,7 +1979,7 @@ function openTestament(testament){
                     type="button"
                     onclick="renderTestaments()"
                 >
-                    ← ${ui("العهدان", "Testaments")}
+                    ← ${ui("العهدان", "Testaments", "Ambos Testamentos")}
                 </button>
 
                 <h2 class="inner-title">
@@ -1975,9 +2026,12 @@ function openTestament(testament){
 
 function openBook(bookId){
 
+    currentTestament = currentTestament || (Number(bookId.slice(0,2)) >= 40 ? "new" : "old");
     currentBook = bookId;
 
     currentChapter = null;
+    currentVerse = null;
+    updateBibleLocation({testament:currentTestament,book:bookId});
 
 
     const chapters = getChapters(bookId);
@@ -1996,7 +2050,7 @@ function openBook(bookId){
                         type="button"
                         onclick="openTestament(currentTestament)"
                     >
-                        ← ${ui("الأسفار", "Books")}
+                        ← ${ui("الأسفار", "Books", "Libros")}
                     </button>
 
                     <h2 class="inner-title">
@@ -2018,7 +2072,7 @@ function openBook(bookId){
 
                     <br>
 
-                    ${ui("لا توجد بيانات لهذا السفر داخل", "No data is available for this book in")}
+                    ${ui("لا توجد بيانات لهذا السفر داخل", "No data is available for this book in", "No hay datos disponibles para este libro en")}
                     <b>bible.json</b>.
 
                 </div>
@@ -2043,7 +2097,7 @@ function openBook(bookId){
                     type="button"
                     onclick="openTestament(currentTestament)"
                 >
-                    ← ${ui("الأسفار", "Books")}
+                    ← ${ui("الأسفار", "Books", "Libros")}
                 </button>
 
                 <h2 class="inner-title">
@@ -2091,9 +2145,16 @@ function openBook(bookId){
 
 function openChapter(bookId,chapter){
 
+    currentTestament = Number(bookId.slice(0,2)) >= 40 ? "new" : "old";
     currentBook = bookId;
 
     currentChapter = Number(chapter);
+    currentVerse = null;
+    updateBibleLocation({
+        testament:currentTestament,
+        book:bookId,
+        chapter:Number(chapter)
+    });
     showBibleHomeButton(true);
 
 
@@ -2124,7 +2185,7 @@ function openChapter(bookId,chapter){
             <section class="workspace">
 
                 <div class="empty">
-                    ${ui("لا توجد آيات لهذا الأصحاح داخل", "No verses are available for this chapter in")}
+                    ${ui("لا توجد آيات لهذا الأصحاح داخل", "No verses are available for this chapter in", "No hay versículos disponibles para este capítulo en")}
                     <b>bible.json</b>.
                 </div>
 
@@ -2152,7 +2213,7 @@ function openChapter(bookId,chapter){
                     </div>
 
                     <h2 class="chapter-number">
-                        ${ui("الأصحاح", "Chapter")} ${chapter}
+                        ${ui("الأصحاح", "Chapter", "Capítulo")} ${chapter}
                     </h2>
 
                 </div>
@@ -2201,7 +2262,7 @@ function openChapter(bookId,chapter){
                         type="button"
                         onclick="previousChapter()"
                     >
-                        ← ${ui("السابق", "Previous")}
+                        ← ${ui("السابق", "Previous", "Anterior")}
                     </button>
 
 
@@ -2211,7 +2272,7 @@ function openChapter(bookId,chapter){
                         type="button"
                         onclick="nextChapter()"
                     >
-                        ${ui("التالي", "Next")} →
+                        ${ui("التالي", "Next", "Siguiente")} →
                     </button>
 
                 </div>
@@ -2404,6 +2465,12 @@ function openVerse(book,chapter,verse){
 
 
     currentVerse = found;
+    updateBibleLocation({
+        testament:Number(book.slice(0,2)) >= 40 ? "new" : "old",
+        book:book,
+        chapter:Number(chapter),
+        verse:Number(verse)
+    });
 
 
     document.getElementById(
@@ -2454,6 +2521,12 @@ function closeVerse(){
     closeVerseFeature();
 
     document.body.style.overflow = "";
+    currentVerse = null;
+    updateBibleLocation({
+        testament:currentTestament,
+        book:currentBook,
+        chapter:currentChapter
+    });
 
 }
 
@@ -2505,6 +2578,13 @@ function verseFeature(feature){
     };
 
     if(!featureTitles[feature]) return;
+    updateBibleLocation({
+        testament:currentTestament,
+        book:currentBook,
+        chapter:currentChapter,
+        verse:currentVerse.verse,
+        feature:feature
+    });
 
     document.getElementById("featureTitle").textContent = featureTitles[feature];
     const content = document.getElementById("featureContent");
@@ -2542,7 +2622,7 @@ async function openOriginalLanguage(){
     const modal = document.getElementById("originalLanguageModal");
     const content = document.getElementById("originalLanguageContent");
     document.getElementById("originalLanguageTitle").textContent = `${BOOK_NAMES[verse.book] || verse.book} ${verse.chapter}:${verse.verse}`;
-    content.innerHTML = `<p class="language-loading">${ui("جارٍ تحميل النص الأصلي...","Loading original-language text...")}</p>`;
+    content.innerHTML = `<p class="language-loading">${ui("جارٍ تحميل النص الأصلي...","Loading original-language text...","Cargando el texto en el idioma original...")}</p>`;
     modal.classList.add("open");
 
     try{
@@ -2554,30 +2634,38 @@ async function openOriginalLanguage(){
         const key = [verse.book,verse.chapter,verse.verse].join(":");
         const original = originalLanguageData.verses[key];
         if(!original){
-            content.innerHTML = `<section class="language-block"><h3 class="language-label">${ui("النص العربي","Verse Text")}</h3><p class="language-arabic">${escapeHTML(verse.text)}</p></section><p class="language-source">${ui("تعذر مطابقة ترقيم هذه الآية مع النسخة الأصلية المحلية دون تغيير حدود النص.","This verse could not be matched to the local original-language edition without changing its boundaries.")}</p>`;
+            content.innerHTML = `<section class="language-block"><h3 class="language-label">${ui("النص العربي","Verse Text","Texto del versículo")}</h3><p class="language-arabic">${escapeHTML(verse.text)}</p></section><p class="language-source">${ui("تعذر مطابقة ترقيم هذه الآية مع النسخة الأصلية المحلية دون تغيير حدود النص.","This verse could not be matched to the local original-language edition without changing its boundaries.","No fue posible hacer coincidir la numeración de este versículo con la edición local en el idioma original sin alterar los límites del texto.")}</p>`;
             return;
         }
         const source = Number(verse.book.slice(0,2)) >= 40
-            ? ui("النص اليوناني البيزنطي 1904 / Textus Receptus، ملكية عامة","Byzantine Greek Text 1904 / Textus Receptus, public domain")
-            : ui("Westminster Leningrad Codex، ملكية عامة","Westminster Leningrad Codex, public domain");
+            ? ui("النص اليوناني البيزنطي 1904 / Textus Receptus، ملكية عامة","Byzantine Greek Text 1904 / Textus Receptus, public domain","Texto griego bizantino de 1904 / Textus Receptus, de dominio público")
+            : ui("Westminster Leningrad Codex، ملكية عامة","Westminster Leningrad Codex, public domain","Códice de Leningrado de Westminster, de dominio público");
         const originalLanguage = ENGLISH_MODE
             ? ({"العبرية":"Hebrew","اليونانية":"Greek"}[original.language] || original.language)
-            : original.language;
+            : SPANISH_MODE
+                ? ({"العبرية":"Hebreo","اليونانية":"Griego"}[original.language] || original.language)
+                : original.language;
         const arabicMeaning = verse.text.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g, "");
         content.innerHTML = `
-            <section class="language-block"><h3 class="language-label">${ui("الآية بالعربية","Verse")}</h3><p class="language-arabic">${escapeHTML(verse.text)}</p></section>
-            <section class="language-block"><h3 class="language-label">${ui("أصل اللغة","Original Language")} (${escapeHTML(originalLanguage)})</h3><p class="language-original" dir="${original.direction}">${escapeHTML(original.text)}</p></section>
-            <section class="language-block"><h3 class="language-label">${ui("المعنى بالعربية","Meaning")}</h3><p class="language-meaning">${escapeHTML(arabicMeaning)}</p><small class="language-meaning-note">${ui("ترجمة معنى النص الأصلي بصياغة الآية العربية المعتمدة؛ وليست شرحًا معجميًا كلمة بكلمة.","A meaning-based rendering of the original text using the selected English Bible; it is not a word-by-word lexical analysis.")}</small></section>
-            <p class="language-source">${ui("المصدر","Source")}: ${source}${ui("، عبر",", via")} eBible.org.</p>`;
+            <section class="language-block"><h3 class="language-label">${ui("الآية بالعربية","Verse","Versículo")}</h3><p class="language-arabic">${escapeHTML(verse.text)}</p></section>
+            <section class="language-block"><h3 class="language-label">${ui("أصل اللغة","Original Language","Idioma original")} (${escapeHTML(originalLanguage)})</h3><p class="language-original" dir="${original.direction}">${escapeHTML(original.text)}</p></section>
+            <section class="language-block"><h3 class="language-label">${ui("المعنى بالعربية","Meaning","Significado")}</h3><p class="language-meaning">${escapeHTML(arabicMeaning)}</p><small class="language-meaning-note">${ui("ترجمة معنى النص الأصلي بصياغة الآية العربية المعتمدة؛ وليست شرحًا معجميًا كلمة بكلمة.","A meaning-based rendering of the original text using the selected English Bible; it is not a word-by-word lexical analysis.","Traducción del sentido del texto original formulada según la Biblia española seleccionada; no es un análisis léxico palabra por palabra.")}</small></section>
+            <p class="language-source">${ui("المصدر","Source","Fuente")}: ${source}${ui("، عبر",", via",", a través de")} eBible.org.</p>`;
         if(typeof removeProjectBlankLines === "function") removeProjectBlankLines(content);
     }catch(error){
-        content.textContent = ui("تعذر تحميل النص الأصلي المحلي.","Failed to load the local original-language text.");
+        content.textContent = ui("تعذر تحميل النص الأصلي المحلي.","Failed to load the local original-language text.","No se pudo cargar el texto local en el idioma original.");
     }
 }
 
 function closeOriginalLanguage(){
     document.getElementById("originalLanguageModal").classList.remove("open");
     document.body.style.overflow = "";
+    currentVerse = null;
+    updateBibleLocation({
+        testament:currentTestament,
+        book:currentBook,
+        chapter:currentChapter
+    });
 }
 
 async function showVerseGeography(){
@@ -2687,11 +2775,18 @@ function englishCommentaryMarkup(data,reference){
         return data.records?.[recordId];
     }).filter(Boolean);
     if(!records.length){
-        return `<p class="commentary-verse-text">${escapeHTML(verseText)}</p><p class="feature-content">No verified English commentary is available for this verse.</p>`;
+        const unavailable = SPANISH_MODE
+            ? "No hay ningún comentario verificado en español disponible para este versículo."
+            : "No verified English commentary is available for this verse.";
+        return `<p class="commentary-verse-text">${escapeHTML(verseText)}</p><p class="feature-content">${unavailable}</p>`;
     }
     return `<p class="commentary-verse-text">${escapeHTML(verseText)}</p><div class="feature-content commentary-explanation">${records.map(function(record){
         const sourceName = ENGLISH_COMMENTARY_SOURCES[record.source_id] || record.source_id;
-        return `<article class="commentary-source"><p><strong>${escapeHTML(sourceName)}</strong></p><p>${escapeHTML(record.text || "")}</p><p class="commentary-sources"><strong>Source:</strong> ${escapeHTML(record.locator || "Local public-domain commentary index")}</p></article>`;
+        const sourceLabel = SPANISH_MODE ? "Fuente:" : "Source:";
+        const fallbackLocator = SPANISH_MODE
+            ? "Índice local de comentarios de dominio público"
+            : "Local public-domain commentary index";
+        return `<article class="commentary-source"><p><strong>${escapeHTML(sourceName)}</strong></p><p>${escapeHTML(record.text || "")}</p><p class="commentary-sources"><strong>${sourceLabel}</strong> ${escapeHTML(record.locator || fallbackLocator)}</p></article>`;
     }).join("")}</div>`;
 }
 
@@ -2701,12 +2796,14 @@ async function selectCommentary(commentatorId){
     if(!commentator) return;
 
     const content = document.getElementById("featureContent");
-    content.textContent = ui("جارٍ التحقق من الشرح المعتمد...", "Loading verified commentary...");
+    content.textContent = ui("جارٍ التحقق من الشرح المعتمد...", "Loading verified commentary...", "Cargando el comentario verificado...");
 
     try{
-        const commentaryFile = ENGLISH_MODE
-            ? `commentary-data-en/${currentVerse.book}.json`
-            : `commentary-data/${currentVerse.book}.json`;
+        const commentaryFile = APP_LANGUAGE === "ar"
+            ? `commentary-data/${currentVerse.book}.json`
+            : APP_LANGUAGE === "es"
+                ? `commentary-data-es/${currentVerse.book}.json`
+                : `commentary-data-en/${currentVerse.book}.json`;
         if(!commentaryCache[commentaryFile]){
             const response = await fetch(commentaryFile);
             if(!response.ok) throw new Error("commentary unavailable");
@@ -2715,7 +2812,7 @@ async function selectCommentary(commentatorId){
 
         const commentaryData = commentaryCache[commentaryFile];
         const reference = [currentVerse.book,currentVerse.chapter,currentVerse.verse].join(":");
-        if(ENGLISH_MODE){
+        if(APP_LANGUAGE !== "ar"){
             document.getElementById("featureTitle").textContent = "";
             content.innerHTML = englishCommentaryMarkup(commentaryData,reference);
             return;
@@ -2727,7 +2824,7 @@ async function selectCommentary(commentatorId){
         document.getElementById("featureTitle").textContent = "";
         content.innerHTML = commentaryMarkup(record);
     }catch(error){
-        content.textContent = ui("تعذر تحميل قاعدة التفاسير المحلية. لم تتم إضافة أي شرح غير موثق.", "Unable to load the local verified commentary.");
+        content.textContent = ui("تعذر تحميل قاعدة التفاسير المحلية. لم تتم إضافة أي شرح غير موثق.", "Unable to load the local verified commentary.", "No se pudo cargar la base local de comentarios verificados.");
     }
 }
 
@@ -3193,8 +3290,11 @@ async function loadBible(){
         */
 
         const deepLink = new URLSearchParams(window.location.search);
+        const deepLinkTestament = deepLink.get("testament");
         const deepLinkBook = deepLink.get("book");
         const deepLinkChapter = Number(deepLink.get("chapter"));
+        const deepLinkVerse = Number(deepLink.get("verse"));
+        const deepLinkFeature = deepLink.get("feature");
         if(
             BOOK_NAMES[deepLinkBook] &&
             Number.isInteger(deepLinkChapter) &&
@@ -3204,6 +3304,21 @@ async function loadBible(){
             })
         ){
             openChapter(deepLinkBook,deepLinkChapter);
+            if(
+                Number.isInteger(deepLinkVerse) &&
+                deepLinkVerse > 0 &&
+                verseLookup.has([deepLinkBook,deepLinkChapter,deepLinkVerse].join(":"))
+            ){
+                openVerse(deepLinkBook,deepLinkChapter,deepLinkVerse);
+                if(["similar","language","places","commentary"].includes(deepLinkFeature)){
+                    verseFeature(deepLinkFeature);
+                }
+            }
+        }else if(BOOK_NAMES[deepLinkBook]){
+            currentTestament = Number(deepLinkBook.slice(0,2)) >= 40 ? "new" : "old";
+            openBook(deepLinkBook);
+        }else if(["old","new"].includes(deepLinkTestament)){
+            openTestament(deepLinkTestament);
         }else{
             renderTestaments();
         }

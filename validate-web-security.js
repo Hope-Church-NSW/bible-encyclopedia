@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const dataFiles = ['encyclopedia_ar.json', 'encyclopedia_en.json'];
+const dataFiles = ['encyclopedia_ar.json', 'encyclopedia_en.json', 'encyclopedia_es.json'];
 const errors = [];
 const unsafeMarkup = /<\/?[a-z][^>]*>|\bon(?:error|load|click)\s*=/i;
 

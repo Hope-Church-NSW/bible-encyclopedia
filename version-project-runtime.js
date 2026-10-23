@@ -19,14 +19,16 @@ if (versionedRuntimeSource !== runtimeSource) fs.writeFileSync(runtimePath, vers
 for (const file of files) {
     const before = fs.readFileSync(file, 'utf8');
     const translationBundle = file.replace(/\.html$/, '.json');
-    const translationPath = `assets/project-translations-pages/${translationBundle}`;
-    const translationPreload = fs.existsSync(translationPath)
-        ? `\n<link rel="preload" href="${translationPath}?v=${version}" as="fetch" crossorigin>`
-        : '';
-    const bootstrap = `<script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>${translationPreload}`;
+    const englishTranslationPath = `assets/project-translations-pages/${translationBundle}`;
+    const spanishTranslationPath = `assets/project-translations-pages-es/${translationBundle}`;
+    const translationPreloads = [
+        fs.existsSync(englishTranslationPath) ? `<link rel="preload" href="${englishTranslationPath}?v=${version}" as="fetch" crossorigin>` : '',
+        fs.existsSync(spanishTranslationPath) ? `<link rel="preload" href="${spanishTranslationPath}?v=${version}" as="fetch" crossorigin>` : ''
+    ].filter(Boolean).join('\n');
+    const bootstrap = `<script data-project-language-bootstrap>try{const stored=localStorage.getItem('bibleAppLanguage');const language=['ar','en','es'].includes(stored)?stored:'ar';document.documentElement.lang=language;document.documentElement.dir=language==='ar'?'rtl':'ltr';if(language!=='ar'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>${translationPreloads ? `\n${translationPreloads}` : ''}`;
     let after = before
         .replace(/<script data-project-language-bootstrap>[\s\S]*?<\/script>\s*/g, '')
-        .replace(/<link rel="preload" href="assets\/project-translations-pages\/[^"']+" as="fetch" crossorigin>\s*/g, '')
+        .replace(/<link rel="preload" href="assets\/project-translations-pages(?:-es)?\/[^"']+" as="fetch" crossorigin>\s*/g, '')
         .replace(/<script(?: defer)? src="assets\/project-header-runtime\.js(?:\?v=[^"']*)?"><\/script>\s*/g, '')
         .replace(/assets\/project-header-runtime\.css(?:\?v=[^"']*)?/g, `assets/project-header-runtime.css?v=${version}`)
         .replace(/(<link rel="stylesheet" href="assets\/project-header-runtime\.css\?v=[^"']+">)/, `${bootstrap}\n$1\n<script defer src="assets/project-header-runtime.js?v=${version}"></script>`);

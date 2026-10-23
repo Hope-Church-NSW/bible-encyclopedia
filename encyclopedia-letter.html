@@ -509,10 +509,11 @@ html[dir="ltr"] .entry-content ol{
     }
 }
 </style>
-<script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
-<link rel="preload" href="assets/project-translations-pages/encyclopedia-letter.json?v=20261007-1" as="fetch" crossorigin>
-<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261007-1">
-<script defer src="assets/project-header-runtime.js?v=20261007-1"></script>
+<script data-project-language-bootstrap>try{const stored=localStorage.getItem('bibleAppLanguage');const language=['ar','en','es'].includes(stored)?stored:'ar';document.documentElement.lang=language;document.documentElement.dir=language==='ar'?'rtl':'ltr';if(language!=='ar'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
+<link rel="preload" href="assets/project-translations-pages/encyclopedia-letter.json?v=20261023-2" as="fetch" crossorigin>
+<link rel="preload" href="assets/project-translations-pages-es/encyclopedia-letter.json?v=20261023-2" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261023-2">
+<script defer src="assets/project-header-runtime.js?v=20261023-2"></script>
 </head>
 
 <body>
@@ -580,10 +581,14 @@ html[dir="ltr"] .entry-content ol{
    المسار الصحيح لقاعدة بيانات الموسوعة
    ========================================================= */
 
-const ENGLISH_MODE = document.documentElement.lang === "en";
-const DATA_URL = ENGLISH_MODE
-    ? "encyclopedia_en.json"
-    : new URLSearchParams(window.location.search).get("letter") === "ن"
+const APP_LANGUAGE = ["ar","en","es"].includes(document.documentElement.lang) ? document.documentElement.lang : "ar";
+const ENGLISH_MODE = APP_LANGUAGE === "en";
+const LATIN_MODE = APP_LANGUAGE !== "ar";
+const DATA_URL = APP_LANGUAGE === "es"
+    ? "encyclopedia_es.json"
+    : ENGLISH_MODE
+        ? "encyclopedia_en.json"
+        : new URLSearchParams(window.location.search).get("letter") === "ن"
         ? "encyclopedia_n.json"
         : "encyclopedia_ar.json";
 
@@ -599,12 +604,12 @@ const ARABIC_LETTERS = [
     "ك","ل","م","ن","ه","و","ي"
 ];
 
-const LETTERS = ENGLISH_MODE
+const LETTERS = LATIN_MODE
     ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
     : ARABIC_LETTERS;
 
-function ui(arabic, english){
-    return ENGLISH_MODE ? english : arabic;
+function ui(arabic, english, spanish){
+    return APP_LANGUAGE === "es" ? (spanish || arabic) : ENGLISH_MODE ? english : arabic;
 }
 
 
@@ -637,7 +642,7 @@ function normalizeLetter(letter){
     letter =
         letter.trim();
 
-    if(ENGLISH_MODE){
+    if(LATIN_MODE){
         const match = letter.normalize("NFKD").match(/[A-Za-z]/);
         return match ? match[0].toUpperCase() : "";
     }
@@ -654,7 +659,7 @@ function normalizeLetter(letter){
 
 
 const letter = normalizeLetter(requestedLetter)
-    || (ENGLISH_MODE ? "A" : "ا");
+    || (LATIN_MODE ? "A" : "ا");
 
 
 /* =========================================================
@@ -668,7 +673,7 @@ function renderAlphabet(){
 
     document.getElementById("alphabetNav").setAttribute(
         "aria-label",
-        ui("الحروف الأبجدية", "Alphabetical index")
+        ui("الحروف الأبجدية", "Alphabetical index", "Índice alfabético")
     );
     alphabetList.style.setProperty("--letter-count", LETTERS.length);
 
@@ -1120,7 +1125,7 @@ function sortEntries(entries){
 
             return titleA.localeCompare(
                 titleB,
-                ENGLISH_MODE ? "en" : "ar",
+                APP_LANGUAGE,
                 {
                     sensitivity:"base",
                     numeric:false
@@ -1173,7 +1178,7 @@ function renderReferences(item){
 
     return `
         <section class="references" aria-labelledby="references-title">
-            <h2 id="references-title" class="references-title">${ui("المراجع والمصادر", "References and sources")}</h2>
+            <h2 id="references-title" class="references-title">${ui("المراجع والمصادر", "References and sources", "Referencias y fuentes")}</h2>
             <ol class="references-list">${items}</ol>
         </section>
     `;
@@ -1209,23 +1214,25 @@ function render(entries){
     if(letter){
 
         title.textContent =
-            ui(`حرف ${letter}`, `Letter ${letter}`);
+            ui(`حرف ${letter}`, `Letter ${letter}`, `Letra ${letter}`);
 
         description.textContent =
             ui(
                 `مداخل موسوعة الكتاب المقدس تحت حرف ${letter}`,
-                `Biblical encyclopedia entries under the letter ${letter}`
+                `Biblical encyclopedia entries under the letter ${letter}`,
+                `Entradas de la enciclopedia bíblica bajo la letra ${letter}`
             );
 
     }else{
 
         title.textContent =
-            "موسوعة الكتاب المقدس";
+            ui("موسوعة الكتاب المقدس", "Bible Encyclopedia", "Enciclopedia de la Biblia");
 
         description.textContent =
             ui(
                 "اختر حرفاً من الموسوعة لعرض المداخل.",
-                "Choose a letter from the encyclopedia to view its entries."
+                "Choose a letter from the encyclopedia to view its entries.",
+                "Elige una letra de la enciclopedia para ver sus entradas."
             );
     }
 
@@ -1254,16 +1261,16 @@ function render(entries){
                     color:var(--gold2);
                     margin-bottom:8px;
                 ">
-                    ${ui("لا توجد بيانات معروضة لهذا الحرف", "No entries are available for this letter")}
+                    ${ui("لا توجد بيانات معروضة لهذا الحرف", "No entries are available for this letter", "No hay entradas disponibles para esta letra")}
                 </div>
 
                 <div>
-                    ${ui("تأكد من أن ملف", "Make sure the file")}
+                    ${ui("تأكد من أن ملف", "Make sure the file", "Asegúrate de que el archivo")}
                     <strong>
                         ${DATA_URL}
                     </strong>
-                    ${ui("يحتوي على المداخل الخاصة بحرف", "contains entries for the letter")}
-                    ${escapeHTML(letter || ui("المحدد", "selected"))}.
+                    ${ui("يحتوي على المداخل الخاصة بحرف", "contains entries for the letter", "contenga las entradas de la letra")}
+                    ${escapeHTML(letter || ui("المحدد", "selected", "seleccionada"))}.
                 </div>
 
             </div>
@@ -1286,13 +1293,13 @@ function render(entries){
     }
 
     const renderStudy = (item, index) => {
-        const itemTitle = getTitle(item) || `مدخل ${index + 1}`;
+        const itemTitle = getTitle(item) || ui(`مدخل ${index + 1}`, `Entry ${index + 1}`, `Entrada ${index + 1}`);
         const itemContent = getContent(item);
         const category = item && item.category
             ? `<div class="meta"><span class="badge">${escapeHTML(item.category)}</span></div>`
             : "";
             const originalLanguage = item && item.originalLanguage
-                ? `<section class="original-language" aria-label="${ui("المعنى في أصل اللغة", "Meaning in the original language")}"><h3>${ui("المعنى في أصل اللغة", "Meaning in the original language")}</h3><p><strong>${escapeHTML(item.originalLanguage.language || "")}</strong>; ${escapeHTML(item.originalLanguage.meaning || "")}</p></section>`
+                ? `<section class="original-language" aria-label="${ui("المعنى في أصل اللغة", "Meaning in the original language", "Significado en el idioma original")}"><h3>${ui("المعنى في أصل اللغة", "Meaning in the original language", "Significado en el idioma original")}</h3><p><strong>${escapeHTML(item.originalLanguage.language || "")}</strong>; ${escapeHTML(item.originalLanguage.meaning || "")}</p></section>`
                 : "";
 
         return `
@@ -1301,7 +1308,7 @@ function render(entries){
                 <h2 class="entry-title">${escapeHTML(itemTitle)}</h2>
                     ${originalLanguage}
                 <div class="entry-content">
-                    ${itemContent ? textToHTML(itemContent) : `<p>${ui("لا يوجد محتوى لهذا المدخل.", "There is no content for this entry.")}</p>`}
+                    ${itemContent ? textToHTML(itemContent) : `<p>${ui("لا يوجد محتوى لهذا المدخل.", "There is no content for this entry.", "No hay contenido para esta entrada.")}</p>`}
                 </div>
                 ${renderReferences(item)}
             </article>
@@ -1312,7 +1319,7 @@ function render(entries){
         const id = getEntryId(item, entries.indexOf(item));
         const active = id === getEntryId(activeItem, selectedIndex) ? " active" : "";
 
-        return `<button type="button" class="entry-index-link${active}" data-entry-id="${escapeHTML(id)}">${escapeHTML(getTitle(item) || `مدخل ${index + 1}`)}</button>`;
+        return `<button type="button" class="entry-index-link${active}" data-entry-id="${escapeHTML(id)}">${escapeHTML(getTitle(item) || ui(`مدخل ${index + 1}`, `Entry ${index + 1}`, `Entrada ${index + 1}`))}</button>`;
     }).join("");
 
     const selectedItem = entries[selectedIndex];
@@ -1320,8 +1327,8 @@ function render(entries){
     content.innerHTML = `
         <div class="entries">
             <aside class="entries-index">
-                <h2>${ui(`كلمات حرف ${escapeHTML(letter)}`, `Terms under ${escapeHTML(letter)}`)}</h2>
-                <input class="entry-search" type="search" placeholder="${ui("ابحث في الكلمات", "Search terms")}" aria-label="${ui("ابحث في الكلمات", "Search terms")}">
+                <h2>${ui(`كلمات حرف ${escapeHTML(letter)}`, `Terms under ${escapeHTML(letter)}`, `Términos de la letra ${escapeHTML(letter)}`)}</h2>
+                <input class="entry-search" type="search" placeholder="${ui("ابحث في الكلمات", "Search terms", "Buscar términos")}" aria-label="${ui("ابحث في الكلمات", "Search terms", "Buscar términos")}">
                 <div class="entry-index-list">${renderIndex(entries, selectedItem)}</div>
             </aside>
             <section class="entry-study" aria-live="polite">
@@ -1439,13 +1446,13 @@ async function loadEncyclopedia(){
                     font-size:21px;
                     margin-bottom:10px;
                 ">
-                    ${ui("تعذر تحميل الموسوعة", "Unable to load the encyclopedia")}
+                    ${ui("تعذر تحميل الموسوعة", "Unable to load the encyclopedia", "No se pudo cargar la enciclopedia")}
                 </div>
 
                 <div style="
                     color:var(--muted);
                 ">
-                    ${ui("تأكد من وجود الملف في المسار التالي:", "Make sure the following file exists:")}
+                    ${ui("تأكد من وجود الملف في المسار التالي:", "Make sure the following file exists:", "Asegúrate de que exista el archivo en la ruta siguiente:")}
                 </div>
 
                 <strong style="

@@ -1,16 +1,19 @@
 const fs = require('fs');
 
+const languageArgument = process.argv.find((value) => value.startsWith('--lang='));
+const targetLanguage = languageArgument ? languageArgument.split('=')[1] : 'en';
+if (!['en', 'es'].includes(targetLanguage)) throw new Error('Supported target languages: en, es');
 const arabic = JSON.parse(fs.readFileSync('encyclopedia_ar.json', 'utf8'));
-const english = JSON.parse(fs.readFileSync('encyclopedia_en.json', 'utf8'));
+const translation = JSON.parse(fs.readFileSync(`encyclopedia_${targetLanguage}.json`, 'utf8'));
 const errors = [];
 const arabicPattern = /[\u0600-\u06ff]/;
 const sourceIds = new Set(arabic.entries.map((entry) => entry.id));
 const seenIds = new Set();
 
-if (english.language !== 'en') errors.push('language must be en');
-if (!Array.isArray(english.entries) || !english.entries.length) errors.push('entries must be a non-empty array');
+if (translation.language !== targetLanguage) errors.push(`language must be ${targetLanguage}`);
+if (!Array.isArray(translation.entries) || !translation.entries.length) errors.push('entries must be a non-empty array');
 
-for (const entry of english.entries || []) {
+for (const entry of translation.entries || []) {
   if (!sourceIds.has(entry.id)) errors.push(`unknown id: ${entry.id}`);
   if (seenIds.has(entry.id)) errors.push(`duplicate id: ${entry.id}`);
   seenIds.add(entry.id);
@@ -20,7 +23,7 @@ for (const entry of english.entries || []) {
     if (arabicPattern.test(String(entry[field] || ''))) errors.push(`${entry.id}: Arabic remains in ${field}`);
   }
 
-  if (!/^[A-Z]$/.test(entry.letter)) errors.push(`${entry.id}: invalid English letter`);
+  if (!/^[A-Z]$/.test(entry.letter)) errors.push(`${entry.id}: invalid ${targetLanguage} letter`);
   if (entry.originalLanguage) {
     if (arabicPattern.test(entry.originalLanguage.language || '')) errors.push(`${entry.id}: Arabic remains in originalLanguage.language`);
     if (arabicPattern.test(entry.originalLanguage.meaning || '')) errors.push(`${entry.id}: Arabic remains in originalLanguage.meaning`);
@@ -39,8 +42,9 @@ if (errors.length) {
 
 console.log(JSON.stringify({
   valid: true,
-  complete: english.complete,
-  entries: english.entries.length,
+  language: targetLanguage,
+  complete: translation.complete,
+  entries: translation.entries.length,
   sourceEntries: arabic.entries.length,
-  coverage: `${((english.entries.length / arabic.entries.length) * 100).toFixed(1)}%`
+  coverage: `${((translation.entries.length / arabic.entries.length) * 100).toFixed(1)}%`
 }));

@@ -2,8 +2,11 @@ const fs = require('fs');
 const path = require('path');
 
 const root = __dirname;
-const outputDirectory = path.join(root, 'assets', 'project-translations-pages');
-const translations = JSON.parse(fs.readFileSync(path.join(root, 'assets', 'project-translations-en.json'), 'utf8'));
+const languageArgument = process.argv.find((value) => value.startsWith('--lang='));
+const targetLanguage = languageArgument ? languageArgument.split('=')[1] : 'en';
+if (!['en', 'es'].includes(targetLanguage)) throw new Error('Supported target languages: en, es');
+const outputDirectory = path.join(root, 'assets', targetLanguage === 'en' ? 'project-translations-pages' : `project-translations-pages-${targetLanguage}`);
+const translations = JSON.parse(fs.readFileSync(path.join(root, 'assets', `project-translations-${targetLanguage}.json`), 'utf8'));
 const arabic = /[\u0600-\u06ff]/;
 
 function normalize(value) {

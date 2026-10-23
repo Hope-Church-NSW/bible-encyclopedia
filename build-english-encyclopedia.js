@@ -1,10 +1,16 @@
 const fs = require('fs');
 const path = require('path');
+const { translate: bingTranslate, MET } = require('bing-translate-api');
 
 const ROOT = __dirname;
+const languageArgument = process.argv.find((value) => value.startsWith('--lang='));
+const targetLanguage = languageArgument ? languageArgument.split('=')[1] : 'en';
+if (!['en', 'es'].includes(targetLanguage)) throw new Error('Supported target languages: en, es');
+const commentaryMode = process.argv.includes('--commentary');
+const sourceLanguage = commentaryMode ? 'en' : 'ar';
 const SOURCE = path.join(ROOT, 'encyclopedia_ar.json');
-const OUTPUT = path.join(ROOT, 'encyclopedia_en.json');
-const CACHE = path.join(ROOT, '.encyclopedia-translation-cache.json');
+const OUTPUT = path.join(ROOT, `encyclopedia_${targetLanguage}.json`);
+const CACHE = path.join(ROOT, targetLanguage === 'en' ? '.encyclopedia-translation-cache.json' : `.encyclopedia-translation-cache-${targetLanguage}.json`);
 const ENDPOINT = 'https://translate.googleapis.com/translate_a/single';
 const MARKER = '[[[FIELD_BREAK_7F3A9]]]';
 const MAX_BATCH_CHARACTERS = 3500;
@@ -79,9 +85,9 @@ async function getBingSession() {
 async function requestBingTranslation(texts) {
   const session = await getBingSession();
   const body = new URLSearchParams({
-    fromLang: 'ar',
     text: texts.join(`\n${MARKER}\n`),
-    to: 'en',
+    fromLang: sourceLanguage,
+    to: targetLanguage,
     token: session.token,
     key: String(session.key)
   });
@@ -103,22 +109,17 @@ async function requestBingTranslation(texts) {
 async function requestTranslation(texts, attempt = 1) {
   const body = new URLSearchParams({
     client: 'gtx',
-    sl: 'ar',
-    tl: 'en',
+    sl: sourceLanguage,
+    tl: targetLanguage,
     dt: 't',
     q: texts.join(`\n${MARKER}\n`)
   });
 
   try {
     const response = await fetch(ENDPOINT, { method: 'POST', body });
-    let translated;
-    if (response.status === 429) {
-      translated = await requestBingTranslation(texts);
-    } else {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const payload = await response.json();
-      translated = payload[0].map((part) => part[0]).join('');
-    }
+    if (!response.ok) throw new Error(`Google translation returned HTTP ${response.status}`);
+    const payload = await response.json();
+    const translated = payload[0].map((part) => part[0]).join('');
     const parts = translated.split(new RegExp(`\\s*\\[\\[\\[FIELD_BREAK_7F3A9\\]\\]\\]\\s*`));
 
     if (parts.length !== texts.length) {
@@ -132,8 +133,9 @@ async function requestTranslation(texts, attempt = 1) {
 
     return parts.map((part) => part.trim());
   } catch (error) {
-    if (attempt >= 4) throw error;
-    await delay(750 * attempt);
+    if (attempt >= 8) throw error;
+    const rateLimited = /HTTP 429/.test(error.message);
+    await delay(rateLimited ? Math.min(60000, 5000 * attempt) : 750 * attempt);
     return requestTranslation(texts, attempt + 1);
   }
 }
@@ -159,7 +161,7 @@ function translateValue(value, translations, key = '') {
   return value;
 }
 
-function englishLetter(title) {
+function latinLetter(title) {
   const match = String(title || '').normalize('NFKD').match(/[A-Za-z]/);
   return match ? match[0].toUpperCase() : '#';
 }
@@ -199,12 +201,12 @@ async function main() {
   }).map((entry) => {
     const translated = translateValue(entry, cached);
     translated.sourceLetter = entry.letter;
-    translated.letter = englishLetter(translated.title);
+    translated.letter = latinLetter(translated.title);
     return translated;
   }).filter((entry) => collectArabicStrings(entry).size === 0);
 
   fs.writeFileSync(OUTPUT, `${JSON.stringify({
-    language: 'en',
+    language: targetLanguage,
     complete: entries.length === source.entries.length,
     sourceEntries: source.entries.length,
     entries
@@ -218,12 +220,101 @@ async function main() {
   }));
   if (entries.length !== source.entries.length) {
     throw translationError || new Error(
-      `English encyclopedia is incomplete: ${entries.length}/${source.entries.length} entries.`
+      `${targetLanguage.toUpperCase()} encyclopedia is incomplete: ${entries.length}/${source.entries.length} entries.`
     );
   }
 }
 
-main().catch((error) => {
+function splitForTranslation(text, maximumLength = 2800) {
+  const chunks = [];
+  let remaining = String(text || '').trim();
+  while (remaining.length > maximumLength) {
+    const window = remaining.slice(0, maximumLength + 1);
+    const sentenceBreak = Math.max(
+      window.lastIndexOf('. '),
+      window.lastIndexOf('? '),
+      window.lastIndexOf('! '),
+      window.lastIndexOf('; ')
+    );
+    const spaceBreak = window.lastIndexOf(' ');
+    const splitAt = sentenceBreak > maximumLength * 0.55 ? sentenceBreak + 1 : spaceBreak;
+    if (splitAt <= 0) throw new Error('Unable to split commentary text safely.');
+    chunks.push(remaining.slice(0, splitAt).trim());
+    remaining = remaining.slice(splitAt).trim();
+  }
+  if (remaining) chunks.push(remaining);
+  return chunks;
+}
+
+async function buildSpanishCommentary() {
+  if (targetLanguage !== 'es') throw new Error('Commentary mode currently supports Spanish output only.');
+  const sourceDirectory = path.join(ROOT, 'commentary-data-en');
+  const outputDirectory = path.join(ROOT, 'commentary-data-es');
+  const shardArgument = process.argv.find((value) => value.startsWith('--shard='));
+  const shardMatch = shardArgument?.match(/^--shard=(\d+)\/(\d+)$/);
+  const shard = shardMatch ? { index: Number(shardMatch[1]), count: Number(shardMatch[2]) } : null;
+  if (shard && (shard.count < 2 || shard.index < 0 || shard.index >= shard.count)) {
+    throw new Error('Shard must use --shard=index/count with 0 <= index < count.');
+  }
+  const allFiles = fs.readdirSync(sourceDirectory).filter((file) => file.endsWith('.json')).sort();
+  const files = shard ? allFiles.filter((_, index) => index % shard.count === shard.index) : allFiles;
+  fs.mkdirSync(outputDirectory, { recursive: true });
+  let completedRecords = 0;
+  let totalRecords = 0;
+
+  for (const file of files) {
+    const sourceBook = JSON.parse(fs.readFileSync(path.join(sourceDirectory, file), 'utf8'));
+    const outputPath = path.join(outputDirectory, file);
+    const existing = fs.existsSync(outputPath)
+      ? JSON.parse(fs.readFileSync(outputPath, 'utf8'))
+      : { schema_version: 1, language: 'es', records: {}, verses: sourceBook.verses };
+    existing.schema_version = 1;
+    existing.language = 'es';
+    existing.verses = sourceBook.verses;
+    totalRecords += Object.keys(sourceBook.records || {}).length;
+
+    for (const [recordId, record] of Object.entries(sourceBook.records || {})) {
+      if (isCompleteTranslation(existing.records?.[recordId]?.text)) {
+        completedRecords += 1;
+        continue;
+      }
+      const translatedChunks = [];
+      for (const chunk of splitForTranslation(record.text, 45000)) {
+        let translated = '';
+        let lastError;
+        for (let attempt = 1; attempt <= 4; attempt += 1) {
+          try {
+            const result = await MET.translate(chunk, 'en', 'es');
+            translated = result?.[0]?.translations?.[0]?.text?.trim() || '';
+            if (!translated) throw new Error('Microsoft Translator returned an empty translation');
+            break;
+          } catch (error) {
+            lastError = error;
+            translated = '';
+            await delay(750 * attempt);
+          }
+        }
+        if (!translated) {
+          throw new Error(`${file}:${recordId}: ${lastError?.message || 'translation failed'}`);
+        }
+        translatedChunks.push(translated);
+        await delay(150);
+      }
+      existing.records[recordId] = {
+        source_id: record.source_id,
+        locator: record.locator,
+        text: translatedChunks.join(' ')
+      };
+      completedRecords += 1;
+      fs.writeFileSync(outputPath, `${JSON.stringify(existing)}\n`, 'utf8');
+      process.stdout.write(`\rTranslated ${completedRecords} commentary records`);
+    }
+  }
+  process.stdout.write('\n');
+  console.log(JSON.stringify({ files: files.length, records: completedRecords, totalRecords, output: 'commentary-data-es' }));
+}
+
+(commentaryMode ? buildSpanishCommentary() : main()).catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });

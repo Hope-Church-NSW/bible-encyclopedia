@@ -1076,10 +1076,11 @@ footer{
 }
 
 </style>
-<script data-project-language-bootstrap>try{const language=localStorage.getItem('bibleAppLanguage')==='en'?'en':'ar';document.documentElement.lang=language;document.documentElement.dir=language==='en'?'ltr':'rtl';if(language==='en'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
-<link rel="preload" href="assets/project-translations-pages/church.json?v=20261007-1" as="fetch" crossorigin>
-<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261007-1">
-<script defer src="assets/project-header-runtime.js?v=20261007-1"></script>
+<script data-project-language-bootstrap>try{const stored=localStorage.getItem('bibleAppLanguage');const language=['ar','en','es'].includes(stored)?stored:'ar';document.documentElement.lang=language;document.documentElement.dir=language==='ar'?'rtl':'ltr';if(language!=='ar'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
+<link rel="preload" href="assets/project-translations-pages/church.json?v=20261023-2" as="fetch" crossorigin>
+<link rel="preload" href="assets/project-translations-pages-es/church.json?v=20261023-2" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261023-2">
+<script defer src="assets/project-header-runtime.js?v=20261023-2"></script>
 </head>
 
 <body>
@@ -1660,7 +1661,8 @@ footer{
 
 <script>
 const inquiryDialog=document.getElementById("inquiryDialog");
-const inquiryLanguage=localStorage.getItem("bibleAppLanguage")==="en"?"en":"ar";
+const storedInquiryLanguage=localStorage.getItem("bibleAppLanguage");
+const inquiryLanguage=["ar","en","es"].includes(storedInquiryLanguage)?storedInquiryLanguage:"ar";
 const inquiryText={
     ar:{
         title:"أرسل استفسارك",
@@ -1675,6 +1677,13 @@ const inquiryText={
         name:"Name",
         message:"Prayer request or inquiry",
         send:"Send to the church email"
+    },
+    es:{
+        title:"Envíe su consulta",
+        close:"Cerrar",
+        name:"Nombre",
+        message:"Petición de oración o consulta",
+        send:"Enviar al correo de la iglesia"
     }
 }[inquiryLanguage];
 
@@ -1705,10 +1714,16 @@ document.getElementById("inquiryForm").addEventListener("submit",event=>{
 
     const name=document.getElementById("inquiryName").value.trim();
     const message=document.getElementById("inquiryMessage").value.trim();
-    const subject=inquiryLanguage==="en"?`Inquiry from ${name}`:`استفسار من ${name}`;
+    const subject=inquiryLanguage==="en"
+        ?`Inquiry from ${name}`
+        :inquiryLanguage==="es"
+            ?`Consulta de ${name}`
+            :`استفسار من ${name}`;
     const body=inquiryLanguage==="en"
         ?`Name: ${name}\n\nPrayer request or inquiry:\n${message}`
-        :`الاسم: ${name}\n\nطلب الصلاة أو الاستفسار:\n${message}`;
+        :inquiryLanguage==="es"
+            ?`Nombre: ${name}\n\nPetición de oración o consulta:\n${message}`
+            :`الاسم: ${name}\n\nطلب الصلاة أو الاستفسار:\n${message}`;
 
     window.location.href=`mailto:info@hchurchbible.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });

@@ -2,9 +2,15 @@
   "name": "bible-encyclopedia",
   "version": "1.0.0",
   "private": true,
-  "description": "Arabic and English offline Bible encyclopedia",
+  "description": "Arabic, English, and Spanish offline Bible encyclopedia",
   "scripts": {
     "build:web": "node build-mobile-web.js",
+    "translations:es": "node build-project-translations.js --lang=es",
+    "translations:es:audit": "node build-project-translations.js --lang=es --audit",
+    "translations:es:pages": "node build-page-translations.js --lang=es",
+    "encyclopedia:es": "node build-english-encyclopedia.js --lang=es",
+    "commentary:es": "node build-english-encyclopedia.js --lang=es --commentary",
+    "validate:es": "node validate-spanish-bible.js && node validate-english-encyclopedia.js --lang=es && node validate-spanish-localization.js",
     "android:sync": "npm run build:web && cap sync android",
     "android:open": "npm run android:sync && cap open android",
     "android:bundle": "node verify-release-signing.js && npm run android:sync && cd android && gradlew.bat bundleRelease",
@@ -16,7 +22,8 @@
   "dependencies": {
     "@capacitor/android": "^8.5.1",
     "@capacitor/core": "^8.5.1",
-    "@capacitor/ios": "^8.5.1"
+    "@capacitor/ios": "^8.5.1",
+    "bing-translate-api": "^4.3.0"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.1",

@@ -7,11 +7,13 @@ const OUTPUT = path.join(ROOT, 'offline-assets.json');
 const runtimeData = new Set([
   'bible.json',
   'bible-en.json',
+  'bible-es.json',
   'cross-references.json',
   'original-language-bible.json',
   'verse-geography.json',
   'encyclopedia_ar.json',
   'encyclopedia_en.json',
+  'encyclopedia_es.json',
   'encyclopedia_b.json',
   'encyclopedia_n.json',
   'commentary.json',
@@ -29,7 +31,10 @@ const excludedRuntimeAssets = new Set([
 ]);
 
 function isRuntimeAsset(file) {
-  return !excludedRuntimeAssets.has(path.relative(ROOT, file).replace(/\\/g, '/'));
+  const relative = path.relative(ROOT, file).replace(/\\/g, '/');
+  if (/(?:encyclopedia|commentary)-translations-[^/]+\.json$/.test(relative)) return false;
+  if (/-translations-[^/]+-part-\d+-of-\d+\.json$/.test(relative)) return false;
+  return !excludedRuntimeAssets.has(relative);
 }
 
 function filesIn(directory, predicate = () => true) {
@@ -46,8 +51,9 @@ const files = [
   ...filesIn(path.join(ROOT, 'assets'), isRuntimeAsset),
   ...filesIn(path.join(ROOT, 'commentary-data'), (file) => path.extname(file) === '.json'),
   ...filesIn(path.join(ROOT, 'commentary-data-en'), (file) => path.extname(file) === '.json'),
+  ...filesIn(path.join(ROOT, 'commentary-data-es'), (file) => path.extname(file) === '.json'),
   ...filesIn(ROOT, (file) => path.dirname(file) === ROOT && runtimeData.has(path.basename(file))),
-  ...filesIn(ROOT, (file) => path.dirname(file) === ROOT && /-study(?:-en)?\.txt$/.test(path.basename(file))),
+  ...filesIn(ROOT, (file) => path.dirname(file) === ROOT && /-study(?:-(?:en|es))?\.txt$/.test(path.basename(file))),
   path.join(ROOT, 'manifest.webmanifest'),
   path.join(ROOT, 'service-worker.js')
 ].filter((file) => fs.existsSync(file));

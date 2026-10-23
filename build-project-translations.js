@@ -3,10 +3,34 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 
 const ROOT = __dirname;
-const OUTPUT = path.join(ROOT, 'assets', 'project-translations-en.json');
-const REPORT = path.join(ROOT, 'project-translation-report.json');
 const ARABIC = /[\u0600-\u06ff]/;
 const args = new Set(process.argv.slice(2));
+const languageArgument = process.argv.find((value) => value.startsWith('--lang='));
+const targetLanguage = languageArgument ? languageArgument.split('=')[1] : 'en';
+if (!['en', 'es'].includes(targetLanguage)) throw new Error('Supported target languages: en, es');
+const languageName = targetLanguage === 'es' ? 'neutral Spanish' : 'English';
+const encyclopediaOnly = args.has('--encyclopedia');
+const commentaryOnly = args.has('--commentary');
+const sourceLanguageName = commentaryOnly ? 'English' : 'Arabic';
+const translationScope = commentaryOnly ? 'commentary' : encyclopediaOnly ? 'encyclopedia' : 'project';
+const shardArgument = process.argv.find((value) => value.startsWith('--shard='));
+const shardMatch = shardArgument?.match(/^--shard=(\d+)\/(\d+)$/);
+const shard = shardMatch ? { index: Number(shardMatch[1]), count: Number(shardMatch[2]) } : null;
+if (shard && (shard.count < 2 || shard.index < 0 || shard.index >= shard.count)) {
+  throw new Error('Shard must use --shard=index/count with 0 <= index < count.');
+}
+const BASE_OUTPUT = path.join(ROOT, 'assets', `${translationScope}-translations-${targetLanguage}.json`);
+const OUTPUT = shard
+  ? path.join(ROOT, 'assets', `${translationScope}-translations-${targetLanguage}-part-${shard.index}-of-${shard.count}.json`)
+  : BASE_OUTPUT;
+const REPORT = path.join(
+  ROOT,
+  commentaryOnly || encyclopediaOnly
+    ? `${translationScope}-translation-report-${targetLanguage}${shard ? `-part-${shard.index}-of-${shard.count}` : ''}.json`
+    : targetLanguage === 'en'
+      ? 'project-translation-report.json'
+      : `project-translation-report-${targetLanguage}${shard ? `-part-${shard.index}-of-${shard.count}` : ''}.json`
+);
 const studyOnly = args.has('--studies');
 
 function studySourceFiles() {
@@ -28,8 +52,61 @@ function addIfArabic(target, value, file) {
   target.get(text).add(file);
 }
 
+function splitTranslationSource(value, maximumLength = 8000) {
+  const chunks = [];
+  let remaining = normalize(value);
+  while (remaining.length > maximumLength) {
+    const window = remaining.slice(0, maximumLength + 1);
+    const sentenceBreak = Math.max(
+      window.lastIndexOf('. '),
+      window.lastIndexOf('? '),
+      window.lastIndexOf('! '),
+      window.lastIndexOf('; ')
+    );
+    const spaceBreak = window.lastIndexOf(' ');
+    const splitAt = sentenceBreak > maximumLength * 0.55 ? sentenceBreak + 1 : spaceBreak;
+    if (splitAt <= 0) throw new Error('Unable to split translation source safely.');
+    chunks.push(remaining.slice(0, splitAt).trim());
+    remaining = remaining.slice(splitAt).trim();
+  }
+  if (remaining) chunks.push(remaining);
+  return chunks;
+}
+
 function extractStrings() {
   const strings = new Map();
+  if (commentaryOnly) {
+    const directory = path.join(ROOT, 'commentary-data-en');
+    for (const file of fs.readdirSync(directory).filter((name) => name.endsWith('.json')).sort()) {
+      const data = JSON.parse(fs.readFileSync(path.join(directory, file), 'utf8'));
+      for (const record of Object.values(data.records || {})) {
+        for (const text of splitTranslationSource(record.text)) {
+          if (!strings.has(text)) strings.set(text, new Set());
+          strings.get(text).add(path.join('commentary-data-en', file));
+        }
+      }
+    }
+    return strings;
+  }
+  if (encyclopediaOnly) {
+    const collect = (value, key = '') => {
+      if (typeof value === 'string') {
+        if (!['id', 'letter', 'sourceLetter', 'status', 'url'].includes(key)) {
+          addIfArabic(strings, value, 'encyclopedia_ar.json');
+        }
+        return;
+      }
+      if (Array.isArray(value)) {
+        value.forEach((item) => collect(item, key));
+        return;
+      }
+      if (value && typeof value === 'object') {
+        Object.entries(value).forEach(([childKey, childValue]) => collect(childValue, childKey));
+      }
+    };
+    collect(JSON.parse(fs.readFileSync(path.join(ROOT, 'encyclopedia_ar.json'), 'utf8')));
+    return strings;
+  }
   const files = fs.readdirSync(ROOT).filter((file) => {
     if (!file.endsWith('.html')) return false;
     return !studyOnly || file === 'studies.html' || file.startsWith('study-') || file === 'solomon-temple.html' || file === 'solomon_temple_overview.html';
@@ -51,15 +128,87 @@ function extractStrings() {
   return strings;
 }
 
-function writeEnglishStudyFiles(translations) {
+function writeStudyFiles(translations) {
+  if (encyclopediaOnly || commentaryOnly) return;
   for (const file of studySourceFiles()) {
     const source = fs.readFileSync(path.join(ROOT, file), 'utf8').replace(/\r\n/g, '\n');
     const translated = source.split('\n').map((line) => {
       const text = normalize(line);
+      if (text === 'و') return targetLanguage === 'es' ? 'y' : 'and';
       return text && ARABIC.test(text) && hasValidTranslation(text, translations) ? normalize(translations[text]) : line;
     }).join('\n');
-    const output = file.replace(/-study\.txt$/, '-study-en.txt');
+    const output = file.replace(/-study\.txt$/, `-study-${targetLanguage}.txt`);
     fs.writeFileSync(path.join(ROOT, output), translated, 'utf8');
+  }
+}
+
+function writeSpanishEncyclopedia(translations) {
+    if (!encyclopediaOnly || targetLanguage !== 'es') return;
+    const source = JSON.parse(fs.readFileSync(path.join(ROOT, 'encyclopedia_ar.json'), 'utf8'));
+    const preserve = new Set(['id', 'letter', 'sourceLetter', 'status', 'url']);
+    const translateValue = (value, key = '') => {
+      if (typeof value === 'string') {
+        const text = normalize(value);
+        return !preserve.has(key) && ARABIC.test(text) && hasValidTranslation(text, translations)
+          ? translations[text]
+          : value;
+      }
+
+      if (Array.isArray(value)) return value.map((item) => translateValue(item, key));
+      if (value && typeof value === 'object') {
+        return Object.fromEntries(Object.entries(value).map(([childKey, childValue]) => [
+          childKey,
+          translateValue(childValue, childKey)
+        ]));
+      }
+      return value;
+    };
+    const entries = source.entries.map((entry) => {
+      const translated = translateValue(entry);
+      translated.sourceLetter = entry.letter;
+      const letter = String(translated.title || '').normalize('NFKD').match(/[A-Za-z]/);
+      translated.letter = letter ? letter[0].toUpperCase() : '#';
+      return translated;
+    });
+    const hasRemainingArabic = (value, key = '') => {
+      if (typeof value === 'string') return !preserve.has(key) && ARABIC.test(value);
+      if (Array.isArray(value)) return value.some((item) => hasRemainingArabic(item, key));
+      if (value && typeof value === 'object') {
+        return Object.entries(value).some(([childKey, childValue]) => hasRemainingArabic(childValue, childKey));
+      }
+      return false;
+    };
+    fs.writeFileSync(path.join(ROOT, 'encyclopedia_es.json'), `${JSON.stringify({
+      language: 'es',
+      complete: !hasRemainingArabic(entries),
+      sourceEntries: source.entries.length,
+      entries
+    }, null, 2)}\n`, 'utf8');
+}
+
+function writeSpanishCommentary(translations) {
+  if (!commentaryOnly || targetLanguage !== 'es') return;
+  const sourceDirectory = path.join(ROOT, 'commentary-data-en');
+  const outputDirectory = path.join(ROOT, 'commentary-data-es');
+  fs.mkdirSync(outputDirectory, { recursive: true });
+  for (const file of fs.readdirSync(sourceDirectory).filter((name) => name.endsWith('.json')).sort()) {
+    const source = JSON.parse(fs.readFileSync(path.join(sourceDirectory, file), 'utf8'));
+    const records = {};
+    for (const [recordId, record] of Object.entries(source.records || {})) {
+      const chunks = splitTranslationSource(record.text);
+      if (!chunks.every((chunk) => hasValidTranslation(chunk, translations))) continue;
+      records[recordId] = {
+        source_id: record.source_id,
+        locator: record.locator,
+        text: chunks.map((chunk) => translations[chunk]).join(' ')
+      };
+    }
+    fs.writeFileSync(path.join(outputDirectory, file), `${JSON.stringify({
+      schema_version: 1,
+      language: 'es',
+      records,
+      verses: source.verses
+    })}\n`, 'utf8');
   }
 }
 
@@ -89,7 +238,10 @@ function parseJson(text) {
 
 function translateBatch(batch, retryFeedback = '') {
   const correction = retryFeedback ? ` Previous attempts failed validation. Correct these errors exactly: ${retryFeedback}` : '';
-  const prompt = `Translate the following Arabic evangelical Bible-study website strings into accurate, natural academic English. Translate every Arabic word, including Arabic book names, person names, place names, labels, and titles; no Arabic letters may remain. Preserve intentional Hebrew and Greek source-language text, every Bible reference, number, HTML entity, and template expression such as \${name} exactly. Every number written with digits in the input must remain the identical digits in the output; never spell it out as words. Every number written as an Arabic word must remain written as an English word; never convert it to digits. For example, translate "أخبار الأيام الثاني 3:1" as "Second Chronicles 3:1", not "2 Chronicles 3:1". Use English punctuation, including commas, semicolons, and question marks. Translate the full meaning without summarizing, omitting, or adding commentary. Use established English biblical names.${correction} Return strict JSON only in this shape: {"translations":[{"id":0,"text":"English"}]}. Include every id exactly once. Input: ${JSON.stringify(batch)}`;
+  const targetInstructions = targetLanguage === 'es'
+    ? 'Use neutral, natural, academically precise Spanish understandable throughout the Spanish-speaking world. Use biblical names and theological terminology established by the public-domain Reina-Valera 1909, while preserving the full meaning of the Arabic source. Use correct Spanish punctuation, including opening question and exclamation marks where applicable. A digit before a biblical book name must remain the identical digit: translate "1 صموئيل 7:1" as "1 Samuel 7:1", never "Primero de Samuel 7:1". A number written as an Arabic word must remain a Spanish word: translate "أخبار الأيام الثاني 3:1" as "Segundo de Crónicas 3:1", not "2 Crónicas 3:1".'
+    : 'Use accurate, natural academic English and established English biblical names. Use English punctuation, including commas, semicolons, and question marks. For example, translate "أخبار الأيام الثاني 3:1" as "Second Chronicles 3:1", not "2 Chronicles 3:1".';
+  const prompt = `Translate the following ${sourceLanguageName} evangelical Bible-study ${commentaryOnly ? 'commentary passages' : 'website strings'} into ${languageName}. ${targetInstructions} Translate every source-language word, including book names, person names, place names, labels, and titles; no untranslated ${sourceLanguageName} prose may remain. Preserve intentional Hebrew and Greek source-language text, every Bible reference, number, HTML entity, and template expression such as \${name} exactly. Every number written with digits in the input must remain the identical digits in the output; never spell it out as words. Every number written as a source-language word or ordinal must remain written as a target-language word or ordinal; never convert it to digits. Translate the full meaning without summarizing, omitting, modernizing, or adding commentary.${correction} Return strict JSON only in this shape: {"translations":[{"id":0,"text":"Translation"}]}. Include every id exactly once. Input: ${JSON.stringify(batch)}`;
   const result = spawnSync(process.execPath, [
     findCopilotLoader(), '-p', prompt, '--allow-all-tools', '--no-ask-user', '--no-custom-instructions',
     '--disable-builtin-mcps', '--max-ai-credits', '30', '--model', 'auto', '--silent'
@@ -151,11 +303,9 @@ function translateValidatedBatch(batch) {
     const expectedIds = new Set(pending.map((item) => item.id));
     const expectedTranslations = translated.filter((item) => expectedIds.has(item.id));
     const returnedIds = new Set(expectedTranslations.map((item) => item.id));
-    if (returnedIds.size !== pending.length || pending.some((item) => !returnedIds.has(item.id))) {
-      throw new Error(`Translation batch returned ${returnedIds.size}/${pending.length} requested ids.`);
-    }
-    const invalid = [];
-    const validationFailures = [];
+    const missingItems = pending.filter((item) => !returnedIds.has(item.id));
+    const invalid = [...missingItems];
+    const validationFailures = missingItems.map((item) => `id ${item.id}: translation was omitted`);
     for (const item of expectedTranslations) {
       const source = batch.find((candidate) => candidate.id === item.id);
       const translation = normalizeTranslation(item.text);
@@ -195,8 +345,8 @@ function writeReport(strings, translations) {
   }
   const report = {
     generated_at: new Date().toISOString(),
-    source_language: 'ar',
-    target_language: 'en',
+    source_language: commentaryOnly ? 'en' : 'ar',
+    target_language: targetLanguage,
     source_strings: strings.size,
     translated_strings: strings.size - missing.length,
     missing_strings: missing.length,
@@ -212,20 +362,32 @@ function writeReport(strings, translations) {
 
 function main() {
   const strings = extractStrings();
-  const translations = fs.existsSync(OUTPUT) ? JSON.parse(fs.readFileSync(OUTPUT, 'utf8')) : {};
+  const translations = Object.assign(
+    {},
+    fs.existsSync(BASE_OUTPUT) ? JSON.parse(fs.readFileSync(BASE_OUTPUT, 'utf8')) : {},
+    fs.existsSync(OUTPUT) ? JSON.parse(fs.readFileSync(OUTPUT, 'utf8')) : {}
+  );
   if (args.has('--audit')) {
-    writeEnglishStudyFiles(translations);
+    if (shard) throw new Error('Audit merged translations without --shard.');
+    writeStudyFiles(translations);
+    writeSpanishEncyclopedia(translations);
+    writeSpanishCommentary(translations);
     console.log(JSON.stringify(writeReport(strings, translations), null, 2));
     return;
   }
-  const pending = [...strings.keys()].filter((text) => !hasValidTranslation(text, translations));
+  const allPending = [...strings.keys()].filter((text) => !hasValidTranslation(text, translations));
+  const pending = shard
+    ? allPending.filter((_, index) => index % shard.count === shard.index)
+    : allPending;
   const limitArgument = process.argv.find((value) => value.startsWith('--limit='));
   const limit = limitArgument ? Number(limitArgument.split('=')[1]) : pending.length;
   let completed = 0;
   while (pending.length && completed < limit) {
     const batch = [];
     let characters = 0;
-    while (pending.length && batch.length < 80 && characters < 12000 && completed + batch.length < limit) {
+    const maximumBatchItems = commentaryOnly ? 10 : 80;
+    const maximumBatchCharacters = commentaryOnly ? 50000 : 12000;
+    while (pending.length && batch.length < maximumBatchItems && characters < maximumBatchCharacters && completed + batch.length < limit) {
       const text = pending.shift();
       batch.push({ id: batch.length, text });
       characters += text.length;
@@ -245,11 +407,19 @@ function main() {
     }
     completed += batch.length;
     fs.writeFileSync(OUTPUT, `${JSON.stringify(translations, null, 2)}\n`, 'utf8');
-    writeEnglishStudyFiles(translations);
+    if (!shard) {
+      writeStudyFiles(translations);
+      writeSpanishEncyclopedia(translations);
+      if (!pending.length) writeSpanishCommentary(translations);
+    }
     const report = writeReport(strings, translations);
     console.log(`Translated ${report.translated_strings}/${report.source_strings} strings (${report.coverage_percent}%).`);
   }
-  writeEnglishStudyFiles(translations);
+  if (!shard) {
+    writeStudyFiles(translations);
+    writeSpanishEncyclopedia(translations);
+    writeSpanishCommentary(translations);
+  }
   writeReport(strings, translations);
 }
 

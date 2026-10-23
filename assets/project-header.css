@@ -179,6 +179,80 @@ body.project-unified-header .project-language-toggle {
     white-space: nowrap;
 }
 
+body .project-language-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2100;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(0,0,0,.58);
+}
+
+body .project-language-backdrop[hidden] {
+    display: none;
+}
+
+body .project-language-panel {
+    direction: ltr;
+    width: min(310px, 100%);
+    padding: 18px;
+    border: 2px solid #d4af37;
+    border-radius: 14px;
+    color: #fff;
+    background: #0d2138;
+    box-shadow: 0 24px 70px rgba(0,0,0,.7);
+}
+
+body .project-language-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+body .project-language-heading h2 {
+    margin: 0;
+    color: #f4dc78;
+    font-size: 20px;
+}
+
+body .project-language-close {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 1px solid rgba(224,184,76,.65);
+    border-radius: 50%;
+    color: #fff;
+    background: #071a26;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+body .project-language-options {
+    display: grid;
+    gap: 10px;
+}
+
+body .project-language-option {
+    width: 100%;
+    min-height: 46px;
+    padding: 8px 14px;
+    border: 1px solid rgba(224,184,76,.65);
+    border-radius: 10px;
+    color: #fff;
+    background: #0757a8;
+    font: 800 17px/1.2 Arial, sans-serif;
+    cursor: pointer;
+}
+
+body .project-language-option:hover,
+body .project-language-option[aria-pressed="true"] {
+    color: #071a26;
+    background: linear-gradient(180deg,#fff1a2,#d4af37);
+}
+
 body .project-reader-settings {
     direction: rtl;
     display: flex;
@@ -392,6 +466,10 @@ body.project-unified-header .project-bible-return[hidden] {
     display: none;
 }
 
+body.project-unified-header .project-home-return[hidden] {
+    display: none;
+}
+
 body.project-unified-header .project-return:hover,
 body.project-unified-header .project-rivers-return:hover {
     background: #0b6dcc;
@@ -475,6 +553,16 @@ body.project-unified-header .project-books-return {
     font-weight: 800;
     text-decoration: none;
     white-space: nowrap;
+}
+
+body.project-unified-header.project-bible-page .project-bible-return {
+    position: fixed;
+    z-index: 1200;
+    top: calc(85px + env(safe-area-inset-top, 0px));
+    right: max(14px, env(safe-area-inset-right, 0px));
+    width: 130px;
+    min-width: 130px;
+    height: 32px;
 }
 
 body.project-unified-header .project-footer {
@@ -571,6 +659,14 @@ body.project-unified-header .project-footer div:first-child {
         padding: 0 8px;
         border-radius: 8px;
         gap: 6px;
+    }
+
+    body.project-unified-header.project-bible-page .project-bible-return {
+        top: calc(74px + env(safe-area-inset-top, 0px));
+        right: max(8px, env(safe-area-inset-right, 0px));
+        width: 104px;
+        min-width: 104px;
+        height: 30px;
     }
 
     body.project-unified-header .project-return > span:first-child {

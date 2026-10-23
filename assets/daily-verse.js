@@ -17,7 +17,36 @@
     ];
     const UI = {
         ar: { title: 'آية اليوم', like: '♡ إعجاب', liked: '♥ تم الإعجاب', share: '↗ مشاركة', more: '⋯ المزيد', chapter: '📖 اقرأ الأصحاح', image: '🖼 اصنعها في صورة', designer: 'اصنع آية اليوم في صورة', sky: 'سماء وسحاب', sunrise: 'شروق', trees: 'أشجار', upload: 'أضف صورتك', download: 'تنزيل الصورة', shareImage: 'مشاركة الصورة', shared: 'تمت المشاركة.', copied: 'تم نسخ الآية.', saved: 'تم إنشاء الصورة.', brand: 'موسوعة الكتاب المقدس' },
-        en: { title: 'Verse of the Day', like: '♡ Like', liked: '♥ Liked', share: '↗ Share', more: '⋯ More', chapter: '📖 Read Chapter', image: '🖼 Create Image', designer: 'Create a Verse Image', sky: 'Sky & Clouds', sunrise: 'Sunrise', trees: 'Trees', upload: 'Add Your Photo', download: 'Download Image', shareImage: 'Share Image', shared: 'Shared successfully.', copied: 'Verse copied.', saved: 'Image created.', brand: 'Bible Encyclopedia' }
+        en: { title: 'Verse of the Day', like: '♡ Like', liked: '♥ Liked', share: '↗ Share', more: '⋯ More', chapter: '📖 Read Chapter', image: '🖼 Create Image', designer: 'Create a Verse Image', sky: 'Sky & Clouds', sunrise: 'Sunrise', trees: 'Trees', upload: 'Add Your Photo', download: 'Download Image', shareImage: 'Share Image', shared: 'Shared successfully.', copied: 'Verse copied.', saved: 'Image created.', brand: 'Bible Encyclopedia' },
+        es: { title: 'Versículo del día', like: '♡ Me gusta', liked: '♥ Te gusta', share: '↗ Compartir', more: '⋯ Más', chapter: '📖 Leer el capítulo', image: '🖼 Crear imagen', designer: 'Crear una imagen del versículo', sky: 'Cielo y nubes', sunrise: 'Amanecer', trees: 'Árboles', upload: 'Añada su foto', download: 'Descargar imagen', shareImage: 'Compartir imagen', shared: 'Compartido correctamente.', copied: 'Versículo copiado.', saved: 'Imagen creada.', brand: 'Enciclopedia Bíblica' }
+    };
+    const SPANISH_BOOK_NAMES = {
+        '19-Psalms': 'Salmos',
+        '20-Proverbs': 'Proverbios',
+        '23-Isiah': 'Isaías',
+        '24-Jeremiah': 'Jeremías',
+        '40-Matthew': 'Mateo',
+        '43-John': 'Juan',
+        '45-Romans': 'Romanos',
+        '50-Philipians': 'Filipenses',
+        '58-Hebrews': 'Hebreos',
+        '60-1-peter': '1 Pedro'
+    };
+    const SPANISH_VERSES = {
+        '19-Psalms:23:1': 'Salmo de David. JEHOVÁ es mi pastor; nada me faltará.',
+        '19-Psalms:46:1': 'Al Músico principal: de los hijos de Coré: Salmo sobre Alamoth. DIOS es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones.',
+        '19-Psalms:119:105': 'NUN. Lámpara es á mis pies tu palabra, y lumbrera á mi camino.',
+        '20-Proverbs:3:5': 'Fíate de Jehová de todo tu corazón, y no estribes en tu prudencia.',
+        '23-Isiah:40:31': 'Mas los que esperan á Jehová tendrán nuevas fuerzas; levantarán las alas como águilas; correrán, y no se cansarán; caminarán, y no se fatigarán.',
+        '24-Jeremiah:29:11': 'Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis.',
+        '40-Matthew:11:28': 'Venid á mí todos los que estáis trabajados y cargados, que yo os haré descansar.',
+        '43-John:3:16': 'Porque de tal manera amó Dios al mundo, que ha dado á su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.',
+        '43-John:8:12': 'Y hablóles Jesús otra vez, diciendo: Yo soy la luz del mundo: el que me sigue, no andará en tinieblas, mas tendrá la lumbre de la vida.',
+        '45-Romans:8:28': 'Y sabemos que á los que á Dios aman, todas las cosas les ayudan á bien, [es á saber], á los que conforme al propósito son llamados.',
+        '50-Philipians:4:6': 'Por nada estéis afanosos; sino sean notorias vuestras peticiones delante de Dios en toda oración y ruego, con hacimiento de gracias.',
+        '50-Philipians:4:13': 'Todo lo puedo en Cristo que me fortalece.',
+        '58-Hebrews:11:1': 'ES pues la fe la sustancia de las cosas que se esperan, la demostración de las cosas que no se ven.',
+        '60-1-peter:5:7': 'Echando toda vuestra solicitud en él, porque él tiene cuidado de vosotros.'
     };
     const BACKGROUND_SOURCES = {
         sky: 'assets/verse-backgrounds/sky-clouds.svg',
@@ -28,7 +57,8 @@
     const now = new Date();
     const dayNumber = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
     const dailyVerse = VERSES[((dayNumber % VERSES.length) + VERSES.length) % VERSES.length];
-    let language = localStorage.getItem('bibleAppLanguage') === 'en' ? 'en' : 'ar';
+    const storedLanguage = localStorage.getItem('bibleAppLanguage');
+    let language = ['ar', 'en', 'es'].includes(storedLanguage) ? storedLanguage : 'ar';
     let background = 'sky';
     let uploadedImage = null;
 
@@ -45,10 +75,18 @@
     });
 
     function reference() {
-        return `${language === 'en' ? dailyVerse.enBook : dailyVerse.arBook} ${dailyVerse.chapter}:${dailyVerse.verse}`;
+        const bookName = language === 'es'
+            ? SPANISH_BOOK_NAMES[dailyVerse.book]
+            : language === 'en'
+                ? dailyVerse.enBook
+                : dailyVerse.arBook;
+        return `${bookName} ${dailyVerse.chapter}:${dailyVerse.verse}`;
     }
 
     function verseText() {
+        if (language === 'es') {
+            return SPANISH_VERSES[`${dailyVerse.book}:${dailyVerse.chapter}:${dailyVerse.verse}`];
+        }
         return language === 'en' ? dailyVerse.en : dailyVerse.ar;
     }
 
@@ -62,7 +100,7 @@
     }
 
     window.renderDailyVerse = function (nextLanguage) {
-        language = nextLanguage === 'en' ? 'en' : 'ar';
+        language = ['ar', 'en', 'es'].includes(nextLanguage) ? nextLanguage : 'ar';
         const text = UI[language];
         document.getElementById('dailyVerseTitle').textContent = text.title;
         document.getElementById('dailyVerseText').textContent = `“${verseText()}”`;
@@ -166,7 +204,7 @@
         drawBackground(context, canvas);
         context.textAlign = 'center';
         context.textBaseline = 'middle';
-        context.direction = language === 'en' ? 'ltr' : 'rtl';
+        context.direction = language === 'ar' ? 'rtl' : 'ltr';
         context.fillStyle = '#f4dc78';
         context.font = 'bold 42px Tahoma';
         context.fillText(UI[language].title, 540, 120);

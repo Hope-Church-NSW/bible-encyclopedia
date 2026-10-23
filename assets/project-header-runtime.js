@@ -1,19 +1,100 @@
 (function () {
-    const TRANSLATION_VERSION = '20261007-1';
+    const TRANSLATION_VERSION = '20261023-2';
     const pageName = location.pathname.split('/').pop() || 'index.html';
     const translationBundle = pageName.replace(/\.html$/, '.json');
-    const TRANSLATION_SESSION_KEY = `projectTranslationsEn:${TRANSLATION_VERSION}:${translationBundle}`;
     const PROJECT_PREFERENCES_KEY = 'bibleReaderPreferencesV1';
+    const LANGUAGE_POSITION_KEY = 'projectLanguagePosition';
+    const SUPPORTED_LANGUAGES = ['ar', 'en', 'es'];
+    const storedLanguage = localStorage.getItem('bibleAppLanguage');
+    const selectedLanguage = SUPPORTED_LANGUAGES.includes(storedLanguage) ? storedLanguage : 'ar';
+    const TRANSLATION_SESSION_KEY = `projectTranslations:${selectedLanguage}:${TRANSLATION_VERSION}:${translationBundle}`;
+    const RUNTIME_UI = {
+        ar: {
+            switchLanguage: 'التبديل إلى الإنجليزية',
+            nextLanguage: '🌐 English',
+            languageMenu: 'اختيار اللغة',
+            closeLanguageMenu: 'إغلاق قائمة اللغات',
+            settings: 'إعدادات المشروع',
+            closeSettings: 'إغلاق الإعدادات',
+            fontType: 'نوع الخط',
+            clearFont: 'خط واضح',
+            naskh: 'نسخ عربي',
+            serif: 'خط تقليدي',
+            mono: 'خط ثابت العرض',
+            fontSize: 'حجم الخط',
+            background: 'الخلفية',
+            blue: 'أزرق',
+            white: 'أبيض',
+            black: 'أسود',
+            settingsButton: 'الإعدادات',
+            openSettings: 'فتح الإعدادات',
+            home: 'الرئيسية',
+            biblicalBooks: '📖 الأسفار الكتابية',
+            brandName: 'موسوعة الكتاب المقدس',
+            brandChurch: 'كنيسة رجاء الأمم سيدني',
+            logoAlt: 'شعار كنيسة رجاء الأمم سيدني'
+        },
+        en: {
+            switchLanguage: 'Switch to Spanish',
+            nextLanguage: '🌐 Español',
+            languageMenu: 'Choose language',
+            closeLanguageMenu: 'Close language menu',
+            settings: 'Project settings',
+            closeSettings: 'Close settings',
+            fontType: 'Font type',
+            clearFont: 'Clear font',
+            naskh: 'Arabic Naskh',
+            serif: 'Traditional font',
+            mono: 'Monospace',
+            fontSize: 'Font size',
+            background: 'Background',
+            blue: 'Blue',
+            white: 'White',
+            black: 'Black',
+            settingsButton: 'Settings',
+            openSettings: 'Open settings',
+            home: 'Home',
+            biblicalBooks: '📖 Biblical Books',
+            brandName: 'Bible Encyclopedia',
+            brandChurch: 'Hope of Nations Church Sydney',
+            logoAlt: 'Hope of Nations Church Sydney logo'
+        },
+        es: {
+            switchLanguage: 'Cambiar a árabe',
+            nextLanguage: '🌐 العربية',
+            languageMenu: 'Elegir idioma',
+            closeLanguageMenu: 'Cerrar menú de idiomas',
+            settings: 'Configuración del proyecto',
+            closeSettings: 'Cerrar configuración',
+            fontType: 'Tipo de letra',
+            clearFont: 'Fuente clara',
+            naskh: 'Naskh árabe',
+            serif: 'Fuente tradicional',
+            mono: 'Monoespaciada',
+            fontSize: 'Tamaño de fuente',
+            background: 'Fondo',
+            blue: 'Azul',
+            white: 'Blanco',
+            black: 'Negro',
+            settingsButton: 'Configuración',
+            openSettings: 'Abrir configuración',
+            home: 'Inicio',
+            biblicalBooks: '📖 Libros bíblicos',
+            brandName: 'Enciclopedia de la Biblia',
+            brandChurch: 'Iglesia Esperanza de las Naciones de Sídney',
+            logoAlt: 'Logotipo de la Iglesia Esperanza de las Naciones de Sídney'
+        }
+    };
+    const runtimeUi = RUNTIME_UI[selectedLanguage];
     const PROJECT_FONTS = {
         default: 'Arial, "Helvetica Neue", Tahoma, sans-serif',
         naskh: '"Geeza Pro", "Noto Naskh Arabic", "Traditional Arabic", serif',
         serif: 'Georgia, "Times New Roman", "Geeza Pro", serif',
         mono: '"Courier New", "Noto Sans Mono", monospace'
     };
-    const selectedLanguage = localStorage.getItem('bibleAppLanguage') === 'en' ? 'en' : 'ar';
     const isBiblePage = location.pathname.endsWith('/bible.html') || location.pathname.endsWith('bible.html');
     document.documentElement.lang = selectedLanguage;
-    document.documentElement.dir = selectedLanguage === 'en' ? 'ltr' : 'rtl';
+    document.documentElement.dir = selectedLanguage === 'ar' ? 'rtl' : 'ltr';
     document.body.dir = document.documentElement.dir;
 
     const viewport = document.querySelector('meta[name="viewport"]');
@@ -60,11 +141,17 @@
     }
 
     function translatePattern(value) {
-        const patterns = [
-            [/^الأصحاح\s+(\d+)$/, 'Chapter $1'],
-            [/^(\d+)\s+سفرًا$/, '$1 Books'],
-            [/^نتائج البحث عن:\s*(.+)$/, 'Search results for: $1']
-        ];
+        const patterns = selectedLanguage === 'es'
+            ? [
+                [/^الأصحاح\s+(\d+)$/, 'Capítulo $1'],
+                [/^(\d+)\s+سفرًا$/, '$1 libros'],
+                [/^نتائج البحث عن:\s*(.+)$/, 'Resultados de búsqueda para: $1']
+            ]
+            : [
+                [/^الأصحاح\s+(\d+)$/, 'Chapter $1'],
+                [/^(\d+)\s+سفرًا$/, '$1 Books'],
+                [/^نتائج البحث عن:\s*(.+)$/, 'Search results for: $1']
+            ];
         for (const [pattern, replacement] of patterns) {
             if (pattern.test(value)) return value.replace(pattern, replacement);
         }
@@ -86,13 +173,26 @@
         textNodes.forEach((node) => {
             if (!node.parentElement || /^(SCRIPT|STYLE|PRE|TEXTAREA)$/.test(node.parentElement.tagName)) return;
             const key = normalizeTranslationKey(node.nodeValue);
-            const translation = translations[key] || translatePattern(key);
+            const firstArabicIndex = key.search(/[\u0600-\u06ff]/);
+            const lastArabicIndex = key.search(/[\u0600-\u06ff](?![\s\S]*[\u0600-\u06ff])/);
+            const undecoratedKey = firstArabicIndex >= 0 && (firstArabicIndex > 0 || lastArabicIndex < key.length - 1)
+                ? key.slice(firstArabicIndex, lastArabicIndex + 1)
+                : '';
+            const translation = translations[key]
+                || (undecoratedKey && translations[undecoratedKey]
+                    ? `${key.slice(0, firstArabicIndex)}${translations[undecoratedKey]}${key.slice(lastArabicIndex + 1)}`
+                    : '')
+                || translatePattern(key);
             if (!key || key.length === 1 || !translation) return;
             const leading = node.nodeValue.match(/^\s*/)[0];
             const trailing = node.nodeValue.match(/\s*$/)[0];
             node.nodeValue = `${leading}${translation}${trailing}`;
         });
-        scope.querySelectorAll('[title], [placeholder], [aria-label], [alt]').forEach((element) => {
+        const attributeElements = [
+            ...(scope.matches('[title], [placeholder], [aria-label], [alt]') ? [scope] : []),
+            ...scope.querySelectorAll('[title], [placeholder], [aria-label], [alt]')
+        ];
+        attributeElements.forEach((element) => {
             ['title', 'placeholder', 'aria-label', 'alt'].forEach((attribute) => {
                 const value = element.getAttribute(attribute);
                 const translation = translations[normalizeTranslationKey(value)];
@@ -101,12 +201,15 @@
         });
     }
 
-    async function applyEnglishTranslations() {
-        if (selectedLanguage !== 'en') return;
+    async function applyProjectTranslations() {
+        if (selectedLanguage === 'ar') return;
         try {
             let translationText = sessionStorage.getItem(TRANSLATION_SESSION_KEY);
             if (!translationText) {
-                const response = await fetch(`assets/project-translations-pages/${translationBundle}?v=${TRANSLATION_VERSION}`);
+                const directory = selectedLanguage === 'es'
+                    ? 'assets/project-translations-pages-es'
+                    : 'assets/project-translations-pages';
+                const response = await fetch(`${directory}/${translationBundle}?v=${TRANSLATION_VERSION}`);
                 if (!response.ok) throw new Error(`Translation file returned ${response.status}`);
                 translationText = await response.text();
                 try {
@@ -128,7 +231,7 @@
                 translationRoots.forEach((root) => translateElement(root, translations));
             }).observe(document.body, { childList: true, subtree: true });
         } catch (error) {
-            console.error('Unable to load English translations.', error);
+            console.error(`Unable to load ${selectedLanguage} translations.`, error);
         }
     }
 
@@ -171,12 +274,15 @@
     const prefetchedPages = new Set();
     const translationPrefetches = new Map();
     function prefetchTranslation(destination) {
-        if (selectedLanguage !== 'en') return null;
+        if (selectedLanguage === 'ar') return null;
         const bundle = destination.pathname.split('/').pop().replace(/\.html$/, '.json');
-        const storageKey = `projectTranslationsEn:${TRANSLATION_VERSION}:${bundle}`;
+        const storageKey = `projectTranslations:${selectedLanguage}:${TRANSLATION_VERSION}:${bundle}`;
         if (sessionStorage.getItem(storageKey)) return null;
         if (translationPrefetches.has(bundle)) return translationPrefetches.get(bundle);
-        const pending = fetch(`assets/project-translations-pages/${bundle}?v=${TRANSLATION_VERSION}`)
+        const directory = selectedLanguage === 'es'
+            ? 'assets/project-translations-pages-es'
+            : 'assets/project-translations-pages';
+        const pending = fetch(`${directory}/${bundle}?v=${TRANSLATION_VERSION}`)
             .then((response) => {
                 if (!response.ok) throw new Error(`Translation file returned ${response.status}`);
                 return response.text();
@@ -220,12 +326,32 @@
     else setTimeout(prefetchLinkedPages, 500);
 
     function selectProjectLanguage(language) {
+        sessionStorage.setItem(LANGUAGE_POSITION_KEY, JSON.stringify({
+            href: `${location.pathname}${location.search}${location.hash}`,
+            x: window.scrollX,
+            y: window.scrollY,
+            savedAt: Date.now()
+        }));
         localStorage.setItem('bibleAppLanguage', language);
-        if (pageName === 'encyclopedia-letter.html') {
-            location.assign('encyclopedia.html');
-            return;
-        }
         location.reload();
+    }
+
+    function restoreLanguagePosition() {
+        let position;
+        try {
+            position = JSON.parse(sessionStorage.getItem(LANGUAGE_POSITION_KEY) || 'null');
+        } catch (error) {
+            console.warn('Unable to restore the page position after changing language.', error);
+        }
+        sessionStorage.removeItem(LANGUAGE_POSITION_KEY);
+        if (
+            !position
+            || position.href !== `${location.pathname}${location.search}${location.hash}`
+            || Date.now() - position.savedAt > 30000
+        ) return;
+        const restore = () => window.scrollTo(position.x || 0, position.y || 0);
+        requestAnimationFrame(restore);
+        [250, 800, 1800].forEach((delay) => setTimeout(restore, delay));
     }
 
     function readProjectPreferences() {
@@ -271,14 +397,69 @@
     const languageToggle = document.createElement('button');
     languageToggle.className = 'project-language-toggle';
     languageToggle.type = 'button';
-    languageToggle.setAttribute('aria-label', selectedLanguage === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية');
-    languageToggle.title = selectedLanguage === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية';
-    languageToggle.textContent = selectedLanguage === 'en' ? '🌐 العربية' : '🌐 English';
-    languageToggle.addEventListener('click', () => {
-        const language = localStorage.getItem('bibleAppLanguage') === 'en' ? 'ar' : 'en';
-        selectProjectLanguage(language);
-    });
+    languageToggle.setAttribute('aria-label', runtimeUi.languageMenu);
+    languageToggle.title = runtimeUi.languageMenu;
+    languageToggle.textContent = '🌐 Language';
     document.body.appendChild(languageToggle);
+
+    const languageBackdrop = document.createElement('div');
+    languageBackdrop.className = 'project-language-backdrop';
+    languageBackdrop.hidden = true;
+    languageBackdrop.setAttribute('role', 'dialog');
+    languageBackdrop.setAttribute('aria-modal', 'true');
+    languageBackdrop.setAttribute('aria-labelledby', 'projectLanguageTitle');
+    const languagePanel = document.createElement('div');
+    languagePanel.className = 'project-language-panel';
+    const languageHeading = document.createElement('div');
+    languageHeading.className = 'project-language-heading';
+    const languageTitle = document.createElement('h2');
+    languageTitle.id = 'projectLanguageTitle';
+    languageTitle.textContent = runtimeUi.languageMenu;
+    const languageClose = document.createElement('button');
+    languageClose.className = 'project-language-close';
+    languageClose.type = 'button';
+    languageClose.textContent = '×';
+    languageClose.setAttribute('aria-label', runtimeUi.closeLanguageMenu);
+    languageHeading.append(languageTitle, languageClose);
+    const languageOptions = document.createElement('div');
+    languageOptions.className = 'project-language-options';
+    [
+        ['en', 'English'],
+        ['ar', 'Arabic'],
+        ['es', 'Español']
+    ].forEach(([language, label]) => {
+        const option = document.createElement('button');
+        option.className = 'project-language-option';
+        option.type = 'button';
+        option.textContent = label;
+        option.setAttribute('lang', language);
+        option.setAttribute('aria-pressed', String(language === selectedLanguage));
+        option.addEventListener('click', () => {
+            if (language === selectedLanguage) {
+                closeLanguageMenu();
+                return;
+            }
+            selectProjectLanguage(language);
+        });
+        languageOptions.appendChild(option);
+    });
+    languagePanel.append(languageHeading, languageOptions);
+    languageBackdrop.appendChild(languagePanel);
+    document.body.appendChild(languageBackdrop);
+    const openLanguageMenu = () => {
+        languageBackdrop.hidden = false;
+        languageOptions.querySelector('[aria-pressed="true"]')?.focus();
+    };
+    const closeLanguageMenu = () => {
+        languageBackdrop.hidden = true;
+        languageToggle.focus();
+    };
+    window.openProjectLanguageMenu = openLanguageMenu;
+    languageToggle.addEventListener('click', openLanguageMenu);
+    languageClose.addEventListener('click', closeLanguageMenu);
+    languageBackdrop.addEventListener('click', (event) => {
+        if (event.target === languageBackdrop) closeLanguageMenu();
+    });
 
     const settingsBackdrop = document.createElement('div');
     settingsBackdrop.className = 'project-settings-backdrop';
@@ -292,12 +473,12 @@
     settingsHeading.className = 'project-settings-heading';
     const settingsTitle = document.createElement('h2');
     settingsTitle.id = 'projectSettingsTitle';
-    settingsTitle.textContent = selectedLanguage === 'en' ? 'Project settings' : 'إعدادات المشروع';
+    settingsTitle.textContent = runtimeUi.settings;
     const settingsClose = document.createElement('button');
     settingsClose.className = 'project-settings-close';
     settingsClose.type = 'button';
     settingsClose.textContent = '×';
-    settingsClose.setAttribute('aria-label', selectedLanguage === 'en' ? 'Close settings' : 'إغلاق الإعدادات');
+    settingsClose.setAttribute('aria-label', runtimeUi.closeSettings);
     settingsHeading.append(settingsTitle, settingsClose);
     const settingsOptions = document.createElement('div');
     settingsOptions.className = 'project-settings-options';
@@ -306,14 +487,14 @@
     fontGroup.className = 'project-setting-group';
     const fontLabel = document.createElement('span');
     fontLabel.className = 'project-setting-label';
-    fontLabel.textContent = selectedLanguage === 'en' ? 'Font type' : 'نوع الخط';
+    fontLabel.textContent = runtimeUi.fontType;
     const fontSelect = document.createElement('select');
     fontSelect.className = 'project-setting-select';
     [
-        ['default', selectedLanguage === 'en' ? 'Clear font' : 'خط واضح'],
-        ['naskh', selectedLanguage === 'en' ? 'Arabic Naskh' : 'نسخ عربي'],
-        ['serif', selectedLanguage === 'en' ? 'Traditional font' : 'خط تقليدي'],
-        ['mono', selectedLanguage === 'en' ? 'Monospace' : 'خط ثابت العرض']
+        ['default', runtimeUi.clearFont],
+        ['naskh', runtimeUi.naskh],
+        ['serif', runtimeUi.serif],
+        ['mono', runtimeUi.mono]
     ].forEach(([value, label]) => {
         const option = document.createElement('option');
         option.value = value;
@@ -328,7 +509,7 @@
     sizeGroup.className = 'project-setting-group';
     const sizeLabel = document.createElement('span');
     sizeLabel.className = 'project-setting-label';
-    sizeLabel.textContent = selectedLanguage === 'en' ? 'Font size' : 'حجم الخط';
+    sizeLabel.textContent = runtimeUi.fontSize;
     const sizeRow = document.createElement('span');
     sizeRow.className = 'project-setting-range-row';
     const sizeRange = document.createElement('input');
@@ -352,10 +533,10 @@
     themeGroup.className = 'project-setting-group';
     const themeLabel = document.createElement('span');
     themeLabel.className = 'project-setting-label';
-    themeLabel.textContent = selectedLanguage === 'en' ? 'Background' : 'الخلفية';
+    themeLabel.textContent = runtimeUi.background;
     const themeOptions = document.createElement('div');
     themeOptions.className = 'project-theme-options';
-    [['blue', selectedLanguage === 'en' ? 'Blue' : 'أزرق'], ['white', selectedLanguage === 'en' ? 'White' : 'أبيض'], ['black', selectedLanguage === 'en' ? 'Black' : 'أسود']].forEach(([theme, label]) => {
+    [['blue', runtimeUi.blue], ['white', runtimeUi.white], ['black', runtimeUi.black]].forEach(([theme, label]) => {
         const option = document.createElement('button');
         option.className = 'project-settings-option';
         option.type = 'button';
@@ -379,8 +560,8 @@
     settingsToggle.className = 'project-reader-settings';
     settingsToggle.type = 'button';
     settingsToggle.textContent = '⚙';
-    settingsToggle.title = selectedLanguage === 'en' ? 'Settings' : 'الإعدادات';
-    settingsToggle.setAttribute('aria-label', selectedLanguage === 'en' ? 'Open settings' : 'فتح الإعدادات');
+    settingsToggle.title = runtimeUi.settingsButton;
+    settingsToggle.setAttribute('aria-label', runtimeUi.openSettings);
     settingsToggle.addEventListener('click', () => {
         settingsBackdrop.hidden = false;
         settingsClose.focus();
@@ -394,13 +575,20 @@
         if (event.target === settingsBackdrop) closeSettings();
     });
     document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !languageBackdrop.hidden) {
+            closeLanguageMenu();
+            return;
+        }
         if (event.key === 'Escape' && !settingsBackdrop.hidden) closeSettings();
     });
     document.body.appendChild(settingsToggle);
 
     const header = document.querySelector('header, .top-frame, .site-header');
     if (!header) {
-        applyEnglishTranslations().finally(revealProjectPage);
+        applyProjectTranslations().finally(() => {
+            revealProjectPage();
+            restoreLanguagePosition();
+        });
         return;
     }
     document.body.classList.add('project-unified-header');
@@ -408,7 +596,7 @@
     const riversControl = header.querySelector('.header-rivers-back');
     const logo = header.querySelector('img');
     const returnHref = 'index.html?home=1';
-    const returnText = selectedLanguage === 'en' ? 'Home' : 'الرئيسية';
+    const returnText = runtimeUi.home;
     const isHomePage = location.pathname.endsWith('/index.html') || location.pathname.endsWith('index.html') || location.pathname === '/';
     header.className = 'project-header';
     header.replaceChildren();
@@ -418,14 +606,14 @@
     brandText.className = 'project-brand-text';
     const brandName = document.createElement('div');
     brandName.className = 'project-brand-name';
-    brandName.textContent = 'موسوعة الكتاب المقدس';
+    brandName.textContent = runtimeUi.brandName;
     const brandChurch = document.createElement('div');
     brandChurch.className = 'project-brand-church';
-    brandChurch.textContent = 'كنيسة رجاء الأمم سيدني';
+    brandChurch.textContent = runtimeUi.brandChurch;
     const brandLogo = document.createElement('img');
     brandLogo.className = 'project-brand-logo';
     brandLogo.src = logo ? logo.getAttribute('src') : 'assets/logo.png';
-    brandLogo.alt = 'شعار كنيسة رجاء الأمم سيدني';
+    brandLogo.alt = runtimeUi.logoAlt;
     brandText.append(brandName, brandChurch);
     brand.append(brandText, brandLogo);
     const actions = document.createElement('div');
@@ -450,7 +638,7 @@
         bibleHome.className = 'project-books-return project-bible-return';
         bibleHome.type = 'button';
         bibleHome.hidden = true;
-        bibleHome.innerHTML = '<span>📖</span><span>الكتاب المقدس</span>';
+        bibleHome.textContent = runtimeUi.biblicalBooks;
         bibleHome.addEventListener('click', () => {
             if (typeof renderTestaments === 'function') renderTestaments();
         });
@@ -461,7 +649,7 @@
         const booksReturn = document.createElement('a');
         booksReturn.className = 'project-books-return';
         booksReturn.href = '#bookIndex';
-        booksReturn.textContent = selectedLanguage === 'en' ? '📖 Biblical Books' : '📖 الأسفار الكتابية';
+        booksReturn.textContent = runtimeUi.biblicalBooks;
         actions.appendChild(booksReturn);
     }
     header.append(brand, actions);
@@ -470,5 +658,8 @@
     projectFooter.className = 'project-footer';
     projectFooter.innerHTML = '<div>موسوعة الكتاب المقدس</div><div>كنيسة رجاء الأمم سيدني</div>';
     document.body.appendChild(projectFooter);
-    applyEnglishTranslations().finally(revealProjectPage);
+    applyProjectTranslations().finally(() => {
+        revealProjectPage();
+        restoreLanguagePosition();
+    });
 }());
