@@ -509,11 +509,12 @@ html[dir="ltr"] .entry-content ol{
     }
 }
 </style>
-<script data-project-language-bootstrap>try{const stored=localStorage.getItem('bibleAppLanguage');const language=['ar','en','es'].includes(stored)?stored:'ar';document.documentElement.lang=language;document.documentElement.dir=language==='ar'?'rtl':'ltr';if(language!=='ar'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
-<link rel="preload" href="assets/project-translations-pages/encyclopedia-letter.json?v=20261023-2" as="fetch" crossorigin>
-<link rel="preload" href="assets/project-translations-pages-es/encyclopedia-letter.json?v=20261023-2" as="fetch" crossorigin>
-<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261023-2">
-<script defer src="assets/project-header-runtime.js?v=20261023-2"></script>
+<script data-project-language-bootstrap>try{const stored=localStorage.getItem('bibleAppLanguage');const language=['ar','en','es','fr'].includes(stored)?stored:'ar';document.documentElement.lang=language;document.documentElement.dir=language==='ar'?'rtl':'ltr';if(language!=='ar'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
+<link rel="preload" href="assets/project-translations-pages/encyclopedia-letter.json?v=20261105-1" as="fetch" crossorigin>
+<link rel="preload" href="assets/project-translations-pages-es/encyclopedia-letter.json?v=20261105-1" as="fetch" crossorigin>
+<link rel="preload" href="assets/project-translations-pages-fr/encyclopedia-letter.json?v=20261105-1" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261105-1">
+<script defer src="assets/project-header-runtime.js?v=20261105-1"></script>
 </head>
 
 <body>
@@ -581,11 +582,11 @@ html[dir="ltr"] .entry-content ol{
    المسار الصحيح لقاعدة بيانات الموسوعة
    ========================================================= */
 
-const APP_LANGUAGE = ["ar","en","es"].includes(document.documentElement.lang) ? document.documentElement.lang : "ar";
+const APP_LANGUAGE = ["ar","en","es","fr"].includes(document.documentElement.lang) ? document.documentElement.lang : "ar";
 const ENGLISH_MODE = APP_LANGUAGE === "en";
 const LATIN_MODE = APP_LANGUAGE !== "ar";
-const DATA_URL = APP_LANGUAGE === "es"
-    ? "encyclopedia_es.json"
+const DATA_URL = APP_LANGUAGE === "es" || APP_LANGUAGE === "fr"
+    ? `encyclopedia_${APP_LANGUAGE}.json`
     : ENGLISH_MODE
         ? "encyclopedia_en.json"
         : new URLSearchParams(window.location.search).get("letter") === "ن"

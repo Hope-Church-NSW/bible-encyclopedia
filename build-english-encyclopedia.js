@@ -5,7 +5,7 @@ const { translate: bingTranslate, MET } = require('bing-translate-api');
 const ROOT = __dirname;
 const languageArgument = process.argv.find((value) => value.startsWith('--lang='));
 const targetLanguage = languageArgument ? languageArgument.split('=')[1] : 'en';
-if (!['en', 'es'].includes(targetLanguage)) throw new Error('Supported target languages: en, es');
+if (!['en', 'es', 'fr'].includes(targetLanguage)) throw new Error('Supported target languages: en, es, fr');
 const commentaryMode = process.argv.includes('--commentary');
 const sourceLanguage = commentaryMode ? 'en' : 'ar';
 const SOURCE = path.join(ROOT, 'encyclopedia_ar.json');
@@ -23,6 +23,11 @@ const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, mil
 
 function isCompleteTranslation(value) {
   return typeof value === 'string' && value.trim() && !ARABIC_PATTERN.test(value);
+}
+
+function normalizeCommentaryTranslation(source, translated, language) {
+  if (language !== 'fr' || !/\bb\.\s*c\./i.test(source)) return translated;
+  return translated.replace(/\bn\.\s*v\./gi, 'av. J.-C.');
 }
 
 function collectArabicStrings(value, key = '', strings = new Set()) {
@@ -247,9 +252,9 @@ function splitForTranslation(text, maximumLength = 2800) {
 }
 
 async function buildSpanishCommentary() {
-  if (targetLanguage !== 'es') throw new Error('Commentary mode currently supports Spanish output only.');
+  if (!['es', 'fr'].includes(targetLanguage)) throw new Error('Commentary mode supports Spanish and French output only.');
   const sourceDirectory = path.join(ROOT, 'commentary-data-en');
-  const outputDirectory = path.join(ROOT, 'commentary-data-es');
+  const outputDirectory = path.join(ROOT, `commentary-data-${targetLanguage}`);
   const shardArgument = process.argv.find((value) => value.startsWith('--shard='));
   const shardMatch = shardArgument?.match(/^--shard=(\d+)\/(\d+)$/);
   const shard = shardMatch ? { index: Number(shardMatch[1]), count: Number(shardMatch[2]) } : null;
@@ -267,14 +272,21 @@ async function buildSpanishCommentary() {
     const outputPath = path.join(outputDirectory, file);
     const existing = fs.existsSync(outputPath)
       ? JSON.parse(fs.readFileSync(outputPath, 'utf8'))
-      : { schema_version: 1, language: 'es', records: {}, verses: sourceBook.verses };
+      : { schema_version: 1, language: targetLanguage, records: {}, verses: sourceBook.verses };
     existing.schema_version = 1;
-    existing.language = 'es';
+    existing.language = targetLanguage;
     existing.verses = sourceBook.verses;
     totalRecords += Object.keys(sourceBook.records || {}).length;
+    let updatedExistingTranslations = false;
 
     for (const [recordId, record] of Object.entries(sourceBook.records || {})) {
       if (isCompleteTranslation(existing.records?.[recordId]?.text)) {
+        const translatedRecord = existing.records[recordId];
+        const normalizedText = normalizeCommentaryTranslation(record.text, translatedRecord.text, targetLanguage);
+        if (normalizedText !== translatedRecord.text) {
+          translatedRecord.text = normalizedText;
+          updatedExistingTranslations = true;
+        }
         completedRecords += 1;
         continue;
       }
@@ -284,7 +296,7 @@ async function buildSpanishCommentary() {
         let lastError;
         for (let attempt = 1; attempt <= 4; attempt += 1) {
           try {
-            const result = await MET.translate(chunk, 'en', 'es');
+            const result = await MET.translate(chunk, 'en', targetLanguage);
             translated = result?.[0]?.translations?.[0]?.text?.trim() || '';
             if (!translated) throw new Error('Microsoft Translator returned an empty translation');
             break;
@@ -303,15 +315,19 @@ async function buildSpanishCommentary() {
       existing.records[recordId] = {
         source_id: record.source_id,
         locator: record.locator,
-        text: translatedChunks.join(' ')
+        text: normalizeCommentaryTranslation(record.text, translatedChunks.join(' '), targetLanguage)
       };
       completedRecords += 1;
       fs.writeFileSync(outputPath, `${JSON.stringify(existing)}\n`, 'utf8');
+      updatedExistingTranslations = false;
       process.stdout.write(`\rTranslated ${completedRecords} commentary records`);
+    }
+    if (updatedExistingTranslations) {
+      fs.writeFileSync(outputPath, `${JSON.stringify(existing)}\n`, 'utf8');
     }
   }
   process.stdout.write('\n');
-  console.log(JSON.stringify({ files: files.length, records: completedRecords, totalRecords, output: 'commentary-data-es' }));
+  console.log(JSON.stringify({ files: files.length, records: completedRecords, totalRecords, output: `commentary-data-${targetLanguage}` }));
 }
 
 (commentaryMode ? buildSpanishCommentary() : main()).catch((error) => {

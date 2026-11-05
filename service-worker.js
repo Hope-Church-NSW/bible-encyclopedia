@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bible-encyclopedia-v31';
+const CACHE_NAME = 'bible-encyclopedia-v33';
 const CORE_ASSETS = [
   './',
   'index.html',
@@ -9,6 +9,7 @@ const CORE_ASSETS = [
   'assets/project-header-runtime.js',
   'assets/project-translations-en.json',
   'assets/project-translations-es.json',
+  'bible-fr.json',
   'assets/logo.png',
   'assets/app-icons/icon-192.png',
   'assets/app-icons/icon-512.png',

@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const languageArgument = process.argv.find((value) => value.startsWith('--lang='));
 const targetLanguage = languageArgument ? languageArgument.split('=')[1] : 'en';
-if (!['en', 'es'].includes(targetLanguage)) throw new Error('Supported target languages: en, es');
+if (!['en', 'es', 'fr'].includes(targetLanguage)) throw new Error('Supported target languages: en, es, fr');
 const arabic = JSON.parse(fs.readFileSync('encyclopedia_ar.json', 'utf8'));
 const translation = JSON.parse(fs.readFileSync(`encyclopedia_${targetLanguage}.json`, 'utf8'));
 const errors = [];

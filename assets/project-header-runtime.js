@@ -1,15 +1,16 @@
 (function () {
-    const TRANSLATION_VERSION = '20261023-2';
+    const TRANSLATION_VERSION = '20261105-1';
     const pageName = location.pathname.split('/').pop() || 'index.html';
     const translationBundle = pageName.replace(/\.html$/, '.json');
     const PROJECT_PREFERENCES_KEY = 'bibleReaderPreferencesV1';
     const LANGUAGE_POSITION_KEY = 'projectLanguagePosition';
-    const SUPPORTED_LANGUAGES = ['ar', 'en', 'es'];
+    const SUPPORTED_LANGUAGES = ['ar', 'en', 'es', 'fr'];
     const storedLanguage = localStorage.getItem('bibleAppLanguage');
     const selectedLanguage = SUPPORTED_LANGUAGES.includes(storedLanguage) ? storedLanguage : 'ar';
     const TRANSLATION_SESSION_KEY = `projectTranslations:${selectedLanguage}:${TRANSLATION_VERSION}:${translationBundle}`;
     const RUNTIME_UI = {
         ar: {
+            languageButton: 'اختيار اللغة',
             switchLanguage: 'التبديل إلى الإنجليزية',
             nextLanguage: '🌐 English',
             languageMenu: 'اختيار اللغة',
@@ -35,6 +36,7 @@
             logoAlt: 'شعار كنيسة رجاء الأمم سيدني'
         },
         en: {
+            languageButton: 'Language',
             switchLanguage: 'Switch to Spanish',
             nextLanguage: '🌐 Español',
             languageMenu: 'Choose language',
@@ -60,6 +62,7 @@
             logoAlt: 'Hope of Nations Church Sydney logo'
         },
         es: {
+            languageButton: 'Idioma',
             switchLanguage: 'Cambiar a árabe',
             nextLanguage: '🌐 العربية',
             languageMenu: 'Elegir idioma',
@@ -83,6 +86,32 @@
             brandName: 'Enciclopedia de la Biblia',
             brandChurch: 'Iglesia Esperanza de las Naciones de Sídney',
             logoAlt: 'Logotipo de la Iglesia Esperanza de las Naciones de Sídney'
+        },
+        fr: {
+            languageButton: 'Langue',
+            switchLanguage: 'Passer à l’arabe',
+            nextLanguage: '🌐 العربية',
+            languageMenu: 'Choisir la langue',
+            closeLanguageMenu: 'Fermer le menu des langues',
+            settings: 'Paramètres du projet',
+            closeSettings: 'Fermer les paramètres',
+            fontType: 'Police',
+            clearFont: 'Police lisible',
+            naskh: 'Naskh arabe',
+            serif: 'Police traditionnelle',
+            mono: 'Monospace',
+            fontSize: 'Taille de police',
+            background: 'Arrière-plan',
+            blue: 'Bleu',
+            white: 'Blanc',
+            black: 'Noir',
+            settingsButton: 'Paramètres',
+            openSettings: 'Ouvrir les paramètres',
+            home: 'Accueil',
+            biblicalBooks: '📖 Livres bibliques',
+            brandName: 'Encyclopédie biblique',
+            brandChurch: 'Église Espoir des Nations de Sydney',
+            logoAlt: 'Logo de l’Église Espoir des Nations de Sydney'
         }
     };
     const runtimeUi = RUNTIME_UI[selectedLanguage];
@@ -123,7 +152,7 @@
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
         window.addEventListener('load', async () => {
             try {
-                await navigator.serviceWorker.register('service-worker.js?v=29', { updateViaCache: 'none' });
+                await navigator.serviceWorker.register('service-worker.js?v=30', { updateViaCache: 'none' });
                 const registration = await navigator.serviceWorker.ready;
                 if (registration.active && navigator.onLine) {
                     const cacheSite = () => registration.active.postMessage('CACHE_PUBLISHED_SITE');
@@ -136,8 +165,18 @@
         });
     }
 
+    function decodeTranslationEntities(value) {
+        return String(value || '')
+            .replace(/&nbsp;/gi, ' ')
+            .replace(/&amp;/gi, '&')
+            .replace(/&quot;/gi, '"')
+            .replace(/&#39;|&apos;/gi, "'")
+            .replace(/&lt;/gi, '<')
+            .replace(/&gt;/gi, '>');
+    }
+
     function normalizeTranslationKey(value) {
-        return String(value || '').replace(/\s+/g, ' ').trim();
+        return decodeTranslationEntities(value).replace(/\s+/g, ' ').trim();
     }
 
     function translatePattern(value) {
@@ -147,6 +186,12 @@
                 [/^(\d+)\s+سفرًا$/, '$1 libros'],
                 [/^نتائج البحث عن:\s*(.+)$/, 'Resultados de búsqueda para: $1']
             ]
+            : selectedLanguage === 'fr'
+                ? [
+                    [/^الأصحاح\s+(\d+)$/, 'Chapitre $1'],
+                    [/^(\d+)\s+سفرًا$/, '$1 livres'],
+                    [/^نتائج البحث عن:\s*(.+)$/, 'Résultats de recherche pour : $1']
+                ]
             : [
                 [/^الأصحاح\s+(\d+)$/, 'Chapter $1'],
                 [/^(\d+)\s+سفرًا$/, '$1 Books'],
@@ -206,8 +251,8 @@
         try {
             let translationText = sessionStorage.getItem(TRANSLATION_SESSION_KEY);
             if (!translationText) {
-                const directory = selectedLanguage === 'es'
-                    ? 'assets/project-translations-pages-es'
+                const directory = ['es', 'fr'].includes(selectedLanguage)
+                    ? `assets/project-translations-pages-${selectedLanguage}`
                     : 'assets/project-translations-pages';
                 const response = await fetch(`${directory}/${translationBundle}?v=${TRANSLATION_VERSION}`);
                 if (!response.ok) throw new Error(`Translation file returned ${response.status}`);
@@ -218,7 +263,8 @@
                     // Translation still works when storage quota is unavailable.
                 }
             }
-            const translations = JSON.parse(translationText);
+            const translations = Object.fromEntries(Object.entries(JSON.parse(translationText))
+                .map(([key, value]) => [normalizeTranslationKey(key), decodeTranslationEntities(value)]));
             const titleKey = normalizeTranslationKey(document.title);
             if (translations[titleKey]) document.title = translations[titleKey];
             translateElement(document.body, translations);
@@ -232,6 +278,21 @@
             }).observe(document.body, { childList: true, subtree: true });
         } catch (error) {
             console.error(`Unable to load ${selectedLanguage} translations.`, error);
+            if (selectedLanguage === 'fr') {
+                document.documentElement.classList.add('project-translation-unavailable');
+                const notice = document.createElement('main');
+                notice.className = 'project-translation-notice';
+                const heading = document.createElement('h1');
+                heading.textContent = 'Traduction française indisponible';
+                const message = document.createElement('p');
+                message.textContent = 'La traduction française complète de cette page n’est pas encore disponible. Aucune traduction automatique non vérifiée n’est affichée.';
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = 'Continuer en arabe';
+                button.addEventListener('click', () => selectProjectLanguage('ar'));
+                notice.append(heading, message, button);
+                document.body.replaceChildren(notice);
+            }
         }
     }
 
@@ -279,8 +340,8 @@
         const storageKey = `projectTranslations:${selectedLanguage}:${TRANSLATION_VERSION}:${bundle}`;
         if (sessionStorage.getItem(storageKey)) return null;
         if (translationPrefetches.has(bundle)) return translationPrefetches.get(bundle);
-        const directory = selectedLanguage === 'es'
-            ? 'assets/project-translations-pages-es'
+        const directory = ['es', 'fr'].includes(selectedLanguage)
+            ? `assets/project-translations-pages-${selectedLanguage}`
             : 'assets/project-translations-pages';
         const pending = fetch(`${directory}/${bundle}?v=${TRANSLATION_VERSION}`)
             .then((response) => {
@@ -399,7 +460,7 @@
     languageToggle.type = 'button';
     languageToggle.setAttribute('aria-label', runtimeUi.languageMenu);
     languageToggle.title = runtimeUi.languageMenu;
-    languageToggle.textContent = '🌐 Language';
+    languageToggle.textContent = `🌐 ${runtimeUi.languageButton}`;
     document.body.appendChild(languageToggle);
 
     const languageBackdrop = document.createElement('div');
@@ -426,7 +487,8 @@
     [
         ['en', 'English'],
         ['ar', 'Arabic'],
-        ['es', 'Español']
+        ['es', 'Español'],
+        ['fr', 'Français']
     ].forEach(([language, label]) => {
         const option = document.createElement('button');
         option.className = 'project-language-option';

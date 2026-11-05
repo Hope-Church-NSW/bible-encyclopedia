@@ -18,7 +18,8 @@
     const UI = {
         ar: { title: 'آية اليوم', like: '♡ إعجاب', liked: '♥ تم الإعجاب', share: '↗ مشاركة', more: '⋯ المزيد', chapter: '📖 اقرأ الأصحاح', image: '🖼 اصنعها في صورة', designer: 'اصنع آية اليوم في صورة', sky: 'سماء وسحاب', sunrise: 'شروق', trees: 'أشجار', upload: 'أضف صورتك', download: 'تنزيل الصورة', shareImage: 'مشاركة الصورة', shared: 'تمت المشاركة.', copied: 'تم نسخ الآية.', saved: 'تم إنشاء الصورة.', brand: 'موسوعة الكتاب المقدس' },
         en: { title: 'Verse of the Day', like: '♡ Like', liked: '♥ Liked', share: '↗ Share', more: '⋯ More', chapter: '📖 Read Chapter', image: '🖼 Create Image', designer: 'Create a Verse Image', sky: 'Sky & Clouds', sunrise: 'Sunrise', trees: 'Trees', upload: 'Add Your Photo', download: 'Download Image', shareImage: 'Share Image', shared: 'Shared successfully.', copied: 'Verse copied.', saved: 'Image created.', brand: 'Bible Encyclopedia' },
-        es: { title: 'Versículo del día', like: '♡ Me gusta', liked: '♥ Te gusta', share: '↗ Compartir', more: '⋯ Más', chapter: '📖 Leer el capítulo', image: '🖼 Crear imagen', designer: 'Crear una imagen del versículo', sky: 'Cielo y nubes', sunrise: 'Amanecer', trees: 'Árboles', upload: 'Añada su foto', download: 'Descargar imagen', shareImage: 'Compartir imagen', shared: 'Compartido correctamente.', copied: 'Versículo copiado.', saved: 'Imagen creada.', brand: 'Enciclopedia Bíblica' }
+        es: { title: 'Versículo del día', like: '♡ Me gusta', liked: '♥ Te gusta', share: '↗ Compartir', more: '⋯ Más', chapter: '📖 Leer el capítulo', image: '🖼 Crear imagen', designer: 'Crear una imagen del versículo', sky: 'Cielo y nubes', sunrise: 'Amanecer', trees: 'Árboles', upload: 'Añada su foto', download: 'Descargar imagen', shareImage: 'Compartir imagen', shared: 'Compartido correctamente.', copied: 'Versículo copiado.', saved: 'Imagen creada.', brand: 'Enciclopedia Bíblica' },
+        fr: { title: 'Verset du jour', like: '♡ J’aime', liked: '♥ Aimé', share: '↗ Partager', more: '⋯ Plus', chapter: '📖 Lire le chapitre', image: '🖼 Créer une image', designer: 'Créer une image du verset', sky: 'Ciel et nuages', sunrise: 'Lever du soleil', trees: 'Arbres', upload: 'Ajouter votre photo', download: 'Télécharger l’image', shareImage: 'Partager l’image', shared: 'Partagé avec succès.', copied: 'Verset copié.', saved: 'Image créée.', brand: 'Encyclopédie biblique' }
     };
     const SPANISH_BOOK_NAMES = {
         '19-Psalms': 'Salmos',
@@ -58,7 +59,8 @@
     const dayNumber = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
     const dailyVerse = VERSES[((dayNumber % VERSES.length) + VERSES.length) % VERSES.length];
     const storedLanguage = localStorage.getItem('bibleAppLanguage');
-    let language = ['ar', 'en', 'es'].includes(storedLanguage) ? storedLanguage : 'ar';
+    let language = ['ar', 'en', 'es', 'fr'].includes(storedLanguage) ? storedLanguage : 'ar';
+    let frenchVerses = null;
     let background = 'sky';
     let uploadedImage = null;
 
@@ -79,7 +81,9 @@
             ? SPANISH_BOOK_NAMES[dailyVerse.book]
             : language === 'en'
                 ? dailyVerse.enBook
-                : dailyVerse.arBook;
+                : language === 'fr'
+                    ? ({ '19-Psalms': 'Psaumes', '20-Proverbs': 'Proverbes', '23-Isiah': 'Ésaïe', '24-Jeremiah': 'Jérémie', '40-Matthew': 'Matthieu', '43-John': 'Jean', '45-Romans': 'Romains', '50-Philipians': 'Philippiens', '58-Hebrews': 'Hébreux', '60-1-peter': '1 Pierre' })[dailyVerse.book]
+                    : dailyVerse.arBook;
         return `${bookName} ${dailyVerse.chapter}:${dailyVerse.verse}`;
     }
 
@@ -87,6 +91,7 @@
         if (language === 'es') {
             return SPANISH_VERSES[`${dailyVerse.book}:${dailyVerse.chapter}:${dailyVerse.verse}`];
         }
+        if (language === 'fr') return frenchVerses?.get(`${dailyVerse.book}:${dailyVerse.chapter}:${dailyVerse.verse}`) || '';
         return language === 'en' ? dailyVerse.en : dailyVerse.ar;
     }
 
@@ -100,7 +105,7 @@
     }
 
     window.renderDailyVerse = function (nextLanguage) {
-        language = ['ar', 'en', 'es'].includes(nextLanguage) ? nextLanguage : 'ar';
+        language = ['ar', 'en', 'es', 'fr'].includes(nextLanguage) ? nextLanguage : 'ar';
         const text = UI[language];
         document.getElementById('dailyVerseTitle').textContent = text.title;
         document.getElementById('dailyVerseText').textContent = `“${verseText()}”`;
@@ -123,6 +128,17 @@
         setStatus('');
         drawDailyVerseImage();
     };
+
+    fetch('bible-fr.json')
+        .then((response) => {
+            if (!response.ok) throw new Error(`French Bible returned ${response.status}`);
+            return response.json();
+        })
+        .then((verses) => {
+            frenchVerses = new Map(verses.map((verse) => [`${verse.book}:${verse.chapter}:${verse.verse}`, verse.text]));
+            if (language === 'fr') window.renderDailyVerse(language);
+        })
+        .catch((error) => console.error('Unable to load the French daily verse.', error));
 
     window.toggleDailyVerseLike = function () {
         const liked = localStorage.getItem(likeKey()) !== '1';

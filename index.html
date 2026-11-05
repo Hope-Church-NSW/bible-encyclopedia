@@ -924,11 +924,12 @@ body.english .main-card{
     }
 }
 </style>
-<script data-project-language-bootstrap>try{const stored=localStorage.getItem('bibleAppLanguage');const language=['ar','en','es'].includes(stored)?stored:'ar';document.documentElement.lang=language;document.documentElement.dir=language==='ar'?'rtl':'ltr';if(language!=='ar'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
-<link rel="preload" href="assets/project-translations-pages/index.json?v=20261023-2" as="fetch" crossorigin>
-<link rel="preload" href="assets/project-translations-pages-es/index.json?v=20261023-2" as="fetch" crossorigin>
-<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261023-2">
-<script defer src="assets/project-header-runtime.js?v=20261023-2"></script>
+<script data-project-language-bootstrap>try{const stored=localStorage.getItem('bibleAppLanguage');const language=['ar','en','es','fr'].includes(stored)?stored:'ar';document.documentElement.lang=language;document.documentElement.dir=language==='ar'?'rtl':'ltr';if(language!=='ar'){document.documentElement.classList.add('project-english-pending');document.documentElement.style.visibility='hidden'}}catch(_){}</script>
+<link rel="preload" href="assets/project-translations-pages/index.json?v=20261105-1" as="fetch" crossorigin>
+<link rel="preload" href="assets/project-translations-pages-es/index.json?v=20261105-1" as="fetch" crossorigin>
+<link rel="preload" href="assets/project-translations-pages-fr/index.json?v=20261105-1" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/project-header-runtime.css?v=20261105-1">
+<script defer src="assets/project-header-runtime.js?v=20261105-1"></script>
 </head>
 
 
@@ -977,6 +978,14 @@ body.english .main-card{
                 onclick="setLanguage('es')"
             >
                 ES
+            </button>
+
+            <button
+                class="language-button"
+                id="frenchButton"
+                onclick="setLanguage('fr')"
+            >
+                FR
             </button>
 
         </div>
@@ -1160,6 +1169,7 @@ const translations = {
     ar: {
 
         dir:"rtl",
+        languageButton:"🌐 اللغة",
 
         churchName:
             "كنيسة رجاء الأمم سيدني",
@@ -1213,6 +1223,7 @@ const translations = {
     en: {
 
         dir:"ltr",
+        languageButton:"🌐 Language",
 
         churchName:
             "Hope Of Nation Church NSW",
@@ -1266,6 +1277,7 @@ const translations = {
     es: {
 
         dir:"ltr",
+        languageButton:"🌐 Idioma",
 
         churchName:
             "Iglesia Esperanza de las Naciones de Sídney",
@@ -1314,6 +1326,37 @@ const translations = {
         phoneLabel:"Número de teléfono móvil con código de país",
         authSubmit:"Entrar en la aplicación",
         authNote:"La sesión se guarda en este dispositivo. El envío de códigos de verificación reales requiere conectar un proveedor de identidad externo."
+    },
+
+    fr: {
+        dir:"ltr",
+        languageButton:"🌐 Langue",
+        churchName:"Église Espoir des Nations de Sydney",
+        welcomeTitle:"Encyclopédie biblique",
+        welcomeMessage:"Bienvenue dans l’Encyclopédie biblique. Vous y trouverez des ressources riches pour l’étude des Écritures, afin d’en découvrir la profondeur et de grandir dans la foi et la connaissance.",
+        bibleTitle:"La Bible",
+        bibleDescription:"Lire la Bible et étudier ses livres, ses chapitres et ses versets",
+        studiesTitle:"Études bibliques",
+        studiesDescription:"Études bibliques, théologiques et historiques, et encyclopédie spécialisée",
+        churchTitle:"Église",
+        churchDescription:"Église Espoir des Nations de Sydney",
+        liveTitle:"Culte en direct",
+        liveDescription:"Suivez le culte en direct ou consultez les plateformes officielles de l’église.",
+        liveOffline:"Chaînes de l’église",
+        liveNow:"EN DIRECT",
+        liveWatch:"Regarder sur YouTube",
+        footerText:"Église Espoir des Nations de Sydney — Encyclopédie biblique",
+        introTitle:"Encyclopédie biblique",
+        introTagline:"Parole vivante, connaissance solide et espérance pour toutes les nations",
+        introEnter:"Entrer dans l’encyclopédie",
+        authTitle:"Connexion",
+        authChurch:"Église Espoir des Nations de Sydney",
+        emailTab:"Courriel",
+        phoneTab:"Téléphone",
+        emailLabel:"Adresse courriel",
+        phoneLabel:"Numéro de téléphone avec indicatif du pays",
+        authSubmit:"Entrer dans l’application",
+        authNote:"La session est enregistrée sur cet appareil. L’envoi de codes de vérification nécessite un fournisseur d’identité externe."
     }
 
 };
@@ -1341,8 +1384,8 @@ function setLanguage(language){
     });
 
     document.querySelectorAll(".entry-language-toggle").forEach(function(button){
-        button.textContent = "🌐 Language";
-        button.setAttribute("aria-label", "Language");
+        button.textContent = t.languageButton;
+        button.setAttribute("aria-label", t.languageButton);
     });
 
 
@@ -1414,6 +1457,9 @@ function setLanguage(language){
     const spanishButton = document.getElementById("spanishButton");
     if(spanishButton) spanishButton.classList.toggle("active",language === "es");
 
+    const frenchButton = document.getElementById("frenchButton");
+    if(frenchButton) frenchButton.classList.toggle("active",language === "fr");
+
 
     localStorage.setItem(
         "bibleAppLanguage",
@@ -1429,7 +1475,7 @@ function toggleEntryLanguage(){
 
 
 const savedLanguage =
-    ["ar","en","es"].includes(localStorage.getItem("bibleAppLanguage"))
+    ["ar","en","es","fr"].includes(localStorage.getItem("bibleAppLanguage"))
         ? localStorage.getItem("bibleAppLanguage")
         : "ar";
 

@@ -4,10 +4,19 @@ const path = require('path');
 const root = __dirname;
 const languageArgument = process.argv.find((value) => value.startsWith('--lang='));
 const targetLanguage = languageArgument ? languageArgument.split('=')[1] : 'en';
-if (!['en', 'es'].includes(targetLanguage)) throw new Error('Supported target languages: en, es');
+if (!['en', 'es', 'fr'].includes(targetLanguage)) throw new Error('Supported target languages: en, es, fr');
+const completePagesOnly = process.argv.includes('--complete-pages-only');
+if (completePagesOnly && targetLanguage !== 'fr') throw new Error('--complete-pages-only is only supported for French.');
 const outputDirectory = path.join(root, 'assets', targetLanguage === 'en' ? 'project-translations-pages' : `project-translations-pages-${targetLanguage}`);
 const translations = JSON.parse(fs.readFileSync(path.join(root, 'assets', `project-translations-${targetLanguage}.json`), 'utf8'));
 const arabic = /[\u0600-\u06ff]/;
+let frenchReport;
+if (targetLanguage === 'fr') {
+    frenchReport = JSON.parse(fs.readFileSync(path.join(root, 'project-translation-report-fr.json'), 'utf8'));
+    if (!completePagesOnly && (frenchReport.missing_strings !== 0 || frenchReport.coverage_percent !== 100)) {
+        throw new Error('French page bundles require a complete 100% project translation report.');
+    }
+}
 
 function normalize(value) {
     return String(value || '').replace(/\s+/g, ' ').trim();
@@ -28,7 +37,11 @@ function extract(source) {
 }
 
 const runtimeStrings = extract(fs.readFileSync(path.join(root, 'assets', 'project-header-runtime.js'), 'utf8'));
-const files = fs.readdirSync(root).filter((file) => file.endsWith('.html'));
+let files = fs.readdirSync(root).filter((file) => file.endsWith('.html'));
+if (completePagesOnly) {
+    files = files.filter((file) => frenchReport.files[file]?.missing_strings === 0);
+    if (!files.length) throw new Error('No fully translated French pages are available to build.');
+}
 fs.mkdirSync(outputDirectory, { recursive: true });
 
 let entries = 0;
@@ -39,4 +52,4 @@ for (const file of files) {
     fs.writeFileSync(path.join(outputDirectory, file.replace(/\.html$/, '.json')), `${JSON.stringify(bundle)}\n`, 'utf8');
 }
 
-console.log(JSON.stringify({ files: files.length, entries }));
+console.log(JSON.stringify({ files: files.length, entries, completePagesOnly }));
