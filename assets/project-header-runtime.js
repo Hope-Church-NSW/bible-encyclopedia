@@ -1,5 +1,5 @@
 (function () {
-    const TRANSLATION_VERSION = '20261105-1';
+    const TRANSLATION_VERSION = '20261114-3';
     const pageName = location.pathname.split('/').pop() || 'index.html';
     const translationBundle = pageName.replace(/\.html$/, '.json');
     const PROJECT_PREFERENCES_KEY = 'bibleReaderPreferencesV1';
@@ -152,7 +152,7 @@
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
         window.addEventListener('load', async () => {
             try {
-                await navigator.serviceWorker.register('service-worker.js?v=30', { updateViaCache: 'none' });
+                await navigator.serviceWorker.register('service-worker.js?v=31', { updateViaCache: 'none' });
                 const registration = await navigator.serviceWorker.ready;
                 if (registration.active && navigator.onLine) {
                     const cacheSite = () => registration.active.postMessage('CACHE_PUBLISHED_SITE');

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
+const esbuild = require('esbuild');
 
 const root = __dirname;
 const output = path.join(root, 'dist');
@@ -28,5 +29,19 @@ for (const asset of assets) {
   fs.mkdirSync(path.dirname(destination), { recursive: true });
   fs.copyFileSync(source, destination);
 }
+
+esbuild.buildSync({
+  entryPoints: [path.join(root, 'assets', 'live-notifications.js')],
+  bundle: true,
+  minify: true,
+  format: 'esm',
+  platform: 'browser',
+  target: ['es2022'],
+  alias: {
+    'firebase/app': '@firebase/app',
+    'firebase/messaging': '@firebase/messaging'
+  },
+  outfile: path.join(output, 'assets', 'live-notifications.bundle.js')
+});
 
 console.log(JSON.stringify({ assets: assets.length, output: path.basename(output) }));

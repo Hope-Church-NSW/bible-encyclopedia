@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bible-encyclopedia-v33';
+const CACHE_NAME = 'bible-encyclopedia-v34';
 const CORE_ASSETS = [
   './',
   'index.html',

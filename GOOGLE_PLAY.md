@@ -29,6 +29,16 @@ npm.cmd run android:bundle
 The signed bundle is created at
 `android/app/build/outputs/bundle/release/app-release.aab`.
 
+## If the upload-key password is lost
+
+The keystore password cannot be recovered. Generate a replacement upload key,
+export its public certificate as a PEM file, then request an upload-key reset
+from **Protected with Play > Play Store protection > Manage Play app signing**.
+Choose the applicable reason and upload the PEM certificate. Wait until Play
+Console confirms the replacement key is active before signing or uploading new
+releases with it. Keep the replacement keystore and its passwords backed up
+securely; never commit them or share them in chat.
+
 ## GitHub Actions upload
 
 The `Google Play Upload` workflow builds, signs, and uploads an AAB to a selected

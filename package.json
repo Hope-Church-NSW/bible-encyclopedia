@@ -5,6 +5,8 @@
   "description": "Arabic, English, Spanish, and French offline Bible encyclopedia",
   "scripts": {
     "build:web": "node build-mobile-web.js",
+    "test:push": "node --test cloudflare-push/src/index.test.mjs",
+    "push:deploy": "wrangler deploy --config cloudflare-push/wrangler.toml",
     "translations:es": "node build-project-translations.js --lang=es",
     "translations:es:audit": "node build-project-translations.js --lang=es --audit",
     "translations:es:pages": "node build-page-translations.js --lang=es",
@@ -29,13 +31,18 @@
     "screenshots:app-store": "npm run build:web && node capture-app-store-screenshots.js"
   },
   "dependencies": {
+    "@capacitor-firebase/messaging": "^8.6.0",
     "@capacitor/android": "^8.5.1",
     "@capacitor/core": "^8.5.1",
     "@capacitor/ios": "^8.5.1",
+    "@firebase/app": "^0.14.6",
+    "@firebase/messaging": "^0.12.23",
     "bing-translate-api": "^4.3.0"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.1",
-    "playwright": "^1.63.0"
+    "esbuild": "^0.28.2",
+    "playwright": "^1.63.0",
+    "wrangler": "^4.158.0"
   }
 }

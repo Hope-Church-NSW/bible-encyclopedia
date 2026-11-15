@@ -19,7 +19,8 @@ const runtimeData = new Set([
   'encyclopedia_b.json',
   'encyclopedia_n.json',
   'commentary.json',
-  'live-status.json'
+  'live-status.json',
+  'firebase-messaging-sw.js'
 ]);
 const excludedRuntimeAssets = new Set([
   'encyclopedia-audit.html',

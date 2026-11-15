@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
 $projectRoot = $PSScriptRoot
-$keystore = Join-Path $HOME 'bible-encyclopedia-upload-2026-10.jks'
+$keystore = Join-Path $HOME 'bible-encyclopedia-upload-reset-2026-11-v2.jks'
 $javaHome = Join-Path $env:LOCALAPPDATA 'Programs\Temurin21\jdk-21.0.12.1+1'
 $androidHome = Join-Path $env:LOCALAPPDATA 'Android\Sdk'
 
@@ -19,9 +19,9 @@ try {
     $env:ANDROID_HOME = $androidHome
     $env:BIBLE_RELEASE_STORE_FILE = $keystore
     $env:BIBLE_RELEASE_STORE_PASSWORD = $storePassword
-    $env:BIBLE_RELEASE_KEY_ALIAS = 'bible-upload-2026-10'
+    $env:BIBLE_RELEASE_KEY_ALIAS = 'bible-upload-2026-11-v2'
 
-    $keytoolOutput = & (Join-Path $javaHome 'bin\keytool.exe') -list -keystore $keystore -alias 'bible-upload-2026-10' -storepass:env BIBLE_RELEASE_STORE_PASSWORD 2>&1
+    $keytoolOutput = & (Join-Path $javaHome 'bin\keytool.exe') -list -keystore $keystore -alias 'bible-upload-2026-11-v2' -storepass:env BIBLE_RELEASE_STORE_PASSWORD 2>&1
     if ($LASTEXITCODE -ne 0) {
         $keytoolDetail = ($keytoolOutput | Out-String).Trim()
         throw "Unable to unlock the upload keystore. keytool reported: $keytoolDetail"
