@@ -11,7 +11,7 @@ The notification and inquiry source is ready, but neither service can run until 
 3. Copy the public web app values and Web Push certificate public key into `assets/push-config.js`. Keep `workerUrl` blank until the Worker is deployed. Firebase web configuration and the VAPID public key are public client values, not server secrets.
 4. Download `google-services.json` to `android/app/google-services.json`.
 5. Download `GoogleService-Info.plist` and add it to the iOS App target's Copy Bundle Resources in Xcode.
-6. In the Apple Developer portal, enable Push Notifications for the app identifier and create an APNs authentication key. Upload the APNs key to Firebase Cloud Messaging for the iOS app. Update the provisioning profile used for App Store releases.
+6. In the Apple Developer portal, enable Push Notifications for the app identifier and create an APNs authentication key. Upload the APNs key to Firebase Cloud Messaging for the iOS app. The App Store workflow uses Xcode automatic signing with its App Store Connect API key to manage the matching distribution provisioning profile.
 7. Create a Firebase service account with the **Firebase Cloud Messaging API Admin** role. Keep its JSON key outside the repository.
 
 ## 2. Configure and deploy the Cloudflare Worker
