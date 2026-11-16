@@ -1,3 +1,5 @@
+import { getDailyVerseForDate, getSydneyDateParts } from '../../assets/daily-verses.mjs';
+
 const TOPIC = 'live-broadcasts';
 const CHANNEL_URL = 'https://www.youtube.com/channel/';
 const LIVE_URL = 'https://hchurchbible.org/church.html';
@@ -5,6 +7,14 @@ const OAUTH_URL = 'https://oauth2.googleapis.com/token';
 const RESEND_EMAILS_URL = 'https://api.resend.com/emails';
 const INQUIRY_RECIPIENT = 'info@hchurchbible.org';
 const FCM_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging';
+const DAILY_SUBSCRIBER_PREFIX = 'daily-verse:subscriber:';
+const DAILY_SENT_PREFIX = 'daily-verse:sent:';
+const DAILY_TITLE = {
+  ar: 'آية اليوم',
+  en: 'Verse of the Day',
+  es: 'Versículo del día',
+  fr: 'Verset du jour'
+};
 
 let cachedAccessToken = '';
 let accessTokenExpiresAt = 0;
@@ -37,6 +47,123 @@ function base64Url(bytes) {
 
 function encodeJson(value) {
   return base64Url(new TextEncoder().encode(JSON.stringify(value)));
+}
+
+function formatSydneyDate(parts) {
+  return `${parts.year}-${String(parts.month).padStart(2, '0')}-${String(parts.day).padStart(2, '0')}`;
+}
+
+export function isSydneyDailyVerseTime(date) {
+  const { hour } = getSydneyDateParts(date);
+  return hour === 9;
+}
+
+export function buildDailyVerseMessage(token, verse, day, language) {
+  const locale = ['ar', 'en', 'es', 'fr'].includes(language) ? language : 'ar';
+  const title = DAILY_TITLE[locale];
+  const body = `${verse.text[locale]} — ${verse.names[locale]} ${verse.chapter}:${verse.verse}`;
+  const url = 'https://hchurchbible.org/index.html#dailyVerse';
+  const tag = `daily-verse-${day}`;
+  return {
+    message: {
+      token,
+      notification: { title, body },
+      data: { type: 'daily-verse', day, language: locale, url, tag },
+      webpush: {
+        fcm_options: { link: url },
+        notification: { title, body, icon: 'https://hchurchbible.org/assets/app-icons/icon-192.png', tag }
+      },
+      android: { priority: 'HIGH', notification: { tag } },
+      apns: { payload: { aps: { sound: 'default' } } }
+    }
+  };
+}
+
+async function dailySubscriberKey(token) {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token));
+  const hash = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+  return `${DAILY_SUBSCRIBER_PREFIX}${hash}`;
+}
+
+async function readDailySubscribers(state) {
+  const subscribers = [];
+  let cursor;
+  do {
+    const page = await state.list({ prefix: DAILY_SUBSCRIBER_PREFIX, cursor });
+    for (const key of page.keys) {
+      const value = await state.get(key.name);
+      if (!value) continue;
+      try {
+        const subscriber = JSON.parse(value);
+        if (subscriber.token && ['ar', 'en', 'es', 'fr'].includes(subscriber.language)) {
+          subscribers.push({ key: key.name, ...subscriber });
+        }
+      } catch {
+        console.error('Skipping malformed daily verse subscriber record.', key.name);
+      }
+    }
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  return subscribers;
+}
+
+async function sendDailyVerseMessage(env, payload) {
+  const serviceAccount = JSON.parse(env.FIREBASE_SERVICE_ACCOUNT || '{}');
+  if (!serviceAccount.project_id) throw new Error('Firebase service account is not configured');
+  const accessToken = await getAccessToken(env);
+  const response = await fetch(
+    `https://fcm.googleapis.com/v1/projects/${encodeURIComponent(serviceAccount.project_id)}/messages:send`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    }
+  );
+  if (response.ok) return;
+  const responseBody = await response.text();
+  const error = new Error(`FCM daily verse send returned ${response.status}`);
+  error.status = response.status;
+  error.responseBody = responseBody;
+  throw error;
+}
+
+export async function sendDailyVerseNotifications(env, date, sendMessage = (payload) => sendDailyVerseMessage(env, payload)) {
+  const parts = getSydneyDateParts(date);
+  if (parts.hour !== 9) return { sent: 0, skipped: 'outside-schedule' };
+
+  const day = formatSydneyDate(parts);
+  const subscribers = await readDailySubscribers(env.PUSH_STATE);
+  if (!subscribers.length) return { sent: 0, skipped: 'no-subscribers' };
+
+  const verse = getDailyVerseForDate(date);
+  let sent = 0;
+  let alreadySent = 0;
+  for (const subscriber of subscribers) {
+    const dedupeKey = `${DAILY_SENT_PREFIX}${day}:${subscriber.key.slice(DAILY_SUBSCRIBER_PREFIX.length)}`;
+    if (await env.PUSH_STATE.get(dedupeKey)) {
+      alreadySent += 1;
+      continue;
+    }
+
+    try {
+      await sendMessage(buildDailyVerseMessage(subscriber.token, verse, day, subscriber.language));
+      await env.PUSH_STATE.put(dedupeKey, 'sent', { expirationTtl: 172800 });
+      sent += 1;
+    } catch (error) {
+      console.error('Unable to deliver daily verse notification.', error);
+      if (
+        (error.status === 404 || error.status === 400)
+        && /UNREGISTERED|registration-token-not-registered/i.test(error.responseBody || '')
+      ) {
+        await env.PUSH_STATE.delete(subscriber.key);
+      }
+    }
+  }
+  if (alreadySent === subscribers.length) return { sent: 0, skipped: 'already-sent' };
+  return { sent, day };
 }
 
 async function sendInquiry(env, name, message) {
@@ -236,7 +363,7 @@ export default {
       }
     }
 
-    if (path !== '/subscribe' && path !== '/unsubscribe') {
+    if (!['/subscribe', '/unsubscribe', '/daily-subscribe', '/daily-unsubscribe'].includes(path)) {
       return jsonResponse({ error: 'Not found' }, 404, cors);
     }
     if (!(request.headers.get('Content-Type') || '').toLowerCase().includes('application/json')) {
@@ -249,24 +376,55 @@ export default {
     } catch {
       return jsonResponse({ error: 'Invalid JSON body' }, 400, cors);
     }
+    if (!body || typeof body !== 'object' || Array.isArray(body)) {
+      return jsonResponse({ error: 'Invalid subscription' }, 400, cors);
+    }
     if (typeof body.token !== 'string' || body.token.length < 100 || body.token.length > 4096) {
       return jsonResponse({ error: 'Invalid FCM registration token' }, 400, cors);
     }
 
     try {
+      if (path === '/daily-subscribe' || path === '/daily-unsubscribe') {
+        const key = await dailySubscriberKey(body.token);
+        if (path === '/daily-subscribe') {
+          if (
+            !['ar', 'en', 'es', 'fr'].includes(body.language)
+            || !['native', 'web'].includes(body.platform)
+          ) {
+            return jsonResponse({ error: 'A supported language and platform are required' }, 400, cors);
+          }
+          await env.PUSH_STATE.put(key, JSON.stringify({
+            token: body.token,
+            language: body.language,
+            platform: body.platform
+          }));
+          return jsonResponse({ subscribed: true }, 200, cors);
+        }
+        await env.PUSH_STATE.delete(key);
+        return jsonResponse({ subscribed: false }, 200, cors);
+      }
+
       await updateTopicSubscription(env, body.token, path === '/subscribe');
       return jsonResponse({ subscribed: path === '/subscribe' }, 200, cors);
     } catch (error) {
-      console.error('FCM topic subscription failed.', error);
+      console.error('Notification subscription update failed.', error);
       return jsonResponse({ error: 'Unable to update notification subscription' }, 502, cors);
     }
   },
 
-  async scheduled(_controller, env) {
+  async scheduled(controller, env) {
     try {
       await detectAndNotify(env);
     } catch (error) {
       console.error('Live stream notification check failed.', error);
+    }
+    try {
+      await sendDailyVerseNotifications(
+        env,
+        new Date(controller?.scheduledTime ?? Date.now())
+      );
+    } catch (error) {
+      console.error('Daily verse notification schedule failed.', error);
     }
   }
 };

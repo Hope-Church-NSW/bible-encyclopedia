@@ -16,10 +16,12 @@ if (isConfigured) {
   firebase.initializeApp(config.firebase);
   firebase.messaging().onBackgroundMessage((payload) => {
     const notification = payload.notification || {};
+    const data = payload.data || {};
     self.registration.showNotification(notification.title || 'Hope Church NSW', {
       body: notification.body || 'The church is live now.',
       icon: 'assets/app-icons/icon-192.png',
-      data: { url: 'church.html' }
+      tag: data.tag,
+      data: { url: data.url || 'church.html' }
     });
   });
 }

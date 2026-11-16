@@ -6,8 +6,12 @@ const config = globalThis.HOPE_PUSH_CONFIG;
 const topic = 'live-broadcasts';
 const storageKey = 'hopeChurchLiveNotificationsEnabled';
 const webTokenStorageKey = 'hopeChurchLiveNotificationsToken';
+const dailyStorageKey = 'hopeChurchDailyVerseNotificationsEnabled';
+const dailyTokenStorageKey = 'hopeChurchDailyVerseNotificationsToken';
 const button = document.getElementById('liveNotificationButton');
 const status = document.getElementById('liveNotificationStatus');
+const dailyButton = document.getElementById('dailyVerseNotificationButton');
+const dailyStatus = document.getElementById('dailyVerseNotificationStatus');
 const heading = document.getElementById('liveBroadcastHeading');
 const description = document.getElementById('liveBroadcastDescription');
 const watchLink = document.getElementById('liveWatchLink');
@@ -25,7 +29,14 @@ const text = {
     working: 'جارٍ تحديث إعداد الإشعارات…',
     denied: 'لم تُمنح صلاحية الإشعارات. يمكنك تفعيلها من إعدادات الجهاز أو المتصفح.',
     failed: 'تعذر تحديث الاشتراك. تحقق من اتصال الإنترنت وحاول مجددًا.',
-    live: 'بدأ البث المباشر الآن.'
+    live: 'بدأ البث المباشر الآن.',
+    dailyEnable: 'فعّل إشعار آية اليوم اليومي (9 صباحًا بتوقيت سيدني)',
+    dailyDisable: 'إيقاف إشعار آية اليوم اليومي',
+    dailyReady: 'ستصلك آية اليوم يوميًا الساعة 9 صباحًا بتوقيت سيدني بلغة التطبيق.',
+    dailyDisabled: 'إشعارات آية اليوم غير مهيأة بعد.',
+    dailyWorking: 'جارٍ تحديث اشتراك آية اليوم…',
+    dailyDenied: 'لم تُمنح صلاحية الإشعارات. يمكنك تفعيلها من إعدادات الجهاز أو المتصفح.',
+    dailyFailed: 'تعذر تحديث اشتراك آية اليوم. تحقق من اتصال الإنترنت وحاول مجددًا.'
   },
   en: {
     heading: '🔴 Live Stream',
@@ -38,7 +49,14 @@ const text = {
     working: 'Updating notification settings…',
     denied: 'Notification permission was not granted. Enable it in your device or browser settings.',
     failed: 'Could not update your subscription. Check your connection and try again.',
-    live: 'The church is live now.'
+    live: 'The church is live now.',
+    dailyEnable: 'Enable daily verse notifications (9:00 AM Sydney time)',
+    dailyDisable: 'Turn off daily verse notifications',
+    dailyReady: 'You will receive the Verse of the Day daily at 9:00 AM Sydney time in your app language.',
+    dailyDisabled: 'Daily verse notifications are not configured yet.',
+    dailyWorking: 'Updating daily verse subscription…',
+    dailyDenied: 'Notification permission was not granted. Enable it in your device or browser settings.',
+    dailyFailed: 'Could not update your daily verse subscription. Check your connection and try again.'
   },
   es: {
     heading: '🔴 Transmisión en vivo',
@@ -51,7 +69,14 @@ const text = {
     working: 'Actualizando la configuración de avisos…',
     denied: 'No se concedió permiso para los avisos. Actívalo en la configuración del dispositivo o navegador.',
     failed: 'No se pudo actualizar la suscripción. Comprueba la conexión e inténtalo de nuevo.',
-    live: 'La iglesia está transmitiendo en vivo.'
+    live: 'La iglesia está transmitiendo en vivo.',
+    dailyEnable: 'Activar avisos diarios del versículo (9:00 a. m., hora de Sídney)',
+    dailyDisable: 'Desactivar avisos diarios del versículo',
+    dailyReady: 'Recibirás el versículo del día diariamente a las 9:00 a. m., hora de Sídney, en el idioma de la aplicación.',
+    dailyDisabled: 'Los avisos diarios del versículo aún no están configurados.',
+    dailyWorking: 'Actualizando la suscripción al versículo diario…',
+    dailyDenied: 'No se concedió permiso para los avisos. Actívalo en la configuración del dispositivo o navegador.',
+    dailyFailed: 'No se pudo actualizar la suscripción al versículo diario. Comprueba la conexión e inténtalo de nuevo.'
   },
   fr: {
     heading: '🔴 Diffusion en direct',
@@ -64,7 +89,14 @@ const text = {
     working: 'Mise à jour des paramètres de notification…',
     denied: 'L’autorisation de notification n’a pas été accordée. Activez-la dans les paramètres de l’appareil ou du navigateur.',
     failed: 'Impossible de mettre à jour l’abonnement. Vérifiez la connexion et réessayez.',
-    live: 'L’église est en direct.'
+    live: 'L’église est en direct.',
+    dailyEnable: 'Activer les notifications du verset quotidien (9 h, heure de Sydney)',
+    dailyDisable: 'Désactiver les notifications du verset quotidien',
+    dailyReady: 'Vous recevrez chaque jour le verset du jour à 9 h, heure de Sydney, dans la langue de l’application.',
+    dailyDisabled: 'Les notifications quotidiennes du verset ne sont pas encore configurées.',
+    dailyWorking: 'Mise à jour de l’abonnement au verset quotidien…',
+    dailyDenied: 'L’autorisation de notification n’a pas été accordée. Activez-la dans les paramètres de l’appareil ou du navigateur.',
+    dailyFailed: 'Impossible de mettre à jour l’abonnement au verset quotidien. Vérifiez la connexion et réessayez.'
   }
 }[language];
 
@@ -90,11 +122,11 @@ function setEnabled(enabled) {
   setStatus(enabled ? text.ready : '');
 }
 
-async function postSubscription(path, token) {
+async function postSubscription(path, token, details = {}) {
   const response = await fetch(`${config.workerUrl.replace(/\/$/, '')}/${path}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token })
+    body: JSON.stringify({ token, ...details })
   });
   if (!response.ok) throw new Error(`Notification service returned ${response.status}`);
 }
@@ -129,6 +161,7 @@ async function disableNotifications() {
   if (Capacitor.isNativePlatform()) {
     await FirebaseMessaging.unsubscribeFromTopic({ topic });
     await FirebaseMessaging.deleteToken();
+    await refreshDailyAfterTokenReset();
     return;
   }
 
@@ -137,6 +170,7 @@ async function disableNotifications() {
   if (token) await postSubscription('unsubscribe', token);
   await FirebaseMessaging.deleteToken();
   localStorage.removeItem(webTokenStorageKey);
+  await refreshDailyAfterTokenReset();
 }
 
 button.addEventListener('click', async () => {
@@ -168,8 +202,8 @@ if (!isConfigured()) {
   setStatus('');
   if (!Capacitor.isNativePlatform() && !getApps().length) initializeApp(config.firebase);
 
-  FirebaseMessaging.addListener('notificationActionPerformed', () => {
-    window.location.assign('church.html');
+  FirebaseMessaging.addListener('notificationActionPerformed', (event) => {
+    window.location.assign(event.notification?.data?.url || 'church.html');
   });
 
   FirebaseMessaging.addListener('notificationReceived', () => {
@@ -230,5 +264,136 @@ if (!isConfigured()) {
         console.error('Unable to remove revoked web notification subscription.', error);
         setStatus(text.failed);
       });
+  }
+}
+
+function selectedLanguage() {
+  const savedLanguage = localStorage.getItem('bibleAppLanguage');
+  return ['ar', 'en', 'es', 'fr'].includes(savedLanguage) ? savedLanguage : language;
+}
+
+async function getDailyToken(requestPermission) {
+  if (Capacitor.isNativePlatform()) {
+    const permission = requestPermission
+      ? await FirebaseMessaging.requestPermissions()
+      : await FirebaseMessaging.checkPermissions();
+    if (permission.receive !== 'granted') throw new Error('permission-denied');
+    const result = await FirebaseMessaging.getToken();
+    if (!result.token) throw new Error('Firebase returned an empty registration token');
+    return result.token;
+  }
+
+  if (!('serviceWorker' in navigator) || !('Notification' in window)) {
+    throw new Error('permission-denied');
+  }
+  if (requestPermission) {
+    const permission = await FirebaseMessaging.requestPermissions();
+    if (permission.receive !== 'granted') throw new Error('permission-denied');
+  } else if (Notification.permission !== 'granted') {
+    throw new Error('permission-denied');
+  }
+  if (!getApps().length) initializeApp(config.firebase);
+  const serviceWorkerRegistration = await navigator.serviceWorker.register('firebase-messaging-sw.js');
+  const result = await FirebaseMessaging.getToken({
+    vapidKey: config.vapidKey,
+    serviceWorkerRegistration
+  });
+  if (!result.token) throw new Error('Firebase returned an empty registration token');
+  return result.token;
+}
+
+async function updateDailySubscription(token) {
+  const previousToken = localStorage.getItem(dailyTokenStorageKey);
+  await postSubscription('daily-subscribe', token, {
+    language: selectedLanguage(),
+    platform: Capacitor.isNativePlatform() ? 'native' : 'web'
+  });
+  localStorage.setItem(dailyTokenStorageKey, token);
+  if (previousToken && previousToken !== token) {
+    try {
+      await postSubscription('daily-unsubscribe', previousToken);
+    } catch (error) {
+      error.activeSubscription = true;
+      throw error;
+    }
+  }
+}
+
+async function refreshDailyAfterTokenReset() {
+  if (localStorage.getItem(dailyStorageKey) !== 'true') return;
+  try {
+    await updateDailySubscription(await getDailyToken(false));
+  } catch (error) {
+    console.error('Unable to refresh daily verse registration after live token reset.', error);
+    dailyStatus.textContent = text.dailyFailed;
+  }
+}
+
+function setDailyEnabled(enabled, message = enabled ? text.dailyReady : '') {
+  localStorage.setItem(dailyStorageKey, String(enabled));
+  dailyButton.textContent = enabled ? text.dailyDisable : text.dailyEnable;
+  dailyStatus.textContent = message;
+}
+
+async function removeRevokedDailySubscription() {
+  const token = localStorage.getItem(dailyTokenStorageKey);
+  if (token) await postSubscription('daily-unsubscribe', token);
+  localStorage.removeItem(dailyStorageKey);
+  localStorage.removeItem(dailyTokenStorageKey);
+  setDailyEnabled(false, text.dailyDenied);
+}
+
+if (dailyButton) {
+  dailyButton.addEventListener('click', async () => {
+    if (dailyButton.disabled) return;
+    dailyButton.disabled = true;
+    dailyStatus.textContent = text.dailyWorking;
+    try {
+      const enabled = localStorage.getItem(dailyStorageKey) === 'true';
+      if (enabled) {
+        const token = localStorage.getItem(dailyTokenStorageKey) || await getDailyToken(false);
+        await postSubscription('daily-unsubscribe', token);
+        localStorage.removeItem(dailyTokenStorageKey);
+        setDailyEnabled(false);
+      } else {
+        const token = await getDailyToken(true);
+        await updateDailySubscription(token);
+        setDailyEnabled(true);
+      }
+    } catch (error) {
+      console.error('Unable to update daily verse notification subscription.', error);
+      if (error.activeSubscription) setDailyEnabled(true, text.dailyFailed);
+      else dailyStatus.textContent = error.message === 'permission-denied' ? text.dailyDenied : text.dailyFailed;
+    } finally {
+      dailyButton.disabled = false;
+    }
+  });
+
+  if (!isConfigured()) {
+    dailyButton.disabled = true;
+    dailyButton.textContent = text.dailyEnable;
+    dailyStatus.textContent = text.dailyDisabled;
+  } else {
+    dailyButton.disabled = false;
+    const enabled = localStorage.getItem(dailyStorageKey) === 'true';
+    dailyButton.textContent = enabled ? text.dailyDisable : text.dailyEnable;
+    dailyStatus.textContent = enabled ? text.dailyReady : '';
+    if (enabled) {
+      getDailyToken(false)
+        .then(updateDailySubscription)
+        .catch(async (error) => {
+          if (error.message === 'permission-denied') {
+            try {
+              await removeRevokedDailySubscription();
+            } catch (unsubscribeError) {
+              console.error('Unable to remove revoked daily verse subscription.', unsubscribeError);
+              dailyStatus.textContent = text.dailyFailed;
+            }
+            return;
+          }
+          console.error('Unable to restore daily verse notification subscription.', error);
+          dailyStatus.textContent = text.dailyFailed;
+        });
+    }
   }
 }

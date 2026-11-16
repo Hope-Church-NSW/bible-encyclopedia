@@ -1,53 +1,12 @@
+import { getDailyVerseForDate } from './daily-verses.mjs';
+
 (function () {
-    const VERSES = [
-        { book: '19-Psalms', chapter: 23, verse: 1, arBook: 'المزامير', enBook: 'Psalms', ar: 'الرَّبُّ رَاعِيَّ فَلاَ يُعْوِزُنِي شَيْءٌ.', en: 'The LORD is my shepherd; I shall not want.' },
-        { book: '19-Psalms', chapter: 46, verse: 1, arBook: 'المزامير', enBook: 'Psalms', ar: 'اَللهُ لَنَا مَلْجَأٌ وَقُوَّةٌ. عَوْنًا فِي الضِّيْقَاتِ وُجِدَ شَدِيدًا.', en: 'God is our refuge and strength, a very present help in trouble.' },
-        { book: '19-Psalms', chapter: 119, verse: 105, arBook: 'المزامير', enBook: 'Psalms', ar: 'سِرَاجٌ لِرِجْلِي كَلاَمُكَ وَنُورٌ لِسَبِيلِي.', en: 'Thy word is a lamp unto my feet, and a light unto my path.' },
-        { book: '20-Proverbs', chapter: 3, verse: 5, arBook: 'الأمثال', enBook: 'Proverbs', ar: 'تَوَكَّلْ عَلَى الرَّبِّ بِكُلِّ قَلْبِكَ، وَعَلَى فَهْمِكَ لاَ تَعْتَمِدْ.', en: 'Trust in the LORD with all thine heart; and lean not unto thine own understanding.' },
-        { book: '23-Isiah', chapter: 40, verse: 31, arBook: 'إشعياء', enBook: 'Isaiah', ar: 'وَأَمَّا مُنْتَظِرُو الرَّبِّ فَيُجَدِّدُونَ قُوَّةً. يَرْفَعُونَ أَجْنِحَةً كَالنُّسُورِ. يَرْكُضُونَ وَلاَ يَتْعَبُونَ. يَمْشُونَ وَلاَ يُعْيُونَ.', en: 'But they that wait upon the LORD shall renew their strength; they shall mount up with wings as eagles; they shall run, and not be weary; and they shall walk, and not faint.' },
-        { book: '24-Jeremiah', chapter: 29, verse: 11, arBook: 'إرميا', enBook: 'Jeremiah', ar: 'لأَنِّي عَرَفْتُ الأَفْكَارَ الَّتِي أَنَا مُفْتَكِرٌ بِهَا عَنْكُمْ، يَقُولُ الرَّبُّ، أَفْكَارَ سَلاَمٍ لاَ شَرّ، لأُعْطِيَكُمْ آخِرَةً وَرَجَاءً.', en: 'For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end.' },
-        { book: '40-Matthew', chapter: 11, verse: 28, arBook: 'متى', enBook: 'Matthew', ar: 'تَعَالَوْا إِلَيَّ يَا جَمِيعَ الْمُتْعَبِينَ وَالثَّقِيلِي الأَحْمَالِ، وَأَنَا أُرِيحُكُمْ.', en: 'Come unto me, all ye that labour and are heavy laden, and I will give you rest.' },
-        { book: '43-John', chapter: 3, verse: 16, arBook: 'يوحنا', enBook: 'John', ar: 'لأَنَّهُ هكَذَا أَحَبَّ اللهُ الْعَالَمَ حَتَّى بَذَلَ ابْنَهُ الْوَحِيدَ، لِكَيْ لاَ يَهْلِكَ كُلُّ مَنْ يُؤْمِنُ بِهِ، بَلْ تَكُونُ لَهُ الْحَيَاةُ الأَبَدِيَّةُ.', en: 'For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.' },
-        { book: '43-John', chapter: 8, verse: 12, arBook: 'يوحنا', enBook: 'John', ar: 'ثُمَّ كَلَّمَهُمْ يَسُوعُ أَيْضًا قَائِلاً:«أَنَا هُوَ نُورُ الْعَالَمِ. مَنْ يَتْبَعْنِي فَلاَ يَمْشِي فِي الظُّلْمَةِ بَلْ يَكُونُ لَهُ نُورُ الْحَيَاةِ».', en: 'Then spake Jesus again unto them, saying, I am the light of the world: he that followeth me shall not walk in darkness, but shall have the light of life.' },
-        { book: '45-Romans', chapter: 8, verse: 28, arBook: 'رومية', enBook: 'Romans', ar: 'وَنَحْنُ نَعْلَمُ أَنَّ كُلَّ الأَشْيَاءِ تَعْمَلُ مَعًا لِلْخَيْرِ لِلَّذِينَ يُحِبُّونَ اللهَ، الَّذِينَ هُمْ مَدْعُوُّونَ حَسَبَ قَصْدِهِ.', en: 'And we know that all things work together for good to them that love God, to them who are the called according to his purpose.' },
-        { book: '50-Philipians', chapter: 4, verse: 6, arBook: 'فيلبي', enBook: 'Philippians', ar: 'لاَ تَهْتَمُّوا بِشَيْءٍ، بَلْ فِي كُلِّ شَيْءٍ بِالصَّلاَةِ وَالدُّعَاءِ مَعَ الشُّكْرِ، لِتُعْلَمْ طِلْبَاتُكُمْ لَدَى اللهِ.', en: 'Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God.' },
-        { book: '50-Philipians', chapter: 4, verse: 13, arBook: 'فيلبي', enBook: 'Philippians', ar: 'أَسْتَطِيعُ كُلَّ شَيْءٍ فِي الْمَسِيحِ الَّذِي يُقَوِّينِي.', en: 'I can do all things through Christ which strengtheneth me.' },
-        { book: '58-Hebrews', chapter: 11, verse: 1, arBook: 'العبرانيين', enBook: 'Hebrews', ar: 'وَأَمَّا الإِيمَانُ فَهُوَ الثِّقَةُ بِمَا يُرْجَى وَالإِيقَانُ بِأُمُورٍ لاَ تُرَى.', en: 'Faith is the substance of things hoped for, the evidence of things not seen.' },
-        { book: '60-1-peter', chapter: 5, verse: 7, arBook: 'بطرس الأولى', enBook: '1 Peter', ar: 'مُلْقِينَ كُلَّ هَمِّكُمْ عَلَيْهِ، لأَنَّهُ هُوَ يَعْتَنِي بِكُمْ.', en: 'Casting all your care upon him; for he careth for you.' }
-    ];
+
     const UI = {
         ar: { title: 'آية اليوم', like: '♡ إعجاب', liked: '♥ تم الإعجاب', share: '↗ مشاركة', more: '⋯ المزيد', chapter: '📖 اقرأ الأصحاح', image: '🖼 اصنعها في صورة', designer: 'اصنع آية اليوم في صورة', sky: 'سماء وسحاب', sunrise: 'شروق', trees: 'أشجار', upload: 'أضف صورتك', download: 'تنزيل الصورة', shareImage: 'مشاركة الصورة', shared: 'تمت المشاركة.', copied: 'تم نسخ الآية.', saved: 'تم إنشاء الصورة.', brand: 'موسوعة الكتاب المقدس' },
         en: { title: 'Verse of the Day', like: '♡ Like', liked: '♥ Liked', share: '↗ Share', more: '⋯ More', chapter: '📖 Read Chapter', image: '🖼 Create Image', designer: 'Create a Verse Image', sky: 'Sky & Clouds', sunrise: 'Sunrise', trees: 'Trees', upload: 'Add Your Photo', download: 'Download Image', shareImage: 'Share Image', shared: 'Shared successfully.', copied: 'Verse copied.', saved: 'Image created.', brand: 'Bible Encyclopedia' },
         es: { title: 'Versículo del día', like: '♡ Me gusta', liked: '♥ Te gusta', share: '↗ Compartir', more: '⋯ Más', chapter: '📖 Leer el capítulo', image: '🖼 Crear imagen', designer: 'Crear una imagen del versículo', sky: 'Cielo y nubes', sunrise: 'Amanecer', trees: 'Árboles', upload: 'Añada su foto', download: 'Descargar imagen', shareImage: 'Compartir imagen', shared: 'Compartido correctamente.', copied: 'Versículo copiado.', saved: 'Imagen creada.', brand: 'Enciclopedia Bíblica' },
         fr: { title: 'Verset du jour', like: '♡ J’aime', liked: '♥ Aimé', share: '↗ Partager', more: '⋯ Plus', chapter: '📖 Lire le chapitre', image: '🖼 Créer une image', designer: 'Créer une image du verset', sky: 'Ciel et nuages', sunrise: 'Lever du soleil', trees: 'Arbres', upload: 'Ajouter votre photo', download: 'Télécharger l’image', shareImage: 'Partager l’image', shared: 'Partagé avec succès.', copied: 'Verset copié.', saved: 'Image créée.', brand: 'Encyclopédie biblique' }
-    };
-    const SPANISH_BOOK_NAMES = {
-        '19-Psalms': 'Salmos',
-        '20-Proverbs': 'Proverbios',
-        '23-Isiah': 'Isaías',
-        '24-Jeremiah': 'Jeremías',
-        '40-Matthew': 'Mateo',
-        '43-John': 'Juan',
-        '45-Romans': 'Romanos',
-        '50-Philipians': 'Filipenses',
-        '58-Hebrews': 'Hebreos',
-        '60-1-peter': '1 Pedro'
-    };
-    const SPANISH_VERSES = {
-        '19-Psalms:23:1': 'Salmo de David. JEHOVÁ es mi pastor; nada me faltará.',
-        '19-Psalms:46:1': 'Al Músico principal: de los hijos de Coré: Salmo sobre Alamoth. DIOS es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones.',
-        '19-Psalms:119:105': 'NUN. Lámpara es á mis pies tu palabra, y lumbrera á mi camino.',
-        '20-Proverbs:3:5': 'Fíate de Jehová de todo tu corazón, y no estribes en tu prudencia.',
-        '23-Isiah:40:31': 'Mas los que esperan á Jehová tendrán nuevas fuerzas; levantarán las alas como águilas; correrán, y no se cansarán; caminarán, y no se fatigarán.',
-        '24-Jeremiah:29:11': 'Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis.',
-        '40-Matthew:11:28': 'Venid á mí todos los que estáis trabajados y cargados, que yo os haré descansar.',
-        '43-John:3:16': 'Porque de tal manera amó Dios al mundo, que ha dado á su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.',
-        '43-John:8:12': 'Y hablóles Jesús otra vez, diciendo: Yo soy la luz del mundo: el que me sigue, no andará en tinieblas, mas tendrá la lumbre de la vida.',
-        '45-Romans:8:28': 'Y sabemos que á los que á Dios aman, todas las cosas les ayudan á bien, [es á saber], á los que conforme al propósito son llamados.',
-        '50-Philipians:4:6': 'Por nada estéis afanosos; sino sean notorias vuestras peticiones delante de Dios en toda oración y ruego, con hacimiento de gracias.',
-        '50-Philipians:4:13': 'Todo lo puedo en Cristo que me fortalece.',
-        '58-Hebrews:11:1': 'ES pues la fe la sustancia de las cosas que se esperan, la demostración de las cosas que no se ven.',
-        '60-1-peter:5:7': 'Echando toda vuestra solicitud en él, porque él tiene cuidado de vosotros.'
     };
     const BACKGROUND_SOURCES = {
         sky: 'assets/verse-backgrounds/sky-clouds.svg',
@@ -55,12 +14,9 @@
         trees: 'assets/verse-backgrounds/trees.svg'
     };
     const backgroundImages = {};
-    const now = new Date();
-    const dayNumber = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
-    const dailyVerse = VERSES[((dayNumber % VERSES.length) + VERSES.length) % VERSES.length];
+    const dailyVerse = getDailyVerseForDate();
     const storedLanguage = localStorage.getItem('bibleAppLanguage');
     let language = ['ar', 'en', 'es', 'fr'].includes(storedLanguage) ? storedLanguage : 'ar';
-    let frenchVerses = null;
     let background = 'sky';
     let uploadedImage = null;
 
@@ -77,22 +33,11 @@
     });
 
     function reference() {
-        const bookName = language === 'es'
-            ? SPANISH_BOOK_NAMES[dailyVerse.book]
-            : language === 'en'
-                ? dailyVerse.enBook
-                : language === 'fr'
-                    ? ({ '19-Psalms': 'Psaumes', '20-Proverbs': 'Proverbes', '23-Isiah': 'Ésaïe', '24-Jeremiah': 'Jérémie', '40-Matthew': 'Matthieu', '43-John': 'Jean', '45-Romans': 'Romains', '50-Philipians': 'Philippiens', '58-Hebrews': 'Hébreux', '60-1-peter': '1 Pierre' })[dailyVerse.book]
-                    : dailyVerse.arBook;
-        return `${bookName} ${dailyVerse.chapter}:${dailyVerse.verse}`;
+        return `${dailyVerse.names[language]} ${dailyVerse.chapter}:${dailyVerse.verse}`;
     }
 
     function verseText() {
-        if (language === 'es') {
-            return SPANISH_VERSES[`${dailyVerse.book}:${dailyVerse.chapter}:${dailyVerse.verse}`];
-        }
-        if (language === 'fr') return frenchVerses?.get(`${dailyVerse.book}:${dailyVerse.chapter}:${dailyVerse.verse}`) || '';
-        return language === 'en' ? dailyVerse.en : dailyVerse.ar;
+        return dailyVerse.text[language];
     }
 
     function likeKey() {
@@ -128,17 +73,6 @@
         setStatus('');
         drawDailyVerseImage();
     };
-
-    fetch('bible-fr.json')
-        .then((response) => {
-            if (!response.ok) throw new Error(`French Bible returned ${response.status}`);
-            return response.json();
-        })
-        .then((verses) => {
-            frenchVerses = new Map(verses.map((verse) => [`${verse.book}:${verse.chapter}:${verse.verse}`, verse.text]));
-            if (language === 'fr') window.renderDailyVerse(language);
-        })
-        .catch((error) => console.error('Unable to load the French daily verse.', error));
 
     window.toggleDailyVerseLike = function () {
         const liked = localStorage.getItem(likeKey()) !== '1';
@@ -315,4 +249,6 @@
         });
         reader.readAsDataURL(file);
     });
+
+    window.renderDailyVerse(language);
 }());
